@@ -10,93 +10,14 @@
 <body text="#000000" bgcolor="#33ffff"
       link="#0000ee" vlink="#551a8b"
       alink="#ff0000" background="blanc">
-
-<script language="javascript" type="text/javascript">
-  <!--
-    function GetId(id) {
-      return document.getElementById (id);
-    }
-    var i=false; // La variable i nous dit si la bulle est visible ou non
-
-    function move(e) {
-      if (i) {  
-          // Si la bulle est visible, on calcule
-          // en temps reel sa position ideale
-        if (navigator.appName!="Microsoft Internet Explorer") { 
-               // Si on est pas sous IE
-          GetId("curseur").style.left=e.pageX + 5+"px";
-          GetId("curseur").style.top=e.pageY + 10+"px";
-        } else {
-          // Modif proposée par TeDeum, merci à lui
-          if(document.documentElement.clientWidth>0) {
-            GetId("curseur").style.left = 
-              20 + event.x + document.documentElement.scrollLeft + "px";
-            GetId("curseur").style.top = 
-              10 + event.y + document.documentElement.scrollTop + "px";
-          } else {
-            GetId("curseur").style.left = 
-              20 + event.x + document.body.scrollLeft + "px";
-            GetId("curseur").style.top = 
-              10 + event.y + document.body.scrollTop + "px";
-          }
-        }
-      }
-    }
-
-    commentJET = "This is very old! Do not read it!";
-
-    commentICDM2010 = "This work is a follow-up to the EGC'2010 paper. It is in English rather than in French. We consider the problem of displaying commercial advertisements on web pages, in the ``cost per click'' model. The advertisement server has to learn the appeal of each type of visitors for the different advertisements in order to maximize the revenue. In a realistic context, the advertisements have constraints such as a certain number of clicks to draw, as well as a lifetime. This problem is thus inherently dynamic, and intimately combines combinatorial and statistical issues. To set the stage, it is also noteworthy that we deal with very rare events of interest, since the base probability of one click is in the order of 10^{-4}. Different approaches may be thought of, ranging from computationally demanding ones (use of Markov decision processes, or stochastic programming) to very fast ones. We introduce ``noseed'', an adaptive policy learning algorithm based on a combination of linear programming and multi-arm bandits. We also propose a way to evaluate the extent to which we have to handle the constraints (which is directly related to the computation cost). We investigate performance of our system through simulations on a realistic model designed with an important commercial web actor.";
-
-    commentICONIP2010 = "Following the introduction by Tibshirani of the LASSO technique for feature selection in regression, two algorithms were proposed by Osborne et al. for solving the associated problem. One is an homotopy method that gained popularity as the LASSO modification of the LARS algorithm. The other is a finite-step descent method that follows a path on the constraint polytope, and seems to have been largely ignored. One of the reason may be that it solves the constrained formulation of the LASSO, as opposed to the more practical regularized formulation. We give here an adaptation of this algorithm that solves the regularized problem, and outperforms state-of-the-art algorithms in terms of speed.";
-
-    commentEGC2010 = "";
-
-    commentICMLA2009 = "This paper presents the algorithm ECON for supervised learning.\
-      This paper is an updated version of the INRIA research report RR-6794; \
-      the experimental results have also been much imrpoved since earlier versions of this work. \
-      We also provide an application of ECON in computer graphics; \
-      this furthers the work published at the 3IA'2009 conference, as the \"Light Source Storage...\"  \
-      Springer paper.";
-    commentADPRL2009 = "The experiments made in this paper are based on an early version of the regressor ECON. The implementation of ECON has been improved since then, so that the experiments have to be redone (that's the problem with experimental studies). I hope I will have the time to do it, or someone to do it for me.";
-    commentKRL = "First paper on the idea of using the idea of sparsity achieved by l_1 regulrization, and the algorithm known as (kernelized) LARS, or kernel basis pursuit in reinforcement learning. This idea has been further worked and published at ADRPL'2007.";
-
-    commentEWRL2008 = "This is the first paper introducing the combination of the use \
-      of non parametric function approximation in a actor-critic, in the natural gradient framework.";
-    commentADPRL2007 = "This paper is an updated version of the ICML'2006 workshop on \
-      kernel in reinforcement learning paper.";
-
-    function montre (text) {
-//      if (i == false) {
-        // S'il est caché (la verif n'est qu'une securité),
-        // on le rend visible.
-        GetId("curseur").style.visibility = "visible"; 
-        // Cette fonction qui suit est à améliorer, 
-        // il parait qu'elle n'est pas valide (mais elle marche)
-        GetId("curseur").innerHTML = text;
-        i=true;
-//      }
-    }
-
-    function cache() {
-      if (i == true) {
-        // Si la bulle etait visible on la cache
-        GetId("curseur").style.visibility = "hidden";
-        i=false;
-      }
-    }
-
-    // dès que la souris bouge, on appelle la fonction move()
-    // pour mettre a jour la position de la bulle.
-    document.onmousemove=move;
-//-->
-</script>
+  
 <div style="visibility: hidden; left: 277px; top: 271px;"
      id="curseur" class="infobulle">
 </div>
 
-My pubs are available below in their chronological order. I have kind
-of sorted them with regards to their topic. The color of the dot
-indicates the topic as follows:
+My publications are available below in their chronological order. I
+have kind of sorted them with regards to their topic. The color of the
+dot indicates the topic as follows:
 
 <ul>
   <img
@@ -129,20 +50,7 @@ indicates the topic as follows:
 
 <img SRC="http://www.grappa.univ-lille3.fr/~ppreux/img//longerColorLine.png" align=CENTER />
 
-<h2>Tutorial&nbsp;:</h2>
-<!--
-<dt>
-<img SRC="http://www.grappa.univ-lille3.fr/~ppreux/img/ptBleu.png" width="10" height="10">
-  <a href="../papiers/exposeRL.pdf">Un
-    exposé de présentation sur l'apprentissage par renforcement</a>
-    présenté aux <a href="http://lil.univ-littoral.fr/~fonlupt/JET8/">JET</a>
-    (fin 2002).
-  <span class="moreCommentOnPub" 
-    onmouseover="montre(commentJET);" 
-    onmouseout="cache();">
-    (More details here.)</span>
-</dt>
--->
+<h2>Tutorial: (in French)</h2>
 <dt>
 <img SRC="http://www.grappa.univ-lille3.fr/~ppreux/img/ptOrange.png" width="10" height="10"> 
   <a href="http://www.grappa.univ-lille3.fr/~ppreux/papiers/man.pdf">Machines à noyau&nbsp;: une courte introduction (ou «&nbsp;SVM décryptées&nbsp;», ou «&nbsp;SVMs pour les nuls&nbsp;»)</a>
@@ -161,8 +69,7 @@ indicates the topic as follows:
 
 <p>
 
-<a href="../ensg/index.php#polys">More french material on my teaching
-page</a> on reinforcement learning, data mining, ... (in french only).
+<a href="http://www.grappa.univ-lille3.fr/~ppreux/ensg/index.php#polys">More french material on my teaching page</a> on reinforcement learning, data mining, ... (in french only).
 
 <br/>
 <br/>
