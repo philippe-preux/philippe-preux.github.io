@@ -1,0 +1,365 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Graphiques en R (partie 1)</title>
+  <link href="./ma.css" 
+	rel="stylesheet" type="text/css" media="all" />
+  <link rel="shortcut icon" type="image/x-icon" 
+	href="http://www.grappa.univ-lille3.fr/~ppreux/img/site.ico" />
+</head>
+
+<body>
+
+<div class="tpR">
+
+<h1>Graphiques en R</h1>
+
+<p>
+
+L'objectif de ce TP est d'apprendre à faire quelques graphiques en R. Les capacités graphiques de R sont extrêmement étendues. Nous ne présentons ici que les plus simples.
+
+<br/>
+<br/>
+
+Table des matières&nbsp;:
+
+</p>
+
+<ul>
+  <li><a href="#plot.1.attribut">Afficher un attribut</a></li>
+  <li><a href="#1.attribut.vs.un.autre">Graphe d'un atrribut en fonction d'un autre</a></li>
+  <li><a href="#droite.de.régression">Droite de régression</a></li>
+  <li><a href="#2.relations.sur.le.même.graphique">Plusieurs relations sur un même graphique</a></li>
+  <li><a href="#Histogramme">Histogrammes</a></li>
+  <li><a href="#Camembert">Camemberts</a></li>
+  <li><a href="#fichier">Mettre un graphique dans un fichier</a></li>
+</ul>
+
+
+<h2 id="plot.1.attribut">Afficher un attribut</h2>
+
+<p>
+
+On veut réaliser le graphique suivant de l'attribut </kbd>Sleep</kbd>. Cela est réalisé avec la fonction <kbd>plot()</kbd>.
+
+</p>
+
+<img src="Sleep.png" width = "500"/>
+
+<div class="exercice">
+  <ul>
+    <li>Faites-le.
+<div class="correction">
+<pre>plot (sommeil$Sleep)
+</pre>
+</div>
+</li>
+    <li>Ajoutez-y couleur et légendes.
+<div class="correction">
+<pre>plot (sommeil$Sleep, col = "blue", 
+      main = "L'attribut Sleep",
+      xlab = "Numéro de la donnée",
+      ylab = "Durée de sommeil")
+</pre>
+</div>
+</li>
+  </ul>
+</div>
+
+<img src="Sleep.couleur.png" width = "500"/>
+
+<h2 id="1.attribut.vs.un.autre">Un attribut par rapport à un autre</h2>
+
+<div class="exercice">
+  <ul>
+    <li>Faites le graphique suivant de l'attribut <kbd>Dreaming</kbd> en fonction de </kbd>Sleep</kbd>. 
+      <br/>
+      <img src="dreaming.vs.Sleep.png" width = "500"/>
+      <br/>
+      Mettez les points en vert et les légendes.
+<div class="correction">
+<pre>plot (sommeil$Sleep, sommeil$Dreaming, col="green", 
+      xlab = "Durée de sommeil quotidien", 
+      ylab = "Durée de sommeil paradoxal quotidien",
+      main = "Durée de sommeil paradoxal vs. durée de sommeil")
+</pre>
+</div>
+      </li>
+  <li>Faites la même chose en indiquant les noms des espèces à la place des cercles. Pour cela, on précède comme suit&nbsp;:
+    <ol>
+      <li>on fait le même plot que précédemment sans afficher les points (indiquez <kbd>pch = ' '</kbd> dans le <kd>plot()</kbd>). Ça semble bizarre, mais grace à cela, R affiche les axes de coordonnées, ...</li>
+      <li>on affiche les noms avec la fonction <kbd>text()</kbd>
+    </ol>
+    On obtient le graphique suivant&nbsp;:
+    <br/>
+    <img src="dreaming.vs.Sleep.espèces.png" width = "500"/> 
+<div class="correction">
+<pre>plot (sommeil$Sleep, sommeil$Dreaming, pch = ' ',
+      xlab = "Durée de sommeil quotidien", 
+      ylab = "Durée de sommeil paradoxal quotidien",
+      main = "Durée de sommeil paradoxal vs. durée de sommeil")
+text (sommeil$Sleep, sommeil$Dreaming, sommeil$Species)
+</pre>
+</div>
+  </li>
+</div>
+
+<h2 id="droite.de.régression">Droite de régression</h2>
+
+<p>
+
+Sur la graphique précédent, on peut ajouter la droite de régression avec la fonciton <kbd>abline()</kbd>. On va obtenir cela&nbsp;:
+
+</p>
+
+<img src="droite-de-régression.png" width = "500"/>
+
+<p>
+
+<kbd>abline()</kbd> ajoute une droite à un graphique étant donnée son équation. L'équation de la droite de régression est calculée par la fonction <kbd>lm()</kbd>.
+
+<br/>
+
+Supposons que l'on a deux vecteurs <kbd>v</kbd> et <kbd>w</kbd> de même longueur et que l'on veut calculer la relation linéaire exprimant <kbd>w<inf>i</inf></kbd> en fonction de <kbd>v<inf>i</inf></kbd>. <kbd>lm (w ~ v)</kbd> calcule le coefficient directeur et l'ordonnée à l'origine de la droite de régression. Un petit exemple&nbsp;:
+
+</p>
+
+<ul>
+  <li>prenons un vecteur <kbd>v <- c (3, -5, 2, 7, 0)</kbd></li>
+  <li>prenons un second vecteur <kbd>w <- 2.5 * v + .25</kbd></li>
+  <li>calculons la droite de régression <kbd>lm (w ~ v)</kbd>. Le résultat obtenu est conforme à ce que l'on attend, n'est-ce-pas&nbsp;?</li>
+  <li>prenons un troisième vecteur <kbd>w2 <- 2.5 * v + .25 + rnorm (5, sd = .5)</kbd></li>
+  <li>calculons la droite de régression <kbd>lm (w2 ~ v)</kbd>. Le résultat obtenu est conforme à ce que l'on attend, n'est-ce-pas&nbsp;?</li>
+</ul>
+
+</p>
+
+<div class="exercice">
+  <ul>
+    <li>Refaites le graphique précédent de l'attribut <kbd>Dreaming</kbd> en fonction de </kbd>Sleep</kbd>. (C'est juste par souci de lisibilité du graphique&nbsp;: on peut ajouter la droite de régression au grahique avec le nom des espèces.)
+<div class="correction">
+<pre>plot (sommeil$Sleep, sommeil$Dreaming, col = "green",
+      xlab = "Durée de sommeil quotidien", ylab = "", 
+      main = "Durée de sommeil vs. durée de sommeil",
+      ylim = c (0, 20))
+</pre>
+</div>
+</li>
+    <li>Y ajouter la droite de régression en pointillés de couleur rouge. Aide&nbsp;: utilisez le paramètre <kbd>lty</kbd> de la fonction <kbd>plot()</kbd> pour obtenir des pointillés.
+<div class="correction">
+<pre>abline (lm (sommeil$Dreaming ~ sommeil$Sleep), lty = 2, col = "red")
+</pre>
+</div>
+</li>
+  </ul>
+</div>
+
+<h2 id="2.relations.sur.le.même.graphique">Deux relations sur un même graphique</h2>
+
+<p>
+
+On veut afficher deux relations dans un même graphique&nbsp;: <kbd>Dreaming</kbd> en fonction de </kbd>Sleep</kbd> et <kbd>Non.Dreaming</kbd> en fonction de </kbd>Sleep</kbd>. 
+
+<br/>
+
+Pour cela, on affiche une première relation, par exemple celle que l'on a affiché précédemment <kbd>Dreaming</kbd> en fonction de </kbd>Sleep</kbd>.
+
+<br/>
+
+Puis on ajoute l'autre relation avec la fonction <kbd>points</kbd> qui s'utilise exactement comme <kbd>plot()</kbd> sauf que <kbd>points()</kbd> ajoute des points à un graphique au lieu d'en commencer un nouveau.
+
+<br/>
+
+Ajoutez ces points en bleu, en spécifiant <kbd>pch = 19</kbd> dans la fonction <kbd>points()</kbd>.
+
+<br/>
+
+Vous ne le remarquez peut-être pas, mais il manque des points pour les gros dormuers&nbsp;: l'axe des ordonnées a été créé avec l'attribut <kbd>Dreaming</kbd>. Hors la durée de sommeil sans rêve est beaucoup plus longue que la durée de sommeil avec rêves. Pour que l'axe soit créé avec un intervalle correct, il faut l'indiquer lors du <kbd>plot</kbd> avec l'argument <kbd>ylim</kbd> qui indique les valeurs d'ordonnées minimale et maximale (il existe aussi <kbd>xlim</kbd> pour les abscisses). Pour connaître les valeurs extrêmes d'ordonnées, il suffit de faire&nbsp;:
+
+</p>
+
+<pre>> range (c (sommeil$Dreaming, sommeil$Non.Dreaming), na.rm = T)</pre>
+
+<p>
+
+et utilisez les valeurs dans le plot&nbsp;:
+
+</p>
+
+<pre>> plot (sommeil$Sleep, sommeil$Dreaming, ylim = c (0, 20))</pre>
+
+<p>
+
+Ce graphique manque encore d'une légende pour expliquer le sens des deux types de points. On l'ajoute à l'aide la fonction <kbd>legend()</kbd> comme suit&nbsp;:
+
+</p>
+
+<pre>> legend (3, 20,         # position du coin supérieur gauche de la légende
+        c ("Dreaming sleep","Non dreaming sleep"), # les étiquettes associées
+        pch = c (1, 19), # les points : cercle (1) et disque (19)
+        col = c ("green", "blue"))  # leurs couleurs respectives
+</pre>
+
+<div class="exercice">
+  <p>
+  Faites ce graphique (avec les couleurs, les deux droites de régression, la légende).
+  </p>
+<div class="correction">
+<pre>plot (sommeil$Sleep, sommeil$Dreaming, col = "green",
+      xlab = "Durée de sommeil quotidien", ylab = "", 
+      main = "Durée de sommeil vs. durée de sommeil",
+      ylim = c (0, 20))
+abline (lm (sommeil$Dreaming ~ sommeil$Sleep), lty = 2, col = "red")
+points (sommeil$Sleep, sommeil$Non.Dreaming, col = "blue", pch = 19)
+legend (3, 20,         # position coin supérieur gauche de la légende
+        c ("Dreaming sleep","Non dreaming sleep"), # étiquettes associées
+        pch = c (1, 19),
+        col = c ("green", "blue"))  # couleurs
+abline (lm (sommeil$Non.Dreaming ~ sommeil$Sleep), lty = 3, col = "red")
+</pre>
+</div>
+</div>
+
+<h2>Histogramme</h2>
+
+<p>
+
+Pour réaliser un histogramme, on utilise la fonction <kbd>hist()</kbd>.
+
+</p>
+
+<div class="exercice">
+  <ul>
+    <li>Faites l'histogramme de l'attribut <kbd>Sleep</kbd> pour visualiser la répartition de ses valeurs dans le jeu de données.
+      <br/>
+      <img src="histo.Sleep.png" width = "500"/>
+      <br/>
+      Utilisez le paramètre <kbd>breaks = ...</kbd> où vous remplacez <kbd>...</kbd> par la valeur qu'il faut pour reproduire l'histogramme ci-dessus.
+<div class="correction">
+<pre>hist (sommeil$Sleep, br = 20)
+</pre>
+</div>
+    </li>
+    <li>Au lieu des effectifs,on peut afficher des proportions en indiquant l'optin <kbd>freq = F</kbd>.
+      <br/>
+      <img src="histo-avec-prop.Sleep.png" width = "500"/>
+<div class="correction">
+<pre>hist (sommeil$Sleep, br = 20, freq = F)
+</pre>
+</div>
+    </li>
+    <li>À cet histogramme, on peut ajouter une estimation de la densité de la distribution de cet attribut&nbsp;:
+      <br/>
+      <img src="histo-avec-prop-et-densité.Sleep.png" width = "500"/>
+<div class="correction">
+<pre>hist (sommeil$Sleep, br = 20, freq = F)
+lines (density (na.omit(sommeil$Sleep)), col = "green")
+</pre>
+</div>
+    </li> 
+  </ul>
+</div>
+
+<h2>Camembert</h2>
+
+<p>
+
+Le camembert, quoique populaire, est une mauvaise manière de représenter des proportions. Néanmoins, on va voir comment en obtenir. On utilise la fonction <kbd>pie ()</kbd>.
+
+<br/>
+
+<kbd>pie ()</kbd> a besoin de connaître les différentes tranches du camembert. Pour cela, on construit une table de contignence de l'attribut que l'on veut représenter et on passe cette table de contingence à <kbd>pie()</kbd>. La table de contingence s'obtient par <kbd>table()</kbd>. <kbd>table()</kbd> compte simplement le nombre d'occurences de chaque valeur. Par exemple, vous pouvez essayer&nbsp;:
+
+</p>
+
+<pre>> table (c (4, 2, 4, 3, 2, 1, 4, 2, 2, 0, 1, 5)</pre>
+
+<p>
+
+et vous obtenez le nombre d'occurances de chaque valeur dans le vecteur. Le camembert est alors dessiné par <kbd>pie()</kbd>&nbsp;:
+
+</p>
+
+<pre>> pie (table (c (4, 2, 4, 3, 2, 1, 4, 2, 2, 0, 1, 5))</pre>
+
+<p>
+
+Pour un attribut qui prend beaucoup de valeurs (typiquement un attribut continu comme <kbd>Sleep</kbd> ou <kbd>Body.Weight</kbd>, chaque valeur n'ait généralement présente qu'une seule fois. Dans ce cas, il faut regrouper les valeurs par paquets. La fonction <kbd>cut ()</kbd> fait cela.
+
+</p>
+
+<div class="exercice">
+  <ul>
+    <li>Générez le camembert suivant pour l'attribut <kbd>Sleep.exposure</kbd>.
+      <br/>
+      <img src="camembert.Sleep.exposure.png" width = "500"/>
+<div class="correction">
+<pre>pie (table (sommeil$Sleep.exposure), labels = c("bien protégé", "protégé", "assez protégé", "peu protégé", "non protégé"), col = rainbow (5))
+</pre>
+</div>
+      </li>
+    <li>Même chose pour <kbd>Sleep</kbd>.
+      <br/>
+      <img src="camembert.png" width = "500"/>
+<div class="correction">
+<pre>pie (table (cut (sommeil$Sleep, 5)), 
+       labels = c ("petit dormeur", "moyen dormeur", 
+                   "dormeur", "bon dormeur", "gros dormeur"),
+       col = c("white", "light blue", "blue", "purple", "black"))
+</pre>
+</div>
+      </li>
+  </ul>
+</div>
+
+<h2 id="fichier">Mettre un graphique dans un fichier</h2>
+
+<p>
+
+On peut facilement stocker un graphique dans un fichier, au format pdf, png, jpeg, ...
+
+<br/>
+
+Pour cela, si on peut le mettre dans un fichier pdf, il suffit <b>avant</b> de taper les commandes qui font le graphique, de taper la commande&nbsp;:
+
+</p>
+
+<pre>> pdf ("nom-du-fichier.pdf")</pre>
+
+<p>
+
+vous tapez ensuite toutes les commandes pour créer le graphique (rien ne s'affiche à l'écran). Et pour finir, vous tapez la commande&nbsp;:
+
+</p>
+
+<pre>> dev.off ()</pre>
+
+<p>
+
+Cette commande écrit le graphique dans le fichier et termine le graphique. Ensuite, les commandes graphiques sont réalisées à l'écran et non plus dans le fichier.
+
+<br/>
+<br/>
+
+Si vous voulez obenir le graphique dans un fichier png, vous tapez la commande k<kbd>png ("nom-du-fichier.pdf")</kbd> au lieu de <kbd>pdf ("nom-du-fichier.pdf")</kbd>, et même chose pour un fichier jpeg, vous tapez <kbd>jpeg ("nom-du-fichier.pdf")</kbd> au lieu de <kbd>pdf ("nom-du-fichier.pdf")</kbd>.
+
+</p>
+
+</div>
+
+<!-- Start of StatCounter Code -->
+<script type="text/javascript" language="javascript">
+var sc_project=2030719; 
+var sc_invisible=1; 
+var sc_partition=18; 
+var sc_security="2ee406dd"; 
+</script>
+
+<script type="text/javascript" language="javascript" src="http://www.statcounter.com/counter/counter.js"></script><noscript><a href="http://www.statcounter.com/" target="_blank"><img  src="http://c19.statcounter.com/counter.php?sc_project=2030719&java=0&security=2ee406dd&invisible=0" alt="" border="0"></a> </noscript>
+<!-- End of StatCounter Code -->
+
+</body>
+</html>

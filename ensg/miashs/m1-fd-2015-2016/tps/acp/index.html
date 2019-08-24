@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Analyse en composantes principales</title>
+  <base href="https://philippe-preux.github.io">
+  <link href="ma.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+
+<body>
+
+<div class="tpR">
+
+<h1>Analyse en composantes principales</h1>
+
+<h2>ACP en R</h2>
+
+<p>
+
+On utilise la fonction <code>prcomp()</code> pour calculer une ACP sur un jeu de données (matrice ou <i>data frame</i>).
+
+<br/>
+
+Les données doivent préalablement être centrées et réduites. La fonction <code>scale()</code> peut être utilisée pour cela.
+
+<br/>
+
+<code>x</code> contenant les données centrées et réduites sur lesquelles on veut effectuer une ACP, on fait&nbsp;:
+
+</p>
+
+<pre><code>x.acp <- prcomp (x, retx = T)
+</code></pre>
+
+<p>
+
+Ensuite, l'objet <code>x.acp</code> contient les informations suivantes&nbsp;:
+
+</p>
+
+<ul>
+  <li><code>sdev</code> est l'écart-type des composantes principales (racine carrée des valeurs propres de la matrice de corrélation)</li>
+  <li><code>rotation</code> la matrice de rotation calculée par l'ACP (les vecteurs propres de la matrice de corrélation)</li>
+  <li><code>x</code> est une matrice contenant les coordonnées des données qui ont subi cette rotation. Ce sont les coordonnées dans l'espace principal.</li>
+</ul>
+
+<p>
+
+On peut utiliser les fonctions suivantes&nbsp;:
+
+</p>
+
+<ul>
+  <li><code>plot (x.acp)</code> qui affiche les variances des composantes principales</li>
+  <li><code>biplot (x.acp)</code> qui affiche un double graphique&nbsp;: les points dans le plan composé des deux premières composantes principales et les attributs dans ce même plan.</li>
+</ul>
+
+<h2>À faire</h2>
+
+<div class="exercice">
+  <ul>
+    <li>Effectuer une analyse en composante principale du jeu de données <code>iris</code>. Vous ne prenez pas en compte les étiquettes (donc, vous n'utilisez que les attributs numérotés 1 à 4).</li>
+    <li>Faites les graphiques avec <code>plot()</code> et <code>biplot()</code> et analysez-les.</li>
+  </ul>
+</div>
+
+<div class="exercice">
+  <ul>
+    <li>Effectuer une analyse en composante principale du jeu de données <code>sommeil</code>. Vous ne prenez pas en compte le nom des espèces.</li>
+    <li>Faites les graphiques avec <code>plot()</code> et <code>biplot()</code> et analysez-les.</li>
+  </ul>
+</div>
+
+</div>
+
+<!-- Start of StatCounter Code -->
+<script type="text/javascript" language="javascript">
+var sc_project=2030719; 
+var sc_invisible=1; 
+var sc_partition=18; 
+var sc_security="2ee406dd"; 
+</script>
+
+<script type="text/javascript" language="javascript" src="http://www.statcounter.com/counter/counter.js"></script><noscript><a href="http://www.statcounter.com/" target="_blank"><img  src="http://c19.statcounter.com/counter.php?sc_project=2030719&java=0&security=2ee406dd&invisible=0" alt="" border="0"></a> </noscript>
+<!-- End of StatCounter Code -->
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+library(cluster.datasets)
+
+	birth.death.rates.1966
+	languages.spoken.europe
+	life.expectancy.1971
+	mammal.dentition
+	olympic.track.1896.1964
+	student.questionnaire
+
+
+matrice de distances :
+	mutation.distances.1967
+
+
+
+
+
+library (cluster)
+votes.repub
+	peut s'analyser dans les deux sens : état en fct des votes et votes en fct des états
+	see clustering.pdf :
+https://cran.r-project.org/web/packages/dendextend/vignettes/Cluster_Analysis.html#votes.repub---votes-for-republican-candidate-in-presidential-elections

@@ -1,0 +1,818 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Introduction à R (partie 1)</title>
+  <base href="https://philippe-preux.github.io">
+  <link href="ma.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+
+<body>
+
+<div class="tpR">
+
+<h1>Introduction à R (partie 1)</h1>
+
+<p>
+
+L'objectif de ce TD est de vous familiariser avec
+l'environnement <a href="http://www.r-project.org/">R</a>, un
+environnement libre pour les statistiques, mais en réalité bien plus
+que cela.
+
+<br/>
+<br/>
+
+Ce TP est réalisé sous Linux. Sachez néanmoins que R fonctionne sous
+Linux, Windows et MacOS d'une manière générale. Nous recommendons
+néanmoins son utilisation sous Linux comme étant la plus fiable de
+toute.
+
+<br/>
+<br/>
+
+Table des matières&nbsp;:
+
+</p>
+
+<ul>
+  <li><a href="#lancerEtQuitterR">Lancer R et le quitter</a></li>
+  <li><a href="#calculatrice">R&nbsp;: une calculatrice</a></li>
+  <li><a href="#syntaxe">Syntaxe des commandes R</a></li>
+  <li><a href="#vecteurs">Vecteurs</a></li>
+  <li><a href="#df">Les tableaux de données&nbsp;: les <i>data frames</i></a></li>
+</ul>
+
+<h2 id="lancerEtQuitterR">Lancer R et le quitter</h2>
+
+<h3>Lancer R</h3>
+
+<p>
+
+Ouvrez une fenêtre terminal <img src="./utilities-terminal.svg"/ width="20px">, tapez la commande <kbd>R</kbd> et voilà...
+
+<br/>
+
+Les commandes essentielles sont indiquées dans le message qui vient de
+s'afficher, en particulier comment quitter R. La dernière ligne qui
+commence par un &gt; est une invite pour que vous tapiez une
+commande&nbsp;: c'est ce que l'on appelle un «&nbsp;prompt&nbsp;»,
+c'est-à-dire, un signe qui vous indique que le logiciel attend que
+tapiez quelque chose.
+
+</p>
+
+<h3>Quitter R</h3>
+
+<p>
+
+La dernière ligne du message d'accueil avant le prompt vous informe
+que pour quitter R, il faut taper la commande <kbd>q()</kbd> suivie
+d'un retour-chariot (= touche Entrée). Faites-le.
+
+<br/>
+
+R vous demande si vous voulez&nbsp;:
+
+</p>
+
+<ul>
+  <li>sauvegarder votre travail puis quitter R (taper <kbd>y</kbd>)</li>
+  <li>quitter R sans sauvegarder votre travail (taper <kbd>n</kbd>)</li>
+  <li>ne pas quitter R et continuer (taper <kbd>c</kbd>)</li>
+</ul>
+
+<p>
+
+Si vous demandez la sauvegarde de votre travail, R stocke dans deux fichiers le travail que vous avez réalisé. Ces deux fichiers sont situés dans votre répertoire de travail&nbsp;; ils sont cachés&nbsp;; vous pouvez les copier (sur une clé USB par exemple) ou vous les envoyer par email pour reprendre votre travail sur un autre ordinateur.
+
+<br/>
+
+Lors du lancement de R, celui-ci charge le contenu de ces deux fichiers, s'ils existent dans le répertoire de travail.
+
+<br/>
+
+Ces deux se nomment&nbsp;:
+
+</p>
+
+<ul>
+  <li><kbd>.Rhistory</kbd> contient toutes les commandes que vous avez tapées. C'est un fichier de texte que vous pouvez consulter (avec un éditeur de textes).</li>
+  <li><kbd>.RData</kbd> contient tous les objets R que vous avez créés. Ce fichier est codé et ne peut pas être lu par un humain.</li>
+</ul>
+
+<h2 id="calculatrice">R&nbsp;: une calculatrice</h2>
+
+<h3>Calculs élémentaires</h3>
+
+<p>
+
+L'utilisation la plus simple de R est comme une
+«&nbsp;simple&nbsp;» calculatrice. On verra que R est en fait une
+calculatrice très sophistiquée.
+
+<br/>
+<br/>
+
+Par exemple, tapez la commande suivante (tous les exemples doivent
+être tapés&nbsp;; le symbole &gt; indique qu'il s'agît d'une commande
+R&nbsp;: vous ne devez pas le taper, il est déjà affiché à l'écran)&nbsp;:
+
+</p>
+
+  <pre>&gt; 2+3</pre>
+
+<p>
+
+R vous répond immédiatement&nbsp;:
+
+</p>
+
+  <pre>[1] 5</pre>
+
+<p>
+
+Si on laisse de côté le <kbd>[1]</kbd> qui sera expliqué plus loin, on
+obtient bien le résultat attendu.
+
+<br/>
+<br/>
+
+Naturellement, tous les opérateurs habituels sont disponibles, ainsi
+que les fonctions logarithmiques, trigonométriques, et bien d'autres.
+
+<br/>
+<br/>
+
+On peut affecter le résultat d'un calcul à une variable. Une variable
+est une entité qui porte un nom et qui contient une valeur. Par
+exemple, si on tape&nbsp;:
+
+</p>
+
+<pre>&gt; a &lt;- 2 * sqrt (5) + pi</pre>
+
+<p>
+
+R n'affiche rien, mais il a&nbsp;:
+
+</p>
+
+<ul>
+  <li>calculé la valeur de l'expression 
+    <kbd>2 * sqrt (5) + pi</kbd>&nbsp;;</li>
+  <li>affecté cette valeur à une variable dont le nom est <kbd>a</kbd>.</li>
+</ul>
+
+<p>
+
+L'affectation se fait donc par l'opérateur <kbd>&lt;-</kbd>. À sa
+gauche, on indique le nom de la variable à laquelle il faut affecter
+la valeur qui se trouve à sa droite.
+
+<span class="detail">En passant, vous aurez noté l'utilisation de
+<kbd>pi</kbd> pour obtenir la valeur de &pi;. <kbd>pi</kbd> est une
+variable pré-définie dans R dont la valeur est celle de &pi;.</span>
+
+<br/>
+<br/>
+
+On peut afficher la valeur d'une variable en tapant simplement son
+nom&nbsp;:
+
+</p>
+
+<pre>a
+[1] 7.613729
+</pre>
+
+<p>
+
+Remarque&nbsp;: comme vous en avez probablement l'habitude, le nombre décimal est affiché avec la convention américaine, c'est-à-dire avec un point <kbd>.</kbd> décimal et non une virgule comme en France. Si on y tient vraiment, on peut dire à R d'utiliser une virgule et non un point, mais je ne dis pas comment faire ici et on en restera avec des points décimaux.
+
+<br/>
+<br/>
+
+Naturellement, on peut utiliser la valeur d'une variable pour
+effectuer des calculs, par exemple&nbsp;:
+
+</p>
+
+<pre>&gt; b &lt;- (a - 1) * (a + 1)</pre>
+
+<p>
+
+Remarque&nbsp;: pour simplifier la saisie des commandes, vous pouvez
+utiliser la touche flêchée &#8593; pour retrouver les commandes que
+vous avez déjà tapées et pour les modifier. Ainsi, R garde
+l'historique des commandes que vous tapez. Vous pouvez remonter dans
+l'historique avec la touche &#8593; et redescendre avec la touche
+&#8595;. Quand vous remontez dans l'historique, vous pouvez ensuite
+utiliser les touches flêchées &#8592; et &#8594; pour éditer la
+commande. Ainsi, utilisez ces touches pour taper la commande suivante,
+qui diffère peu d'une commande que vous avez tapée plus haut&nbsp;:
+
+</p>
+
+<pre>&gt; 3 * sqrt (5 + pi)</pre>
+
+<p>
+
+Prenez l'habitude d'utiliser ces touches flêchées&nbsp;: elles
+permettent d'accélérer très sensiblement la saisie des commandes, et
+ceci, même si l'on est déjà habile avec le clavier de son ordinateur.
+
+<br/>
+<br/>
+
+La table suivante indique des opérateurs et des fonctions de R&nbsp;:
+
+</p>
+
+<center>
+  <table border="3">
+    <tr><th>notation en R</th><th>valeur mathématique</th></tr>
+    <tr><td align="center"><kbd>a + b</kbd></td>
+        <td align="center">somme de a et b</td></tr>
+    <tr><td align="center"><kbd>a - b</kbd></td>
+        <td align="center">b soustrait de a</td></tr>
+    <tr><td align="center"><kbd>a * b</kbd></td>
+        <td align="center">produit de a par b</td></tr>
+    <tr><td align="center"><kbd>a / b</kbd></td>
+        <td align="center">division réelle de a par b</td></tr>
+    <tr><td align="center"><kbd>a %/% b</kbd></td>
+        <td align="center">division euclidienne (entière) de a par b</td></tr>
+    <tr><td align="center"><kbd>a %% b</kbd></td>
+        <td align="center">reste de la division entière de a par b</td></tr>
+    <tr><td align="center"><kbd>a ^ b</kbd></td>
+        <td align="center">a à la puissance b</td></tr>
+    <tr><td align="center"><kbd>sqrt (a)</kbd></td>
+        <td align="center">racine carrée de a</td></tr>
+    <tr><td align="center"><kbd>abs (a)</kbd></td>
+        <td align="center">valeur absolue de a</td></tr>
+    <tr><td align="center"><kbd>log (a)</kbd></td>
+        <td align="center">logarithme naturel de de a</td></tr>
+    <tr><td align="center"><kbd>exp (a)</kbd></td>
+        <td align="center">exponentielle de a</td></tr>
+    <tr><td align="center"><kbd>sin (a)</kbd></td>
+        <td align="center">sinus de a (en radians)</td></tr>
+    <tr><td align="center"><kbd>cos (a)</kbd></td>
+        <td align="center">cosinus de a (en radians)</td></tr>
+    <tr><td align="center"><kbd>tan (a)</kbd></td>
+        <td align="center">tangente de a (en radians)</td></tr>
+  </table>
+</center>
+
+<p>
+
+Cette liste est loin d'être exhaustive&nbsp;!
+
+
+<br/>
+<br/>
+
+À tout moment une aide en ligne est accessible avec la commande
+<kbd>?topic</kbd>, où <kbd>topic</kbd> peut être remplacé par
+n'importe-quelle commande. Essayez, par exemple
+<kbd>?sqrt</kbd>. (Tapez 'q' pour quitter l'aide.) <span
+class="important">Il est très important d'apprendre à lire
+l'aide. L'aide en-ligne contient énormément d'information&nbsp;: elle
+est là, disponible, c'est à vous d'apprendre à l'utiliser.</span> Les
+pages d'aide ont toutes la même structure&nbsp;:
+
+</p>
+
+<ul>
+  <li>une description rapide de la commande et, éventuellement, de
+    commandes apparentées. Pour <kbd>log</kbd>, diverse commandes
+    calculant le logarithme dans différentes bases et les exponentiations
+    sont apparentées&nbsp;;</li>
+
+  <li>comment on utilise la commande&nbsp;;</li>
+
+  <li>les paramètres de la commande&nbsp;;</li>
+
+  <li>une description détaillée de la commande&nbsp;;</li>
+
+  <li>la valeur de la commande. Là, le comportement de la fonction
+    dans des cas exceptionnels est indiqué&nbsp;; ainsi, on apprend que
+    <kbd>log(0)</kbd> a pour valeur <kbd>-Inf</kbd>, c'est-à-dire moins
+    l'infini&nbsp;;</li>
+
+  <li>des remarques complémentaires&nbsp;;</li>
+
+  <li>des références bibliographiques où la manière dont la fonction
+    est calculée est tirée&nbsp;;</li>
+
+  <li>d'autres commandes à consulter si l'on veut des informations
+    complémentaires, sur d'autres fonctions proches&nbsp;;</li>
+
+  <li>des exemples&nbsp;: <span class="important">cette section est
+    extrêmement utile</span> car si l'on n'a pas compris les
+    explications, on nous donne des exemples d'utilisation qui peuvent
+    être directement copiées/collées dans R.</li>
+</ul>
+
+<h2 id="syntaxe">Syntaxe des commandes R</h2>
+
+<p>
+
+L'essentiel de ce qui est à connaître sur la syntaxe des commandes R
+est d'ors et déjà vu&nbsp;; on voit ainsi que cette syntaxe est très
+simple. On la résume ci-dessous&nbsp;:
+
+</p>
+
+<ul>
+  <li>pour obtenir la valeur d'une expression&nbsp;: on tape cette
+    expression&nbsp;;</li>
+
+  <li>pour affecter une valeur à une variable&nbsp;: <kbd>nom de la
+    variable &lt;- valeur à affecter</kbd>&nbsp;;</li>
+
+  <li>pour obtenir la valeur d'une variable&nbsp;: on donne le nom de
+    la variable&nbsp;;</li>
+
+  <li>le nom d'une fonction est toujours suivie de parenthèses entre lesquelles on indique les paramètres de la fonction.</li>
+</ul>
+
+<h2 id="vecteurs">Vecteurs</h2>
+
+<p>
+
+Après les simples nombres, un deuxième type fondamental d'entités dans
+R est le vecteur. Un vecteur peut-être créé de différentes
+manières. Par exemple, créons un vecteur dont les éléments sont 0, -1,
+&pi; et 4,78 et mettons-le dans une variable dont le nom est v&nbsp;:
+
+</p>
+
+<pre>&gt; v &lt;- c (0, -1, pi, 4.78)</pre>
+
+<p>
+
+La fonction <kbd>c</kbd> construit un vecteur avec ces valeurs. On
+peut ensuite consulter la valeur des composantes du vecteur&nbsp;:
+
+</p>
+
+<pre>&gt; v
+[1]  0.000000 -1.000000  3.141593  4.780000
+</pre>
+
+<p>
+
+On retrouve bien les valeurs avec lesquelles on a initialisé le
+vecteur.
+
+<br/>
+<br/>
+
+De nombreuses fonctions s'appliquent aux vecteurs. La table ci-dessous
+en contient un certain nombre&nbsp;; essayez-les toutes&nbsp;:
+
+</p>
+
+<center>
+  <table border="3">
+    <tr><th>notation en R</th><th>valeur</th>
+      <th>résultat sur l'exemple</th></tr>
+    <tr><td align="center"><kbd>length (v)</kbd></td>
+        <td align="center">nombre d'éléments de
+          <kbd>v</kbd></td>
+        <td align="center"><kbd>4</kbd></td></tr>
+    <tr><td align="center"><kbd>min (v)</kbd></td>
+        <td align="center">valeur de l'élément minimal de
+          <kbd>v</kbd></td>
+        <td align="center"><kbd>-1</kbd></td></tr>
+    <tr><td align="center"><kbd>max (v)</kbd></td>
+        <td align="center">valeur de l'élément maximal de
+          <kbd>v</kbd></td>
+        <td align="center"><kbd>4.78</kbd></td></tr>
+    <tr><td align="center"><kbd>range (v)</kbd></td>
+        <td align="center">vecteur composé des deux valeurs
+           précédentes (le min et le max de
+          <kbd>v</kbd>)</td>
+        <td align="center"><kbd>-1.00  4.78</kbd></td></tr>
+    <tr><td align="center"><kbd>sum (v)</kbd></td>
+        <td align="center">valeur de la somme des éléments de
+          <kbd>v</kbd>&nbsp;: &Sigma;<sub>i</sub>v<sub>i</sub></td>
+        <td align="center"><kbd>6.921593</kbd></td></tr>
+    <tr><td align="center"><kbd>prod (v)</kbd></td>
+        <td align="center">valeur du produit des éléments de
+          <kbd>v</kbd>&nbsp;: &Pi;<sub>i</sub>v<sub>i</sub></td>
+        <td align="center"><kbd>0</kbd></td></tr>
+    <tr><td align="center"><kbd>which.min (v)</kbd></td>
+        <td align="center">indice de l'élément minimal de
+          <kbd>v</kbd> (arg min<sub>i</sub> v<sub>i</sub>) </td>
+        <td align="center"><kbd>2</kbd></td></tr>
+    <tr><td align="center"><kbd>which.max (v)</kbd></td>
+        <td align="center">indice de l'élément maximal de
+          <kbd>v</kbd> (arg max<sub>i</sub> v<sub>i</sub>) </td>
+        <td align="center"><kbd>4</kbd></td></tr>
+  </table>
+</center>
+
+<h3>Opérations mathématiques sur les vecteurs</h3>
+
+<p>
+
+R peut naturellement effectuer toutes les opérations habituelles sur
+les vecteurs. Les opérateurs vues plus haut sur les nombres
+(<kbd>+</kbd>, <kbd>-</kbd>, ...) et les fonctions (<kbd>abs</kbd>,
+<kbd>log</kbd>, ...) s'appliquent sur les vecteurs comme on s'y
+attend. <span class="important">Toutes ces opérations se font terme à
+terme</span>&nbsp;: aussi, quand il y a deux vecteurs (comme pour une
+addition), il faut que les deux vecteurs aient le même
+nombre d'éléments.
+
+</p>
+
+<div class="exercice">
+
+  <ul>
+    <li>définissez un vecteur dénommé <kbd>w</kbd> et initialisez ses
+      composantes avec 3, -78, 0, 4&nbsp;;</li>
+    <li>faites la somme de <kbd>v</kbd> et <kbd>w</kbd>&nbsp;;</li>
+    <li>faites <kbd>v * w</kbd>&nbsp;: qu'obtenez-vous&nbsp;?</li>
+    <li>même question pour <kbd>v / w</kbd>, <kbd>v
+      %/% w</kbd>, <kbd>v %% w</kbd> et <kbd>v ^ w</kbd>&nbsp;;</li>
+    <li>idem pour <kbd>abs (v)</kbd>.</li>
+  </ul>
+</div>
+
+<p>
+
+Une opération très classique est de calculer le produit scalaire de
+deux vecteurs. Rappelons que le produit scalaire des vecteurs v et w
+est égal à la somme des produits &Sigma;<inf>i</inf> v<inf>i</inf>
+w<inf>i</inf>.
+
+</p>
+
+<div class="exercices">
+
+  <ul>
+    <li>avec ce que l'on a vu précédemment, comment feriez-vous pour
+      calculer le produit scalaire de deux vecteurs&nbsp;?
+    <li>essayez <kbd>v %*% w</kbd> et concluez vous-même.</li>
+  </ul>
+</div>
+
+<p>
+
+Enfin, on peut ajouter un scalaire aux éléments d'un vecteur, la
+soustraire, la multiplier, ... par les opérateurs habituels
+(<kbd>+</kbd>, <kbd>-</kbd>, <kbd>*</kbd>, ...) en combinant un
+vecteur et un scalaire. Ainsi,
+
+</p>
+
+<pre>v + 3
+</pre>
+
+<p>
+
+produit un vecteur dont les composantes sont celles de <kbd>v</kbd>
+augmentées de <kbd>3</kbd>.
+
+</p>
+
+<h3>Indexation des éléments d'un vecteur</h3>
+
+<p>
+
+On peut aussi demander la valeur du troisième élément du vecteur à
+l'aide de l'opérateur <kbd>[</kbd>&nbsp;:
+
+</p>
+
+<pre>v [3]
+[1] 3.141593
+</pre>
+
+<p>
+
+On peut aussi demander la valeur des éléments 1 et 3 du vecteur en
+fournissant plusieurs indices, comme suit&nbsp;:
+
+</p>
+
+<pre>v [c (1, 3)]
+[1] 0.000000 3.141593
+</pre>
+
+<p>
+
+On voit que pour cela, on a spécifié un vecteur dont les composantes
+sont les indices qui nous intéressent (<kbd>c (1, 3)</kbd> est un
+vecteur de deux éléments, le premier vaut 1, le second vaut 3).
+
+<br/>
+<br/>
+
+On vient donc de présenter une opération très utile et très importante
+en R&nbsp;: <span class="important">accéder aux éléments d'un vecteur
+en utilisant un autre vecteur (dénommé «&nbsp;<span
+class="index">vecteur d'index</span>&nbsp;») qui contient le numéro
+des composantes que l'on veut sélectionner</span>.
+
+<br/>
+<br/>
+
+Une autre manière de spécifier les indices qui nous intéressent est la
+suivante&nbsp;: <kbd>2:4</kbd> est un vecteur dont les éléments sont
+2, 3 et 4.
+
+<br/>
+<br/>
+
+Une autre notation pour la même chose consiste à utiliser la fonction
+<kbd>seq()</kbd>. Ainsi, 
+
+</p>
+
+<pre>> seq (2, 4)</pre>
+
+<p>
+
+(ou 
+
+</p>
+
+<pre>> seq (from = 2, to = 4)</pre>
+
+<p>
+
+) produit un vecteur dont les éléments sont 2, 3 et 4.
+
+<br/>
+
+L'intérêt de cette fonction <kbd>seq()</kbd>uence et que l'on peut lui
+indiquer plus généralement la valeur du premier indice, du dernier
+indice et de l'incrément pour passer de l'un à l'autre. Ainsi&nbsp;:
+
+</p>
+
+<pre>> seq (from = 1, to = 10, by = 2)
+[1] 1 3 5 7 9
+</pre>
+
+<p>
+
+l'incrément peut aussi être négatif&nbsp;:
+
+</p>
+
+<pre>> seq (from = 10, to = -5, by = -2)
+[1] 10  8  6  4  2  0 -2 -4
+</pre>
+
+<!--
+  v <- c (v , 89 )
+  w2 <- c (v, w)
+  -->
+
+<div class="exercices">
+
+  <p>
+
+  La fonction <kbd>runif()</kbd> génère des nombres pseudo-aléatoires
+  selon une distribution de probabilité uniforme. On va l'utiliser
+  pour générer des vecteurs aussi grands que l'on veut. Ainsi,
+  tapez&nbsp;:
+
+  </p>
+
+  <pre>> vu &lt;- runif (100)</pre>
+
+  <p>
+
+  et la variable <kbd>vu</kbd> contient un vecteur de 100 composantes
+  dont la valeur a été tirée au hasard entre 0 et 1.
+
+  </p>
+
+  <ul>
+    <li>quelle est la somme des composantes du vecteur
+     <kbd>vu</kbd>&nbsp;?</li>
+    <li>quelle commande tapez-vous pour calculer la somme des éléments
+      d'indice pair de <kbd>vu</kbd>&nbsp;?</li>
+    <li>on veut obtenir le vecteur <kbd>vs</kbd> ayant 50 composantes,
+     dont la valeur de la composante i est la somme des composantes
+     2*i-1 et 2*i de <kbd>vu</kbd>. Comment faites-vous&nbsp;?</li>
+  </ul>
+</div>
+
+<h3>Quelques fonctions statistiques sur les vecteurs</h3>
+
+<p>
+
+Les fonctions statistiques les plus simples sont résumées dans la
+table ci-dessous&nbsp;:
+
+</p>
+
+<center>
+  <table border="3">
+    <tr><th>notation en R</th><th>valeur</th>
+      <th>résultat sur l'exemple</th></tr>
+    <tr><td align="center"><kbd>mean (v)</kbd></td>
+        <td align="center">la moyenne des éléments de
+          <kbd>v</kbd></td>
+        <td align="center"><kbd>1.730398</kbd></td></tr>
+    <tr><td align="center"><kbd>var (v)</kbd></td>
+        <td align="center">la variance des éléments de
+          <kbd>v</kbd></td>
+        <td align="center"><kbd>7.246964</kbd></td></tr>
+    <tr><td align="center"><kbd>sd (v)</kbd></td>
+        <td align="center">l'écart-type des éléments de
+          <kbd>v</kbd></td>
+        <td align="center"><kbd>2.692019</kbd></td></tr>
+    <tr><td align="center"><kbd>median (v)</kbd></td>
+        <td align="center">la médiane des éléments de
+          <kbd>v</kbd></td>
+        <td align="center"><kbd>1.570796</kbd></td></tr>
+    <tr><td align="center"><kbd>summary (v)</kbd></td>
+        <td align="center">fournit plusieurs statistiques sur les
+          éléments de <kbd>v</kbd></td>
+        <td align="center">
+          <kbd>   Min. 1st Qu.  Median    Mean 3rd Qu.   Max.</kbd><br/>
+          <kbd> -1.000  -0.250   1.571   1.730   3.551   4.780</kbd></td></tr>
+  </table>
+</center>
+
+<br/>
+
+<div class="exercices">
+  <ul>
+    <li>Comprenez ce que représentent toutes les valeurs affichées par
+      <kbd>summary(v)</kbd>.</li>
+    <!--li>étudiez la fonction <kbd>median()</kbd>&nbsp;: que
+      fait-elle&nbsp;? comment s'utilise-t-elle&nbsp;?</li>
+    <li>étudiez la fonction <kbd>quantile()</kbd>&nbsp;:
+      <i>idem</i>&nbsp;;</li-->
+    <li>Quelles sont la moyenne et l'écart-type des composantes de
+     <kbqd>vu</kbd>&nbsp;? Qu'en pensez-vous&nbsp;? <font size="-2">(rappelons <a href="http://fr.wikipedia.org/wiki/Loi_uniforme_continue">que l'espérance de la variance d'un échantillon de nombres uniformément distribués dans l'intervalle [0,1] est 1/12</a>.)</font></li>
+  </ul>
+</div>
+
+<p>
+
+La fonction <kbd>rnorm (100, mean = 3, sd = 5)</kbd> génère 100
+nombres pseudo-aléoires tirés selon une loi normale de moyenne égale à
+3 et d'écart-type égal à 5.
+
+</p>
+
+<div class="exercices">
+  <ul>
+    <li>Mettez dans un vecteur nommé <kbd>v.norm</kbd> 200 nombres
+      tirés selon une loi normale de moyenne égale à -1 et d'écart-type
+      égal à 2.</li>
+    <li>Mettez dans un vecteur nommé <kbd>v.unif</kbd> 200 nombres
+      tirés selon une loi uniforme.</li>
+    <li>Calculez la moynne et l'écart-type de ces deux vecteurs. Que
+      pensez-vous du résultat&nbsp;? Est-il conforme à vos
+      attentes&nbsp;?</li>
+  </ul>
+</div>
+
+
+<h2 id="df">Les tableaux de données&nbsp;: les <i>data frames</i></h2>
+
+<p>
+
+En fouille de données, les données sont généralement disponibles sous la forme d'un tableau dans lequel une ligne représente une donnée, une colonne représente un attribut. Une feuille de tableur ne contenant que des données (pas de formule ni de graphique, ni ...) est donc un tableau de données.
+
+<br/>
+
+Le tableau de données est très généralement disponible sous forme d'un fichier de tableur. 
+<br/>
+Le plus simple est de sauvegarder cette feuille au format CSV. R peut directement charger un fichier CSV.
+<br/>
+On suppose ici que le fichier est déjà au format CSV (il est facile de sauvegarder une feuille de tableur dans ce format).
+<br/>
+Dès lors, le chargement du tableau de données dans R se fait à l'aide d'une seule commande&nbsp;:
+
+</p>
+
+<pre>sommeil <- read.csv ("http://www.grappa.univ-lille3.fr/~ppreux/ensg/ed/R/sommeil.csv")</pre>
+
+<p>
+
+Cette commande charge le fichier indiqué par l'url.
+Le fichier peut également se trouver sur votre ordinateur&nbsp;; il suffit de donner son nom à la place d'une url.
+
+<br/>
+
+Les attributs de ce tableau de données ont le sens suivant&nbsp;:
+
+</p>
+
+<ul>
+  <li>espèce animale</li>
+  <li>poids du corps en kg</li>
+  <li>poids du cerveau en g</li>
+  <li>durée moyenne de sommeil non paradoxal (h/j)</li>
+  <li>durée moyenne de sommeil paradoxal (h/j)</li>
+  <li>durée moyenne de sommeil (h/j)&nbsp;: c'est la somme des
+    deux attributs précédents</li> 
+  <li>durée maximale de vie (ans)</li>
+  <li>durée de gestation (j)</li>
+  <li>indice de prédation&nbsp;: 1 = minimum (le moins sujet à la
+    prédation)&nbsp;; 5 = maximum (le plus sujet à la
+    prédation)</li> 
+  <li>indice d'exposition durant le sommeil&nbsp;: 1 = le moins
+    exposé&nbsp;; 5 = le plus exposé</li> 
+  <li>indice de danger&nbsp;: 1 = minimum (le moins en danger vis
+    à vis des autres animaux)&nbsp;; 5 = maximum</li> 
+</ul>
+
+
+<h3>Fonctions sur les data frames</h3>
+
+<p>
+
+Quelques fonctions utiles sur les data.frames (tapez-les et voyez le
+résultat)&nbsp;:
+
+</p>
+
+<ul>
+  <li><kbd>nrow (sommeil)</kbd>&nbsp;: nombre de lignes, c'est-à-dire,
+    nombre de données&nbsp;;</li>
+  <li><kbd>ncol (sommeil)</kbd>&nbsp;: nombre de colonnes, c'est-à-dire,
+    nombre d'attributs&nbsp;;</li>
+  <li><kbd>dim (sommeil)</kbd>&nbsp;: les deux d'un coup&nbsp;;</li>
+  <li><kbd>head (sommeil)</kbd>&nbsp;: les 6 premières données&nbsp;;</li>
+  <li><kbd>head (sommeil, n = 10)</kbd>&nbsp;: les 10 premières
+    données&nbsp;;</li>
+  <li><kbd>tail (sommeil, n = 8)</kbd>&nbsp;: les 8 dernières
+    données&nbsp;;</li>
+  <li><kbd>names (sommeil)</kbd>&nbsp;: le nom des attributs&nbsp;;</li>
+</ul>
+
+<div class="exercice">
+<p>
+  Appliquez chacune de ces fonctions à ce jeu de données.
+</p>
+</div>
+
+<h3>Statistiques descriptives</h3>
+
+<p>
+
+L'accès à la valeur d'un attribut pour toutes les données se fait par la notation suivante&nbsp;: <kbd>sommeil$Body.Weight</kbd> est un vecteur dont les éléments sont les valeurs de cet attribut.
+
+<br/>
+<br/>
+
+Les fonctions statistiques vues plus haut (<kbd>mean()</kbd>, <kbd>var()</kbd>, ...) s'appliquent aux colonnes
+d'un data frame (puisque ce sont des vecteurs&nbsp;!).
+
+</p>
+
+<div class="exercices">
+<ul>
+  <li>appliquez ces fonctions à l'attribut <kbd>Body.Weight</kbd>.</li>
+  <li>appliquez ces fonctions à l'attribut <kbd>Lifespan</kbd>. Que constatez-vous&nbsp;?
+      <br/>
+      <kbd>NA</kbd> signifie <i>Non Available</i>.
+      <br/>
+      Regardez les valeurs de ces deux attributs (en affichant le valeur).
+      Que constatez-vous&nbsp;?
+      <br/>
+      Chacune des fonctions <kbd>mean</kbd>, <kbd>var</kbd>, <kbd>sd</kbd>, <kbd>median</kbd> peut prendre en paramètre <kbd>na.rm = TRUE</kbd> ce qui signifie <i>NA remove</i>, c'est-à-dire, «&nbsp;retirer les NAs&nbsp;».
+      <br/>
+      Appliquez à nouveau les fonctions statistiques en mettant ce paramètre. Par exemple&nbsp;: <kbd>mean (sommeil$Lifespan, na.rm = TRUE)</kbd>.
+      <br/>
+      <kbd>NA</kbd> peut être vu comme un nombre particulier&nbsp;: il peut apparaître dans une expression arithmétique&nbsp;; dans ce cas, la valeur de l'expression est <kbd>NA</kbd>. C'est pour cela que quand R calcule une moyenne et que l'une des valeurs est <kbd>NA</kbd>, le résultat est <kbd>NA</kbd>.</li>
+  <li>Autre fonction statistique couramment utilisée, le calcul du coefficient de corrélation linéaire entre deux colonnes se fait à l'aide de la fonction <kbd>cor()</kbd>. 
+    <br/>
+    Calculez ce coefficient pour les attributs <kbd>Brain.Weight</kbd> et <kbd>Body.Weight</kbd>.
+    <br/>
+    Déterminez ce coefficient entre <kbd>Brain.Weight</kbd> et chacun des attributs <kbd>Endangered</kbd>, <kbd>Sleep.exposure</kbd>, <kbd>Predation</kbd> et <kbd>Gestation</kbd>. 
+    <br/>
+    Que concluez-vous&nbsp;?
+    <br/>
+    S'il y a des NAs, on peut ne considérer que les données pour lesquelles les deux attributs ont une valeur connues en ajoutant l'option <kbd>use = "pairwise.complete.obs"</kbd>. Faites-le pour le(s) cas ci-dessus où cela est nécessaire.
+  </li>
+</ul>
+</div>
+
+<!-- Start of StatCounter Code -->
+<script type="text/javascript" language="javascript">
+var sc_project=2030719; 
+var sc_invisible=1; 
+var sc_partition=18; 
+var sc_security="2ee406dd"; 
+</script>
+
+<script type="text/javascript" language="javascript" src="http://www.statcounter.com/counter/counter.js"></script><noscript><a href="http://www.statcounter.com/" target="_blank"><img  src="http://c19.statcounter.com/counter.php?sc_project=2030719&java=0&security=2ee406dd&invisible=0" alt="" border="0"></a> </noscript>
+<!-- End of StatCounter Code -->
+
+</body>
+</html>
