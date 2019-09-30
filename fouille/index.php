@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<head>
+  <title>Fouille de données</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+  <link rel="stylesheet" type="text/css"
+    href="./ma.css" 
+    media="screen" />
+</head>
+
+<body vlink="#551A8B">
+
+<div class="titreDuModule">
+  Fouille de données <br/>
+</div>
+
+<p>
+
+Cette page concerne mes enseignements de fouille de données.
+
+</p>
+
+<h2 id="poly">Notes de cours</h2>
+
+<p>
+
+Pour accéder à la dernière version de mes <a
+    href="http://www.grappa.univ-lille3.fr/~ppreux/Documents/notes-de-cours-de-fouille-de-donnees.pdf">Notes
+    de cours de cours de fouille de données</a> (master 1 et 2,
+    version de septembre 2008).
+
+<br/>
+
+La version 3 est en cours de mise au point&nbsp;; elle sera mise en
+ligne durant l'été 2010...
+
+<br/>
+<br/>
+
+Historique des changements depuis la version initiale&nbsp;:
+
+</p>
+
+<ul>
+  <li>mai 2011&nbsp;: corrections dans le chapitre sur les machines à vecteurs
+    supports</li>
+  <li>2008&nbsp;: l'annexe E sur la comparaison des performances de deux 
+    algorithmes a été retirée (en cours de ré-écriture).</li>
+  <li>2007&nbsp;: correction d'erreur dans la définition de l'inertie au
+    chapitre segmentation de données et quelques corrections très
+    mineures dans ce chapitre quant aux résultats expérimentaux&nbsp;;
+    correction d'une erreur dans la définition de l'entropie dans le
+    cas multi-classes (chapitre arbres de décision)</li>
+  <li>2006&nbsp;: grosse ré-écriture du chapitre sur la classification
+    bayésienne pour être vraiment dans un cadre bayésien</li>
+</ul>
+
+<p>
+
+Statut juridique de ce polycopié&nbsp;: il est sous <a
+href="http://www.gnu.org/copyleft/fdl.html">licence GFDL</a>.
+
+</p>
+
+<h2 id="manip">Mise en pratique</h2>
+
+<p>
+
+J'utilise <a href="http://www.R-project.org">R</a> comme environnement
+logiciel support pour mes cours de fouille de données.
+
+<br/>
+<br/>
+
+Ci-dessous, des pointeurs vers des sujets de TP abordant les
+différents points de mon cours&nbsp;:
+
+</p>
+
+
+<ul>
+  <li><a href="../ensg/miashs/fouilleDeDonneesI/tp/introduction-a-R/">découverte de R</a>&nbsp;; voir aussi <a href="../ensg/m1psycho/">généralités sur R</a></li>
+  <li><a href="../ensg/miashs/fouilleDeDonneesI/tp/arbres-de-decision/">classification supervisée par arbres de décision</a></li>
+  <li><a href="../ensg/miashs/fouilleDeDonneesI/tp/piece">exercice de probabilités</a></li>
+  <li>segmentation de données (classification non supervisée)&nbsp;:
+    <ul>
+      <li><a href="../ensg/miashs/fouilleDeDonneesII/tp/k-moyennes/">segmentation de données par les k-moyennes</a>&nbsp;;</li>
+  <li><a href="../ensg/miashs/fouilleDeDonneesII/tp/segmentation-hierarchique/">segmentation hiérarchique ascendante de données</a>&nbsp;;</li>
+  <li><a href="../ensg/miashs/fouilleDeDonneesII/tp/k-medianes/">segmentation par les k-médianes</a>&nbsp;;</li>
+  <li><a href="../ensg/miashs/fouilleDeDonneesII/tp/exploration-visuelle/">exploration visuelle des données</a></li>
+    </ul></li>
+  <li><a href="../ensg/miashs/fouilleDeDonneesIII/tp/preparation-des-donnees/">préparation des données</a></li>
+  <li><a href="../ensg/miashs/fouilleDeDonneesIII/tp/reduction-dimension/">réduction de dimension</a> (ACP, MDS)</li>
+  <li>visualisation de données avec gobi&nbsp;: 
+    <ul>
+      <li><a href="./gobi/tp-gobi.html">découverte de Gobi</a>,</li>
+      <li><a href="./gobi/tp-gobi4.html">une ACP dans Gobi</a>,</li>
+      <li><a href="./gobi/tp-gobi5.html">représentation d'un graphe</a>,</li>
+      <li><a href="./gobi/tp-gobi6.html">analyse de dissmilarité</a>.</li>
+    </ul>
+
+    Gobi est ici utilisé indépendemment de R. Le paquet Rggobi permet
+    maintenant d'utiliser directement Gobi depuis R.</li>
+</ul>
+
+
+<p>
+
+Pour plus d'info sur mon cours, voir <a
+  href="../ensg">mes pages enseignement</a>.
+
+</p>
+
+<h2 id="divers liens">Divers liens</h2>
+
+
+<ul>
+  <li><a href="../papiers/man.pdf">Machines à noyau&nbsp;: une courte introduction (ou «&nbsp;SVM décryptées&nbsp;», ou «&nbsp;SVMs pour les nuls&nbsp;»)</a></li>
+  <li><a href="http://en.wikibooks.org/wiki/Statistics">wikibook on Statistics</a></li>
+  <li><a href="http://en.wikibooks.org/wiki/Statistical_Analysis:_an_Introduction_using_R">Statistical Analysis: an Introduction using R</a></li>
+  <li><a href="http://www.grappa.univ-lille3.fr/~ppreux/pmwiki/index.php?n=Main.R">ma page sur R</a></li>
+  <li><a href="http://www.burns-stat.com/pages/Tutor/spreadsheet_addiction.html">Pourquoi Excel ne doit pas être utilisé dès que l'on veut faire un travail sérieux</a></li>
+</ul>
+
+<!--
+<br/>
+<br/>
+
+<a href="http://validator.w3.org/check?uri=referer">
+   <img src="img/valid-xhtml10"
+        alt="Valid XHTML 1.0!" height="15" width="44" /></a>
+<a href="http://jigsaw.w3.org/css-validator/check?uri=referer">
+   <img style="border:0;width:44px;height:15px"
+        src="img/vcss" 
+        alt="Valid CSS!" /></a>
+-->
+
+
+<?php
+  include ("/home/ppreux/public_html/.log.access");
+?>
+
+
+<!-- Start of StatCounter Code -->
+<script type="text/javascript" language="javascript">
+var sc_project=2030719; 
+var sc_invisible=1; 
+var sc_partition=18; 
+var sc_security="2ee406dd"; 
+</script>
+
+<script type="text/javascript" language="javascript" src="http://www.statcounter.com/counter/counter.js"></script><noscript><a href="http://www.statcounter.com/" target="_blank"><img  src="http://c19.statcounter.com/counter.php?sc_project=2030719&java=0&security=2ee406dd&invisible=0" alt="" border="0"></a> </noscript>
+<!-- End of StatCounter Code -->
+
+</body>
+</html>
