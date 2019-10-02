@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Significativité d'un coefficient de corrélation linéaire</title>
+  <style>
+    body {font-family: Comic Sans MS; /*Annie Use Your Telescope; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 18.5667px;  */}
+    body {background-color: #33ffff;}
+    h3 {color: Tomato;}
+    h1 {color: turquoise;} 
+    h2 {color: darkblue;} 
+  </style>
+</head>
+
+<body>
+<div class="tpR">
+
+<h2>Motivation</h2>
+
+<p>
+
+J'ai souvent rencontré la situation, lors de mes cours, d'étudiants me demandant&nbsp;:
+
+</p>
+
+<ul>
+  <li>0,4&nbsp;: c'est significatif comme coefficient de corrélation (linéaire)&nbsp;?</li>
+  <li>À partir de quelle valeur peut-on dire que deux variables sont corrélés&nbsp;?</li>
+</ul>
+
+<p>
+
+À force de ne pas savoir comment répondre à ces questions, de lire dans des articles que la «&nbsp;corrélation entre deux variables est (par exemple) 0,38, donc les variables sont corrélées&nbsp;», ... j'ai cherché à trouver la réponse à ces questions.
+
+<br/>
+<br/>
+
+Dans la section <a href="#principe">suivante</a>, j'explique le principe du raisonnement. En résumé, le nombre d'échantillons (le nombre de valeurs dans les séries) est le paramètre dont dépend la significativité du coefficient de corrélation linéaire. Aussi, dans la section <a href="#valeurs">suivante</a>, je donne une table indiquant le seuil correspondant à chaque valeur du coefficient de corrélation pour que celle-ci soit significative (au seuil classique &alpha;=0,05).
+
+</p>
+
+<h2 id="principe">Principe</h2>
+
+<p>
+
+<!--
+
+Reprenons le problème&nbsp;: 
+
+</p>
+
+<ol>
+  <li>on a deux séries de n valeurs appariées x et y.</li>
+  <li>On calcule le coefficient de corrélation linéaire r entre ces deux séries.</li>
+  <li>Cette valeur de r est-elle significative&nbsp;? Peut-on conclure que les deux variables sont corrélées&nbsp;?</li>
+</ol>
+
+<p>
+
+D'un point de vue statistique, x, y et donc r sont des variables aléatoires. On peut poser «&nbsp;H0 = x et y ne sont pas corrélées linéairement&nbsp;» ou plus précisèment, la «&nbsp;vraie&nbsp;» valeur du coefficient de corrélation linéaire est nulle.
+
+<br/>
+<br/>
+-->
+
+<a href="http://janda.org/c10/Lectures/topic06/L24-significanceR.htm">Voir ce lien.</a>
+
+</p>
+
+<h2 id="valeurs">Valeurs</h2>
+
+<p>
+
+Ci-dessous, la table indique pour chaque valeur du coefficient de corrélation linéaire calculé le nombre minimum d'observations dont chaque vecteur doit être composé. On considère un risque standard &alpha;=0,05.
+
+<br/>
+<br/>
+
+Si on mesure un coefficient de corrélation linéaire de 0,38, la table ci-dessous nous indique qu'il faut disposer de séries composées d'au moins 20 valeurs chacune. Pour 0,73, il suffit de 6 valeurs par série. Pour 0,99, 3 suffisent...
+
+</p>
+
+<table>
+  <tr>
+     <td width="40px"></td><td width="40px">0,00</td><td width="40px">0,01</td><td width="40px">0,02</td><td width="40px">0,03</td><td width="40px">0,04</td><td width="40px">0,05</td><td width="40px">0,06</td><td width="40px">0,07</td><td width="40px">0,08</td><td width="40px">0,09</td>
+  </tr>
+  <tr>
+     <td width="40px"><b>0,1</b></td><td width="40px">272</td><td width="40px">225</td><td width="40px">190</td><td width="40px">162</td><td width="40px">140</td><td width="40px">122</td><td width="40px">107</td><td width="40px">95</td><td width="40px">85</td><td width="40px">77</td>
+  </tr>
+  <tr>
+     <td width="40px"><b>0,2</b></td><td width="40px">69</td><td width="40px">63</td><td width="40px">57</td><td width="40px">53</td><td width="40px">49</td><td width="40px">45</td><td width="40px">422</td><td width="40px">39</td><td width="40px">36</td><td width="40px">34</td>
+  </tr>
+  <tr>
+     <td width="40px"><b>0,3</b></td><td width="40px">32</td><td width="40px">30</td><td width="40px">28</td><td width="40px">26</td><td width="40px">25</td><td width="40px">24</td><td width="40px">22</td><td width="40px">21</td><td width="40px">20</td><td width="40px">19</td>
+  </tr>
+  <tr>
+     <td width="40px"><b>0,4</b></td><td width="40px">18</td><td width="40px">17</td><td width="40px">17</td><td width="40px">16</td><td width="40px">15</td><td width="40px">15</td><td width="40px">14</td><td width="40px">14</td><td width="40px">13</td><td width="40px">13</td>
+  </tr>
+  <tr>
+    <td width="40px"><b>0,5</b></td><td width="40px">12</td><td width="40px">12</td><td width="40px">11</td><td width="40px">11</td><td width="40px">10</td><td width="40px">10</td><td width="40px">10</td><td width="40px"> 9</td><td width="40px"> 9</td><td width="40px"> 9</td>
+   </tr>
+   <tr>
+     <td width="40px"><b>0,6</b></td><td width="40px">9</td><td width="40px"> 8</td><td width="40px"> 8</td><td width="40px"> 8</td><td width="40px"> 8</td><td width="40px"> 7</td><td width="40px"> 7</td><td width="40px"> 7</td><td width="40px"> 7</td><td width="40px"> 7</td>
+   </tr>
+   <tr>
+     <td width="40px"><b>0,7</b></td><td width="40px">6</td><td width="40px"> 6</td><td width="40px"> 6</td><td width="40px"> 6</td><td width="40px"> 6</td><td width="40px"> 6</td><td width="40px"> 5</td><td width="40px"> 5</td><td width="40px"> 5</td><td width="40px"> 5</td>
+   </tr>
+   <tr>
+     <td width="40px"><b>0,8</b></td><td width="40px">5</td><td width="40px"> 5</td><td width="40px"> 5</td><td width="40px"> 5</td><td width="40px"> 4</td><td width="40px"> 4</td><td width="40px"> 4</td><td width="40px"> 4</td><td width="40px"> 4</td><td width="40px"> 4</td>
+   </tr>
+   <tr>
+     <td width="40px"><b>0,9</b></td><td width="40px">4</td><td width="40px"> 4</td><td width="40px"> 4</td><td width="40px"> 3</td><td width="40px"> 3</td><td width="40px"> 3</td><td width="40px"> 3</td><td width="40px"> 3</td><td width="40px"> 3</td><td width="40px"> 3</td>
+   </tr>
+</table>
+
+</div>
+</body>
+</html>
