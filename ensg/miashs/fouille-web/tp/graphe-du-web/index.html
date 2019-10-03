@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="fr" xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <title>Structure du web, graphes, matrices et PageRank</title>
+  <link href="../../ma.css" rel="stylesheet" type="text/css" media="all">
+</head>
+<body>
+
+<div class="tpR">
+<h1>Structure du <i>web</i>, graphes, matrices et PageRank</h1>
+
+<p>
+
+L'objectif est de mettre en pratique ce qui a été vu en cours
+concernant la structure graphique du <i>Web</i> et l'évaluation de
+l'importance des pages <i>web</i>.
+
+<br>
+<br>
+
+Toutes les manipulations se feront avec R, sous Linux.
+
+<br>
+<br>
+
+On reprend les exercices vus en cours sur de petits graphes. On
+considère les graphes ci-dessous, censés représenter de (très) petits
+morceaux du <i>web</i>.
+
+</p>
+
+<center>
+  <table border="3">
+    <tbody><tr><th>(a)</th><th>(b)</th><th>(c)</th><th>(d)</th><th>(e)</th><th>(f)</th></tr>
+    <tr><td align="center"><img src="a.png" width="100"></td>
+	<td align="center"><img src="b.png" width="100"></td>
+	<td align="center"><img src="c.png" width="100"></td>
+	<td align="center"><img src="d.png" width="100"></td>
+	<td align="center"><img src="e.png" width="200"></td>
+	<td align="center"><img src="f.png" width="100"></td></tr>
+  </tbody></table>
+</center>
+
+<h2 id="crawling">Du <i>crawling</i> à la matrice d'adjacence</h2>
+
+<p>
+
+Pour construire la matrice d'adjacence, on part du résultat d'un
+<i>crawling</i>. Celui-ci fournit une liste de liens pour les pages
+qu'il a parcouru. Pour la repérer et éviter de travailler directement
+avec des urls, chaque page est numérotée. On suppose dans cet exercice
+que l'on dispose&nbsp;:
+
+</p>
+
+<ul>
+  <li>du nombre de pages différentes parcourues&nbsp;;</li>
+  <li>d'une liste de liens sous la forme d'une liste R&nbsp;;</li>
+  <li>d'un vecteur d'urls associant chaque numéro de page à son url. </li>
+</ul>
+
+<p>
+
+Pour la graphe (a) ci-dessus, ces trois informations sont&nbsp;:
+
+</p>
+
+<ul>
+  <li>5</li>
+  <li><kbd>list (c (1, 2), c (1, 5), c (2, 4), c (3, 1), c (4, 3), c (4, 1), c (5, 2))</kbd></li>
+  <li>quelque chose qui ressemblerait à&nbsp;: <kbd>c
+("http://x.y.z/a.html", "http://x.y.z/b.html",
+"http://x.y.z/toto/c.html", "http://x.y.z/titi/toto/d.html",
+"http://x.y.z/e.html")</kbd></li>
+</ul>
+
+<p>
+
+À faire, à partir de ces trois informations&nbsp;:
+
+</p>
+
+<ol>
+  <li>Écrire une fonction en R qui calcule le nombre de liens en entrée
+    de chacun des n&#339;uds.</li>
+  <li>Écrire une fonction en R qui calcule le nombre de liens en sortie
+    de chacun des n&#339;uds.</li>
+  <li>Écrire une fonction R qui retourne la liste des puits.</li>
+  <li>Écrire une fonction R qui retourne la liste des pages non pointées 
+    par une autre page.</li>
+  <li>Écrire une fonction en R qui construit une matrice d'adjacence et
+    la renvoit.</li>
+</ol>
+
+<h2 id="GraphesEtMatrices">Graphes et matrices</h2>
+
+<h3 id="structureDunGraphe">Structure d'un graphe</h3>
+
+<ol>
+  <li>Pour chacun de ces graphes, construire sa matrice d'adjacence.</li>
+  <li>Écrire une fonction R qui calcule le vecteur propre associé à la
+  valeur propre dominante (1 pour une matrice stochastique), selon
+  l'algorithme vu en cours 
+    (<a href="http://en.wikipedia.org/wiki/Power_iteration"><i>Power 
+      iteration</i></a> en anglais).</li>
+  <li>Appliquer cette fonction sur chaque des graphes ci-dessus, et
+    analyser le résultat.</li>
+  <li>En R, la fonction <kbd>eigen (matrice)</kbd> calcule les valeurs
+    et vecteurs propres d'une matrice. Appliquez-la à ces graphes et
+    comparez le résultat que vous obtenez avec le résultat obtenu
+    précédemment par la <i>Power iteration</i>.</li>
+</ol>
+
+<h3 id="marcheAleatoire">Marche aléatoire sur un graphe</h3>
+
+<ol>
+  <li>Écrire une fonction R à laquelle on fournit&nbsp;:
+    <ul>
+      <li>une matrice de transition,</li>
+      <li>une distribution de probabilité initiale sur les n&#339;uds 
+        du graphe</li>
+      <li>et un nombre de pas</li>
+    </ul>
+    et renvoie la probabilité d'occuper chacun des n&#339;uds après avoir 
+    effectué ce nombre de pas dans le graphe, avec un choix aléatoire de 
+    l'arc à suivre à chaque pas.</li>
+  <li>Appliquer cette fonction aux graphes ci-dessus en prenant différentes
+    distributions de probabilités initiales et en effectuant 100 pas&nbsp;;
+    que constatez-vous&nbsp;?</li>
+</ol>
+
+<h2 id="Importance">Importance des pages d'un graphe</h2>
+
+<ol>
+  <li>Écrire une fonction R qui prend une matrice d'adjacence en
+    entrée et retourne le PageRank de chaque n&#339;ud.</li>
+  <li>L'appliquer aux graphes ci-dessus.  Pour le graphe (a), on
+    trouve <pre>c (.245, .248, .132, .241, .134)</pre></li>
+</ol>
+
+</div>
+
+<!-- Start of StatCounter Code -->
+<script type="text/javascript" language="javascript">
+var sc_project=2030719; 
+var sc_invisible=1; 
+var sc_partition=18; 
+var sc_security="2ee406dd"; 
+</script>
+
+<script type="text/javascript" language="javascript" src="index_fichiers/counter.js"></script><noscript><a
+href="http://www.statcounter.com/" target="_blank"><img
+src="http://c19.statcounter.com/counter.php?sc_project=2030719&java=0&security=2ee406dd&invisible=0"
+alt="" border="0"></a> </noscript>
+<!-- End of StatCounter Code -->
+
+</body></html>
