@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+  <title>Approximation de matrices et SVD</title>
+  <link href="../../ma.css"
+	rel="stylesheet" type="text/css" media="all" />
+</head>
+
+<body>
+<div class="tpR">
+<h1>Approximation de matrices et SVD</h1>
+
+<p>
+
+L'objectif est d'explorer la dcomposition en valeurs singulières, ses
+liens avec la décomposition en valeurs propres, et l'approximation
+d'une matrice.
+
+<br/>
+<br/>
+
+Toutes les manipulations se feront avec R.
+
+</p>
+
+<h2 id="svdEnR">Décomposition en valeurs singulières en R</h2>
+
+<p>
+
+Pour effectuer la SVD d'une matrice en R, il suffit que cette matrice
+soit stockée dans un objet R de classe <kbd>matrix</kbd> et d'utiliser
+la fonction <kbd>svd</kbd>.
+
+</p>
+
+<ol>
+  <li>Dans R, créez une matrice M réelle de la taille que vous voudrez
+    (pas forcément carrée). (Vous pouvez utiliser la fonction
+    <kbd>runif()</kbd> pour la remplir de nombres pseudo-aléatoires.)</li>
+  <li>Faites-en la SVD.</li>
+  <li>Regardez le résultat.</li>
+  <li>Vérifiez les propriétés bien connues&nbsp;:
+    <ul>
+      <li>la matrice d'origine est le produit U&nbsp;&Sigma;&nbsp;V'&nbsp;;</li>
+      <li>les valeurs singulières sont les racines carrées des valeurs
+        propres de MM' et M'M.</li>
+    </ul></li>
+  <li>Quel est le rang de M&nbsp;?</li>
+  <li>Déterminez le rang des matrices présentes dans <a
+      href="./matrices.svd.R">ce fichier</a>. (Utilisez la fonction
+      <kbd>source("https://philippe.preux.github.io/ensg/miashs/fouilleDeDonneesIII/tp/svd/matrices.svd.R")</kbd> pour charger ce fichier&nbsp;: il contient 5
+      grosses matrices nommées <kbd>m1</kbd>, ... <kbd>m5</kbd>.)</li>
+</ol>
+
+<h2 id="bestApprox">Approximation d'une matrice par SVD</h2>
+
+<ol>
+  <li>Pour une matrice M dont vous avez calculé la SVD et pour une
+    valeur de k fixée, construisez la matrice M<sub>k</sub> obtenue en
+    ne considérant les k premières colonnes de U, les k valeurs
+    singulières les plus grandes et les k premières lignes de la
+    transposée de V.</li>
+  <li>Calculer ||&nbsp;M<sub>k</sub> - M&nbsp;|| pour chaque valeur de k.</li>
+  <li>Pour quelle valeur de k cette valeur devient-elle très
+    petite&nbsp;?</li>
+  <li>Comparez cette valeur avec le rang de M.</lI>
+  <li>Conclusion&nbsp;?</li>
+</ol>
+
+
+</div>
+<!-- Start of StatCounter Code -->
+<script type="text/javascript" language="javascript">
+var sc_project=2030719; 
+var sc_invisible=1; 
+var sc_partition=18; 
+var sc_security="2ee406dd"; 
+</script>
+
+<script type="text/javascript" language="javascript"
+  src="http://www.statcounter.com/counter/counter.js"></script>
+<noscript>
+<a href="http://www.statcounter.com/" target="_blank">
+<img  src="http://c19.statcounter.com/counter.php?sc_project=2030719&java=0&security=2ee406dd&invisible=0" alt="" border="0"></a> </noscript>
+<!-- End of StatCounter Code -->
+
+</body>
+</html>
