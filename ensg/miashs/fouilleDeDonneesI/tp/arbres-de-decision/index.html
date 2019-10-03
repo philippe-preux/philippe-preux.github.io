@@ -1,0 +1,838 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+  <title>Arbres de décision</title>
+  <link href="./ma.css" 
+	rel="stylesheet" type="text/css" media="all" />
+</head>
+
+<body>
+<div class="tpR">
+
+<h1>Arbres de décision</h1>
+
+<h2>Introduction</h2>
+
+<p>
+
+L'objectif de ce TP est de vous faire manipuler des arbres de
+décision. On utilisera pour cela la bibliothèque <tt>rpart</tt> de
+R. Celle-ci contient les fonctions permettant de construire et
+exploiter un arbre de décision&nbsp;; l'algorithme utilisé ici est
+CART.
+
+<br/>
+<br/>
+
+Avant cela, nous allons organiser notre compte pour s'y retrouver par
+la suite, quand on aura travailler sur plusieurs TP. Ce qui suit n'a
+de sens que s'il est effectué sur votre compte personnel (que vous
+conservez de séances en séances). Donc, si vous n'êtes pas sur votre
+compte personnel, passez directement à la suite&nbsp;; vous ferez ce
+qui suit lorsque vous travaillerez sur votre compte personnel pour la
+première fois.
+
+<br/>
+<br/>
+
+Comme d'habitude, vous commencez par ouvrir une fenêtre <i>shell</i>.
+Pour éviter de mélanger les commandes que vous tapez dans les
+différents TP, il est judicieux d'organiser votre travail en dossiers.
+
+Ainsi, vous pourriez créer un dossier intitulé
+«&nbsp;fouilleDeDonnées&nbsp;» en tapant la commande suivante&nbsp;:
+
+</p>
+
+<pre>mkdir fouilleDeDonnées</pre>
+
+<p>
+
+Vous vous positionnez dans ce dossier en tapant la commande&nbsp;:
+
+</p>
+
+<pre>cd fouilleDeDonnées</pre>
+
+<p>
+
+Là, vous pouvez créer un dossier intitulé «&nbsp;introductionR&nbsp;»
+et y placer vos fichiers <kbd>.RData</kbd> et
+<kbd>.Rhistory</kbd>. 
+
+</p>
+
+<ol>
+  <li>Créez ce dossier en prenant exemple sur ce que vous avez tapé
+    ci-dessus&nbsp;;</li>
+  <li>Positionnez-vous dans ce dossier.</li>
+</ol>
+
+<p>
+
+Vous allez copier vos fichiers <kbd>.RData</kbd> et
+<kbd>.Rhistory</kbd> dans ce dossier (on suppose pour cela que ces
+deux fichiers se trouvent sur votre compte). Tapez les deux
+commandes&nbsp;:
+
+</p>
+
+<pre>cp ../../.RData .
+cp ../../.Rhistory .</pre>
+
+<p>
+
+La première commande copie le fichier dénommé <kbd>.RData</kbd> qui se
+trouve dans le dossier qui contient (<kbd>..</kbd>) le dossier qui
+contient (<kbd>..</kbd>) votre dossier courant.
+
+<br/>
+<br/>
+
+Maintenant que vous avez mis de côté votre travail effectué lors du
+premier TP, vous pouvez vous positionner dans le dossier concernant le
+deuxième TP (qu'il faut d'abord créer). Pour cela, tapez la
+commande&nbsp;:
+
+</p>
+
+<pre>cd ..
+mkdir arbreDeDécision
+cd arbreDeDécision</pre>
+
+<p>
+
+La première commande vous positionne dans le dossier qui contient le
+dossier courant (c'est le dossier dénommé
+<kbd>fouilleDeDonnées</kbd>)&nbsp;; la deuxième crée un nouveau
+dossier intitulé <kbd>arbreDeDécision</kbd>&nbsp;; la troisième vous y
+positionne.
+
+<br/>
+
+Vous pouvez maintenant lancer R.
+
+<br/>
+<br/>
+
+La prochaine fois que vous vous connecterez à votre compte,
+naturellement, les dossiers seront toujours là. Il nefaudra plus faire
+	      tout ce que l'on vient d'indiquer, mais simplement vous
+	      positionnez dans le dossier correspondant au TP sur les
+	      arbres de décision, en tapant les commandes&nbsp;:
+
+</p>
+
+<pre>cd fouilleDeDonnées
+cd arbreDeDécision</pre>
+
+<p>
+
+Si vous vouliez retrouver vos commandes du TP d'introduction à R, il
+vous suffirez de vous positionnez dans le dossier correspondant à ce
+TP et d'y lancer R, soit&nbsp;:
+
+</p>
+
+<pre>cd ~/fouilleDeDonnées
+cd introductionR</pre>
+
+<h2>La construction d'un arbre de décision</h2>
+
+<h3>Chargement de la bibliothèque <tt>rpart</tt></h3>
+
+<p>
+
+Pour pouvoir construire des arbres de décision, nous allons utiliser
+la bibliothèque <tt>rpart</tt> de l'environnement R. Il faut tout
+d'abord la rendre accessible. Pour cela, on tape la la commande
+suivante&nbsp;:
+
+</p>
+
+<pre>library(rpart)</pre>
+
+<p>
+
+À chaque fois que vous lancez R et que vous voulez utiliser les
+fonctions qui vont être décrites ci-dessous, il faut taper cette
+commande.
+
+</p>
+
+<h3>Chargement du jeu de données</h3>
+
+<p>
+
+Nous allons tout d'abord découvrir cette bibliothèque sur l'exemple du
+jeu de tennis. Commençons par charger le jeu de données comme on l'a
+vu lors du premier TP&nbsp;:
+
+</p>
+
+  <pre>&gt; tennis &lt;- read.table
+  ("https://philippe.preux.github.io/ensg/miashs/datasets/tennum.txt")</pre>
+
+<p>
+
+Placé dans un <i>data frame</i>, on peut maintenant visualiser ce jeu
+de données&nbsp;:
+
+</p>
+
+<pre>&gt; tennis
+         Ciel Température Humidité   Vent Jouer
+1  Ensoleillé        27.5       85 Faible    Non
+2  Ensoleillé        25.0       90   Fort    Non
+3     Couvert        26.5       86 Faible    Oui
+4       Pluie        20.0       96 Faible    Oui
+5       Pluie        19.0       80 Faible    Oui
+6       Pluie        17.5       70   Fort    Non
+7     Couvert        17.0       65   Fort    Oui
+8  Ensoleillé        21.0       95 Faible    Non
+9  Ensoleillé        19.5       70 Faible    Oui
+10      Pluie        22.5       80 Faible    Oui
+11 Ensoleillé        22.5       70   Fort    Oui
+12    Couvert        21.0       90   Fort    Oui
+13    Couvert        25.5       75 Faible    Oui
+14      Pluie        20.5       91   Fort    Non</pre>
+
+<h3>Construction d'un arbre de décision</h3>
+
+<p>
+
+Les commandes suivantes permettent de construire l'arbre de décision.
+
+<br/>
+<br/>
+
+Tout d'abord, on doit spécifier quelques paramètres qui précise
+comment l'arbre de décision doit être construit.
+
+<br/>
+<br/>
+
+On tapera la commande suivante&nbsp;:
+
+</p>
+
+<pre>&gt; ad.tennis.cnt &lt;- rpart.control (minsplit = 1)</pre>
+
+<p>
+
+La variable <tt>ad.tennis.cnt</tt> stocke les paramètres de
+l'algorithme.
+
+<br/>
+
+<tt>minsplit = 1</tt> signifie que le nombre minimal d'exemples
+nécessaires à la création d'un n&oelig;ud est 1. La valeur par défaut
+est 20. Comme le jeu de données contient moins de 20 exemples,
+utiliser la valeur par défaut ne produirait pas d'arbre du tout, juste
+une racine&nbsp;!
+
+<br/>
+<br/>
+
+(Remarque en passant&nbsp;: le nom utilisé pour cette variable,
+<kbd>ad.tennis.cnt</kbd> suit la convention R&nbsp;: il indique qu'il
+s'agît d'un arbre de décision (préfixe <kbd>ad</kbd>), pour le jeu de
+tennis (<kbd>tennis</kbd>&nbsp;!) et qu'il s'agît des paramètres de
+contrôle (<kbd>cnt</kbd>)&nbsp;; des points (<kbd>.</kbd>) séparent
+ces différentes informations. Tout cela est complétement libre&nbsp;;
+on aurait pu l'appeler <kbd>toto</kbd>, R ne nous l'aurait pas
+interdit. Par contre, pour nous, humains, c'est autrement plus parlant
+ainsi que <kbd>toto</kbd>. Vous prendrez donc l'habitude de nommer les
+variables en suivant ce principe.)
+
+<br/>
+<br/>
+
+On va construire l'arbre de décision en indiquant&nbsp;:
+
+</p>
+
+<ul>
+  <li>l'attribut qui doit être prédit (la classe&nbsp;:
+    <kbd>Jouer</kbd>)&nbsp;;</li>
+  <li>les attributs qui doivent être utilisés pour effectuer cette
+    prédiction (pour l'instant, ce seront les 4 autres
+    attributs)&nbsp;;
+  <li>le jeu d'exemples avec lequel on construit l'arbre&nbsp;;</li>
+  <li>le nom de la variable qui contient les paramètres.</li>
+</ul>
+
+<p>
+
+C'est ce que fait la commande suivante&nbsp;:
+
+</p>
+
+<pre>
+&gt; ad.tennis &lt;- rpart (Jouer ~ Ciel + Température + Humidité + Vent, tennis, control = ad.tennis.cnt)
+</pre>
+
+<p>
+
+Dans cette commande, la notation&nbsp;:
+
+</p>
+
+<pre>Jouer ~ Ciel + Température + Humidité + Vent</pre>
+
+<p>
+
+est courante en R, lorsqu'il s'agît de construire un modèle de
+prédiction (classification supervisée ou régression). Elle
+signifie&nbsp;: prédire l'attribut <kbd>Jouer</kbd> en fonction des
+attributs <kbd>Ciel</kbd>, <kbd>Température</kbd>, <kbd>Humidité</kbd>
+et <kbd>Vent</kbd>
+
+<br/>
+<br/>
+
+Après avoir effectuer cette commande, la variable <kbd>ad.tennis</kbd>
+contient l'arbre de décision qui a été construit. Regardons à quoi il
+ressemble...
+
+</p>
+
+<h3>Visualisation de l'arbre de décision</h3>
+
+<h4>Représentation textuelle</h4>
+
+<p>
+
+On peut alors afficher le résultat de la construction sous forme de
+texte&nbsp;:
+
+</p>
+
+<pre>
+&gt; ad.tennis
+n= 14 
+
+node), split, n, loss, yval, (yprob)
+      * denotes terminal node
+
+ 1) root 14 5 Oui (0.3571429 0.6428571)  
+   2) Ciel=Ensoleillé,Pluie 10 5 Non (0.5000000 0.5000000)  
+     4) Humidité&gt;=82.5 5 1 Non (0.8000000 0.2000000)  
+       8) Température&gt;=20.25 4 0 Non (1.0000000 0.0000000) *
+       9) Température&lt; 20.25 1 0 Oui (0.0000000 1.0000000) *
+     5) Humidité&lt; 82.5 5 1 Oui (0.2000000 0.8000000)  
+      10) Température&lt; 18.25 1 0 Non (1.0000000 0.0000000) *
+      11) Température&gt;=18.25 4 0 Oui (0.0000000 1.0000000) *
+   3) Ciel=Couvert 4 0 Oui (0.0000000 1.0000000) *
+</pre>
+
+<p>
+
+Prenez le temps d'essayer de comprendre ce qui est affiché.
+
+</p>
+
+<h4>Représentation graphique</h4>
+
+<p>
+
+On peut également obtenir une représentation graphique&nbsp;:
+
+</p>
+
+<pre>
+&gt; plot (ad.tennis)
+&gt; text (ad.tennis)
+</pre>
+
+<p>
+
+(La commande <kbd>plot</kbd> dessine l'arbre alors que la commande
+<kbd>text</kbd> affiche le texte dans les n&oelig;uds et sur les
+branches.)
+
+<br/>
+<br/>
+
+Voyez si ce que vous voyez graphiquement est compatible avec ce que
+vous aviez compris dans la représentation textuelle. Si nécessaire,
+reprenez le temps de comprendre la représentation textuelle.
+
+<br/>
+<br/>
+
+L'aspect graphique de l'arbre peut être paramétré. Essayez
+(interprétez chaque commande et toutes les valeurs affichées)&nbsp;:
+
+</p>
+
+<ul>
+  <li><kbd>plot (ad.tennis, uniform=T)</kbd></li>
+  <li><kbd>text (ad.tennis, use.n=T, all=T)</kbd></li>
+  <li><kbd>plot (ad.tennis, branch=0)</kbd></li>
+  <li><kbd>plot (ad.tennis, branch=.7)</kbd></li>
+  <li><kbd>text (ad.tennis, use.n=T)</kbd></li>
+  <li><kbd>plot (ad.tennis, branch=.4, uniform=T, compress=T)</kbd></li>
+  <li><kbd>text (ad.tennis, all=T,use.n=T)</kbd></li>
+  <li><kbd>plot (ad.tennis, branch=.2, uniform=T, compress=T, margin=.1)</kbd></li>
+  <li><kbd>text (ad.tennis, all=T, use.n=T, fancy=T)</kbd></li>
+</ul>
+
+<h3>La prédiction de la classe d'une donnée par un arbre de décision</h3>
+
+<p>
+
+La fonction <tt>predict()</tt> utilise un arbre de décision pour
+prédire la classe de nouvelles données. Elle prend en paramètres
+l'arbre et un <i>data frame</i> qui contient les données dont il faut
+prédire la classe. Pour prédire la classe des données du jeu
+d'exemples (avec lesquels on a construit l'arbre de décision), on
+tapera la commande&nbsp;:
+
+</p>
+
+<pre>&gt; predict(ad.tennis, tennis)
+   Non Oui
+1    1   0
+2    1   0
+3    0   1
+4    0   1
+5    0   1
+6    1   0
+7    0   1
+8    1   0
+9    0   1
+10   0   1
+11   0   1
+12   0   1
+13   0   1
+14   1   0</pre>
+
+<p>
+
+Exercice&nbsp;: utilisez l'arbre pour donner une prédiction dans les
+situations suivantes&nbsp;:
+
+</p>
+
+  <pre>        Ciel Température Humidité   Vent
+1 Ensoleillé          30       90 Faible
+2    Couvert          25       70   Fort
+3      Pluie          15       86   Fort</pre>
+
+<p>
+
+Indication&nbsp;: vous avez deux possibilités&nbsp;:
+
+</p>
+
+<ol>
+  <li>mettre ces données dans un fichier dont le format est similaire
+    à <tt>tennum.txt</tt>, puis le chargez dans un <i>data frame</i> et
+    faire la prédiction&nbsp;;</li>
+  <li>créer directement un <i>data frame</i>.</li>
+</ol>
+
+<p>
+
+Il FAUT que vous sachiez faire les deux. Donc, faites-le.
+
+</p>
+
+<h2>Voitures&nbsp;: un exemple un peu plus réaliste</h2>
+
+<p>
+
+On va utiliser ici le jeu de données <tt>car.test.frame</tt>. Affichez
+son contenu. Vous obtiendrez plus de renseignements sur ce jeu de
+données avec la commande <tt>?car.test.frame</tt>.
+
+<br/>
+<br/>
+
+Exercice&nbsp;: construisez un arbre de décision (appelez-le
+<kbd>ad.car</kbd>) à partir de ce jeu de données pour prédire la
+variable <tt>Type</tt> à partir des autres variables (<tt>Price</tt>,
+<tt>Country</tt>, ...). Vous utiliserez les mêmes paramètres que pour
+le tennis (<tt>minsplit=1</tt>).  Que pensez-vous de l'arbre
+obtenu&nbsp;? Comment pourrait-on l'améliorer&nbsp;?
+
+</p>
+
+<h3>Validation croisée, élagage et estimation des erreurs apparente et
+    réelle</h3>
+
+<h4>Élagage</h4>
+
+<p>
+
+Il est possible d'élaguer automatiquement un arbre de décision avec la
+fonction <tt>prune()</tt> (qui veut dire élaguer, en anglais) (ça veut
+dire prune aussi, d'ailleurs). Essayez par exemple, sur l'arbre des
+voitures <tt>prune(arbre, 0.02)</tt>. La valeur passée en paramètre
+(0.02) s'appelle le «&nbsp;complexity parameter&nbsp;». Sa définition
+exacte se trouve dans le document pdf mis en référence. Essayez
+plusieurs valeurs de ce paramètre et observez son effet sur l'arbre
+élagué.
+
+</p>
+
+<h4>Détermination de l'abre optimal</h4>
+
+<p>
+
+La question se pose maintenant de déterminer quel est l'arbre optimal
+(celui qui risque le moins de faire des erreurs de prédiction). Par
+défaut, <kbd>rpart()</kbd> effectue un élagage de l'arbre et une
+validation croisée à 10 plis sur chaque arbre élagué. Les mesures
+effectuées au long de cette procédure sont stockées dans une table
+dénommée la <i>cptable</i>.
+
+<br/>
+<br/>
+
+Supposons que l'arbre de décision construit avec le jeu de données sur
+les voitures soit placé dans <kbd>ad.car</kbd>. La commande
+<kbd>ad.car$cptable</kbd> affiche cette table qui va nous permettre de
+répondre à la question précédente (quel est l'arbre optimal)&nbsp;:
+
+</p>
+
+<pre>&gt; ad.car$cptable
+          CP nsplit  rel error    xerror       xstd
+1 0.28888889      0 1.00000000 1.1333333 0.06146363
+2 0.20000000      1 0.71111111 0.8444444 0.08294973
+3 0.13333333      2 0.51111111 0.7111111 0.08587483
+4 0.04444444      3 0.37777778 0.5333333 0.08432740
+5 0.03333333      5 0.28888889 0.6222222 0.08587483
+6 0.02222222      9 0.15555556 0.5555556 0.08486251
+7 0.01111111     14 0.04444444 0.5111111 0.08369059
+8 0.01000000     18 0.00000000 0.5111111 0.08369059</pre>
+
+<p>
+
+Il est possible que vous n'obteniez pas les mêmes résultats car le
+choix des exemples dans la validation croisée est aléatoire. <tt>rel
+error</tt> mesure l'erreur apparente (erreur
+d'entraînement). <tt>xerror</tt> mesure le taux d'erreur dans la
+validation croisée à 10 plis que l'on considère comme un estimateur
+correct de l'erreur réelle. <tt>xstd</tt> est l'écart-type de l'erreur
+de validation croisée. L'arbre qui nous intéresse est celui qui
+minimise <tt>xerror</tt> + <tt>xstd</tt> (l'erreur moyenne estimée + 1
+écart-type). Si plusieurs arbres minimise cette valeur, on prend
+toujours le plus petit (à performances équivalentes, on choisit le
+plus petit modèle).
+
+</p>
+
+<h4>Les autres arbres</h4>
+
+<p>
+
+L'arbre que vous obtenez par la commande <kbd>rpart()</kbd> correspond à
+la dernière ligne de la cptable&nbsp;: c'est le plus grand. Les lignes
+précédentes correspondent aux différents élagages de cet arbre qui
+produisent des arbres de plus en plus petits, jusqu'à obtenir une
+racine-feuille.
+
+<br/>
+<br/>
+
+Vous pouvez obtenir tous les autres arbres aussi (les 7 autres,
+ici). Pour cela, il faut indiquer le cp dans la fonction
+<kbd>prune()</kbd>. Il faut bien comprendre comment se lit cette table
+et la relation entre valeur de cp et l'arbre élagué
+correspondant&nbsp;:
+
+</p>
+
+<ul>
+  <li>l'arbre le plus élagué (ligne 1 de la cptable) s'obtient pour cp
+    dans l'intervalle ]0.28888889; 1]&nbsp;;<li>
+  <li>le deuxième (un peu moins élagué) (ligne 2 de la cptable)
+    s'obtient pour cp dans l'intervalle ]0.2; 0.28888889]&nbsp;;<li>
+  <li>le troisième (encore un peu moins élagué) (ligne 3 de la cptable)
+    s'obtient pour cp dans l'intervalle ]0.13333333; 0.2]&nbsp;;<li>
+  <li><i>etc</i>.</li>
+</ul>
+
+<p>
+
+Notez bien que la borne inférieure de l'intervalle est exclus&nbsp;:
+la valeur de cp = 0,2 correspond à l'arbre 3, pas au 2.
+
+</p>
+
+<h4>Détermination de la probabilité d'erreur de prédiction d'un arbre
+de décision</h4>
+
+<p>
+
+Vous avez obtenu cet arbre dont nous n'indiquons que le début
+ci-dessous&nbsp;:
+
+</p>
+
+<pre>
+&gt; ad.car
+n= 60
+
+node), split, n, loss, yval, (yprob)
+      * denotes terminal node
+
+  1) root 60 45 Compact (0.25 0.05 0.22 0.22 0.15 0.12)
+    2) Weight>=2567.5 45 30 Compact (0.33 0.067 0.29 0 0.16 0.16)
+      4) Weight< 3127.5 24  9 Compact (0.62 0 0.17 0 0.21 0)
+...
+</pre>
+
+<p>
+
+Les nombres 60 et 45 indiquent respectivement le nombre d'exemples
+avec lesquels l'arbre est construit (60) et le nombre d'exemples mal
+classés par la racine-feuille (45). Réduit à une simple racine,
+l'arbre fait donc une erreur de 45/60.
+
+<br/>
+<br/>
+
+Dans la cptable, les valeurs d'erreur sont normalisées pour en
+simplifier l'interprétation. Cette normalisation consiste à faire en
+sorte que l'erreur apparente de la racine-feuille soit égale à
+1. Clairement, pour cela, R a divisé cette valeur (ainsi que toutes
+les valeurs des colonnes <tt>rel error</tt>, <tt>xerror</tt> et
+<tt>xstd</tt>) par l'erreur de la racine-feuille que l'on a calculé
+juste au-dessus (45/60).
+
+<br/>
+<br/>
+
+Maintenant, on peut calculer l'erreur apparente de chacun des arbres
+construits par <kbd>rpart</kbd> pour les différentes valeurs de
+cp&nbsp;: il suffit de multiplier sa <tt>rel error</tt> par l'erreur
+de la racine-feuille. L'erreur apparente telle qu'on l'a définie en
+cours est l'erreur de l'arbre non élagué (le plus grand, c'est-à-dire
+celui qui correspond à la dernière ligne de la cptable).
+
+</p>
+
+<div class="exercices">
+
+<ul>
+  <li>quelle est la valeur de l'erreur apparente de l'arbre non élagué
+    construit par <kbd>rpart()</kbd>&nbsp;?
+    <br/> 
+    (Évidemment, on
+    peut additionner les mal classés au niveau de chaque feuille de
+    l'arbre&nbsp;: c'est un peu plus pénible, mais cela donne le même
+    résultat.)</li>
+  <li>utilisez ce tableau de valeurs pour déterminer l'arbre
+    élagué optimal.
+    <br/>
+    Pour répondre à cette question, vous pourrez vous aider en traçant la
+    courbe de <tt>rel error</tt> en fonction du nombre de n&oelig;uds,
+    ainsi que la courbe du <tt>xerror</tt>, à l'aide de la fonction
+    <a href="#plotHelp"><kbd>plot()</kbd></a>. Tracez cette courbe en
+    fonction de la valeur de cp, ou en fonction de la valeur de
+    n&oelig;uds dans l'arbre (nombre de n&oelig;uds = nsplit + 1).
+    <br/>
+    Aide&nbsp;: on pourra utiliser les commandes 
+    <a href="#linesHelp"><kbd>lines()</kbd></a> et
+    <a href="#pointsHelp"><kbd>points()</kbd></a> pour cela.
+    <br/>
+    Ayant déterminé la valeur de <i>cp</i> optimale, vous pouvez
+    mettre l'arbre correspondant dans une variable par la commande
+    <kbd>ad.car.optimal &lt;- prune (ad.car, cp=...)</kbd>
+  <li>On peut aussi essayer de prédire un autre attribut qualitatif
+    que le «&nbsp;Type&nbsp;». On peut ainsi tenter de prédire
+    «&nbsp;Country&nbsp;» ou «&nbsp;Reliability&nbsp;».
+    <br/>
+    Construisez des arbres de décision pour ces deux autres attributs
+    comme on l'a fait précédemment pour «&nbsp;Type&nbsp;». Lequel de
+    ces trois attributs est le mieux prédit&nbsp;?
+    <br/>
+Remarque&nbsp;: l'attribut «&nbsp;Reliability&nbsp;» est un attribut
+qualitatif mais sa valeur est un nombre. Dans ce cas, <kbd>rpart</kbd>
+croit que c'est un attribut quantitatif. Aussi, pour répondre
+correctement à la question, il faut d'abord transformer l'attribut
+«&nbsp;Reliability&nbsp;» en un attribut qualitatif, ayant donc des
+valeurs non numériques. Par exemple, vous pourrez remplacer les
+valeurs numériques 1, 2, 3, 4 et 5 par les valeurs «&nbsp;un&nbsp;»,
+«&nbsp;deux&nbsp;», «&nbsp;trois&nbsp;», «&nbsp;quatre&nbsp;» et
+«&nbsp;cinq&nbsp;». (En fait, plutôt que remplacer les valeurs de
+l'attribut, il est autrement plus judicieux d'ajouter un nouvel
+attribut au jeu d'exemples qui contiendrait cette valeur symbolique.)</li>
+
+  <li>On reprend la prédiction du «&nbsp;Type&nbsp;». Parmi les autres
+attributs, on veut déterminer celui qui est le moins important pour
+prédire le type. Pour cela, on va construire des arbres de décision
+utilisant tous les attributs sauf 1. L'attribut manquant qui sera
+associé au meilleur arbre de décision est l'attribut le moins
+important.
+    <ul>
+      <li>déterminez cet attribut le moins important.</li>
+      <li>déterminez cet attribut le plus important.</li>
+    </ul>
+    (Aide&nbsp;: utilisez une boucle.)
+    <ul>
+      <li>Comment vous y prendriez-vous pour déterminer les deux attributs les
+plus importants&nbsp;?</li>
+      <li>Comment vous y prendriez-vous pour déterminer les attributs les plus
+importants&nbsp;? Pensez-vous que vous pourriez mettre en &oelig;uvre
+cette idée dans un cas réel, ou même dans le cas du jeu de données
+<kbd>car.test.frame</kbd>&nbsp;?</li>
+    </ul></li>
+  </ul>
+</div>
+
+<h2>Références</h2>
+
+<ul>
+  <li><a href="http://www.mayo.edu/hsr/techrpt/61.pdf">An Introduction to
+    Recursive Partitioning Using the RPART Routines</a>, T. M. Thernau et E. J.
+    Atkinson, 1997</li>
+  
+</ul>
+
+<h2>Annexes</h2>
+
+<a name="plotHelp"></a>
+<h3>La fonction <kbd>plot()</kbd></h3>
+
+<p>
+
+On indique uniquement les bases de la fonction <kbd>plot()</kbd>. Elle
+permet de faire des graphes de courbes. Supposons que vous tapiez&nbsp;:
+
+</p>
+
+<pre>
+x <- c (1, 3, 2, -5)
+y <- c (0.1, 0.2, 0.9, -0.05)
+plot (x, y)</pre>
+
+<p>
+
+vous obtenez un graphique avec 4 points dont les abscisses sont dans
+le vecteur <kbd>x</kbd>, les ordonnées dans le vecteur
+<kbd>y</kbd>. Plutôt que des vecteurs, ce peut être aussi des colonnes
+(attributs) d'un <i>data frame</i>.
+
+<br/>
+<br/>
+
+Vous pouvez spécifier des légendes et une couleur (verte) pour les points&nbsp;:
+
+</p>
+
+<pre>plot (x, y, main = "graphique de base", xlab = "légende des x", ylab = "légende des y", col = "green")</pre>
+
+<a name="linesHelp"></a>
+<h3>La fonction <kbd>lines()</kbd></h3>
+
+<p>
+
+<kbd>lines()</kbd> permet d'ajouter une ligne brisée sur un graphique
+déjà commencé avec <kbd>plot()</kbd>. Supposons que l'on veuille
+ajouter une ligne bleue qui va du point (-2, 0.2) au point (0, 0.1),
+de là au point (-4, 0.6) et de là, au point (1, 0.5). Je tape les
+commandes suivantes&nbsp;: (en supposant que vous avez tapé au
+préalable les commandes ci-dessus concernant la fonction
+<kbd>plot()</kbd>)
+
+</p>
+
+<pre>
+x.zigzag <- c (-2, 0, -4, 1)
+y.zigzag <- c (0.2, 0.1, 0.6, 0.5)
+lines (x.zigzag, y.zigzag, col = "blue")
+</pre>
+
+<p>
+
+Le paramètre <kbd>lty</kbd> permet de représenter les segments en
+pointillés, ... Par exemple&nbsp;:
+
+</p>
+
+<pre>
+lines (c(-1,1,-3), c (0.1, -0.1, 0.5), col = "green", lty=2)
+</pre>
+
+<p>
+
+La valeur de <kbd>lty</kbd> est un entier compris entre 1 (lignes
+pleines = par défaut) et 6. Faites des essais.
+
+</p>
+
+<a name="pointsHelp"></a>
+<h3>La fonction <kbd>points()</kbd></h3>
+
+<p>
+
+<kbd>points()</kbd> permet d'ajouter des points sur un graphique déjà
+commencé avec <kbd>plot()</kbd>. Supposons que l'on veuille ajouter
+des points rouges en (0, 0), (1, 1) et (-2, 0.5). Je tape les
+commandes suivantes&nbsp;: (en supposant que vous avez tapé au
+préalable les commandes ci-dessus concernant la fonction
+<kbd>plot()</kbd>)
+
+</p>
+
+<pre>
+x.points <- c (0, 1, -2)
+y.points <- c (0, 1, 0.5)
+points (x.points, y.points, col = "red")
+</pre>
+
+<p>
+
+Le paramètre <kbd>pch</kbd> permet de représenter les points de
+différentes manières (disque plein, carré, triangle, ...). Par
+exemple&nbsp;: 
+
+</p>
+
+<pre>
+points (c (0.45, 0.45), c(0.55, 0.65), col = "dark blue", pch = 19)
+</pre>
+
+<p>
+
+affiche les points sous forme de disques (<kbd>pch = 19</kbd>) bleus
+foncés (<kbd>col = "drak blue"</kbd>). La valeur de <kbd>pch</kbd> est
+un entier compris entre 1 (par défaut&nbsp;: un cercle) et 25. Faites
+des essais.
+
+<!--
+<br/>
+<br/>
+
+<a href="http://validator.w3.org/check?uri=referer"><img
+    src="../../../../../img/valid-xhtml10"
+    alt="Valid XHTML 1.0 Transitional" height="15" width="44" /></a>
+
+<a href="http://jigsaw.w3.org/css-validator/check?uri=referer">
+  <img style="border:0;width:44px;height:15px"
+       src="../../../../../img/vcss" 
+       alt="Valid CSS!" /></a>
+ -->
+</p>
+</div>
+
+<!-- Start of StatCounter Code -->
+<script type="text/javascript" language="javascript">
+var sc_project=2030719; 
+var sc_invisible=1; 
+var sc_partition=18; 
+var sc_security="2ee406dd"; 
+</script>
+
+<script type="text/javascript" language="javascript" src="http://www.statcounter.com/counter/counter.js"></script><noscript><a href="http://www.statcounter.com/" target="_blank"><img  src="http://c19.statcounter.com/counter.php?sc_project=2030719&java=0&security=2ee406dd&invisible=0" alt="" border="0"></a> </noscript>
+<!-- End of StatCounter Code -->
+
+</body>
+</html>
