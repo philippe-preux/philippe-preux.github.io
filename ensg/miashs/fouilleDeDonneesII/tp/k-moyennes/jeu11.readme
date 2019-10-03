@@ -1,0 +1,15 @@
+# jeu10 : 5 blobs en 2D + 6 attributs identiques \in {1, 2, 3 }
+# jeu11 : identiques à jeu10 sauf que les 6 attributs sont bruités, mais très facilement séparables.
+
+jeu10 <- read.table ("./jeu10.txt")
+jeu11 <- read.table ("./jeu11.txt")
+
+les.groupes <- rep (1, times = 1000)
+les.groupes [which ((titi$a < .02) & (titi$b < - 0.015))] <- 5
+les.groupes [which ((titi$a < .02) & (titi$b > - 0.015) & (titi$b < .015))] <- 4
+les.groupes [which ((titi$a < .01) & (titi$b > 0.015))] <- 3
+les.groupes [which ((titi$a > .015) & (titi$b > 0.035) & (titi$a < 0.05))] <- 2
+
+# jeu11$cinq.classes <- les.groupes
+# jeu11$trois.classes <- jeu10$e
+

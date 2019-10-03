@@ -1,0 +1,262 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Segmentation par les k-moyennes</title>
+  <link href="../../ma.css" 
+	rel="stylesheet" type="text/css" media="all" />
+</head>
+
+<body>
+<div class="tpR">
+<h1>Segmentation par les k-moyennes</h1>
+
+<p>
+
+L'objectif de ce TD est de manipuler l'algorithme des k-moyennes
+disponible dans R.
+
+</p>
+
+<h2>Les k-moyennes en R</h2>
+
+<h3>La fonction <kbd>kmeans()</kbd></h3>
+
+<p>
+
+L'algorithme des k-moyennes est disponible au travers de la
+fonction <kbd>kmeans()</kbd> de R. L'utilisation en est très
+simple&nbsp;:
+
+</p>
+
+<pre>kmeans (iris [,1:4], 3)
+</pre>
+
+<p>
+
+exécute l'algorithme des k-moyennes sur le jeu de données iris en
+utilisant les quatre attributs longueur et largeur des sépales
+et des pétales, en utilisant 3 centres.
+
+<br/>
+
+À l'issue de son exécution, <kbd>kmeans()</kbd> a associé chaque
+donnée à un groupe&nbsp;; les groupes sont numérotés de 1 à K.
+
+<br/>
+<br/>
+
+<kbd>kmeans()</kbd> fournit une liste d'objets (on sait cela en tapant
+la commande <kbd>help("kmeans")</kbd>&nbsp;:
+
+</p>
+
+<ul>
+  <li><kbd>cluster</kbd>&nbsp;: est un vecteur qui contient le numéro
+    du groupe de chacune des données&nbsp;;</li>
+  <li><kbd>centers</kbd>&nbsp;: spécifie la position des K
+    centres&nbsp;;</li>
+  <li><kbd>withinss</kbd>&nbsp;: est un vecteur de K nombres, chacun
+    valant la somme des distances au carré des éléments du groupe
+    considéré (c'est donc presque la même chose que l'inertie du
+    groupe)&nbsp;;</li>
+  <li><kbd>size</kbd>&nbsp;: est un vecteur indiquant la taille de
+    chacun des groupes.</li>
+</ul>
+
+<p>
+
+On peut exécuter plusieurs segmentations et considérer la meilleure en
+utilisant l'argument <kbd>nstart</kbd>&nbsp;:
+
+</p>
+
+<pre>kmeans (iris [,-5], 3, nstart = 30)
+</pre>
+
+<p>
+
+Par défaut, <kbd>kmeans()</kbd> effectue 10 itérations&nbsp;; cela
+peut être insuffisant pour que l'algorithme converge&nbsp;; dans ce
+cas, le message&nbsp;:
+
+</p>
+
+<pre>
+Warning message:
+did not converge in 10 iterations
+</pre>
+
+<p>
+
+est affiché. On peut augmenter le nombre d'itérations avec le
+paramètre <kbd>iter.max=n</kbd> où <kbd>n</kbd> est le nombre
+d'itérations à effectuer (50 par exemple).
+
+</p>
+
+<h3>Visualisation de la segmentation</h3>
+
+<p>
+
+On peut visualiser le résultat de la segmentation à l'aide de
+couleurs. Ainsi, supposons que vous ayez segmenté en trois segments
+les iris et placé le résultat dans <kbd>iris.3means</kbd>.
+
+</p>
+
+<pre>
+  plot (iris$Petal.Length, iris$Petal.Width)
+</pre>
+
+<p>
+
+représente chacun des iris dans le plan longueur des pétales x largeur
+des pétales.
+
+</p>
+
+<ol>
+  <li>faites en sorte que chaque donnée soit colorée en fonction de sa
+    classe. Vous obtiendrez par exemple&nbsp;:
+    <a name="graphe"> </a> <img src="./iris.png" alt="les iris" /></li>
+  <li>faites en sorte que chaque donnée soit colorée en fonction du
+    groupe dans lequel <kbd>kmeans()</kbd> l'a placé&nbsp;;</li>
+  <li>en utilisant la fonction <kbd>table()</kbd>, faites une table de contingence entre classe des iris et classe
+    trouvée par <kbd>kmeans()</kbd> (matrice de confusion). Qu'en
+    pensez-vous&nbsp;?</li>
+</ol>
+
+<h3>Trouver K optimal</h3>
+
+<p>
+
+On s'intéresse maintenant à trouver le nombre de groupes. Pour cela,
+on va essayer plusieurs valeurs de K qui semblent
+raisonnables. Par exemple, on essaie toutes les valeurs entre 2 et 10.
+
+<br/>
+<br/>
+
+Pour cela, on fera une boucle&nbsp;:
+
+</p>
+
+<pre>
+  for (k in 2:10)
+    ...
+</pre>
+
+<p>
+
+Chacune des segmentations (pour chacune des valeurs de k) est placée
+dans une liste&nbsp;:
+
+</p>
+
+<pre>
+  iris.kmeans <- list()
+  for (k in 2:10)
+    iris.kmeans [[k]] <- kmeans (iris [, -5], k, nstart = 30)
+</pre>
+
+<p>
+
+<kbd>iris.kmeans [[2]]</kbd> contiendra le résultat de
+<kbd>kmeans()</kbd> pour k = 2 (attention, ce sont des doubles
+crochets car <kbd>iris.kmeans</kbd> est une liste, pas un vecteur),
+<kbd>iris.kmeans [[3]]</kbd> contiendra le résultat de
+<kbd>kmeans()</kbd> pour k = 3, ... <kbd>iris.kmeans [[10]]</kbd>
+contiendra le résultat de <kbd>kmeans()</kbd> pour k = 10.
+
+</p>
+
+<ol>
+  <li>calculer l'inertie intraclasse de ces 9 segmentations&nbsp;;</li>
+  <li>faites-en un graphe&nbsp;;</li>
+  <li>quelle segmentation est la meilleure&nbsp;?</li>
+</ol>
+
+<h3>Activités exploratoires</h3>
+
+<div class="exercice">
+<ol>
+  <li>sur les iris, comparez les segmentations à 3 et à 4 groupes
+    (visuellement en utilisant un graphe <a
+    href="./index.html#graphe">comme plus haut</a>, et via leur
+    matrice de confusion).</li>
+  <li>Faites une segmentation des iris en utilisant uniquement les
+    attributs longueur et largeur des pétales. Le résultat est-il le
+    même qu'en utilisant les 4 attributs&nbsp;?</li>
+  <li>
+    <ol>
+      <li>déterminez le nombre de groupes et les groupes dans le jeu de
+      données disponibles à l'url
+      <kbd>https://philippe.preux.github.io/ensg/miashs/fouilleDeDonneesII/tp/k-moyennes/jeu1.txt</kbd>
+      et visualisez la segmentation optimale avec des couleurs.
+      <br/>
+      Pour charger ce jeu de données et les suivants (sauf exception indiquée) dans R, vous utiliserez la commande <kbd>read.table (url, header = T)</kbd>. (Ces fichiers ne sont pas au format CSV.)
+      </li> 
+      <li>mêmes questions pour ce fichier&nbsp;:
+        <kbd>https://philippe.preux.github.io/ensg/miashs/fouilleDeDonneesII/tp/k-moyennes/jeu2.txt</kbd> (dans ce cas, pour la visualisation, ne prendre en compte que les deux premiers attributs)</li> 
+      <li>et celui-là&nbsp;:
+        <kbd>https://philippe.preux.github.io/ensg/miashs/fouilleDeDonneesII/tp/k-moyennes/jeu3.txt</kbd> (même remarque pour la visualisation)</li>
+    </ol></li>
+  <li>on considère le jeu de données disponible à l'url
+    <kbd>https://philippe.preux.github.io/ensg/miashs/fouilleDeDonneesII/tp/k-moyennes/jeu4.txt</kbd>.
+      <br/>
+      Pour charger ce jeu de données, vous utiliserez la commande <kbd>read.table (url)</kbd>.
+    <ol>
+      <li>faites en une segmentation en 3 groupes</li>
+      <li>visualisez le jeu de données (par un <kbd>plot()</kbd> tout
+        simple sur les deux premiers attributs)</li>
+      <li>visualisez le jeu de données en colorant chaque point par
+        une couleur différente en fonction du groupe auquel
+        <kbd>kmeans()</kbd> l'a associé. Qu'en pensez-vous&nbsp;?</li>
+      <li>chercher le K optimal. Faites une représentation graphique
+        de cette segmentation «&nbsp;optimale&nbsp;»&nbsp;; qu'en
+        pensez-vous&nbsp;?</li>
+    </ol>
+  </li>  
+  <li>on considère le jeu de données disponible à l'url
+    <kbd>https://philippe.preux.github.io/ensg/miashs/fouilleDeDonneesII/tp/k-moyennes/jeu5.txt</kbd>.
+      <br/>
+      Pour charger ce jeu de données, vous utiliserez la commande <kbd>read.table (url)</kbd>.
+    <ol>
+      <li>Répondre aux mêmes questions que précédemment.</li>
+      <li>Pensez-vous qu'une transformation des données permettrait à
+        <kbd>kmeans()</kbd> de trouver les groupes attendus&nbsp;?</li>
+      <li>Mettez en &oelig;uvre cette idée.</li>
+    </ol></li>
+  <li>on considère le jeu de données disponible à l'url
+    <kbd>https://philippe.preux.github.io/ensg/miashs/fouilleDeDonneesII/tp/k-moyennes/jeu11.txt</kbd>. 
+    <ol>
+      <li>Visualisez le jeu de données (par un <kbd>plot()</kbd> tout
+        simple sur les deux premiers attributs)</li>
+      <li>Faites des <kbd>kmeans()</kbd> pour k variant de 2 à 10</li>
+      <li>Quel est le k optimal&nbsp;? Faites une représentation graphique
+        de cette segmentation «&nbsp;optimale&nbsp;»&nbsp;; qu'en
+        pensez-vous&nbsp;? <kbd>kmeans()</kbd> fait n'importe quoi ou
+        bien... ?</li>
+    </ol></li>
+</ol>
+</div>
+
+</div>
+
+<!-- Start of StatCounter Code -->
+<script type="text/javascript" language="javascript">
+var sc_project=2030719; 
+var sc_invisible=1; 
+var sc_partition=18; 
+var sc_security="2ee406dd"; 
+</script>
+
+<script type="text/javascript" language="javascript" src="http://www.statcounter.com/counter/counter.js"></script><noscript><a href="http://www.statcounter.com/" target="_blank"><img  src="http://c19.statcounter.com/counter.php?sc_project=2030719&java=0&security=2ee406dd&invisible=0" alt="" border="0"></a> </noscript>
+<!-- End of StatCounter Code -->
+
+</body>
+</html>
