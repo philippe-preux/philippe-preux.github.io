@@ -1,0 +1,354 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Systèmes de recommendation par le contenu</title>
+  <link href="https://philippe.preux.github.io/ma.css" 
+	rel="stylesheet" type="text/css" media="all" />
+  <link rel="shortcut icon" type="image/png"
+	href="https://philippe.preux.github.io/img/site.ico" />
+</head>
+
+<body>
+
+<div class="tpR">
+
+<h1>Systèmes de recommendation par le contenu</h1>
+
+<p>
+
+Ce TP concerne les systèmes de recommendation par le contenu. C'est-à-dire, on dispose d'un ensemble d'items, chaque item est décrit par un certain nombre d'attributs et on veut par exemple trouver les k items qui ressemblent le plus à un item fixé.
+
+<br/>
+<br/>
+
+Table des matières&nbsp;:
+
+</p>
+
+<ul>
+  <li><a href="#load.and.clean">Chargement et pré-traitement des données</a></li>
+  <li><a href="#explore">Exploration visuelle des données</a></li>
+  <li><a href="#recommend">Recommendation</a></li>
+  <li><a href="#ref">Référence bibliographique</a></li>
+</ul>
+
+<h2 id="load.and.clean">Chargement et pré-traitement des données</h2>
+
+<p>
+
+On va s'intéresser à tous les morceaux de musique qui ont été classés parmi les 100 premiers du classement américain (<i>US Billboard Hot 100</i>) de 1960 à 2010.
+
+<br/>
+
+Pour une étude récente <a href="#ref">[1]</a>, des propriétés musicales de la plupart de ces morceaux ont été analysés. Les données résultantes sont disponibles en libre accès.
+
+</p>
+
+<h3 id="load">Accès aux données</h3>
+
+<p>
+
+La source de données est le fichier situé à l'url <kbd>http://figshare.com/articles/Main_Dataset_for_Evolution_of_Popular_Music_USA_1960_2010_/1309953</kbd>.
+
+</p>
+
+<div class="exercice">
+  <ul>
+    <li>Chargez ce fichier dans R.</li>
+    <li>Combien y a-t-il de données&nbsp;?</li>
+    <li>Combien y a-t-il d'attributs par donnée&nbsp;?</li>
+    <li>Quels sont ces attributs&nbsp;? De quels types sont-ils&nbsp;?</li>
+  </ul>
+</div>
+
+<h3 id="clean">Pré-traitement</h3>
+
+<p>
+
+Ce jeu de données contient de nombreuses données, chacune décrite par de nombreux attributs. On a&nbsp;:
+
+</p>
+
+<ul>
+  <li><kbd>recording_id</kbd> est un numéro permettant d'identifier un morceau</li>
+  <li><kbd>artist_name</kbd> est le nom de l'artiste associé à ce morceau.</li>
+  <li><kbd>artist_name_clean</kbd> contient la même information mais nettoyée&nbsp;: si on veut trouver tous les morceaux d'un artiste donné, c'est cet attribut qu'il faut utiliser.</li>
+  <li><kbd>track_name</kbd> est le titre du morceau</li>
+  <li><kbd>first_entry</kbd> est la date d'entrée dans le classement.</li>
+  <li><kbd>quarter</kbd> est le trimestre d'entrée dans le classement.</li>
+  <li><kbd>year</kbd> est l'année d'entrée dans le classement.</li>
+  <li><kbd>cluster</kbd>&nbsp;: les morceaux ont été segmentés automatiquement par genres musicaux. Cet attribut est le numéro de cluster associé à un morceau. Il s'interprête comme suit&nbsp;:
+    <ol>
+      <li>northern soul/soul/hip hop/dance</li>
+      <li>hip hop/rap/gangsta rap/old school</li>
+      <li>easy listening/country/love song/piano</li>
+      <li>funk/blues/jazz/soul</li>
+      <li>rock/pop/new wave</li>
+      <li>female voice/pop/R'n'B/Motown</li>
+      <li>country/classic country/folk/rockability</li>
+      <li>dance/new wave/pop/electronic</li>
+      <li>classic rock/country/rocj/singer-songwriter</li>
+      <li>love song/slow jams/soul/folk</li>
+      <li>funk/blues/dance/blues rock</li>
+      <li>soul/R'n'B/funk/disco</li>
+      <li>rock/hard rock/alternative/classic-rock</li>
+    </ol>
+  <li><kbd>hTopic_01</kbd>..<kbd>hTopic_08</kbd> sont 8 attributs décrivant des caractéristiques harmoniques des morceaux (tonalité, ...).</li>
+  <li><kbd>tTopic_01</kbd>..<kbd>tTopic_08</kbd> sont 8 attributs décrivant le timbre des morceaux (percussion, calme, voix, ...).</li>
+  <li>des tas d'attributs numériques décrivant différents caractéristiques musicales du morceau.</li>
+</ul>
+
+<p>
+
+S'agissant d'un si gros jeu de données, il est vraiment indispensable de passer un peu de temps pour comprendre sa structure. C'est le but des questions qui suivent.
+
+</p>
+
+<div class="exercice">
+  <ul>
+    <li>Regardez quelques données pour comprendre ces différents champs.</li>
+    <li>Recherchez des morceaux que vous connaissez.</li>
+    <li>Recherchez tous les morceaux d'un artiste que vous connaissez.</li>
+  </ul>
+</div>
+
+<p>
+
+Les attributs (numériques) 12 à 269 ont été générés par divers algorithmes à partir des signaux audio de chaque morceau. Ces attributs encodent différents aspects liés au style de musique (rythme, accords, ...).
+
+<br/>
+
+La question que l'on va étudier ci-dessous est&nbsp;: si j'aime tel morceau de musique (présent dans ce jeu de données), quels autres morceaux de musique peut-on me recommender si je veux écouter le même genre de musique&nbsp;?
+
+<!--
+et si on veut des morceaux différents ??
+ -->
+
+</p>
+
+<div class="exercice">
+  <p>
+  Les attributs sont décrits sur la page <i>web</i> d'où vous avez téléchargé le jeu de données. Il est nécessaire de s'assurer que les attributs sont considérés comme il faut par R. Quand on charge des attributs de divers types, il est rare que R interprête toutes les valeurs comme on le voudrait, qu'il distingue bien les chaînes de caractères, des facteurs, des dates, ...
+  <br/>
+  Assurez-vous des points suivant&nbsp;:
+  </p>
+  <ul>
+    <li>l'attribut <kbd>artist_name</kbd> est une chaîne de caractères.</li>
+    <li>l'attribut <kbd>artist_name_clean</kbd> est un attribut nomail (un facteur en R)</li>
+    <li>l'attribut <kbd>track_name</kbd> est une chaîne de caractères.</li>
+    <li>l'attribut <kbd>first_entry</kbd> est une date. Modifiez cet attribut pour que ce soit une véritable date et non une chaîne de caractères qui ressemble à une date.</li>
+    <li>l'attribut <kbd>quarter</kbd> contient l'année et le trimestre. L'année est déjà présente dans le champ <kbd>year</kbd>. Aussi, modifiez cet attribut pour qu'il ne contienne que le numéro du trimestre.</li>
+  </ul>
+</div>
+
+<h2 id="explore">Exploration du jeu de données</h2>
+
+<p>
+
+Avant d'étudier le problème qui nous intéresse ici, il faut toujours commencer par passer un peu de temps à regarder le jeu de données. Cela passe souvent par la réalisation de graphiques, leur observation et leur interprêtation.
+
+</p>
+
+<div class="exercice">
+  <ul>
+    <li>on s'intéresse à la répartition du nombre de morceaux différents par année. Commencez par faire un graphique du nombre de morceaux entrés par année. 
+<a name="g1"></a>
+<!--?php
+  if (htmlspecialchars($_GET["graphique"]) != "1") {
+    echo '<a href="./index.php?graphique=1#g1"><font size="-2">(Cliquez ici pour afficher le graphique attendu.)</font></a>';
+  } else {
+    echo '<br/><img src="./nombre.d.entrées.par.année.png" width="300" />';
+  }
+?-->
+      <br/>
+      Un autre moyen pour la visualiser est de réaliser un histogramme.
+      Faites un histogramme de l'attribut <kbd>year</kbd>&nbsp;; qu'observez-vous&nbsp;? Comment interprêtez-vous cela&nbsp;?</li>
+    <li>Y a-t-il des mois pendant lesquels il y a systématiquement plus, ou moins, d'entrées dans le classement&nbsp;? Cela évolue-t-il au cours du temps&nbsp;?</li>
+    <li>Même question pour les trimestres.</li>
+  </ul>
+</div>
+
+<div class="exercice">
+  <ul>
+    <li>On s'intéresse à l'évolution de la popularité des genres musicaux. Pour cela, on va faire des graphiques représentation le nombre de morceaux d'un genre donné (caractérisé par l'attribut <kbd>cluster</kbd>) au fil du temps.
+      <br/>
+      Faire un tel graphe en comptant le nombre de morceaux du cluster 1 (par exemple, prenez le cluster qui vous plaît) présent dans le classement durant chaque année.</li>
+      <li>Faites de même pour chaque trimestre.</li>
+      <li>Faites ce graphique pour les 13 clusters en associant une couleur différente à chaque cluster. Examinez ce graphique quant à l'évolution des genres les plus populaires au fil des années.
+<a name="g4"></a>
+<!--?php
+  if (htmlspecialchars($_GET["graphique"]) != "4") {
+    echo '<a href="./index.php?graphique=4#g4"><font size="-2">(Cliquez ici pour afficher le graphique attendu.)</font></a>';
+  } else {
+    echo '<br/><img src="./Nb-entrées-par-genre.png" width="300" />';
+  }
+?-->
+</li>
+  </ul>
+</div>
+
+<div class="exercice">
+  <ul>
+    <li>On va s'intéresser à la popularité des artistes. Pour cela, pour chaque artiste, on compte le nombre de morceaux qu'il a eu dans les classements.
+      <br/>
+      Quel est l'artiste qui a eu le plus de morceaux dans ce classement&nbsp;?
+      <br/>
+      Quels sont les artistes qui ont eu plus de 30 morceaux dans ce classement&nbsp;?
+      </li>
+    <li>Calculez le nombre d'artistes ayant eu n morceaux dans ce classement, pour n variant de 1 à la valeur maximale trouvée à la question précédente. Appelons <kbd>decompte</kbd> le vecteur dont le i-ème élément contient le nombre d'atrtistes ayant eu i morceaux dans ce classement.</li>
+    <li>Faites un plot de <kbd>decompte</kbd>.
+<a name="g2"></a>
+<!--?php
+  if (htmlspecialchars($_GET["graphique"]) != "2") {
+    echo '<a href="./index.php?graphique=2#g2"><font size="-2">(Cliquez ici pour afficher le graphique attendu.)</font></a>';
+  } else {
+    echo '<br/><img src="./nombre.d.artistes.ayant.eu.un.certain.nombre.de.morceaux.dans.le.bb100.png" width="300" />';
+  }
+?-->
+</li>
+    <li>Faites un plot log-log, c'est-à-dire qu'en abscisses et en ordonnées, vous mettez le log de la quantité que vous avez mise dans le plot précédent. Vous devez obtenir une figure assez remarquable.
+<a name="g3"></a>
+<!--?php
+  if (htmlspecialchars($_GET["graphique"]) != "3") {
+    echo '<a href="./index.php?graphique=3#g3"><font size="-2">(Cliquez ici pour afficher le graphique attendu.)</font></a>';
+  } else {
+    echo '<br/><img src="./log.log.nombre.d.artistes.ayant.eu.un.certain.nombre.de.morceaux.dans.le.bb100.png" width="300" />';
+  }
+?-->
+</li>
+  </ul>
+</div>
+
+<h2 id="recommend">Recommendation</h2>
+
+<p>
+
+Décrit par plus de 250 attributs numériques, chaque morceau de musique peut être vu comme un point dans un espace géométrique ayant plus de 250 dimensions.
+<br/>
+Dans cet espace, on peut considérer la distance euclidienne et déterminer les points/items les plus proches d'un item donné.
+
+</p>
+
+<div class="exercice">
+  <ol>
+    <li>Avant d'aborder la recommendation, on s'intéresse d'abord à la distance séparant un morceau des autres morceaux. Pour un morceau donné, on va calculer sa distance à chacun des autres. On peut faire cela à l'aide d'une boucle. Vu le nombre de données, c'est assez long de calculer cette distance à chacun des autres morceaux. C'est un très bon exercice de le faire&nbsp;; ne soyez pas surpris par le temps que prend le calcul. Vous prendrez une donnée quelconque (numéro i) et vous calculez sa distance à toutes les autres données. Vous utilisez les attributs numérotés 12 à 269 qui sont tous numériques.</li>
+    <li>On va plutôt utiliser une fonction qui fait ce calcul de manière très efficace. Pour cela, il faut installer un paquet dénommé <kbd>FNN</kbd>. Faites&nbsp;:
+<pre>install.packages ("FNN")</pre>
+    Une fois installé, vous devrez le charger pour pouvoir utiliser la fonction <kbd>knn()</kbd> qui y est définie.
+    <br/>
+    <kbd>knn()</kbd> détermine la classe d'une donnée à partir de celle de ses k plus proches voisins. Pour cela, <kbd>knn()</kbd> calcule la distance entre 1 point et tous les autres. C'est cela qui nous intéresse ici&nbsp;; on ne veut pas déterminer la classe d'une donnée, mais juste calculer ces distances.
+     <br/>
+     L'utilisation de <kbd>knn()</kbd> est très simple&nbsp;:
+<pre>> distance.a.toutes.les.donnees <- knn (toutes.les.données, la.donnée.qui.nous.intéresse, factor (c (rep (0, nrow (toutes.les.données)))), k = nrow (toutes.les.données))</pre>
+     Cela renvoie un objet qui contient différentes informations. En particulier, <kbd>attr (distance.a.toutes.les.donnees, "nn.dist")</kbd> contient la distance entre chacune des données contenue dans <kbd>toutes.les.données</kbd> et <kbd>la.donnée.qui.nous.intéresse</kbd>. Vous pouvez en faire un histogramme. Ça doit vous donner quelque chose qui ressemble à ça&nbsp;:
+      <br/>
+      <img src="./distance.a.23.png" width="300" />
+      <img src="./distance.a.2307.png" width="300" />
+      <img src="./distance.a.500.png" width="300" />
+      <img src="./distance.a.10001.png" width="300" />
+      <br/>
+      Qu'en pensez-vous&nbsp;? Pensez-vous que ces distributions soient normales&nbsp;?
+    </li>
+  </ol>
+</div>
+
+</p>
+
+<h3 id="knn">Les k plus proches voisins</h3>
+
+<p>
+
+Pour déterminer les k plus proches voisins, on spécifie simplement la valeur du paramètre <kbd>k</kbd> dans l'appel à <kbd>knn()</kbd>. Précédemment, on avait spécifié le nombre de données pour obtenir la distance à toutes les données.
+
+<br/>
+
+Par exemple, pour les 10 plus proches voisins, on aurait&nbsp;:
+
+</p>
+
+<pre>> k.plus.proches.voisins <- knn (toutes.les.données, la.donnée.qui.nous.intéresse, factor (c (rep (0, nrow (toutes.les.données)))), k = 10)</pre>
+
+<p>
+
+Ensuite,
+
+</p>
+
+<pre>> attr (k.plus.proches.voisins, "nn.index")
+</pre>
+
+<p>
+
+fournit l'indice des k plus proches voisins.
+
+</p>
+
+<h3 id="reco">Sélection d'items</h3>
+
+<p>
+
+Si l'on veut recommender des morceaux à quelqu'un qui aime un morceau en particlier, il suffit de rechercher ce morceau dans les données, de déterminer ces plus proches et de les proposer.
+
+</p>
+
+<div class="exercice">
+  <ol>
+    <li>Recherchez des morceaux que vous connaissez qui se trouvent dans le jeu de données.</li>
+    <li>Pour chacun, déterminez ces 5 plus proches voisins. Cette sélection vous statisfait-elle&nbsp;?</li>
+  </ol>
+</div>
+
+<p>
+
+En réalité, en général, on dispose d'une liste de morceaux qui ont été écoutés.
+
+</p>
+
+<div class="exercice">
+  <p>
+    Cette question n'est pas facile. Elle nécessite de la réflexion...
+    <br/>
+    Vous disposez d'une liste d'écoute d'un utilisateur. Quels items recommendez-vous à partir de cette liste&nbsp;?
+    <br/>
+    Pour donner quelques exemples, voici quelques listes d'écoutes deplusieurs utilisateurs. Quelles recommendations faites-vous&nbsp;?
+  </p>
+  <ul>
+    <li>c (140, 315, 319, 454)</li> <!-- genesis -->
+    <li>c (319, 147, 9376, 1842, 153)</li> <!-- genesis, britney spears, yes, zz top, dire straits -->
+    <li>c (16333, 16164, 14925, 3319)</li> <!-- hard : acdc, elo, metallica, deep purple-->
+    <li>c (140, 315, 319, 454, 1021, 10179, 16261, 269, 504, 9153)</li> <!-- genesis, pink floyd, yes -->
+  </ul>
+</div>
+
+<!--h3 id="tags">Enrichissement des données avec des tags</h3>
+
+<p>
+
+</p-->
+
+<h2 id="ref">Référence</h2>
+
+<p id="ref"/>
+<a href="http://dx.doi.org/10.1098/rsos.150081">[1] Mauch M., MacCallum RM, Levy M, Leroi AM. 2015 The evolution of popular music USA 1960-2010. R.Soc. open sci. <b>2</b>:150081.</a>
+
+</p>
+
+</div>
+
+
+<!-- Start of StatCounter Code -->
+<script type="text/javascript" language="javascript">
+var sc_project=2030719; 
+var sc_invisible=1; 
+var sc_partition=18; 
+var sc_security="2ee406dd"; 
+</script>
+
+<script type="text/javascript" language="javascript" src="http://www.statcounter.com/counter/counter.js"></script><noscript><a href="http://www.statcounter.com/" target="_blank"><img  src="http://c19.statcounter.com/counter.php?sc_project=2030719&java=0&security=2ee406dd&invisible=0" alt="" border="0"></a> </noscript>
+<!-- End of StatCounter Code -->
+
+</body>
+</html>
