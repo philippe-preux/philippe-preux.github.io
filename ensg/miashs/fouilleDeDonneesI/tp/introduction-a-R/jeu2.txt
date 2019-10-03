@@ -1,0 +1,8 @@
+p1-palmitic oleic l1-linoleic arachidic eicosenoic
+ 1075 7823 672 60 un-peu
+ 1088 7709 781 61 NA
+ 911 NA 549 63 un-peu
+ 966 7952 619 78 moyen
+ 1051 7771 672 NA beaucoup
+ 911 NA 678 70 pas-mal
+ 922 7990 618 56 un-peu
