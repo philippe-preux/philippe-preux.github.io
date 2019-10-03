@@ -1,0 +1,357 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Segmentation hiérarchique ascendante</title>
+  <link href="../../ma.css" 
+	rel="stylesheet" type="text/css" media="all" />
+</head>
+
+<body>
+<div class="tpR">
+<h1>Segmentation hiérarchique ascendante</h1>
+
+<p>
+
+L'objectif de ce TD est de manipuler l'algorithme de segmentation
+hiérarchique ascendante disponible dans R.
+
+</p>
+
+<h2>La segmentation hiérarchique ascendante dans R</h2>
+
+<h3>La fonction <kbd>hclust()</kbd></h3>
+
+<p>
+
+L'algorithme de segmentation hiérarchique ascendante est disponible au
+travers de la fonction <kbd>hclust()</kbd> de R. Elle s'applique non
+pas à un jeu de données, mais à une matrice de distance. On peut
+facilement obtenir cette matrice pour un <i>data frame</i> à l'aide de
+la fonction <kbd>dist()</kbd> qui calcule la distance euclidienne
+entre chaque paire de données du <i>data frame</i>&nbsp;:
+
+</p>
+
+<pre>hclust (dist (iris [,1:4]))
+</pre>
+
+<p>
+
+exécute l'algorithme de segmentation hiérarchique sur le jeu de
+données iris en utilisant les quatre attributs longueur et largeur des
+spéales et des pétales.
+
+<br/>
+
+À l'issue de son exécution, <kbd>hclust()</kbd> a construit un dendrogramme.
+
+<h3>Visualisation de la segmentation</h3>
+
+<p>
+
+On peut visualiser le dendrogramme à l'aide de la fonction
+<kbd>plot()</kbd>.  Ainsi, supposons que vous ayez placé le résultat
+de <kbd>hclust()</kbd> dans <kbd>iris.hclust</kbd>.
+
+</p>
+
+<pre>
+  plot (iris.hclust)
+</pre>
+
+<p>
+
+produit&nbsp;:
+
+<br/>
+
+<img src="./iris.hclust.png" alt="iris.hclust" />
+
+<br/>
+
+où chaque feuille du dendrogramme est étiquetée par le numéro d'une
+donnée.
+
+</p>
+
+<h3>Découpe du dendrogramme</h3>
+
+<p>
+
+Plusieurs méthodes sont possibles pour découper le dendrogramme et
+obtenir une segmentation en K groupes, K étant fixé.
+
+</p>
+
+<h4>cutree</h4>
+
+<p>
+
+D'une segmentation hiérarchique, on peut obtenir autant de groupes (de
+1 à N) que l'on veut en découpant l'arbre au nouveau adéquat. Cela se
+fait avec la fonction <kbd>cutree</kbd> comme cela&nbsp;: pour obtenir
+3 groupes à partir de la segmentation hiérarchique précédente, on tape
+la commande <kbd>cutree (iris.hclust, 3)</kbd>.
+
+<br/>
+<br/>
+
+Cette commande fournit un vecteur de N entiers&nbsp;: l'élément i
+indique le groupe de la donnée i&nbsp;; les groupes sont numérotés de
+1 à K.
+
+</p>
+
+<h4>Visualisation de la découpe</h4>
+
+<p>
+
+La fonction <kbd>rect.hclust()</kbd> fait la même chose que
+<kbd>cutree()</kbd>, mais le fait visuellement. Ainsi&nbsp;:
+
+</p>
+
+<pre>
+  rect.hclust (iris.hclust, 5)
+</pre>
+
+<p>
+
+met en évidence les 5 groupes (faites-le&nbsp;!) du dendrogramme
+(remarque&nbsp;: il faut avoir fait un <kbd>plot (iris.hclust)</kbd>
+auparavant).
+
+<br/>
+<br/>
+
+On peut aussi spécifier la couleur des bordures&nbsp;:
+
+</p>
+
+<pre>
+  rect.hclust (iris.hclust, 5,
+               border = c ("blue", "green", "red", "pink", "black"))
+</pre>
+
+<p>
+
+et on peut aussi n'entourer que certains des groupes, par exemple le
+deuxième et le cinquième&nbsp;:
+
+</p>
+
+<pre>
+  rect.hclust (iris.hclust, 5, which = c (2, 5))
+</pre>
+
+<p>
+
+De plus, si l'on affecte le résultat à un objet en tapant&nbsp;:
+
+</p>
+
+<pre>
+  iris.hclust.5.2 <- rect.hclust (iris.hclust, 5, which = c (2, 5))
+</pre>
+
+<p>
+
+<kbd>iris.hclust.5.2</kbd> est une liste contenant 2 éléments (autant
+que de groupes) et chaque élément de la liste contient la liste des
+numéros des données de ce groupe.
+
+</p>
+
+<div class="exercice">
+
+  <p>
+
+  Comment faites-vous pour connaître le centre de gravité de chacun
+  des 5 groupes (de la manière la plus simple qui soit)&nbsp;?
+
+  </p>
+
+  <div class="correction">
+    <p>
+      On calcule d'abord la segmentation&nbsp;: <code>iris.hclust.5 <- rect.hclust (iris.hclust, 5)</code>
+      <br/>
+      <code>iris.hclust.5</code> contient 5 listes d'indices correspondant aux indices des éléments des 5 groupes.
+      <br/>
+      Il suffit ensuite de calculer la moyenne des attributs pour chacun des 5 groupes. Pour le groupe 2 et l'attribut 4, on peut écrire&nbsp;: <code>mean (iris [iris.hclust.5 [[2]], 4])</code>.
+      <br/>
+      Pour tous les groupes et tous les attributs, on peut utiliser une double boucle&nbsp;:      
+    </p>
+<pre><code>
+centres <- matrix (0, nrow = 5, ncol = ncol (iris))
+for (i in 1:5) {
+  for (j in 1:4) {
+    centres [i, j] <- mean (iris [iris.hclust.5 [[i]], j])
+  }
+}
+</code></pre>
+    <p>
+      <code>centres</code> contient ensuite les coordonnées des 5 centres.
+    </p>
+  </div>
+
+</div>
+
+<h4>Découpe à la demande</h4>
+
+<p>
+
+On peut aussi afficher le dendrogramme et indiquer à la souris où (les
+segments verticaux) on veut couper. On utilsie pour cela la fonction
+<kbd>identify</kbd>. Tapez&nbsp;:
+
+</p>
+
+<pre>
+  plot (iris.hclust)
+  identify (iris.hclust)
+</pre>
+
+<p>
+
+Vous pouvez alors cliquer avec le bouton gauche de la souris sur les
+segments verticaux au niveau desquels vous voulez découper le
+dendrogramme. Faites 4 découpes (par exemple). Quand vous avez
+terminé, cliquez avec le bouton droit (tout cela dans la fenêtre
+graphique).
+
+<br/>
+<br/>
+
+À nouveau, vous pouvez récupérer la composition de chacun des groupes
+en affectant le résultat de la fonction <kbd>identify</jbd> à un
+objet&nbsp;:
+
+</p>
+
+<pre>
+  plot (iris.hclust)
+  iris.hclust.id <- identify (iris.hclust)
+</pre>
+
+<p>
+
+Comme avec <kbd>rect.hclust()</kbd>, <kbd>iris.hclust.id</kbd> est une
+liste dans laquelle chaque élément correspond à un groupe et contient
+la liste des numéros des données de ce groupe.
+
+</p>
+
+<h3>Activité exploratoire</h3>
+
+<div class="exercice">
+  <ol>
+    <li>faites une segmentation hiérarchique des iris
+<div class="correction">
+<pre><code>iris.hclust <- hclust (dist (iris [,1:4]))
+</code></pre>
+</div>
+</li>
+    <li>obtenez une segmentation en 3 groupes
+<div class="correction">
+<pre><code>iris.hclust.3 <- rect.hclust (iris.hclust, 3)
+</code></pre>
+</div>
+</li>
+    <li>faites un graphique représentant les iris colorés en fonction de
+      leur groupe
+<div class="correction">
+<pre><code>couleurs <- rep ("black", times = nrow (iris))
+couleurs [iris.hclust.3 [[2]]] <- "red"
+couleurs [iris.hclust.3 [[3]]] <- "green"
+plot (iris [,1:2], col = couleurs)
+</code></pre>
+</div>
+</li>
+    <li>Comparez la segmentation à 3 groupes obtenue par segmentation 
+      hiérarchique avec celle obtenue par les centres mobiles
+      (visuellement et via leur matrice de confusion).
+<div class="correction">
+<pre><code>km3 <- kmeans (iris [,1:4], centers = 3, nstart = 30, iter.max = 50)
+iris.hclust.cluster <- rep (1, times = nrow (iris))
+iris.hclust.cluster [iris.hclust.3 [[2]]] <- 2
+iris.hclust.cluster [iris.hclust.3 [[3]]] <- 3
+table (iris.hclust.cluster, km3$cluster)
+</code></pre>
+</div>
+</li>
+    <li>mêmes questions pour une segmentation en 4 groupes.</li>
+  </ol>
+</div>
+<div class="exercice">
+  <ul>
+      <li>on reprend le jeu de données disponibles à l'url
+      <kbd>https://philippe.preux.github.io/ensg/miashs/fouilleDeDonneesII/tp/k-moyennes/jeu1.txt</kbd>&nbsp;;
+      les groupes sont-ils bien trouvées par une segmentation
+      hiérarchique&nbsp;?</li> 
+      <li>même question pour le fichier&nbsp;:
+        <kbd>https://philippe.preux.github.io/ensg/miashs/fouilleDeDonneesII/tp/k-moyennes/jeu2.txt</kbd></li> 
+      <li>et celui-là&nbsp;:
+        <kbd>https://philippe.preux.github.io/ensg/miashs/fouilleDeDonneesII/tp/k-moyennes/jeu3.txt</kbd></li>
+    </ul>
+</div>
+<div class="exercice">
+<ul>
+  <li>on considère le jeu de données disponible à l'url
+    <kbd>https://philippe.preux.github.io/ensg/miashs/fouilleDeDonneesII/tp/k-moyennes/jeu4.txt</kbd>
+    <ol>
+      <li>faites en une segmentation hiérarchique et découpez-là en 3
+        groupes</li> 
+      <li>visualisez le jeu de données (par un <kbd>plot()</kbd> tout
+        simple)</li>
+      <li>visualisez le jeu de données en colorant chaque point par
+        une couleur différente en fonction du groupe. Qu'en
+        pensez-vous&nbsp;?</li>
+    </ol>
+  </li>  
+</ul>
+</div>
+<div class="exercice">
+<ul>
+  <li>on considère le jeu de données disponible à l'url
+    <kbd>https://philippe.preux.github.io/ensg/miashs/fouilleDeDonneesII/tp/k-moyennes/jeu5.txt</kbd>. 
+    <ol>
+      <li>Répondre aux mêmes questions que précédemment.</li>
+      <li>Pensez-vous qu'une transformation des données permettrait de
+        trouver les groupes attendus&nbsp;?</li>
+      <li>Mettez en &oelig;uvre cette idée.</li>
+    </ol></li>
+  <!-- et maintenant, une bonne idée d'exercice de Jérémie Mary 
+    -->
+</ul>
+</div>
+<div class="exercice">
+<ul>
+  <li>que se passe-t-il si on segmente des données qui ne sont pas segmentables&nbsp;? Comme beaucoup d'algorithmes, les algorithmes de segmentation hiérarchique produisent un résultat, que celui-ci ait un sens ou pas, à l'expert humain (vous donc) de faire le tri.
+    <ol>
+      <li>générer un jeu de 500 données en deux dimensiosn, dans l'intervalle [-1;1]x[-1;1] et le mettre dans un <i>data.frame</i></li>
+      <li>en faire une segmentation hiérarchique</li>
+      <li>observer le résultat. Que constatez-vous&nbsp;?</li>
+    </ol></li>
+  <!-- et une autre bonne idée d'exercice de Jérémie Mary : comparer l'impact de la mesure de dissimilarité entre deux groupes (+ proches, + éloignés, distance entre les centroïdes, ...)
+    -->
+</ul>
+</div>
+
+</div>
+
+<!-- Start of StatCounter Code -->
+<script type="text/javascript" language="javascript">
+var sc_project=2030719; 
+var sc_invisible=1; 
+var sc_partition=18; 
+var sc_security="2ee406dd"; 
+</script>
+
+<script type="text/javascript" language="javascript" src="http://www.statcounter.com/counter/counter.js"></script><noscript><a href="http://www.statcounter.com/" target="_blank"><img  src="http://c19.statcounter.com/counter.php?sc_project=2030719&java=0&security=2ee406dd&invisible=0" alt="" border="0"></a> </noscript>
+<!-- End of StatCounter Code -->
+
+</body>
+</html>
