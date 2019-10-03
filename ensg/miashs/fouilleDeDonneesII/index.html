@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<head>
+  <title>Fouille de données II&nbsp;: classification non supervisée
+    master MIASHS, Université de Lille 3</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+  <link rel="stylesheet" type="text/css"
+    href="./ma.css"
+    media="all" />
+</head>
+
+<body vlink="#551A8B">
+
+<div class="ensg">
+<div class="titreDuModule">
+  Classification non supervisée de données
+</div>
+<div class="formation">
+  Master 
+  <acronym 
+    title="Mathématiques et Informatique Appliqués aux Sciences Humaines et Sociales">MIASHS
+  </acronym>,
+  Tronc commun<br/>
+  Université de Lille 3<br/>
+  Semestre 1
+</div>
+
+<ul>
+  <li><a href="#obj">Objectifs de ce module</a></li>
+  <li><a href="#plan">Plan du cours</a></li>
+  <li><a href="#cc">Contrôle de connaissances</a></li>
+  <li><a href="#tps">Les sujets de TPs</a></li>
+  <li><a href="#ref">Références et liens</a></li>
+</ul>
+
+<p>
+
+Ce module est composé de 6 séances de cours de 2 heures chacune et de
+6 séances de TD/TP de 2 heures également.
+
+</p>
+
+<a name="obj"></a>
+<h3>Objectifs de ce module</h3>
+
+<p>
+
+Présenter le champ de la classification non supervisée de données qui
+est un élément de la fouille de données.
+
+<br/>
+<br/>
+
+Cette UE fait suite à l'<a href="../fouilleDeDonneesI">UE du semestre
+1 concernant la classification supervisée</a> et sera suivie par l'<a
+href="../fouilleDeDonneesIII">UE intitulée «&nbsp;projet de fouille de
+données&nbsp;»</a> du semestre 3. Ces UE forment un ensemble cohérent
+et complémentaire avec les UE de bases de données et d'entrepôts de
+données.
+
+</p>
+
+<a name="plan"></a>
+<h3>Plan du cours</h3>
+
+<ul>
+  <li>introduction&nbsp;: qu'est ce que la classification non supervisée, 
+    la segmentation de données&nbsp;?</li>
+  <li>segmentation non hiérarchique&nbsp;: k-moyennes, k-médianes&nbsp;;</li>
+  <li>segmentation hiérarchique&nbsp;;</li>
+<!--
+  <li>estimation de densité pour la segmentation de données&nbsp;;</li>
+  <li>méthode de réduction de dimensionnalité&nbsp;;</li>
+ -->
+</ul> 
+ 
+<a name="cc"></a>
+<h3>Contrôle de connaissances</h3>
+
+<p>
+
+Deux éléments&nbsp;:
+
+</p>
+
+<ul>
+  <li>1 épreuve de contrôle continu en TD/TP le 19 février&nbsp;: <a
+    href="./cc-mass.correction.pdf">une correction possible pour les
+    MASS</a></li>
+  <li>contrôle terminal&nbsp;:
+    <ul>
+      <li>session 1&nbsp;: le 2 mai 2007&nbsp;: porte 
+        sur l'<b>ensemble</b> du cours. <a
+        href="./session1.correction.pdf">Une correction possible de
+        l'épreuve est disponible ici</a>&nbsp;;</li>
+      <li>session 2&nbsp;: le 18 juin 2007 de 10h à 12h, salle M7.</li>
+    </ul></li>
+</ul>
+
+<p>
+
+Tous les documents en papier sont autorisés&nbsp;; calculatrice
+généralement très utile.
+
+</p>
+
+<a name="tps"></a>
+<h3>TP</h3>
+
+<p>
+
+Les TP consistent à mettre en &oelig;uvre les idées présentées en
+cours. Ils sont réalisés en R.
+
+</p>
+
+<ul>
+  <li><a href="./tp/k-moyennes/index.html">segmentation de données par les k-moyennes</a>&nbsp;;</li>
+  <li><a href="./tp/segmentation-hierarchique/index.html">segmentation hiérarchique ascendante de données</a>&nbsp;;</li>
+  <li><a href="./tp/k-medianes/index.html">segmentation par les k-médianes</a>&nbsp;;</li>
+  <li><a href="./tp/exploration-visuelle/index.html">exploration visuelle des données</a> (<b>à faire en autonomie</b>).</li>
+<!--
+  <li>segmentation par estimation de densité&nbsp;;</li>
+  <li>réduction de dimensionnalité&nbsp;;</li>
+  <li>exploration visuelle interactives des données avec ggobi.</li>
+ -->
+</ul>
+
+<a name="ref"></a>
+<h3>Quelques références et liens</h3>
+
+<ul>
+  <li>Ph. Preux, <a
+    href="https://philippe.preux.github.io/fouille"><i>Notes
+      de cours de fouille de données</i></a>&nbsp;: 
+    <font size="+2" color="#ff0000">tout</font> le cours de master MIASHS</li>
+  <li>F. Denis, R. Gilleron, <a
+    href="http://www.grappa.univ-lille3.fr/polys/apprentissage/">
+    <i>Apprentissage à partir d'exemples</i></a></li>
+  <li>R. Gilleron, M. Tommasi,  <a
+    href="http://www.grappa.univ-lille3.fr/polys/fouille/">
+    <i>Découverte de connaissances à partir de données</i></a></li>
+  <li>J. Han, M. Kamber, <i>Data mining, concepts and techniques</i>, Morgan
+    Kaufmann, 2001</li>
+  <li>O. Zaïane, <a
+    href="http://www.cs.ualberta.ca/~zaiane/courses/cmput690/">
+    <i>Principles of Knowledge Discovery in
+    databases</i></a> (transparents du cours basés sur le livre de Han
+    et Kamber)</li>
+  <li><a href="http://www.thearling.com/index.htm">un site intéressant</a></li>
+</ul>
+
+<p>
+
+<font size="-1">
+  <a href="https://philippe.preux.github.io">Retour à ma page web.</a>
+</font>
+
+</p>
+</div>
+</body>
+</html>
