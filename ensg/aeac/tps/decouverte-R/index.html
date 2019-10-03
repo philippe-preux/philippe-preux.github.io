@@ -1,0 +1,1230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Découverte de R</title>
+  <link href="https://philippe.preux.github.io/ma.css" 
+	rel="stylesheet" type="text/css" media="all" />
+  <link rel="shortcut icon" type="image/x-icon" 
+	href="https://philippe.preux.github.io/img/site.ico" />
+</head>
+
+<body>
+
+<div class="tpR">
+
+<h1>Découverte de R</h1>
+
+<p>
+
+L'objectif de ce TD est de vous familiariser avec un outil propice à
+expérimenter des idées dans le cadre du cours de modélisation du
+comportement. Cet outil est <a href="http://www.r-project.org/">R</a>,
+un environnement libre pour les statistiques, mais en réalité bien
+plus que cela.
+
+<br/>
+<br/>
+
+Ce TP est réalisé sous Linux/Ubuntu. Sachez néanmoins que R fonctionne
+sous Linux, Windows et MacOS d'une manière générale. Nous recommendons
+néanmoins son utilisation sous Linux comme étant la plus fiable de
+toute.
+
+</p>
+
+<h2>R&nbsp;: une calculatrice</h2>
+
+<h3>Calculs élémentaires</h3>
+
+<p>
+
+L'utilisation la plus simple de R est de l'utiliser comme une
+«&nbsp;simple&nbsp;» calculatrice. On verra que c'est en fait une
+calculatrice très sophistiquée.
+
+<br/>
+<br/>
+
+Par exemple, tapez la commande suivante (tous les exemples doivent
+être tapés&nbsp;; le symbole &gt; indique qu'il s'agît d'une commande
+R&nbsp;: vous ne devez pas le taper, il est déjà affiché à l'écran)&nbsp;:
+
+</p>
+
+  <pre>&gt; 2+3</pre>
+
+<p>
+
+R vous répond immédiatement&nbsp;:
+
+</p>
+
+  <pre>[1] 5</pre>
+
+<p>
+
+Si on laisse de côté le <kbd>[1]</kbd> qui sera expliqué plus loin, on
+obtient bien le résultat attendu.
+
+<br/>
+<br/>
+
+Naturellement, tous les opérateurs habituels sont disponibles, ainsi
+que les fonctions logarithmiques, trigonométriques, et bien d'autres.
+
+<br/>
+<br/>
+
+On peut affecter le résultat d'un calcul à une variable. Une variable
+est une entité qui porte un nom et qui contient une valeur. Par
+exemple, si on tape&nbsp;:
+
+</p>
+
+<pre>&gt; a &lt;- 2 * sqrt (5) + pi</pre>
+
+<p>
+
+R n'affiche rien, mais il a&nbsp;:
+
+</p>
+
+<ul>
+  <li>calculé la valeur de l'expression 
+    <kbd>2 * sqrt (5) + pi</kbd>&nbsp;;</li>
+  <li>affecté cette valeur à une variable dont le nom est <kbd>a</kbd>.</li>
+</ul>
+
+<p>
+
+L'affectation se fait donc par l'opérateur <kbd>&lt;-</kbd>. À sa
+gauche, on indique le nom de la variable à laquelle il faut affecter
+la valeur qui se trouve à sa droite.
+
+<span class="detail">En passant, vous aurez noter l'utilisation de
+<kbd>pi</kbd> pour obtenir la valeur de &pi;. <kbd>pi</kbd> est une
+variable pré-définie dans R dont la valeur est celle de &pi;.</span>
+
+<br/>
+<br/>
+
+On peut afficher la valeur d'une variable en tapant simplement son
+nom&nbsp;:
+
+</p>
+
+<pre>a
+[1] 7.613729
+</pre>
+
+<p>
+
+Naturellement, on peut utiliser la valeur d'une variable pour
+effectuer des calculs, par exemple&nbsp;:
+
+</p>
+
+<pre>&gt; b &lt;- (a - 1) * (a + 1)</pre>
+
+<p>
+
+Pour simplifier la saisie des commandes, vous pouvez utiliser la
+touche flêchée &#8593; pour retrouvez les commandes que vous avez déjà
+tapées et pour les modifier. Ainsi, R garde l'historique des commandes
+que vous tapez. Vous pouvez remonter dans l'historique avec la touche
+&#8593; et redescendre avec la touche &#8595;. Quand vous remontez
+dans l'historique, vous pouvez ensuite utiliser les touches flêchées
+&#8592; et &#8594; pour éditer la commande. Ainsi, utilisez ces
+touches pour taper la commande suivante, qui diffère peu d'une
+commande que vous avez tapée plus haut&nbsp;:
+
+</p>
+
+<pre>&gt; 3 * sqrt (5 + pi)</pre>
+
+<p>
+
+Prenez l'habitude d'utiliser ces touches flêchées&nbsp;: elles
+permettent d'accélérer très sensiblement la saisie des commandes, et
+ceci, même si l'on est déjà habile avec le clavier de son ordinateur.
+
+<br/>
+<br/>
+
+La table suivante indique des opérateurs et des fonctions de R&nbsp;:
+
+</p>
+
+<center>
+  <table border="3">
+    <tr><th>notation en R</th><th>valeur mathématique</th></tr>
+    <tr><td align="center"><kbd>a + b</kbd></td>
+        <td align="center">somme de a et b</td></tr>
+    <tr><td align="center"><kbd>a - b</kbd></td>
+        <td align="center">b soustrait de a</td></tr>
+    <tr><td align="center"><kbd>a * b</kbd></td>
+        <td align="center">produit de a par b</td></tr>
+    <tr><td align="center"><kbd>a / b</kbd></td>
+        <td align="center">division réelle de a par b</td></tr>
+    <tr><td align="center"><kbd>a %/% b</kbd></td>
+        <td align="center">division euclidienne (entière) de a par b</td></tr>
+    <tr><td align="center"><kbd>a %% b</kbd></td>
+        <td align="center">reste de la division entière de a par b</td></tr>
+    <tr><td align="center"><kbd>a ^ b</kbd></td>
+        <td align="center">a à la puissance b</td></tr>
+    <tr><td align="center"><kbd>sqrt (a)</kbd></td>
+        <td align="center">racine carrée de a</td></tr>
+    <tr><td align="center"><kbd>abs (a)</kbd></td>
+        <td align="center">valeur absolue de a</td></tr>
+    <tr><td align="center"><kbd>log (a)</kbd></td>
+        <td align="center">logarithme naturel de de a</td></tr>
+    <tr><td align="center"><kbd>exp (a)</kbd></td>
+        <td align="center">exponentielle de a</td></tr>
+    <tr><td align="center"><kbd>sin (a)</kbd></td>
+        <td align="center">sinus de a (en radians)</td></tr>
+    <tr><td align="center"><kbd>cos (a)</kbd></td>
+        <td align="center">cosinus de a (en radians)</td></tr>
+    <tr><td align="center"><kbd>tan (a)</kbd></td>
+        <td align="center">tangente de a (en radians)</td></tr>
+  </table>
+</center>
+
+<p>
+
+Cette liste est loin d'être exhaustive&nbsp;!
+
+</p>
+
+<!--div class="exercice">
+
+<ul>
+  <li>calculez les racines de l'équation 2 x<sup>2</sup> + 5 x - 12 = 0.</li>
+</ul>
+
+<?php
+  next_elt_correction ();
+ ?>
+
+</div-->
+
+<p>
+
+À tout moment une aide en ligne est accessible avec la commande
+<kbd>?topic</kbd>, où <kbd>topic</kbd> peut être remplacé par
+n'importe-quelle commande. Essayez, par exemple
+<kbd>?sqrt</kbd>. (Tapez 'q' pour quitter l'aide.) <span
+class="important">Il est très important d'apprendre à lire
+l'aide. L'aide en-ligne contient énormément d'information&nbsp;: elle
+est là, disponible, c'est à vous d'apprendre à l'utiliser.</span> Les
+pages d'aide ont toutes la même structure&nbsp;:
+
+</p>
+
+<ul>
+  <li>une description rapide de la commande et, éventuellement, de
+    commandes apparentées. Pour <kbd>log</kbd>, diverse commandes
+    calculant le logarithme dans différentes bases et les exponentiations
+    sont apparentées&nbsp;;</li>
+
+  <li>comment on utilise la commande&nbsp;;</li>
+
+  <li>les paramètres de la commande&nbsp;;</li>
+
+  <li>une description détaillée de la commande&nbsp;;</li>
+
+  <li>la valeur de la commande. Là, le comportement de la fonction
+    dans des cas exceptionnels est indiqué&nbsp;; ainsi, on apprend que
+    <kbd>log(0)</kbd> a pour valeur <kbd>-Inf</kbd>, c'est-à-dire moins
+    l'infini&nbsp;;</li>
+
+  <li>des remarques complémentaires&nbsp;;</li>
+
+  <li>des références bibliographiques où la manière dont la fonction
+    est calculée est tirée&nbsp;;</li>
+
+  <li>d'autres commandes à consulter si l'on veut des informations
+    complémentaires, sur d'autres fonctions proches&nbsp;;</li>
+
+  <li>des exemples&nbsp;: <span class="important">cette section est
+    extrêmement utile</span> car si l'on n'a pas compris les
+    explications, on nous donne des exemples d'utilisation qui peuvent
+    être directement copiées/collées dans R.</li>
+</ul>
+
+<!--div class="exercice">
+
+<p>
+
+Répondre aux questions suivantes en utilisant la documentation
+en-ligne&nbsp;:
+
+</p>
+
+<ul>
+  <li>que donne le logarithme d'un nombre négatif&nbsp;?</li>
+  <li>que donne la racine carrée d'un nombre négatif&nbsp;?</li>
+  <li>que donne 1/0&nbsp;?</li>
+  <li>que donne 0/0&nbsp;?</li>
+  <li>calculez le logarithme en base 5 de 23&nbsp;;</li>
+  <li>comment obtenez-vous la valeur de e (base du logarithme 
+    naturel)&nbsp;?</li>
+  <li>comment calculez-vous l'arcsinus d'un nombre&nbsp;?</li>
+</ul>
+
+</div-->
+
+<h2>Syntaxe des commandes R</h2>
+
+<p>
+
+L'essentiel de ce qui est à connaître sur la syntaxe des commandes R
+est d'ors et déjà vu&nbsp;; on voit ainsi que cette syntaxe est très
+simple. On la résume ci-dessous&nbsp;:
+
+</p>
+
+<ul>
+  <li>pour obtenir la valeur d'une expression&nbsp;: on tape cette
+    expression&nbsp;;</li>
+
+  <li>pour affecter une valeur à une variable&nbsp;: <kbd>nom de la
+    variable &lt;- valeur à affecter</kbd>&nbsp;;</li>
+
+  <li>pour obtenir la valeur d'une variable&nbsp;: on donne le nom de
+    la variable&nbsp;;</li>
+
+  <li>le nom d'une fonction est toujours suivie de parenthèses entre lesquelles on indique les paramètres de la fonction.</li>
+</ul>
+
+<h2>Vecteurs</h2>
+
+<p>
+
+Après les simples nombres, un deuxième type fondamental d'entités dans
+R est le vecteur. Un vecteur peut-être créé de différentes
+manières. Par exemple, créons un vecteur dont les éléments sont 0, -1,
+&pi; et 4,78 et mettons-le dans une variable dont le nom est v&nbsp;:
+
+</p>
+
+<pre>&gt; v &lt;- c (0, -1, pi, 4.78)</pre>
+
+<p>
+
+La fonction <kbd>c</kbd> construit un vecteur avec ces valeurs. On
+peut ensuite consulter la valeur des composantes du vecteur&nbsp;:
+
+</p>
+
+<pre>&gt; v
+[1]  0.000000 -1.000000  3.141593  4.780000
+</pre>
+
+<p>
+
+On retrouve bien les valeurs avec lesquelles on a initialisé le
+vecteur.
+
+<br/>
+<br/>
+
+De nombreuses fonctions s'appliquent aux vecteurs. La table ci-dessous
+en contient un certain nombre&nbsp;; essayez-les toutes&nbsp;:
+
+</p>
+
+<center>
+  <table border="3">
+    <tr><th>notation en R</th><th>valeur</th>
+      <th>résultat sur l'exemple</th></tr>
+    <tr><td align="center"><kbd>length (v)</kbd></td>
+        <td align="center">nombre d'éléments de
+          <kbd>v</kbd></td>
+        <td align="center"><kbd>4</kbd></td></tr>
+    <tr><td align="center"><kbd>min (v)</kbd></td>
+        <td align="center">valeur de l'élément minimal de
+          <kbd>v</kbd></td>
+        <td align="center"><kbd>-1</kbd></td></tr>
+    <tr><td align="center"><kbd>max (v)</kbd></td>
+        <td align="center">valeur de l'élément maximal de
+          <kbd>v</kbd></td>
+        <td align="center"><kbd>4.78</kbd></td></tr>
+    <tr><td align="center"><kbd>range (v)</kbd></td>
+        <td align="center">vecteur composé des deux valeurs
+           précédentes (le min et le max de
+          <kbd>v</kbd>)</td>
+        <td align="center"><kbd>-1.00  4.78</kbd></td></tr>
+    <tr><td align="center"><kbd>sum (v)</kbd></td>
+        <td align="center">valeur de la somme des éléments de
+          <kbd>v</kbd>&nbsp;: &Sigma;<sub>i</sub>v<sub>i</sub></td>
+        <td align="center"><kbd>6.921593</kbd></td></tr>
+    <tr><td align="center"><kbd>prod (v)</kbd></td>
+        <td align="center">valeur du produit des éléments de
+          <kbd>v</kbd>&nbsp;: &Pi;<sub>i</sub>v<sub>i</sub></td>
+        <td align="center"><kbd>0</kbd></td></tr>
+    <tr><td align="center"><kbd>which.min (v)</kbd></td>
+        <td align="center">indice de l'élément minimal de
+          <kbd>v</kbd> (arg min<sub>i</sub> v<sub>i</sub>) </td>
+        <td align="center"><kbd>2</kbd></td></tr>
+    <tr><td align="center"><kbd>which.max (v)</kbd></td>
+        <td align="center">indice de l'élément maximal de
+          <kbd>v</kbd> (arg max<sub>i</sub> v<sub>i</sub>) </td>
+        <td align="center"><kbd>4</kbd></td></tr>
+  </table>
+</center>
+
+<h3>Opérations mathématiques sur les vecteurs</h3>
+
+<p>
+
+R peut naturellement effectuer toutes les opérations habituelles sur
+les vecteurs. Les opérateurs vues plus haut sur les nombres
+(<kbd>+</kbd>, <kbd>-</kbd>, ...) et les fonctions (<kbd>abs</kbd>,
+<kbd>log</kbd>, ...) s'appliquent sur les vecteurs comme on s'y
+attend. <span class="important">Toutes ces opérations se font terme à
+terme</span>&nbsp;: aussi, quand il y a deux vecteurs (comme pour une
+addition), il faut que les deux vecteurs aient le même
+nombre d'éléments.
+
+</p>
+
+<div class="exercice">
+
+  <ul>
+    <li>définissez un vecteur dénommé <kbd>w</kbd> et initialisez ses
+      composantes avec 3, -78, 0, 4&nbsp;;</li>
+    <li>faites la somme de <kbd>v</kbd> et <kbd>w</kbd>&nbsp;;</li>
+    <li>faites <kbd>v * w</kbd>&nbsp;: qu'obtenez-vous&nbsp;?</li>
+    <li>même question pour <kbd>v / w</kbd>, <kbd>v
+      %/% w</kbd>, <kbd>v %% w</kbd> et <kbd>v ^ w</kbd>&nbsp;;</li>
+    <li>idem pour <kbd>abs (v)</kbd>.</li>
+  </ul>
+</div>
+
+<p>
+
+Une opération très classique est de calculer le produit scalaire de
+deux vecteurs. Rappelons que le produit scalaire des vecteurs v et w
+est égal à la somme des produits &Sigma;<inf>i</inf> v<inf>i</inf>
+w<inf>i</inf>.
+
+</p>
+
+<div class="exercices">
+
+  <ul>
+    <li>avec ce que l'on a vu précédemment, comment feriez-vous pour
+      calculer le produit scalaire de deux vecteurs&nbsp;?
+    <li>essayez <kbd>v %*% w</kbd> et concluez vous-même.</li>
+  </ul>
+</div>
+
+<p>
+
+Enfin, on peut ajouter un scalaire aux éléments d'un vecteur, la
+soustraire, la multiplier, ... par les opérateurs habituels
+(<kbd>+</kbd>, <kbd>-</kbd>, <kbd>*</kbd>, ...) en combinant un
+vecteur et un scalaire. Ainsi,
+
+</p>
+
+<pre>v + 3
+</pre>
+
+<p>
+
+produit un vecteur dont les composantes sont celles de <kbd>v</kbd>
+augmentées de <kbd>3</kbd>.
+
+</p>
+
+<h3>Indexation des éléments d'un vecteur</h3>
+
+<p>
+
+On peut aussi demander la valeur du troisième élément du vecteur à
+l'aide de l'opérateur <kbd>[</kbd>&nbsp;:
+
+</p>
+
+<pre>v [3]
+[1] 3.141593
+</pre>
+
+<p>
+
+On peut aussi demander la valeur des éléments 1 et 3 du vecteur en
+fournissant plusieurs indices, comme suit&nbsp;:
+
+</p>
+
+<pre>v [c (1, 3)]
+[1] 0.000000 3.141593
+</pre>
+
+<p>
+
+On voit que pour cela, on a spécifié un vecteur dont les composantes
+sont les indices qui nous intéressent (<kbd>c (1, 3)</kbd> est un
+vecteur de deux éléments, le premier vaut 1, le second vaut 3).
+
+<br/>
+<br/>
+
+On vient donc de présenter une opération très utile et très importante
+en R&nbsp;: <span class="important">accéder aux éléments d'un vecteur
+en utilisant un autre vecteur (dénommé «&nbsp;<span
+class="index">vecteur d'index</span>&nbsp;») qui contient le numéro
+des composantes que l'on veut sélectionner</span>.
+
+<br/>
+<br/>
+
+Une autre manière de spécifier les indices qui nous intéressent est la
+suivante&nbsp;: <kbd>2:4</kbd> est un vecteur dont les éléments sont
+2, 3 et 4.
+
+<br/>
+<br/>
+
+Une autre notation pour la même chose consiste à utiliser la fonction
+<kbd>seq()</kbd>. Ainsi, 
+
+</p>
+
+<pre>> seq (2, 4)</pre>
+
+<p>
+
+(ou 
+
+</p>
+
+<pre>> seq (from = 2, to = 4)</pre>
+
+<p>
+
+) produit un vecteur dont les éléments sont 2, 3 et 4.
+
+<br/>
+
+L'intérêt de cette fonction <kbd>seq()</kbd>uence et que l'on peut lui
+indiquer plus généralement la valeur du premier indice, du dernier
+indice et de l'incrément pour passer de l'un à l'autre. Ainsi&nbsp;:
+
+</p>
+
+<pre>> seq (from = 1, to = 10, by = 2)
+[1] 1 3 5 7 9
+</pre>
+
+<p>
+
+l'incrément peut aussi être négatif&nbsp;:
+
+</p>
+
+<pre>> seq (from = 10, to = -5, by = -2)
+[1] 10  8  6  4  2  0 -2 -4
+</pre>
+
+<!--
+  v <- c (v , 89 )
+  w2 <- c (v, w)
+  -->
+
+<div class="exercices">
+
+  <p>
+
+  La fonction <kbd>runif()</kbd> génère des nombres pseudo-aléatoires
+  selon une distribution de probabilité uniforme. On va l'utiliser
+  pour générer des vecteurs aussi grands que l'on veut. Ainsi,
+  tapez&nbsp;:
+
+  </p>
+
+  <pre>> vu &lt;- runif (100)</pre>
+
+  <p>
+
+  et la variable <kbd>vu</kbd> contient un vecteur de 100 composantes
+  dont la valeur a été tirée au hasard entre 0 et 1.
+
+  </p>
+
+  <ul>
+    <li>quelle est la somme des composantes du vecteur
+     <kbd>vu</kbd>&nbsp;?</li>
+    <li>quelle commande tapez-vous pour calculer la somme des éléments
+      d'indice pair de <kbd>vu</kbd>&nbsp;?</li>
+    <li>on veut obtenir le vecteur <kbd>vs</kbd> ayant 50 composantes,
+     dont la valeur de la composante i est la somme des composantes
+     2*i-1 et 2*i de <kbd>vu</kbd>. Comment faites-vous&nbsp;?</li>
+  </ul>
+</div>
+
+<h3>Quelques fonctions statistiques sur les vecteurs</h3>
+
+<p>
+
+Les fonctions statistiques les plus simples sont résumées dans la
+table ci-dessous&nbsp;:
+
+</p>
+
+<center>
+  <table border="3">
+    <tr><th>notation en R</th><th>valeur</th>
+      <th>résultat sur l'exemple</th></tr>
+    <tr><td align="center"><kbd>mean (v)</kbd></td>
+        <td align="center">la moyenne des éléments de
+          <kbd>v</kbd></td>
+        <td align="center"><kbd>1.730398</kbd></td></tr>
+    <tr><td align="center"><kbd>var (v)</kbd></td>
+        <td align="center">la variance des éléments de
+          <kbd>v</kbd></td>
+        <td align="center"><kbd>7.246964</kbd></td></tr>
+    <tr><td align="center"><kbd>sd (v)</kbd></td>
+        <td align="center">l'écart-type des éléments de
+          <kbd>v</kbd></td>
+        <td align="center"><kbd>2.692019</kbd></td></tr>
+    <tr><td align="center"><kbd>summary (v)</kbd></td>
+        <td align="center">fournit plusieurs statistiques sur les
+          éléments de <kbd>v</kbd></td>
+        <td align="center">
+          <kbd>   Min. 1st Qu.  Median    Mean 3rd Qu.   Max.</kbd><br/>
+          <kbd> -1.000  -0.250   1.571   1.730   3.551   4.780</kbd></td></tr>
+  </table>
+</center>
+
+<br/>
+
+<div class="exercices">
+  <ul>
+    <li>Comprenez ce que représentent toutes les valeurs affichées par
+      <kbd>summary(v)</kbd>.</li>
+    <!--li>étudiez la fonction <kbd>median()</kbd>&nbsp;: que
+      fait-elle&nbsp;? comment s'utilise-t-elle&nbsp;?</li>
+    <li>étudiez la fonction <kbd>quantile()</kbd>&nbsp;:
+      <i>idem</i>&nbsp;;</li-->
+    <li>Quelles sont la moyenne et l'écart-type des composantes de
+     <kbqd>vu</kbd>&nbsp;? Qu'en pensez-vous&nbsp;? <font size="-2">(rappelons <a href="http://fr.wikipedia.org/wiki/Loi_uniforme_continue">que l'espérance de la variance d'un échantillon de nombres uniformément distribués dans l'intervalle [0,1] est 1/12</a>.)</font></li>
+  </ul>
+</div>
+
+<p>
+
+La fonction <kbd>rnorm (100, mean = 3, sd = 5)</kbd> génère 100
+nombres pseudo-aléoires tirés selon une loi normale de moyenne égale à
+3 et d'écart-type égal à 5.
+
+</p>
+
+<div class="exercices">
+  <ul>
+    <li>Mettez dans un vecteur nommé <kbd>v.norm</kbd> 200 nombres
+      tirés selon une loi normale de moyenne égale à -1 et d'écart-type
+      égal à 2.</li>
+    <li>Mettez dans un vecteur nommé <kbd>v.unif</kbd> 200 nombres
+      tirés selon une loi uniforme.</li>
+    <li>Calculez la moynne et l'écart-type de ces deux vecteurs. Que
+      pensez-vous du résultat&nbsp;? Est-il conforme à vos
+      attentes&nbsp;?</li>
+  </ul>
+</div>
+
+<h3>Lire un vecteur depuis un fichier</h3>
+
+<p>
+
+Supposons que l'on ait placé le résultat d'une série d'expériences dans un fichier (un nombre pour chaque expérience). On pourra charger ces valeurs dans un vecteur avec la commande suivante&nbsp;:
+
+</p>
+
+<pre>> v <- scan (file = "fichier-ou-url", what = double(), quiet = T)
+</pre>
+
+<p>
+
+Notez que l'on peut aussi spécifier l'url d'un fichier.
+
+Par exemple, tapez la commande suivante qui va charger le contenu d'un fichier accessible via l'url <a href="https://philippe.preux.github.io/ensg/aeac/tps/decouverte-R/lg.txt"><kbd>http://www.grappa.univ-lille3.fr/~ppreux/ensg/aeac/tps/decouverte-R/lg.txt</kbd></a> (cliquez d'abord sur le lien pour voir le contenu du fichier)&nbsp;:
+
+</p>
+
+<pre>> v <- scan (file = "https://philippe.preux.github.io/ensg/aeac/tps/decouverte-R/lg.txt", what = double(), quiet = T)
+</pre>
+
+<p>
+
+Vous pouvez vérifier que le vecteur <kbd>v</kbd> contient bien les valeurs attendues.
+
+</p>
+
+<h2 id="quelquesGraphiques">Quelques graphiques</h2>
+
+<p>
+
+Pour étudier un tel ensemble de données, il est utile de faire des
+graphiques. Ainsi, on peut réaliser un graphique représentant cette
+suite de nombre à l'aide la fonction <kbd>plot ()</kbd>. Tapez les
+commandes suivantes et après chacune, regardez le résultat.
+
+</p>
+
+<pre>> plot (v)
+</pre>
+
+<pre>> plot (v, col = "green")
+</pre>
+
+<pre>> plot (v, col = "green", main = "Un jeu de données")
+</pre>
+
+<pre>> plot (v, col = "green", main = "Un jeu de données", xlab = "Abcisses", ylab = "Ordonnées")
+</pre>
+
+<p>
+
+<kbd>col</kbd> est le diminutif de <i>color</i>. Il y a un grand
+nombre de couleurs connues dans R. Cette image&nbsp;:
+
+</p>
+
+<center>
+  <img src="http://research.stowers-institute.org/efg/R/Color/Chart/ColorsChart1.jpg"
+  width="400" alt = "Les couleurs en R." />
+</center>
+
+<p>
+
+les représente. Chacune est numérotée et porte un nom. Pour connaître
+le nom de la couleur 9, on tape&nbsp;:
+
+</p>
+
+<pre>> colors () [9]
+</pre>
+
+<p>
+
+Ça a l'air compliqué, mais la notation s'explique&nbsp;: juste taper
+la commande&nbsp;:
+
+</p>
+
+<pre>> colors ()
+</pre>
+
+<p>
+
+affiche la liste des 657 couleurs prédéfinies dans R. En
+ajoutant <kbd>[9]</kbd>, on sélectionne juste le nom de la
+9<sup>è</sup>. Le résultat de <kbd>colors ()</kbd> est simplement un
+vecteur, non pas de nombres, mais de chaînes de caractères et on
+retourve la notation pour sélectionner le 9<sup>è</sup> élément d'un
+vecteur par <kbd>v [9]</kbd> vue plus haut.
+
+<br/>
+
+On peut aussi fournir le nom directement&nbsp;:
+
+</p>
+
+<pre>> plot (v, col = "cornflowerblue", pch = 20)
+</pre>
+
+<p>
+
+La valeur (ici 20) du paramètre <kbd>pch</kbd> indique la forme des
+points. La table ci-dessous montre la forme de différentes
+valeurs&nbsp;:
+
+</p>
+
+<center>
+  <img src="http://people.ucsc.edu/~ggilbert/images%20for%20Rgraphics/symbols.jpg"
+  width="250" alt = "Les symboles associés au paramètre pch en R." />
+<!--
+http://rgraphics.limnology.wisc.edu/images/miscellaneous/pch.png
+-->
+</center>
+
+
+On peut aussi tracer des traits entre les points. Comparez le
+résultat des instructions suivantes&nbsp;:
+
+</p>
+
+<pre>> plot (v, pch = 20, type = "l")
+> plot (v, pch = 20, type = "p")
+> plot (v, pch = 20, type = "b")
+> plot (v, pch = 20, type = "b", lty = 2)
+</pre>
+
+<p>
+
+(remarquez que dans la première ligne, le paramètre <kbd>pch =
+    20</kbd> ne sert à rien&nbsp;; il peut être omis.)
+
+</p>
+
+<div id="label1" class="exercices">
+  <ul>
+    <li>Dans la dernière ligne, le paramètre <kbd>lty</kbd> prend une valeur entre 0 et 6 (inclus). Essayez-les pour voir le résultat.</li>
+    <li>À quoi la forme de cette courbe vous fait-elle penser&nbsp;?</li>
+  </ul>
+</div>
+
+<p>
+
+<br/>
+<br/>
+
+Ces données représentent le nombre de mots d'une longueur donnée
+contenus dans une liste de 336531 mots de la langue française <font
+size="-3">(disponible sur le web en suivant <a
+href="http://www.pallier.org/ressources/dicofr/liste.de.mots.francais.frgut.txt">ce
+lien</a>)</font>. À la ligne i, on trouve le nombre de mot de cette
+longueur. Ainsi, il y a 3 mots de 1 lettre, 91 de deux lettres, et
+ainsi de suite jusque 2 mots de 25 lettres. Comme on s'y attend, il y
+a un grand nombre de mots de taille intermédiaire.
+
+<div class="exercice">
+  <ul>
+    <li>quelle est la longueur moyenne de ces 336531 mots&nbsp;?</li>
+    <li>quelle en est la variance&nbsp;?</li>
+  </ul>
+</div>
+
+<p>
+
+On peut tracer une loi normale ayant cette moyenne et cet écart-type
+et comparer à l'&oelig;il le résultat. La commande&nbsp;:
+
+</p>
+
+<pre>> plot (v/sum(v))
+</pre>
+
+<p>
+
+refait le graphique mais cette fois-ci les ordonnées sont des
+proportions et non plus des décomptes.
+
+<br/>
+<br/>
+
+Une fois un graphique réalisé avec <kbd>plot()</kbd>, on peut ajouter une autre courbe en utilisant la fonciton <kbd>points()</kbd>. Celle-ci s'utilise à peu près comme <kbd>plot()</kbd>. Par exemple, si on veut ajouter la racine carrée des valeurs (ça n'a aucun intérêt, c'est juste pour expliquer <kbd>points()</kbd>), on fera&nbsp;:
+
+<pre>> points (sqrt (v/sum (v)), col = "red")
+</pre>
+
+Les points sont ajoutés en rouge.
+
+<br/>
+
+Petit problème&nbsp;: ces points rouges débordent en haut&nbsp;: l'intervalle de valeurs en ordonnées est trop restreint. Pour l'agrandir, on peut spécifier cet intervalle dans la commande <kbd>plot</kbd>&nbsp;: si on veut que les ordonnées soient compris entre 0 et 0,5, on tapera&nbsp;:
+
+<pre>> plot (v / sum (v), ylim = c (0, 0.5))
+> points (sqrt (v/sum (v)), col = "red")
+</pre>
+
+</p>
+
+ <!--On peut comparer cet ensemble
+de proportion avec une distriution de probabilités.
+
+<br/>
+
+On va superposer la densité d'une variable normale. Pour cela, on
+tape&nbsp;:
+
+</p>
+
+<pre> > lines (dnorm (seq (1,25, by = 1), mean = 10.09393, sd = 2.603954), col = "blue")
+</pre>
+
+<p>
+
+La fonction <kbd>lines()</kbd> ajoute des lignes au graphique courant.
+
+<br/>
+
+Il existe aussi une fonction <kbd>points()</kbd> qui s'emploie
+comme <kbd>lines</kbd> mais dessine des points au lieu de lignes.
+
+<br/>
+
+La fonction <kbd>dnorm ()</kbd> donne la densité en un point, ou un
+ensemble de points, donnés d'une loi normale dont les paramètres sont
+indiqués.  Ici, on obtient cette densité aux points 1, 2, ... 25. Ces
+points sont aussi les longueurs des mots.
+
+<br/>
+<br/>
+
+Tapez ces commandes. Que constatez-vous&nbsp;?
+
+</p>
+
+<p>
+
+Ça a l'air proche, ça a la même allure, mais bien sûr la courbe ne
+passe pas exactement par les points. Comment cet écart visible sur le
+graphique doit-il être interprêté&nbsp;? Peut-on considérer que les
+points sont distribués normalement, ou pas&nbsp;?
+
+<br/>
+
+Ces questions ne sont pas faciles à trancher. On donne maintenant
+différentes manières d'argumenter sur cette question.
+
+</p>
+
+<h3><i>Skewness</i> et <i>kurtosis</i></h3>
+
+<p>
+
+On peut simplement calculer deux quantités dénommées <i>skewness</i> et <i>kurtosis</i>. 
+
+<br/>
+
+La <i>skewness</i> mesure la symétrie de la distribution&nbsp;: une distribution normale est symétrique et sa <i>skewness</i> est nulle.
+
+<br/>
+
+La <i>kurtosis</i> mesure le fait que la distribution est plus plate ou plus piquée qu'une distribution normale. La <i>kurtosis</i> d'une distribution normale est nulle.
+
+<br/>
+<br/>
+
+Un test simple consiste à calculer ces deux quantités. Si elles sont toutes deux nulles, on peut devenir assez confiant. Si l'une est significativement non nulle, on peut être confiant aussi dans le fait que la distribution n'est pas normale.
+
+<br/>
+
+Ces deux quantités se calculent à l'aide de deux fonctions qui portent leur nom.
+On tapera&nbsp;:
+</p>
+
+<pre>> library (e1071)
+> skewness (v)
+> kurtosis (v)
+</pre>
+
+<p>
+
+Ces deux fonctions n'existent pas dans R <i>a priori</i>. Elles sont par contre disponible dans une bibliothèque de fonctions qui porte le joli nom de <kbd>e1071</kbd>. Aussi, la première ligne <kbd>library (e1071)</kbd> rend les fonctions de cette bibliothèque disponible dans R.
+
+<br/>
+
+Cette notion de bibliothèque enrichie considérablement R&nbsp;: il en existe des centaines, chacune contenant généralement quelques dizaines de fonctions. Ces bibliothèques contiennent simplement des commandes R&nbsp;; elles sont écrites par des utilisateurs de R qui rendent ainsi disponibles leur travail à la communauté.
+
+</p>
+
+<div class="exercice">
+  <ul>
+    <li>Calculez la <i>skewness</i> et la <i>kurtosis</i> de ces 
+      données&nbsp;?</li>
+    <li>Que concluez-vous&nbsp;?</li>
+    <li>calculez la <i>skewness</i> et la <i>kurtosis</i> des
+      vecteurs <kbd>v.norm</kbd> et <kbd>v.unif</kbd> créés
+      précédemment. Que pensez-vous du résultat&nbsp;?</li>
+  </ul>
+</div>
+
+
+<h3>Test statistique de normalité</h3>
+
+<p>
+
+Il existe des tests statistiques permettant de déterminer si un
+ensemble de nombres est distribué normalement, sous un certain risque
+&alpha;. Le test considéré comme le plus sûr est le test de normalité
+d'Anderson-Darling. Celui-ci est disponible dans R via la
+fonction <kbd>ad.test ()</kbd> à laquelle on fournit simplement le
+vecteur de nombres.
+
+<br/>
+
+Ce test calcule une statistique notée A dans R. Pour un risque &alpha;=0,05, l'hypothèse de normalité est rejetée si A<sup>2</sup> &ge; 0,787.
+<!--
+  D'après la doc, ce n'est pas extrêmement clair si le A affiché est le A d'Anderson-Darling ou le A modifié d'Agostino. Dans ce second cas, le seuil serait 0,752.
+  Voir wikipedia, Anderson-Darling test.
+ -->
+
+<!--
+<kbd>ad.test (v)</kbd>&nbsp;: test de normalité de Anderson-Darling.
+-->
+
+<!--br/>
+
+Pour l'utiliser, il faut faire un <kbd>library(nortest)</kbd> auparavant.
+
+<div class="exercice">
+  <ul>
+    <li>effectuer ce test sur les données contenues dans le vecteur <kbd>v</kbd> et tirez-en la conclusion qui convient.</li>
+    <li>effectuez le aussi sur les vecteurs <kbd>v.unif</kbd> et <kbd>v.norm</kbd> et vérifiez que le résultat est bien celui attendu.</li>
+  </ul>
+</div-->
+
+<!--
+cvm.test (v) : test de normalité de Cramer-von Mises
+lillie.test (v) : test de normalité de Lilliefors (aka Kolmogorov-Smirnov)
+-->
+
+<!--/p>
+
+<?php
+  next_elt_correction ();
+ ?>
+
+<h3>Approches visuelle par un QQ plot</h3>
+
+<p>
+
+Une dernière approche pour tester la normalité de la distribution d'un
+ensemble de valeurs numériques est visuelle. Si on veut déterminer si
+un ensemble de valeurs est distribué normalement, on compare à l'aide
+d'un graphe les quantiles de la distribution des valeurs aux quantiles
+de la distribution à laquelle on les compare. Dit autrement, les
+valeurs contenues dans <kbd>v</kbd> ayant une certaine moyenne et un
+certain écart-type, on compare leur distribution à celle d'un ensemble
+de valeurs effectivement distribuées normalement selon ces
+paramètres. Le résultat est visuellement très simple à
+interprêter&nbsp;: si la distribution des valeurs est normale avec ces
+paramètres, alors le résultat est un segment de droite.
+
+<br/>
+
+La fonction à utiliser pour tester si une distribution est normale
+est <kbd>qqnorm()</kbd>. Elle s'emploie très simplement en fournissant
+le vecteur de valeurs en paramètres. Le graphique est alors affiché.
+
+</p>
+
+<div class="exercice">
+  <ul>
+    <li>faites le QQ plot sur les données contenues dans <kbd>v</kbd>.</li>
+    <li>qu'en pensez-vous&nbsp;?</li>
+<?php
+  next_elt_correction ();
+ ?>
+    <li>pour avoir des éléments de comparaison, vous pouvez faire un
+      QQ plot avec des données dont on sait qu'elles sont distribuées
+      normalement, celles qui sont dans le
+      vecteur <kbd>v.norm</kbd>. Faites-le et observez le résultat.</li>
+<?php
+  next_elt_correction ();
+ ?>
+     <li>de même, faites-le sur <kbd>v.unif</kbd> dont les valeurs, on
+      le sait, ne sont pas distribuées normalement.</li>
+<?php
+  next_elt_correction ();
+ ?>
+    <li>le cas échéant, refaites le QQ plot sur <kbd>v</kbd> pour
+      préciser votre point de vue.</li>
+  </ul>
+</div-->
+
+<h2>Tableaux de données</h2>
+
+<p>
+
+Pour l'instant, nous avons travaillé avec des données disponibles sous forme d'un vecteur de nombres. Plus généralement, les données ont une forme de tableau (matrice). Un tableau de données se nomme un <i>data frame</i> dans R. Ceux-ci se manipulent comme un vecteur, si ce n'est que les éléments sont repérés par deux indices au lieu d'un seul.
+
+<br/>
+
+Motivation&nbsp;: les données que nous avons étudiées jusqu'à maintenant ont été obtenues à partir d'un ensemble de 336531 mots différents. Cette liste distingue la forme singulière de la forme plurielle, mais aussi toutes les formes de conjugaison de chaque verbe. À la place, on peut étudier la même distribution de longueur sur la forme dite «&nbsp;lemmatisée&nbsp;» des mots&nbsp;; cette forme lemmatisée ressemble à ce que l'on nomme couramment la racine d'un mot. Ainsi, au lieu des 20 à 30 mots correspondants aux différentes formes d'un verbe conjugué, on a 1 seul lemme. À partir des 336531 mots, on obtient 74523 lemmes. On a alors calculé le nombre de lemmes de longueur 1, 2, ... 25 et on a mis le résultat dans une table disponible via l'url <a href="https://philippe.preux.github.io/ensg/aeac/tps/decouverte-R/lg.df.txt"><kbd>http://www.grappa.univ-lille3.fr/~ppreux/ensg/aeac/tps/decouverte-R/lg.df.txt</kbd></a> (cliquez d'abord sur le lien pour voir le contenu du fichier).
+
+<br/>
+<br/>
+
+Les données sont maintenant structurées en 3 colonnes. La première est la longueur, la deuxième est constituée des données rencontrées depuis le début de la séance et la troisième est donc le nombre de lemmes de chaque longueur.
+
+<br/>
+
+On charge ces données dans un <i>data frame</i> comme suit&nbsp;:
+
+</p>
+
+<pre>> lg.df <- read.table ("https://philippe.preux.github.io/ensg/aeac/tps/decouverte-R/lg.df.txt")
+</pre>
+
+<p>
+
+Tapez ensuite <kbd>lg.df</kbd> pour voir le contenu de cette variable. C'est bien le tableau vu ci-dessus.
+
+<ul>
+  <li><kbd>lg.df [5, 3]</kbd> est l'élément en 5<sup>è</sup> ligne, 3<sup>è</sup>colonne, soit 7857.</li>
+  <li><kbd>lg.df [5,]</kbd> est le vecteur composé des éléments de la 5<sup>è</sup> ligne.</li>
+  <li><kbd>lg.df [, 3]</kbd> est le vecteur composé des éléments de la 3<sup>è</sup> colonne.</li>
+  <li>comme pour les vecteurs, on peut spécifier un ensemble de lignes ou de colonnes, comme dans <kbd>lg.df [c (3, 6, 13), 2]</kbd></li>
+</ul>
+
+<div class="exercice">
+  <ul>
+    <li>faire un graphique superposant la distribution des longueurs de mots et la distribution des longueurs de lemmes.</li>
+    <li>faites en sorte que votre graphique ressemble à celui-ci&nbsp;:
+      <br/>
+      <img src="./deuxCourbes.png" width="250" /></li>
+    <li>On peut facilement mettre un graphique dans un fichier jpg, png ou pdf (ou d'autres formats encore). Pour mettre un graphique dans un fichier dénommé mon.beau.graphique.jpg, on fait comme suit&nbsp;:
+      <pre>> jpeg ("mon.beau.graphique.jpg")
+> j'effectue les commandes qui réalisent ce graphique
+> dev.off()
+</pre>
+      Les commandes ne produisent aucun effet visible à l'écran&nbsp;: elles s'effectuent dans le fichier spécifié. <kbd>dev.off()</kbd> indique que la graphique est terminé&nbsp;; ensuite, les commandes graphiques reprennent leur effet habituel à l'écran.
+      <br/>
+      De même, on utilisera <kbd>png ("toto.png")</kbd> pour mettre le graphique dans un fichier png ou <kbd>pdf ("document.pdf")</kbd> pour le mettre dans un document pdf.
+      <br/>
+      Mettez votre graphique précédent dans un fichier dénommé <kbd>deuxCourbes.png</kbd>.</li>
+  </ul>
+</div>
+
+<p>
+
+On peut ajouter une légende à un graphique. Par exemple, pour le graphique précédent, ajouter&nbsp;:
+
+</p>
+
+<pre>> legend(20, 0.2,      # position coin supérieur gauche de la légende
+c("mots","lemmes"),    # étiquettes associées aux courbes
+lwd=c(1, 1),           # style des traits : 1 = traits pleins
+col=c("black","red"))  # couleurs, dans le même ordre que les étiquettes
+</pre>
+
+<p>
+
+donne le résultat suivant&nbsp;:
+
+</p>
+
+<center>
+  <img src="./deuxCourbesAvecLegende.png" width="300" />
+</center>
+
+<p>
+
+Remarque&nbsp;: ce qui se trouve à droite, après le caractère # est un commentaire. 
+
+</p>
+
+<!--
+png ("deuxCourbesAvecLegende.png")
+plot (lg.df [,2]/sum(lg.df [,2]), xlab = "longueur", ylab = "proportion", ylim = c (0, 0.2), type = "b", pch = 20, main = "Proportion de mots/lemmes par rapport à leur longueur")
+points (lg.df [,3]/sum(lg.df [,3]), col = "red", type = "b", pch = 20)
+legend(18, 0.2,              # position coin supérieur gauche de la légende
+c("mots","lemmes"),   # étiquettes associées aux courbes
+lwd=c(1, 1),          # style des traits : 1 = traits pleins
+col=c("black","red"))  # couleurs, dans le même ordre que les étiquettes
+dev.off()
+ -->
+
+<!--div class="exercice">
+  <ul>
+    <li>Effectuer la même démarche que précédemment pour estimer si ces données sont normalement distribuées.</li>
+  </ul>
+</div-->
+
+<h2>Sauvegarder son travail</h2>
+
+<p>
+
+Si vous voulez récupérer le travail que vous effectuez sur un
+ordinateur de l'université sur votre ordinateur, ou un autre
+ordinateur, vous devez récupérer deux fichiers localisés dans votre
+répertoire de travail. Ils se nomment <kbd>.Rhistory</kbd>
+et <kbd>.RData</kbd>. Le premier contient la liste ordonnée de toutes
+les commandes que vous avez tapées. Le second contient les objets que
+vous avez créés, avec leur valeur.
+
+</p>
+
+<h2>Pour terminer votre découverte de R</h2>
+
+<p>
+
+Un certain nombre de démos sont fournies avec R. Vous en avez la liste
+avec la commande <kbd>demo()</kbd>. Essayez par exemple les commandes
+<kbd>demo(graphics)</kbd>, <kbd>demo(persp)</kbd> et <kbd>demo(image)</kbd>.
+
+<br/>
+<br/>
+
+Sachez que R permet d'appliquer de très nombreuses méthodes
+statistiques que nous étudierons en cours de fouille de données ou
+celles que vous étudierez dans les cours de maths (régression linéaire
+et non linéaire, analyse factorielle, ...). Pour cela, il suffit
+d'apprendre à manipuler R et lire la documentation pour trouver la
+fonction qui fait le traitement statistique que l'on veut réaliser.
+
+</p>
+
+
+<h2>Références</h2>
+
+<p>
+
+Pour aller plus loin en R, mieux comprendre ce que l'on vient de faire
+et ce que l'on fera, et mieux connaître R&nbsp;:
+
+</p>
+
+<ul>
+  <li><a href="http://cran.r-project.org/doc/manuals/R-intro.pdf"><i>An Introduction to R</i></a>&nbsp;;</li>
+  <li><a href="http://cran.r-project.org/doc/contrib/Paradis-rdebuts_fr.pdf">
+      R pour les débutants</a>&nbsp;;</li>
+  <li><a href="http://cran.r-project.org/doc/contrib/Verzani-SimpleR.pdf"><i>Using R for introductory statistics</i></a>&nbsp;;</li>
+  <li><a
+    href="http://cran.r-project.org/doc/contrib/Short-refcard.pdf">mémento des commandes très utiles de R</a>&nbsp;;</li>
+  <li><a href="http://zoonek2.free.fr/UNIX/48_R_2004/all.html">un excellent site sur R, en français</a>&nbsp;;</li>
+  <li>Pour récupérer R et l'installer sur votre machine&nbsp;:
+    <ul>
+      <li>connectez-vous sur <a href="http://www.r-project.org/">le
+        site de R</a>&nbsp;;</li>
+      <li>allez dans la section «&nbsp;Download&nbsp;» et cliquez sur
+        CRAN&nbsp;;</li> 
+      <li>là, vous choisissez votre mirroir, situé pas trop loin de
+        chez vous (France ou Belgique)&nbsp;;</li>
+      <li>vous devez maintenant vous trouvez sur une page qui vous
+        permet de récupérer R pour différentes plateformes&nbsp;:
+        Linux, Mac OS, autres. Faites votre choix&nbsp;;</li>
+      <li>une fois R récupéré, son installation ne pose en principe
+        aucune difficulté.</li>
+    </ul></li>
+</ul>
+
+</div>
+
+<!-- Start of StatCounter Code -->
+<script type="text/javascript" language="javascript">
+var sc_project=2030719; 
+var sc_invisible=1; 
+var sc_partition=18; 
+var sc_security="2ee406dd"; 
+</script>
+
+<script type="text/javascript" language="javascript" src="http://www.statcounter.com/counter/counter.js"></script><noscript><a href="http://www.statcounter.com/" target="_blank"><img  src="http://c19.statcounter.com/counter.php?sc_project=2030719&java=0&security=2ee406dd&invisible=0" alt="" border="0"></a> </noscript>
+<!-- End of StatCounter Code -->
+
+</body>
+</html>
+
+<!-- Start of StatCounter Code -->
+<script type="text/javascript" language="javascript">
+var sc_project=2030719; 
+var sc_invisible=1; 
+var sc_partition=18; 
+var sc_security="2ee406dd"; 
+</script>
+
+<script type="text/javascript" language="javascript" src="http://www.statcounter.com/counter/counter.js"></script><noscript><a href="http://www.statcounter.com/" target="_blank"><img  src="http://c19.statcounter.com/counter.php?sc_project=2030719&java=0&security=2ee406dd&invisible=0" alt="" border="0"></a> </noscript>
+<!-- End of StatCounter Code -->
+</div>
+
+</body>
+</html>
