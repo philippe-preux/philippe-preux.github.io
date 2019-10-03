@@ -1,0 +1,402 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Préparation des données pour la fouille de données</title>
+  <link href="./ma.css" 
+	rel="stylesheet" type="text/css" media="all" />
+</head>
+
+<body>
+<div class="tpR">
+<h1>Préparation des données pour la fouille de données</h1>
+
+<p>
+
+Toutes les manipulations se feront avec R, sous Linux. (Sachez
+néanmoins que R fonctionne sous Windows et sous MacOS.)
+
+<!--br/>
+<br/>
+
+Dans le réseau de Lille 3, vous devez avant toute chose, faire une
+fois pour toute la manipulation suivante&nbsp;:
+
+</p>
+
+<ul>
+  <li>cliquer sur <a href=".Rprofile">ce lien</a> et sauvegarder le fichier dans <kbd>.Rprofile</kbd> dans votre répertoire personnel (il y a un . devant le nom de fichier).</li>
+  <li>éditer ce fichier, remplacer <kbd>username</kbd> et <kbd>passwd</kbd> par vos nom d'utilisateur et mot de passe et sauver le.</li>
+</ul-->
+
+<h2>Les fichiers de données</h2>
+
+<p>
+
+Les quatre fichiers de données sont disponibles aux urls suivantes&nbsp;:
+
+</p>
+
+<ul>
+  <li>https://philippe.preux.github.io/ensg/miashs/datasets/brad-lab
+    contient les mesures dans le laboratoire&nbsp;;</li>
+  <li>https://philippe.preux.github.io/ensg/miashs/datasets/brad-basement
+    contient les mesures dans le sous-sol&nbsp;;</li>
+  <li>
+    https://philippe.preux.github.io/ensg/miashs/datasets/brad-livingroom    contient les mesures dans le séjour&nbsp;;</li>
+  <li>https://philippe.preux.github.io/ensg/miashs/datasets/brad-outside
+    contient les mesures extérieures.</li>
+</ul>
+
+<h2>Chargement des données</h2>
+
+<p>
+
+Vous chargez les 4 fichiers de données, chacun dans un <i>data
+frame</i> distinct. Vous donnez des noms aux colonnes de manières à ce
+que des colonnes contenant la même information portent le même nom
+dans différents <i>data frames</i>, et inversement.
+
+</p>
+
+<h2>Fusion des données</h2>
+
+<p>
+
+Construisez un seul <i>data frame</i> à partir des 4 précédents (avec la fonction <kbd>merge()</kbd>).
+
+<br/>
+<br/>
+
+Quand vous l'avez fait, effacez les 4 <i>data frames</i> qui sont
+désormais inutiles (fonction <kbd>remove()</kbd>).
+
+
+<!--
+<br/>
+<br/>
+
+<a href="./les-temperatures.txt">Le <i>data frame</i> complet</a>.
+-->
+</p>
+
+<h2>Analyse préliminaire des données</h2>
+
+<p>
+
+Cette analyse préliminaire consiste à jeter un coup d'&oelig;il rapide
+à ses données, en utilisant des outils de statistique descriptive
+élémentaires, et des outils de visualisation de données, eux-aussi
+élémentaires.
+
+<br/>
+<br/>
+
+L'objectif de cette analyse est de connaître les données que l'on va
+analyser par la suite de manière détaillée.
+
+</p>
+
+<h3>Statistiques de base</h3>
+
+<ul>
+  <li>combien y a-t-il de données&nbsp;?</li>
+  <li>combien y a-t-il de NA dans les différents attributs&nbsp;?</li>
+  <li>quelles sont les moyennes et écart-type des différentes 
+    températures&nbsp;?</li>
+  <li>même question pour les températures extérieures entre 13 et 
+    14 h&nbsp;?</li>
+<!--
+  <li>même question pour les températures extérieures pour chaque
+    tranche horaire&nbsp;;</li> 
+-->
+  <li>même question pour les températures extérieures pour chaque
+    mois&nbsp;;</li> 
+<!--
+  <li>plus difficile&nbsp;: sur l'ensemble des mesures extérieures,
+  quelles sont les heures les plus chaudes de la journée&nbsp;? les
+  plus froides&nbsp;?</li>
+-->
+</ul>
+
+<h3>Exploration visuelle</h3>
+
+<ul>
+  <li>faites un histogramme de la température extérieure (avec des 
+    légendes adéquates, des couleurs, ... : celui que vous mettriez 
+    dans un rapport)&nbsp;?</li>
+  <li>analysez finement cet histogramme. Qu'en pense-zvous&nbsp;?</li>
+  <li>mettez votre histogramme dans un fichier pdf dénommé 
+    <kbd>temperatures-exterieures.pdf</kbd></li>
+</ul>
+
+<p>
+
+Afin d'avoir une vision synthétique des 4 séries de températures, on
+va construire un graphique ayant leurs 4 histogrammes dans la même
+fenêtre&nbsp;:
+</p>
+
+<img src="les-histo.png">
+
+<p>
+
+On vous indique ci-dessous le principe pour afficher plusieurs
+graphiques dans une même fenêtre&nbsp;:
+
+</p>
+
+<ul>
+  <li>il faut d'abord spécifier le nombre de sous-graphiques en ligne
+  et de colonne seront représentés par la fonction
+  <kbd>par(mfrow=c(nombre-de-lignes,
+  nombre-de-colonnes)</kbd>. Attention&nbsp;: cette fonction renvoie
+  une valeur qu'il faut stocker dans un objet. On l'utilisera donc
+  comme suit&nbsp;:
+<pre>op <- par(mfrow=c(nombre-de-lignes, nombre-de-colonnes))
+</pre>
+    </li>
+  <li>ensuite, on exécute les fonctions graphiques classiques. Chacune
+    placera son résultat dans un morceau de la fenêtre, en fonction du
+    découpage que l'on aura spécifié. Les sous-graphiques sont remplis
+    dans l'ordre des commandes, du haut à gauche jusqu'en bas à droite,
+    ligne par ligne.</li>
+  <li>quand on a fini le graphique, on tape la commande
+<pre>par(op)
+</pre>
+    pour ré-initaliser le mode graphique.</li>
+</ul>
+
+<p>
+
+À faire&nbsp;:
+
+</p>
+
+<ol>
+  <li>le graphique représenté ci-dessus.</li>
+  <li>ajouter un titre (pour cela, on utilisera la fonction
+    <kbd>mtext()</kbd>&nbsp;: voir l'aide en ligne pour le faire)&nbsp;; on pourra agrandir la taille des marges extérieures du graphique avec l'argument adéquat de la commande <kbd>par</kbd></li>
+</ol>
+
+<h3>Test de normalité</h3>
+
+<p>
+
+L'histogramme réalisé ci-dessus montre une distribution des valeurs
+qui a l'air à peu près normale. On veut vérifier cette hypothèse à
+l'aide d'un test statistique.
+
+<br/>
+<br/>
+
+Quel test statistique convient-il de faire&nbsp;?
+
+<br/>
+<br/>
+
+Ce test n'est pas directement disponible dans R, mais il l'est dans
+l'un des nombreux paquets R qui sont disponibles sur le CRAN.  Nous
+sommes ici face à un problème très général dans R&nbsp;: la fonction
+que l'on cherche n'est pas directement dans R, mais elle est
+disponible dans un paquet R que l'on peut installer. Il est donc
+important de savoir&nbsp;:
+
+</p>
+
+<ol>
+  <li>identifier la fonctionnalité que l'on cherche&nbsp;;</li>
+  <li>se rendre compte que la fonctionnalité que l'on cherche n'est
+    éventuellement pas installée&nbsp;;</li>
+  <li>dans ce cas, chercher le paquet qui contient la fonctionnnalité que l'on
+    cherche et l'installer&nbsp;;</li>
+  <li>utiliser la fonctionnalité.</li>
+</ol>
+
+<p>
+
+Nous reprenons ces différents poins&nbsp;:
+
+</p>
+
+<ol>
+  <li>pour le premier point, dans le cas présent, c'est une question
+    de connaissances en statistiques&nbsp;: on veut tester si une
+    distribution de valeurs est distribuée normalement ET on va
+    déterminer les paramètres de cette distribution à partir des
+    données elles-mêmes (on ne se donne pas ces paramètres <i>a
+    priori</i>). 
+    <br/>
+    Très honnêtement, cette question ne semble pas avoir une réponse
+    très claire, définitive et admise par tout le monde à l'heure
+    actuelle. Plusieurs tests existent. La documentation en-ligne de R
+    (qui est généralement d'excellente qualité au niveau scientifique)
+    recommenderait un autre test, tel le Shapiro-Francia, le
+    Anderson-Darlington ou le Cramer-Von Mises dans ce cas. Dans ce TP,
+    on va utiliser plutôt un test de Lilliefors sachant que ce n'est
+    pas forcément la meilleure idée à avoir, mais cela nous permettra
+    de montrer comment, en R, connaissant le nom d'une fonctionnalité
+    recherchée, on la trouve et, si besoin est, on installe le paquet
+    qui la contient.</li>
+  <li>on cherche un test de Lilliefors&nbsp;; en général, l'aide
+    en-ligne de R est très bien faite. On tape donc la commande&nbsp;:
+<pre>help ("lilliefors")</pre>
+    ce qui nous donne&nbsp;:
+<pre>No documentation for 'lilliefors' in specified packages and libraries:
+you could try 'help.search("lilliefors")'
+</pre>
+    Donc, en résumé, R n'a pas ce test en stock, mais nous invite à
+    taper une autre commande pour qu'il poursuive ses recherches. On
+    tape donc cette commande&nbsp;:
+<pre>help.searchlilliefors</pre>
+    et cette fois, on a une réponse positive. On nous indique une
+    fonction et le paquet dans laquelle elle se trouve.</li>
+  <li>vous tentez de charger le paquet indiqué avec la commande
+<pre>library(nom-du-paquet)</pre>
+    Deux possibilités&nbsp;:
+    <ul>
+      <li>le paquet est présent sur votre machine, mais pas
+        chargé. Dans ce cas, la commande précédente aboutit et charge le
+        paquet. Vous pouvez ensuite utilisez la fonction
+        voulue&nbsp;;</li>
+      <li>le paquet n'est pas présent sur votre machine. Dans ce cas,
+        il est sur le CRAN et il faut l'installer&nbsp;:</li>
+    </ul>
+      <li>pour récupérer un paquet R et l'installer&nbsp;:
+        <ul>
+          <li>tapez la commande&nbsp;:
+<pre>install.packages (nom-du-paquet-entre-guillemets, lib=".")
+</pre>
+<!--            La première fois que vous installez un paquet, R vous pose une question à laquelle vous répondez «&nbsp;oui&nbsp;» (<kbd>y</kbd>). 
+-->R vous demande où, sur Internet, aller chercher le paquet&nbsp;; faites votre choix.
+<!--
+        <ul>
+          <li>vous allez sur <kbd>http://www.r-project.org/</kbd></li>
+          <li>vous cliquez sur CRAN dans le menu de gauche</li>
+          <li>vous choisissez un site miroir proche de chez vous</li>
+          <li>vous cliquez sur <kbd>Packages</kbd> dans le menu de
+            gauche</li>
+          <li>vous cliquez sur le paquet que vous cherchez</li>
+          <li>si vous travaillez sous linux, vous récupérez le fichier
+            <kbd>Package source</kbd>&nbsp;: vous faites
+            «&nbsp;Enregistrer sous&nbsp;» et vous le mettez sur votre
+            compte</li>
+          <li>récupérez la doc, c'est aussi bien&nbsp;!</li>
+          <li>vous avez le paquet, il ne reste plus qu'à le rendre
+          utilisable dans R. Pour cela,&nbsp;:
+            <ul>
+              <li>vous ouvrez une fenêtre <i>shell</i>&nbsp;;</li>
+              <li>la première fois que vous installez un paquet R sur
+              votre machine (et la première fois seulement), vous
+              tapez les commandes suivantes dans la fenêtre
+              <i>shell</i>&nbsp;:
+<pre>mkdir libR
+cat > .Renviron
+R_LIBS="~/libR:/usr/lib/R/library"
+^D
+</pre>
+La première commande crée un dossier/répertoire qui se nomme
+<kbd>libR</kbd> qui contiendra tous les paquets R que vous allez
+installer sur votre machine. La seconde met des informations dans un
+fichier qui se dénomme <kbd>.Renviron</kbd></li>
+              <li>en supposant que le fichier que vous avez enregistré
+		se nomme <kbd>nom-du-paquet.tar.gz</kbd>, vous tapez la commande
+<pre>R CMD INSTALL -l ~/libR nom-du-paquet.tar.gz
+</pre>
+-->
+et voilà. Vous pouvez maintenant lancer R et taper la commande
+<kbd>library(nom-du-paquet, lib.loc = ".")</kbd> avec le nom de ce
+nouveau paquet. Désormais, ce paquet est
+installé sur votre machine&nbsp;; pour
+l'utiliser, il suffit de taper une commande <kbd>library(...)</kbd>.</li>
+            </ul></li>
+        </ul></li>
+    </ul></li>
+  <li>lisez la documentation et faites le test de normalité (en
+    comprenant le résultat).</li>
+  <li>vue la remarque ci-dessus sur le test à choisir, on effectuera
+    aussi un test d'Anderson-Darling (c'est plutôt ce test là qu'il faut
+    effectuer dans ce cas) et on comparera les résultats avec le test de
+    Lilliefors (on pourrait aussi faire un test de Cramer-Von
+    Mises).</li>
+<!--
+  Interesting discussion about normality tests <a href="http://stackoverflow.com/questions/7781798/seeing-if-data-is-normally-distributed-in-r">here.</a>
+ -->
+</ol>
+
+<h2>Nettoyage des données</h2>
+
+<h3>Traitement des NA</h3>
+
+<p>
+
+Remplacer les NAs isolés (<i>i.e.</i>, 1, 2, ... quelques NAs qui se suivent
+au milieu de valeurs connues) par une valeur probable (obtenue par interpolation
+linéaire).
+
+</p>
+
+<h3>Les données aberrantes</h3>
+
+<ol>
+  <li>Détecter les valeurs aberrantes&nbsp;;</li>
+  <li>Les remplacer par des valeurs probables.</li>
+</ol>
+
+<h3>L'élimination des doublons</h3>
+
+<p>
+
+Inspectez le jeu de données pour détecter les éventuels doublons,
+c'est-à-dire, des données différentes qui correspondent au même
+instant.
+
+</p>
+
+<h3>L'élimination du bruit</h3>
+
+<p>
+
+Effectuer un lissage des données (avec la fonction <kbd>smooth()</kbd>).
+
+<!--
+<br/>
+<br/>
+
+Faire des graphiques avec 2 parties, temp.lab brute et temp.lab lissé par exemple.
+
+<h3>Discrétisation</h3>
+
+<p>
+
+Faire ce que l'on a vu en TD.
+
+</p>
+
+<h2>Enrichissement du jeu de données</h2>
+
+<p>
+
+Faire ce que l'on a vu en TD.
+</p>
+
+-->
+
+
+</div>
+
+<!-- Start of StatCounter Code -->
+<script type="text/javascript" language="javascript">
+var sc_project=2030719; 
+var sc_invisible=1; 
+var sc_partition=18; 
+var sc_security="2ee406dd"; 
+</script>
+
+<script type="text/javascript" language="javascript" src="http://www.statcounter.com/counter/counter.js"></script><noscript><a href="http://www.statcounter.com/" target="_blank"><img  src="http://c19.statcounter.com/counter.php?sc_project=2030719&java=0&security=2ee406dd&invisible=0" alt="" border="0"></a> </noscript>
+<!-- End of StatCounter Code -->
+
+</body>
+</html>
