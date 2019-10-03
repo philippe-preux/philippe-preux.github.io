@@ -509,24 +509,6 @@ for (i in 1:20) {
     <br/>
     qui représente l'attribut <kbd>r.cumulé</kbd> au fil des essais et des jeux.
 </ul>
-<div class="correction">
-<pre>plot (donnees$r.cumule, type = "l", xlab = "essai", 
-  ylab = "r cumulé durant 1 jeu", 
-  main = "r cumulé durant les jeux successifs")
-</pre>
-ne donne pas ce que l'on veut&nbsp;: ces traits verticaux aux changements de jeu ne doivent pas apparaître. On fera donc quelque chose comme cela&nbsp;:
-<pre>plot (1:20, donnees$r.cumule[1:20], xlim = c(0,400), type = "l",
-  ylim = c (0, max (donnees$r.cumule)),
-  xlab = "essai", 
-  ylab = "r cumulé durant 1 jeu", 
-  main = "r cumulé durant les jeux successifs") 
-for (i in 2:20) {
-  debut  <- 20 * (i - 1) + 1
-    fin <- debut + 19
-    lines (debut:fin, donnees$r.cumule[debut:fin])
-}
-</pre>
-</div>
 
 <h3>Étude des comportements émis</h3>
 
@@ -541,17 +523,9 @@ et la mettre en &oelig;uvre.
 <h4>Scores maximal et moyen</h4>
 
 <ul>
-  <li>Quel est le score maximal moyen que l'on peut obtenir à chaque jeu&nbsp;? (précision&nbsp;: c'est le score maximal <i>moyen</i>, c'est-à-dire&nbsp;: imaginons que l'on répète plusieurs fois un même jeu, donc avec un même ensemble de probabilités de succès associé aux 4 choix. Le score maximal moyen est la moyenne des retours cumulés obtenus lors de cette répétition.
-<?php
-  if (time () >= strtotime("8 October 3013"))
-    next_elt_correction ();
-?></li>
+  <li>Quel est le score maximal moyen que l'on peut obtenir à chaque jeu&nbsp;? (précision&nbsp;: c'est le score maximal <i>moyen</i>, c'est-à-dire&nbsp;: imaginons que l'on répète plusieurs fois un même jeu, donc avec un même ensemble de probabilités de succès associé aux 4 choix. Le score maximal moyen est la moyenne des retours cumulés obtenus lors de cette répétition.</li>
   <li>À chaque jeu, quel est le score moyen si on a un comportement 
-    aléatoire (choix uniforme)&nbsp;?
-<?php
-  if (time () >= strtotime("8 October 3013"))
-    next_elt_correction ();
-?></li>
+    aléatoire (choix uniforme)&nbsp;?</li>
   <li>Où se situent vos scores&nbsp;?</li>
   <li>Faites le graphique suivant (qui reprend le précédent et le
     complète)&nbsp;:<br/>
@@ -564,10 +538,7 @@ et la mettre en &oelig;uvre.
     qu'un écart-type de part et d'autre de cette espérance (la variance 
     est égale à 1/12).
 -->
-<?php
-  if (time () >= strtotime("8 October 3013"))
-    next_elt_correction ();
-?></li>
+</li>
   <!--li>Y a-t-il une corrélation (linéaire) entre l'espérance de retour 
     cumulé durant un jeu et le retour cumulé que vous avez obtenu&nbsp;?</li-->
 </ul>
@@ -586,26 +557,6 @@ Pour le savoir, faire un graphique indiquant en abscisses la probabilité des ch
 
 <img src="prop-clics.vs.proba.succes.png" width="500" />
 
-<div class="correction">
-<p>
-On peut utiliser l'information disponible dans <kbd>decomptes.tirages</kbd> pour connaître la proportion de chacun des comportements émis durant chacun des jeux. Cette matrice contient le nombre de clics&nbsp;; la proportion s'obtient en divisant par 20.
-<br/>
-On a besoin aussi des probabilités de succès de chacun des comportements qui sont dans les colonnes 9 à 12 de <kbd>donnees</kbd>.
-<br/>
-On peut afficher les points 4 par 4, soit jeu par jeu. Un premier <kbd>plot</kbd> dessine la fenêtre graphique avec les valeurs extrêmes en abscisses et ordonnées voulues (0 et 1) et les points correspondant au premier jeu.
-<br/>
-À la suite, une boucle affiche les points correspondant aux jeux 2 à 20. C'est le même principe que pour les grahiques précédents (<kbd>r.cumulé</kbd> durant les jeux successifs).
-</p>
-<pre>plot (as.numeric (donnees [1, 9:12]), decomptes.tirages [1,] / 20,
-      xlab = "Probabilité de succès",
-      ylab = "Proportion de clics durant le jeu",
-      pch = 19, xlim = c (0, 1), ylim = c (0, 1))
-for (jeu in 2:20) {
-  points (as.numeric (donnees [(jeu-1)*20+1, 9:12]), 
-    decomptes.tirages [jeu,] / 20, pch = 19)
-}
-</pre>
-</div>
 
 <h4>Variabilité du comportement intra-jeu</h4>
 
