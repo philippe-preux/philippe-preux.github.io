@@ -1,0 +1,271 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+  <title>Segmentation non hiérarchique par les k-médianes</title>
+  <link href="../../ma.css" 
+	rel="stylesheet" type="text/css" media="all" />
+</head>
+
+<body>
+<div class="tpR">
+<h1>Segmentation non hiérarchique par les k-médianes</h1>
+
+<p>
+
+L'objectif de ce TD est de manipuler l'algorithme des k-médianes
+disponible dans R.
+
+<br/>
+<br/>
+
+Pour la réalisation de ce TP, on suppose que le <a
+href="../k-moyennes/">TP sur l'algorithme des k-moyennes</a> a été
+fait auparavant.
+
+</p>
+
+<h2>Les k-médianes en R</h2>
+
+<h3>La fonction <kbd>pam()</kbd></h3>
+
+<p>
+
+L'algorithme des k-médianes est disponible au travers de la fonction
+<kbd>pam()</kbd> de la bibliothèque <kbd>cluster</kbd> de R. <b>Il
+faut donc toujours taper la commande <kbd>library (cluster)</kbd>
+avant de pouvoir utiliser les fonctions qui vont être décrites et
+manipulées ci-dessous.</b>. L'utilisation en est très simple&nbsp;:
+
+</p>
+
+<pre>iris.pam.3 <- pam (iris [,1:4], 3)
+</pre>
+
+<p>
+
+exécute l'algorithme des k-médianes sur le jeu de données iris en
+utilisant les quatre attributs longueur et largeur des sépales
+et des pétales, en utilisant 3 centres.
+
+<br/>
+
+À l'issue de son exécution, <kbd>pam()</kbd> a associé chaque
+donnée à un groupe&nbsp;; les groupes sont numérotés de 1 à K.
+
+<br/>
+<br/>
+
+<kbd>pam()</kbd> fournit une liste d'objets (on sait cela en tapant
+la commande <kbd>help("pam.object")</kbd>&nbsp;:
+
+</p>
+
+<ul>
+  <li><kbd>clustering</kbd>&nbsp;: est un vecteur qui contient le numéro
+    du groupe de chacune des données&nbsp;;</li>
+  <li><kbd>medoids</kbd>&nbsp;: spécifie la position des K
+    centres&nbsp;;</li>
+  <li><kbd>id.med</kbd>&nbsp;: est un vecteur de K numéro&nbsp;: le
+    numéro de la donnée correspondant à chacun des centres.</li>
+</ul>
+
+<p>
+
+<h3>Visualisation de la segmentation</h3>
+
+<p>
+
+On peut visualiser le résultat de la segmentation à l'aide de
+couleurs. Ainsi, supposons que vous ayez segmenté en trois segments
+les iris et placé le résultat dans <kbd>iris.pam.3</kbd>.
+
+</p>
+
+<pre>
+  plot (iris$Petal.Length, iris$Petal.Width, col = iris.pam.3$clustering)
+</pre>
+
+<p>
+
+représente chacun des iris dans le plan longueur des pétales x largeur
+des pétales et coloré en fonction de la classe que lui a affecté
+<kbd>pam()</kbd>.
+
+<br/>
+<br/>
+
+On peut ajouter la position des centres sur ce graphique&nbsp;:
+
+</p>
+
+<pre>
+  points (iris.pam.3$medoids, pch=19)
+</pre>
+
+<p>
+
+<kbd>pch=19</kbd> indique que l'on veut que les points soient
+représentés par des disques pleins.
+
+</p>
+
+<h3>La silhouette d'une segmentation</h3>
+
+<p>
+
+On obtient la silhouette d'une segmentation par la commande&nbsp;:
+
+</p>
+
+<pre>
+  iris.pam.3.si <- silhouette (iris.pam.3)
+</pre>
+
+<p>
+
+que l'on peut représenter graphiquement par la fonction
+<kbd>plot()</kbd>&nbsp;:
+
+</p>
+
+<pre>
+  plot (iris.pam.3.si)
+</pre>
+
+<p>
+
+On peut obtenir des statistiques sur la silhouette par la commande
+<kbd>summary()</kbd>. On récupère ainsi le «&nbsp;coefficient de
+silhouette&nbsp;» qui indique la pertinence de la segmentation
+trouvée. On peut l'obtenir par la commande&nbsp;:
+
+</p>
+
+<pre>
+  summary (iris.pam.3.si)$avg.width
+</pre>
+
+<p>
+
+(voir le cours pour l'interprétation.)
+
+</p>
+
+<h3>Trouver K optimal</h3>
+
+<p>
+
+Pour choisir la bonne valeur de K, on se base sur le coefficient de
+silhouette. Donc, on fait une boucle pour calculer les segmentations
+pour K variant entre 2 et 10 ou 2 et 20 ou ... (selon ce que l'on
+cherche et le jeu de données à étudier), et en cherchant le maximum du
+coefficient de silhouette.
+
+<br/>
+<br/>
+
+Pour cela, on fera une boucle&nbsp;:
+
+</p>
+
+<pre>
+  iris.pam.silcoeff <- numeric (10)
+  for (k in 2:10)
+    iris.pam.silcoeff [k] <- summary (silhouette( pam (iris [,-5], k)))$avg.width
+</pre>
+
+<p>
+
+et on en fera uhn <kbd>plot()</kbd>.
+
+</p>
+
+<h3>Activités exploratoires</h3>
+
+<ol>
+  <li>sur les iris, quel est le K optimal d'après <kbd>pam()</kbd>&nbsp;?</li>
+  <li>
+    <ol>
+      <li>déterminez le nombre de groupes et les groupes dans le jeu de
+      données disponibles à l'url
+      <kbd>https://philippe.preux.github.io/ensg/miashs/fouilleDeDonneesII/tp/k-medianes/jeu12.txt</kbd>
+      et visualisez la segmentation optimale avec des couleurs</li> 
+      <li>mêmes questions pour ce fichier&nbsp;:
+        <kbd>https://philippe.preux.github.io/ensg/miashs/fouilleDeDonneesII/tp/k-medianes/jeu19.txt</kbd> (dans ce cas, pour la visualisation, ne prendre en compte que les deux premiers attributs)</li> 
+    </ol></li>
+  </li>  
+</ol>
+
+
+<h3>k-médianes pour de gros jeux de données</h3>
+
+<p>
+
+Si le nombre de données est important (disons un gros millier pour un
+PC normalement constitué en 2007), <kbd>pam()</kbd> montre ses
+limites&nbsp;: les temps de calcul deviennent longs (problème que l'on
+rencontre beaucoup moins avec <kbd>kmeans()</kbd>). Dans ce cas, on
+utilise la fonction <kbd>clara()</kbd>.
+
+</p>
+
+<div class="exercice">
+
+  <p>
+
+  Regardez la documentation en ligne sur cette fonction et utilisez-là
+  pour reproduire ce que l'on a fait avec <kbd>pam()</kbd>.
+
+  </p>
+</div>
+
+<h2>Segmentation non hiérarchique floue</h2>
+
+<p>
+
+La fonction <kbd>fanny()</kbd> permet de faire une segmentation non
+hiérarchique floue.
+
+</p>
+
+<div class="exercice">
+
+  <ul>
+    <li>Utilisez <kbd>fanny()</kbd> sur les iris et observez les
+      probabilités d'appartenance des différentes données aux
+      différents groupes, en particulier dans la zone intermédiaire
+      entre versicolor et virginica.</li>
+    <li>Une visualisation qui indiquerait si la probabilité
+      d'appartenance d'une donnée a un groupe est presque certaine ou,
+      au contraire, incertaine serait tout à fait utile ici. Vous avez
+      une idée&nbsp;? Mettez la en &oelig;uvre. Vous n'avez pas
+      d'idée&nbsp;? réflexhissez plus fort&nbsp;!</li>
+  </ul>
+
+</div>
+
+<h2>Liens</h2>
+
+<ul>
+  <li><a href="./clustering-JSS.1.1.1996.pdf">pour en savoir plus sur
+    pam, clara, fanny et les autres</a></li>
+</ul>
+
+</div>
+
+<!-- Start of StatCounter Code -->
+<script type="text/javascript" language="javascript">
+var sc_project=2030719; 
+var sc_invisible=1; 
+var sc_partition=18; 
+var sc_security="2ee406dd"; 
+</script>
+
+<script type="text/javascript" language="javascript" src="http://www.statcounter.com/counter/counter.js"></script><noscript><a href="http://www.statcounter.com/" target="_blank"><img  src="http://c19.statcounter.com/counter.php?sc_project=2030719&java=0&security=2ee406dd&invisible=0" alt="" border="0"></a> </noscript>
+<!-- End of StatCounter Code -->
+
+</body>
+</html>
