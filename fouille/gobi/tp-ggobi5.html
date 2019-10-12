@@ -1,1 +1,351 @@
-/home/ppreux/philippe-preux.github.io/ensg/archives/2005-2006/miashs/tp-gobi/tp-ggobi5.html
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<head>
+  <title>Fouille de données, 
+    TP « visualisation de données (suite 4) »,
+    master MIASHS
+    Université de Lille 3</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+  <link rel="stylesheet" type="text/css"
+    href="https://philippe.preux.github.io/ma.css" 
+    media="screen" />
+</head>
+
+<body vlink="#551A8B">
+
+<div class="titreDuModule">
+  Fouille de données <br/>
+  TP « visualisation de données (suite 4) » <br/>
+  Mise à l'échelle multi-dimensionnelle pour la représentation de graphe
+</div>
+<div class="formation">
+      Master <acronym title="Mathématiques et Informatique Appliqués aux Sciences Humaines et Sociales">MIASHS</acronym>, Tronc
+        commun<br/>
+      Université de Lille 3<br/>
+      Semestre 2
+</div>
+
+<ul>
+  <li><a href="#objectif">Objectifs du TP</a></li>
+  <li><a href="#AFaire">À faire</a>
+    <ul>
+      <li><a href="#exo2">Un exemple simple&nbsp;: un cube</a></li>
+      <li><a href="#exo3">Un second exemple simple&nbsp;: une grille</a></li>
+      <li><a href="#exo4">Réseau de relations</a></li>
+    </ul></li>
+</ul>
+
+<a name="objectif"></a>
+<div class="section">
+  Objectifs du TP
+</div>
+
+<p>
+
+L'objectif est de manipuler la MDS dans ggobi.
+
+<br/>
+<br/>
+
+Il y a deux utilisations possibles de la MDS dans ggobi&nbsp;:
+
+</p>
+
+<ol>
+  <li>analyse d'une matrice de dissimilarités</li>
+  <li>représentation d'un graphe</li>
+</ol>
+
+<p>
+
+Durant ce TP, on s'intéresse uniquement à la représentation d'un
+graphe. Un graphe est composé de n&#339;uds et d'arcs entre ces n&#339;uds.
+
+L'analyse de dissimilarité sera vue dans le <a
+href="./tp-ggobi6.html">TP suivant</a>.
+
+<br/>
+
+Pour représenter un graphe sous la forme d'un fichier xml pour ggobi,
+il faut que ce fichier soit composé de deux parties (deux jeux de
+données), le premier représentant les n&#339;uds, le second les arcs entre
+ces n&#339;uds. Chaque n&#339;ud et chaque arc peut par ailleurs posséder des
+attributs, comme d'habitude. <a href="template-graphe.xml">En cliquant
+ici, vous obtenez un moule de fichier xml pour créer un graphe au
+format attendu apr ggobi.</a>
+
+</p>
+
+<a name="AFaire"></a>
+<div class="section">
+  À faire
+</div>
+
+<!--
+<p>
+
+Ouvrir le fichier ... manipuler les différents param de MDS.
+
+Utiliser la <a href="./help.pdf">documentation de ggvis</a>.
+
+Dans le menu «&nbsp;Tools&nbsp;», choisir «&nbsp;ggvis (MDS)
+...&nbsp;». Une fenêtre s'ouvre pour cet outil.
+
+</p>
+-->
+
+<a name="exo2"></a>
+<div class="subsection">
+  Un exemple simple&nbsp;: un cube
+</div>
+
+<ul>
+  <li>Créér un fichier cube.xml qui représente un cube. Vous inspirez
+    de <a href="template-graphe.xml">ce fichier</a> et de la <a
+    href="./ggvis.pdf">documentation</a>.</li>
+  <li>qu'espérez-vous trouvez par une MDS&nbsp;?</li>
+  <li>faites-en la MDS.</li>
+</ul>
+
+<p>
+
+Ensuite&nbsp;:
+
+</p>
+
+<ol>
+  <li>ouvrir ce fichier avec ggobi&nbsp;;</li>
+  <li>accéder à l'outil MDS&nbsp;: dans le menu «&nbsp;Tools&nbsp;»,
+    choisir «&nbsp;ggvis (MDS) ...&nbsp;». Une fenêtre s'ouvre pour cet
+    outil.</li>
+  <li>dans l'onglet «&nbsp;Task&nbsp;», cliquer sur «&nbsp;Graph
+    Layout&nbsp;»&nbsp;: on veut représenter un graphe et c'est comme
+    cela qu'on le spécifie à ggobi&nbsp;;</li>
+  <li>décliquer le bouton «&nbsp;Complete graph distances&nbsp;» (il
+    doit être de la même couleur, gris clair, que celui au
+    dessus)&nbsp;;</li>
+  <li>dans l'onglet «&nbsp;Run&nbsp;», la dimension sélectionnée est
+    3. Cliquez sur «&nbsp;Run MDS&nbsp;»&nbsp;; une fenêtre
+    s'ouvre&nbsp;; dans le menu «&nbsp;Reset&nbsp;», sélectionnez
+    «&nbsp;Scramble layout&nbsp;» pour mélanger les n&#339;uds&nbsp;; vous
+    devez ensuite voir&nbsp;:
+    <ul>
+      <li>les points bougent</li>
+      <li>la fonction Stress est représentée est décroît
+        (initialement)</li>
+    </ul></li>
+  <li>manipuler les petits menus situés en dessous de la fonction
+    stress. Vous pouvez ainsi sélectionner les différents types de
+    MDS&nbsp;;</li>
+  <li>dans le menu «&nbsp;View&nbsp;», sélectionner le <i>Shepard
+    Plot</i> qui est un histogramme des distances entre les
+    n&#339;uds&nbsp;;</li> 
+  <li>faites le tour de toutes possibilités. <a
+    href="./help.pdf">Jetez un coup 
+    d'&#339;il à la documentation</a>. Rappelez-vous que la MDS
+    fournit un optimum local&nbsp;; n'hésitez pas à re-mélanger les
+    points pour, éventuellement, atteindre un autre optimum&nbsp;;</li>
+  <li>dans la fenêtre graphique, dans le menu «&nbsp;Edges&nbsp;»,
+    faites apparaître les arcs. Que constatez-vous&nbsp;? Êtes-vous
+    satisfaits du résultat&nbsp;?</li>
+</ol>
+
+<a name="exo3"></a>
+<div class="subsection">
+  Un second exemple simple&nbsp;: une grille
+</div>
+
+<ul>
+  <li>Créér un fichier grille.xml qui représente une grille 5x5
+    mailles.</li>
+  <li>qu'espérez-vous trouver par une MDS&nbsp;?</li>
+  <li>faites-en la MDS. Conclusion.</li>
+</ul>
+
+<a name="exo4"></a>
+<div class="subsection">
+  Réseau de relations
+</div>
+
+<p>
+
+On considère un réseau de relations entre 16 personnes, chacune étant
+désignée par une lettre, tel qu'il est indiqué dans le tableau
+suivant&nbsp;:
+
+</p>
+
+<center>
+  <table border="1">
+    <tr align="center">
+      <th></th>
+      <th>a</th><th>b</th><th>c</th><th>d</th><th>e</th>
+      <th>f</th><th>g</th><th>h</th><th>i</th><th>j</th>
+      <th>k</th><th>l</th><th>m</th><th>n</th><th>o</th><th>p</th>
+    </tr>
+    <tr align="center">
+      <td>a</td>
+      <td> </td><td>x</td><td>x</td><td>x</td><td> </td>
+      <td> </td><td> </td><td> </td><td> </td><td> </td>
+      <td> </td><td> </td><td> </td><td> </td><td> </td>
+      <td> </td>
+    </tr>
+    <tr align="center">
+      <td>b</td>
+      <td>x</td><td> </td><td>x</td><td>x</td><td> </td>
+      <td> </td><td> </td><td> </td><td> </td><td> </td>
+      <td> </td><td> </td><td> </td><td> </td><td> </td>
+      <td> </td>
+    </tr>
+    <tr align="center">
+      <td>c</td>
+      <td>x</td><td>x</td><td> </td><td>x</td><td> </td>
+      <td> </td><td> </td><td> </td><td> </td><td> </td>
+      <td> </td><td> </td><td> </td><td> </td><td> </td>
+      <td> </td>
+    </tr>
+    <tr align="center">
+      <td>d</td>
+      <td>x</td><td>x</td><td>x</td><td> </td><td> </td>
+      <td>x</td><td> </td><td> </td><td> </td><td>x</td>
+      <td> </td><td> </td><td> </td><td> </td><td> </td>
+      <td> </td>
+    </tr>
+    <tr align="center">
+      <td>e</td>
+      <td> </td><td> </td><td> </td><td> </td><td> </td>
+      <td>x</td><td> </td><td> </td><td> </td><td> </td>
+      <td> </td><td> </td><td>x</td><td>x</td><td>x</td>
+      <td>x</td>
+    </tr>
+    <tr align="center">
+      <td>f</td>
+      <td> </td><td> </td><td> </td><td>x</td><td>x</td>
+      <td> </td><td>x</td><td>x</td><td>x</td><td> </td>
+      <td> </td><td> </td><td> </td><td> </td><td> </td>
+      <td> </td>
+    </tr>
+    <tr align="center">
+      <td>g</td>
+      <td> </td><td> </td><td> </td><td> </td><td> </td>
+      <td>x</td><td> </td><td>x</td><td>x</td><td> </td>
+      <td> </td><td> </td><td> </td><td> </td><td> </td>
+      <td> </td>
+    </tr>
+    <tr align="center">
+      <td>h</td>
+      <td> </td><td> </td><td> </td><td> </td><td> </td>
+      <td>x</td><td>x</td><td> </td><td>x</td><td> </td>
+      <td> </td><td> </td><td> </td><td> </td><td> </td>
+      <td> </td>
+    </tr>
+    <tr align="center">
+      <td>i</td>
+      <td> </td><td> </td><td> </td><td> </td><td> </td>
+      <td>x</td><td>x</td><td>x</td><td> </td><td> </td>
+      <td> </td><td> </td><td> </td><td> </td><td> </td>
+      <td> </td>
+    </tr>
+    <tr align="center">
+      <td>j</td>
+      <td> </td><td> </td><td> </td><td>x</td><td> </td>
+      <td> </td><td> </td><td> </td><td> </td><td> </td>
+      <td>x</td><td>x</td><td>x</td><td> </td><td> </td>
+      <td> </td>
+    </tr>
+    <tr align="center">
+      <td>k</td>
+      <td> </td><td> </td><td> </td><td> </td><td> </td>
+      <td> </td><td> </td><td> </td><td> </td><td>x</td>
+      <td> </td><td>x</td><td>x</td><td> </td><td> </td>
+      <td> </td>
+    </tr>
+    <tr align="center">
+      <td>l</td>
+      <td> </td><td> </td><td> </td><td> </td><td> </td>
+      <td> </td><td> </td><td> </td><td> </td><td>x</td>
+      <td>x</td><td> </td><td>x</td><td> </td><td> </td>
+      <td> </td>
+    </tr>
+    <tr align="center">
+      <td>m</td>
+      <td> </td><td> </td><td> </td><td> </td><td>x</td>
+      <td> </td><td> </td><td> </td><td> </td><td>x</td>
+      <td>x</td><td>x</td><td> </td><td>x</td><td>x</td>
+      <td> </td>
+    </tr>
+    <tr align="center">
+      <td>n</td>
+      <td> </td><td> </td><td> </td><td> </td><td>x</td>
+      <td> </td><td> </td><td> </td><td> </td><td> </td>
+      <td> </td><td> </td><td>x</td><td> </td><td> </td>
+      <td> </td>
+    </tr>
+    <tr align="center">
+      <td>o</td>
+      <td> </td><td> </td><td> </td><td> </td><td>x</td>
+      <td> </td><td> </td><td> </td><td> </td><td> </td>
+      <td> </td><td> </td><td>x</td><td> </td><td> </td>
+      <td> </td>
+    </tr>
+    <tr align="center">
+      <td>p</td>
+      <td> </td><td> </td><td> </td><td> </td><td>x</td>
+      <td> </td><td> </td><td> </td><td> </td><td> </td>
+      <td> </td><td> </td><td> </td><td> </td><td> </td>
+      <td> </td>
+    </tr>
+  </table>
+</center>
+
+<p>
+
+Une x indique que que les deux personnes se connaissent. Un vide
+indique qu'elles ne se connaissent pas. La relation est symétrique.
+
+</p>
+
+<!--
+
+ abcdefghijklmnop
+a ...            
+b. ..            
+c.. .            
+d...  .   .      
+e     .      ....
+f   .. ...       
+g     . ..       
+h     .. .       
+i     ...        
+j   .      ...   
+k         . ..   
+l         .. .   
+m    .    ... .. 
+n    .       .   
+o    .       .   
+p    .           
+-->
+
+
+
+<ul>
+  <li>créer le fichier reseauDeRelations.xml&nbsp;;</li>
+  <li>en faire une MDS. Trouvez-vous des groupes de gens qui se
+    connaissent comme cela apparaît dans cette table&nbsp;?</li>
+</ul>
+
+<p>
+
+<a href="http://validator.w3.org/check?uri=referer">
+   <img src="http://www.w3.org/Icons/valid-xhtml10"
+        alt="Valid XHTML 1.0!" height="31" width="88" /></a>
+<a href="http://jigsaw.w3.org/css-validator/">
+   <img style="border:0;width:88px;height:31px"
+        src="http://jigsaw.w3.org/css-validator/images/vcss" 
+        alt="Valid CSS!" /></a>
+
+</p>
+
+</body>
+</html>

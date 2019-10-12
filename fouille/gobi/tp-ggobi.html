@@ -1,1 +1,942 @@
-/home/ppreux/philippe-preux.github.io/ensg/archives/2005-2006/miashs/tp-gobi/tp-ggobi.html
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<head>
+  <title>Fouille de données, 
+    TP « visualisation de données avec ggobi », 
+    master MIASHS
+    Université de Lille 3</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+  <link rel="stylesheet" type="text/css"
+    href="https://philippe.preux.github.io/ma.css" 
+    media="screen" />
+</head>
+
+<body vlink="#551A8B">
+
+<div class="titreDuModule">
+  Fouille de données <br/>
+  TP « visualisation de données avec ggobi »
+</div>
+<div class="formation">
+      Master <acronym title="Mathématiques et Informatique Appliqués aux Sciences Humaines et Sociales">MIASHS</acronym>, Tronc commun<br/>
+      Université de Lille 3<br/>
+      Semestre 2
+</div>
+
+<ul>
+  <li><a href="#objectif">Objectifs du TP</a></li>
+  <li><a href="#AFaire">À faire</a>
+    <ul>
+      <li><a href="#exo1">Premier contact avec ggobi&nbsp;: la fenêtre XYPlot</a></li>
+      <li><a href="#exo2">Histogrammes</a></li>
+      <li><a href="#exo3">Graphiques 1D</a></li>
+      <li><a href="#exo4">Les tours</a></li>
+      <li><a href="#exo5">Statistiques et transformations des attributs</a></li>
+      <li><a href="#exo6">Identification et sélection des points</a></li>
+      <li><a href="#exo7">Autres sujets</a></li>
+      <li><a href="#exo8">Pour en finir avec ces huiles d'olive</a></li>
+    </ul></li>
+  <li><a href="#liens">Liens&nbsp;: des lectures passionnantes en perspective</a></li>
+</ul>
+
+<a name="objectif"></a>
+<div class="section">
+  Objectifs du TP
+</div>
+
+<p>
+
+Quand on souhaite fouiller un jeu de données, une étape préliminaire
+essentielle est d'acquérir de l'intuition concernant ces données, leur
+structuration, la répartition de la valeur des attributs, les
+corrélations entre attributs, ...
+
+<br/>
+
+Un jeu de données est un nuage de points dans un espace géométrique à
+P dimensions. Si P = 2, l'humain peut facilement (d'un simple coup
+d'&#339;il) détecter des corrélations, même non linéaires, la
+séparabilité des données de différentes classes, ... Toute, ou
+presque, la difficulté vient du fait que P est bien plus grand que
+2. Dans ce cas-là, notre sens de la vue est mis en défaut et il faut
+trouver de nouveaux moyens pour explorer ces nuages. Une approche
+purement géométrique consiste alors à multiplier les points
+d'observation du nuage et trouver les plus intéressants, les plus
+significatifs.
+
+<br/>
+
+Pour cela, l'utilisation d'un outil de visualisation est
+indispensable&nbsp;: nous allons utiliser le logiciel libre <a
+href="http://www.ggobi.org">ggobi</a> dont c'est l'objet. Insistons
+bien sur le fait que nous n'allons pas modifier les données et encore
+moins appliquer des algorithmes complexes ici. Tout est question de
+visualiser un nuage de points multi-dimensionnel et d'essayer de
+trouver le meilleur angle pour le regarder.
+
+<br/>
+<br/>
+
+Cette exploration visuelle préliminaire d'un jeu de données permet
+ensuite de mieux choisir les méthodes de fouille de données,
+d'appliquer des pré-traitements aux données, de voir si les données se
+regroupent nettement en plusieurs paquets, ...
+
+<br/>
+<br/>
+
+<span class="important">Il est important de prendre son temps durant
+la réalisation de ce TP et de comprendre ce que l'on fait,
+c'est-à-dire, comprendre le rapport entre ce que l'on voit, les
+manipulations que l'on fait et le jeu de données. Les questions sont
+ordonnées. Il ne faut pas passer à la suite avant d'avoir terminé
+chaque manipulation et avant d'avoir répondu aux questions.</span>
+
+<br/>
+<br/>
+
+De nombreuses aides apparaissent automatiquement dans ggobi quand on
+place la souris au-dessus d'un bouton ou d'un menu et qu'on la laisse
+immobile une fraction de seconde. Cette aide est bien faite&nbsp;:
+utilisez-là pour mieux comprendre ce qui est dit dans ce sujet, mais
+aussi pour essayer les possibilités offertes par ggobi, qui sont très
+nombreuses et font de ggobi un outil très riche et très utile.
+
+</p>
+
+<a name="AFaire"></a>
+<div class="section">
+  À faire
+</div>
+
+<p>
+
+Nous allons découvrir ggobi en analysant un jeu de données concernant
+des olives. 572 olives sont décrites par 10 attributs&nbsp;: région (sud de
+l'Italie, nord de l'Italie, Sardaigne) et aire (4 aires dans le sud, 2
+en Sardaigne et 3 dans le nord) de collecte&nbsp;; teneur en 8 acides gras.
+Le jeu de données est décrit dans un fichier dénommé
+<kbd>olive.xml</kbd>. <i>In fine</i>, l'objectif est de déterminer si
+l'on peut prédire la zone de collecte d'une huile d'olive à partir de
+la mesure de sa teneur dans ces 8 acides gras.
+
+</p>
+
+<a name="exo1"></a>
+<div class="subsection">
+  Premier contact avec ggobi&nbsp;: la fenêtre XYPlot
+</div>
+
+<p>
+
+Dans un <i>shell</i>, taper la commande <kbd>/usr2/ggobi/bin/ggobi
+&amp; </kbd>. Une fenêtre s'ouvre. Dans le menu « File », sélectionnez
+« Open ... » et le fichier <kbd>/usr2/ggobi/data/olive.xml</kbd>.
+
+<br/>
+
+Deux fenêtres s'ouvrent&nbsp;:
+
+</p>
+
+<center>
+  <table border="0" cellpadding="5" bgcolor="#cccccc">
+    <tr>
+      <td><img src="ggobi-fenetrePrincipale.png" align="middle"
+               alt="vue de la fenêtre de contrôle"/></td>
+      <td>fenêtre de contrôle</td>
+    </tr>
+    <tr>
+      <td><img src="ggobi-scatterPlotOlives.png" align="middle"
+               alt="vue du scatter plot du jeu de données olives"/></td>
+      <td>fenêtre XYPlot</td>
+    </tr>
+  </table>  
+</center>
+
+<p>
+
+La fenêtre XYPlot représente d'une certaine manière le jeu de
+données&nbsp;: c'est une projection du jeu de données dans le plan
+constitué de ces deux premiers attributs, région et aire. C'est un
+<i>scatter plot</i> ou XYPlot dans la terminologie propre à ggobi.
+
+<br/>
+
+<span class="question">Question</span>&nbsp;: plus haut, on vous a dit
+qu'il y a 572 données&nbsp;; seuls 9 points apparaissent dans cet
+XYPlot. Qu'en pensez-vous&nbsp;? De quoi s'agît-il vraiment&nbsp;?
+
+<br/>
+<br/>
+
+Aller dans le menu « Tools » et sélectionnez « Variable jittering
+... ». Une fenêtre s'ouvre contenant notamment la liste des
+attributs.
+
+</p>
+
+<ul>
+  <li>cliquez sur l'attribut « Région »&nbsp;;</li>
+  <li>glissez le curseur « Degree of jittering »&nbsp;;</li>
+  <li>observez l'effet sur le XYPlot&nbsp;;</li>
+  <li>interprétez&nbsp;!</li>
+  <li>vous pouvez aussi sélectionnez les deux attribus région et «
+    area »&nbsp;;</li>
+  <li>refaire glisser le refaire et constatez&nbsp;;</li>
+  <li>finalement, remettez le curseur à gauche et cliquez sur « Close
+    ».</li> 
+</ul>
+
+<p>
+
+Le <i>jittering</i> consiste à bruiter les données, c'est-à-dire,
+modifier légérement et aléatoirement la valeur de leurs attributs
+(ici, les attributs que vous avez sélectionnez). Des points
+surperposés deviennent ainsi distinguables...
+
+<br/>
+
+À utiliser à bon escient désormais&nbsp;!
+
+<br/>
+<br/>
+
+La fenêtre de contrôle comprend une zone à droite où vous pouvez
+sélectionner les attributs qui sont utilisés pour la projection des
+données. L'attribut région est sélectionné en X et l'attribut aire est
+sélectionné en Y. Vous pouvez cliquer sur chacun des boutons X et Y en
+regard du nom des attributs pour obtenir toutes les représentations
+planaires possibles. Faites plusieurs essais, par exemple en
+sélectionnant aire <i>vs.</i> acide palmitic, région <i>vs.</i> acide oleic, ...
+
+<br/>
+<br/>
+
+<span class="question">Questions</span>&nbsp;:
+
+</p>
+
+<ul>
+  <li>dans le XYPlot aire <i>vs.</i> acide palmitic, apparaissent, en
+    gros, des barres horizontales. Que représentent ces barres&nbsp;?</li>
+  <li>même question pour le XYPlot région vs acide oleic.</li>
+  <li>déterminer si la teneur dans l'un des 8 acides gras permet de
+    prédire avec certitude la région d'origine de l'olive.</li>
+</ul>
+
+<p>
+
+Vous aimeriez passer en revue tous les XYPlots en conservant fixe
+l'axe des X sur l'attribut région, pendant que les autres attributs
+défilent, l'un après l'autre, ni trop vite ni trop lentement, sur
+l'axe des Y. Vous pouvez naturellement cliquer sur les différents
+attributs, les uns après les autres, à la vitesse qui vous
+convient... c'est pénible. ggobi permet de faire beaucoup mieux. Dans
+la partie gauche de la fenêtre de contrôle, il y a un bouton indiquant
+« No fixed axes »&nbsp;; cliquer dessus et sélectionner « Fix X
+»&nbsp;; sélectionner l'attribut région pour qu'il soit en
+abscisses&nbsp;; cliquer sur le bouton « Cycle » ... et regarder. Le
+curseur situé en dessous du bouton « Fix X » vous permet de régler la
+vitesse de défilement. Essayez-le et voyez le résultat. Essayez aussi
+de cliquer sur le bouton situé en dessous, étiqueté « Change direction
+».  Essayez aussi de ne fixer aucun des deux axes&nbsp;; toutes les
+paires d'attributs vont défiler.
+
+Si vous voulez arrêter le défilement à un moment, cliquer simplement
+sur « Cycle ». 
+
+<br/>
+<br/>
+
+<span class="question">Question</span>&nbsp;: repérez des paires
+d'attributs qui vous semblent assez fortement corrélés linéairement.
+
+<br/>
+<br/>
+
+<span class="question">Question</span>&nbsp;: dans le XYPlot eicosenoic
+<i>vs.</i> arachidic, remarquez cette bande vers le bas du graphique. Qu'en
+pensez-vous&nbsp;?
+
+<br/>
+<br/>
+
+On peut aussi afficher en même temps des XYPlots pour un ensemble
+d'attributs. Dans le menu « Display », choisir « New Scatterplot
+Matrix ». Une fenêtre apparaît avec 4x4 XYPlots correspondants aux 4
+attributs sélectionnés dans la partie droite de la fenêtre de
+contrôle. Vous pouvez changer cette sélection, ajouter et retirer des
+attributs en utilisant le bouton de la partie gauche de la fenêtre de
+contrôle.
+
+<br/>
+<br/>
+
+<span class="question">Question</span>&nbsp;: quelle est la différence
+entre « Insert » et « Append »&nbsp;?
+
+<br/>
+<br/>
+
+Vous pouvez ainsi, d'un seul coup d'&#339;il, ou presque, retrouver les
+attributs fortement corrélés linéairement, ... que l'on avez repéré
+plus haut en faisant défiler les attributs. L'intérêt cette fois est
+d'avoir plusieurs graphiques sous les yeux en même temps...
+
+<br/>
+<br/>
+
+<span class="question">Question</span>&nbsp;: que représentent ces
+graphiques sur la diagonale principale&nbsp;?
+
+</p>
+
+<a name="exo2"></a>
+<div class="subsection">
+  Histogrammes
+</div>
+
+<p>
+
+Sélectionner « New Barchart » dans le menu « Display » de la fenêtre
+de contrôle. Voyez le résultat qui se passe de commentaires !
+
+<br/>
+<br/>
+
+<span class="question">Questions</span>&nbsp;:
+
+</p>
+
+<ul>
+  <li>examinez la distribution des différents attributs. Repérez la
+    distribution de chacun. Pour l'acide eicosenoic, la distribution est
+    frappante&nbsp;: elle semble à peu près normale, si ce n'est ce pic
+    extrême... Qu'en pensez-vous&nbsp;? (on vous a déjà posé une question
+    concernant cet acide un peu plus haut&nbsp;; y aurait-il un lien&nbsp;?)</li>
+  <li>sélectionnez l'attribut région puis sélectionnez « Spineplot » à
+    la place de « Barchart » dans la partie gauche de la fenêtre
+    de contrôle. Comprendre cette nouvelle représentation&nbsp;;
+    visualisez-la pour d'autres attributs.</li>
+</ul>
+
+<a name="exo3"></a>
+<div class="subsection">
+  Graphiques 1D
+</div>
+
+<p>
+
+Les histogrammes, c'est joli, c'est simple à interpréter, mais cela à
+des défauts. Selon le nombre d'intervalles que l'on utilise et selon
+l'origine à laquelle on commence le découpage en intervalles, les
+résultats peuvent être très différents. Des techniques plus
+performantes ont donc été développées dans le même esprit qui est de
+visualiser la distribution des valeurs d'un attribut.
+
+<br/>
+<br/>
+
+Sélectionner « New Scatterplot Display » dans le menu « Display » de
+la fenêtre de contrôle. On retrouve le XYPlot étudié plus haut. Dans le
+menu « ViewMode », sélectionner « 1D Plot ». La partie gauche de la
+fenêtre de contrôle comprend maintenant un bouton indiquant « ASH » en
+dessous duquel on trouve une zone de paramétrage ASH puis une zone
+pour passer d'un attribut à un autre. La partie droite contient la
+liste des attributs&nbsp;; le premier région, est sélectionné. Testez les
+différents attributs. 
+
+<br/>
+<br/>
+
+<span class="question">Question</span>&nbsp;: que représente la fenêtre
+graphique d'après vous&nbsp;?
+
+<br/>
+<br/>
+
+Oui, cela ressemble effectivement à une distribution des valeurs de
+chacun des attributs.
+
+<br/>
+<br/>
+
+<span class="question">Question</span>&nbsp;: repérez, à l'&#339;il, la
+distribution de chaque attribut. Comparez vos observations avec vos
+observations effectuées plus haut en réponse à la même question en
+utilisant des histogrammes.
+
+<br/>
+<br/>
+
+Si dessus, on a évoqué un problème avec les histogrammes, sans en dire
+plus. Pour illustrer la chose, prenez un papier et un
+crayon. Supposons que l'on ait les données suivantes : 1&nbsp;;
+1,75&nbsp;; 2&nbsp;; 2,25&nbsp;; 3&nbsp;; 5.
+
+Faites un histogramme avec un intervalle de 1 (c'est-à-dire que vous
+comptez sur la même barre les données comprises dans l'intervalle [x,
+x+1[) avec pour origine 0, dans un premier, puis un second histogramme
+avec pour origine 0,5.
+
+<br/>
+<br/>
+
+<span class="question">Question</span>&nbsp;: conclusion ?
+
+<br/>
+<br/>
+
+Vous allez pouvoir reprendre votre souris...
+
+<br/>
+<br/>
+
+Pour pallier les problèmes des histogrammes, la méthode ASH
+(<i>Averaged Shifted Histograms</i>) fait, comme son nom l'indique
+très clairement, la moyenne de plusieurs histogrammes décalés. ggobi
+calcule 50 histogrammes en utilisant une certaine largeur
+d'intervalles paramétrée dans la partie gauche de la fenêtre
+de contrôle, par le curseur « ASH smoothness ».
+
+<br/>
+<br/>
+
+<span class="question">Question</span>&nbsp;: sélectionnez l'acide
+palmitoleic et faites varier ce coefficient de lissage ASH. Que
+constatez-vous&nbsp;? Faites la même manipulation avec l'acide palmitic. En
+fin de compte, quelle est la « véritable » distribution de la valeur
+de ces attributs&nbsp;? celle pour 0,02, pour 0,2, pour 0,5, pour une autre
+valeur&nbsp;?
+
+</p>
+
+<a name="exo4"></a>
+<div class="subsection">
+  Les tours
+</div>
+
+<p>
+
+Un XYPlot s'est joli et utile mais quand on veut visualiser un nuage
+de points en 8 dimensions, une projection de ce nuage en 2D ne donne
+pas toute l'information que l'on aimerait obtenir. Pour aller plus
+loin, il existe la notion de tour, en particulier tour en 2D (ou <i>2D
+tour</i> dans ggobi). C'est un outil très puissant.
+
+<br/>
+<br/>
+
+Un tour 2D consiste à projeter le nuage de points d'une certaine
+manière (choisie aléatoirement) puis, partant de là, modifier
+légèrement (automatiquement) au fil du temps cette projection. On
+parcourt ainsi l'espace de toutes les projections possibles du nuage
+de points. Cela revient littéralement à prendre le nuage de points (P
+dimensionnels) et à le faire tourner devant les yeux&nbsp;; il ne nous
+reste plus qu'à choisir les angles qui fournissent les représentations
+les plus intéressantes (celles qui mettent en évidence une
+corrélation, une séparabilité, une segmentation, ...). Voyons comment
+on réalise un tour 2D avec ggobi.
+
+<br/>
+<br/>
+
+Reprenons le XYPlot linoleic <i>vs.</i> eicosenoic. Dans le menu «
+ViewMode », sélectionner « 2D Tour ». La fenêtre de contrôle prend
+l'aspect indiqué ci-dessous :
+
+</p>
+
+<center>
+  <img src="ggobi-2DTour-panel.png" align="middle"
+       alt="vue du panel de contrôle d'un tout 2D"/>
+</center>
+
+<p>
+
+On distingue trois zones :
+
+</p>
+
+<ul>
+  <li>à gauche, un ensemble de boutons permettant le contrôle du
+    tour&nbsp;;</li>
+  <li>au milieu, la liste des attributs, chacun associé à un bouton
+    permettant de le sélectionner pour le tour&nbsp;;</li>
+  <li>à droite, des cadrans précisant la projection courante
+    visualisée dans le XYPlot.</li>
+</ul>
+
+<p>
+
+Pour en simplifier l'utilisation, on peut sélectionner les attributs
+parmi lesquels on va faire le tour. Ici, on a sélectionné sept
+attributs en cliquant sur les boutons qui leur sont associés. Pour
+chacun des attributs sélectionnés, un cadran apparaît dans la partie
+droite du panneau de contrôle. Sélectionnez tous les attributs depuis
+la teneur en acide palmitoleic jusque celle de l'acide arachidic et
+déselectionnez les attributs région et aire.
+
+
+<br/>
+
+Sans plus tarder, cliquons sur le bouton indiqué « Pause » pour
+démarrer le tour (pour figer temporairement le tour, il suffit de
+recliquer sur ce bouton, d'où son nom).
+
+<br/>
+
+Ça va un peu vite ! Glissez le curseur situé au-dessus du bouton «
+Pause » et voyez le résultat. Admirez maintenant tranquillement le
+nuage de points qui tourne dans le XYPlot. Remarquez que les cadrans
+de contrôle associés aux 7 attributs considérés indiquent l'angle de
+projection de l'attribut dans le plan. Les 7 cadrans de contrôle sont
+superposés dans le XYPlot.
+
+</p>
+
+<center>
+  <table border="0" cellpadding="5" bgcolor="#cccccc">
+    <tr>
+      <td><img src="ggobi-2DTour-panel-associe-au-scatterPlot.png"
+               align="middle"
+               alt="vue de la fenêtre de contrôle pendant un tour 2D"/></td>
+      <td>fenêtre de contrôle pendant un tour 2D</td>
+    </tr>
+    <tr>
+      <td><img src="ggobi-2DTour-scatterPlot.png" align="middle"
+               alt="vue du scatter plot pendant un tour 2D"/></td>
+      <td>fenêtre XYPlot pendant un tour 2D</td>
+    </tr>
+  </table>  
+</center>
+
+
+<!--
+
+<ul>
+
+  <li>rotation&nbsp;: même
+    chose que 2D Tour sauf que l'on ne peut prendre que 3 attributs en
+    compte</li>
+
+  <li>1D tour</li>
+
+  <li>2x1D tour&nbsp;: intéressant
+    quand on a deux jeux d'attributs&nbsp;: variables observées
+    (réponses) et variables explicatives (de ces réponses) (voir jeu
+    crabes)</li>
+</ul>
+-->
+
+<a name="exo5"></a>
+<div class="subsection">
+  Statistiques et transformations des attributs
+</div>
+
+Dans le menu « Tools », sélectionnez « Variable manipulation ».  Un
+tableau apparaît indiquant les statistiquews des attributs : valeurs
+max, min, moyenne, médiane, ... On peut aussi afficher la liste des
+attributs en les triant en fonction de la valeur d'un attribut donné
+en cliquant sur le nom de l'attribut. On peut aussi mettre à l'échelle
+un attribut ou le borner.
+
+<!--
+<ul>
+
+  <li>transformations&nbsp;: en 3 étapes pipelinées (étape 0&nbsp;: ajustement
+  du domaine des variables&nbsp;: mettre
+  valeur minimum à 0, à 1&nbsp;; étape 1&nbsp;: transformations indépendantes
+  des données, préservant les limites définies par l'utilisateur&nbsp;: box-cox,
+  log10, inverse, valeur absolue, scale&nbsp;; étape 2&nbsp;: transformations
+  dépendantes des données ne préservant pas les limites utilisateurs&nbsp;: différente transfo
+  généralement non linéaires&nbsp;: tri, rang, ...)</li>
+</ul>
+-->
+
+<a name="exo6"></a>
+<div class="subsection">
+  Identification et sélection des points
+</div>
+
+<!--
+<ul>
+  <li>identification</li>
+  <li>coloriage</li>
+  <li>exclusion de points</li>
+  <li>sous-ensembles</li>
+</ul>
+-->
+
+<p>
+
+Nous nous intéressons ici à l'identification des points d'un
+nuage. Nous voyons deux méthodes. La première est très simple et
+consiste à afficher un identifiant quand la souris est positionnée sur
+un point du nuage (ou une barre de l'histogramme). La seconde est
+beaucoup plus puissante.
+
+</p>
+
+<p>
+
+On peut identifier chaque point du nuage. Pour cela, dans le menu «
+ViewMode », sélectionner « Identify ». Ensuite, promenez votre souris
+sur le XYPlot : l'identificateur du point situé sous la souris est
+affiché : cet identificateur est ici son aire de collecte. Vous pouvez
+rendre tous les identifiants « collant » en cliquant sur « Make all
+sticky ». Les points étant tassés, cela ne donne rien de bien
+intéressant ici. Cliquez sur le bouton « Remove labels » pour les
+retirer.
+
+</p>
+
+<p>
+
+Lors d'une utilisation normale de ggobi, on ouvre typiquement
+plusieurs fenêtres avec des représentations différentes, pour observer
+le jeu de données sous différents points de vue et sous différents
+angles. Par exemple, ouvrez un XYPlot donnant la teneur en acide
+linoleic <i>vs.</i> eicosenoic ainsi qu'un histogramme de la région de
+collecte. On voudrait par exemple que les olives provenant de chacune
+des trois régions soient indiquées avec des couleurs différentes
+(rappelons-le, notre objectif est de déterminer si l'on peut trouver
+à l'&#339;il, un ou des critères pour discriminer les olives en
+fonction de leur zone de collecte).
+
+<br/>
+<br/>
+
+Ayant ouvert ces deux fenêtres graphiques, cliquez dans l'une et
+regardez le contenu de la fenêtre de contrôle&nbsp;; cliquez dans l'autre
+et regardez encore le contenu de la fenêtre de contrôle. Vous
+constatez que ce contenu change en fonction de la fenêtre dans
+laquelle vous cliquez pour fournir des outils et des menus adaptés à
+ce que représente la fenêtre.
+
+<br/>
+<br/>
+
+Cliquez maintenant dans la fenêtre contenant l'histogramme. Ceci fait,
+dans la fenêtre de contrôle, dans le menu « ViewMode », sélectionnez «
+Brush ». Vous constatez que le contenu de la fenêtre de contrôle vient
+de changer, vous fournissant un ensemble de boutons et menus que vous
+allez utiliser, comme ci-dessous&nbsp;:
+
+</p>
+
+<center>
+  <img src="ggobi-brush.png" align="middle"
+  alt="vue de la fenêtre de contrôle pour le brushing"/>
+</center>
+
+<p>
+
+
+</p>
+
+<ul>
+  <li>cliquez sur le bouton « Brush on » (sur la figure ci-dessus, il
+    est cliqué)</li>
+  <li>cliquez sur le bouton « Choose color &amp; glyph ...» qui a pour
+    effet d'ouvrir la fenêtre ci-dessous&nbsp;:
+
+    <center>
+      <img src="ggobi-choose-color-and-glyph.png"  align="middle"
+        alt="vue de la fenêtre pour le choix de couleur et de glyph"/>
+    </center>
+
+    Précisons que le mot <i>glyph</i> indique la manière de
+    représenter les points du nuage&nbsp;: un disque, une croix, un
+    carré, ... Choisir une couleur en cliquant sur l'un des petits
+    carrés colorés (« Foreground colors »)</li>
+
+  <li>dans la fenêtre de l'histogramme, un petit carré de la couleur
+    que vous avez choisie est apparu. Quand vous maintenez cliqué le
+    bouton gauche de la souris (dans cette fenêtre), la barre de
+    l'histogramme située dessous prend cette couleur et reprend
+    ensuite sa couleur quand le carré quitte la barre&nbsp;; vous pouvez
+    aussi ne pas maintenir le bouton gauche appuyé mais simplement
+    cliquer avec le bouton gauche sur une barre de l'histogramme pour
+    le colorer. Colorez l'une des 3 barres de l'histogramme</li>
+  <li>regardez ce qui c'est passé dans les deux autres fenêtres
+    graphiques. Vous savez maintenant quels points du nuages
+    correspondent à cette région de collecte</li>
+  <li>vous pouvez colorer les points correspondant à une autre barre
+    de l'histogramme avec la même ou avec une autre couleur que vous
+    choisissez dans la fenêtre de choix de couleur et de glyph</li>
+</ul>
+
+<p>
+
+<span class="question">Questions&nbsp;:</span>
+
+</p>
+
+<ul>
+  <li>un nombre de couleur apparaît dans les fenêtres où vous colorez
+    des points ou une barre d'histogramme. Qu'est-ce que ce nombre&nbsp;?</li>
+  <li>les olives de l'une des trois régions de collecte vous
+    paraissent-elles linéairement séparables des 2 autres&nbsp;? Si oui, quel
+    critère de décision proposez-vous&nbsp;? Si non, cherchez mieux !</li>
+</ul>
+
+<p>
+
+Notez bien que le coloriage que l'on a effectué à partir de
+l'histogramme aurait pu être fait depuis un XYPlot. 
+
+<br/>
+<br/>
+
+Pour que le coloriage reste, il faut sélectionner « Persistent » à la
+place de « Transient ». On peut alterner, passer de l'un à l'autre
+pour faire des essais (mode « Transient ») et pour colorier (mode «
+Persistent »).
+
+<br/>
+<br/>
+
+Coloriez (de manière persistente) des ensembles de points du nuage
+dans le XYPlot en utilisant différentes couleurs pour différentes
+zones et constatez...
+
+<br/>
+<br/>
+
+Remarque&nbsp;: si vous coloriez une zone par erreur, vous avez le
+bouton « Undo » à votre disposition.
+
+<br/>
+<br/>
+
+Vous avez donc colorié différentes zones avec différentes
+couleurs. Vous obtenez quelque chose comme ce qui suit (pas la peine
+d'essayer d'obtenir exactement cela, c'est juste un exemple)&nbsp;:
+
+</p>
+
+<center>
+  <img src="ggobi-colored-linoleic-vs-eicosenoic-plot.png"  align="middle"
+       alt="XYPlot lineloic vs eicosenoic colorié"/>
+  <img src="ggobi-colored-region-barchart.png"  align="middle"
+       alt="barchart colorié"/>
+  <img src="ggobi-colored-xyplot-palmitic-vs-eicosenoic.png"  align="middle"
+       alt="XYPlot palmitic vs eicosenoic colorié"/>
+</center>
+
+<p>
+
+Il est important pour les explications qui suivent que vous ayez
+colorié des zones avec 4 ou 5 couleurs différentes.
+
+<br/>
+<br/>
+
+Dans le menu « Tools », sélectionnez alors « Color and Glyh groups
+... » qui entraîne l'apparition de la fenêtre suivante&nbsp;:
+
+</p>
+
+<center>
+  <img src="ggobi-color-and-glyph-groups.png"  align="middle"
+       alt="XYPlot lineloic vs eicosenoic colorié"/>
+</center>
+
+<p>
+
+Chacune des couleurs que vous avez utilisé apparaît à gauche, sur une
+ligne. Sur cette ligne est indiqué le nombre de points colorés de
+cette couleur dans le nuage (colonne N). Si vous cliquez sur le bouton
+« Shadow » d'une certaine ligne, vous mettez les points correspondants
+dans l'ombre&nbsp;: leur nombre apparaît dans la colonne « Shadowed » et,
+surtout, si vous regardez maintenant vos fenêtres graphiques, ces
+points apparaissent en gris&nbsp;: ils sont à l'ombre.
+
+<br/>
+<br/>
+
+Ayant mis des points à l'ombre, vous pouvez les exclure des graphiques
+en cliquant sur le bouton « Exclude shadows ».
+
+<br/>
+<br/>
+
+À quoi ça sert&nbsp;? Plus haut, on a constaté que les olives de la région
+1 sont séparables aisément des autres. Sur le graphique, les olives
+des deux autres régions sont mélangées, comme on a pu le voir en
+coloriant chacune de ces deux zones. La région 1 étant séparable, il
+est bon de se concentrer sur les autres points. Ombrager et exclure
+les points de la région 1 va permettre de se concentrer sur les autres
+points, sans que notre vue soit perturbée par des points qui ne nous
+intéresse plus pour l'instant.
+
+<br/>
+<br/>
+
+<span class="question">Question&nbsp;:</span> exclure les olives collectées
+dans la région 1 et étudier les autres en faisant des tours. Peut-être
+est-il utile de colorer les olives avec une couleur différente pour
+chacune des deux régions... Quelle structure trouvez-vous&nbsp;?
+
+<br/>
+<br/>
+
+Remarque : les points ombragés exclus peuvent être revisualisés :
+
+</p>
+
+<ul>
+  <li>pour récupérer les points ombragés et exclus&nbsp;: menu «
+    Reset », puis « Include shadowed points in current display
+    »&nbsp;;</li>
+  <li>pour qu'ils sortent de l'ombre, même menu, « Un-shadow all
+    points in current display ».</li>
+</ul>
+
+<a name="exo7"></a>
+<div class="subsection">
+  Autres sujets
+</div>
+
+<ul>
+<!--
+  <li>parallel coordinate plot</li>
+
+  <li>jittering</li>
+
+  <li>valeurs manquantes</li>
+
+  <li>edges</li>
+-->
+
+  <li><i>scale</i>&nbsp;: changer la posiion et l'échelle d'un XYPlot. Avec
+    le bouton gauche de la souris, on translate les points. Avec les
+    boutons de droite et du milieu (ils ont le même effet), on
+    agrandit ou on rétrécit l'échelle&nbsp;: pas besoin de longues
+    explications&nbsp;: testez-le !
+
+    <br/>
+
+    On peut vite être perdu ! Se repérer avec les échelles sur les
+    axes de coordonnées pour retrouver son nuage de points.
+
+    Quand on est vraiment perdu, utiliser le menu « Reset x de la
+    fenêtre de contrôle (menu accessible uniquement quand on est en
+    train de faire du <i>scaling</i>)&nbsp;: pour recentrer&nbsp;: « reset pan »
+   &nbsp;; pour remettre à l'échelle d'origine&nbsp;: « reset zoom ».</li>
+
+<!--
+  <li><i>sphering</i>&nbsp;: cela revient à faire une ACP des attributs
+    sélectionnés. Ayant choisi « sphering » dans le menu, une fenêtre
+    apparaît où&nbsp;:
+    <ul>
+      <li>en haut, on sélectionne les attributs à considérer pour l'ACP&nbsp;;</li>
+      <li>en cliquant sur le bouton « Update scree plot », on
+        déclenche le calcul de l'ACP et se dessine le spectre des
+        valeurs propres.</li>
+    </ul>
+    À la suite de ces manipulations, les composantes principales
+    apparaissent également dans l'outil « Variable manipulation ». On
+    peut vérifier que leur moyenne est nulle.</li>
+-->
+</ul>
+
+<a name="exo8"></a>
+<div class="subsection">
+  Pour en finir avec ces huiles d'olive
+</div>
+
+
+<p>
+
+<span class="question">Question</span>&nbsp;: suite aux manipulations que
+nous avons réalisées et celles que vous pouvez imaginer faire,
+êtes-vous capables de prédire la région et l'aire de collecte d'une
+olive connaissant sa teneur dans les 8 acides gras mesurés. Justifiez
+votre réponse. Êtes-vous au moins capable de prédire sa région, sinon
+son aire&nbsp;?
+
+</p>
+
+<a name="liens"></a>
+<div class="section">
+  Liens&nbsp;: des lectures passionnantes en perspective
+</div>
+
+<p>
+
+Le site du logiciel <a href="http://www.ggobi.org">ggobi</a> contient
+un ensemble de documentations très intéressantes sur la visualisation
+de données en vue de leur fouille. Outre un tutoriel sur ggobi, on
+trouvera plusieurs chapitres d'un livre en cours de rédaction intitulé
+<i>Interactive and Dynamic Graphics for Data Analysis</i> dont la
+lecture est plus que vivement recommandée.
+
+<br/>
+<br/>
+
+Pas mal de détails sur les méthodes utilisées dans ggobi sont décrites
+dans des publications disponibles sur la page de son « ancêtre », <a
+href="http://www.research.att.com/areas/stat/xgobi/">xgobi</a>.
+
+<br/>
+<br/>
+
+et quelques liens que j'ai utilisés pour comprendre certaines
+techniques disponibles dans ggobi&nbsp;:
+
+</p>
+
+<ul>
+  <li><a
+    href="http://davis.wpi.edu/~matt/courses/nland/node4.html">projection
+    pursuit</a></li>
+  <li> 
+<!--
+  textured dot plot dans le 1D plot 
+  -->
+  <a href="http://www.spss.com/research/wilkinson/Publications/dots.pdf">dot
+    plots</a>, pour les <i>textured dot plot</i>, voir <a href="http://www.public.iastate.edu/~dicook/ggobi-book/chap-toolbox.pdf">ici, page 26, 27</a></li>
+  <li><a
+    href="http://www.quantlet.com/mdstat/scripts/spm/html/spmhtmlnode11.html"><i>Averaged
+    Shifted Histogram</i></a>
+
+    <!--
+     relation entre ASH et CMAC&nbsp;:
+     <a href="http://www.kgs.ukans.edu/software/Kipling/Theory.html">voir
+     ici</a>
+      -->
+    </li>
+
+</ul>
+
+<!--
+<p>
+
+<div class="theoreme">
+ ceci est un théoréme.
+  <ul>
+    <li>ligne 1</li>
+    <li>ligne 2</li>
+  </ul>
+</div>
+
+</p>
+-->
+
+<p>
+
+<a href="http://validator.w3.org/check?uri=referer">
+   <img src="http://www.w3.org/Icons/valid-xhtml10"
+        alt="Valid XHTML 1.0!" height="31" width="88" /></a>
+<a href="http://jigsaw.w3.org/css-validator/">
+   <img style="border:0;width:88px;height:31px"
+        src="http://jigsaw.w3.org/css-validator/images/vcss" 
+        alt="Valid CSS!" /></a>
+
+</p>
+
+</body>
+</html>
