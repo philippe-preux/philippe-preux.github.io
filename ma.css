@@ -340,6 +340,6 @@ span.moreCommentOnPub{
   font-family: Verdana, Arial;
   font-size: 13px;*/
   background-color: #77ff33;
-  -moz-border-radius: 3em 1em /* 20px; pour avoir des coins arrondis */
+  -moz-border-radius: 3em 1em; /* 20px; pour avoir des coins arrondis */
   border-radius: 3em 1em; /* 20px; pour avoir des coins arrondis */
 }
