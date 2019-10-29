@@ -1,0 +1,164 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="fr" xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Complétion de matrices</title>
+  <link href="https://philippe-preux.github.io/css/ma.css" 
+        rel="stylesheet" type="text/css" media="all" />
+  <link rel="shortcut icon" type="image/png"
+        href="https://philippe-preux.github.io/img/site.ico" />
+</head>
+
+<div class="tpR">
+<h1>Complétion de matrices</h1>
+
+<p>
+
+L'objectif est de mettre en pratique ce qui a été vu en cours
+concernant la complétion de matrices dans le cadre des systèmes de
+notation de produits.
+
+</p>
+
+<h2 id="PbEtDonnees">Le problème et les données</h2>
+
+<h3 id="Pb">Le problème</h3>
+
+<p>
+
+On va travailler avec des données issues du système de recommendation
+de films <a href="http://movielens.umn.edu">MovieLens</a>. Plusieurs
+jeux de données sont disponibles sur le site
+de <a href="http://www.grouplens.org/node/12">GroupLens</a>. Ces jeux
+de données diffèrent par leur taille et vous travaillerez avec le plus
+petit pour mettre au point vos programmes. Néanmoins, vos programmes
+doivent aussi fonctionner avec les deux autres jeux de données.
+
+<!--br/>
+
+En cas de problèmes, j'ai fait une copie de ces fichiers. Ils sont
+disponibles à l'identique sur mon
+site&nbsp;: <a href="./ml-100k.zip">MovieLens 100k</a>, <a
+href="./ml-1m.zip">MovieLens 1M</a>, <a href="./ml-10m.zip">MovieLens
+10M</a>.
+-->
+<br/>
+<br/>
+
+<a href="http://movielens.umn.edu">MovieLens</a> est un site
+communautaire de recommendation de films. Les utilisateurs de ce site
+notent des films de 1 à 5. Ils peuvent également demander des
+suggestions de films étant donnés les notations qu'ils ont fournies.
+
+<br/>
+
+Chaque utilisateur est décrit par quelques attributs&nbsp;: 
+
+</p>
+
+<ul>
+  <li>un numéro d'identification,</li>
+  <li>son âge,</li>
+  <li>son sexe,</li>
+  <li>son métier,</li>
+  <li>son code postal (USA).</li>
+</ul>
+
+<p>
+
+Chaque film est décrit par&nbsp;:
+
+</p>
+
+<ul>
+  <li>un numéro d'identification,</li>
+  <li>son titre,</li>
+  <li>sa date de sortie au cinéma,</li>
+  <li>son genre.</li>
+</ul>
+
+<p>
+
+On dispose alors d'une liste de notes sous la forme&nbsp;: 
+
+</p>
+
+<ul>
+  <li>identifiant d'utilisateur,</li>
+  <li>identifiant de film,</li>
+  <li>note attribuée par cet utilisateur à ce film,</li>
+  <li>information de date&nbsp;: nombre de secondes écoulées depuis le
+    1/1/1970.</li>
+</ul>
+
+<p>
+
+Dans le plus petit jeu de données, il y a 100.000 notes, provenant de
+943 utilisateurs pour 1682 films. Les autres jeux de données en
+comptent respectivement 1 million et 10 millions.
+
+<br/>
+<br/>
+
+L'objectif est de pouvoir sélectionner des films pour un
+utilisateur. Les recommendations peuvent concerner des films qui
+devraient lui plaire, mais aussi des films qui ne lui plairont
+probablement pas.
+
+<br/>
+
+Pour cela, on va appliquer ce que l'on a vu en cours concernant la
+factorisation de matrices non négatives.
+
+</p>
+
+<h2 id="factorisation">Factorisation de matrices</h2>
+
+<p>
+
+On va appliquer la méthode de factorisation de matrices non négatives
+vue en cours pour effectuer des recommentations.
+
+</p>
+
+<ul>
+  <li>implanter la méthode de descente de gradient stochastique pour la factorisation de matrices vue en cours.</li>
+  <li>l'appliquer sur le jeu de données 100 K&nbsp;; prenez K=40, &eta;=0,001 et &lambda;=1. Vous découperez le jeu de données en un ensemble d'apprentissage et un ensemble de test.</li>
+  <li>à chaque itération, mesurer l'erreur quadratique moyenne sur chacun des deux ensembles (apprentissage et test) et les stocker dans un fichier pour pouvoir ensuite les tracer avec <kbd>gnuplot</kbd>.</li>
+  <li>Essayez différentes valeurs de K et de &lambda; pour en trouver qui minimisent cette erreur quadratique moyenne.</li>
+</ul>
+
+<p>
+
+Une fois que cette première version de votre programme fonctionne sur le jeu de 100 K notes, testez-le sur les deux autres jeux de données.
+
+<br/>
+<br/>
+
+Pour cette question, votre programme doit initialiser les features avec des valeurs pseudo-aléatoires, différentes à chaque exécution. Si votre programme utilise la GSL pour générer des nombres pseudo-aléatoires pour initialiser les features, vous pouvez lancer votre programme en ajoutant <kbd>GSL_RNG_SEED=10 mon-programme avec ses arguments</kbd>&nbsp;; cela initialise la graine avec la valeur 10. Pour exécuter plusieurs fois votre programme avec des graines différentes, vous pouvez faire une boucle en bash comme suit&nbsp;:
+<pre>for SEED in 0 123 1253 53783 ; do
+  GSL_RNG_SEED=$SEED mon-programme avec ses arguments
+done
+</pre>
+<br/>
+Exécutez plusieurs fois votre programme sur le même jeu d'entraînement et le même jeu de test. Quelle est l'erreur de prédiction moyenne, son écart-type&nbsp;?
+
+<br/>
+<br/>
+
+Ensuite, ajouter le débiaisage des notes vu en cours.
+
+</p>
+
+</div>
+</body>
+</html>
+
+<!--
+http://sifter.org/~simon/journal/20061211.html
+
+http://sifter.org/~simon/journal/20070817.html
+-->
+
