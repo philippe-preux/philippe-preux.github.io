@@ -3,8 +3,8 @@
 <html xml:lang="fr" xmlns="http://www.w3.org/1999/xhtml" lang="fr">
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-  <title>Systèmes de recommendation</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>SystÃ¨mes de recommendation</title>
   <link href="https://philippe-preux.github.io/css/ma.css"
 	rel="stylesheet" type="text/css" media="all">
   <link rel="shortcut icon" type="image/png"
@@ -13,12 +13,12 @@
 <body>
 
 <div class="tpR">
-<h1>Systèmes de recommendation</h1>
+<h1>SystÃ¨mes de recommendation</h1>
 
 <p>
 
-L'objectif est de mettre en pratique ce qui a été vu en cours
-concernant les systèmes de recommendation de produits.
+L'objectif est de mettre en pratique ce qui a Ã©tÃ© vu en cours
+concernant les systÃ¨mes de recommendation de produits.
 
 <br>
 <br>
@@ -29,19 +29,19 @@ Toutes les manipulations se feront avec R, sous Linux.
 <br>
 
 
-<h2 id="PbEtDonnees">Le problème et les données</h2>
+<h2 id="PbEtDonnees">Le problÃ¨me et les donnÃ©es</h2>
 
-<h3 id="Pb">Le problème</h3>
+<h3 id="Pb">Le problÃ¨me</h3>
 
 <p>
 
-On va travailler avec des données issues du système de recommendation
+On va travailler avec des donnÃ©es issues du systÃ¨me de recommendation
 de films <a href="http://movielens.umn.edu">MovieLens</a>. Plusieurs
-jeux de données sont disponibles sur le site de <a
+jeux de donnÃ©es sont disponibles sur le site de <a
 href="http://www.grouplens.org/node/12">GroupLens</a>. Ces jeux de
-données diffèrent par leur taille et nous travaillerons avec le plus
-petit. Vous êtes invités à refaire le TP avec les autres jeux de
-données par vous-même.
+donnÃ©es diffÃ¨rent par leur taille et nous travaillerons avec le plus
+petit. Vous Ãªtes invitÃ©s Ã  refaire le TP avec les autres jeux de
+donnÃ©es par vous-mÃªme.
 
 
 <br/>
@@ -49,33 +49,33 @@ données par vous-même.
 
 <a href="http://movielens.umn.edu">MovieLens</a> est un site
 communautaire de recommendation de films. Les utilisateurs de ce site
-notent des films de 1 à 5. Ils peuvent également demander des
-suggestions de films étant donnés les notations qu'ils ont fournies.
+notent des films de 1 Ã  5. Ils peuvent Ã©galement demander des
+suggestions de films Ã©tant donnÃ©s les notations qu'ils ont fournies.
 
 <br/>
 
-Chaque utilisateur est décrit par quelques attributs&nbsp;: 
+Chaque utilisateur est dÃ©crit par quelques attributs&nbsp;: 
 
 </p>
 
 <ul>
-  <li>un numéro d'identification,</li>
-  <li>son âge,</li>
+  <li>un numÃ©ro d'identification,</li>
+  <li>son Ã¢ge,</li>
   <li>son sexe,</li>
-  <li>son métier,</li>
+  <li>son mÃ©tier,</li>
   <li>son code postal (USA).</li>
 </ul>
 
 <p>
 
-Chaque film est décrit par&nbsp;:
+Chaque film est dÃ©crit par&nbsp;:
 
 </p>
 
 <ul>
-  <li>un numéro d'identification,</li>
+  <li>un numÃ©ro d'identification,</li>
   <li>son titre,</li>
-  <li>sa date de sortie au cinéma</li>
+  <li>sa date de sortie au cinÃ©ma</li>
   <li>son genre.</li>
 </ul>
 
@@ -88,21 +88,21 @@ On dispose alors d'une liste de notes sous la forme&nbsp;:
 <ul>
   <li>identifiant d'utilisateur</li>
   <li>identifiant de film</li>
-  <li>note attribué par cet utilisateur à ce film,</li>
-  <li>information de date&nbsp;: nombre de secondes écoulées depuis le
+  <li>note attribuÃ© par cet utilisateur Ã  ce film,</li>
+  <li>information de date&nbsp;: nombre de secondes Ã©coulÃ©es depuis le
     1/1/1970</li>
 </ul>
 
 <p>
 
 Il y a 100.000 notes, provenant de 943 utilisateurs pour 1682
-films. Les autres jeux de données disponibles sur ce site web en
+films. Les autres jeux de donnÃ©es disponibles sur ce site web en
 comptent respectivement 1 million et 10 millions.
 
 <br/>
 <br/>
 
-L'objectif est de pouvoir proposer des recommendations à un
+L'objectif est de pouvoir proposer des recommendations Ã  un
 utilisateur. Les recommendations peuvent concerner des films qui
 devraient lui plaire, mais aussi des films qui ne lui plairont
 probablement pas.
@@ -110,15 +110,15 @@ probablement pas.
 <br/>
 
 Pour cela, on va appliquer ce que l'on a vu en cours concernant la
-factorisation de matrices non négatives.
+factorisation de matrices non nÃ©gatives.
 
 </p>
 
-<h3 id="Donnees">Les données</h3>
+<h3 id="Donnees">Les donnÃ©es</h3>
 
-Étant donné le peu de temps dont nous disposons, j'ai nettoyé les
-données pour qu'elles puissent être chargées sans problème dans R.
-Vous y accédez via les urls suivantes&nbsp;:
+Ã‰tant donnÃ© le peu de temps dont nous disposons, j'ai nettoyÃ© les
+donnÃ©es pour qu'elles puissent Ãªtre chargÃ©es sans problÃ¨me dans R.
+Vous y accÃ©dez via les urls suivantes&nbsp;:
 
 </p>
 
@@ -130,75 +130,75 @@ Vous y accédez via les urls suivantes&nbsp;:
   <li><kbd>https://philippe-preux.github.io/ensg/miashs/fouille-web/tp/systemes-de-recommendation/MovieLens-data/small/u.data</kbd>&nbsp;:
     le fichier des notes</a></li> 
   <li><kbd>https://philippe-preux.github.io/ensg/miashs/fouille-web/tp/systemes-de-recommendation/MovieLens-data/small/u.occupation</kbd>&nbsp;:
-    le fichier des métiers des utilisateurs</a></li> 
+    le fichier des mÃ©tiers des utilisateurs</a></li> 
   <li><kbd>https://philippe-preux.github.io/ensg/miashs/fouille-web/tp/systemes-de-recommendation/MovieLens-data/small/u.genre</kbd>&nbsp;:
     le fichier des genres de films</a></li> 
 </ul>
 
 <p>
 
-Pour charger ces données avec <kbd>read.table()</kbd>, les arguments
-<kbd>sep</kbd> et <kbd>quote</kbd> peuvent être utiles.
+Pour charger ces donnÃ©es avec <kbd>read.table()</kbd>, les arguments
+<kbd>sep</kbd> et <kbd>quote</kbd> peuvent Ãªtre utiles.
 
 </p>
 
-<h2 id="exploration">Exploration préliminaire des données</h2>
+<h2 id="exploration">Exploration prÃ©liminaire des donnÃ©es</h2>
 
 <p>
 
-Comme toujours, on commence par explorer les données pour les
-comprendre. Avant même cela, il faut bien comprendre comment sont
-organisées les données dans les différents fichiers.  Ce qui nous
-intéresse vraiment sont les notes, les caractéristiques des
-utilisateurs et les caractéristriques des films.
+Comme toujours, on commence par explorer les donnÃ©es pour les
+comprendre. Avant mÃªme cela, il faut bien comprendre comment sont
+organisÃ©es les donnÃ©es dans les diffÃ©rents fichiers.  Ce qui nous
+intÃ©resse vraiment sont les notes, les caractÃ©ristiques des
+utilisateurs et les caractÃ©ristriques des films.
 
 </p>
 
 <ul>
-  <li>on se demande combien de notes chaque utilisateur a attribué et
-    combien de fois a été noté chaque film.
-    On peut calculer une moyenne et un écart-type, mais sans savoir
+  <li>on se demande combien de notes chaque utilisateur a attribuÃ© et
+    combien de fois a Ã©tÃ© notÃ© chaque film.
+    On peut calculer une moyenne et un Ã©cart-type, mais sans savoir
     si la distribution des valeurs est normale, on risque des
-    surprises. On les calcule pour précisément se rendre compte que
+    surprises. On les calcule pour prÃ©cisÃ©ment se rendre compte que
     ces valeurs n'ont aucun sens ici&nbsp;:
     <ul>
-      <li>quel est le nombre de notes moyen attribuées par un
+      <li>quel est le nombre de notes moyen attribuÃ©es par un
         utilisateur&nbsp;?</li>
-      <li>quelle est l'écart-type de cette valeur&nbsp;?</li>
-      <li>quel est le nombre de notes moyen attribuées à un film&nbsp;?</li>
-      <li>quelle est l'écart-type de cette valeur&nbsp;?</li>
+      <li>quelle est l'Ã©cart-type de cette valeur&nbsp;?</li>
+      <li>quel est le nombre de notes moyen attribuÃ©es Ã  un film&nbsp;?</li>
+      <li>quelle est l'Ã©cart-type de cette valeur&nbsp;?</li>
     </ul>
-    Pour voir immédiatement si ces moyennes et écart-types ont un
+    Pour voir immÃ©diatement si ces moyennes et Ã©cart-types ont un
     sens, faisons un histogramme de ces valeurs&nbsp;:
     <ul>
-      <li>faire un histogramme du nombre de notes attribuées par les
+      <li>faire un histogramme du nombre de notes attribuÃ©es par les
         utilisateurs&nbsp;?</li>
-      <li>faire un histogramme du nombre de notes reçues par les
+      <li>faire un histogramme du nombre de notes reÃ§ues par les
         films&nbsp;?</li>
-      <li>ajoutez à ces histogrammes une ligne rouge indiquant la
-        moyenne calculée plus haut, ainsi que des lignes vertes à 1
-        écrat-ytpe de par et d'autre de la moyenne.</li>
+      <li>ajoutez Ã  ces histogrammes une ligne rouge indiquant la
+        moyenne calculÃ©e plus haut, ainsi que des lignes vertes Ã  1
+        Ã©crat-ytpe de par et d'autre de la moyenne.</li>
     </ul>
-    Un histogramme apporte une information très riche&nbsp;: il faut
+    Un histogramme apporte une information trÃ¨s riche&nbsp;: il faut
     toujours faire des histogrammes avant de se lancer dans des
-    analyses plus poussées.
+    analyses plus poussÃ©es.
     <br/>
     Les distributions que nous obtenons ici sont typiques&nbsp;: la
     distribution n'est absolument pas normale (et c'est pour cela que
-    moyenne et écart-type n'ont pas de sens).
+    moyenne et Ã©cart-type n'ont pas de sens).
     </li>
-  <li>on veut savoir si les utilisateurs notent de manière uniforme ou
+  <li>on veut savoir si les utilisateurs notent de maniÃ¨re uniforme ou
     pas les films&nbsp;; autrement dit, est-ce qu'ils notent tous
-    uniformément avec les notes de 1 à 5, ou certains sont-ils
-    généreux alors que d'autres sont plus difficiles&nbsp;?
+    uniformÃ©ment avec les notes de 1 Ã  5, ou certains sont-ils
+    gÃ©nÃ©reux alors que d'autres sont plus difficiles&nbsp;?
     <br/>
-    À nouveau, un histogramme indiquant la distribution de la note
+    Ã€ nouveau, un histogramme indiquant la distribution de la note
     moyenne de chaque utilisateur apportera beaucoup d'information.
     <br/>
-    On peut aussi se demander s'il y a une différence de notation
+    On peut aussi se demander s'il y a une diffÃ©rence de notation
     entre les utilisateurs qui notent beaucoup de films (plus que la
     moyenne) et ceux qui en notent moins. Aussi, faire un histogramme
-    pour chaque classe d'utilisateur et les superposer sur le même
+    pour chaque classe d'utilisateur et les superposer sur le mÃªme
     graphique apportera-t-il de l'information.
     <div class="correction">
       <br/>
@@ -214,19 +214,19 @@ utilisateurs et les caractéristriques des films.
 -->
   <li>Anecdotique&nbsp;: comment convertissez-vous un nombre de
     secondes depuis le 1/1/1970 en une date au format
-    jour/mois/année&nbsp;? (voir la fonction <kbd>as.Date()</kbd>)</li>
+    jour/mois/annÃ©e&nbsp;? (voir la fonction <kbd>as.Date()</kbd>)</li>
 <!--
-  <li>écrire une fonction qui...</li>
+  <li>Ã©crire une fonction qui...</li>
  -->
 </ul>
 
 <p>
 
-Ce qui précède n'est que quelques exemples des analyses à réaliser
+Ce qui prÃ©cÃ¨de n'est que quelques exemples des analyses Ã  rÃ©aliser
 avant d'aller plus loin. On pourrait se poser des tas d'autres
-questions&nbsp;: est-ce qu'il y a une corrélation entre le métier et
-les notes&nbsp;? la zone géographique dans laquelle on habite et les
-notes&nbsp;? idem avec le type de films notés&nbsp;?
+questions&nbsp;: est-ce qu'il y a une corrÃ©lation entre le mÃ©tier et
+les notes&nbsp;? la zone gÃ©ographique dans laquelle on habite et les
+notes&nbsp;? idem avec le type de films notÃ©s&nbsp;?
 
 </p>
 
@@ -234,7 +234,7 @@ notes&nbsp;? idem avec le type de films notés&nbsp;?
 
 <p>
 
-On va appliquer la méthode de factorisation de matrices non négatives
+On va appliquer la mÃ©thode de factorisation de matrices non nÃ©gatives
 vue en cours pour effectuer des recommentations.
 
 <br/>
@@ -247,24 +247,24 @@ vue en cours pour effectuer des recommentations.
 
 <p>
 
-On n'a fait qu'aborder les prémisses du problème ici. En particulier,
-un élément extrêmement important est que la manière de noter d'une
-personne évalue au cours du temps&nbsp; son jugement change au fil du
+On n'a fait qu'aborder les prÃ©misses du problÃ¨me ici. En particulier,
+un Ã©lÃ©ment extrÃªmement important est que la maniÃ¨re de noter d'une
+personne Ã©value au cours du temps&nbsp; son jugement change au fil du
 temps&nbsp;; il y a des effets de mode qui font que la note moyenne
-d'un film évolue au cours du temps&nbsp;; ...
+d'un film Ã©volue au cours du temps&nbsp;; ...
 
 <br/>
 
-Si vous voulez aller plus loin, réflêchissez à ces questions et si
-vous avez de bonnes idées, vous pouvez même les publier&nbsp;!
+Si vous voulez aller plus loin, rÃ©flÃªchissez Ã  ces questions et si
+vous avez de bonnes idÃ©es, vous pouvez mÃªme les publier&nbsp;!
 
 <br/>
 <br/>
 
 Suggestion&nbsp;: vous pouvez vous enregistrez sur <a
-href="http://movielens.umn.edu">MovieLens</a> et participer à la
+href="http://movielens.umn.edu">MovieLens</a> et participer Ã  la
 notation des films, mais aussi, dans le cadre de ce TP, comparer les
-résultats que vous obtenez avec les suggestions fournies par
+rÃ©sultats que vous obtenez avec les suggestions fournies par
 MovieLens.
 
 </p>
