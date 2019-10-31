@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Descente de gradient stochastique</title>
+  <link href="https://philippe-preux.github.io/css/ma.css" 
+	rel="stylesheet" type="text/css" media="all" />
+  <link rel="shortcut icon" type="image/x-icon" 
+	href="https://philippe-preux.github.io/img/site.ico" />
+</head>
+
+<body>
+<div class="tpR">
+
+<h1>Descente de gradient stochastique</h1>
+
+<h2>Calcul des poids d'un perceptron à sortie binaire</h2>
+
+<p>
+
+Code vu en cours pour optimiser les poids d'un perceptron à sortie binaire.
+
+</p>
+
+<code>
+  <pre>
+    perceptron.binaire <- function (x, y, N, P, zero.un = TRUE,
+                                eta = .01, seuil = 1e-6)
+    {
+        w <- runif (P + 1, min = -.2, max = .2)
+        erreur <- c ()
+        repeat {
+            w.prev <- w
+            p <- sample.int (N)
+            Err <- 0
+            for (i in p) {
+                e <- c (x [i,], 1)
+                if (zero.un)
+                    s <- ifelse (w %*% e >= 0, 1, 0)
+                else
+                    s <- sign (w %*% e)
+                E <- as.numeric (s - y [i])
+                Err <- Err + abs (E)
+                w <- w - eta * E * e
+            }
+            if ((Err == 0) | (sum (abs (w - w.prev)) < seuil))
+                break
+        }
+        return (w)
+    }
+  </pre>
+</code>
+
+<p>
+
+C'est une fonction qui s'utilise comme suit. Supposons que l'on veuille appliquer le perceptron à la fonction ET-logique à 2 entrées.
+
+</p>
+
+<ol>
+  <li>il y a 4 exemples&nbsp;: <kbd>N <- 4</kbd></li>
+  <li>chaque exemple possède 2 attributs&nbsp;: <kbd>P <- 2</kbd></li>
+  <li>on crée une matrice contenant les exemples&nbsp;:
+    <kbd>x.et <- matrix (c (0, 0, 1, 1, 0, 1, 0, 1), nrow = N)</kbd></li>
+  <li>et un vecteur contenant les sorties attendues pour chacun des exemples&nbsp;: <kbd>y.et <- c (0, 0, 0, 1)</kbd></li>
+  <li>et on appelle la fonction&nbsp;: <kbd>w <- perceptron.binaire (x.et, y.et, N, P)</kbd></li>
+  <li>laquelle renvoie les poids qui ont été trouvés qui sont donc ici stockés dans l'objet <kbd>w</kbd>.</li>
+  <li>On peut alors créer un graphique comme ceux que j'ai montrés en cours&nbsp;:
+    <ul>
+      <li><kbd>plot (x.et, col = y.et + 1, pch = 19, xlim = c (-.5, 1.5), ylim = c (-.5, 1.5))</kbd></li>
+      <li><kbd>abline (b = - w [1] / w [2], a = - w [3] / w [2], col = "green")</kbd></li>
+    </ul></li>
+</ol>
+
+<div class="exercice">
+  <ul>
+    <li>Faites ce qui vient d'être expliqué (copier/coller). Vous devez obtenir un graphique avec une droite verte qui sépare le point rouge des points noirs.</li>
+    <li>Faites la même chose pour la fonction OU logique. Il n'y a que le vecteur <kbd>y</kbd> qui change. Le graphique est-il conforme à vos attentes</li>
+    <li>Faites la même chose pour la fonction NON-ET logique. Le graphique est-il conforme à vos attentes</li>
+    <li>Enfin, faites-le pour le OU-EXCLUSIF logique. Que constatez-vous&nbsp;?</li>
+  </ul>
+</div>
+
+<p>
+</p>
+
+<div class="exercice">
+  <p>
+  On va prendre un autre jeu d'exemples, connu sous le nom des iris. Chaque exemple correspond à un iris décrit par 4 attributs (longueur et largeur des sépales, longueur et largeur des pétales) et sa classe qui correspond à une espèce d'iris. 3 espèces sont représentées dans ce jeu de données. Il s'agît de déterminer l'espèce d'un iris à partir des 4 attributs.
+  <br/>
+  Le jeu d'exemples est disponible dans une espèce de matrice dont chaque ligne correspond à un exemple. Il y a cinq colonnes&nbsp;: les 4 attributs puis l'espèce.
+  <br/>
+  On utilisera deux attributs pour cet exercice. On construira donc la matrice <kbd>x</kbd> comme suit&nbsp;: <kbd>x <- as.matrix (iris [, 3:4])</kbd>.
+  <br/>
+  La valeur ...
+  </p>
+  <ul>
+    <li></li>
+  </ul>
+</div>
+
+</div>
+
+</body>
+</html>

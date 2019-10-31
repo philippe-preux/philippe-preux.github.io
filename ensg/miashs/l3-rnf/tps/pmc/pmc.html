@@ -1,0 +1,367 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Perceptron multi-couches</title>
+  <link href="./ma.css"
+	rel="stylesheet" type="text/css" media="all" />
+  <link rel="shortcut icon" type="image/x-icon" 
+	href="http://www.grappa.univ-lille3.fr/~ppreux/img/site.ico" />
+</head>
+
+<body>
+<div class="tpR">
+<h1>Perceptron multi-couches</h1>
+
+<p>
+
+Ce TP consiste à faire quelques expérimentations avec le perceptron multi-couches (PMC). L'objectif est de compendre le fonctionnement d'un PMC. On utilise la bibliothèque <kbd>nnet</kbd> de R qui permet de manipuler des perceptrons à une couche cachée et un neurone en sortie. La fonction d'activation des neurones de la couche cachée est la fonction logistique.
+
+<br/>
+
+On s'intéresse à une tâche de régression, c'est-à-dire une tâche d'apprentissage supervisé dans laquelle l'étiquette est un nombre réel.
+
+<br/>
+<br/>
+
+Pour pouvoir utiliser cette bibliothèque, une fois R lancé, vous tapez&nbsp;:
+
+</p>
+
+<code><pre>library (nnet)
+</pre></code>
+
+<h2 id="training">Entraînement et utilisation d'un PMC</h2>
+
+<p>
+
+Dans cette section, j'explique tout ce qui permet de réaliser la suite du TP.
+
+</p>
+
+<h3 id="learningWeights">Apprentissage des poids</h3>
+
+<p>
+
+Supposons que nous ayons les variables suivantes&nbsp;:
+
+</p>
+
+<ul>
+  <li><kbd>N</kbd> qui est le nombre d'exemples</li>
+  <li><kbd>P</kbd> qui est le nombre d'attributs/composantes pour chaque exemple</li>
+  <li><kbd>x</kbd> une matrice contenant les P attributs des N exemples. 
+    <ul>
+      <li><kbd>x [i, j]</kbd> est le j<sup>è</sup> attribut de l'exemple i.</li>
+      <li>La ligne i (notée <kbd>x [i, ]</kbd> en R) contient les P attributs de la donnée i.</li>
+      <li>La colonne j (notée <kbd>x [, j]</kbd> en R) contient la valeur de l'attribut j pour les N exemples.</li>
+    </ul></li>
+  <li><kbd>y</kbd> un vecteur contenant l'étiquette de chacun des exemples. <kbd>y [i]</kbd> est l'étiquette de l'exemple <kbd>x [i, ]</kbd>.</li>
+</ul>
+
+<p>
+
+Pour apprendre les poids d'un PMC, on fera alors&nbsp;:
+
+</p>
+
+<code><pre>pmc <- nnet (x, y, size = 5, linout = TRUE, maxit = 100, trace = F)
+</pre></code>
+
+<ul>
+  <li><kbd>x</kbd> est la matrice contenant les exemples. Noter qu'un vecteur est une matrice ayant une seule colonne.</li>
+  <li><kbd>y</kbd> est le vecteur des sorties attendues pour chacun des exemples.</li>
+  <li><kbd>size = 5</kbd> signifie que l'on utilise un PMC avec une couche cachée comprenant 5 neurones.</li>
+  <li><kbd>linout = TRUE</kbd> indique que la fonction d'activation du neurone de sortie est la fonction identité.</li>
+  <li><kbd>maxit = 100</kbd> indique que le calcul des poids se fera en faisant passer l'ensemble des exemples d'entraînement 100 fois dans le réseau et en rétro-propageant les erreurs.</li>
+  <li><kbd>trace = F</kbd> élimine l'affichage de la progression de l'apprentissage des poidss.</li>
+</ul>
+
+<p>
+
+Une fois l'apprentissage réalisé, <kbd>pmc</kbd> contient le PMC qui a été entraîné.
+
+<br/>
+<br/>
+
+L'entraînement s'arrête si l'un de ces 3 critères est rempli&nbsp;:
+
+</p>
+
+<ul>
+  <li>en fonction du paramètre <kbd>maxit</kbd> expliqué ci-dessus.</li>
+  <li>avec le paramètre <kbd>abstol = 1e-5</kbd> (1e-5 est juste une valeur donnée en exemple, on met ce que l'on veut), l'entraînement s'arrête quand l'erreur de prédiction sur l'ensemble des exemples d'entraînement est inférieure à ce seuil. Si on ne la spécifie pas, cette valeur est 10<sup>-4</sup>.</li>
+  <li>avec le paramètre <kbd>reltol = 1e-6</kbd> (1e-6 est juste une valeur donnée en exemple, on met ce que l'on veut), l'entraînement s'arrête quand l'erreur de prédiction sur l'ensemble des exemples d'entraînement entre deux itérations successives ne diminue pas d'un facteur supérieur à 1-la valeur indiquée. Si on ne la spécifie pas, cette valeur est 10<sup>-8</sup>.</li>
+</ul>
+
+<p>
+
+Il existe d'autres paramètres à la fonction <kbd>nnet</kbd>, mais ceux mentionnés ici suffisent pour ce TP.
+
+</p>
+
+<h3 id="predict">Prédiction à l'aide d'un PMC</h3>
+
+<p>
+
+Une fois l'entraînement réalisé, on peut utiliser le PMC entraîné pour prédire l'étiquette de n'importe quelle donnée. Supposons que nous ayons dans la matrice <kbd>xx</kbd> un ensemble de données pour lesquelles on veut prédire leur étiquette. Ces données doivent avoir le même nombre de composantes que celles avec lesquelles on a fait l'entraînement, donc P. En faisant&nbsp;:
+
+</p>
+
+<pre>xx.prediction <- predict (pmc, xx, type = "raw")
+</pre>
+
+<p>
+
+On obtiendra dans le vecteur <kbd>xx.prediction</kbd> les étiquettes de chacune des données présentes dans <kbd>xx</kbd>. Pour cela, chaque donnée est mise en entrée du PMC et la sortie du PMC est calculée.
+
+</p>
+
+<h2>Application</h2>
+
+<h3>Fonction en 1 dimension</h3>
+
+<p>
+
+On cherche à mieux comprendre comment un perceptron multi-couches apprend une fonction. Pour pouvoir illustrer graphiquement cet apprentissage, on s'intéresse à l'apprentissage d'une fonction à une seule variable.
+
+<br/>
+<br/>
+
+Dans tout ce qui suit concernant une fonction à 1 dimension, on utilise les 100 exemples d'entraînement qui sont disponibles en suivant <a href="./exemples.train">ce lien</a>.
+
+<br/>
+
+Vous les chargez dans R en tapant&nbsp;:
+
+</p>
+
+<code><pre>train <- as.matrix (read.table ("https://philippe-preux.github.io/ensg/miashs/l3-rnf/tps/pmc/exemples.train", header = T))
+x <- train [, 1, drop = F]
+y <- train [, 2]
+</pre></code>
+
+<p>
+
+On utilise un ensemble de 100 exemples de test qui sont disponibles en suivant <a href="./exemples.test">ce lien</a>.
+
+<br/>
+
+Vous les chargez dans R en tapant&nbsp;:
+
+<code><pre>test <- as.matrix (read.table ("https://philippe-preux.github.io/ensg/miashs/l3-rnf/tps/pmc/exemples.test", header = T))
+x.test <- test [, 1, drop = F]
+y.test <- test [, 2]
+</pre></code>
+
+<h4>Variabilité des performances d'une architecture donnée</h4>
+
+<p>
+
+Tout d'abord, ayant choisi une architecture de réseau, on se demande si un apprentissage des poids donne toujours le même résultat, ou à peu près le même.
+
+</p>
+
+<div class="exercice">
+  <ol>
+    <li>Entraîner un PMC ayant 5 neurones cachés pendant au maximum 1000 itérations avec les exemples d'entraînement.</li>
+    <li>Mesurer la RMSE de ce réseau sur les exemples de tests. Pour cela, on calcule la valeur prédite pour chacun des exemples présent dans <kbd>x.test</kbd> et on compare cette valeur à celle qui doit être prédite qui se situe dans <kbd>y.test</kbd>. Si la valeur prédite par le PMC pour chaque donnée est dans le vecteur <kbd>y.prédite</kbd>, la RMSE se calcule par&nbsp;:
+<br/>
+<kbd>RMSE <- sqrt (sum ((y.test - y.prédite)^2) / nrow (x.test))</kbd>
+</li>
+    <li>Répéter cela 100 fois. Calculer et stocker la RMSE de chacun des 100 réseaux.
+<br/>
+On a besoin d'un vecteur pour stocker les 100 RMSE. Si on écrit dans R 
+<br/>
+<kbd>RMSE <- rep (0, times = 100)</kbd>
+<br/>
+on crée un vecteur dénommé <kbd>RMSE</kbd> qui contient 100 valeurs 0. Ensuite, pour accéder à l'élément i du vecteur, on écrit <kbd>RMSE [i]</kbd>.</li>
+    <li>Quels sont la moyenne et l'écart-type de ces 100 RMSE. Faire un graphique de ces 100 RMSE.
+      <br/>
+      Vous devez obtenir quelque chose comme ce qui suit&nbsp;:
+      <br/>
+      <img src="variabilite-RMSE.svg" width="300" 
+	   title = 'plot (RMSE, main = "Variabilité de la RMSE")' />
+      <br/>
+      Qu'en pensez-vous&nbsp;?</li>
+  </ol>
+</div>
+
+<h4>Combien de neurones cachés&nbsp;?</h4>
+
+<div class="exercice">
+
+<p>
+
+On va faire varier le nombre de neurones cachés pour voir l'effet que cela a sur la fonction qui est estimée et aussi pour déterminer un nombre de neurones cachés ayant les meilleures performances.
+
+<br/>
+
+Pour cela, vous allez faire une boucle pour tester des PMC ayant de 1 à 20 neurones cachés. Pour chaque nombre de neurones cachés, vous faites un graphique avec tous les exemples et les valeurs prédites dans une autre couleur. Prenez le temps d'observer les changements et comment la fonction est, en général, de mieux en mieux approchée quand le nombre de neurones cachés augmente. Par exemple, j'ai obtenu les graphiques en utilisant 1, puis 2, puis 3, ... jusque 5 neurones cachés&nbsp;:
+
+</p>
+
+<table>
+<tr>
+ <td><img src="1.png" width="200" /></td>
+ <td><img src="2.png" width="200" /></td>
+ <td><img src="3.png" width="200" /></td>
+ <td><img src="4.png" width="200" /></td>
+ <td><img src="5.png" width="200" /></td>
+</tr>
+</table>
+
+<p>
+
+Chacun de ces graphiques est obtenu comme suit&nbsp;:
+
+</p>
+
+<code><pre># on commence par tracer la fonction qui doit être apprise
+f <- function (x)
+  { 
+     x <- x * 4
+     return (1/100 * (x**6-2*x**5-26*x**4+28*x**3+145*x**2-26*x-80))
+  }
+les.x <- seq (-1.1, 1.3, by = 0.01)
+plot (les.x, f (les.x), type = "l")
+# ensuite on ajoute la prédiction des points tests
+# on suppose que le PMC a été mis dans l'objet nommé pmc
+y.predite <- predict (pmc, test [, 1, drop = F], type = "raw")
+points (x.test, y.predite, col = "red")
+</pre></code>
+
+<p>
+
+Stockez la RMSE obtenue pour chaque nombre de neurones cachés. Nommons <kbd>rmse</kbd> le vecteur contenant ces 20 valeurs. Par exemple, <kbd>rmse [1]</kbd> contiendra la RMSE du PMC ayant un neurone caché, <kbd>rmse [2]</kbd> contiendra la RMSE du PMC ayant deux neurones cachés et ainsi de suite.
+
+<br/>
+
+Il faut conserver chacun des PMC pour pouvoir ensuite utiliser le meilleur. Pour cela, vous stockerez les 20 PMC dans une liste, en faisant de la manière suivante&nbsp;:
+
+</p>
+
+<code><pre>...
+liste.des.pmc <- list ()
+for (size in 1:20) {
+  ...
+  liste.des.pmc [[size]] <- nnet (..., size = size, ...)
+  ...
+  rmse [size] <- ...
+}
+</pre></code>
+
+<p>
+
+On utilise une liste qui contient les 20 PMC. On accède au i<sup>è</sup> élément d'une liste avec la notation <kbd>[[i]]</kbd>. On remarque qu'il y a deux crochets pour une liste, un seul pour un vecteur ou une matrice.
+
+<br/>
+<br/>
+
+Le meilleur PMC est-il vraiment celui-là&nbsp;? Faites un <kbd>plot (rmse)</kbd>. Que constatez-vous&nbsp;?
+
+<br/>
+
+Vous obtenez un graphique qui ressemble à celui-ci&nbsp;:
+
+<br/>
+
+<img src="./rmse.png" width="300" />
+
+<br/>
+
+Le meilleur réseau est celui qui est au niveau du coude&nbsp;: ici avec 5 neurones cachés. C'est donc le PMC <kbd>liste.des.pmc [[5]]</kbd>.
+
+</p>
+</div>
+
+<div class="exercice">
+  <p>
+    Comme on l'a vu plus haut, la RMSE d'un PMC ayant un nombre de neurones cachés donné est variable. Aussi, tel que nous venons de le faire, le résultat varie d'une exécution à la suivante. Il faudrait donc refaire cette exercice en construisant plusieurs (100) PMC de chaque taille et ne conserver que le meilleur dans la liste des PMC.
+  </p>
+</div>
+
+<h4>Influence du bruit</h4>
+
+<div class="exercice">
+<p>
+
+Jusqu'à maintenant, nous avons travaillé sur un jeu de données non bruitées&nbsp;: l'étiquette d'une donnée x est exactement f(x). Pour des données bruitées, il y a un écart entre y et f(x)&nbsp;; cet écart est aélatoire. Généralement, on suppose qu'il est distribué normalement, avec une moyenne nulle. Nous faisons cet hypothèse dans cet exercice. Le bruit est plus ouo moins grand&nbsp;; on le caractérise par son écart-type.
+<br/>
+Quelle est l'influence de ce bruit sur le réseau de neurones&nbsp;? La fonction à apprendre est la même que précédemment, mais les données sont bruitées. Refaites les mêmes manipulations en utilisant ces fichiers d'exemples à la place&nbsp;:
+
+</p>
+
+<ul>
+  <li>bruit 0,1&nbsp;: <a href="./exemples.train.0.1">train</a>, <a href="./exemples.test.0.1">test</a></li>
+  <li>bruit 0,5&nbsp;: <a href="./exemples.train.0.5">train</a>, <a href="./exemples.test.0.5">test</a></li>
+  <li>bruit 1&nbsp;: <a href="./exemples.train.1">train</a>, <a href="./exemples.test.1">test</a></li>
+  <li>bruit 2&nbsp;: <a href="./exemples.train.2">train</a>, <a href="./exemples.test.2">test</a></li>
+</ul>
+
+<p>
+
+Dans chacun des 4 cas, vous prédisez la sortie du meilleur PMC pour tous les points compris entre -1,1 et 1,3 par par de 1 centième. Ces points sont dans l'objet créé précédemment dénommé <kbd>les.x</kbd>.
+
+<br/>
+
+Vous faites un graphique représentant la fonction qui doit être apprise (en noir) et la fonction qui a été apprise (en rouge).
+
+<br/>
+
+Pour le bruit 1, la plus faible RMSE est obtenue avec 4 neurones cachés. j'obtiens alors le graphique suivant&nbsp;:
+
+<br/>
+
+<img src="./exemples.bruités.1.4-neurones-caches-courbe-predite.svg" width="300" />
+
+</p>
+
+</div>
+
+<h3>Fonction en 2 dimensions</h3>
+
+<div class="exercice">
+<p>
+
+Refaites rapidement le même genre d'étude sur un jeu de données correspondant à une fonction bidimensionnelle.
+<br/>
+Les données sont disponibles en suivant <a href="./fct2D.txt">ce lien</a>.
+Vous chargerez les données comme suit&nbsp;:
+</p>
+<code><pre>fct2D <- as.matrix (read.table ("fct2D.txt", header = T))
+x <- fct2D [, 1:2]
+y <- fct2D [, 3]
+</pre></code>
+
+<p>
+
+<kbd>x</kbd> est une matrice ayant 1640 lignes (données) de 2 colonnes (P = 2 attributs par donnée)&nbsp;; à chaque donnée est associée une étiquette dans le vecteur <kbd>y</kbd>. On crée le jeu d'entraînement en prenant au hasard 80% des exemples&nbsp;; le jeu d'exemples de test est constitué des 20 % restant. On procède comme suit&nbsp;:
+
+</p>
+
+<code><pre>indice.train <- sample (1640, 0.8 * 1640)
+x.train <- x [indice.train, ]
+y.train <- y [indice.train]
+x.test <- x [- indice.train, ]
+y.test <- y [- indice.train]
+</pre></code>
+
+<ul>
+  <li>Combien de neurones cachés donnent le meilleur résultat&nbsp;?</li>
+</ul>
+
+</div>
+
+<div class="exercice">
+  <p>
+  Suite de l'exercice précédent.
+  <ul>
+    <li>On a découpé l'ensemble des exemples en 80-20 (80% pour l'entraînement, 20% pour le test). Tester d'autres combinaisons (60, 70, 90, 95 % d'exemples pour l'entraînement) et voyez s'il y a une répartition qui donne une meilleure RMSE.</li>
+  <li>On peut aussi ajouter des connexions directes entre les entrées du réseau et la sortie&nbsp;; à ces connexions sont également associés des poids. Pour ajouter ces connexions, il faut spécifier l'argument <kbd>skip=T</kbd> lors de l'appel à <kbd>nnet()</kbd>. Déterminez le nombre de neurones cachés qui donne les meilleurs résultats avec ces connexions directes en plus.</li>
+  </ul>
+</div>
+
+</div>
+</body></html>

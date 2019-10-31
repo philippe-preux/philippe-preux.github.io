@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Descente de gradient stochastique</title>
+  <link href="https://philippe-preux.github.io/css/ma.css" 
+	rel="stylesheet" type="text/css" media="all" />
+  <link rel="shortcut icon" type="image/x-icon" 
+	href="https://philippe-preux.github.io/img/site.ico" />
+</head>
+
+<body>
+
+<div class="tpR">
+
+<h1>Descente de gradient stochastique</h1>
+
+<h2>Version 1</h2>
+
+<p>
+
+Code vu en cours, qui réalise une descente de gradient stochastique (version très simple) pour optimiser la fonction <code><kbd>f</kbd></code> définie ci-dessous, avec sa dérivée définie par la fonction <code><kbd>df</kbd></code>.
+
+</p>
+
+<code>
+  <pre>
+f <- function (x) 0.2 * x^5 - 1.1 * x^3 + .7 * x^2 - x + 1.2
+df <- function (x) x^4 - 3.3 * x^2 + 1.4 * x - 1
+xi <- runif (1, min = -2, max = 3)
+
+eta <- .1
+repeat {
+  xi <- xi - eta * df (xi)
+  if (abs (df (xi)) < 0.001)
+    break
+}
+  </pre>
+</code>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Perceptron multi-couches</title>
+  <link href="./ma.css"
+	rel="stylesheet" type="text/css" media="all" />
+  <link rel="shortcut icon" type="image/x-icon" 
+	href="http://www.grappa.univ-lille3.fr/~ppreux/img/site.ico" />
+</head>
+
+<body>
+
+
+<div class="tpR">
+<h1>Perceptron multi-couches</h1>
+
+<p>
+
+Ce TP consiste à faire quelques expérimentations avec le perceptron multi-couches (PMC) dans une tâche de classification supervisée. L'objectif est de compendre le fonctionnement d'un PMC et d'exhiber le phénomène de sur-apprentissage. On utilise la bibliothèque <kbd>nnet</kbd> de R qui permet de manipuler des perceptrons à une couche cachée et un neurone en sortie. La fonction d'activation des neurones de la couche cachée est la fonction logistique.
+
+<br/>
+<br/>
+
+En cas de besoin, voir le <a href="./pmc.html">TP précédent</a>.
+
+</p>
+
+<h2>Entraînement et utilisation d'un PMC</h2>
+
+<p>
+
+Voir le <a href="./pmc.html#training">TP précédent</a>.
+
+<br/>
+
+La seule différence est qu'ici, la sortie attendue est 0 ou 1 et non pas un nombre réel. Le perceptron de sortie aura donc une fonction d'activation logistique.
+
+</p>
+
+<h3>Apprentissage des poids</h3>
+
+<p>
+
+Voir le <a href="./pmc.html#learningWeights">TP précédent</a>.
+
+</p>
+
+
+<h3>Prédiction à l'aide d'un PMC</h3>
+
+<p>
+
+Voir le <a href="./pmc.html#predict">TP précédent</a>.
+
+</p>
+
+<h2>Application</h2>
+
+<h3>Exercice 1</h3>
+
+<p>
+
+On va utiliser les exemples présents dans <a href="https://philippe-preux.github.io/ensg/miashs/l3-rnf/tps/pmc/expe-2-classes/40.exemples.txt">ce fichier</a>. Chaque exemple possède deux attributs numériques et une classe (0 ou 1).
+
+</p>
+
+<div class="exercice">
+  <ul>
+    <li>Charger ce fichier dans R. On procédera comme suit&nbsp;:
+      <code><pre>m <- as.matrix (read.table ("https://philippe-preux.github.io/ensg/miashs/l3-rnf/tps/pmc/expe-2-classes/40.exemples.txt", header = T))
+x <- m [, 1:2]
+y <- m [, 3]
+</pre></code>
+      <ul>
+        <li>la première instruction lit les données depuis l'url indiquée et les met dans une matrice dénommée <kbd>m</kbd>. Cette matrice possède 3 colonnes, les 2 premières sont les 2 attributs des exemples, la 3<sup>è</sup> est la classe de chaque exemple.</li>
+        <li>la deuxième instruction place dans <kbd>x</kbd> les 2 colonnes de <kbd>m</kbd>, donc les attributs de chacun des exemples.</li>
+        <li>la troisième instruction place dans <kbd>y</kbd> la 3<sup>è</sup> colonne de <kbd>m</kbd>, donc la classe des exemples.</li>
+      </ul>
+    </li>
+    <li>Faites un graphique des exemples. Chaque point a une couleur qui dépend de sa classe (bleu pour 0, vert pour 1). Vous devez obtenir quelque chose comme cela&nbsp;:
+      <br/>
+      <span title='plot (x [, 1], x [, 2], col = ifelse (y == 0, "blue", "green"), pch = 19, &#xA;    main = "Quelques exemples", xlab = "x", ylab = "y")' style="font-family: courier">
+	<img src="https://philippe-preux.github.io/ensg/miashs/l3-rnf/tps/pmc/expe-2-classes/40.exemples.svg" width="250" />
+      </span>
+      <br/>
+      Pour que chaque point soit représenté par un petit disque, vous ajouterez le paramètre <kbd>pch = 19</kbd> dans l'appel de <kbd>plot()</kbd>.
+    </li>
+  </ul>
+</div>
+
+<p>
+
+L'objectif de l'exercice est de créer des PMC ayant un nombre croissant de neurones dans leur couche cachée (de 1 à 10 neurones par exemple) est de voir la classe prédite en chaque point du domaine.
+
+</p>
+
+<div class="exercice">
+  <ul>
+    <li>Créer et entraîner un PMC ayant 1 seul neurone dans la couche cachée.</li>
+    <li>Calculer la classe prédite pour chaque exemple et mettre le résultat dans <kbd>y.predite</kbd>. Pour cela, on fera&nbsp;:
+<code><pre>y.predite <- round (predict (pmc, x))
+</pre></code>
+      La sortie du perceptron est un nombre compris entre 0 et 1. Il faut l'arrondir pour obtenir 0 ou 1 et pouvoir le comparer à <kbd>y</kbd>.</li>
+    <li>Calculer le nombre d'exemples dont la classe est mal prédite par ce PMC.
+      <br/>
+      Si <kbd>y.predite</kbd> est le vecteur des prédictions effectuées pour chaque exemple, on obtient ce nombre d'exemples mal prédits par&nbsp;:
+<code><pre>length (which (y != y.predite))
+</code></pre>
+    </li>
+    <li>On va évaluer les PMC en leur faisant prédire la classe de chaque point d'une grille 100x100 dont les coordonnées sont comprises entre -1 et 1. Ces points doivent être mis dans une matrice pour pouvoir être traités par <kbd>predict()</kbd>. On construit cette grille comme suit&nbsp;:
+      <br/>
+<code><pre>n.grille <- 100
+grille <- matrix (0, nrow = n.grille * n.grille, ncol = 2)
+for (i in 1:n.grille)
+  for (j in 1:n.grille) {
+    grille [(i - 1) * n.grille + j, 1] <- 2 / n.grille * i - 1
+    grille [(i - 1) * n.grille + j, 2] <- 2 / n.grille * j - 1
+  }
+</pre></code>
+    </li>
+    <li>Prédire la classe de chaque point de la grille. Placer le résultat dans <kbd>y.grille</kbd>.</li>
+    <li>Afficher le résultat de cette prédiction dans un graphique où chaque point de la grille est indiqué par une couleur, bleu si la classe prédite est 0, vert sinon.</li>
+    <li>Ajouter les exemples, avec le même code de couleurs.
+      <br/>
+      Vous devez obtenir quelque chose qui ressemble à cette image&nbsp;:
+      <br/>
+      <img src="expe-2-classes/01.svg" width="250" />
+      <br/>
+      Pour que chaque point de la grille soit affiché de manière discrète, vous ajouterez le paramètre <kbd>pch = "."</kbd> dans l'appel de <kbd>plot()</kbd>.
+      <br/>
+      En supposant que <kbd>y.grille</kbd> contient les prédictions pour chaque point de la grille, la figure s'obtient comme suit&nbsp;:
+<code><pre>plot (grille, col = ifelse (y.grille < .5, "blue", "green"), pch = ".")
+points (x [, 1], x [, 2], col = ifelse (y == 0, "blue", "green"), pch = 19)
+</pre></code></li>
+  </ul>
+</div>
+
+<p>
+
+</p>
+
+<div class="exercice">
+  <ul>
+    <li>Maintenant, vous faites la même chose pour des PMC ayant de 2 à 10 neurones cachés.</li>
+    <li>Vous comparez le nombre d'exemples mal classés pour chaque taille de la couche cachée. Quel PMC donne le minimum d'erreur de classification&nbsp;?</li>
+    <li>Vous réalisez le graphique pour chaque taille de PMC et vous les comparez visuellement. Qu'en pensez-vous&nbsp;?</li>
+  </ul>
+</div>
+
+
+
+<h3>Exercice 2</h3>
+
+<div class="exercice">
+  <ul>
+    <li>Vous refaites la même chose avec <a href="https://philippe-preux.github.io/ensg/miashs/l3-rnf/tps/pmc/expe2-2-classes/50.exemples.txt">ce jeu d'exemples</a>.</li>
+    <li>Faites-en un graphique pour le comparer au précédent&nbsp;; ils se ressemblent beaucoup mais il y a une différence importante.</li>
+    <li>Obtenez-vous les mêmes conclusions que précédemment&nbsp;?</li>
+  </ul>
+</p>
+
+</div>
+</body>
+</html>

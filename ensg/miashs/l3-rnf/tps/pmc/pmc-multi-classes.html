@@ -1,0 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Perceptron multi-couches</title>
+  <link href="https://philippe-preux.github.io/css/ma.css"
+	rel="stylesheet" type="text/css" media="all" />
+  <link rel="shortcut icon" type="image/x-icon" 
+	href="https://philippe-preux.github.io/img/site.ico" />
+</head>
+
+<body>
+<div class="tpR">
+<h1>Classification supervisée multi-classes par perceptron multi-couches</h1>
+
+<p>
+
+Ce TP consiste à mettre en &oelig;uvre le perceptron multi-couches (PMC) dans une tâche de classification supervisée multi-classes. 
+
+<br/>
+
+On utilise la bibliothèque <kbd>neuralnet</kbd> de R qui permet de manipuler des perceptrons à plusieurs couches cachées et plusieurs neurones de sortie. En outre, la fonction d'activation est, au choix, la fonction logisitique ou la tangente hyperbolique. Nous utiliserons cette dernière qui est généralement préférable à la fonction logistique.
+
+<br/>
+
+Avant de pouvoir l'utiliser, vous taperez la commande <kbd>library (neuralnet)</kbd>.
+
+</p>
+
+<h2>Entraînement et utilisation d'un PMC</h2>
+
+<p>
+
+Les exemples doivent être fournis dans un <i>data.frame</i>. Pour l'utilisation que l'on va en faire ici, on peut considérer qu'un data.frame est une matrice dont les colonnes portent un nom, celui de l'attribut.
+
+<br/>
+
+Reprenons les jeux d'exemples du TP précédent. Nous le chargeons dans R à l'aide de la commande suivante&nbsp;:
+
+</p>
+
+<code><pre>df <- read.table ("https://philippe-preux.github.io/ensg/miashs/l3-rnf/tps/pmc/expe-2-classes-1.1/40.exemples.-1.1.txt", header = T)
+</pre></code>
+
+<p>
+
+<kbd>df</kbd> est composé de 40 lignes et 3 colonnes. Ces 3 colonnes portent les noms <kbd>x</kbd>, <kbd>y</kbd> et <kbd>classe</kbd>.
+
+</p>
+
+<h3>Apprentissage des poids</h3>
+
+<p>
+
+L'apprentissage des poids se fait par une commande ressemblant à&nbsp;:
+
+</p>
+
+<code><pre>pmc <- neuralnet (classe ~ x + y, data = df, hidden = 5, act.fct = "tanh", rep = 10)
+</pre></code>
+
+<ul>
+  <li><kbd>data = df</kbd> spécifie le data.frame contenant les exemples</li>
+  <li><kbd>classe ~ x + y</kbd> est une formule qui indique que le PMC doit prédire l'attribut <kbd>classe</kbd> en fonction des attributs <kbd>x</kbd> et <kbd>y</kbd>. Le + n'indique pas ici l'addition des deux attributs.</li>
+  <li><kbd>hidden = 5</kbd> indique qu'il y a une seule couche cachée comprenant 5 neurones. Dans ce cas, il y a un neurone de sortie.
+    <br/>
+    Plus généralement, on pourrait indiquer quelque chose comme <kbd>hidden = c (10, 5, 3)</kbd> pour un PMC ayant 2 couches cachées comprenant 10 et 5 neurones, et une couche de sortie comprenant 3 neurones.</li>
+  <li><kbd>act.fct = "tanh"</kbd> spécifie la fonction d'activation des neurones des couches cachées&nbsp;: la tangente hyperbolique.</li>
+  <li>Si on ne précise rien de plus, les neurones de la couche de sortie sont linéaires.</li>
+  <li><kbd>rep = 10</kbd> indique qu'il faut réaliser 10 apprentissages.</li>
+</ul>
+
+<div class="exercice">
+  <ul>
+    <li>Créer un PMC ayant une couche cachée composée de 4 neurones en l'entraînant avec les exemples chargés plus haut dans <kbd>df</kbd>.</li>
+  </ul>
+</div>
+
+<h3>Prédiction à l'aide d'un PMC</h3>
+
+<p>
+
+La prédiction se fait avec la fonction <kbd>compute()</kbd>&nbsp;:
+
+</p>
+
+<code><pre>p <- ifelse (compute (pmc, xx)$net.result < 0, -1, 1)
+</pre></code>
+
+<p>
+
+où <kbd>xx</kbd> est une matrice contenant les données pour lesquelles on veut effectuer une prédiction. (Comme dans le <a href="./pmc.html#predict">TP précédent</a>.)
+
+<br/>
+
+<kbd>compute (pmc, xx)$net.result</kbd> calcule la prédiction qui, pour chaque donnée, est un nombre compris entre -1 et 1. Ce nombre est transformé en -1 ou 1 ensuite, par la fonction <kbd>ifelse (... < 0, -1, 1)</kbd>&nbsp;: un nombre inférieur à 0 est transformé en -1, et un nombre positif est transformé en 1.
+
+<br/>
+<br/>
+
+Le résultat contient autant de colonnes que de neurones dans la couche de sortie.
+
+<br/>
+<br/>
+
+Comme on a effectué 10 entraînement (paramètre <kbd>rep=10</kbd> dans l'appel de la fonction <kbd>neuralnet()</kbd>), on a 10 réseaux de neurones dans <kbd>pmc</kbd>. Pour chacun, on dispose de son erreur mesurée sur le jeu d'entraînement et des poids qui ont été appris. L'erreur de chaque entraînement est donnée dans <kbd>pmc$result.matrix[1,]</kbd> (donc, la première ligne de <kbd>pmc$result.matrix[1,]</kbd> qui est une matrice contenant l'erreur, les poids et d'autres informations, avec une colonne par entraînement).
+
+</p>
+
+<div class="exercice">
+  <ul>
+    <li>Prédire la classe des exemples qui ont été utilisés pour l'apprentissage.</li>
+    <li>Combien d'exemples sont-ils mal prédits&nbsp;?</li>
+  </ul>
+</div>
+
+<h3>Visualisation du PMC</h3>
+
+<p>
+
+<kbd>neuralnet</kbd> permet de représenter graphiquement le PMC&nbsp;: <kbd>plot (pmc)</kbd> où <kbd>pmc</kbd> est le résultat d'un appel à <kbd>neuralnet()</kbd>.
+
+</p>
+
+
+<h2>Application</h2>
+
+<h3>Exercice</h3>
+
+<p>
+
+On va utiliser le jeu de données iris. C'est un jeu de données célèbre en statistiques. Il comprend 150 exemples de fleurs de 3 espèces d'iris. Chaque fleur est décrite par 4 attributs, longueur et largeur des spéales et des pétales. En fonction de ces 4 attributs, on doit déterminer l'espèce de la plante, <i>setosa</i>, <i>virginica</i> ou <i>versicolor</i>.
+
+<br/>
+
+C'est donc un problème à 3 classes. On va utiliser un PMC ayant 3 neurones dans la couche de sortie. 
+
+<br/>
+<br/>
+
+Les iris sont disponibles dans R. Il faut seulement transformer la classe du jeu de données pour que l'information soit compatible avec son utilisation dans <kbd>neuralnet()</kbd>. Il y a 3 classes&nbsp;; on va créer 3 attributs binaires, 1 attribut par classe. L'attribut <kbd>setosa</kbd> vaudra 1 si l'exemple est de classe <i>setosa</i>, 0 sinon&nbsp;; même chose pour les 2 autres classes, <i>virginica</i> et <i>versicolor</i>.
+
+<br/>
+
+On procède ainsi&nbsp;:
+
+</p>
+
+<code><pre>iris.pour.neuralnet <- iris
+iris.pour.neuralnet$setosa <- ifelse (iris$Species == "setosa", 1, -1)
+iris.pour.neuralnet$virginica <- ifelse (iris$Species == "virginica", 1, -1)
+iris.pour.neuralnet$versicolor <- ifelse (iris$Species == "versicolor", 1, -1)
+</pre></code>
+
+<div class="exercice">
+  <ul>
+    <li>Créer et entraîner un PMC ayant une couche cachée composée de 5 neurones à fonction d'activation tangente hyperbolique et 3 neurones dans la couche de sortie. Appelons-le PMC <kbd>pmc.iris</kbd>. Pour exprimer la formule, on fera comme suit&nbsp;:
+<code><pre>pmc.iris <- neuralnet (setosa + virginica + versicolor ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width, data = iris.pour.neuralnet, ...)
+</pre></code>
+Cette formule indique que l'on veut exprimer la valeur des 3 attributs setosa, virginica et versicolor, en fonction des 4 autres attributs.
+<br/>
+Vous complétez vec ce qu'il faut à la place des ...
+</li>
+    <li>Calculer la sortie du PMC pour chacun des iris. On met ces prédictions dans <kbd>pmc.iris.sorties</kbd>. Les données à prédire sont <kbd>iris [,1:4]</kbd>.</li>
+  </ul>
+</div>
+
+<p>
+
+Il y a 3 neurones dans la couche de sortie. Dans le cas d'une classification multi-classes, le neurone dont la sortie est la plus élevée indique la classe prédite. (Rappel&nbsp;: pour la classification mutli-classes, on utilise des neurones à activation linéaire en couche de sortie.)
+
+<br/>
+
+Pour chaque donnée, on détermine la sortie la plus active, donc la classe prédite. 
+
+<br/>
+<br/>
+
+Si vous avez bien réalisé ce qui a été demandé plus haut, <kbd>pmc.iris.sorties</kbd> est une matrice ayant 150 lignes (1 ligne par donnée) et 3 colonnes (1 colonne par neurone de sortie).
+
+<br/>
+
+Pour connaître les 3 valeurs en sortie du PMC pour la première donnée, on peut taper <kbd>pmc.iris.sorties [1, ]</kbd>. J'obtiens le résultat suivant&nbsp;:
+
+</p>
+
+<pre>[1]  0.9998718761059  0.0002791028565 -0.0001389213175
+</pre>
+
+<p>
+
+c'est-à-dire que le premier neurone de sortie est le plus actif. Cette sortie est associée à la classe <i>setosa</i>, qui est la classe de la donnée 1 (<kbd>iris$classe [1]</kbd>).
+
+<br/>
+
+Pour la donnée 51, c'est la sortie 3 qui est la plus active, sortie qui correspond à la classe <i>versicolor</i>, qui est la classe de la donnée 51 (<kbd>iris$classe [51]</kbd>).
+
+<br/>
+
+Même principe pour la donnée 101 qui est de classe <i>virginica</i>.
+
+<!--
+> names(iris.num[5:7])[apply (iris.pmc.prediction$net.result, 1, which.max)]
+> which (names(iris.num[5:7])[apply (iris.pmc.prediction$net.result, 1, which.max)]!=iris$Species)
+[1] 84
+-->
+
+<br/>
+
+On peut déterminer la classe prédite pour la donnée 17 (ou toute autre) de la manière suivante&nbsp;:
+
+<code><pre>names (iris.pour.neuralnet [6:8]) [which.max (pmc.iris.sorties [17, ])]
+</pre></code>
+
+<p>
+
+On peut déterminer les exemples dont la classe est mal prédite&nbsp;:
+
+<code><pre>y.predite <- rep ("", times = nrow (iris))
+for (i in 1:nrow (iris))
+  y.predite [i] <- names (iris.pour.neuralnet [6:8]) [which.max (pmc.iris.sorties [i, ])]
+which (y.predite != iris$Species)
+</pre></code>
+</p>
+
+</div>
+
+</body></html>

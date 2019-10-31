@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Descente de gradient stochastique</title>
+  <link href="https://philippe-preux.github.io/css/ma.css" 
+	rel="stylesheet" type="text/css" media="all" />
+  <link rel="shortcut icon" type="image/x-icon" 
+	href="https://philippe-preux.github.io/img/site.ico" />
+</head>
+
+<body>
+<div class="tpR">
+
+<h1>Descente de gradient stochastique</h1>
+
+<h2>Calcul des poids d'un perceptron</h2>
+
+<p>
+
+Code vu en cours pour optimiser les poids d'un perceptron.
+
+</p>
+
+<code>
+  <pre>
+    P <- 5
+    N <- 100
+    x <- matrix (runif (N * P, min = -1, max = 1), nrow = N, ncol = P)
+    y <- 3 * x [, 1] - 2.5 * x [, 2] - .781 * x[, 3] + 1.23 * x[, 4] - x [, 5] + 1 + rnorm (N, sd = .1)
+    eta <- .01
+    seuil <- 1e-6
+    w <- runif (P + 1, min = -.2, max = .2)
+    erreur <- c ()
+    repeat {
+        w.prev <- w
+        i <- sample.int (N, 1)
+        e <- c (x [i,], 1)
+        w <- w - eta * (w %*% e - y [i]) * e
+        s <- w [1] * x [, 1] + w [2] * x[, 2] + w [3] * x[, 3] + w [4] * x [, 4] + w [5] * x [, 5] + w [6]
+        erreur <- c (erreur, sum (y - s) / N)
+        if (sum (abs (w - w.prev)) < seuil)
+            break
+    }
+    plot (erreur, xlab = "Itération", ylab = "MSE", 
+          main = "Apprentissage des poids d'un perceptron", type = "l")
+  </pre>
+</code>
+
+</div>
+
+</body>
+</html>
