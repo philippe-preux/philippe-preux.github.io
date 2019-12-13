@@ -1,0 +1,284 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>L'environnement logiciel statistique R&nbsp;: initiation (3)</title>
+  <link href="https://philippe-preux.github.io/css/ma.css" 
+	rel="stylesheet" type="text/css" media="all" />
+</head>
+
+<body>
+<div class="tpR">
+<h1>Initiation à R (3/3)</h1>
+
+<a name="nominaux"> </a>
+<h2>Caractères à valeur nominale</h2>
+
+<div class="exercice">
+
+  <ul>
+    <li>Chargez le fichier
+      <kbd>https://philippe-preux.github.io/ensg/m1psycho/statsa.csv</kbd>
+      </li>
+    <li>Les valeurs de caractères sont séparés par des virgules
+      (paramètre <kbd>sep = ","</kbd>) et les valeurs nominales sont
+      encadrées par des apostrophes (paramètre <kbd>sep =
+      "\'"</kbd>).</li>
+    <li>jetez un coup d'&oelig;il au début de fichier pour voir les
+      caractères nominaux (<kbd>head (data.frame)</kbd>). Ce fichier
+      contient des caractères nominaux et des caractères
+      quantitatifs.</li>
+    <li>pour connaître les différentes valeurs prises par un caractètre
+      nominal, on utilise la fonction <kbd>levels
+      (data.frame$caractère.nominal)</kbd>. Faites-le pour les
+      différents caractères nominaux de ce jeu de données.</li>
+    <li>on peut obtenir une table de contingence en fonction des
+      différentes valeurs d'un carcatère nominal avec la fonction
+      <kbd>table (data.frame$caractère.nominal)</kbd>. Faites-le pour
+      les différents caractères nominaux.</li>
+    <li>avec une table de contigence, on peut en faire une
+      représentation graphique avec la fonction
+      <kbd>pie(table.de.contigence)</kbd>. Faites un camembert de la
+      répartition des valeurs pour chacun des caractères nominaux. On
+      peut spécifier un titre, les couleurs et légendes de chaque
+      portion comme suit&nbsp;:
+  <pre>pie (table (statsa$MENTION), 
+     col = rainbow (length (levels (statsa$MENTION))), 
+     labels = c ("a", "b", "c", "d", "e"),
+     main = "titre du camembert")</pre>
+      Remarques&nbsp;:
+      <ul>
+        <li>le paramètre <kbd>labels</kbd> est ici inutile car les
+          valeurs de ce caractère sont claires. Mettre a, b,
+          ... embroulle les choses&nbsp;; c'était juste pour montrer la
+          chose&nbsp;;</li>
+        <li>pour les couleurs, on aurait pu les lister explicitement. On
+          a choisi de montrer ici comment on peut automatiquement
+          engendrer un vecteur de noms de couleur comme il faut, en
+          utilisant la fonction
+          <kbd>rainbow(nombre.de.couleurs)</kbd>.
+      </ul></li>
+    <li>pour obtenir un camembert pour un attribut quantitatif, il faut
+      le discrétiser pour obtenir une table de contigence. La fonction
+      <kbd>cut(data.frame$caractère, n)</kbd> fait cela
+      automatiquement&nbsp;: elle considère l'intervalle de valeurs
+      du caractère concerné et le découpe en <kbd>n</kbd>
+      intervalles (disjoints). Ensuite, on peut obtenir une table de
+          contigence pour chacun de ces intervalles de valeurs. Ainsi,
+          si on fait 
+      <pre>table (cut (statsa$INFE, 5))</pre>
+      on obtient cette table de contigence. Dès lors, on peut en faire
+          un camembert comme précédemment&nbsp;:
+  <pre>statsa.INFE.table <- table (cut (statsa$INFE, 5))
+  pie (statsa.INFE.table, col = rainbow (5))
+  </pre>
+      ici, mettre des légendes pour chacun des intervalles a
+      probablement plus de sens. Je vous laisse le faire.</li>
+    <li>on peut aussi faire une table de contigence entre deux attributs
+      nominaux&nbsp;: <kbd>table (data.frame$caractère.nominal.1,
+      data.frame$caractère.nominal.2)</kbd>. Faites-le pour les
+      différents couples de caractères nominaux.</li>
+  </ul>
+</div>
+
+<h2>&chi;-2</h2>
+
+<p>
+
+On s'intéresse au test de l'indépendance de deux descriptions
+statistiques. Prenons par exemples les données suivantes&nbsp;:
+
+</p>
+
+<center>
+  <table border="1">
+    <tr><th></th><th bgcolor="#33ffff">sujet rebelle</th>
+                 <th bgcolor="#ff33ff">sujet obéissant</th></tr>
+    <tr><td bgcolor="#ffff33">catégorie 1</td><td bgcolor="#33ffff">230</td><td bgcolor="#ff33ff">139</td></tr>
+    <tr><td bgcolor="#ffff33">catégorie 2</td><td bgcolor="#33ffff">83</td><td bgcolor="#ff33ff">75</td></tr>
+    <tr><td bgcolor="#ffff33">catégorie 3</td><td bgcolor="#33ffff">22</td><td bgcolor="#ff33ff">18</td></tr>
+    <tr><td bgcolor="#ffff33">catégorie 4</td><td bgcolor="#33ffff">28</td><td bgcolor="#ff33ff">47</td></tr>
+    <tr><td bgcolor="#ffff33">catégorie 5</td><td bgcolor="#33ffff">5</td><td bgcolor="#ff33ff">11</td></tr>
+  </table>
+</center>
+
+<p>
+
+Ces données sont issues de Stanley Milgram, <i>Soumission à
+l'autorité</i>, Calmann-Lévy, 1974 (originalement, <i>Obedience to
+authority, an experimental view</i>, Harper &amp; Row, 1974), tableau
+VII, page 213. 
+
+<br/>
+
+Elles indiquent la répartition entre 5 catégories de deux types de
+sujets dans une expérience de psychologie sociale.
+
+<br/>
+<br/>
+
+On se demande si la répartition entre les 5 catégories est
+significativement différente entre les deux groupes de sujets.
+
+<br/>
+
+On sait que la réponse à cette question fait appel à un test du
+&chi;-2.
+
+</p>
+
+<div class="exercice">
+
+  <p>
+
+  On va résoudre cette question de deux manières&nbsp;: en faisant les
+  calculs à la main (et avec R) et en utilisant la fonction R qui fait
+  directement le test. 
+
+  <br/>
+  <br/>
+
+  Avant toute chose, mettez ces données dans un <i>data.frame</i>
+  (utilisez la fonction <kbD>edit()</kbd> vue à la première séance).
+
+  </p>
+
+  <ol>
+    <li>calcul à la main&nbsp;: faites les calculs comme vous avez
+      appris à les faire en cours de stats. Pour cela,
+      <ul>
+        <li>vous calculez la statistique &chi;-2 en calculant les 
+          effectifs marginaux pour chaque ligne et chaque colonne puis 
+	  &chi;<sup>2</sup> = <font size="+3">&Sigma;</font><inf><font
+          size="-4">i,j</font></inf>(N<inf><font
+          size="-4">i,j</font></inf> - n<inf><font
+          size="-4">i,j</font></inf>)<sup>2</sup> / n<inf><font
+          size="-4">i,j</font></inf> où&nbsp;:
+          <ul>
+            <li>N<inf><font size="-4">i,j</font></inf> est l'effectif
+              de la case i, j</li>
+            <li>n<inf><font size="-4">i,j</font></inf> = <inf><font
+              size="-4">i,.</font></inf> * <inf><font
+              size="-4">.,j</font></inf> / N
+            <li>N<inf><font size="-4">i,.</font></inf> est la somme
+              des effectifs de la ligne i</li>
+            <li>N<inf><font size="-4">.,j</font></inf> est la somme
+              des effectifs de la colonne j</li>
+            <li>N est l'effectif complet.</li>
+          </ul></li>
+        <li>vous déterminez le nombre de degrés de liberté</li>
+        <li>vous faites un test, au seuil &alpha; = ,05 par
+          exemple. Pour cela, vous avez besoin de connaître
+              &chi;<inf><font size="-2">&alpha;, &nu;</font></inf> qui
+          se calcule par la fonction <kbd>qchisq(1 - &alpha;, &nu;)</kbd>
+          où &nu; est le nombre de degrés de liberté.
+          Si &chi;-2 &gt; &chi;<inf><font size="-2">&alpha;,
+              &nu;</font></inf>, le test 
+          d'indépendence au seuil &alpha; est positif.</li>
+        <li>solution possibleà tout cela&nbsp;:
+<pre>milgram.Ni. <- numeric (nrow (milgram))
+for (i in 1:nrow (milgram))
+  milgram.Ni. <- sum (milgram [i, ])
+milgram.N.j <- numeric (ncol (milgram))
+for (i in 1:ncol (milgram))
+  milgram.N.j <- sum (milgram [, i])
+milgram.N <- sum (milgram)
+milgram.nij <- milgram
+milgram.nij <- outer (milgram.Ni., milgram.N.j) / milgram.N
+milgram.chi2 <- sum ((milgram - milgram.nij)^2 / milgram.nij)
+</pre></li>
+      </ul></li> 
+    <li>calcul direct&nbsp;: pour savoir quelle fonction R utiliser,
+              consultez l'excellent <a 
+      href="http://cran.r-project.org/doc/contrib/Verzani-SimpleR.pdf">Using
+      R for Introductory Statistics</a>, pages 74-75, et faites-le.</li>
+  </ol>
+</div>
+
+<a name="lesnas"> </a>
+<h2>Traitement des valeurs non disponibles</h2>
+
+<div class="exercice">
+
+  <p>
+
+  On reprend le jeu de données vu lors de la première séance
+  concernant le sommeil des mammifères.
+
+  <br/>
+
+  On veut traiter les NA. Ce que l'on va voir ici n'est pas forcément
+  une <b>bonne</b> manière de traiter ces NA&nbsp;; le but est de
+  faire quelques manipulations en R.
+
+  <br/>
+  <br/>
+
+  <b>Question</b>&nbsp;: comment faites-vous pour remplacer les NA
+  d'un caractère par la moyenne de ce caractère&nbsp;?
+
+  <br/>
+  <br/>
+
+  On va essayer de faire mieux. On a vu la fonction <kbd>cor(a,
+  b)</kbd> qui calcule le coefficient de corrélation linéaire entre
+  deux caractères <i>a</i> et <i>b</i>.
+
+  <b>Question</b>&nbsp;: 
+
+  </p>
+
+  <ul>
+    <li>quel est ce coefficient pour les deux caractères
+      <kbd>Body.Weight</kbd> et <kbd>Brain.Weight</kbd>&nbsp;?</li>
+    <li>quel est ce coefficient pour les deux caractères
+      <kbd>Body.Weight</kbd> et <kbd>Dreaming</kbd>&nbsp;?</li>
+    <li>que se passe-t-il dans ce dernier cas&nbsp;?</li>
+    <li>essayez maintenant&nbsp;:
+      <pre>cor (sommeil$Body.Weight, sommeil$Dreaming, use = "pairwise.complete.obs")</pre>
+      et concluez.
+  </ul>
+
+  <p>
+
+  Pour faire un peu plus subtil pour le remplacement des NA, on va
+  estimer une bonne valeur en considérant la corrélation entre les
+  caractères.
+
+  <br/>
+
+  Plus précisément, supposons que l'on veuille remplacer les NA de
+  l'attribut Dreaming. On va déterminer le caractère le mieux corrélé
+  linéairement avec Dreaming (pour les valeurs dont on
+  dispose). Ensuite, on estimera la valeur de Dreaming grace à cette
+  corrélation.
+
+  </p>
+
+  <ol>
+    <li>si vous avez effectivement remplacer les NA plus haut,
+      rechargez le jeu de données&nbsp;;</li>
+    <li>déterminer le coefficient de corrélation linéaire entre
+      Dreaming et chacun des autres caractères&nbsp;;</li>
+    <li>déterminez le caractère le mieux corrélé avec
+      Dreaming&nbsp;;</li>
+    <li>remplacez les NA de Dreaming.</li>
+  </ol>
+</div>
+</div>
+
+<!-- Start of StatCounter Code -->
+<script type="text/javascript" language="javascript">
+var sc_project=2030719; 
+var sc_invisible=1; 
+var sc_partition=18; 
+var sc_security="2ee406dd"; 
+</script>
+
+<script type="text/javascript" language="javascript" src="http://www.statcounter.com/counter/counter.js"></script><noscript><a href="http://www.statcounter.com/" target="_blank"><img  src="http://c19.statcounter.com/counter.php?sc_project=2030719&java=0&security=2ee406dd&invisible=0" alt="" border="0"></a> </noscript>
+<!-- End of StatCounter Code -->
+
+</body>
+</html>

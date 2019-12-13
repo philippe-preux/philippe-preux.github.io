@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>L'environnement logiciel statistique R&nbsp;: initiation (2)</title>
+  <link href="https://philippe-preux.github.io/css/ma.css" 
+	rel="stylesheet" type="text/css" media="all" />
+</head>
+
+<body>
+<div class="tpR">
+<h1>Initiation à R (2/3)</h1>
+
+<p>
+
+Après l'initiation à R de la séance 1, on poursuit notre exploration
+de R sous la forme d'exercices.
+
+</p>
+
+<div class="exercice">
+
+  <p>
+
+  Soit ce jeu de données disponible <a href="./budget.xls">en cliquant
+    ici au format xl.</a>.
+
+  <br/>
+  <br/>
+
+  Ces données sont extraites de l'ouvrage «&nbsp;L'analyse de
+  données&nbsp;» de J-M. Bouroche et G. Saporta, Que sais-je&nbsp;?
+  1854, PUF, 6<sup>e</sup> édition, 1994. Elles représentent la
+  répartition des dépenses de l'état français sur 24 années (une année
+  par ligne&nbsp;: 1872, 1880, 1890, 1900, 1903, 1906, 1909, 1912,
+  1920, 1923, 1926, 1929, 1932, 1935, 1938, 1947, 1950, 1953, 1956,
+  1959, 1962, 1965, 1968 et 1971) dans 11 secteurs de l'économie (1
+  secteur par colonne, dans l'ordre&nbsp;: pouvoirs publics,
+  agriculture, commerce et industrie, transports, logement et
+  aménagement du territoire, éducation et culture, action sociale,
+  anciens combattants, défense, dette et divers). Ceci constitue donc
+  une matrice structurée en 24 lignes de 11 colonnes.
+
+  </p>
+
+  <ul>
+    <li>Charger ce jeu de données dans R un nom adéquat aux
+      différents caractères (option <kbd>row.names</kbd>).</li>
+    <li>faites l'histogramme du budget de la dette.</li>
+    <li>tapez la commande <kbd>boxplot (budget [, c (2, 3, 4,
+      5)], col = "green")</kbd>, voyez et essayez d'interprêter le
+      résultat. (Des explications sont disponibles en cliquant <a href="../miashs/fouilleDeDonneesII/tp/exploration-visuelle/index.html#boxplot">ici</a>.)</li>
+    <li>(remarque&nbsp;: au lieu de <kbd>c (2, 3, 4, 5)</kbd>, on
+      aurait pu taper <kbd>2:5</kbd>.)</li>
+    <li>centrez et réduisez le budget des pouvoirs publics.</li>
+    <li>faites-le pour les autres attributs. Stockez l'ensemble dans
+      un nouveau data.frame.</li>
+    <li>faites le produit scalaire entre les budgets des pouvoirs
+      publics et de l'agriculture.</li>
+  </ul>
+</div>
+
+<a name="acp"> </a>
+<h2>ACP</h2>
+
+<p>
+
+Les fonctions nécessaires à la réalisation d'une ACP sont disponibles
+dans la bibliothèque <kbd>stats</kbd>. Il faut donc taper la
+commande&nbsp;:
+
+</p>
+
+<pre>library(stats)</pre>
+
+<p>
+
+pour y avoir accès.
+
+<br/>
+<br/>
+
+Ensuite, l'ACP est effectuée en utilisant la fonction
+<kbd>prcomp()</kbd> à laquelle on passe un <i>data frame</i> en
+paramètre ainsi que les paramètres <kbd>center = TRUE, scale =
+TRUE</kbd> pour que les données soient centrées et réduites.
+
+<br/>
+<br/>
+
+Pour effectuer une ACP sur le budget, on ne s'intéresse pas à
+l'attribut «&nbsp;année&nbsp;». Il faut donc l'indiquer en spécifiant
+que l'on veut&nbsp;:
+
+</p>
+
+<ul>
+  <li>utiliser les attributs numéros 2 à 12 par la notation
+    <kbd>budget [, 2:12]</kbd>&nbsp;;</li>
+  <li>ou (autre possibilité) en indiquant que l'on veut utiliser tous
+    les attributs sauf le premier par la notation 
+    <kbd>budget [, -1]</kbd>.</li>
+</ul>
+
+<p>
+
+En résumé, on obtiendra l'ACP du jeu de données budget par la commande
+suivante&nbsp;:
+
+</p>
+
+<pre>> budget.acp <- prcomp (budget [, -1], center = TRUE, scale = TRUE)
+</pre>
+
+<p>
+
+On peut alors&nbsp;:
+
+</p>
+
+<ul>
+  <li>par la commande <kbd>plot (budget.acp)</kbd>, visualiser la
+    variance sur les axes principaux&nbsp;;</li>
+  <li>par la commande <kbd>biplot (budget.acp)</kbd>, visualiser la
+    projection des données et des caractères dans le plan principal
+    formé des deux axes factoriels de poids maximal&nbsp;;</li>
+  <li>obtenir le même graphique dans un autre plan factoriel en
+    spécifiant le numéro des axes comme ceci&nbsp;: <kbd>biplot
+    (budget.acp, choices = c (1,3))</kbd> pour les axes 1 et 3&nbsp;;</li>
+  <li>en tapant simplement <kbd>budget.acp</kbd>, obtenir les valeurs
+    propres et vecteurs propres correspondants aux axes factoriels.</li>
+</ul>
+
+  
+</div>
+<!-- Start of StatCounter Code -->
+<script type="text/javascript" language="javascript">
+var sc_project=2030719; 
+var sc_invisible=1; 
+var sc_partition=18; 
+var sc_security="2ee406dd"; 
+</script>
+
+<script type="text/javascript" language="javascript" src="http://www.statcounter.com/counter/counter.js"></script><noscript><a href="http://www.statcounter.com/" target="_blank"><img  src="http://c19.statcounter.com/counter.php?sc_project=2030719&java=0&security=2ee406dd&invisible=0" alt="" border="0"></a> </noscript>
+<!-- End of StatCounter Code -->
+
+</body>
+</html>

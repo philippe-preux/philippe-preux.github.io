@@ -1,0 +1,99 @@
+Case_ID,PEDA,DESC,INFE,OPTION,M,DESCR,INFR,MENTION,ACQUIS
+'I1 ','active','14','17','PSYSOC',15.5,1,1,'Bien'    ,1
+'I2 ','active','15','18','PSYSOC',16.5,1,1,'Très B'  ,1
+'I3 ','active','7' ,'6' ,'PSYSOC', 6.5,0,0,'Recalé'  ,0
+'I4 ','active','18','15','PSYTRA',16.5,1,1,'Très B'  ,1
+'I5 ','active','9' ,'13','PSYTRA',  11,0,1,'Passable',1
+'I6 ','active','15','12','PSYENF',13.5,1,1,'Assez B' ,1
+'I7 ','active','13','11','PSYSOC',  12,1,1,'Assez B' ,1
+'I8 ','active','18','18','PSYSOC',  18,1,1,'Très B'  ,1
+'I9 ','active','8' ,'6' ,'PSYCLI',   7,0,0,'Recalé'  ,0
+'I10','active','8' ,'9' ,'PSYSOC', 8.5,0,0,'Recalé'  ,0
+'I11','active','17','13','PSYENF',  15,1,1,'Bien'    ,1
+'I12','active','15','18','PSYSOC',16.5,1,1,'Très B'  ,1
+'I13','active','13','11','PSYSOC',  12,1,1,'Assez B' ,1
+'I14','active','6' ,'10','PSYSOC',   8,0,1,'Recalé'  ,0
+'I15','active','15','14','PSYTRA',14.5,1,1,'Bien'    ,1
+'I16','active','8' ,'10','PSYENF',   9,0,1,'Recalé'  ,0
+'I17','active','16','5' ,'PSYSOC',10.5,1,0,'Passable',1
+'I18','active','18','15','PSYSOC',16.5,1,1,'Très B'  ,1
+'I19','active','14','15','PSYTRA',14.5,1,1,'Bien'    ,1
+'I20','active','10','5' ,'PSYSOC', 7.5,1,0,'Recalé'  ,0
+'I21','active','15','15','PSYTRA',  15,1,1,'Bien'    ,1
+'I22','active','12','10','PSYSOC',  11,1,1,'Passable',1
+'I23','active','7' ,'13','PSYSOC',  10,0,1,'Passable',1
+'I24','active','7' ,'2' ,'PSYSOC', 4.5,0,0,'Recalé'  ,0
+'I25','active','15','17','PSYTRA',  16,1,1,'Très B'  ,1
+'I26','traditionnelle','10','10','PSYSOC',  10,1,1,'Passable',1
+'I27','traditionnelle','8' ,'2' ,'PSYCLI',   5,0,0,'Recalé'  ,0
+'I28','traditionnelle','8' ,'7' ,'PSYCLI', 7.5,0,0,'Recalé'  ,0
+'I29','traditionnelle','14','6' ,'PSYTRA',  10,1,0,'Passable',1
+'I30','traditionnelle','15','14','PSYTRA',14.5,1,1,'Bien'    ,1
+'I31','traditionnelle','9' ,'14','PSYSOC',11.5,0,1,'Passable',1
+'I32','traditionnelle','9' ,'12','PSYTRA',10.5,0,1,'Passable',1
+'I33','traditionnelle','12','10','PSYSOC',  11,1,1,'Passable',1
+'I34','traditionnelle','12','8' ,'PSYSOC',  10,1,0,'Passable',1
+'I35','traditionnelle','10','8' ,'PSYENF',   9,1,0,'Recalé'  ,0
+'I36','traditionnelle','10','12','PSYCLI',  11,1,1,'Passable',1
+'I37','traditionnelle','8' ,'10','PSYENF',   9,0,1,'Recalé'  ,0
+'I38','traditionnelle','8' ,'14','PSYCLI',  11,0,1,'Passable',1
+'I39','traditionnelle','7' ,'13','PSYCLI',  10,0,1,'Passable',1
+'I40','traditionnelle','9' ,'5' ,'PSYCLI',   7,0,0,'Recalé'  ,0
+'I41','traditionnelle','9' ,'5' ,'PSYENF',   7,0,0,'Recalé'  ,0
+'I42','traditionnelle','10','12','PSYCLI',  11,1,1,'Passable',1
+'I43','traditionnelle','11','14','PSYCLI',12.5,1,1,'Assez B' ,1
+'I44','traditionnelle','13','8' ,'PSYCLI',10.5,1,0,'Passable',1
+'I45','traditionnelle','13','8' ,'PSYCLI',10.5,1,0,'Passable',1
+'I46','traditionnelle','12','7' ,'PSYENF', 9.5,1,0,'Recalé'  ,0
+'I47','traditionnelle','15','12','PSYCLI',13.5,1,1,'Assez B' ,1
+'I48','traditionnelle','10','14','PSYCLI',  12,1,1,'Assez B' ,1
+'I49','traditionnelle','9' ,'9' ,'PSYCLI',   9,0,0,'Recalé'  ,0
+'I50','traditionnelle','9' ,'6' ,'PSYCLI', 7.5,0,0,'Recalé'  ,0
+'I51','active','8' ,'15','PSYENF',11.5,0,1,'Passable',1
+'I52','active','14','14','PSYENF',  14,1,1,'Bien'    ,1
+'I53','active','14','10','PSYSOC',  12,1,1,'Assez B' ,1
+'I54','active','16','11','PSYSOC',13.5,1,1,'Assez B' ,1
+'I55','active','12','10','PSYCLI',  11,1,1,'Passable',1
+'I56','active','10','12','PSYCLI',  11,1,1,'Passable',1
+'I57','active','15','12','PSYCLI',13.5,1,1,'Assez B' ,1
+'I58','active','15','6' ,'PSYENF',10.5,1,0,'Passable',1
+'I59','active','13','11','PSYENF',  12,1,1,'Assez B' ,1
+'I60','active','14','17','PSYTRA',15.5,1,1,'Bien'    ,1
+'I61','active','12','10','PSYCLI',  11,1,1,'Passable',1
+'I62','active','8' ,'13','PSYSOC',10.5,0,1,'Passable',1
+'I63','active','8' ,'5' ,'PSYSOC', 6.5,0,0,'Recalé'  ,0
+'I64','active','18','12','PSYCLI',  15,1,1,'Bien'    ,1
+'I65','active','11','11','PSYCLI',  11,1,1,'Passable',1
+'I66','active','10','13','PSYSOC',11.5,1,1,'Passable',1
+'I67','active','10','5' ,'PSYENF', 7.5,1,0,'Recalé'  ,0
+'I68','active','10','2' ,'PSYCLI',   6,1,0,'Recalé'  ,0
+'I69','active','12','10','PSYSOC',  11,1,1,'Passable',1
+'I70','active','15','8' ,'PSYSOC',11.5,1,0,'Passable',1
+'I71','active','8' ,'10','PSYENF',   9,0,1,'Recalé'  ,0
+'I72','active','9' ,'3' ,'PSYCLI',   6,0,0,'Recalé'  ,0
+'I73','active','15','18','PSYTRA',16.5,1,1,'Très B'  ,1
+'I74','active','18','12','PSYSOC',  15,1,1,'Bien'    ,1
+'I75','traditionnelle','10','13','PSYENF',11.5,1,1,'Passable',1
+'I76','traditionnelle','10','5' ,'PSYTRA', 7.5,1,0,'Recalé'  ,0
+'I77','traditionnelle','10','0' ,'PSYCLI',   5,1,0,'Recalé'  ,0
+'I78','traditionnelle','14','12','PSYENF',  13,1,1,'Assez B' ,1
+'I79','traditionnelle','15','10','PSYCLI',12.5,1,1,'Assez B' ,1
+'I80','traditionnelle','17','13','PSYCLI',  15,1,1,'Bien'    ,1
+'I81','traditionnelle','18','8' ,'PSYENF',  13,1,0,'Assez B' ,1
+'I82','traditionnelle','5' ,'8' ,'PSYENF', 6.5,0,0,'Recalé'  ,0
+'I83','traditionnelle','5' ,'10','PSYCLI', 7.5,0,1,'Recalé'  ,0
+'I84','traditionnelle','8' ,'8' ,'PSYCLI',   8,0,0,'Recalé'  ,0
+'I85','traditionnelle','6' ,'9' ,'PSYENF', 7.5,0,0,'Recalé'  ,0
+'I86','traditionnelle','4' ,'6' ,'PSYENF',   5,0,0,'Recalé'  ,0
+'I87','traditionnelle','10','10','PSYCLI',  10,1,1,'Passable',1
+'I88','traditionnelle','12','6' ,'PSYCLI',   9,1,0,'Recalé'  ,0
+'I89','traditionnelle','15','14','PSYENF',14.5,1,1,'Bien'    ,1
+'I90','traditionnelle','13','10','PSYTRA',11.5,1,1,'Passable',1
+'I91','traditionnelle','18','12','PSYENF',  15,1,1,'Bien'    ,1
+'I92','traditionnelle','10','5' ,'PSYCLI', 7.5,1,0,'Recalé'  ,0
+'I93','traditionnelle','10','12','PSYSOC',  11,1,1,'Passable',1
+'I94','traditionnelle','12','10','PSYCLI',  11,1,1,'Passable',1
+'I95','traditionnelle','8' ,'8' ,'PSYCLI',   8,0,0,'Recalé'  ,0
+'I96','traditionnelle','8' ,'5' ,'PSYSOC', 6.5,0,0,'Recalé'  ,0
+'I97','traditionnelle','9' ,'10','PSYCLI', 9.5,0,1,'Recalé'  ,0
+'I98','traditionnelle','11','6' ,'PSYCLI', 8.5,1,0,'Recalé'  ,0
