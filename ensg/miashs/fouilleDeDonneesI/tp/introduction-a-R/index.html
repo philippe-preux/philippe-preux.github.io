@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>Prise en main de R</title>
   <link href="https://philippe-preux.github.io/css/ma.css" 
 	rel="stylesheet" type="text/css" media="all" />
@@ -22,7 +22,7 @@ calcul statistique.
 <br/>
 <br/>
 
-Ce TP est réalisé sous Linux. Sachez néanmoins que R fonctionne sous
+Ce TP est rÃ©alisÃ© sous Linux. Sachez nÃ©anmoins que R fonctionne sous
 Windows et sous MacOS.
 
 </p>
@@ -33,7 +33,7 @@ Windows et sous MacOS.
 
 <p>
 
-Ouvrez une fenêtre <i>shell</i>, tapez la commande <kbd>R</kbd> et voilà...
+Ouvrez une fenÃªtre <i>shell</i>, tapez la commande <kbd>R</kbd> et voilÃ ...
 vous obtenez ce qui suit&nbsp;:
 
 </p>
@@ -44,10 +44,10 @@ vous obtenez ce qui suit&nbsp;:
 
 <p>
 
-Les commandes essentielles sont indiquées dans ce message, en
-particulier comment quitter R. La dernière ligne qui commence par un
+Les commandes essentielles sont indiquÃ©es dans ce message, en
+particulier comment quitter R. La derniÃ¨re ligne qui commence par un
 &gt; est une invite pour que vous tapiez une commande&nbsp;: c'est ce
-que l'on appelle un «&nbsp;prompt&nbsp;», c'est-à-dire, un signe qui
+que l'on appelle un Â«&nbsp;prompt&nbsp;Â», c'est-Ã -dire, un signe qui
 vous indique que le logiciel attend que tapiez quelque chose.
 
 </p>
@@ -56,20 +56,20 @@ vous indique que le logiciel attend que tapiez quelque chose.
 
 <p>
 
-La dernière ligne du message d'accueil vous informe que pour quitter
+La derniÃ¨re ligne du message d'accueil vous informe que pour quitter
 R, il faut taper la commande <kbd>q()</kbd> suivie d'un retour-chariot
-(= touche Entrée). Faites-le&nbsp;; vous obtenez le résultat
+(= touche EntrÃ©e). Faites-le&nbsp;; vous obtenez le rÃ©sultat
 suivant&nbsp;:
 
 </p>
 
 <center>
-  <img src="quitterR.png" alt="message de départ de R" />
+  <img src="quitterR.png" alt="message de dÃ©part de R" />
 </center>
 
 <p>
 
-Vous avez là la possibilité de sauvegarder votre travail en tapant
+Vous avez lÃ  la possibilitÃ© de sauvegarder votre travail en tapant
 <kbd>y</kbd> (comme 'y'es) suivi d'un retour-chariot, ou de quitter R
 sans sauvegarder votre travail en tapant <kbd>n</kbd> (comme 'n'o), ou
 encore de revenir dans R en tapant <kbd>c</kbd> (comme 'c'ontinue).
@@ -77,36 +77,36 @@ encore de revenir dans R en tapant <kbd>c</kbd> (comme 'c'ontinue).
 <br/>
 
 Si vous quitter R en sauvegardant votre travail, vous avez aussi la
-possibilité de récupérer votre travail et de le mettre soit sur votre
-clé USB, soit vous l'envoyer par email pour travailler chez vous (par
-exemple). Cela sera expliqué à la fin du TP.
+possibilitÃ© de rÃ©cupÃ©rer votre travail et de le mettre soit sur votre
+clÃ© USB, soit vous l'envoyer par email pour travailler chez vous (par
+exemple). Cela sera expliquÃ© Ã  la fin du TP.
 
 <br/>
 <br/>
 
 Pour l'heure, le TP ne fait que commencer, donc restez sous R en
 tapant <kbd>c</kbd> (suivi de retour-chariot&nbsp;: il faut toujours
-taper un retour-chariot après une commande pour la valider et que R la
+taper un retour-chariot aprÃ¨s une commande pour la valider et que R la
 prenne en compte&nbsp;; on ne le dira donc plus).
 
 </p>
 
 <h2>R&nbsp;: une calculatrice</h2>
 
-<h3>Calculs élémentaires</h3>
+<h3>Calculs Ã©lÃ©mentaires</h3>
 
 <p>
 
 L'utilisation la plus simple de R est de l'utiliser comme une
-«&nbsp;simple&nbsp;» calculatrice. On verra que c'est en fait une
-calculatrice très sophistiquée.
+Â«&nbsp;simple&nbsp;Â» calculatrice. On verra que c'est en fait une
+calculatrice trÃ¨s sophistiquÃ©e.
 
 <br/>
 <br/>
 
 Par exemple, tapez la commande suivante (tous les exemples doivent
-être tapés&nbsp;; le symbole &gt; indique qu'il s'agît d'une commande
-R&nbsp;: vous ne devez pas le taper, il est déjà affiché à l'écran)&nbsp;:
+Ãªtre tapÃ©s&nbsp;; le symbole &gt; indique qu'il s'agÃ®t d'une commande
+R&nbsp;: vous ne devez pas le taper, il est dÃ©jÃ  affichÃ© Ã  l'Ã©cran)&nbsp;:
 
 </p>
 
@@ -114,7 +114,7 @@ R&nbsp;: vous ne devez pas le taper, il est déjà affiché à l'écran)&nbsp;:
 
 <p>
 
-R vous répond immédiatement&nbsp;:
+R vous rÃ©pond immÃ©diatement&nbsp;:
 
 </p>
 
@@ -122,20 +122,20 @@ R vous répond immédiatement&nbsp;:
 
 <p>
 
-Si on laisse de côté le <kbd>[1]</kbd> qui sera expliqué plus loin, on
-obtient bien le résultat attendu.
+Si on laisse de cÃ´tÃ© le <kbd>[1]</kbd> qui sera expliquÃ© plus loin, on
+obtient bien le rÃ©sultat attendu.
 
 <br/>
 <br/>
 
-Naturellement, tous les opérateurs habituels sont disponibles, ainsi
-que les fonctions logarithmiques, trigonométriques, et bien d'autres.
+Naturellement, tous les opÃ©rateurs habituels sont disponibles, ainsi
+que les fonctions logarithmiques, trigonomÃ©triques, et bien d'autres.
 
 <br/>
 <br/>
 
-On peut affecter le résultat d'un calcul à une variable. Une variable
-est une entité qui porte un nom et qui contient une valeur. Par
+On peut affecter le rÃ©sultat d'un calcul Ã  une variable. Une variable
+est une entitÃ© qui porte un nom et qui contient une valeur. Par
 exemple, si on tape&nbsp;:
 
 </p>
@@ -149,20 +149,20 @@ R n'affiche rien, mais il a&nbsp;:
 </p>
 
 <ul>
-  <li>calculé la valeur de l'expression 
+  <li>calculÃ© la valeur de l'expression 
     <kbd>2 * sqrt (5) + pi</kbd>&nbsp;;</li>
-  <li>affecté cette valeur à une variable dont le nom est <kbd>a</kbd>.</li>
+  <li>affectÃ© cette valeur Ã  une variable dont le nom est <kbd>a</kbd>.</li>
 </ul>
 
 <p>
 
-L'affectation se fait donc par l'opérateur <kbd>&lt;-</kbd>. À sa
-gauche, on indique le nom de la variable à laquelle il faut affecter
-la valeur qui se trouve à sa droite.
+L'affectation se fait donc par l'opÃ©rateur <kbd>&lt;-</kbd>. Ã€ sa
+gauche, on indique le nom de la variable Ã  laquelle il faut affecter
+la valeur qui se trouve Ã  sa droite.
 
 <span class="detail">En passant, vous aurez noter l'utilisation de
 <kbd>pi</kbd> pour obtenir la valeur de &pi;. <kbd>pi</kbd> est une
-variable pré-définie dans R dont la valeur est celle de &pi;.</span>
+variable prÃ©-dÃ©finie dans R dont la valeur est celle de &pi;.</span>
 
 <br/>
 <br/>
@@ -188,14 +188,14 @@ effectuer des calculs, par exemple&nbsp;:
 <p>
 
 Pour simplifier la saisie des commandes, vous pouvez utiliser la
-touche flêchée &#8593; pour retrouvez les commandes que vous avez déjà
-tapées et pour les modifier. Ainsi, R garde l'historique des commandes
+touche flÃªchÃ©e &#8593; pour retrouvez les commandes que vous avez dÃ©jÃ 
+tapÃ©es et pour les modifier. Ainsi, R garde l'historique des commandes
 que vous tapez. Vous pouvez remonter dans l'historique avec la touche
 &#8593; et redescendre avec la touche &#8595;. Quand vous remontez
-dans l'historique, vous pouvez ensuite utiliser les touches flêchées
-&#8592; et &#8594; pour éditer la commande. Ainsi, utilisez ces
-touches pour taper la commande suivante, qui diffère peu d'une
-commande que vous avez tapée plus haut&nbsp;:
+dans l'historique, vous pouvez ensuite utiliser les touches flÃªchÃ©es
+&#8592; et &#8594; pour Ã©diter la commande. Ainsi, utilisez ces
+touches pour taper la commande suivante, qui diffÃ¨re peu d'une
+commande que vous avez tapÃ©e plus haut&nbsp;:
 
 </p>
 
@@ -203,20 +203,20 @@ commande que vous avez tapée plus haut&nbsp;:
 
 <p>
 
-Prenez l'habitude d'utiliser ces touches flêchées&nbsp;: elles
-permettent d'accélérer très sensiblement la saisie des commandes, et
-ceci, même si l'on est déjà habile avec le clavier de son ordinateur.
+Prenez l'habitude d'utiliser ces touches flÃªchÃ©es&nbsp;: elles
+permettent d'accÃ©lÃ©rer trÃ¨s sensiblement la saisie des commandes, et
+ceci, mÃªme si l'on est dÃ©jÃ  habile avec le clavier de son ordinateur.
 
 <br/>
 <br/>
 
-La table suivante indique des opérateurs et des fonctions de R&nbsp;:
+La table suivante indique des opÃ©rateurs et des fonctions de R&nbsp;:
 
 </p>
 
 <center>
   <table border="3">
-    <tr><th>notation en R</th><th>valeur mathématique</th></tr>
+    <tr><th>notation en R</th><th>valeur mathÃ©matique</th></tr>
     <tr><td align="center"><kbd>a + b</kbd></td>
         <td align="center">somme de a et b</td></tr>
     <tr><td align="center"><kbd>a - b</kbd></td>
@@ -224,15 +224,15 @@ La table suivante indique des opérateurs et des fonctions de R&nbsp;:
     <tr><td align="center"><kbd>a * b</kbd></td>
         <td align="center">produit de a par b</td></tr>
     <tr><td align="center"><kbd>a / b</kbd></td>
-        <td align="center">division réelle de a par b</td></tr>
+        <td align="center">division rÃ©elle de a par b</td></tr>
     <tr><td align="center"><kbd>a %/% b</kbd></td>
-        <td align="center">division euclidienne (entière) de a par b</td></tr>
+        <td align="center">division euclidienne (entiÃ¨re) de a par b</td></tr>
     <tr><td align="center"><kbd>a %% b</kbd></td>
         <td align="center">a mod b</td></tr>
     <tr><td align="center"><kbd>a ^ b</kbd></td>
-        <td align="center">a à la puissance b</td></tr>
+        <td align="center">a Ã  la puissance b</td></tr>
     <tr><td align="center"><kbd>sqrt (a)</kbd></td>
-        <td align="center">racine carrée de a</td></tr>
+        <td align="center">racine carrÃ©e de a</td></tr>
     <tr><td align="center"><kbd>abs (a)</kbd></td>
         <td align="center">valeur absolue de a</td></tr>
     <tr><td align="center"><kbd>log (a)</kbd></td>
@@ -250,74 +250,74 @@ La table suivante indique des opérateurs et des fonctions de R&nbsp;:
 
 <p>
 
-Cette liste est loin d'être exhaustive&nbsp;!
+Cette liste est loin d'Ãªtre exhaustive&nbsp;!
 
 </p>
 
 <div class="exercice">
 
 <ul>
-  <li>calculez les racines de l'équation 2 x<sup>2</sup> + 5 x - 12 = 0.</li>
+  <li>calculez les racines de l'Ã©quation 2 x<sup>2</sup> + 5 x - 12 = 0.</li>
 </ul>
 
 </div>
 
 <p>
 
-À tout moment une aide en ligne est accessible avec la commande
-<kbd>?topic</kbd>, où <kbd>topic</kbd> peut être remplacé par
+Ã€ tout moment une aide en ligne est accessible avec la commande
+<kbd>?topic</kbd>, oÃ¹ <kbd>topic</kbd> peut Ãªtre remplacÃ© par
 n'importe-quelle commande. Essayez, par exemple
 <kbd>?log</kbd>. (Tapez 'q' pour quitter l'aide.) <span
-class="important">Il est très important d'apprendre à lire
-l'aide. L'aide en-ligne contient énormément d'information&nbsp;: elle
-est là, disponible, c'est à vous d'apprendre à l'utiliser.</span> Les
-pages d'aide ont toutes la même structure&nbsp;:
+class="important">Il est trÃ¨s important d'apprendre Ã  lire
+l'aide. L'aide en-ligne contient Ã©normÃ©ment d'information&nbsp;: elle
+est lÃ , disponible, c'est Ã  vous d'apprendre Ã  l'utiliser.</span> Les
+pages d'aide ont toutes la mÃªme structure&nbsp;:
 
 </p>
 
 <ul>
-  <li>une description rapide de la commande et, éventuellement, de
-    commandes apparentées. Pour <kbd>log</kbd>, diverse commandes
-    calculant le logarithme dans différentes bases et les exponentiations
-    sont apparentées&nbsp;;</li>
+  <li>une description rapide de la commande et, Ã©ventuellement, de
+    commandes apparentÃ©es. Pour <kbd>log</kbd>, diverse commandes
+    calculant le logarithme dans diffÃ©rentes bases et les exponentiations
+    sont apparentÃ©es&nbsp;;</li>
 
   <li>comment on utilise la commande&nbsp;;</li>
 
-  <li>les paramètres de la commande&nbsp;;</li>
+  <li>les paramÃ¨tres de la commande&nbsp;;</li>
 
-  <li>une description détaillée de la commande&nbsp;;</li>
+  <li>une description dÃ©taillÃ©e de la commande&nbsp;;</li>
 
-  <li>la valeur de la commande. Là, le comportement de la fonction
-    dans des cas exceptionnels est indiqué&nbsp;; ainsi, on apprend que
-    <kbd>log(0)</kbd> a pour valeur <kbd>-Inf</kbd>, c'est-à-dire moins
+  <li>la valeur de la commande. LÃ , le comportement de la fonction
+    dans des cas exceptionnels est indiquÃ©&nbsp;; ainsi, on apprend que
+    <kbd>log(0)</kbd> a pour valeur <kbd>-Inf</kbd>, c'est-Ã -dire moins
     l'infini&nbsp;;</li>
 
-  <li>des remarques complémentaires&nbsp;;</li>
+  <li>des remarques complÃ©mentaires&nbsp;;</li>
 
-  <li>des références bibliographiques où la manière dont la fonction
-    est calculée est tirée&nbsp;;</li>
+  <li>des rÃ©fÃ©rences bibliographiques oÃ¹ la maniÃ¨re dont la fonction
+    est calculÃ©e est tirÃ©e&nbsp;;</li>
 
-  <li>d'autres commandes à consulter si l'on veut des informations
-    complémentaires, sur d'autres fonctions proches&nbsp;;</li>
+  <li>d'autres commandes Ã  consulter si l'on veut des informations
+    complÃ©mentaires, sur d'autres fonctions proches&nbsp;;</li>
 
   <li>des exemples&nbsp;: <span class="important">cette section est
-    extrêmement utile</span> car si l'on n'a pas compris les
+    extrÃªmement utile</span> car si l'on n'a pas compris les
     explications, on nous donne des exemples d'utilisation qui peuvent
-    être directement copiées/collées dans R.</li>
+    Ãªtre directement copiÃ©es/collÃ©es dans R.</li>
 </ul>
 
 <div class="exercice">
 
 <p>
 
-Répondre aux questions suivantes en utilisant la documentation
+RÃ©pondre aux questions suivantes en utilisant la documentation
 en-ligne&nbsp;:
 
 </p>
 
 <ul>
-  <li>que donne le logarithme d'un nombre négatif&nbsp;?</li>
-  <li>que donne la racine carrée d'un nombre négatif&nbsp;?</li>
+  <li>que donne le logarithme d'un nombre nÃ©gatif&nbsp;?</li>
+  <li>que donne la racine carrÃ©e d'un nombre nÃ©gatif&nbsp;?</li>
   <li>que donne 1/0&nbsp;?</li>
   <li>que donne 0/0&nbsp;?</li>
   <li>calculez le logarithme en base 5 de 23&nbsp;;</li>
@@ -332,12 +332,12 @@ en-ligne&nbsp;:
 
 <p>
 
-Jusqu'à maintenant, on n'a manipulé que des nombres réels.  On peut
+Jusqu'Ã  maintenant, on n'a manipulÃ© que des nombres rÃ©els.  On peut
 aussi manipuler des nombres complexes directement&nbsp;: si l'on colle
-un <kbd>i</kbd> juste derrière un réel, il devient un nombre
+un <kbd>i</kbd> juste derriÃ¨re un rÃ©el, il devient un nombre
 imaginaire. Ainsi, <kbd>2+3i</kbd> est un nombre complexe, dont la
-partie réelle vaut 2, la partie imaginaire vaut 3. (Attention, le
-<kbd>i</kbd> <span class="important">doit être collé</span> au nombre.)
+partie rÃ©elle vaut 2, la partie imaginaire vaut 3. (Attention, le
+<kbd>i</kbd> <span class="important">doit Ãªtre collÃ©</span> au nombre.)
 
 </p>
 
@@ -346,9 +346,9 @@ partie réelle vaut 2, la partie imaginaire vaut 3. (Attention, le
 <ul>
   <li>soustraire 4-1.5i de 2+3i.</li>
 
-  <li>résoudre 2 x<sup>2</sup> + 5 x + 12 = 0.</li>
+  <li>rÃ©soudre 2 x<sup>2</sup> + 5 x + 12 = 0.</li>
 
-  <li>afficher la valeur de la racine carrée de -1 (en utilisant la
+  <li>afficher la valeur de la racine carrÃ©e de -1 (en utilisant la
     fonction <kbd>sqrt</kbd>. (si vous avez du mal, lisez la phrase qui
     suit.)</li>
 </ul>
@@ -357,29 +357,29 @@ partie réelle vaut 2, la partie imaginaire vaut 3. (Attention, le
 
 <p>
 
-Pour savoir si R fait ses calculs dans les réels ou les complexes, la
-règle est la suivante&nbsp;: si vous n'utilisez que des nombres réels,
-R fait les calculs dans l'ensemble des réels. Si un complexe
+Pour savoir si R fait ses calculs dans les rÃ©els ou les complexes, la
+rÃ¨gle est la suivante&nbsp;: si vous n'utilisez que des nombres rÃ©els,
+R fait les calculs dans l'ensemble des rÃ©els. Si un complexe
 intervient, R fait ses calculs dans les complexes. Ainsi, on peut
-utiliser la notation <kbd>0i</kbd> qui d'un point de vue mathématique
-n'a pas beaucoup d'intérêt, pour obliger R à faire ses calculs avec
+utiliser la notation <kbd>0i</kbd> qui d'un point de vue mathÃ©matique
+n'a pas beaucoup d'intÃ©rÃªt, pour obliger R Ã  faire ses calculs avec
 des complexes.
 
 <br/>
 <br/>
 
-Il existe des fonctions pré-définies spécifiques pour les complexes
-(partie réelle, partie imaginaire, module, argument, conjugué). Vous
+Il existe des fonctions prÃ©-dÃ©finies spÃ©cifiques pour les complexes
+(partie rÃ©elle, partie imaginaire, module, argument, conjuguÃ©). Vous
 taperez <kbd>?complex</kbd> pour en avoir une liste. Par ailleurs,
-toutes les fonctions réelles vues plus haut sont étendues aux
+toutes les fonctions rÃ©elles vues plus haut sont Ã©tendues aux
 complexes.
 
 </p>
 
 <!--
-On peut vouloir créer un nombre complexe dont la partie réelle ou la
-partie imaginaire est stockée dans une variable, par exemple, le
-nombre complexe dont la partie réelle vaut <kbd>a</kbd> et la partie
+On peut vouloir crÃ©er un nombre complexe dont la partie rÃ©elle ou la
+partie imaginaire est stockÃ©e dans une variable, par exemple, le
+nombre complexe dont la partie rÃ©elle vaut <kbd>a</kbd> et la partie
 imaginaire vaut <kbd>b</kbd>. Confiant, vous tapez (faites-le)&nbsp;:
 
 </p>
@@ -389,23 +389,23 @@ imaginaire vaut <kbd>b</kbd>. Confiant, vous tapez (faites-le)&nbsp;:
 
 <p>
 
-vous êtes déçu en obtenant le message&nbsp;:
+vous Ãªtes dÃ©Ã§u en obtenant le message&nbsp;:
 
 </p>
 
-<pre>Erreur : objet "bi" non trouvé
+<pre>Erreur : objet "bi" non trouvÃ©
 </pre>
 
 <p>
 
-En effet, R a «&nbsp;compris&nbsp;» que vous mentionnez une variable
-dénommée <kbd>bi</kbd> qui n'existe pas...
+En effet, R a Â«&nbsp;compris&nbsp;Â» que vous mentionnez une variable
+dÃ©nommÃ©e <kbd>bi</kbd> qui n'existe pas...
 
 <br/>
 <br/>
 
-Pour s'en sortir, R fournit une fonction qui créé un nombre complexe à
-partir de la valeur de ses parties réelle et imaginaire, la fonction
+Pour s'en sortir, R fournit une fonction qui crÃ©Ã© un nombre complexe Ã 
+partir de la valeur de ses parties rÃ©elle et imaginaire, la fonction
 <kbd>complex()</kbd>&nbsp;; ainsi, 
 
 </p>
@@ -415,15 +415,15 @@ partir de la valeur de ses parties réelle et imaginaire, la fonction
 <p>
 
 produit le complexe <kbd>3 + 5i</kbd>. Cependant, on peut
-mettre des variables à la place de 3 et de 5, ce qui résout notre
-problème.
+mettre des variables Ã  la place de 3 et de 5, ce qui rÃ©sout notre
+problÃ¨me.
 
 </p>
 
 <div class="exercice">
 
 <ul>
-  <li>faites l'opération que vous avez tentée ci-dessus en utilisant
+  <li>faites l'opÃ©ration que vous avez tentÃ©e ci-dessus en utilisant
     cette fonction.</li>
 </ul>
 
@@ -435,9 +435,9 @@ problème.
 
 <p>
 
-L'essentiel de ce qui est à connaître sur la syntaxe des commandes R
-est d'ors et déjà vu&nbsp;; on voit ainsi que cette syntaxe est très
-simple. On la résume ci-dessous&nbsp;:
+L'essentiel de ce qui est Ã  connaÃ®tre sur la syntaxe des commandes R
+est d'ors et dÃ©jÃ  vu&nbsp;; on voit ainsi que cette syntaxe est trÃ¨s
+simple. On la rÃ©sume ci-dessous&nbsp;:
 
 </p>
 
@@ -445,22 +445,22 @@ simple. On la résume ci-dessous&nbsp;:
   <li>pour obtenir la valeur d'une expression&nbsp;: on tape cette
     expression&nbsp;;</li>
 
-  <li>pour affecter une valeur à une variable&nbsp;: <kbd>nom de la
-    variable &lt;- valeur à affecter</kbd>&nbsp;;</li>
+  <li>pour affecter une valeur Ã  une variable&nbsp;: <kbd>nom de la
+    variable &lt;- valeur Ã  affecter</kbd>&nbsp;;</li>
 
   <li>pour obtenir la valeur d'une variable&nbsp;: on donne le nom de
     la variable&nbsp;;</li>
 
-  <li>le nom d'une fonction est toujours suivie de parenthèses entre lesquelles on indique les paramètres de la fonction.</li>
+  <li>le nom d'une fonction est toujours suivie de parenthÃ¨ses entre lesquelles on indique les paramÃ¨tres de la fonction.</li>
 </ul>
 
 <h2>Vecteurs</h2>
 
 <p>
 
-Après les simples nombres, un deuxième type fondamental d'entités dans
-R est le vecteur. Un vecteur peut-être créé de différentes
-manières. Par exemple, créons un vecteur dont les éléments sont 0, -1,
+AprÃ¨s les simples nombres, un deuxiÃ¨me type fondamental d'entitÃ©s dans
+R est le vecteur. Un vecteur peut-Ãªtre crÃ©Ã© de diffÃ©rentes
+maniÃ¨res. Par exemple, crÃ©ons un vecteur dont les Ã©lÃ©ments sont 0, -1,
 &pi; et 4,78, et mettons-le dans une variable dont le nom est v&nbsp;:
 
 </p>
@@ -481,7 +481,7 @@ vecteur&nbsp;:
 
 <p>
 
-On retrouve bien les valeurs avec lesquelles on a initialisé le
+On retrouve bien les valeurs avec lesquelles on a initialisÃ© le
 vecteur.
 
 <br/>
@@ -495,66 +495,66 @@ en contient un certain nombre&nbsp;; essayez-les toutes&nbsp;:
 <center>
   <table border="3">
     <tr><th>notation en R</th><th>valeur</th>
-      <th>résultat sur l'exemple</th></tr>
+      <th>rÃ©sultat sur l'exemple</th></tr>
     <tr><td align="center"><kbd>length (v)</kbd></td>
-        <td align="center">nombre d'éléments de
+        <td align="center">nombre d'Ã©lÃ©ments de
           <kbd>v</kbd></td>
         <td align="center"><kbd>4</kbd></td></tr>
     <tr><td align="center"><kbd>min (v)</kbd></td>
-        <td align="center">valeur de l'élément minimal de
+        <td align="center">valeur de l'Ã©lÃ©ment minimal de
           <kbd>v</kbd></td>
         <td align="center"><kbd>-1</kbd></td></tr>
     <tr><td align="center"><kbd>max (v)</kbd></td>
-        <td align="center">valeur de l'élément maximal de
+        <td align="center">valeur de l'Ã©lÃ©ment maximal de
           <kbd>v</kbd></td>
         <td align="center"><kbd>4.78</kbd></td></tr>
     <tr><td align="center"><kbd>range (v)</kbd></td>
-        <td align="center">vecteur composé des deux valeurs
-           précédentes (le min et le max de
+        <td align="center">vecteur composÃ© des deux valeurs
+           prÃ©cÃ©dentes (le min et le max de
           <kbd>v</kbd>)</td>
         <td align="center"><kbd>-1.00  4.78</kbd></td></tr>
     <tr><td align="center"><kbd>sum (v)</kbd></td>
-        <td align="center">valeur de la somme des éléments de
+        <td align="center">valeur de la somme des Ã©lÃ©ments de
           <kbd>v</kbd>&nbsp;: &Sigma;<sub>i</sub>v<sub>i</sub></td>
         <td align="center"><kbd>6.921593</kbd></td></tr>
     <tr><td align="center"><kbd>prod (v)</kbd></td>
-        <td align="center">valeur du produit des éléments de
+        <td align="center">valeur du produit des Ã©lÃ©ments de
           <kbd>v</kbd>&nbsp;: &Pi;<sub>i</sub>v<sub>i</sub></td>
         <td align="center"><kbd>0</kbd></td></tr>
     <tr><td align="center"><kbd>which.min (v)</kbd></td>
-        <td align="center">indice de l'élément minimal de
+        <td align="center">indice de l'Ã©lÃ©ment minimal de
           <kbd>v</kbd> (arg min<sub>i</sub> v<sub>i</sub>) </td>
         <td align="center"><kbd>2</kbd></td></tr>
     <tr><td align="center"><kbd>which.max (v)</kbd></td>
-        <td align="center">indice de l'élément maximal de
+        <td align="center">indice de l'Ã©lÃ©ment maximal de
           <kbd>v</kbd> (arg max<sub>i</sub> v<sub>i</sub>) </td>
         <td align="center"><kbd>4</kbd></td></tr>
   </table>
 </center>
 
-<h3>Opérations mathématiques sur les vecteurs</h3>
+<h3>OpÃ©rations mathÃ©matiques sur les vecteurs</h3>
 
 <p>
 
-R peut naturellement effectuer toutes les opérations habituelles sur
-les vecteurs. Les opérateurs vues plus haut sur les nombres
+R peut naturellement effectuer toutes les opÃ©rations habituelles sur
+les vecteurs. Les opÃ©rateurs vues plus haut sur les nombres
 (<kbd>+</kbd>, <kbd>-</kbd>, ...) et les fonctions (<kbd>abs</kbd>,
 <kbd>log</kbd>, ...) s'appliquent sur les vecteurs comme on s'y
-attend. <span class="important">Toutes ces opérations se font terme à
+attend. <span class="important">Toutes ces opÃ©rations se font terme Ã 
 terme</span>&nbsp;: aussi, quand il y a deux vecteurs (comme pour une
-addition), il faut que les deux vecteurs aient le même
-nombre d'éléments.
+addition), il faut que les deux vecteurs aient le mÃªme
+nombre d'Ã©lÃ©ments.
 
 </p>
 
 <div class="exercice">
 
   <ul>
-    <li>définissez un vecteur dénommé <kbd>w</kbd> et initialisez ses
+    <li>dÃ©finissez un vecteur dÃ©nommÃ© <kbd>w</kbd> et initialisez ses
       composantes avec 3, -78, 0, e&nbsp;;</li>
     <li>faites la somme de <kbd>v</kbd> et <kbd>w</kbd>&nbsp;;</li>
     <li>faites <kbd>v * w</kbd>&nbsp;: qu'obtenez-vous&nbsp;?</li>
-    <li>même question pour <kbd>v * w</kbd>, <kbd>v / w</kbd>, <kbd>v
+    <li>mÃªme question pour <kbd>v * w</kbd>, <kbd>v / w</kbd>, <kbd>v
       %/% w</kbd>, <kbd>v %% w</kbd> et <kbd>v ^ w</kbd>&nbsp;;</li>
     <li>idem pour <kbd>abs (v)</kbd>.</li>
   </ul>
@@ -562,7 +562,7 @@ nombre d'éléments.
 
 <p>
 
-Une opération très classique est de calculer le produit scalaire de
+Une opÃ©ration trÃ¨s classique est de calculer le produit scalaire de
 deux vecteurs&nbsp;:
 
 </p>
@@ -570,14 +570,14 @@ deux vecteurs&nbsp;:
 <div class="exercices">
 
   <ul>
-    <li>essayez <kbd>v %*% w</kbd> et concluez vous-même.</li>
+    <li>essayez <kbd>v %*% w</kbd> et concluez vous-mÃªme.</li>
   </ul>
 </div>
 
 <p>
 
-Enfin, on peut ajouter un scalaire aux éléments d'un vecteur, la
-soustraire, la multiplier, ... par les opérateurs habituels
+Enfin, on peut ajouter un scalaire aux Ã©lÃ©ments d'un vecteur, la
+soustraire, la multiplier, ... par les opÃ©rateurs habituels
 (<kbd>+</kbd>, <kbd>-</kbd>, <kbd>*</kbd>, ...) en combinant un
 vecteur et un scalaire. Ainsi,
 
@@ -589,16 +589,16 @@ vecteur et un scalaire. Ainsi,
 <p>
 
 produit un vecteur dont les composantes sont celles de <kbd>v</kbd>
-augmentées de <kbd>3</kbd>.
+augmentÃ©es de <kbd>3</kbd>.
 
 </p>
 
-<h3>Indexation des éléments d'un vecteur</h3>
+<h3>Indexation des Ã©lÃ©ments d'un vecteur</h3>
 
 <p>
 
-On peut aussi demander la valeur du troisième élément du vecteur à
-l'aide de l'opérateur <kbd>[</kbd>&nbsp;:
+On peut aussi demander la valeur du troisiÃ¨me Ã©lÃ©ment du vecteur Ã 
+l'aide de l'opÃ©rateur <kbd>[</kbd>&nbsp;:
 
 </p>
 
@@ -608,7 +608,7 @@ l'aide de l'opérateur <kbd>[</kbd>&nbsp;:
 
 <p>
 
-On peut aussi demander la valeur des éléments 1 et 3 du vecteur en
+On peut aussi demander la valeur des Ã©lÃ©ments 1 et 3 du vecteur en
 fournissant plusieurs indices, comme suit&nbsp;:
 
 </p>
@@ -619,30 +619,30 @@ fournissant plusieurs indices, comme suit&nbsp;:
 
 <p>
 
-On voit que pour cela, on a spécifié un vecteur dont les composantes
-sont les indices qui nous intéressent (<kbd>c (1, 3)</kbd> est un
-vecteur de deux éléments, le premier vaut 1, le second vaut 3).
+On voit que pour cela, on a spÃ©cifiÃ© un vecteur dont les composantes
+sont les indices qui nous intÃ©ressent (<kbd>c (1, 3)</kbd> est un
+vecteur de deux Ã©lÃ©ments, le premier vaut 1, le second vaut 3).
 
 <br/>
 <br/>
 
-On vient donc de présenter une opération très utile et très importante
-en R&nbsp;: <span class="important">accéder aux élements d'un vecteur
-en utilisant un autre vecteur (dénommé «&nbsp;<span
-class="index">vecteur d'index</span>&nbsp;») qui contient le numéro
-des composantes que l'on veut sélectionner</span>.
+On vient donc de prÃ©senter une opÃ©ration trÃ¨s utile et trÃ¨s importante
+en R&nbsp;: <span class="important">accÃ©der aux Ã©lements d'un vecteur
+en utilisant un autre vecteur (dÃ©nommÃ© Â«&nbsp;<span
+class="index">vecteur d'index</span>&nbsp;Â») qui contient le numÃ©ro
+des composantes que l'on veut sÃ©lectionner</span>.
 
 <br/>
 <br/>
 
-Une autre manière de spécifier les indices qui nous intéressent est la
-suivante&nbsp;: <kbd>2:4</kbd> est un vecteur dont les éléments sont
+Une autre maniÃ¨re de spÃ©cifier les indices qui nous intÃ©ressent est la
+suivante&nbsp;: <kbd>2:4</kbd> est un vecteur dont les Ã©lÃ©ments sont
 2, 3 et 4.
 
 <br/>
 <br/>
 
-Une autre notation pour la même chose consiste à utiliser la fonction
+Une autre notation pour la mÃªme chose consiste Ã  utiliser la fonction
 <kbd>seq()</kbd>. Ainsi, 
 
 </p>
@@ -659,13 +659,13 @@ Une autre notation pour la même chose consiste à utiliser la fonction
 
 <p>
 
-) produit un vecteur dont les éléments sont 2, 3 et 4.
+) produit un vecteur dont les Ã©lÃ©ments sont 2, 3 et 4.
 
 <br/>
 
-L'intérêt de cette fonction <kbd>seq()</kbd>uence et que l'on peut lui
-indiquer plus généralement la valeur du premier indice, du dernier
-indice et de l'incrément pour passer de l'un à l'autre. Ainsi&nbsp;:
+L'intÃ©rÃªt de cette fonction <kbd>seq()</kbd>uence et que l'on peut lui
+indiquer plus gÃ©nÃ©ralement la valeur du premier indice, du dernier
+indice et de l'incrÃ©ment pour passer de l'un Ã  l'autre. Ainsi&nbsp;:
 
 </p>
 
@@ -675,7 +675,7 @@ indice et de l'incrément pour passer de l'un à l'autre. Ainsi&nbsp;:
 
 <p>
 
-l'incrément peut aussi être négatif&nbsp;:
+l'incrÃ©ment peut aussi Ãªtre nÃ©gatif&nbsp;:
 
 </p>
 
@@ -692,9 +692,9 @@ l'incrément peut aussi être négatif&nbsp;:
 
   <p>
 
-  La fonction <kbd>runif()</kbd> génère des nombres pseudo-aléatoires
-  depuis une distribution de probabilité uniforme. On va l'utiliser
-  pour générer des vecteurs aussi grands que l'on veut. Ainsi,
+  La fonction <kbd>runif()</kbd> gÃ©nÃ¨re des nombres pseudo-alÃ©atoires
+  depuis une distribution de probabilitÃ© uniforme. On va l'utiliser
+  pour gÃ©nÃ©rer des vecteurs aussi grands que l'on veut. Ainsi,
   tapez&nbsp;:
 
   </p>
@@ -704,21 +704,21 @@ l'incrément peut aussi être négatif&nbsp;:
   <p>
 
   et la variable <kbd>vu</kbd> contient un vecteur de 100 composantes
-  dont la valeur a été tirée au hasard entre 0 et 1.
+  dont la valeur a Ã©tÃ© tirÃ©e au hasard entre 0 et 1.
 
   </p>
 
   <ul>
     <li>quelle est la somme des composantes du vecteur
      <kbd>vu</kbd>&nbsp;?</li>
-    <li>quelle commande tapez-vous pour que le vecteur dénommé
-     <kbd>vsomme</kbd> contienne 10 composantes, la première étant la
-     somme des composantes 1 et 91 de <kbd>vu</kbd>, la deuxième étant
-     la somme des composantes 2 et 92 de <kbd>vu</kbd>, la troisième
-     étant la somme des composantes 3 et 93 de <kbd>vu</kbd>, ..., 
-     la dixième étant la somme des composantes 10 et 100 de
-     <kbd>vu</kbd>&nbsp;? (tapez-là)&nbsp;;</li>
-    <li>quelle commande tapez-vous pour calculer la somme des éléments
+    <li>quelle commande tapez-vous pour que le vecteur dÃ©nommÃ©
+     <kbd>vsomme</kbd> contienne 10 composantes, la premiÃ¨re Ã©tant la
+     somme des composantes 1 et 91 de <kbd>vu</kbd>, la deuxiÃ¨me Ã©tant
+     la somme des composantes 2 et 92 de <kbd>vu</kbd>, la troisiÃ¨me
+     Ã©tant la somme des composantes 3 et 93 de <kbd>vu</kbd>, ..., 
+     la dixiÃ¨me Ã©tant la somme des composantes 10 et 100 de
+     <kbd>vu</kbd>&nbsp;? (tapez-lÃ )&nbsp;;</li>
+    <li>quelle commande tapez-vous pour calculer la somme des Ã©lÃ©ments
       d'indice pair de <kbd>vu</kbd>&nbsp;?</li>
     <li>on veut obtenir le vecteur <kbd>vs</kbd> ayant 50 composantes,
      dont la valeur de la composante i est la somme des composantes
@@ -731,9 +731,9 @@ l'incrément peut aussi être négatif&nbsp;:
 
 <p>
 
-En statistique et fouille de données, un vecteur va typiquement
-contenir des données sur lesquelles on voudra effectuer des
-traitements statistiques. Les plus simples sont résumés dans la table
+En statistique et fouille de donnÃ©es, un vecteur va typiquement
+contenir des donnÃ©es sur lesquelles on voudra effectuer des
+traitements statistiques. Les plus simples sont rÃ©sumÃ©s dans la table
 ci-dessous&nbsp;:
 
 </p>
@@ -741,22 +741,22 @@ ci-dessous&nbsp;:
 <center>
   <table border="3">
     <tr><th>notation en R</th><th>valeur</th>
-      <th>résultat sur l'exemple</th></tr>
+      <th>rÃ©sultat sur l'exemple</th></tr>
     <tr><td align="center"><kbd>mean (v)</kbd></td>
-        <td align="center">la moyenne des éléments de
+        <td align="center">la moyenne des Ã©lÃ©ments de
           <kbd>v</kbd></td>
         <td align="center"><kbd>1.730398</kbd></td></tr>
     <tr><td align="center"><kbd>var (v)</kbd></td>
-        <td align="center">la variance des éléments de
+        <td align="center">la variance des Ã©lÃ©ments de
           <kbd>v</kbd></td>
         <td align="center"><kbd>7.246964</kbd></td></tr>
     <tr><td align="center"><kbd>sd (v)</kbd></td>
-        <td align="center">l'écart-type des éléments de
+        <td align="center">l'Ã©cart-type des Ã©lÃ©ments de
           <kbd>v</kbd></td>
         <td align="center"><kbd>2.692019</kbd></td></tr>
     <tr><td align="center"><kbd>summary (v)</kbd></td>
         <td align="center">fournit plusieurs statistiques sur les
-          éléments de <kbd>v</kbd></td>
+          Ã©lÃ©ments de <kbd>v</kbd></td>
         <td align="center">
           <kbd>   Min. 1st Qu.  Median    Mean 3rd Qu.   Max.</kbd><br/>
           <kbd> -1.000  -0.250   1.571   1.730   3.551   4.780</kbd></td></tr>
@@ -768,68 +768,68 @@ ci-dessous&nbsp;:
 <div class="exercices">
 
   <ul>
-    <li>Comprenez ce que représentent toutes les valeurs affichées par
+    <li>Comprenez ce que reprÃ©sentent toutes les valeurs affichÃ©es par
       <kbd>summary(v)</kbd>.</li>
-    <li>étudiez la fonction <kbd>median()</kbd>&nbsp;: que
+    <li>Ã©tudiez la fonction <kbd>median()</kbd>&nbsp;: que
       fait-elle&nbsp;? comment s'utilise-t-elle&nbsp;?</li>
-    <li>étudiez la fonction <kbd>quantile()</kbd>&nbsp;:
+    <li>Ã©tudiez la fonction <kbd>quantile()</kbd>&nbsp;:
       <i>idem</i>&nbsp;;</li>
-    <li>quelle sont la moyenne et l'écart-type des composantes de
+    <li>quelle sont la moyenne et l'Ã©cart-type des composantes de
      <kbd>vu</kbd>&nbsp;? Qu'en pensez-vous&nbsp;?</li>
   </ul>
 
 </div>
 
-<h3>Indexation par un vecteur de booléens</h3>
+<h3>Indexation par un vecteur de boolÃ©ens</h3>
 
 <p>
 
-Outre les nombres, R manipule des booléens, qui prennent soit la
-valeur <kbd>TRUE</kbd> (que l'on peut abréger en <kbd>T</kbd>), soit
-la valeur <kbd>FALSE</kbd> (que l'on peut abréger en <kbd>F</kbd>).
+Outre les nombres, R manipule des boolÃ©ens, qui prennent soit la
+valeur <kbd>TRUE</kbd> (que l'on peut abrÃ©ger en <kbd>T</kbd>), soit
+la valeur <kbd>FALSE</kbd> (que l'on peut abrÃ©ger en <kbd>F</kbd>).
 
 <br/>
 
-Les booléens apparaissent typiquement à l'occasion du test de la
-valeur d'une variable&nbsp;: est-elle égale à une autre valeur, plus
+Les boolÃ©ens apparaissent typiquement Ã  l'occasion du test de la
+valeur d'une variable&nbsp;: est-elle Ã©gale Ã  une autre valeur, plus
 petite, plus grande, ... La table ci-dessous indique ces
-opérateurs&nbsp;:
+opÃ©rateurs&nbsp;:
 
 </p>
 
 <center>
   <table border="3">
     <tr><th>notation en R</th><th>valeur</th>
-      <th>résultat sur l'exemple</th></tr>
+      <th>rÃ©sultat sur l'exemple</th></tr>
     <tr><td align="center"><kbd>a == 1</kbd></td>
-        <td align="center">teste l'égalité entre deux valeurs</td>
+        <td align="center">teste l'Ã©galitÃ© entre deux valeurs</td>
         <td align="center"><kbd>FALSE</kbd></td></tr>
     <tr><td align="center"><kbd>a != 1</kbd></td>
-        <td align="center">teste la différence entre deux valeurs</td>
+        <td align="center">teste la diffÃ©rence entre deux valeurs</td>
         <td align="center"><kbd>TRUE</kbd></td></tr>
     <tr><td align="center"><kbd>a &lt; 1</kbd></td>
         <td align="center">c'est clair, non&nbsp;!</td>
         <td align="center"><kbd>FALSE</kbd></td></tr>
     <tr><td align="center"><kbd>a &lt;= 1</kbd></td>
-        <td align="center">ça aussi</td>
+        <td align="center">Ã§a aussi</td>
         <td align="center"><kbd>FALSE</kbd></td></tr>
     <tr><td align="center"><kbd>a &gt; 1</kbd></td>
-        <td align="center">ça aussi</td>
+        <td align="center">Ã§a aussi</td>
         <td align="center"><kbd>TRUE</kbd></td></tr>
     <tr><td align="center"><kbd>a &gt;= 1</kbd></td>
-        <td align="center">ça aussi</td>
+        <td align="center">Ã§a aussi</td>
         <td align="center"><kbd>TRUE</kbd></td></tr>
   </table>
 </center>
 
 <p>
 
-Bien sûr, on peut comparer la valeur de deux variables (donc, écrire
+Bien sÃ»r, on peut comparer la valeur de deux variables (donc, Ã©crire
 <kbd>a == b</kbd> qui donne <kbd>FALSE</kbd> ici).
 
 <br/>
 
-De la même manière, on peut effectuer ces opérations sur les éléments
+De la mÃªme maniÃ¨re, on peut effectuer ces opÃ©rations sur les Ã©lÃ©ments
 d'un vecteur. Ainsi,
 
 </p>
@@ -840,11 +840,11 @@ d'un vecteur. Ainsi,
 
 <p>
 
-Tout comme plus haut on a sélectionné les éléments d'un vecteur avec
-un vecteur d'indices, on peut sélectionner les éléments d'un vecteur
-avec un vecteur de booléens. Ainsi, si l'on veut affecter à 100 les
-éléments de <kbd>v</kbd> qui sont plus petits que ceux de
-<kbd>w</kbd>, on pourra écrire&nbsp;:
+Tout comme plus haut on a sÃ©lectionnÃ© les Ã©lÃ©ments d'un vecteur avec
+un vecteur d'indices, on peut sÃ©lectionner les Ã©lÃ©ments d'un vecteur
+avec un vecteur de boolÃ©ens. Ainsi, si l'on veut affecter Ã  100 les
+Ã©lÃ©ments de <kbd>v</kbd> qui sont plus petits que ceux de
+<kbd>w</kbd>, on pourra Ã©crire&nbsp;:
 
 </p>
 
@@ -853,9 +853,9 @@ avec un vecteur de booléens. Ainsi, si l'on veut affecter à 100 les
 
 <p>
 
-Cette opération ne modifiera que le premier élément de <kbd>v</kbd>,
-qui correspond à la seule valeur <kbd>TRUE</kbd> du vecteur de
-booléens utilisé pour l'indexer.
+Cette opÃ©ration ne modifiera que le premier Ã©lÃ©ment de <kbd>v</kbd>,
+qui correspond Ã  la seule valeur <kbd>TRUE</kbd> du vecteur de
+boolÃ©ens utilisÃ© pour l'indexer.
 
 </p>
 
@@ -870,13 +870,13 @@ booléens utilisé pour l'indexer.
 
 </div>
 
-<h3>Quelques détails de plus sur les booléens</h3>
+<h3>Quelques dÃ©tails de plus sur les boolÃ©ens</h3>
 
 <p>
 
-Il existe des opérations sur les booléens, celles de l'algèbre de
-Boole&nbsp;: ET, OU, NON, ... On suppose que l'on a défini deux
-vecteurs booléens comme suit&nbsp;:
+Il existe des opÃ©rations sur les boolÃ©ens, celles de l'algÃ¨bre de
+Boole&nbsp;: ET, OU, NON, ... On suppose que l'on a dÃ©fini deux
+vecteurs boolÃ©ens comme suit&nbsp;:
 
 </p>
 
@@ -886,14 +886,14 @@ vecteurs booléens comme suit&nbsp;:
 
 <p>
 
-On résume les principales opérations logiques dans la table ci-dessous&nbsp;:
+On rÃ©sume les principales opÃ©rations logiques dans la table ci-dessous&nbsp;:
 
 </p>
 
 <center>
   <table border="3">
     <tr><th>notation en R</th><th>valeur</th>
-      <th>résultat sur l'exemple</th></tr>
+      <th>rÃ©sultat sur l'exemple</th></tr>
     <tr><td align="center"><kbd>bool1 &amp; bool2</kbd></td>
         <td align="center">ET logique</td>
         <td align="center"><kbd>FALSE  TRUE FALSE</kbd></td></tr>
@@ -901,7 +901,7 @@ On résume les principales opérations logiques dans la table ci-dessous&nbsp;:
         <td align="center">OU logique</td>
         <td align="center"><kbd>TRUE  TRUE FALSE</kbd></td></tr>
     <tr><td align="center"><kbd>! bool1</kbd></td>
-        <td align="center">négation</td>
+        <td align="center">nÃ©gation</td>
         <td align="center"><kbd>FALSE FALSE  TRUE</kbd></td></tr>
   </table>
 </center>
@@ -919,30 +919,30 @@ On résume les principales opérations logiques dans la table ci-dessous&nbsp;:
 
 <p>
 
-En statistique et en fouille de données, les données sont généralement
-disponibles sous forme de tableaux de données, chaque ligne
-correspondant à une donnée, chaque colonne à un attribut.
+En statistique et en fouille de donnÃ©es, les donnÃ©es sont gÃ©nÃ©ralement
+disponibles sous forme de tableaux de donnÃ©es, chaque ligne
+correspondant Ã  une donnÃ©e, chaque colonne Ã  un attribut.
 
-En R, ces tableaux de données portent le nom de <span
+En R, ces tableaux de donnÃ©es portent le nom de <span
 class="index"><i>data frame</i></span>.
 
 <br/>
 
 Un <i>data frame</i> est en fait un ensemble de vecteurs, tous de la
-même taille&nbsp;; chaque vecteur contient la valeur d'un attribut
-pour l'ensemble des données. S'il y a N données, chaque vecteur
+mÃªme taille&nbsp;; chaque vecteur contient la valeur d'un attribut
+pour l'ensemble des donnÃ©es. S'il y a N donnÃ©es, chaque vecteur
 contient N valeurs.
 
 <br/>
 
-De plus, chaque colonne/vecteur du <i>data frame</i> possède un nom
-qui permet de le référencer&nbsp;: c'est le nom de l'attribut.
+De plus, chaque colonne/vecteur du <i>data frame</i> possÃ¨de un nom
+qui permet de le rÃ©fÃ©rencer&nbsp;: c'est le nom de l'attribut.
 
 <br/>
 <br/>
 
 Illustrons tout cela sur un exemple. A priori, vous obtenez vos
-données sous la forme d'un fichier. Par exemple, prenons le fichier <a
+donnÃ©es sous la forme d'un fichier. Par exemple, prenons le fichier <a
 href="./jeu1.txt">que vous obtenez en cliquant ici</a>. Nous indiquons
 le contenu de ce fichier&nbsp;:
 
@@ -967,20 +967,20 @@ On y voit&nbsp;:
 
 <ul>
   <li>8 lignes&nbsp;;</li>
-  <li>la première contient le nom des attributs&nbsp;; les noms sont
-    séparés les uns des autres par un espace&nbsp;;</li>
+  <li>la premiÃ¨re contient le nom des attributs&nbsp;; les noms sont
+    sÃ©parÃ©s les uns des autres par un espace&nbsp;;</li>
   <li>les 7 lignes suivantes contiennent la valeur de ces attributs
-    pour chacune des données&nbsp;; il y a donc 7 données dans ce
+    pour chacune des donnÃ©es&nbsp;; il y a donc 7 donnÃ©es dans ce
     fichier&nbsp;;</li> 
   <li>chaque ligne contient la valeur de chacun des attributs pour
-    cette donnée&nbsp;;</li> 
-  <li>certaines valeurs sont <kbd>NA</kbd>, c'est-à-dire <i>non
+    cette donnÃ©e&nbsp;;</li> 
+  <li>certaines valeurs sont <kbd>NA</kbd>, c'est-Ã -dire <i>non
     available</i>, autrement dit, inconuue.</li> 
 </ul>
 
 <p>
 
-Pour charger ce tableau de données dans une variable R, on utilise la
+Pour charger ce tableau de donnÃ©es dans une variable R, on utilise la
 fonction <kbd>read.table()</kbd>&nbsp;:
 
 </p>
@@ -991,23 +991,23 @@ fonction <kbd>read.table()</kbd>&nbsp;:
 
 <p>
 
-L'option <kbd>header = T</kbd> indique que la première ligne du
-fichier contient le nom des attributs. Si cette ligne spécifiant le
+L'option <kbd>header = T</kbd> indique que la premiÃ¨re ligne du
+fichier contient le nom des attributs. Si cette ligne spÃ©cifiant le
 nom des attributs est absente, on ne met pas cette option.
 
 <br/>
 <br/>
 
-Notons également que le fichier a été récupéré sur le <i>web</i>
-directement en spécifiant une url. Si le fichier est sur votre compte,
+Notons Ã©galement que le fichier a Ã©tÃ© rÃ©cupÃ©rÃ© sur le <i>web</i>
+directement en spÃ©cifiant une url. Si le fichier est sur votre compte,
 vous pouvez aussi le charger bien entendu en donnant son nom (qui ne
-débutera donc pas par <kbd>http://...</kbd> dans ce cas-là).
+dÃ©butera donc pas par <kbd>http://...</kbd> dans ce cas-lÃ ).
 
 <br/>
 <br/>
 
 Vous pouvez maintenant taper <kbd>jeu1</kbd> pour visualiser le
-tableau de données que vous venez de charger dans cette variable. Vous
+tableau de donnÃ©es que vous venez de charger dans cette variable. Vous
 obtenez&nbsp;:
 
 </p>
@@ -1025,55 +1025,55 @@ obtenez&nbsp;:
 
 <p>
 
-La première ligne indique le nom des attributs&nbsp;; les lignes sont
-numérotées.
+La premiÃ¨re ligne indique le nom des attributs&nbsp;; les lignes sont
+numÃ©rotÃ©es.
 
 <br/>
 <br/>
 
-On peut alors accéder à ces données de différentes manières&nbsp;:
+On peut alors accÃ©der Ã  ces donnÃ©es de diffÃ©rentes maniÃ¨res&nbsp;:
 
 </p>
 
 <ul>
-  <li>la donnée numéro 2 par <kbd>jeu1 [2,]</kbd>&nbsp;;</li>
-  <li>les données dont le numéro est compris entre 2 et 6 par
+  <li>la donnÃ©e numÃ©ro 2 par <kbd>jeu1 [2,]</kbd>&nbsp;;</li>
+  <li>les donnÃ©es dont le numÃ©ro est compris entre 2 et 6 par
     <kbd>jeu1 [2:6,]</kbd>&nbsp;;</li>
-  <li>l'attribut 5 de la donnée 2 en spécifiant son numéro 
+  <li>l'attribut 5 de la donnÃ©e 2 en spÃ©cifiant son numÃ©ro 
     <kbd>jeu1 [2, 5]</kbd>&nbsp;;</li>
-  <li>l'attribut eicosenoic de la donnée 2 en spécifiant son nom,
+  <li>l'attribut eicosenoic de la donnÃ©e 2 en spÃ©cifiant son nom,
     comme ceci <kbd>jeu1 [2,]$eicosenoic</kbd>, ou comme cela
     <kbd>jeu1 [2, "eicosenoic"]</kbd> &nbsp;;</li>
-  <li>la valeur de cet attribut pour toutes les données en spécifiant
-    son numéro <kbd>jeu1 [,5]</kbd>, ou son nom comme ceci
+  <li>la valeur de cet attribut pour toutes les donnÃ©es en spÃ©cifiant
+    son numÃ©ro <kbd>jeu1 [,5]</kbd>, ou son nom comme ceci
     <kbd>jeu1$eicosenoic</kbd>, ou comme cela
     <kbd>jeu1 [["eicosenoic"]]</kbd>&nbsp;;</li>
-  <li>tous les attributs sauf les numéros 1 et 3 de la donnée numéro
+  <li>tous les attributs sauf les numÃ©ros 1 et 3 de la donnÃ©e numÃ©ro
     2&nbsp;: <kbd>jeu1 [2, - c (1, 3)]</kbd>&nbsp;;</li>
   <li>et toutes les combinaisons que vous pouvez imaginer.</li>
 </ul>
 
 <p>
 
-Pour résumer&nbsp;:
+Pour rÃ©sumer&nbsp;:
 
 </p>
 
 <ul>
-  <li>on accède via le numéro de la donnée et de son attribut par la
-    notation <kbd>[numéro de ligne, numéro de colonne]</kbd>, l'un des
-    deux numéros pouvant ne pas être spécifier (si le numéro de ligne
-    manque, c'est que l'on veut le résultat pour toutes les données, si le
-    numéro de colonne manque, c'est que l'on veut le résultat pour tous
+  <li>on accÃ¨de via le numÃ©ro de la donnÃ©e et de son attribut par la
+    notation <kbd>[numÃ©ro de ligne, numÃ©ro de colonne]</kbd>, l'un des
+    deux numÃ©ros pouvant ne pas Ãªtre spÃ©cifier (si le numÃ©ro de ligne
+    manque, c'est que l'on veut le rÃ©sultat pour toutes les donnÃ©es, si le
+    numÃ©ro de colonne manque, c'est que l'on veut le rÃ©sultat pour tous
     les attributs).</li>
-  <li>à la place du numéro d'attribut, on peut spécifier son nom</li>
+  <li>Ã  la place du numÃ©ro d'attribut, on peut spÃ©cifier son nom</li>
 </ul>
 
 <p>
 
-Du moment que l'on sait spécifier la donnée ou l'attribut qui nous
-intéresse, on peut lui appliquer toutes les opérations et fonctions
-déjà vues. Ainsi,
+Du moment que l'on sait spÃ©cifier la donnÃ©e ou l'attribut qui nous
+intÃ©resse, on peut lui appliquer toutes les opÃ©rations et fonctions
+dÃ©jÃ  vues. Ainsi,
 
 </p>
 
@@ -1086,8 +1086,8 @@ donne la moyenne de l'attribut <kbd>l1.linoleic</kbd>.
 
 <br/>
 
-Très utile, la fonction <kbd>summary()</kbd> s'applique à tous les
-attributs d'un jeu de données à la fois&nbsp;:
+TrÃ¨s utile, la fonction <kbd>summary()</kbd> s'applique Ã  tous les
+attributs d'un jeu de donnÃ©es Ã  la fois&nbsp;:
 
 </p>
 
@@ -1118,7 +1118,7 @@ Quelques fonctions utiles sur les <i>data frames</i>&nbsp;:
 
 <ul>
   <li><kbd>nrow (jeu1)</kbd> donne le nombre de lignes, donc de
-    données dans le <i>data frame</i>&nbsp;;</li>
+    donnÃ©es dans le <i>data frame</i>&nbsp;;</li>
   <li><kbd>ncol (jeu1)</kbd> donne le nombre de colonnes, donc
     d'attributs dans le <i>data frame</i>&nbsp;;</li>
   <li><kbd>names (jeu1)</kbd> donne le nom des attributs du <i>data
@@ -1128,15 +1128,15 @@ Quelques fonctions utiles sur les <i>data frames</i>&nbsp;:
 <div class="exercices">
 
 <ul>
-  <li>comment obtenez-vous la valeur des attributs de la donnée dont
+  <li>comment obtenez-vous la valeur des attributs de la donnÃ©e dont
     l'attribut <kbd>p1.palmitic</kbd> est maximale dans le jeu de
-    donnée <kbd>jeu1</kbd>&nbsp;?</li>
+    donnÃ©e <kbd>jeu1</kbd>&nbsp;?</li>
   <li>comment obtenez-vous la valeur de l'attribut
-    <kbd>p1.palmitic</kbd> pour la donnée dont l'attribut
+    <kbd>p1.palmitic</kbd> pour la donnÃ©e dont l'attribut
     <kbd>l1.linoleic</kbd> est minimale&nbsp;?</li>
-  <li>calculez l'individu moyen de ce jeu de donnée, c'est-à-dire, un
-    individu synthétique dont chaque attribut a pour valeur la moyenne
-    de cet attribut dans le jeu de données.</li>
+  <li>calculez l'individu moyen de ce jeu de donnÃ©e, c'est-Ã -dire, un
+    individu synthÃ©tique dont chaque attribut a pour valeur la moyenne
+    de cet attribut dans le jeu de donnÃ©es.</li>
 </ul>
 
 </div>
@@ -1145,9 +1145,9 @@ Quelques fonctions utiles sur les <i>data frames</i>&nbsp;:
 
 <p>
 
-Naturellement, un attribut peut être qualitatif. Par exemple, le
+Naturellement, un attribut peut Ãªtre qualitatif. Par exemple, le
 fichier disponible <a href="./jeu2.txt">en cliquant ici</a> contient
-le même jeu de données, si ce n'est que le 5<sup>e</sup> attribut est
+le mÃªme jeu de donnÃ©es, si ce n'est que le 5<sup>e</sup> attribut est
 qualitatif.
 
 </p>
@@ -1155,7 +1155,7 @@ qualitatif.
 <div class="exercices">
 
 <ul>
-  <li>chargez ce jeu de données dans une variable dénommée
+  <li>chargez ce jeu de donnÃ©es dans une variable dÃ©nommÃ©e
     <kbd>jeu2</kbd>&nbsp;;</li>
   <li>regardez le 5<sup>e</sup> attribut et constatez.</li>
 </ul>
@@ -1183,13 +1183,13 @@ fournit la liste des valeurs possibles de cet attribut&nbsp;:
 
 <p>
 
-Dans R, un attribut qualitatif est dénommé un <span
+Dans R, un attribut qualitatif est dÃ©nommÃ© un <span
 class="index">facteur</span>.
 
 <br/>
 
-On peut très facilement obtenir une table de contingence pour un
-attribut qualitatif (c'est-à-dire, la répartition des données entre
+On peut trÃ¨s facilement obtenir une table de contingence pour un
+attribut qualitatif (c'est-Ã -dire, la rÃ©partition des donnÃ©es entre
 chacune de ses valeurs) par&nbsp;:
 
 </p>
@@ -1205,8 +1205,8 @@ beaucoup    moyen  pas-mal   un-peu
 
 <p>
 
-La fonction <kbd>is.na()</kbd> produit un booléen qui vaut
-<kbd>TRUE</kbd> si son paramètre est une valeur <kbd>NA</kbd>.
+La fonction <kbd>is.na()</kbd> produit un boolÃ©en qui vaut
+<kbd>TRUE</kbd> si son paramÃ¨tre est une valeur <kbd>NA</kbd>.
 Ainsi, 
 
 </p>
@@ -1227,8 +1227,8 @@ Ainsi,
 
 <p>
 
-Les graphiques sont un élément essentiel d'un travail de fouille de
-données ou de statistique. R permet de faire des tas de
+Les graphiques sont un Ã©lÃ©ment essentiel d'un travail de fouille de
+donnÃ©es ou de statistique. R permet de faire des tas de
 graphiques. Nous en voyons quelques uns ici&nbsp;; nous en verrons
 d'autres par la suite.
 
@@ -1244,9 +1244,9 @@ Chargeons un <i>data frame</i>&nbsp;:
 
 <p>
 
-Pour prendre un peu connaissance avec ce jeu de données, regardez
-combien il contient de données, ainsi que les attributs. Remarquons
-qu'ici, les attributs ne portent pas de nom. Par défaut, R leur donne
+Pour prendre un peu connaissance avec ce jeu de donnÃ©es, regardez
+combien il contient de donnÃ©es, ainsi que les attributs. Remarquons
+qu'ici, les attributs ne portent pas de nom. Par dÃ©faut, R leur donne
 donc les noms <kbd>V1</kbd>, <kbd>V2</kbd>, ...
 
 <br/>
@@ -1261,46 +1261,46 @@ Si l'on veut visualiser l'attribut <kbd>V3</kbd>, on tape la
 
 <p>
 
-On obtient ainsi une représentation planaire de cet attribut&nbsp;: en
-abscisses, on a simplement le numéro de la donnée, et en ordonnées, la
-valeur de cet attribut pour cette donnée.
+On obtient ainsi une reprÃ©sentation planaire de cet attribut&nbsp;: en
+abscisses, on a simplement le numÃ©ro de la donnÃ©e, et en ordonnÃ©es, la
+valeur de cet attribut pour cette donnÃ©e.
 
 <br/>
 <br/>
 
-On peut alors éventuellement distinguer des tendances. Vous voyez
+On peut alors Ã©ventuellement distinguer des tendances. Vous voyez
 quelque chose ici&nbsp;?
 
 <br/>
 <br/>
 
-(On y reviendra durant le cours régulièrement mais disons-le dès
-maintenant&nbsp;: <span class="important">face à un jeu de données que
-l'on doit étudier, il est toujours bon de commencer par y jeter un
-coup d'&oelig;il</span>. Parfois, des propriétés remarquables sautent
+(On y reviendra durant le cours rÃ©guliÃ¨rement mais disons-le dÃ¨s
+maintenant&nbsp;: <span class="important">face Ã  un jeu de donnÃ©es que
+l'on doit Ã©tudier, il est toujours bon de commencer par y jeter un
+coup d'&oelig;il</span>. Parfois, des propriÃ©tÃ©s remarquables sautent
 aux yeux&nbsp;; l'analyse permettra de quantifier ces choses qui
-auront été vues, voire, parfois, de démontrer que ce que l'on a cru
+auront Ã©tÃ© vues, voire, parfois, de dÃ©montrer que ce que l'on a cru
 voir n'existe pas, du moins qu'il n'est pas statistiquement
 significatif.)
 
 <br/>
 <br/>
 
-Pour faire un travail sérieux, il convient de mettre des légendes à ce
-graphique&nbsp;: une légende sur chacun des deux axes, un titre et les
+Pour faire un travail sÃ©rieux, il convient de mettre des lÃ©gendes Ã  ce
+graphique&nbsp;: une lÃ©gende sur chacun des deux axes, un titre et les
 points en bleu&nbsp;:
 
 </p>
 
-<pre>> plot (olives$V3, main = "attribut 3 du jeu de données olives", xlab = "numéro de la donnée", ylab = "V3", col = "blue")
+<pre>> plot (olives$V3, main = "attribut 3 du jeu de donnÃ©es olives", xlab = "numÃ©ro de la donnÃ©e", ylab = "V3", col = "blue")
 </pre>
 
 <p>
 
 On peut aussi vouloir obtenir le graphe de l'attribut <kbd>V6</kbd> en
 fonction de l'attribut <kbd>V3</kbd> (n'oublions pas qu'en fouille de
-données, l'activité de base consiste à trouver des corrélations entre
-attributs, linéaires ou pas). On obtient ce graphe comme suit&nbsp;:
+donnÃ©es, l'activitÃ© de base consiste Ã  trouver des corrÃ©lations entre
+attributs, linÃ©aires ou pas). On obtient ce graphe comme suit&nbsp;:
 
 </p>
 
@@ -1308,16 +1308,16 @@ attributs, linéaires ou pas). On obtient ce graphe comme suit&nbsp;:
 
 <p>
 
-où vous ajouterez les options nécessaires pour obtenir les légendes
-adéquates.
+oÃ¹ vous ajouterez les options nÃ©cessaires pour obtenir les lÃ©gendes
+adÃ©quates.
 
 <br/>
 <br/>
 
 Typiquement, quand vous avez fait un joli graphique, vous avez envie
-de pouvoir le récupérer dans un fichier pourl'insérer dans un
-compte-rendu ou autre rapport. R peut ainsi générer des graphiques à
-l'écran, mais aussi dans des fichiers aux formats jpg, pdf ou png
+de pouvoir le rÃ©cupÃ©rer dans un fichier pourl'insÃ©rer dans un
+compte-rendu ou autre rapport. R peut ainsi gÃ©nÃ©rer des graphiques Ã 
+l'Ã©cran, mais aussi dans des fichiers aux formats jpg, pdf ou png
 (pour ne citer que les principaux).
 
 <br/>
@@ -1332,13 +1332,13 @@ commande&nbsp;:
 
 <p>
 
-Vous retapez la commande qui a généré votre graphique plus haut et
+Vous retapez la commande qui a gÃ©nÃ©rÃ© votre graphique plus haut et
 celui-ci ira se mettre dans le fichier <kbd>mon-graphique.pdf</kbd>.
 
 <br/>
 <br/>
 
-Ensuite, pour obtenir à nouveau l'affichage à l'écran, vous tapez la
+Ensuite, pour obtenir Ã  nouveau l'affichage Ã  l'Ã©cran, vous tapez la
 commande&nbsp;:
 
 </p>
@@ -1353,22 +1353,22 @@ commande <kbd>png()</kbd>.
 
 </p>
 
-<h3>Récupérer son travail quand on a quitté R</h3>
+<h3>RÃ©cupÃ©rer son travail quand on a quittÃ© R</h3>
 
 <p>
 
-Comme on l'a vu au début du TP, quand vous quittez R, vous pouvez
-sauvegarder votre travail pour la prochaine séance ou pour l'emmener
+Comme on l'a vu au dÃ©but du TP, quand vous quittez R, vous pouvez
+sauvegarder votre travail pour la prochaine sÃ©ance ou pour l'emmener
 chez vous, ...
 
 <br/>
 <br/>
 
 Pour cela, il faut savoir que lorsque vous quittez R en sauvegardant
-votre travail, R place celui-ci dans deux fichiers dénommés
+votre travail, R place celui-ci dans deux fichiers dÃ©nommÃ©s
 <kbd>.RData</kbd> et <kbd>.Rhistory</kbd>. Ce sont ces deux fichiers
-qu'il vous faut récupérer et mettre sur votre clé USB ou vous envoyez
-par email en pièces jointes par exemple.
+qu'il vous faut rÃ©cupÃ©rer et mettre sur votre clÃ© USB ou vous envoyez
+par email en piÃ¨ces jointes par exemple.
 
 </p>
 
@@ -1377,7 +1377,7 @@ par email en pièces jointes par exemple.
 
 <p>
 
-La fonction <tt>data()</tt> permet d'obtenir la liste des jeux de données
+La fonction <tt>data()</tt> permet d'obtenir la liste des jeux de donnÃ©es
 fournis avec R. Essayez <tt>data(women)</tt>, puis <tt>women</tt> pour
 l'afficher.
 
@@ -1393,14 +1393,14 @@ La commande <tt>plot</tt> permet de tracer des graphiques. Essayez
 <br/>
 <br/>
 
-Exercice&nbsp;: essayez de trouver la loi reliant height à weight dans
-le jeu de données <tt>women</tt>&nbsp;: ajouter une colonne contenant
-le carré de la taille, et une colonne contenant le cube de la taille,
+Exercice&nbsp;: essayez de trouver la loi reliant height Ã  weight dans
+le jeu de donnÃ©es <tt>women</tt>&nbsp;: ajouter une colonne contenant
+le carrÃ© de la taille, et une colonne contenant le cube de la taille,
 puis faire <tt>plot(women)</tt>.
 
 
  <br/>
-   pour cette dernière question :
+   pour cette derniÃ¨re question :
  <pre>
     women$carre.taille <- women$height^2
     women$cube.taille <- women$height^3
@@ -1408,20 +1408,20 @@ puis faire <tt>plot(women)</tt>.
 
 </p>
 
-<h2>Créer ses propres fonctions</h2>
+<h2>CrÃ©er ses propres fonctions</h2>
 
 <p>
 
-Comme on vient de commencer à le voir, R possède de nombreuses
-fonctions. Cependant, tout utilisateur en vient généralement à vouloir
-disposer de fonctions supplémentaires qui correspondent
-exactement à ses besoins.
+Comme on vient de commencer Ã  le voir, R possÃ¨de de nombreuses
+fonctions. Cependant, tout utilisateur en vient gÃ©nÃ©ralement Ã  vouloir
+disposer de fonctions supplÃ©mentaires qui correspondent
+exactement Ã  ses besoins.
 
 <br/>
 <br/>
 
-Supposons que vous vouliez souvent calculer les racines d'équations du
-deuxième degré. Vous pouvez définir une fonction qui va le faire comme
+Supposons que vous vouliez souvent calculer les racines d'Ã©quations du
+deuxiÃ¨me degrÃ©. Vous pouvez dÃ©finir une fonction qui va le faire comme
 suit&nbsp;:
 
 </p>
@@ -1437,11 +1437,11 @@ rp2d&lt;- function (a, b, c) {
 
 <p>
 
-Cela définit une fonction que l'on assigne au symbole <kbd>rp2d</kbd>
-(Racine d'un Polynome du 2e Degré). Cette fonction prend trois
-paramètres <kbd>a</kbd>, <kbd>b</kbd> et <kbd>c</kbd> qui sont les
-trois coefficients apparaissant dans une équation du deuxième
-degré. Entre <kbd>{</kbd> et <kbd>}</kbd>, on trouve le <i>corps</i>
+Cela dÃ©finit une fonction que l'on assigne au symbole <kbd>rp2d</kbd>
+(Racine d'un Polynome du 2e DegrÃ©). Cette fonction prend trois
+paramÃ¨tres <kbd>a</kbd>, <kbd>b</kbd> et <kbd>c</kbd> qui sont les
+trois coefficients apparaissant dans une Ã©quation du deuxiÃ¨me
+degrÃ©. Entre <kbd>{</kbd> et <kbd>}</kbd>, on trouve le <i>corps</i>
 de la fonction qui effectue l'extraction des racines&nbsp;:
 
 </p>
@@ -1449,45 +1449,45 @@ de la fonction qui effectue l'extraction des racines&nbsp;:
 <ul>
   <li>calcul du discriminant dont la valeur est mise dans la variable 
 	  <kbd>delta</kbd>&nbsp;;</li>
-  <li>calcul de la première racine dont la valeur est mise dans la 
+  <li>calcul de la premiÃ¨re racine dont la valeur est mise dans la 
 	  variable <kbd>x1</kbd>&nbsp;;</li>
   <li>calcul de la seconde racine dont la valeur est mise dans la 
 	  variable <kbd>x2</kbd>&nbsp;;</li>
-  <li>construction d'un vecteur composé de ces deux racines. Cela
+  <li>construction d'un vecteur composÃ© de ces deux racines. Cela
 	  fournira la valeur de la fonction pour un certain triplet 
 	  <kbd>a, b, c</kbd>.</li>
 </ul>
 
 <p>
 
-Tapez cette fonction et utilisez-là pour résoudre l'équation proposée
+Tapez cette fonction et utilisez-lÃ  pour rÃ©soudre l'Ã©quation proposÃ©e
 plus haut.
 
 <br/>
 <br/>
 
-Résoudre également x<sup>2</sup> - 1 = 0.
+RÃ©soudre Ã©galement x<sup>2</sup> - 1 = 0.
 
 <br/>
 <br/>
 
-Essayez de résoudre l'équation 2 * x<sup>2</sup> + 5 * x + 12 = 0. Y
-arrivez-vous&nbsp;? Si non, d'où vient le problème... Quand vous avez
-identifié le problème, résolvez-le.
+Essayez de rÃ©soudre l'Ã©quation 2 * x<sup>2</sup> + 5 * x + 12 = 0. Y
+arrivez-vous&nbsp;? Si non, d'oÃ¹ vient le problÃ¨me... Quand vous avez
+identifiÃ© le problÃ¨me, rÃ©solvez-le.
 
 </p>
 
-<h2>Quelques manipulations d'un jeu de données</h2>
+<h2>Quelques manipulations d'un jeu de donnÃ©es</h2>
 
 <p>
 
-On prend le jeu de données correspondant au jeu de tennis avec des
-attributs température et humidité numériques.
+On prend le jeu de donnÃ©es correspondant au jeu de tennis avec des
+attributs tempÃ©rature et humiditÃ© numÃ©riques.
 
-On charge un jeu de données dans R à l'aide de la commande <kbd>tenna
+On charge un jeu de donnÃ©es dans R Ã  l'aide de la commande <kbd>tenna
 &lt;- read.table("https://philippe-preux.github.io/ensg/miashs/tp-R/tenna.txt")</kbd>. Faites-le puis essayez et
-interprétez les commandes suivantes en vous rappelant qu'un jeu de
-données est une liste de colonnes, chaque colonne correspondant à un
+interprÃ©tez les commandes suivantes en vous rappelant qu'un jeu de
+donnÃ©es est une liste de colonnes, chaque colonne correspondant Ã  un
 attribut.
 
 </p>
@@ -1503,22 +1503,22 @@ attribut.
 
 <p>
 
-Certaines valeurs sont non disponibles&nbsp;: elles sont indiquées par
+Certaines valeurs sont non disponibles&nbsp;: elles sont indiquÃ©es par
 NA.
 
 <br/>
 <br/>
 
-Comme on peut ajouter un élément à une liste, on peut ajouter un
-attribut à un jeu de données. Par exemple, ajoutez un nouvel attribut
-qui est le rapport Température / Humidité. Nommez-le
-«&nbsp;rapport&nbsp;».
+Comme on peut ajouter un Ã©lÃ©ment Ã  une liste, on peut ajouter un
+attribut Ã  un jeu de donnÃ©es. Par exemple, ajoutez un nouvel attribut
+qui est le rapport TempÃ©rature / HumiditÃ©. Nommez-le
+Â«&nbsp;rapport&nbsp;Â».
 
 <br/>
 <br/>
 
-Exercice&nbsp;: calculez la moyenne des températures. Que
-constatez-vous&nbsp;? Êtes-vous satisfait du résultat&nbsp;?
+Exercice&nbsp;: calculez la moyenne des tempÃ©ratures. Que
+constatez-vous&nbsp;? ÃŠtes-vous satisfait du rÃ©sultat&nbsp;?
 
 <br/>
 
@@ -1527,34 +1527,34 @@ Essayez de calculer les valeurs minimale et maximale, et la variance.
 <br/>
 <br/>
 
-Nous allons y remédier&nbsp;; tapez les commandes suivantes et
-interprétez leur résultat&nbsp;:
+Nous allons y remÃ©dier&nbsp;; tapez les commandes suivantes et
+interprÃ©tez leur rÃ©sultat&nbsp;:
 
 </p>
 
 <ul>
-  <li><kbd>tenna$Température</kbd>&nbsp;;</li>
-  <li><kbd>is.na(tenna$Température)</kbd>&nbsp;;</li>
-  <li><kbd>!is.na(tenna$Température)</kbd>&nbsp;;</li>
-  <li><kbd>températureSansNA &lt;- tenna$Température[!is.na(tenna$Température)]</kbd>&nbsp;;</li>
-  <li><kbd>températureSansNA</kbd>.</li>
+  <li><kbd>tenna$TempÃ©rature</kbd>&nbsp;;</li>
+  <li><kbd>is.na(tenna$TempÃ©rature)</kbd>&nbsp;;</li>
+  <li><kbd>!is.na(tenna$TempÃ©rature)</kbd>&nbsp;;</li>
+  <li><kbd>tempÃ©ratureSansNA &lt;- tenna$TempÃ©rature[!is.na(tenna$TempÃ©rature)]</kbd>&nbsp;;</li>
+  <li><kbd>tempÃ©ratureSansNA</kbd>.</li>
 </ul>
 
 <p>
 
-C'est bon&nbsp;? Vous savez calculer la moyenne des températures
+C'est bon&nbsp;? Vous savez calculer la moyenne des tempÃ©ratures
 disponibles&nbsp;? Normalement, oui.
 
 <br/>
 
 Exercice&nbsp;: calculez la moyenne et la variance des attributs
-température et humidité.
+tempÃ©rature et humiditÃ©.
 
 <br/>
 <br/>
 
-Ces valeurs non disponibles peuvent poser problème. Pour appliquer
-certains algorithmes, on les remplace par des valeurs particulières.
+Ces valeurs non disponibles peuvent poser problÃ¨me. Pour appliquer
+certains algorithmes, on les remplace par des valeurs particuliÃ¨res.
 
 <br/>
 
@@ -1563,18 +1563,18 @@ Exercice&nbsp;: remplacer les NA par la valeur moyenne de l'attribut.
 <br/>
 
 Exercice&nbsp;: remplacer les NA par la valeur moyenne de l'attribut
-pour la classe de l'exemple. (Si vous avez écrasé les NA lors de votre
-précédente manipulation, rechargez le jeu de données depuis le
+pour la classe de l'exemple. (Si vous avez Ã©crasÃ© les NA lors de votre
+prÃ©cÃ©dente manipulation, rechargez le jeu de donnÃ©es depuis le
 fichier.)
 
 <br/>
 <br/>
 
-Pour finir en beauté, on va calculer l'entropie de ce jeu de données...
+Pour finir en beautÃ©, on va calculer l'entropie de ce jeu de donnÃ©es...
 
 <br/>
 
-Tapez et interprétez les commandes suivantes&nbsp;:
+Tapez et interprÃ©tez les commandes suivantes&nbsp;:
 
 </p>
 
@@ -1586,7 +1586,7 @@ Tapez et interprétez les commandes suivantes&nbsp;:
 
 <p>
 
-et maintenant, calculez l'entropie du jeu de données...
+et maintenant, calculez l'entropie du jeu de donnÃ©es...
 
 <br/>
 <br/>
@@ -1596,68 +1596,68 @@ Des exercices pour terminer&nbsp;:
 </p>
 
 <ul>
-  <li>écrivez une fonction qui calcule l'entropie d'un jeu de 
-	  données dont la classe est binaire&nbsp;;</li>
-  <li>écrivez une fonction qui calcule l'entropie d'un jeu de 
-	  données dont la classe est quelconque&nbsp;;</li>
-  <li>écrivez une fonction qui calcule le gain d'information pour
-	  un jeu de données et un attribut.</li>
+  <li>Ã©crivez une fonction qui calcule l'entropie d'un jeu de 
+	  donnÃ©es dont la classe est binaire&nbsp;;</li>
+  <li>Ã©crivez une fonction qui calcule l'entropie d'un jeu de 
+	  donnÃ©es dont la classe est quelconque&nbsp;;</li>
+  <li>Ã©crivez une fonction qui calcule le gain d'information pour
+	  un jeu de donnÃ©es et un attribut.</li>
 </ul>
 
 
-<h2>Pour terminer votre découverte de R</h2>
+<h2>Pour terminer votre dÃ©couverte de R</h2>
 
 <p>
 
-Un certain nombre de démos sont fournies avec R. Vous en avez la liste
+Un certain nombre de dÃ©mos sont fournies avec R. Vous en avez la liste
 avec la commande <kbd>demo()</kbd>. Essayez par exemple les commandes
 <kbd>demo(graphics)</kbd>, <kbd>demo(persp)</kbd> et <kbd>demo(image)</kbd>.
 
 <br/>
 <br/>
 
-Sachez que R permet d'appliquer de très nombreuses méthodes
-statistiques que nous étudierons en cours de fouille de données ou
-celles que vous étudierez dans les cours de maths (régression linéaire
-et non linéaire, analyse factorielle, ...). Pour cela, il suffit
-d'apprendre à manipuler R et lire la documentation pour trouver la
-fonction qui fait le traitement statistique que l'on veut réaliser.
+Sachez que R permet d'appliquer de trÃ¨s nombreuses mÃ©thodes
+statistiques que nous Ã©tudierons en cours de fouille de donnÃ©es ou
+celles que vous Ã©tudierez dans les cours de maths (rÃ©gression linÃ©aire
+et non linÃ©aire, analyse factorielle, ...). Pour cela, il suffit
+d'apprendre Ã  manipuler R et lire la documentation pour trouver la
+fonction qui fait le traitement statistique que l'on veut rÃ©aliser.
 
 </p>
 
 -->
 
 
-<h2>Références</h2>
+<h2>RÃ©fÃ©rences</h2>
 
 <p>
 
 Pour aller plus loin en R, mieux comprendre ce que l'on vient de faire
-et ce que l'on fera, et mieux connaître R&nbsp;:
+et ce que l'on fera, et mieux connaÃ®tre R&nbsp;:
 
 </p>
 
 <ul>
   <li><a href="http://cran.r-project.org/doc/manuals/R-intro.pdf"><i>An Introduction to R</i></a>&nbsp;;</li>
   <li><a href="http://cran.univ-lyon1.fr/doc/contrib/rdebuts_fr.pdf">
-      R pour les débutants</a>&nbsp;;</li>
+      R pour les dÃ©butants</a>&nbsp;;</li>
   <li><a href="http://cran.r-project.org/doc/contrib/Verzani-SimpleR.pdf"><i>Using R for introductory statistics</i></a>&nbsp;;</li>
   <li><a
-    href="http://cran.r-project.org/doc/contrib/Short-refcard.pdf">mémento des commandes très utiles de R</a>&nbsp;;</li>
-  <li><a href="http://zoonek2.free.fr/UNIX/48_R_2004/all.html">un excellent site sur R, en français</a>&nbsp;;</li>
-  <li>Pour récupérer R et l'installer sur votre machine&nbsp;:
+    href="http://cran.r-project.org/doc/contrib/Short-refcard.pdf">mÃ©mento des commandes trÃ¨s utiles de R</a>&nbsp;;</li>
+  <li><a href="http://zoonek2.free.fr/UNIX/48_R_2004/all.html">un excellent site sur R, en franÃ§ais</a>&nbsp;;</li>
+  <li>Pour rÃ©cupÃ©rer R et l'installer sur votre machine&nbsp;:
     <ul>
       <li>connectez-vous sur <a href="http://www.r-project.org/">le
         site de R</a>&nbsp;;</li>
-      <li>allez dans la section «&nbsp;Download&nbsp;» et cliquez sur
+      <li>allez dans la section Â«&nbsp;Download&nbsp;Â» et cliquez sur
         CRAN&nbsp;;</li> 
-      <li>là, vous choisissez votre mirroir, situé pas trop loin de
+      <li>lÃ , vous choisissez votre mirroir, situÃ© pas trop loin de
         chez vous (France ou Belgique)&nbsp;;</li>
       <li>vous devez maintenant vous trouvez sur une page qui vous
-        permet de récupérer R pour différentes plateformes&nbsp;:
+        permet de rÃ©cupÃ©rer R pour diffÃ©rentes plateformes&nbsp;:
         Linux, Mac OS, autres. Faites votre choix&nbsp;;</li>
-      <li>une fois R récupéré, son installation ne pose en principe
-        aucune difficulté.</li>
+      <li>une fois R rÃ©cupÃ©rÃ©, son installation ne pose en principe
+        aucune difficultÃ©.</li>
     </ul></li>
 </ul>
 
