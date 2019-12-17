@@ -3,22 +3,22 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-  <title>Réduction de la dimension d'un jeu de données</title>
-  <link href="../../ma.css"
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>RÃ©duction de la dimension d'un jeu de donnÃ©es</title>
+  <link href="https://philippe-preux.github.io/css/ma.css"
 	rel="stylesheet" type="text/css" media="all" />
 </head>
 
 <body>
 <div class="tpR">
-<h1>Réduction de la dimension d'un jeu de données</h1>
+<h1>RÃ©duction de la dimension d'un jeu de donnÃ©es</h1>
 
 <p>
 
-L'objectif est de mettre en pratique ce qui a été vu en cours
-concernant la réduction de dimension d'un jeu de données. On commence
-en traitant brièvement l'analyse en composantes principales&nbsp;; on
-continue avec la mise à l'échelle multi-dimensionnelle.
+L'objectif est de mettre en pratique ce qui a Ã©tÃ© vu en cours
+concernant la rÃ©duction de dimension d'un jeu de donnÃ©es. On commence
+en traitant briÃ¨vement l'analyse en composantes principales&nbsp;; on
+continue avec la mise Ã  l'Ã©chelle multi-dimensionnelle.
 
 <br/>
 <br/>
@@ -28,7 +28,7 @@ Toutes les manipulations se feront avec R.
 <br/>
 <br/>
 
-Ce TP est réalisé sous Linux. Sachez néanmoins que R fonctionne sous
+Ce TP est rÃ©alisÃ© sous Linux. Sachez nÃ©anmoins que R fonctionne sous
 Windows et sous MacOS.
 
 </p>
@@ -37,11 +37,11 @@ Windows et sous MacOS.
 
 <p>
 
-L'ACP peut être vue comme une méthode de réduction de dimension. Comme
-vous l'étudiez également en cours de maths, cette partie du TP
-consiste seulement à vous présenter les fonctions à connaître pour
+L'ACP peut Ãªtre vue comme une mÃ©thode de rÃ©duction de dimension. Comme
+vous l'Ã©tudiez Ã©galement en cours de maths, cette partie du TP
+consiste seulement Ã  vous prÃ©senter les fonctions Ã  connaÃ®tre pour
 effectuer une ACP en R. Bien entendu, analyse des correspondances et
-analyse des correspondances multiples peuvent également être faites en
+analyse des correspondances multiples peuvent Ã©galement Ãªtre faites en
 R.
 
 </p>
@@ -50,7 +50,7 @@ R.
 
 <p>
 
-Les fonctions sont disponibles dans la bibliothèque
+Les fonctions sont disponibles dans la bibliothÃ¨que
 <kbd>stats</kbd>. Il faut donc taper la commande&nbsp;:
 
 </p>
@@ -59,62 +59,62 @@ Les fonctions sont disponibles dans la bibliothèque
 
 <p>
 
-Ensuite, l'ACP est effectuée en utilisant la fonction
-<kbd>princomp()</kbd> à laquelle on passe un <i>data frame</i> en
-paramètre ainsi que le paramètre <kbd>cor = TRUE</kbd>.
+Ensuite, l'ACP est effectuÃ©e en utilisant la fonction
+<kbd>princomp()</kbd> Ã  laquelle on passe un <i>data frame</i> en
+paramÃ¨tre ainsi que le paramÃ¨tre <kbd>cor = TRUE</kbd>.
 
 <br/>
 <br/>
 
-Le résultat est une liste dont les composantes sont&nbsp;:
+Le rÃ©sultat est une liste dont les composantes sont&nbsp;:
 
 </p>
 
 <ul>
-  <li><kbd>sdev</kbd> qui est le vecteur des écart-types sur chacun
+  <li><kbd>sdev</kbd> qui est le vecteur des Ã©cart-types sur chacun
     des axes principaux&nbsp;;</li> 
   <li><kbd>loadings</kbd> qui est la matrice de rotation, autrement
     dit, une matrice dont chacune des colonnes est un vecteur propre
     de l'ACP&nbsp;;</li>
   <li><kbd>center</kbd> qui est le vecteur des moyennes pour chacun
-    des attributs (pour que l'attribut soit centrée)&nbsp;;</li>
-  <li><kbd>scale</kbd> qui est un vecteur des facteurs de mise mise à
-    l'échelle pour chaque des attributs (pour que l'attribut soit
-    réduit)&nbsp;;</li>
-  <li><kbd>scores</kbd> qui est une matrice donnant les coordonnées
+    des attributs (pour que l'attribut soit centrÃ©e)&nbsp;;</li>
+  <li><kbd>scale</kbd> qui est un vecteur des facteurs de mise mise Ã 
+    l'Ã©chelle pour chaque des attributs (pour que l'attribut soit
+    rÃ©duit)&nbsp;;</li>
+  <li><kbd>scores</kbd> qui est une matrice donnant les coordonnÃ©es
     dans l'espace factoriel de chacun des points du <i>data frame</i>
     initial.</li>
 </ul>
 
-<h3>Les fonctions R pour visualiser le résultat d'une ACP</h3>
+<h3>Les fonctions R pour visualiser le rÃ©sultat d'une ACP</h3>
 
 <p>
 
-On suppose que l'on a effectué une ACP avec la fonction
-<kbd>princomp()</kbd> et que le résultat a été placé dans un objet
-dénommé <kbd>mon.acp</kbd>.
+On suppose que l'on a effectuÃ© une ACP avec la fonction
+<kbd>princomp()</kbd> et que le rÃ©sultat a Ã©tÃ© placÃ© dans un objet
+dÃ©nommÃ© <kbd>mon.acp</kbd>.
 
 <br/>
 <br/>
 
-Une fois une ACP réalisée, on peut obtenir et visualiser les éléments
+Une fois une ACP rÃ©alisÃ©e, on peut obtenir et visualiser les Ã©lÃ©ments
 suivants&nbsp;:
 
 </p>
 
 <ul>
-  <li>les valeurs des écart-types sur chacun des axes factoriels en
+  <li>les valeurs des Ã©cart-types sur chacun des axes factoriels en
     tapant le nom de l'objet&nbsp;;</li>
-  <li><kbd>plot (mon.acp)</kbd> produit un graphique représentation ces
-    écart-types&nbsp;;</li>
-  <li><kbd>biplot (mon.acp)</kbd> produit un biplot, c'est-à-dire un
-    graphique représentant en même temps les données dans le plan 
+  <li><kbd>plot (mon.acp)</kbd> produit un graphique reprÃ©sentation ces
+    Ã©cart-types&nbsp;;</li>
+  <li><kbd>biplot (mon.acp)</kbd> produit un biplot, c'est-Ã -dire un
+    graphique reprÃ©sentant en mÃªme temps les donnÃ©es dans le plan 
     principal et la projection des attributs dans ce plan.</li>
 </ul>
 
 <p>
 
-Le cercle de corrélation s'obtient comme suit&nbsp;:
+Le cercle de corrÃ©lation s'obtient comme suit&nbsp;:
 
 </p>
 
@@ -124,7 +124,7 @@ Le cercle de corrélation s'obtient comme suit&nbsp;:
         sin (angles.pour.dessiner.un.cercle),
         xlab = "composante principale 1",
         ylab = "composante principale 2",
-        main = "Cercle des corrélations",
+        main = "Cercle des corrÃ©lations",
         type = 'l',
         asp = 1)
 > mon.acp.v <- t (mon.acp$loadings) [1:2,]
@@ -136,55 +136,55 @@ Le cercle de corrélation s'obtient comme suit&nbsp;:
 <h3>Mise en &oelig;uvre</h3>
 
 <ul>
-  <li>effectuez une ACP sur le jeu de données <kbd>USArrests</kbd></li>
+  <li>effectuez une ACP sur le jeu de donnÃ©es <kbd>USArrests</kbd></li>
   <li>comment obtenez-vous l'inertie des axes principaux&nbsp;?</li>
-  <li>comment obtenez-vous la visualisation des données dans un plan
-    quelconque (par exemple, celui formé par les axes 1 et 3 ou 2 et
+  <li>comment obtenez-vous la visualisation des donnÃ©es dans un plan
+    quelconque (par exemple, celui formÃ© par les axes 1 et 3 ou 2 et
     3)&nbsp;?</li>
 </ul>
 
-<h2>Mise à l'échelle multi-dimensionnelle</h2>
+<h2>Mise Ã  l'Ã©chelle multi-dimensionnelle</h2>
 
 <p>
 
 On passe en revue 3 fonctions disponibles en R pour effectuer les
-différentes sortes de mise à l'échelle multi-dimensionnelle vues en
+diffÃ©rentes sortes de mise Ã  l'Ã©chelle multi-dimensionnelle vues en
 cours.
 
 </p>
 
-<h3>Mise à l'échelle classique</h3>
+<h3>Mise Ã  l'Ã©chelle classique</h3>
 
 <p>
 
-Elle se fait par la fonction <kbd>cmdscale()</kbd> de la bibliothèque
-<kbd>stats</kbd>. Rappelons que c'est équivalent à une ACP de la
-matrice des distances. Si le nombre d'objets est grand, c'est (très)
-long à calculer&nbsp;!
+Elle se fait par la fonction <kbd>cmdscale()</kbd> de la bibliothÃ¨que
+<kbd>stats</kbd>. Rappelons que c'est Ã©quivalent Ã  une ACP de la
+matrice des distances. Si le nombre d'objets est grand, c'est (trÃ¨s)
+long Ã  calculer&nbsp;!
 
 <!--
-  MDS métrique = analyse en coordonnées
-  principales. par exemple sur les distances entre villes européennes
+  MDS mÃ©trique = analyse en coordonnÃ©es
+  principales. par exemple sur les distances entre villes europÃ©ennes
   (data frame eurodist)
 -->
 
 <br/>
 <br/>
 
-Paramètres&nbsp;:
+ParamÃ¨tres&nbsp;:
 
 </p>
 
 <ul>
-  <li>matrice de distance/dissimilarité entre les points&nbsp;;</li>
-  <li>paramètre optionnel <kbd>k</kbd> qui indique la dimension de
+  <li>matrice de distance/dissimilaritÃ© entre les points&nbsp;;</li>
+  <li>paramÃ¨tre optionnel <kbd>k</kbd> qui indique la dimension de
     l'espace dans lequel on veut faire la projection (2 par
-    défaut).</li>
+    dÃ©faut).</li>
 </ul>
 
 <p>
 
-Résultat&nbsp;: une liste ayant plusieurs champs, parmi lesquels&nbsp;:
+RÃ©sultat&nbsp;: une liste ayant plusieurs champs, parmi lesquels&nbsp;:
 
 </p>
 
@@ -192,13 +192,13 @@ Résultat&nbsp;: une liste ayant plusieurs champs, parmi lesquels&nbsp;:
   <li><kbd>points</kbd>&nbsp;: la position des points dans le plan.</li>
 </ul>
 
-<h3>Mise à l'échelle de Sammon</h3>
+<h3>Mise Ã  l'Ã©chelle de Sammon</h3>
 
 <h4>Description de la fonction <kbd>sammon()</kbd></h4>
 
 <p>
 
-Elle se fait par la fonction <kbd>sammon()</kbd> de la bibliothèque
+Elle se fait par la fonction <kbd>sammon()</kbd> de la bibliothÃ¨que
 <kbd>MASS</kbd>. 
 
 <!-- 
@@ -208,28 +208,28 @@ Elle se fait par la fonction <kbd>sammon()</kbd> de la bibliothèque
 <br/>
 <br/>
 
-Paramètres&nbsp;:
+ParamÃ¨tres&nbsp;:
 
 </p>
 
 <ul>
-  <li>matrice de distance/dissimilarité entre les points&nbsp;;</li>
-  <li>paramètre optionnel <kbd>k</kbd> pour indiquer la dimension de
-    l'espace dans lequel on projette les données (2 par
-    défaut)&nbsp;;</li> 
-  <li>paramètre optionnel <kbd>y</kbd> pour fournir une configuration
+  <li>matrice de distance/dissimilaritÃ© entre les points&nbsp;;</li>
+  <li>paramÃ¨tre optionnel <kbd>k</kbd> pour indiquer la dimension de
+    l'espace dans lequel on projette les donnÃ©es (2 par
+    dÃ©faut)&nbsp;;</li> 
+  <li>paramÃ¨tre optionnel <kbd>y</kbd> pour fournir une configuration
     initiale&nbsp;;</li>
-  <li>paramètre optionnel <kbd>tol</kbd> pour indiquer le seuil de
-    variation du stress entre deux itérations qui entraîne l'arrêt de la
-    relaxation (plus il est bas, plus le nombre d'itérations peut être
+  <li>paramÃ¨tre optionnel <kbd>tol</kbd> pour indiquer le seuil de
+    variation du stress entre deux itÃ©rations qui entraÃ®ne l'arrÃªt de la
+    relaxation (plus il est bas, plus le nombre d'itÃ©rations peut Ãªtre
     grand et plus le stress peut baisser)&nbsp;;</li>
-  <li>paramètre optionnel <kbd>niter</kbd> qui indique le nombre
-    maximum d'intérations à effectuer.</li>
+  <li>paramÃ¨tre optionnel <kbd>niter</kbd> qui indique le nombre
+    maximum d'intÃ©rations Ã  effectuer.</li>
 </ul>
 
 <p>
 
-Résultat&nbsp;: une liste contenant deux champs&nbsp;:
+RÃ©sultat&nbsp;: une liste contenant deux champs&nbsp;:
 
 </p>
 
@@ -242,10 +242,10 @@ Résultat&nbsp;: une liste contenant deux champs&nbsp;:
 
 <p>
 
-On utilise le jeu de données que vous obtenez en cliquant <a
+On utilise le jeu de donnÃ©es que vous obtenez en cliquant <a
 href="../../../datasets/helice.30">ici</a>. On suppose qu'il est
-chargé dans le <i>data frame</i> dénommé <kbd>helice.30</kbd>. Ce jeu
-représente 30 points situés sur une hélice, d'où son nom...  
+chargÃ© dans le <i>data frame</i> dÃ©nommÃ© <kbd>helice.30</kbd>. Ce jeu
+reprÃ©sente 30 points situÃ©s sur une hÃ©lice, d'oÃ¹ son nom...  
 
 </p>
 
@@ -325,20 +325,20 @@ On y trouve&nbsp;:
 
 <ul>
   <li>le stress de la configuration initiale&nbsp;;</li>
-  <li>toutes les 10 itérations de l'algorithme de relaxation, le
-    stress est affiché&nbsp;;</li>
-  <li>puis le champ <kbd>points</kbd> qui contient les coordonnées
+  <li>toutes les 10 itÃ©rations de l'algorithme de relaxation, le
+    stress est affichÃ©&nbsp;;</li>
+  <li>puis le champ <kbd>points</kbd> qui contient les coordonnÃ©es
     dans le plan des 30 points initiaux&nbsp;;</li>
   <li>le champ <kbd>stress</kbd> qui contient le stress de la
     configuration finale&nbsp;;</li>
-  <li>le champ <kbd>call</kbd> qui contient la commande qui a engendré
+  <li>le champ <kbd>call</kbd> qui contient la commande qui a engendrÃ©
     cette projection (ce qui est utile quand on en fait plusieurs pour
     s'y retrouver).</li>
 </ul>
 
 <p>
 
-On peut visualiser le résultat comme suit&nbsp;:
+On peut visualiser le rÃ©sultat comme suit&nbsp;:
 
 </p>
 
@@ -352,7 +352,7 @@ On voit un ensemble de points... bof, on n'y comprend pas grand chose
 <br/>
 
 On n'y voit pas grand chose parce que l'on ne sait pas dans quel ordre
-sont dessinés les points. Si on les relie par des segments de droite,
+sont dessinÃ©s les points. Si on les relie par des segments de droite,
 on va voir quelque chose. Donc, tapons la commande&nbsp;:
 
 </p>
@@ -361,7 +361,7 @@ on va voir quelque chose. Donc, tapons la commande&nbsp;:
 
 <p>
 
-Ça doit vous donner&nbsp;:
+Ã‡a doit vous donner&nbsp;:
 
 </p>
 
@@ -369,15 +369,15 @@ on va voir quelque chose. Donc, tapons la commande&nbsp;:
 
 <p>
 
-Rappelons que l'on sait qu'ici, les points sont disposés dans l'espace
-selon une hélice... Comment comprenez-vous ce résultat&nbsp;?
+Rappelons que l'on sait qu'ici, les points sont disposÃ©s dans l'espace
+selon une hÃ©lice... Comment comprenez-vous ce rÃ©sultat&nbsp;?
 
 <br/>
 <br/>
 
-La fonction <kbd>sammon()</kbd> a été utilisée avec ses paramètres par
-défaut. Dans la suite, pour obtenir une meilleure solution (un stress
-plus faible), on pourra utiliser les paramètres suivants&nbsp;:
+La fonction <kbd>sammon()</kbd> a Ã©tÃ© utilisÃ©e avec ses paramÃ¨tres par
+dÃ©faut. Dans la suite, pour obtenir une meilleure solution (un stress
+plus faible), on pourra utiliser les paramÃ¨tres suivants&nbsp;:
 
 </p>
 
@@ -388,21 +388,21 @@ plus faible), on pourra utiliser les paramètres suivants&nbsp;:
   <ul>
     <li>consulter la documentation et comprenez comment est
       obtenue la configuration initiale&nbsp;;</li>
-    <li>générer une configuration initiale aléatoire et refaire un
+    <li>gÃ©nÃ©rer une configuration initiale alÃ©atoire et refaire un
       sammon avec&nbsp;;</li>
     <li>effectuer N sammon avec des configurations initiales
-      aléatoires et sélectionner la meilleure, c'est-à-dire, celle
-      dont le stress est minimal (écrire une fonction pour cela).</li>
+      alÃ©atoires et sÃ©lectionner la meilleure, c'est-Ã -dire, celle
+      dont le stress est minimal (Ã©crire une fonction pour cela).</li>
   </ul>
 </div>
 
-<h3>Mise à l'échelle non métrique</h3>
+<h3>Mise Ã  l'Ã©chelle non mÃ©trique</h3>
 
 <h4>Description de la fonction <kbd>isoMDS()</kbd></h4>
 
 <p>
 
-Elle se fait par la fonction <kbd>isoMDS()</kbd> de la bibliothèque
+Elle se fait par la fonction <kbd>isoMDS()</kbd> de la bibliothÃ¨que
 <kbd>MASS</kbd>. 
 
 <!--
@@ -412,28 +412,28 @@ Elle se fait par la fonction <kbd>isoMDS()</kbd> de la bibliothèque
 <br/>
 <br/>
 
-Paramètres (presque les mêmes que pour <kbd>sammon()</kbd>)&nbsp;:
+ParamÃ¨tres (presque les mÃªmes que pour <kbd>sammon()</kbd>)&nbsp;:
 
 </p>
 
 <ul>
-  <li>matrice de distance/dissimilarité entre les points&nbsp;;</li>
-  <li>paramètre optionnel <kbd>k</kbd> pour indiquer la dimension de
-    l'espace dans lequel on projette les données (2 par
-    défaut)&nbsp;;</li> 
-  <li>paramètre optionnel <kbd>y</kbd> pour fournir une configuration
+  <li>matrice de distance/dissimilaritÃ© entre les points&nbsp;;</li>
+  <li>paramÃ¨tre optionnel <kbd>k</kbd> pour indiquer la dimension de
+    l'espace dans lequel on projette les donnÃ©es (2 par
+    dÃ©faut)&nbsp;;</li> 
+  <li>paramÃ¨tre optionnel <kbd>y</kbd> pour fournir une configuration
     initiale&nbsp;;</li>
-  <li>paramètre optionnel <kbd>tol</kbd> pour indiquer le seuil de
-    variation du stress entre deux itérations qui entraîne l'arrêt de la
-    relaxation (plus il est bas, plus le nombre d'itérations peut être
+  <li>paramÃ¨tre optionnel <kbd>tol</kbd> pour indiquer le seuil de
+    variation du stress entre deux itÃ©rations qui entraÃ®ne l'arrÃªt de la
+    relaxation (plus il est bas, plus le nombre d'itÃ©rations peut Ãªtre
     grand et plus le stress peut baisser)&nbsp;;</li>
-  <li>paramètre optionnel <kbd>maxit</kbd> qui indique le nombre
-    maximum d'intérations à effectuer.</li>
+  <li>paramÃ¨tre optionnel <kbd>maxit</kbd> qui indique le nombre
+    maximum d'intÃ©rations Ã  effectuer.</li>
 </ul>
 
 <p>
 
-Résultat&nbsp;: comme pour la fonction <kbd>sammon()</kbd>, une liste
+RÃ©sultat&nbsp;: comme pour la fonction <kbd>sammon()</kbd>, une liste
 contenant deux champs&nbsp;:
 
 </p>
@@ -447,7 +447,7 @@ contenant deux champs&nbsp;:
 
 <p>
 
-On reprend le jeu de données <kbd>helice.30</kbd>. On tape donc&nbsp;:
+On reprend le jeu de donnÃ©es <kbd>helice.30</kbd>. On tape donc&nbsp;:
 
 </p>
 
@@ -455,7 +455,7 @@ On reprend le jeu de données <kbd>helice.30</kbd>. On tape donc&nbsp;:
 
 <p>
 
-et on peut afficher le résultat avec&nbsp;:
+et on peut afficher le rÃ©sultat avec&nbsp;:
 
 </p>
 
@@ -463,7 +463,7 @@ et on peut afficher le résultat avec&nbsp;:
 
 <p>
 
-Ça doit vous donner&nbsp;:
+Ã‡a doit vous donner&nbsp;:
 
 </p>
 
@@ -472,19 +472,19 @@ et on peut afficher le résultat avec&nbsp;:
 <div class="exercices">
 
   <ul>
-    <li>Rappelons à nouveau que l'on sait qu'ici, les points sont
-      disposés dans l'espace selon une hélice... Comment
-      comprenez-vous ce résultat&nbsp;?</li>
+    <li>Rappelons Ã  nouveau que l'on sait qu'ici, les points sont
+      disposÃ©s dans l'espace selon une hÃ©lice... Comment
+      comprenez-vous ce rÃ©sultat&nbsp;?</li>
     <li>effectuer N isoMDS avec des configurations initiales
-      aléatoires et sélectionner la meilleure, c'est-à-dire, celle
-      dont le stress est minimal (écrire une fonction pour cela).</li>
+      alÃ©atoires et sÃ©lectionner la meilleure, c'est-Ã -dire, celle
+      dont le stress est minimal (Ã©crire une fonction pour cela).</li>
   </ul>
 
 </div>
 
 
 <!--
-  <kbd>som()</kbd> dans la bibliothèque <kbd>som</kbd>.<br/>
+  <kbd>som()</kbd> dans la bibliothÃ¨que <kbd>som</kbd>.<br/>
  -->  
 
 <h3>Graphe de Shepard</h3>
@@ -493,14 +493,14 @@ et on peut afficher le résultat avec&nbsp;:
 
 <p>
 
-Pour visualiser la déformation induite par la projection dans le plan,
-la fonction <kbd>Shepard()</kbd> de la bibliothèque <kbd>MASS</kbd>
-produit un objet permettant de dessiner le graphe du même nom.
+Pour visualiser la dÃ©formation induite par la projection dans le plan,
+la fonction <kbd>Shepard()</kbd> de la bibliothÃ¨que <kbd>MASS</kbd>
+produit un objet permettant de dessiner le graphe du mÃªme nom.
 
 <br/>
 <br/>
 
-Son utilisation se fait en lui passant deux paramètres, la matrice des
+Son utilisation se fait en lui passant deux paramÃ¨tres, la matrice des
 distances initiales et la projection dans le plan.
 
 </p>
@@ -542,7 +542,7 @@ et obtenir&nbsp;:
 <div class="exercice">
 
   <ul>
-    <li>interprétez ces deux graphes de Shepard</li>
+    <li>interprÃ©tez ces deux graphes de Shepard</li>
   </ul>
 </div>
 
@@ -552,23 +552,23 @@ et obtenir&nbsp;:
 
 </p>
 
-<h2>Étude de cas de la réduction de la dimension</h2>
+<h2>Ã‰tude de cas de la rÃ©duction de la dimension</h2>
 
 <div class="exercice">
 
   <p>
 
-  On considère le jeu de données <kbd>eurodist</kbd> qui est dans la
-  bibliothèque <kbd>stats</kbd>. Ce jeu de données (c'est une matrice)
-  contient la distance par route entre 21 villes européennes.
+  On considÃ¨re le jeu de donnÃ©es <kbd>eurodist</kbd> qui est dans la
+  bibliothÃ¨que <kbd>stats</kbd>. Ce jeu de donnÃ©es (c'est une matrice)
+  contient la distance par route entre 21 villes europÃ©ennes.
 
   </p>
 
   <ul>
-    <li>quelle méthode utilisez-vous pour obtenir une représentation
-      planaire de ce jeu de données&nbsp;?</li>
-    <li>faites-le. Le résultat vous paraît-il correct&nbsp;?</li>
-    <li>essayez les autres méthodes et comparez les résultats. Qu'en
+    <li>quelle mÃ©thode utilisez-vous pour obtenir une reprÃ©sentation
+      planaire de ce jeu de donnÃ©es&nbsp;?</li>
+    <li>faites-le. Le rÃ©sultat vous paraÃ®t-il correct&nbsp;?</li>
+    <li>essayez les autres mÃ©thodes et comparez les rÃ©sultats. Qu'en
       pensez-vous&nbsp;?
   </ul>
 
@@ -580,56 +580,56 @@ et obtenir&nbsp;:
 
   <p>
 
-  On considère le jeu de données contenu dans le fichier que vous
+  On considÃ¨re le jeu de donnÃ©es contenu dans le fichier que vous
   obtenez en cliquant <a
   href="../../../datasets/26letters.ods">ici</a>. Comme vous le
-  remarquez, c'est un fichier open office. À vous de le charger dans
+  remarquez, c'est un fichier open office. Ã€ vous de le charger dans
   R.
 
   <br/>
   <br/>
 
-  Ce fichier contient une table indiquant pour 19 langues européennes
-  la fréquence d'apparition de chacune des 26 lettres de notre
+  Ce fichier contient une table indiquant pour 19 langues europÃ©ennes
+  la frÃ©quence d'apparition de chacune des 26 lettres de notre
   alphabet.
 
   <br/>
 
-  Les 19 langues sont le tchèque (cz), le danois (da), l'allemand
+  Les 19 langues sont le tchÃ¨que (cz), le danois (da), l'allemand
   (de), l'anglais (en), l'espagnol (es), l'estonien (et), le finnois
-  (fi), le français (fr), le gaélique (ga), le hongrois (hu),
+  (fi), le franÃ§ais (fr), le gaÃ©lique (ga), le hongrois (hu),
   l'italien (it), le lithuanien (lt), le letton (lv), le maltais (mt),
-  le néerlandais (nl), le polonais (pl), le portugais (pt), le
-  solvaque (sk) et le solvène (sl).
+  le nÃ©erlandais (nl), le polonais (pl), le portugais (pt), le
+  solvaque (sk) et le solvÃ¨ne (sl).
 
   <br/>
 
-  Ces fréquences ont été mesurées sur le texte, rédigé dans chacune de
-  ces langues, de la deuxième partie du projet de constitution
-  européenne.
+  Ces frÃ©quences ont Ã©tÃ© mesurÃ©es sur le texte, rÃ©digÃ© dans chacune de
+  ces langues, de la deuxiÃ¨me partie du projet de constitution
+  europÃ©enne.
 
   <br/>
   <br/>
 
-  Nous allons faire une projection planaire de ce jeu de données.
+  Nous allons faire une projection planaire de ce jeu de donnÃ©es.
 
   </p>
 
   <ul>
     <li>que pensez-vous que cette projection puisse nous
       apprendre&nbsp;?</li> 
-    <li>quelle méthode pensez-vous utilisez pour cela&nbsp;?</li>
-    <li>faites-le. Que pensez-vous du résultat&nbsp;? Comment
-      l'interprétez-vous&nbsp;?</li>
-    <li>mise à part une projection dans le plan, quel type de
-      traitement pourrait-on tenter sur ce jeu de données (parmi ceux
+    <li>quelle mÃ©thode pensez-vous utilisez pour cela&nbsp;?</li>
+    <li>faites-le. Que pensez-vous du rÃ©sultat&nbsp;? Comment
+      l'interprÃ©tez-vous&nbsp;?</li>
+    <li>mise Ã  part une projection dans le plan, quel type de
+      traitement pourrait-on tenter sur ce jeu de donnÃ©es (parmi ceux
       queml'on a vu en cours et dans le TP)&nbsp;?</li>
-    <li>si vous avez pensé à une analyse des correspondances, c'est
-      une très bonne idée (aussi). Sachez que la fonction
-      <kbd>corresp()</kbd> de la bibliothèque <kbd>MASS</kbd> fait
+    <li>si vous avez pensÃ© Ã  une analyse des correspondances, c'est
+      une trÃ¨s bonne idÃ©e (aussi). Sachez que la fonction
+      <kbd>corresp()</kbd> de la bibliothÃ¨que <kbd>MASS</kbd> fait
       cela et que l'on peut ensuite utiliser la fonction
       <kbd>biplot()</kbd> pour visualiser graphiquement le
-      résultat. Faites-le.</li>
+      rÃ©sultat. Faites-le.</li>
   </ul>
 
 </div>
@@ -640,20 +640,20 @@ et obtenir&nbsp;:
 
   <p>
 
-  Le jeu de données <kbd>iris</kbd> contient les données du célèbre
-  jeu de données du même nom&nbsp;: chacune des données est dcérites
-  par ses 4 attributs longueur et largeur des pétales et des sépales
+  Le jeu de donnÃ©es <kbd>iris</kbd> contient les donnÃ©es du cÃ©lÃ¨bre
+  jeu de donnÃ©es du mÃªme nom&nbsp;: chacune des donnÃ©es est dcÃ©rites
+  par ses 4 attributs longueur et largeur des pÃ©tales et des sÃ©pales
   et par sa classe.
 
   </p>
 
   <ul>
     <li>Projetez les iris dans un plan (sans tenir compte de la
-      classe) avec les différents algorithmes rencontrés&nbsp;;</li> 
+      classe) avec les diffÃ©rents algorithmes rencontrÃ©s&nbsp;;</li> 
     <li>Colorez les points en fonction de leur classe&nbsp;;</li>
-    <li>les iris de même classe sont-ils projetés dans la même
-      région&nbsp;?</li>
-    <li>comment sont corrélés les axes du plan principal obtenu par une
+    <li>les iris de mÃªme classe sont-ils projetÃ©s dans la mÃªme
+      rÃ©gion&nbsp;?</li>
+    <li>comment sont corrÃ©lÃ©s les axes du plan principal obtenu par une
       ACP avec les attributs initiaux&nbsp;? Qu'en
       pensez-vous&nbsp;?</li>
   </ul>
