@@ -2,32 +2,32 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
 <head>
-  <title>Fouille de données, 
-    TP « visualisation de données (suite 3) »,
+  <title>Fouille de donnÃ©es, 
+    TP Â« visualisation de donnÃ©es (suite 3) Â»,
     master MIASHS
-    Université de Lille 3</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    UniversitÃ© de Lille 3</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" type="text/css"
-    href="https://philippe.preux.github.io/ma.css" 
+    href="https://philippe-preux.github.io/css/ma.css" 
     media="screen" />
 </head>
 
 <body vlink="#551A8B">
 
 <div class="titreDuModule">
-  Fouille de données <br/>
-  TP « visualisation de données (suite 3) »
+  Fouille de donnÃ©es <br/>
+  TP Â« visualisation de donnÃ©es (suite 3) Â»
 </div>
 <div class="formation">
-      Master <acronym title="Mathématiques et Informatique Appliqués aux Sciences Humaines et Sociales">MIASHS</acronym>, Tronc
+      Master <acronym title="MathÃ©matiques et Informatique AppliquÃ©s aux Sciences Humaines et Sociales">MIASHS</acronym>, Tronc
         commun<br/>
-      Université de Lille 3<br/>
+      UniversitÃ© de Lille 3<br/>
       Semestre 2
 </div>
 
 <ul>
   <li><a href="#objectif">Objectifs du TP</a></li>
-  <li><a href="#AFaire">À faire</a></li>
+  <li><a href="#AFaire">Ã€ faire</a></li>
 </ul>
 
 <a name="objectif"></a>
@@ -38,33 +38,33 @@
 <p>
 
 ggobi est capable d'effectuer une ACP. Comme on l'a vu en cours, une
-ACP n'est rien d'autres qu'une projection particulière du jeu de
-données. Celle-ci a la propriété d'être effectuée dans un repère
-orthogonal dans lequel les axes sont ordonnés et l'allongement (la
-variance) du jeu de données selon chacun des axes diminue en suivant
+ACP n'est rien d'autres qu'une projection particuliÃ¨re du jeu de
+donnÃ©es. Celle-ci a la propriÃ©tÃ© d'Ãªtre effectuÃ©e dans un repÃ¨re
+orthogonal dans lequel les axes sont ordonnÃ©s et l'allongement (la
+variance) du jeu de donnÃ©es selon chacun des axes diminue en suivant
 l'ordre sur les axes. On va donc voir ici comment calculer l'ACP et la
-représenter dans ggobi.
+reprÃ©senter dans ggobi.
 
 </p>
 
 <a name="AFaire"></a>
 <div class="section">
-  À faire
+  Ã€ faire
 </div>
 
 <p>
 
-On reprend le jeu de données vu en cours est rappelé dans le tableau
+On reprend le jeu de donnÃ©es vu en cours est rappelÃ© dans le tableau
 ci-dessous. Vous le mettrez dans un fichier xml pour pouvoir
 l'analyser avec ggobi (<i>cf.</i> <a href="./tp-ggobi3.html">le TP
-précédent</a>). Finalement, vous ouvrez ce fichier avec ggobi.
+prÃ©cÃ©dent</a>). Finalement, vous ouvrez ce fichier avec ggobi.
 
 </p>
 
 <center>
   <table border="1">
     <tr align="center">
-      <th>Individu</th><th>Poids</th><th>Taille</th><th>Âge</th><th>Note</th>
+      <th>Individu</th><th>Poids</th><th>Taille</th><th>Ã‚ge</th><th>Note</th>
     </tr>
     <tr align="center">
       <td>1</td><td>45</td><td>1,5</td><td>13</td><td>14</td>
@@ -101,9 +101,9 @@ précédent</a>). Finalement, vous ouvrez ce fichier avec ggobi.
 
 <p>
 
-Faire une ACP revient à décorréler les données de manière à ce que la
-matrice de covariance soit diagonale. Cette opération porte aussi le
-joli nom de <i>sphering</i> en anglais et est nommée ainsi dans
+Faire une ACP revient Ã  dÃ©corrÃ©ler les donnÃ©es de maniÃ¨re Ã  ce que la
+matrice de covariance soit diagonale. Cette opÃ©ration porte aussi le
+joli nom de <i>sphering</i> en anglais et est nommÃ©e ainsi dans
 ggobi. On pourra consulter les informations sur ce lien concernant le
 <a
 href="http://www.cis.hut.fi/aapo/papers/NCS99web/node38.html">sphering</a>
@@ -115,65 +115,53 @@ notes de cours sur le sujet</a>.
 <br/>
 <br/>
 
-Dans le menu «&nbsp;Tools&nbsp;», sélectionnez «&nbsp;Sphering
-...&nbsp;». Une fenêtre s'ouvre.
+Dans le menu Â«&nbsp;Tools&nbsp;Â», sÃ©lectionnez Â«&nbsp;Sphering
+...&nbsp;Â». Une fenÃªtre s'ouvre.
 
 <br/>
 <br/>
 
-En haut de cette fenêtre, vous trouvez la liste des
-attributs. Sélectionnez-les tous.
+En haut de cette fenÃªtre, vous trouvez la liste des
+attributs. SÃ©lectionnez-les tous.
 
 <br/>
 <br/>
 
-Dessous, vous trouvez un bouton indiquant «&nbsp;Use correlation
-matrix&nbsp;». Si vous ne cliquez pas sur ce bouton, les calculs sont
+Dessous, vous trouvez un bouton indiquant Â«&nbsp;Use correlation
+matrix&nbsp;Â». Si vous ne cliquez pas sur ce bouton, les calculs sont
 faits en utilisant la matrice de variance. Si vous cliquez dessus, ils
-sont faits en utilisant la matrice de corrélation.
+sont faits en utilisant la matrice de corrÃ©lation.
 
 <br/>
 
-Pour bien voir la différence, faire le petit calcul suivant. Calculez
-la covariance puis le coefficient de corrélation entre les attributs
-taille et poids pour les données ci-dessus. Maintenant, refaites ces
-deux calculs en considérant la taille en centimètres. Concluez.
+Pour bien voir la diffÃ©rence, faire le petit calcul suivant. Calculez
+la covariance puis le coefficient de corrÃ©lation entre les attributs
+taille et poids pour les donnÃ©es ci-dessus. Maintenant, refaites ces
+deux calculs en considÃ©rant la taille en centimÃ¨tres. Concluez.
 
 <br/>
 <br/>
 
-En cliquant sur le bouton «&nbsp;Update scree plot&nbsp;», on
-déclenche le calcul de l'ACP et se dessine le spectre des valeurs
+En cliquant sur le bouton Â«&nbsp;Update scree plot&nbsp;Â», on
+dÃ©clenche le calcul de l'ACP et se dessine le spectre des valeurs
 propres.
 
 <br/>
 <br/>
 
-Encore un clic un peu plus bas sur le bouton «&nbsp;Apply
-sphering&nbsp;», et les coordonnées des points sont calculées dans
+Encore un clic un peu plus bas sur le bouton Â«&nbsp;Apply
+sphering&nbsp;Â», et les coordonnÃ©es des points sont calculÃ©es dans
 l'espace factoriel.
 
 <br/>
 <br/>
 
-Vous constatez que des boutons ont été ajoutés dans la fenêtre de
-contrôle de ggobi. Ils sont étiquetés PC1, PC2, PC3 et PC4. PC signfie
+Vous constatez que des boutons ont Ã©tÃ© ajoutÃ©s dans la fenÃªtre de
+contrÃ´le de ggobi. Ils sont Ã©tiquetÃ©s PC1, PC2, PC3 et PC4. PC signfie
 <i>principal component</i>. Vous avez donc maintenant tous les
-éléments en main pour représenter le jeu de données dans le plan
+Ã©lÃ©ments en main pour reprÃ©senter le jeu de donnÃ©es dans le plan
 principal et dans tous les plans de l'espace factoriel, voire d'y
 faire un grand tour.
-
-</p>
-
-<p>
-
-<a href="http://validator.w3.org/check?uri=referer">
-   <img src="http://www.w3.org/Icons/valid-xhtml10"
-        alt="Valid XHTML 1.0!" height="31" width="88" /></a>
-<a href="http://jigsaw.w3.org/css-validator/">
-   <img style="border:0;width:88px;height:31px"
-        src="http://jigsaw.w3.org/css-validator/images/vcss" 
-        alt="Valid CSS!" /></a>
 
 </p>
 
