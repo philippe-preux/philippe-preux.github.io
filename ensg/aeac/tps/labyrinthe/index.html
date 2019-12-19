@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Laissez-moi sortir&nbsp;!</title>
+  <link href="https://philippe-preux.github.io/css/ma.css" rel="stylesheet" type="text/css" media="all" />
+  <link rel="shortcut icon" type="image/x-icon" 
+	href="https://philippe-preux.github.io/img/site.ico" />
+</head>
+
+<body>
+
+<div class="tpR">
+
+<!--p>
+
+Des éléments de correction de ce TP sont disponibles sur <a href="elts-de-correction.php">ce lien</a>.
+
+</p-->
+
+<h1>Laissez-moi sortir&nbsp;!</h1>
+
+<p>
+
+Vous allez réaliser une expérience. Celle-ci consiste à trouver la
+sortie d'un labyrinthe. Contrairement aux labyrinthes que vous
+survolez, vous allez être immergé dans le labyrinthe (enfin presque).
+
+<br/>
+
+Le but est de mesurer votre courbe d'apprentissage face à cette
+tâche&nbsp;: allez-vous trouver la sortie de plus en plus vite&nbsp;?
+
+<ul>
+  <li>Dans R, tapez la commande <kbd> source ("https://philippe-preux.github.io/ensg/aeac/tps/labyrinthe/laby.R")</kbd><br/>(Faites un copier/coller pour éviter les fautes de frappes.)</li>
+  <li>L'expérience est lancée&nbsp;; passez-là.</li>
+  <li>Un graphique apparaît ressemblant à celui-ci (ce n'est pas exactement celui-là, c'est normal)&nbsp;:
+    <br/>
+    <img src="./exemple.png" width="300" height="300"/>
+    <br/>
+    Vous vous trouvez dans la case rouge et vous pouvez vous déplacer dans l'une des cases bordées de vert en cliquant dans l'une des cases de direction.</li>
+  <li>Quand vous serez à côté de la sortie, vous verrez ceci&nbsp;:
+    <br/>
+    <img src="./sortie.png" width="300" height="300"/>
+    <br/>
+    Vous êtes dans la case rouge et la sortie et en magenta. Il vous reste 1 pas à faire dans la bonne direction. Faites-le.</li>
+  <li>Vous aurez alors la fenêtre suivante&nbsp;:
+    <br/>
+    <img src="./fin.png" width="300" height="300"/>
+    <br/>
+    Cliquez dans le rectangle gris comme demandé et on recommence.</li>
+  <li>Vous le refaites 20 fois.</li>
+</ul>
+
+<h2>Fichier de résultats</h2>
+
+<p>
+
+Le fichier <kbd>laby4....txt</kbd> contient une ligne par clic. Chaque ligne contient les informations suivantes&nbsp;:
+
+</p>
+
+<ul>
+  <li>le numéro de l'épisode (entre 1 et 20)</li>
+  <li>le numéro du clic/mouvement durant l'épisode</li>
+  <li>l'instant du clic</li>
+  <li>le nombre de secondes écoulées depuis le début de l'épisode</li>
+  <li>le numéro de la case dans laquelle on se trouve (un nombre entier)</li>
+  <li>le mouvement effectué (gauche = 1, droite = 2, haut = 3, bas = 4)</li>
+  <li>1 si la sortie est atteinte, 0 sinon</li>
+  <li>1 si l'épisode est terminé, 0 sinon</li>
+</ul>
+
+<h2>Analyse des résultats expérimentaux</h2>
+
+<p>
+
+Tous les éléments pour résoudre ces questions ont été vus précédemment.
+
+</p>
+
+<div class="exercice">
+
+<ul>
+  <li>Chargez le fichier de résultats dans un <i>data.frame</i> dénommé <kbd>resultats</kbd>. Les colonnes seront nommées respectivement&nbsp;: <kbd>episode</kbd>, <kbd>clic</kbd>, <kbd>instant</kbd>, <kbd>t</kbd>, <kbd>n</kbd>, <kbd>mvt</kbd>, <kbd>sortie</kbd>, <kbd>fin</kbd>.</li>
+  <li>Remarque&nbsp;: un épisode s'arrête soit parce que la sortie a été atteinte, soit parce que vous avez effectué 200 clics sans trouver la sortie. Quelle qu'en soit la raison, l'attribut <kbd>fin</kbd> indique si l'épisode est fini ou pas.</li>
+  <li>Sur les 20 épisodes, combien de fois avez-vous atteint la sortie&nbsp;?</li>
+  <li>Lors de quels épisodes n'avez-vous pas atteint la sortie&nbsp;?</li>
+  <li>Mettez dans un vecteur dénommé <kbd>nb.clics.pour.sortir</kbd> ce nombre de clics que vous avez effectués pour atteindre la sortie. Si la sortie n'a pas été atteinte, mettez <kbd>NA</kbd>.</li>
+  <li>En moyenne, en combien de clics avez-vous atteint la sortie&nbsp;?</li>
+  <li>Faites un graphique de ce nombre de clics pour sortir pour chaque épisode (l'épisode en abscisses, le nombre de clics en ordonnées&nbsp;; si <kbd>NA</kbd>, ne mettez-rien).</li>
+  <li>Observez-vous une tendance&nbsp;? Ce nombre de clics pour atteindre la sortie semble-t-il diminuer au fil des épisodes&nbsp;?</li>
+  <li>Ajoutez à votre graphique une ligne horizontale indiquant la moyenne et ajoutez une ligne en pointillés à - 1 écart-type et + 1 écart-type.</li>
+  <li>Ajoutez-y aussi une ligne un peu plus épaisse qui représente la médiane.</li>
+</ul>
+
+<p>
+
+Durée des épisodes&nbsp;:
+
+</p>
+
+<ul>
+  <li>Mettez dans un vecteur dénommé <kbd>duree.des.episodes</kbd> le temps (en secondes) qu'a duré chacun des épisodes.</li>
+  <li>Y a-t-il une corrélation linéaire entre la durée d'un épisode et le nombre de clics pendant l'épisode&nbsp;?</li>
+  <li>Faites un plot de la durée d'un épisode en fonction du nombre de clics pendant l'épisode. Cela confirme-t-il votre réponse à la question précédente&nbsp;?</li>
+  <li>Pour cette question et la suivante, on ne s'intéresse qu'aux épisodes au cours desquels vous avez atteint la sortie. Mettez dans un vecteur dénommé <kbd>duree.episodes.ayant.atteint.la.sortie</kbd> la durée de l'épisode.</li>
+  <li>Cette durée a-t-elle tendance à diminuer&nbsp;?</li>
+</ul>
+
+<p>
+
+Temps d'émission d'un comportement&nbsp;:
+
+</p>
+
+<ul>
+  <li>Mettre dans un vecteur dénommé <kbd>tec</kbd> (tec pour «&nbsp;Temps d'Émission d'un Comportement&nbsp;») le temps d'émission de chacun des comportements que vous avez émis.</li>
+  <li>Quel est le temps moyen d'émission d'un comportement&nbsp;? Son écart-type&nbsp;?</li>
+  <li>Faites un histogramme de ces temps (utiliser la commande <kbd>hist</kbd> en faisant un nombre suffisant de paquets pour voir quelque chose).</li>
+  <li>Cet histogramme a-t-il une forme caractéristique&nbsp;? La distribution semble-t-elle normale&nbsp;? ...</li>
+  <li>Les valeurs composant l'histogramme peuvent être mises dans un objet pour pouvoir ensuite les manipuler. 
+    <br/>
+    Ainsi, précédemment, vous avez tapé quelque chose comme&nbsp;:
+<pre>
+hist (tec)
+</pre>
+    Vous pouvez aussi taper&nbsp;:
+<pre>
+tec.hist <- hist (tec)
+</pre>
+    qui met dans l'objet <kbd>tec.hist</kbd> un ensemble d'informations, parmi lesquelles&nbsp;:
+    <ul>
+      <li><kbd>tec.hist$breaks</kbd> contient la valeur minimale de chaque intervalle</li>
+      <li><kbd>tec.hist$mids</kbd> contient la valeur au milieu de chaque intervalle</li>
+      <li><kbd>tec.hist$counts</kbd> contient le nombre de valeurs situées dans cet intervalle</li>
+      <li><kbd>tec.hist$density</kbd> contient la proportion de valeurs situées dans cet intervalle (autrement dit, <kbd>tec.hist$counts / length (tec)</kbd>).</li>
+    </ul>
+    (notez la notation avec un <kbd>$</kbd>&nbsp;; <kbd>breaks</kbd>, <kbd>mids</kbd>, ... se nomment des attributs de l'objet <kbd>tec.hist</kbd>).
+    <br/></li>
+    <li>Si vous faites&nbsp;:
+<pre>
+  plot (tec.hist$mids, tec.hist$counts)
+</pre>
+    vous retrouvez l'histogramme (encore mieux si vous ajoutez <kbd>type = "h"</kbd> dans le plot).</li>
+  <li>Faites un plot du logarithme de l'attribut <kbd>counts</kbd> en fonction du logarithme de l'attribut <kbd>mids</kbd>.</li>
+  <li>Vraisemblablement, la plupart des points sont maintenant alignés. 
+    <br/>
+    Une distribution de valeurs qui a cette allure est dite en <a href="http://fr.wikipedia.org/wiki/Loi_de_puissance"><i>loi de puissance</i></a> (du moins, si on veut parler plus précisèment, on peut suspecter une loi de puissance&nbsp;; il faudrait faire des tests statistiques pour s'en assurer avec une certaine confiance).</li>
+  <li>Calculer le coefficient de corrélation linéaire entre les logarithmes de ces deux attributs. Conclure. (Attention, le log de 0 est moins l'infini&nbsp;: il faut éliminer ces valeurs pour pouvoir calculer la corrélation avec <kbd>cor()</kbd>).</li>
+</ul>
+
+<ul>
+  <li>Déterminer s'il y a des actions qui prennent significativement plus de temps à être émises que les autres. Ces actions sont-elles particulières&nbsp;? Sont-elles émises dans des zones particulières du labyrinthe&nbsp;? Durant la tâche&nbsp;? Durant certains épisodes&nbsp;? ...
+  <br/>
+  Pour vous aider, je vous dévoile le <a href="laby4.html">plan du labyrinthe</a>.</li>
+</ul>
+
+<p>
+
+Divers&nbsp;:
+
+</p>
+
+<ul>
+  <li>Créer une matrice dénommée <kbd>décomptes.des.mvt</kbd> ayant le nombre de lignes et de colonnes adéquat pour répondre à la question qui suit. Dans cette matrice, vous mettez le nombre de clics sur chacun des mouvements pour chacun des épisodes. Autrement dit, la ligne i de la matrice contient le nombre de mouvements 1 (à gauche) dans la colonne 1, ... le nombre de mouvements 4 (vers le bas) dans la colonne 4.</li>
+  <li>Créer une matrice dénommée <kbd>nb.visites</kbd> ayant autant de lignes que d'épisodes et autant de colonnes que de cases. Remplissez-la avec le nombre de visites à une case donnée lors de chacun des épisodes.</li>
+</ul>
+
+<ul>
+  <li>Pour chaque épisode, déterminez le nombre de cases que vous avez visitées durant l'épisode. Mettez cette information dans un vecteur dénommé <kbd>nb.cases.visitées</kbd></li>
+  <li>Faites un plot des valeurs de ce vecteur.</li>
+  <li>Observez-vous une tendance&nbsp;?</li>
+</ul>
+
+<ul>
+  <li>Le vecteur <kbd>distance.a.la.sortie</kbd> contient le nombre de clics à effectuer pour atteindre la sortie par le chemin le plus court à partir d'une case spécifiée par son numéro. Faites un plot représentant cette distance à chaque clic de chaque épisode.</li>
+  <li>Faites le plot représentant la distance en fonction du temps écoulé depuis le début de l'épisode.</li>
+  <li>Pour chaque épisode, comptez le nombre de clics qui vous ont éloigné de la sortie. Mettez ces décomptes dans un vecteur dénommé <kbd>nb.clics.qui.eloignent</kbd>.</li>
+  <li>Faites un plot des valeurs de ce vecteur.</li>
+  <li>Observez-vous une tendance&nbsp;?</li>
+  <li>Ce nombre de clics qui éloignent est-il corrélé au nombre de clics effectués durant chacun des épisodes&nbsp;?</li>
+  <li>Pour chaque épisode, déterminez la proportion d'actions qui ont été optimales (c'est-à-dire, les actions vous ont rapproché de la sortie). Mettez ces proportions dans un vecteur dénommé <kbd>proportion.actions.optimales</kbd></li>
+  <li>Faites un plot des valeurs de ce vecteur.</li>
+  <li>Observez-vous une tendance&nbsp;?</li>
+</ul>
+
+</div>
+</div>
+
+</body>
+</html>
