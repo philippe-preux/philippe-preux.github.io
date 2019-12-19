@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+  <title>Le problème d'assignement du crédit (suite)</title>
+  <link href="./ma.css" 
+	rel="stylesheet" type="text/css" media="all" />
+</head>
+
+<body>
+
+<div class="tpR">
+
+<h1>Le problème d'assignement du crédit (suite)</h1>
+
+<p>
+
+On s'intéresse au même problème que précédemment. Cependant,
+l'expérience est maintenant réalisée en donnant beaucoup moins
+d'information au joueur. On va réaliser la même expérience que
+précédemment dans deux contextes différents. Le but des manipulations
+est ensuite de comparer vos performances.
+
+</p>
+
+<h2>Expériences</h2>
+
+<h3>Contexte 1</h3>
+
+<p>
+
+L'interface indique maintenant seulement les succès. Elle a l'aspect suivant&nbsp;:
+
+</p>
+
+<img src = "./interface.success-info.png" />
+
+<p>
+
+Les barres vertes indiquent les succès. Vous avez également le nombre de succès total obtenu durant l'épreuve courante. La somme des hauteurs des barres vertes égale ce nombre de succès.
+
+<br/>
+<br/>
+
+Réalisez l'expérience. Pour cela, dans R, tapez la commande&nbsp;: <kbd>source  ("http://www.grappa.univ-lille3.fr/~ppreux/ensg/aeac/tps/bandits/4bras.Steyvers-et-al.success-info.R")</kbd>
+
+</p>
+
+<h3>Contexte 2</h3>
+
+<p>
+
+L'interface a maintenant l'aspect suivant&nbsp;:
+
+</p>
+
+<img src = "./interface.almost-no-info.png" />
+
+<p>
+
+Seul le nombre de succès total obtenu durant l'épreuve courante est indiqué.
+
+<br/>
+<br/>
+
+Réalisez l'expérience. Pour cela, dans R, tapez la commande&nbsp;: <kbd>source  ("http://www.grappa.univ-lille3.fr/~ppreux/ensg/aeac/tps/bandits/4bras.Steyvers-et-al.almost-no-info.R")</kbd>
+
+<br/>
+<br/>
+
+Il est intéressant de refaire la toute première expérience également pour voir si votre performance a changé.
+
+</p>
+
+<h2>Analyse des résultats expérimentaux</h2>
+
+<p>
+
+La première de ces 2 expériences a créée un fichier dénommé <kbd>4bS.res.xxx.yyy.FALSE.TRUE.TRUE.txt</kbd>, la seconde un fichier dénommé <kbd>4bS.res.xxx.yyy.FALSE.FALSE.TRUE.txt</kbd>.
+
+<br/>
+
+Merci de m'envoyer ces deux fichiers par email.
+
+<br/>
+<br/>
+
+Ces deux fichiers ainsi que le fichier dénommé <kbd>4bS.res.xxx.yyy.txt</kbd> créé lors de la première expérience ont exactement la même structure&nbsp;; de plus, pour pouvoir comparer les résultats entre les 3 expériences, les probabilités de succès sont les mêmes&nbsp;; seule l'interface a changé, vous donnant de moins en moins d'information. On peut donc comparer le nombre de succès à chaque jeu et à chaque essai.
+
+</p>
+
+<ul>
+  <li>les probabilités de succès étant les mêmes lors des 3 expériences, quels facteurs peuvent influencer votre performance&nbsp;?</li>
+</ul>
+
+<p>
+
+Il est tentant de comparer vos performances entre ces 3 expériences. Vous pouvez charger les deux nouveaux fichiers dans deux <i>data.frame</i> pour pouvoir les analyser dans R et les comparer.
+
+</p>
+
+<ul>
+  <li>Vous comparerez vos performances entre ces 3 expériences. Réflêchissez comment faire. Vous pourrez comparer le nombre de succès moyen (et l'écart-type) obtenu lors de chacune des expériences. Vous pourrez également déterminer s'il y a un écart de performance systématique entre les différentes expériences.</li>
+</ul>
+
+</body>
+</html>

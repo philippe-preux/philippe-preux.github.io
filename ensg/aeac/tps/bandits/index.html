@@ -4,7 +4,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>Le problème d'assignement du crédit (avec des éléments de corrections)</title>
+  <title>Le problÃÂ¨me d'assignement du crÃÂ©dit (avec des ÃÂ©lÃÂ©ments de corrections)</title>
   <link href="https://philippe-preux.github.io/css/ma.css" 
 	rel="stylesheet" type="text/css" media="all" />
 </head>
@@ -13,18 +13,18 @@
 
 <div class="tpR">
 
-<h1>Le problème d'assignement du crédit</h1>
+<h1>Le problÃÂ¨me d'assignement du crÃÂ©dit</h1>
 
-<h2>Face à une bande de bandits</h2>
+<h2>Face ÃÂ  une bande de bandits</h2>
 
 <table>
 <td>
-Vous allez réaliser une expérience de bandits à 4 bras. Pour cela&nbsp;:
+Vous allez rÃÂ©aliser une expÃÂ©rience de bandits ÃÂ  4 bras. Pour cela&nbsp;:
 
 <ul>
   <li>lancer R (si vous ne savez plus comment on fait, <a href="../decouverte-R/lancerQuitterR.html">cliquez ici</a>).</li>
-  <li>Dans R, tapez la commande <kbd> source ("https://philippe-preux.github.io/ensg/aeac/tps/bandits/4bras.Steyvers-et-al.R")</kbd><br/>(Faites un copier/coller pour éviter les fautes de frappes.)</li>
-  <li>L'expérience est lancée&nbsp;; passez-là.</li>
+  <li>Dans R, tapez la commande <kbd> source ("https://philippe-preux.github.io/ensg/aeac/tps/bandits/4bras.Steyvers-et-al.R")</kbd><br/>(Faites un copier/coller pour ÃÂ©viter les fautes de frappes.)</li>
+  <li>L'expÃÂ©rience est lancÃÂ©e&nbsp;; passez-lÃÂ .</li>
 </ul>
 </td>
 <td>
@@ -34,31 +34,31 @@ Vous allez réaliser une expérience de bandits à 4 bras. Pour cela&nbsp;:
 </td>
 </table>
 
-<h2>Étude de vos données expérimentales</h2>
+<h2>ÃÂtude de vos donnÃÂ©es expÃÂ©rimentales</h2>
 
-<h3>Chargement des données et quelques graphiques simples</h3>
+<h3>Chargement des donnÃÂ©es et quelques graphiques simples</h3>
 
 <p>
 
-Durant l'expérience, un certain nombre d'informations ont été
-enregistrées à chaque clic. Elles sont dans le fichier
-dénommé <kbd>4bS.res.xxx.yyy.txt</kbd> où <kbd>xxx</kbd>
+Durant l'expÃÂ©rience, un certain nombre d'informations ont ÃÂ©tÃÂ©
+enregistrÃÂ©es ÃÂ  chaque clic. Elles sont dans le fichier
+dÃÂ©nommÃÂ© <kbd>4bS.res.xxx.yyy.txt</kbd> oÃÂ¹ <kbd>xxx</kbd>
 et <kbd>yyy</kbd> vous identifie ainsi que votre machine. Cette
-identification a pour seul but de pouvoir différencier les fichiers
+identification a pour seul but de pouvoir diffÃÂ©rencier les fichiers
 les uns des autres.
 
 <br/>
 <br/>
 
-Pour les manipulations ci-dessous, celles que nous avons déjà
-rencontrées ne sont pas expliquées. Si vous avez oublié comment faire,
-allez consulter le TP de <a href="../decouverte-R/">découverte de
+Pour les manipulations ci-dessous, celles que nous avons dÃÂ©jÃÂ 
+rencontrÃÂ©es ne sont pas expliquÃÂ©es. Si vous avez oubliÃÂ© comment faire,
+allez consulter le TP de <a href="../decouverte-R/">dÃÂ©couverte de
 R</a>.
 
 </p>
 
 <ul>
-  <li>On va charger ce fichier dans R à l'aide de la
+  <li>On va charger ce fichier dans R ÃÂ  l'aide de la
     fonction <kbd>read.table()</kbd>. Afin de rendre les manipulations
     qui vont suivre plus simples, on donne un nom aux attributs qui
     correspondent aux colonnes du fichier. Aussi, vous taperez une
@@ -69,26 +69,26 @@ R</a>.
 </pre>
     Bien entendu, vous mettez le nom de fichier correct.
   </li>
-  <li>On peut jeter un coup d'&oelig;il aux premières données en tapant <kbd>head (donnees)</kbd>.
+  <li>On peut jeter un coup d'&oelig;il aux premiÃÂ¨res donnÃÂ©es en tapant <kbd>head (donnees)</kbd>.
     <br/>
-    La première ligne indique le nom des attributs/colonnes et en dessous sont indiquées les 6 premières données.
+    La premiÃÂ¨re ligne indique le nom des attributs/colonnes et en dessous sont indiquÃÂ©es les 6 premiÃÂ¨res donnÃÂ©es.
     <br/>
-    Quand on donne un nom aux attributs, on peut ensuite accéder à la valeur d'un attribut soit en spécifiant son numéro de colonne (<i>cf.</i> TP de découverte), soit en spécifiant son nom&nbsp;:
+    Quand on donne un nom aux attributs, on peut ensuite accÃÂ©der ÃÂ  la valeur d'un attribut soit en spÃÂ©cifiant son numÃÂ©ro de colonne (<i>cf.</i> TP de dÃÂ©couverte), soit en spÃÂ©cifiant son nom&nbsp;:
       <ul>
-        <li><kbd>donnees [1, 7]</kbd> et <kbd>donnees$r [1]</kbd> spécifient la même information&nbsp;: la valeur de l'attribut <kbd>r</kbd> de la 1<sup>ère</sup> donnée. L'attribut <kbd>r</kbd> est en 7<sup>è</sup> colonne.</li>
+        <li><kbd>donnees [1, 7]</kbd> et <kbd>donnees$r [1]</kbd> spÃÂ©cifient la mÃÂªme information&nbsp;: la valeur de l'attribut <kbd>r</kbd> de la 1<sup>ÃÂ¨re</sup> donnÃÂ©e. L'attribut <kbd>r</kbd> est en 7<sup>ÃÂ¨</sup> colonne.</li>
       </ul>
-    L'époque indique l'instant du clic&nbsp;: c'est un nombre de secondes. Ce qui compte ici est l'écart entre deux lignes successives&nbsp;; c'est le temps qui s'est écoulé entre deux clics. Ce temps écoulé entre un clic et le suivant est dans la colonne 4, attribut dénommé <kbd>delta.t</kbd>.
+    L'ÃÂ©poque indique l'instant du clic&nbsp;: c'est un nombre de secondes. Ce qui compte ici est l'ÃÂ©cart entre deux lignes successives&nbsp;; c'est le temps qui s'est ÃÂ©coulÃÂ© entre deux clics. Ce temps ÃÂ©coulÃÂ© entre un clic et le suivant est dans la colonne 4, attribut dÃÂ©nommÃÂ© <kbd>delta.t</kbd>.
   </li><br/>
-  <li>Faites un graphique représentant ce temps écoulé entre deux clics. Constatez-vous quelque chose&nbsp;?
+  <li>Faites un graphique reprÃÂ©sentant ce temps ÃÂ©coulÃÂ© entre deux clics. Constatez-vous quelque chose&nbsp;?
   </li>
   <li>Il est possible que vous voyiez des points anormaux. Si c'est le cas, analysez-les pour comprendre leur origine.</li>
-  <li>Utilisez la fonction <kbd>cor()</kbd> pour calculer la corrélation entre cet intervalle de temps entre deux clics et le retour obtenu. Ces deux attributs sont-ils corrélés (linéairement) pour vous&nbsp;?
+  <li>Utilisez la fonction <kbd>cor()</kbd> pour calculer la corrÃÂ©lation entre cet intervalle de temps entre deux clics et le retour obtenu. Ces deux attributs sont-ils corrÃÂ©lÃÂ©s (linÃÂ©airement) pour vous&nbsp;?
   </li><br/>
   <li>Faites un graphique de l'attribut <kbd>r.cumule</kbd>. Constatez-vous quelque chose&nbsp;?
   </li>
   <li>Faites un graphique de l'attribut <kbd>r.cumule</kbd> en fonction de l'attribut <kbd>epoque</kbd>. Constatez-vous quelque chose&nbsp;?
   </li>
-  <li>Dans ce graphique, faites en sorte que le nombre de secondes depuis le début de l'expérience soit affiché sur l'axe des x. Constatez-vous quelque chose&nbsp;?
+  <li>Dans ce graphique, faites en sorte que le nombre de secondes depuis le dÃÂ©but de l'expÃÂ©rience soit affichÃÂ© sur l'axe des x. Constatez-vous quelque chose&nbsp;?
   </li>
   <li>Faites un graphique de l'attribut <kbd>r.cumule</kbd> en fonction de l'attribut <kbd>delta.t</kbd>. Constatez-vous quelque chose&nbsp;?
   </li>
@@ -96,44 +96,44 @@ R</a>.
   </li>
 </ul>
 
-<h3>Sélection d'éléments dans un data.frame</h3>
+<h3>SÃÂ©lection d'ÃÂ©lÃÂ©ments dans un data.frame</h3>
 
 <p>
 
-On peut facilement sélectionner des données répondant à un certain critère. Ainsi&nbsp;:
+On peut facilement sÃÂ©lectionner des donnÃÂ©es rÃÂ©pondant ÃÂ  un certain critÃÂ¨re. Ainsi&nbsp;:
 
 <ul>
-  <li>si l'on veut uniquement les données du jeu numéro 4, on tapera la commande <kbd>donnees [donnees$jeu == 4,]</kbd>.</li>
-  <li>Si l'on veut les données des jeux 4 à 7&nbsp;: <kbd>donnees [donnees$jeu %in% (4:7),]</kbd>.</li>
+  <li>si l'on veut uniquement les donnÃÂ©es du jeu numÃÂ©ro 4, on tapera la commande <kbd>donnees [donnees$jeu == 4,]</kbd>.</li>
+  <li>Si l'on veut les donnÃÂ©es des jeux 4 ÃÂ  7&nbsp;: <kbd>donnees [donnees$jeu %in% (4:7),]</kbd>.</li>
 </ul>
 
 <p>
 
 Notez bien la virgule avant le crochet fermant <kbd>,]</kbd> qui
-reprend la syntaxe vue la fois précédente&nbsp <kbd>[ ligne(s),
+reprend la syntaxe vue la fois prÃÂ©cÃÂ©dente&nbsp <kbd>[ ligne(s),
 colonne(s) ]</kbd>.
 
 <br/>
 
-Notez bien également l'opérateur <kbd>==</kbd> pour tester l'égalité
-entre deux objets. De même, on a <kbd>!=</kbd> pour
-différent, <kbd>&lt;</kbd>, <kbd>&lt;=</kbd>, <kbd>&gt;</kbd>
+Notez bien ÃÂ©galement l'opÃÂ©rateur <kbd>==</kbd> pour tester l'ÃÂ©galitÃÂ©
+entre deux objets. De mÃÂªme, on a <kbd>!=</kbd> pour
+diffÃÂ©rent, <kbd>&lt;</kbd>, <kbd>&lt;=</kbd>, <kbd>&gt;</kbd>
 et <kbd>&gt;=</kbd>.
 
 </p>
 
 <ul>
-  <li>Affichez le nombre de retours cumulés obtenus à l'issue de chaque jeu (autrement dit, à chaque fois que l'attribut <kbd>essai</kbd> est égal à 20).</li>
-  <li>Mettez-le dans une variable dénommée <kbd>retours.cumules.finaux</kbd></li>
+  <li>Affichez le nombre de retours cumulÃÂ©s obtenus ÃÂ  l'issue de chaque jeu (autrement dit, ÃÂ  chaque fois que l'attribut <kbd>essai</kbd> est ÃÂ©gal ÃÂ  20).</li>
+  <li>Mettez-le dans une variable dÃÂ©nommÃÂ©e <kbd>retours.cumules.finaux</kbd></li>
   <li>Faites-en un <kbd>plot</kbd>. Voyez-vous une tendance&nbsp;?</li>
   <li>Faites-en un histogramme en utilisant la fonction <kbd>hist()</kbd>.</li>
-  <li>Pour chaque choix, comptez le nombre de succès obtenus sur l'ensemble des jeux. L'attribut choix vaut 1, 2, 3 ou 4, selon l'endroit où vous avez cliqué.</li>
+  <li>Pour chaque choix, comptez le nombre de succÃÂ¨s obtenus sur l'ensemble des jeux. L'attribut choix vaut 1, 2, 3 ou 4, selon l'endroit oÃÂ¹ vous avez cliquÃÂ©.</li>
 </ul>
 
 <p>
 
-On peut combiner plusieurs conditions. Ainsi, pour sélectionner les
-données du jeu numéro 2 pour lesquels il y a eu un succès, on
+On peut combiner plusieurs conditions. Ainsi, pour sÃÂ©lectionner les
+donnÃÂ©es du jeu numÃÂ©ro 2 pour lesquels il y a eu un succÃÂ¨s, on
 tapera&nbsp;:
 
 </p>
@@ -143,15 +143,15 @@ tapera&nbsp;:
 
 <p>
 
-L'opérateur <kbd>&</kbd> dénote le et-logique. Notez les parenthèses
+L'opÃÂ©rateur <kbd>&</kbd> dÃÂ©note le et-logique. Notez les parenthÃÂ¨ses
 autour de chaque condition.
 
 </p>
 
 <ul>
-  <li>Pour chaque choix, comptez le nombre de succès obtenus durant le jeu 1. L'attribut <kbd>choix</kbd> vaut 1, 2, 3 ou 4, selon l'endroit où vous avez cliqué.</li>
-  <li>Même question sur le jeu 20.</li>
-  <li>Même question sur le jeu 1 à 5, 6 à 10, 11 à 15 et 16 à 20.</li>
+  <li>Pour chaque choix, comptez le nombre de succÃÂ¨s obtenus durant le jeu 1. L'attribut <kbd>choix</kbd> vaut 1, 2, 3 ou 4, selon l'endroit oÃÂ¹ vous avez cliquÃÂ©.</li>
+  <li>MÃÂªme question sur le jeu 20.</li>
+  <li>MÃÂªme question sur le jeu 1 ÃÂ  5, 6 ÃÂ  10, 11 ÃÂ  15 et 16 ÃÂ  20.</li>
   <li>Durant quel jeu avez-vous obtenu un score (<kbd>r.cumule</kbd>)
     maximum/minium&nbsp;?</li>
   <li>Quel est ce score&nbsp;?</li>
@@ -164,13 +164,13 @@ et <kbd>max ()</kbd>. Sachez aussi qu'il existe les
 fonctions <kbd>which.min ()</kbd> et <kbd>which.max ()</kbD>.
 </p>
 
-<h3>Répéter plusieurs fois le même traitement&nbsp;: la boucle</h3>
+<h3>RÃÂ©pÃÂ©ter plusieurs fois le mÃÂªme traitement&nbsp;: la boucle</h3>
 
-<h4>Introduction à la notion de boucle</h4>
+<h4>Introduction ÃÂ  la notion de boucle</h4>
 
 <p>
 
-Si on veut avoir les décomptes des succès pour chaque choix pour
+Si on veut avoir les dÃÂ©comptes des succÃÂ¨s pour chaque choix pour
 chaque jeu, on va devoir taper beaucoup de choses. On peut faire
 beaucoup plus simple en utilisant une <i>boucle</i>&nbsp;; pour
 commencer, tapez ce qui suit&nbsp;:
@@ -184,30 +184,30 @@ commencer, tapez ce qui suit&nbsp;:
 
 <p>
 
-vous obtenez l'affichage des nombres de 1 à 10. Expliquons ce qui
+vous obtenez l'affichage des nombres de 1 ÃÂ  10. Expliquons ce qui
 vient de se passer&nbsp;:
 
 </p>
 
 <ul>
-  <li><kbd>for (i in 1:10)</kbd> signifie&nbsp;: pour les valeurs de la variable <kbd>i</kbd> variant de 1 à 10&nbsp;: c'est-à-dire, <kbd>i</kbd> va successivement prendre les valeurs 1, 2, 3, ... jusque 10.</li>
+  <li><kbd>for (i in 1:10)</kbd> signifie&nbsp;: pour les valeurs de la variable <kbd>i</kbd> variant de 1 ÃÂ  10&nbsp;: c'est-ÃÂ -dire, <kbd>i</kbd> va successivement prendre les valeurs 1, 2, 3, ... jusque 10.</li>
   <li>effectuer pour chacune de ces valeurs les instructions qui se trouvent entre les <kbd>{</kbd> <kbd>}</kbd></li>
-  <li>ici, il y a une instruction qui affiche la valeur de <kbd>i</kbd>. On aurait pu effectuer d'autres traitements plus intéressants.
+  <li>ici, il y a une instruction qui affiche la valeur de <kbd>i</kbd>. On aurait pu effectuer d'autres traitements plus intÃÂ©ressants.
 </ul>
 
-<h4>Le nombre de clics sur un choix est-il corrélé à la probabilité de succès associée à ce choix&nbsp;?</h4>
+<h4>Le nombre de clics sur un choix est-il corrÃÂ©lÃÂ© ÃÂ  la probabilitÃÂ© de succÃÂ¨s associÃÂ©e ÃÂ  ce choix&nbsp;?</h4>
 
 <p>
 
 Avec cette notion de boucle, vous pouvez maintenant afficher le nombre
-de clics sur chaque choix à chaque jeu.
+de clics sur chaque choix ÃÂ  chaque jeu.
 
 <br/>
 
-Pour manipuler aisément ces décomptes, il faut les placer dans une
+Pour manipuler aisÃÂ©ment ces dÃÂ©comptes, il faut les placer dans une
 matrice. Cette matrice stockera pour chaque jeu et chaque choix le
 nombre de clics. Cette matrice a donc 20 lignes (une par jeu) et 4
-colonnes (une par choix). Pour créer cette matrice, on tapera&nbsp;:
+colonnes (une par choix). Pour crÃÂ©er cette matrice, on tapera&nbsp;:
 
 </p>
 
@@ -216,14 +216,14 @@ colonnes (une par choix). Pour créer cette matrice, on tapera&nbsp;:
 
 <p>
 
-Les éléments d'une matrice sont accédés comme ceux d'un data.frame,
+Les ÃÂ©lÃÂ©ments d'une matrice sont accÃÂ©dÃÂ©s comme ceux d'un data.frame,
 par la notation <kbd>[ ligne, colonne ]</kbd>.
 
 <br/>
 
-On peut aussi affecter tous les éléments d'une colonne à la
+On peut aussi affecter tous les ÃÂ©lÃÂ©ments d'une colonne ÃÂ  la
 fois&nbsp;: par exemple, <kbd>decomptes.tirages [2, ] <- c (2, 8, 3,
-1)</kbd> affecte tous les éléments de la 2<sup>è</sup> ligne de la
+1)</kbd> affecte tous les ÃÂ©lÃÂ©ments de la 2<sup>ÃÂ¨</sup> ligne de la
 matrice.
 <!--
 pourquoi ce qui suit ne s'affiche-t-il pas ?
@@ -231,20 +231,20 @@ pourquoi ce qui suit ne s'affiche-t-il pas ?
 
 <br/>
 
-On veut étudier la question suivante&nbsp;: a-t-on tendance à cliquer
+On veut ÃÂ©tudier la question suivante&nbsp;: a-t-on tendance ÃÂ  cliquer
 de plus en plus, voire exclusivement, sur le meilleur choix au fil des
-essais d'un jeu&nbsp;? On a envie que la réponse à cette question soit
-plutôt positive.
+essais d'un jeu&nbsp;? On a envie que la rÃÂ©ponse ÃÂ  cette question soit
+plutÃÂ´t positive.
 
 <br/>
 
-Faisons un graphique des décomptes calculés ci-dessus. Cela donne
-quelque chose ressemblant à la figure de gauche ci-dessous. Faites
+Faisons un graphique des dÃÂ©comptes calculÃÂ©s ci-dessus. Cela donne
+quelque chose ressemblant ÃÂ  la figure de gauche ci-dessous. Faites
 cette figure avant de continuer. 
 
 <br/>
 
-Les fonctions <kbd>which()</kbd> et <kbd>length()</kbd> peuvent être utiles...
+Les fonctions <kbd>which()</kbd> et <kbd>length()</kbd> peuvent ÃÂªtre utiles...
 
 </p>
 
@@ -255,27 +255,27 @@ Les fonctions <kbd>which()</kbd> et <kbd>length()</kbd> peuvent être utiles...
 <p>
 
 <!--
-    afficher nombre de renforçateurs sur jeu 3, choix 4
+    afficher nombre de renforÃÂ§ateurs sur jeu 3, choix 4
     j <- 13
     c <- 2
-    afficher nombre de renforçateurs sur jeu j, choix c
-    afficher nombre de renforçateurs sur jeu j, tous les choix
-    stocker dans la matrice le nombre de renforçateurs sur jeu j, tous les choix
-    stocker dans la matrice le nombre de renforçateurs tous les jeux, tous les choix
+    afficher nombre de renforÃÂ§ateurs sur jeu j, choix c
+    afficher nombre de renforÃÂ§ateurs sur jeu j, tous les choix
+    stocker dans la matrice le nombre de renforÃÂ§ateurs sur jeu j, tous les choix
+    stocker dans la matrice le nombre de renforÃÂ§ateurs tous les jeux, tous les choix
  -->
 
-On ne voit pas grand chose sur ce graphique. Le fait qu'à chaque jeu,
-la probabilité de succès de chaque choix change fait que représenter
-le nombre de clics sur chaque choix n'éclaire pas la question que nous
+On ne voit pas grand chose sur ce graphique. Le fait qu'ÃÂ  chaque jeu,
+la probabilitÃÂ© de succÃÂ¨s de chaque choix change fait que reprÃÂ©senter
+le nombre de clics sur chaque choix n'ÃÂ©claire pas la question que nous
 nous posons.
 
 <br/>
 
 Pour que la figure soit informative, il faudrait que le choix 1 soit
 toujours le plus mauvais, ... le choix 4 toujours le meilleur. Si
-l'expérience n'a pas été menée ainsi pour des raisons évidentes, rien
-ne nous empêche de re-numéroter les choix à chaque jeu pour que les
-choix soient numérotées de cette manière. Comment faire&nbsp;?
+l'expÃÂ©rience n'a pas ÃÂ©tÃÂ© menÃÂ©e ainsi pour des raisons ÃÂ©videntes, rien
+ne nous empÃÂªche de re-numÃÂ©roter les choix ÃÂ  chaque jeu pour que les
+choix soient numÃÂ©rotÃÂ©es de cette maniÃÂ¨re. Comment faire&nbsp;?
 
 <br/>
 
@@ -319,18 +319,18 @@ $ix
 
 <p>
 
-Cette notation indique que le résultat est un objet ayant deux attributs&nbsp;:
+Cette notation indique que le rÃÂ©sultat est un objet ayant deux attributs&nbsp;:
 
 </p>
 
 <ul>
-  <li>l'attribut <kbd>x</kbd> qui est un vecteur des nombres triés&nbsp;;</li>
-  <li>l'attribut <kbd>ix</kbd> qui est un vecteur indiquant l'indice d'origine de chaque nombre, avant le tri&nbsp;: 0,05 était en 3<sup>è</sup> position avant le tri, 0,2 en 1<sup>ère</sup>, ...</li>
+  <li>l'attribut <kbd>x</kbd> qui est un vecteur des nombres triÃÂ©s&nbsp;;</li>
+  <li>l'attribut <kbd>ix</kbd> qui est un vecteur indiquant l'indice d'origine de chaque nombre, avant le tri&nbsp;: 0,05 ÃÂ©tait en 3<sup>ÃÂ¨</sup> position avant le tri, 0,2 en 1<sup>ÃÂ¨re</sup>, ...</li>
 </ul>
 
 <p>
 
-Si vous mettez le résultat dans un objet comme suit&nbsp;:
+Si vous mettez le rÃÂ©sultat dans un objet comme suit&nbsp;:
 
 </p>
 
@@ -339,7 +339,7 @@ Si vous mettez le résultat dans un objet comme suit&nbsp;:
 
 <p>
 
-vous pouvez ensuite accéder à ces deux informations
+vous pouvez ensuite accÃÂ©der ÃÂ  ces deux informations
 par <kbd>resultat.du.tri$x</kbd> et <kbd>resultat.du.tri$ix</kbd>.
 
 <br/>
@@ -350,18 +350,18 @@ Supposons maintenant que nous ayons deux objets&nbsp;:
 
 <ul>
   <li>une liste de valeurs <kbd>valeurs.associees <- c (12, 15, 8, 13)</kbd></li>
-  <li>la liste de valeur précédentes <kbd>valeurs.de.tri <- c (.2, .3, .05, .45))</kbd></li>
+  <li>la liste de valeur prÃÂ©cÃÂ©dentes <kbd>valeurs.de.tri <- c (.2, .3, .05, .45))</kbd></li>
 </ul>
 
 <p>
 
-On peut imaginer que les secondes sont des probabilités de succès sur
-chacun des 4 choix et que les premières sont les nombres de clics sur
-chaque choix. Ainsi, les premières sont associées aux secondes&nbsp;:
-12 est associé à la probabilité 0,2, 15 à la probabilité 0,3, ... Si
-on trie les probabilités par ordre croissant, pour obtenir les
-valeurs associés à chaque probabilité, il faut les ré-ordonner
-également. Cela s'obtient comme suit&nbsp;:
+On peut imaginer que les secondes sont des probabilitÃÂ©s de succÃÂ¨s sur
+chacun des 4 choix et que les premiÃÂ¨res sont les nombres de clics sur
+chaque choix. Ainsi, les premiÃÂ¨res sont associÃÂ©es aux secondes&nbsp;:
+12 est associÃÂ© ÃÂ  la probabilitÃÂ© 0,2, 15 ÃÂ  la probabilitÃÂ© 0,3, ... Si
+on trie les probabilitÃÂ©s par ordre croissant, pour obtenir les
+valeurs associÃÂ©s ÃÂ  chaque probabilitÃÂ©, il faut les rÃÂ©-ordonner
+ÃÂ©galement. Cela s'obtient comme suit&nbsp;:
 
 </p>
 
@@ -374,25 +374,25 @@ valeurs associés à chaque probabilité, il faut les ré-ordonner
 
 <p>
 
-Vous allez maintenant vous inspirer de cela pour réaliser un graphique
-comme celui de droite ci-dessus qui représente le nombre de clics sur
-chaque choix&nbsp;; cette fois-ci, ceux-ci sont renumérotés en
-fonction de leur probabilité de succès (1 = le choix dont la
-probabilité de succès est la plus faible, ... 4 = le choix dont la
-probabilité de succès est la plus forte). Les couleurs sont affectées
+Vous allez maintenant vous inspirer de cela pour rÃÂ©aliser un graphique
+comme celui de droite ci-dessus qui reprÃÂ©sente le nombre de clics sur
+chaque choix&nbsp;; cette fois-ci, ceux-ci sont renumÃÂ©rotÃÂ©s en
+fonction de leur probabilitÃÂ© de succÃÂ¨s (1 = le choix dont la
+probabilitÃÂ© de succÃÂ¨s est la plus faible, ... 4 = le choix dont la
+probabilitÃÂ© de succÃÂ¨s est la plus forte). Les couleurs sont affectÃÂ©es
 comme suit&nbsp;: noir pour le choix 1, rouge pour le choix 2, vert
-pour le choix 3, bleu pour le choix 4. Les numéros de ces couleurs
+pour le choix 3, bleu pour le choix 4. Les numÃÂ©ros de ces couleurs
 sont 1, 2, 3, 4 respectivement (les choses sont bien faites...).
 
 <br/><br/>
 
-Les probabilités sont ici stockées dans
+Les probabilitÃÂ©s sont ici stockÃÂ©es dans
 le <i>data.frame</i> <kbd>donnees</kbd>, dans les
-attributs <kbd>p1</kbd> à <kbd>p4</kbd>, soit les attributs 9 à 12.
-On peut obtenir ces probabilités par <kbd>donnees [1, 9:12]</kbd> pour
-le 1<sup>er</sup> jeu. Cela est lui-même un <i>data.frame</i>. Si on
+attributs <kbd>p1</kbd> ÃÂ  <kbd>p4</kbd>, soit les attributs 9 ÃÂ  12.
+On peut obtenir ces probabilitÃÂ©s par <kbd>donnees [1, 9:12]</kbd> pour
+le 1<sup>er</sup> jeu. Cela est lui-mÃÂªme un <i>data.frame</i>. Si on
 veut trier ces valeurs, il faut les mettre dans un vecteur. Cela se
-fait à l'aide de la
+fait ÃÂ  l'aide de la
 fonction <kbd>as.numeric</kbd>&nbsp;: <kbd>as.numeric (donnees [i,
 9:12])</kbd>.
 
@@ -400,40 +400,40 @@ fonction <kbd>as.numeric</kbd>&nbsp;: <kbd>as.numeric (donnees [i,
 <br/><br/>
 
 Pour faire ce qui suit, les attributs que nous n'avons pas encore
-décrit sont utiles&nbsp;:
+dÃÂ©crit sont utiles&nbsp;:
 
 </p>
 
 <ul>
-  <li><kbd>p1</kbd> est la probabilité d'obtenir un point si on clique sur le choix 1.</li>
-  <li><kbd>p2</kbd> est la probabilité d'obtenir un point si on clique sur le choix 2.</li>
-  <li><kbd>p3</kbd> est la probabilité d'obtenir un point si on clique sur le choix 3.</li>
-  <li><kbd>p4</kbd> est la probabilité d'obtenir un point si on clique sur le choix 4.</li>
-  <li><kbd>s</kbd> est un seuil. C'est un nombre aléatoire qui est différent à chaque clic. Supposons que l'on ait cliqué sur le choix 2, on gagne 1 point si s &lt;= p2.</li>
+  <li><kbd>p1</kbd> est la probabilitÃÂ© d'obtenir un point si on clique sur le choix 1.</li>
+  <li><kbd>p2</kbd> est la probabilitÃÂ© d'obtenir un point si on clique sur le choix 2.</li>
+  <li><kbd>p3</kbd> est la probabilitÃÂ© d'obtenir un point si on clique sur le choix 3.</li>
+  <li><kbd>p4</kbd> est la probabilitÃÂ© d'obtenir un point si on clique sur le choix 4.</li>
+  <li><kbd>s</kbd> est un seuil. C'est un nombre alÃÂ©atoire qui est diffÃÂ©rent ÃÂ  chaque clic. Supposons que l'on ait cliquÃÂ© sur le choix 2, on gagne 1 point si s &lt;= p2.</li>
 </ul>
 -->
 <p>
 
-En préalable à la réalisation du graphique, vous stockerez ces
-décomptes dans une matrice dont la colonne i ne contiendra plus le
+En prÃÂ©alable ÃÂ  la rÃÂ©alisation du graphique, vous stockerez ces
+dÃÂ©comptes dans une matrice dont la colonne i ne contiendra plus le
 nombre de clics sur le choix i, mais le nombre de clics sur le choix
-dont la probabilité est la i<sup>è</sup> quand celles-ci sont
-ordonnées dans l'ordre croissant. Dans la suite, on nommera cette
+dont la probabilitÃÂ© est la i<sup>ÃÂ¨</sup> quand celles-ci sont
+ordonnÃÂ©es dans l'ordre croissant. Dans la suite, on nommera cette
 matrice <kbd>decomptes.tirages.tries</kbd>.
 
 </p>
 
 <p>
 
-Pour cela, on va partir de la matrice <kbd>decomptes.tirages</kbd> et, pour chaque ligne, on va trier les colonnes en fonciton des probabiltiés de succès.
+Pour cela, on va partir de la matrice <kbd>decomptes.tirages</kbd> et, pour chaque ligne, on va trier les colonnes en fonciton des probabiltiÃÂ©s de succÃÂ¨s.
 
 <br/>
 
-Si on considère la 1<sup>ière</sup> ligne, il faut donc trier <kbd>decomtes.tirages [,1]</kbd> en fonction des probabilités de succès. Ces probabilités de succès sont constantes durant tout le 1<sup>ier</sup> jeu&nbsp;; on les trouve dans <kbd>donnees [1,9:12]</kbd> par exemple (mais aussi dans <kbd>donnees [2,9:12]</kbd>, <kbd>donnees [3,9:12]</kbd>, ... <kbd>donnees [20,9:12]</kbd>).
+Si on considÃÂ¨re la 1<sup>iÃÂ¨re</sup> ligne, il faut donc trier <kbd>decomtes.tirages [,1]</kbd> en fonction des probabilitÃÂ©s de succÃÂ¨s. Ces probabilitÃÂ©s de succÃÂ¨s sont constantes durant tout le 1<sup>ier</sup> jeu&nbsp;; on les trouve dans <kbd>donnees [1,9:12]</kbd> par exemple (mais aussi dans <kbd>donnees [2,9:12]</kbd>, <kbd>donnees [3,9:12]</kbd>, ... <kbd>donnees [20,9:12]</kbd>).
 
 <br/>
 
-Il s'agît donc de trier ces probabilités et d'utiliser leur ordre pour ré-ordonner les éléments de la première ligne de la matrice&nbsp;:
+Il s'agÃÂ®t donc de trier ces probabilitÃÂ©s et d'utiliser leur ordre pour rÃÂ©-ordonner les ÃÂ©lÃÂ©ments de la premiÃÂ¨re ligne de la matrice&nbsp;:
 
 </p>
 
@@ -443,21 +443,21 @@ decomptes.tirages.tries [1, ] <- decomptes.tirages [1, tri$ix]
 
 <p>
 
-Pour les 19 lignes suivantes, c'est la même chose&nbsp;; on peut donc mettre cela dans une boucle. 
+Pour les 19 lignes suivantes, c'est la mÃÂªme chose&nbsp;; on peut donc mettre cela dans une boucle. 
 
 <br/>
 
-La petite difficulté restante est de trouver les probabilités associées à chaque jeu. Pour le jeu 1, l'une parmi les 20 premières lignes de <kbd>donnees</kbd> les contient (<i>cf.</i> ci-dessus). Pour le jeu 2, ces probabilités sont dans <kbd>donnees [21,9:12]</kbd>, <kbd>donnees [22,9:12]</kbd>, <kbd>donnees [23,9:12]</kbd>, ... <kbd>donnees [40,9:12]</kbd>. Pour le jeu 3, ces probabilités sont dans <kbd>donnees [41,9:12]</kbd>, <kbd>donnees [42,9:12]</kbd>, <kbd>donnees [43,9:12]</kbd>, ... <kbd>donnees [60,9:12]</kbd>... Pour le jeu 20, ces probabilités sont dans <kbd>donnees [381,9:12]</kbd>, <kbd>donnees [382,9:12]</kbd>, <kbd>donnees [383,9:12]</kbd>, ... <kbd>donnees [400,9:12]</kbd>.
+La petite difficultÃÂ© restante est de trouver les probabilitÃÂ©s associÃÂ©es ÃÂ  chaque jeu. Pour le jeu 1, l'une parmi les 20 premiÃÂ¨res lignes de <kbd>donnees</kbd> les contient (<i>cf.</i> ci-dessus). Pour le jeu 2, ces probabilitÃÂ©s sont dans <kbd>donnees [21,9:12]</kbd>, <kbd>donnees [22,9:12]</kbd>, <kbd>donnees [23,9:12]</kbd>, ... <kbd>donnees [40,9:12]</kbd>. Pour le jeu 3, ces probabilitÃÂ©s sont dans <kbd>donnees [41,9:12]</kbd>, <kbd>donnees [42,9:12]</kbd>, <kbd>donnees [43,9:12]</kbd>, ... <kbd>donnees [60,9:12]</kbd>... Pour le jeu 20, ces probabilitÃÂ©s sont dans <kbd>donnees [381,9:12]</kbd>, <kbd>donnees [382,9:12]</kbd>, <kbd>donnees [383,9:12]</kbd>, ... <kbd>donnees [400,9:12]</kbd>.
 
 <br/>
 
-On remarque que pour le jeu <kbd>j</kbd>, ces probabilités sont dans <kbd>donnees [20 * j,9:12]</kbd>.
+On remarque que pour le jeu <kbd>j</kbd>, ces probabilitÃÂ©s sont dans <kbd>donnees [20 * j,9:12]</kbd>.
 
 </p>
 
 <p>
 
-Quand on met tout cela bout à bout, on obtient ce qui suit&nbsp;:
+Quand on met tout cela bout ÃÂ  bout, on obtient ce qui suit&nbsp;:
 
 <pre>decomptes.tirages.tries <- decomptes.tirages
 for (j in 1:20) {
@@ -480,42 +480,42 @@ for (i in 1:20) {
 }
 -->
 
-À l'issue de l'exécution de cette boucle, la variable <kbd>decomptes.tirages.tries</kbd> contient les valeurs attendues dans les différentes colonnes&nbsp;: la colonne 1 correspond au choix dont la probabilité de succès est la plus faible, ainsi de suite jusque la colonne 4 qui contient le nombre de clics sur le choix ayant la plus grande probabilité de succès.
+ÃÂ l'issue de l'exÃÂ©cution de cette boucle, la variable <kbd>decomptes.tirages.tries</kbd> contient les valeurs attendues dans les diffÃÂ©rentes colonnes&nbsp;: la colonne 1 correspond au choix dont la probabilitÃÂ© de succÃÂ¨s est la plus faible, ainsi de suite jusque la colonne 4 qui contient le nombre de clics sur le choix ayant la plus grande probabilitÃÂ© de succÃÂ¨s.
 
 </p>
 
 <ul>
-  <li>Une fois le graphique réalisé, constatez-vous quelque chose&nbsp;?</li>
-  <li>Y a-t-il un lien entre le nombre de clics sur le i<sup>è</sup> choix trié et i&nbsp;? Vous pouvez calculer la proportion de clics sur chacun des choix pendant chacun des jeux. Conclusion&nbsp;?</li>
+  <li>Une fois le graphique rÃÂ©alisÃÂ©, constatez-vous quelque chose&nbsp;?</li>
+  <li>Y a-t-il un lien entre le nombre de clics sur le i<sup>ÃÂ¨</sup> choix triÃÂ© et i&nbsp;? Vous pouvez calculer la proportion de clics sur chacun des choix pendant chacun des jeux. Conclusion&nbsp;?</li>
 <!--
-    C'est encore mieux de calculer cette proportion au fil d'un jeu, avec une fenêtre glissante.
+    C'est encore mieux de calculer cette proportion au fil d'un jeu, avec une fenÃÂªtre glissante.
  -->
 </ul>
 
-<h4>Autres activités avec des boucles</h4>
+<h4>Autres activitÃÂ©s avec des boucles</h4>
 
 <ul>
-  <li>Mettez dans une matrice le nombre de succès
-    obtenus à chaque jeu pour chaque choix&nbsp;;</li>
-  <li>pour chaque jeu, déterminez le choix ayant obtenu le plus grand
-    nombre de succès.</li>
+  <li>Mettez dans une matrice le nombre de succÃÂ¨s
+    obtenus ÃÂ  chaque jeu pour chaque choix&nbsp;;</li>
+  <li>pour chaque jeu, dÃÂ©terminez le choix ayant obtenu le plus grand
+    nombre de succÃÂ¨s.</li>
 </ul>
 
 <ul>
   <li>Produire un graphique comme celui-ci&nbsp;:
     <br/>
     <img src="r.cumule.jpg" 
-	 alt="r cumulé au fil des essais, pour les différents jeux."/>
+	 alt="r cumulÃÂ© au fil des essais, pour les diffÃÂ©rents jeux."/>
     <br/>
-    qui représente l'attribut <kbd>r.cumulé</kbd> au fil des essais et des jeux.
+    qui reprÃÂ©sente l'attribut <kbd>r.cumulÃÂ©</kbd> au fil des essais et des jeux.
 </ul>
 
-<h3>Étude des comportements émis</h3>
+<h3>ÃÂtude des comportements ÃÂ©mis</h3>
 
 <p>
 
 On pose quelques questions plus ouvertes pour analyser le comportement
-que vous avez émis. Pour y répondre, il faut réflêchir à une méthode
+que vous avez ÃÂ©mis. Pour y rÃÂ©pondre, il faut rÃÂ©flÃÂªchir ÃÂ  une mÃÂ©thode
 et la mettre en &oelig;uvre.
 
 </p>
@@ -523,53 +523,53 @@ et la mettre en &oelig;uvre.
 <h4>Scores maximal et moyen</h4>
 
 <ul>
-  <li>Quel est le score maximal moyen que l'on peut obtenir à chaque jeu&nbsp;? (précision&nbsp;: c'est le score maximal <i>moyen</i>, c'est-à-dire&nbsp;: imaginons que l'on répète plusieurs fois un même jeu, donc avec un même ensemble de probabilités de succès associé aux 4 choix. Le score maximal moyen est la moyenne des retours cumulés obtenus lors de cette répétition.</li>
-  <li>À chaque jeu, quel est le score moyen si on a un comportement 
-    aléatoire (choix uniforme)&nbsp;?</li>
-  <li>Où se situent vos scores&nbsp;?</li>
-  <li>Faites le graphique suivant (qui reprend le précédent et le
-    complète)&nbsp;:<br/>
+  <li>Quel est le score maximal moyen que l'on peut obtenir ÃÂ  chaque jeu&nbsp;? (prÃÂ©cision&nbsp;: c'est le score maximal <i>moyen</i>, c'est-ÃÂ -dire&nbsp;: imaginons que l'on rÃÂ©pÃÂ¨te plusieurs fois un mÃÂªme jeu, donc avec un mÃÂªme ensemble de probabilitÃÂ©s de succÃÂ¨s associÃÂ© aux 4 choix. Le score maximal moyen est la moyenne des retours cumulÃÂ©s obtenus lors de cette rÃÂ©pÃÂ©tition.</li>
+  <li>ÃÂ chaque jeu, quel est le score moyen si on a un comportement 
+    alÃÂ©atoire (choix uniforme)&nbsp;?</li>
+  <li>OÃÂ¹ se situent vos scores&nbsp;?</li>
+  <li>Faites le graphique suivant (qui reprend le prÃÂ©cÃÂ©dent et le
+    complÃÂ¨te)&nbsp;:<br/>
     <img src="r.cumule+esperance.jpg" 
-	 alt="r cumulé avec espérance."/>
+	 alt="r cumulÃÂ© avec espÃÂ©rance."/>
     <br/>
     Sur ce graphique, pour chaque jeu, on indique la performance moyenne 
-    espérée si on fait les choix selon un tirage aléatoire uniforme.
+    espÃÂ©rÃÂ©e si on fait les choix selon un tirage alÃÂ©atoire uniforme.
 <!--, ainsi 
-    qu'un écart-type de part et d'autre de cette espérance (la variance 
-    est égale à 1/12).
+    qu'un ÃÂ©cart-type de part et d'autre de cette espÃÂ©rance (la variance 
+    est ÃÂ©gale ÃÂ  1/12).
 -->
 </li>
-  <!--li>Y a-t-il une corrélation (linéaire) entre l'espérance de retour 
-    cumulé durant un jeu et le retour cumulé que vous avez obtenu&nbsp;?</li-->
+  <!--li>Y a-t-il une corrÃÂ©lation (linÃÂ©aire) entre l'espÃÂ©rance de retour 
+    cumulÃÂ© durant un jeu et le retour cumulÃÂ© que vous avez obtenu&nbsp;?</li-->
 </ul>
 
-<h4>Relation entre nombre de clics et probabilité de succès</h4>
+<h4>Relation entre nombre de clics et probabilitÃÂ© de succÃÂ¨s</h4>
 
 <p>
 
-A-t-on cliqué plus souvent sur les choix dont la probabilité de succès est élevée&nbsp;? 
+A-t-on cliquÃÂ© plus souvent sur les choix dont la probabilitÃÂ© de succÃÂ¨s est ÃÂ©levÃÂ©e&nbsp;? 
 
 <br/>
 
-Pour le savoir, faire un graphique indiquant en abscisses la probabilité des choix et en ordonnées, le nombre de clics sur ce choix. On obtiendra un graphique dans ce genre-là&nbsp;:
+Pour le savoir, faire un graphique indiquant en abscisses la probabilitÃÂ© des choix et en ordonnÃÂ©es, le nombre de clics sur ce choix. On obtiendra un graphique dans ce genre-lÃÂ &nbsp;:
 
 </p>
 
 <img src="prop-clics.vs.proba.succes.png" width="500" />
 
 
-<h4>Variabilité du comportement intra-jeu</h4>
+<h4>VariabilitÃÂ© du comportement intra-jeu</h4>
 
 <p>
 
-On se demande si le comportement est plus varié au début d'un jeu qu'à
-la fin. Cette variabilité est-elle plus faible à la fin d'un
+On se demande si le comportement est plus variÃÂ© au dÃÂ©but d'un jeu qu'ÃÂ 
+la fin. Cette variabilitÃÂ© est-elle plus faible ÃÂ  la fin d'un
 jeu&nbsp;? ...
 
 </p>
 
 <ul>
-  <li>Comment étudiez-vous cette question&nbsp;?
+  <li>Comment ÃÂ©tudiez-vous cette question&nbsp;?
   <li>Quelle est votre conclusion concernant votre comportement&nbsp;?</li>
 </ul>
 
