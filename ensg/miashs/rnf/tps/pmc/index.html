@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Perceptron multi-couches</title>
+  <link href="https://philippe-preux.github.io/css/ma.css"
+	rel="stylesheet" type="text/css" media="all" />
+</head>
+
+<body>
+
+<div class="tpR">
+<h1>Perceptron multi-couches</h1>
+
+<p>
+
+Ce TP consiste à faire quelques expérimentations avec le perceptron multi-couches (PMC). On utilise la bibliothèque <kbd>nnet</kbd> de R.
+
+</p>
+
+<h2>Classification supervisée</h2>
+
+<p>
+
+La bibliothèque <kbd>nnet</kbd> permet de manipuler des perceptrons à une couche cachée en R pour réaliser des tâches de classification supervisée binaire. Pour pouvoir l'utiliser, on tape <kbd>library (nnet)</kbd>.
+
+</p>
+
+<h3>Entraînement d'un PMC pour la classification supervisée</h3>
+
+<p>
+
+Pour entraîner un PMC, on a besoin d'un jeu d'exemples. On doit ensuite déterminer le nombre d'unités dans la couche cachée. Ensuite, on peut commencer à utiliser la fonction <kbd>nnet</kbd> qui entraîne un PMC. Cette fonction renvoie un PMC entraîné à l'aide des exemples. 
+
+<br/>
+<br/>
+
+Par exemple, pour apprendre à disciminer les iris Setosa des autres iris, on pourra taper&nbsp;: 
+
+<br/>
+<pre>> iris.nnet <- nnet (iris[,1:4], ifelse (iris[,5] == "setosa", 1, 0), size = 10)
+</pre>
+<br/>
+
+ce qui signifie&nbsp;:
+
+</p>
+
+<ul>
+  <li>on utilise les 4 attributs des iris pour décrire les données&nbsp;;</li>
+  <li>la classe est 1 pour les iris Setosa, 0 sinon</li>
+  <li>on utilise 10 neurones dans la couche cachée</li>
+</ul>
+
+<p>
+
+Une fois l'entraînement réalisé, <kbd>iris.nnet</kbd> contient le PMC qui a été entraîné.
+
+<br/>
+<br/>
+
+L'entraînement s'arrête si l'un de ces 3 critères est rempli&nbsp;:
+
+</p>
+
+<ul>
+  <li>avec le paramètre <kbd>maxit = 150</kbd> (150 est juste une valeur donnée en exemple, on met ce que l'on veut), l'entraînement s'arrête au bout de 150 itérations, une itération étant ici définie comme l'utilisation de chacun des exemples pour la mise à jour des poids.</li>
+  <li>avec le paramètre <kbd>abstol = 1e-5</kbd> (1e-5 est juste une valeur donnée en exemple, on met ce que l'on veut), l'entraînement s'arrête quand l'erreur de prédiction sur l'ensemble des exemples d'entraînement est inférieure à ce seuil.</li>
+  <li>avec le paramètre <kbd>reltol = 1e-6</kbd> (1e-6 est juste une valeur donnée en exemple, on met ce que l'on veut), l'entraînement s'arrête quand l'erreur de prédiction sur l'ensemble des exemples d'entraînement entre deux itérations successives ne diminue pas d'un facteur supérieur à 1-la valeur indiquée.</li>
+</ul>
+
+<p>
+
+Il existe d'autres paramètres à la fonction <kbd>nnet</kbd>, mais ceux mentionnés ici suffisent pour ce TP.
+
+</p>
+
+<h3>Prédiction à l'aide d'un PMC</h3>
+
+<p>
+
+Une fois l'entraînement réalisé, on peut utiliser le PMC entraîné pour rédire la classe de données. Par exemple, pour continuer avec l'exemple ci-dessus, on peut taper&nbsp;:
+
+<br/>
+<pre>> predict (iris.nnet, iris[,1:4])
+</pre>
+<br/>
+
+ce qui affiche la valeur prédite pour chacun des 150 exemples. Aux 50 premiers (qui sont de classe setosa) est associée une valeur proche de 1, alors qu'une valeur proche de 0 est prédite pour les 100 autres. Cela est conforme à la classe que nous avons spécifiée pour entraîner le PMC.
+
+<br/>
+<br/>
+
+<b>Notez bien que la manière dont nous venons d'utiliser la fonction <kbd>nnet</kbd> est <font color="red">incorrecte</font>. En effet, il faut toujours découper l'ensemble d'exemples en un ensemble d'entraînement et un ensemble de test que l'on utilise séparément, le premier pour entraîner le PMC, le second pour estimer la probabilité qu'il a de prédire correctement la classe d'une donnée.</b>
+
+<br/>
+
+Nous avons fait ainsi car nous voulions seulement montrer comment s'utilisent les fonctions <kbd>nnet()</kbd> et <kbd>predict()</kbd>. Dans la suite du TP, il faudra procéder comme il se doit.
+
+</p>
+
+
+<h3>À faire</h3>
+
+<div class="exercice">
+
+  <ol>
+    <li>Refaire la manipulation expliquée ci-dessus mais de manière correcte, <i>i.e.</i> en découpant l'ensemble d'exemples en un sous-ensemble d'entraînement contenant 80 % des exemples et un sous-ensemble de test contenant les autres exemples. Prenez garde à avoir la même proportion d'exemples de chacune des classes dans chaque sous-ensemble. Notez que les setosa sont les exemples numérotés de 1 à 50.</li>
+    <li>Faites le même genre de manipulation pour chacune des deux autres classes, virginica et versicolor.</li>
+    <li>Déterminez le nombre minimal d'unités à utiliser dans la couche cachée pour que les classes soient bien discriminées.</li>
+  </ol>
+</div>
+
+<h2>Régression</h2>
+
+<p>
+
+On s'intéresse maintenant à une tâche de régression, c'est-à-dire une tâche d'apprentissage supervisé dans laquelle l'étiquette est un nombre réel.
+
+<br/>
+<br/>
+
+<kbd>nnet()</kbd> s'utilise exactement de la même manière que pour la classification supervisée sauf qu'il faut utiliser un neurone à fonction d'activation linéaire en sortie. Pour cela, on met <kbd>linout = TRUE</kbd> lors de l'appel à <kbd>nnet()</kbd>.
+
+</p>
+
+<h3>Fonction en 1 dimension</h3>
+
+<p>
+
+On cherche à mieux comprendre comment un perceptron multi-couches apprend une fonction. Pour pouvoir illustrer graphiquement cet apprentissage, on s'intéresse à l'apprentissage d'une fonction à une seule variable.
+
+<br/>
+<br/>
+
+Dans tout ce suit concernant une fonction à 1 dimension, on utilise les exemples suivants&nbsp;:
+
+</p>
+
+<ul>
+  <li>100 exemples d'entraînement sont disponibles en suivant <a href="./exemples.train">ce lien</a>.</li>
+  <li>100 exemples de test sont disponibles en suivant <a href="./exemples.test">ce lien</a>.</li>
+</ul>
+
+<h4>Variabilité des performances d'une architecture donnée</h4>
+
+<p>
+
+Tout d'abord, ayant choisi une architecture de réseau, on se demande si un apprentissage des poids donne toujours le même, ou à peu près le même, résultat.
+
+</p>
+
+<div class="exercice">
+  <ol>
+    <li>Entraîner un PMC ayant 5 neurones cachés pendant au maximum 1000 itérations avec les 30 premiers exemples.</li>
+    <li>Mesurer la RMSE de ce réseau sur les exemples de tests.</li>
+    <li>Répéter cela 10 fois. Stocker la RMSE de chacun des 10 réseaux.</li>
+    <li>Observer ces 10 RMSE. Qu'en pensez-vous&nbsp;?</li>
+  </ol>
+</div>
+
+<h4>Combien de neurones cachés&nbsp;?</h4>
+
+<p>
+
+On va faire varier le nombre de neurones cachés pour voir l'effet que cela a sur la fonction qui est estimée et aussi pour déterminer un nombre de neurones cachés ayant les meilleures performances.
+
+</p>
+
+<div class="exercice">
+<p>
+
+Pour cela, vous allez faire une boucle pour tester des PMC ayant de 1 à 20 neurones cachés. N'oubliez pas ce que vous avez constaté lors de l'exercice précédent. Pour chaque nombre de neurones cachés, vous faites un graphique avec tous les exemples et les valeurs prédites dans une autre couleur. Prenez le temps d'observer les changements et comment la fonction est, en général, de mieux en mieux approchée quand le nombre de neurones cachés augmente. Par exemple, j'ai obtenu les graphiques en utilisant 1, puis 2, puis 3, ... jusque 5 neurones cachés&nbsp;:
+
+<table>
+<tr>
+ <td><img src="1.png" width="200" /></td>
+ <td><img src="2.png" width="200" /></td>
+ <td><img src="3.png" width="200" /></td>
+ <td><img src="4.png" width="200" /></td>
+ <td><img src="5.png" width="200" /></td>
+</tr>
+</table>
+
+Stockez la plus petite RMSE obtenue pour chaque nombre de neurones cachés. Nommons <kbd>rmse</kbd> le vecteur contenant toutes ces valeurs. Par exemple, <kbd>rmse [1]</kbd> contiendra la RMSE du PMC ayant un neurone caché, <kbd>rmse [2]</kbd> contiendra la RMSE du PMC ayant deux neurones cachés et ainsi de suite.
+
+<br/>
+
+Conservez le PMC ayant la plus petite RMSE (quelle que soit sa taille).
+
+<br/>
+
+À la fin, vous affichez le nombre de neurones cachés de ce meilleur PMC.
+(Si <kbd>pmc</kbd> est le résultat d'un appel à <kbd>nnet()</kbd>, donc un PMC, <kbd>pmc$n</kbd> fournit une liste contenant le nombre de neurones de chacune des 3 couches.)
+
+<br/>
+
+Répétez tout cela plusieurs fois. Le meilleur PMC trouvé a-t-il toujours le même nombre de neurones cachés&nbsp;?
+
+<br/>
+<br/>
+
+Le meilleur PMC est-il vraiment celui-là&nbsp;? Faites un <kbd>plot (rmse)</kbd>. Que constatez-vous&nbsp;?
+
+<br/>
+
+Vous obtenez un graphique qui ressemble à celui-ci&nbsp;:
+
+<br/>
+
+<img src="./rmse.png" width="300" />
+
+<br/>
+
+Le meilleur réseau est celui qui est au niveau du coude.
+
+</p>
+</div>
+
+<h4>Influence du bruit</h4>
+
+<div class="exercice">
+<p>
+
+Jusqu'à maintenant, nous avons travaillé sur un jeu de données non bruitées.
+Quelle est l'influence de ce bruit sur le réseau de neurones. Refaites les mêmes manipulations en utilisant ces fichiers de exemples à la place&nbsp;:
+
+</p>
+
+<ul>
+  <li>bruit 0,1&nbsp;: <a href="./exemples.train.0.1">train</a>, <a href="./exemples.test.0.1">test</a></li>
+  <li>bruit 0,5&nbsp;: <a href="./exemples.train.0.5">train</a>, <a href="./exemples.test.0.5">test</a></li>
+  <li>bruit 1&nbsp;: <a href="./exemples.train.1">train</a>, <a href="./exemples.test.1">test</a></li>
+  <li>bruit 2&nbsp;: <a href="./exemples.train.2">train</a>, <a href="./exemples.test.2">test</a></li>
+</ul>
+</div>
+
+<h3>Fonction en 2 dimensions</h3>
+
+<div class="exercice">
+<p>
+
+Refaites rapidement le même genre d'étude sur un jeu de données correspondant à une fonction bidimensionnelle.
+<br/>
+Les données sont disponibles en suivant <a href="./fct2D.txt">ce lien</a>.
+</p>
+<ul>
+  <li>Combien de neurones cachés donnent le meilleur résultat&nbsp;?</li>
+  <li>On peut aussi ajouter des connexions directes entre les entrées du réseau et la sortie&nbsp;; à ces connexions sont également associés des poids. Pour ajouter ces connexions, il faut spécifier l'argument <kbd>skip=T</kbd> lors de l'appel à <kbd>nnet()</kbd>. Déterminez le nombre de neurones cachés qui donne les meilleurs résultats avec ces connexions directes en plus.</li>
+</ul>
+</div>
+
+</div>
+</body>
+</html>
