@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Apprentissage par renforcement</title>
+  <link href="https://philippe-preux.github.io/css/ma.css"
+	rel="stylesheet" type="text/css" media="all" />
+</head>
+
+<body>
+
+<div class="tpR">
+<h1>Apprentissage par renforcement</h1>
+
+<p>
+
+Ce TP consiste à écrire en R un programme qui implante le Q-learning pour apprendre à sortir d'un labyrinthe, puis à expérimenter avec ce programme.
+
+<br/>
+<br/>
+
+On va s'en tenir à une version élémentaire du Q-Learning. Des tas d'améliorations sont possibles pour en améliorer les performances. 
+
+</p>
+
+<h2>Environnement fourni</h2>
+
+<p>
+
+Pour simplifier la réalisation de votre programme, je vous fournis un fichier avec un ensemble de fonctions R qui prennent en charge le labyrinthe et l'interaction entre l'agent et le labyrinthe. Il ne vous reste plus qu'à implanter ce que doit faire l'agent, comment il apprend.
+
+<br/>
+<br/>
+<!--br/>
+
+Vous récupérez ces fonctions <a href="./laby.squelette.R">sur ce lien</a/> que vous sauvegardez dans votre répertoire de travail.
+
+<br/-->
+
+Le contenu de ce fichier est le suivant&nbsp;:
+
+</p>
+
+<p>
+
+Les états correspondent aux cases des couloirs du labyrinthe. Elles sont numérotés de manière arbitraire. L'une est la case départ, une autre est la case à atteindre.
+
+<br/>
+
+Dans chaque case, l'agent peut effectuer un mouvement dans une case adjacente (du moment que ce n'est pas un mur).
+
+</p>
+
+<ul>
+  <li>action 1&nbsp;: aller dans la case à gauche de la case courante.</li>
+  <li>action 2&nbsp;: aller dans la case à droite de la case courante.</li>
+  <li>action 3&nbsp;: aller dans la case au-dessus de la case courante.</li>
+  <li>action 4&nbsp;: aller dans la case en-dessous de la case courante.</li>
+</ul>
+
+<p>
+
+Dans ce fichier, on a&nbsp;:
+
+</p>
+
+<ul>
+  <li>la variable <kbd>etat.initial</kbd> contient le numéro de la case de départ dans le labyrinthe.</li>
+  <li>la variable <kbd>sortie</kbd> contient le numéro de la case qui doit être atteinte.</li>
+  <li>la variable <kbd>nb.cases</kbd> contient le nombre de cases/états.</li>
+  <li>la fonction <kbd>actions.possibles (etat)</kbd> renvoie un vecteur avec les numéros de mouvements possibles dans l'état passé en paramètre.
+    <br/>
+    <kbd>etat</kbd> aune valeur comprise entre 1 et <kbd>nb.cases</kbd>.
+  </li>
+  <li>la fonction <kbd>transition (etat.courant, action)</kbd> qui renvoie une liste composée de deux éléments&nbsp;: l'état atteint quand on réalise l'action indiquée dans l'état courant et le retour obtenu lors de cette transition. Si l'action est impossible dans cet état, l'état demeure inchangé.
+    <br/>
+    <kbd>etat</kbd> aune valeur comprise entre 1 et <kbd>nb.cases</kbd>.
+    <br/>
+    <kbd>action</kbd> vaut 1, 2, 3 ou 4.
+  </li>
+  <li>une fonction <kbd>which.is.max()</kbd> que vous utilisez à la place de <kbd>which.max()</kbd>.</li>
+</ul>
+
+<p>
+
+Vous n'avez rien d'autre à savoir sur le contenu de ce fichier pour réaliser le TP. Pas la peine de regarder son contenu&nbsp;; il vous suffit d'utiliser les variables et fonctions que je liste ci-dessus.
+
+<br/>
+
+Vous prendrez soin de faire un <kbd>source ("http://www.grappa.univ-lille3.fr/~ppreux/ensg/miashs/rnf/tps/rl/laby.squelette.R")</kbd> avant de commencer.
+
+</p>
+
+<h2>Q-Learning</h2>
+
+<p>
+
+Reste à implanter un Q-Learning qui apprend à sortir de ce labyrinthe.
+
+</p>
+
+<pre># initialisations
+Q <- matrix (0, nrow = nb.cases, ncol = 4)
+nombre.de.pas <- 0
+etat.courant <- etat.initial
+# effectuer un épisode
+while (etat.courant != sortie) {
+     # choisir l'action à réaliser dans l'état courant
+     action <- choix.action (etat.courant)
+     # réaliser cette action et observer l'état suivant et le retour
+     consequences <- transition (etat.courant, action)
+     # mettre à jour la qualité du couple (etat.courant, action)
+     ...
+     etat.courant <- consequences$etat.suivant
+     nombre.de.pas <- nombre.de.pas + 1
+}
+</pre>
+
+<div class="exercice">
+  <p>
+  Il vous reste à&nbsp;:
+  </p>
+  <ul>
+    <li>écrire la fonction <kbd>choix.action ()</kbd>. Un choix &epsilon;-glouton convient parfaitement ici. Prenez &epsilon; égal à 0,9 par exemple (à interprêter comme&nbsp;: la probabilité de choix de l'action aléatoire est 90%).</li>
+    <li>écrire la mise à jour indiquée par les <kbd>...</kbd></li>
+  </ul>
+  <p>
+  Exécuter ce programme et voir au bout de combien de pas il s'arrête.
+  <br/>
+  <br/>
+  Quand cela fonctionne, mettez tout cela dans une boucle pour effectuer un certain nombre d'épisodes (par exemple 100). C'est intéressant de stocker le nombre de pas effectués à chaque épisode pour pouvoir tracer une courbe d'apprentissage. Par exemple, j'ai obtenu la courbe suivante&nbsp;:
+  <br/>
+  <img src="./learning-curve.laby.1bis.png" />
+  <br/>
+  Quand vous faites plusieurs épisodes, c'est bien de diminuer la valeur de &epsilon; après chaque épisode, par exemple en multipliant sa valeur par 0,95 pour le faire diminuer doucement.
+  </p>
+</div>
+
+<table>
+  <tr>
+    <th>laby.1bis</th>
+    <th>laby.2bis</th>
+    <th>laby.4bis</th>
+    <th>laby.aeac2015</th>
+  </tr>
+  <tr>
+    <td><img src="./laby.1bis.svg" width="300" /></td>
+    <td><img src="./laby.2bis.svg" width="300" /></td>
+    <td><img src="./laby.4bis.svg" width="300" /></td>
+    <td><img src="./laby.aeac2015.svg" width="300" /></td>
+  </tr>
+</table>
+</div>
+</body>
+</html>
