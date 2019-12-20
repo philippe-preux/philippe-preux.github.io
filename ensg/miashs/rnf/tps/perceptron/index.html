@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Le perceptron</title>
+  <link href="https://philippe-preux.github.io/css/ma.css" 
+	rel="stylesheet" type="text/css" media="all" />
+</head>
+
+<body>
+
+<div class="tpR">
+<h1>Le perceptron</h1>
+
+<p>
+
+Ce TP consiste à implanter un perceptron en R et à faire quelques manipulations pour comprendre son fonctionnement.
+
+</p>
+
+<h2>Le perceptron et la règle d'apprentissage du perceptron</h2>
+
+<p>
+
+On va implanter l'algorithme d'apprentissage des poids d'un perceptron et l'appliquer à un exemple simple.
+
+<br/>
+<br/>
+
+On va utiliser le jeu d'exemples disponible <a href="./jeu1.csv">ici (jeu1)</a>.
+
+<br/>
+
+Ce jeu contient 19 exemples, 10 de classe -1 (classe négative) et 9 de classe 1 (classe positive). Chaque donnée est décrite par deux attributs numériques.
+
+</p>
+
+<div class="exercice">
+  <ul>
+    <li>faites un graphique représentant ces données dans le plan, les négatifs par des points rouges, les positifs par des points verts.</li>
+  </ul>
+</div>
+
+<p>
+
+Puisqu'il y a deux attributs (notés x et y), le perceptron aura trois poids&nbsp;: un pour x, un pour y et un pour le biais. 
+
+<br/>
+
+Ces poids seront dans un vecteur <kbd>w</kbd> avec <kbd>w [1]</kbd> associé à l'attribut x, <kbd>w [2]</kbd> associé à l'attribut y et <kbd>w [3]</kbd> associé au biais.
+
+<br/>
+
+La sortie du perceptron sera -1 ou 1. Celle-ci est obtenue en prenant le signe de &nbsp;: w [1] . x + w [2] . y + w [3]. Soit <kbd>a</kbd> un nombre, <kbd>sign(a)</kbd> vaut -1 si <kbd>a</kbd> est strictement négatif, +1 si <kbd>a</kbd> est strictement positif, nul si <kbd>a</kbd> est nul.
+
+</p>
+
+<p>
+
+Le principe de l'apprentissage des poids est le suivant&nbsp;:
+
+</p>
+
+<ul>
+  <li>faire les initialisations nécessaires</li>
+  <li>tant que le perceptron commet des erreurs de prédiction&nbsp;:
+    <ul>
+      <li>prendre les exemples un par un, dans un ordre aléatoire et pour chacun&nbsp;:
+        <ul>
+          <li>calculer la sortie du perceptron pour cet exemple</li>
+          <li>calculer l'erreur de prédiction&nbsp;: e &lt;- classe de l'exemple - prédiction</li>
+          <li>corriger les poids par la règle d'apprentissage du perceptron.</li>
+        </ul></li>
+    </ul></li>
+</ul>
+
+<p>
+
+Les poids définissent une séparatrice dans le plan des données. 
+Il est intéressant de suivre l'évolution de cette séparatrice au fil des itérations.
+Aussi est-il judicieux d'afficher à l'issue de chaque itération de la boucle tant-que les exemples et la séparatrice. Par exemple, on aurait la succession&nbsp;:
+
+</p>
+
+<img src="./1.png" width="200" /><img src="./2.png" width="200" /><img src="./3.png" width="200" /><img src="./4.png" width="200" /><img src="./5.png" width="200" /><img src="./6.png" width="200" /><img src="./7.png" width="200" />
+
+<p>
+
+Quelques trucs pour que ça marche&nbsp;:
+
+</p>
+
+<ul>
+  <li>les attributs doivent être projetés dans l'intervalle [0, 1]</li>
+  <li>le taux d'apprentissage doit diminuer tranquillement. Par exemple, lors de la i-ième itération du tant-que, &alpha; peut valoir 1/sqrt(i).</li>
+</ul>
+
+<div class="exercice">
+  <p>
+
+  Implantez la règle d'apprentissage du perceptron sur ce jeu d'exemples comme cela vient d'être décrit.
+
+  <br/>
+
+  À chaque itération du tant-que, comptez le nombre d'exemples mal prédits. Stockez ces décomptes dans une liste que vous pourrez afficher ensuite pour voir comment ce nombre d'erreur diminue au fil de l'apprentissage.
+  </p>
+</div>
+
+<h2>Un jeu d'exemples un peu plus gros</h2>
+
+<div class="exercice">
+
+<p>
+
+Utilisez maintenant le jeu de données construit par la suite de commandes R&nbsp;:
+
+</p>
+
+<pre>jeu <- iris [, 3:5]
+jeu [, 3] <- c (rep (-1, 50), rep (1, 100))
+</pre>
+
+<p>
+
+qui se trouve dans le <i>data.frame</i> <kbd>jeu</kbd>.
+
+</p>
+</div>
+
+<h2>Un autre jeu d'exemples</h2>
+
+<div class="exercice">
+<p>
+
+Maintenant, utilisez le jeu de données construit par la commande R&nbsp;:
+
+</p>
+
+<pre>jeu [, 3] <- c (rep (-1, 100), rep (1, 50))
+</pre>
+
+<p>
+
+qui se trouve donc dans le <i>data.frame</i> <kbd>jeu</kbd>.
+
+</p>
+
+<ul>
+  <li>Que se passe-t-il&nbsp;? Pourquoi&nbsp;?</li>
+  <li>Comment pourriez-vous modifier la règle d'apprentissage du perceptron pour prendre en compte cette situation&nbsp;?</li>
+  <li>Faites-le.</li>
+</ul>
+</div>
+
+<h2>Encore, un autre jeu d'exemples</h2>
+
+<div class="exercice">
+<p>
+
+Maintenant, utilisez le jeu de données construit par la commande R&nbsp;:
+
+</p>
+
+<pre>jeu [, 3] <- c (rep (1, 50), rep (-1, 50), rep (1, 50))
+</pre>
+
+<p>
+
+qui se trouve donc dans le <i>data.frame</i> <kbd>jeu</kbd>.
+
+</p>
+
+<ul>
+  <li>Que se passe-t-il&nbsp;? Pourquoi&nbsp;?</li>
+  <li>Voyez-vous une solution à cette situation en modifiant la règle d'apprentissage du perceptron&nbsp;?</li>
+  <li>Si oui, faites-le. Si non, voyez-vous un autre type de solution&nbsp;?</li>
+</ul>
+
+</div>
+</div>
+</body>
+</html>
