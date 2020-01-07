@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <title>TP grep, master MIASHS / ID, Université de Lille 3</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" type="text/css"
+    href="https://philippe-preux.github.io/css/ma.css"
+    media="screen" />
+</head>
+
+<body vlink="#551A8B">
+<div class="tpID">
+
+<div class="titreDuModule">
+  TP <kbd>grep</kbd>
+</div>
+<div class="formation">
+  Master <acronym title="Mathématiques et Informatique Appliquées aux Sciences Humaines et Sociales">MIASHS</acronym>,<a href="./index.html"><acronym title="Informatique du Document">ID</acronym></a><br/>
+  Philippe Preux<br/>
+  Université de Lille 3<br/>
+  Semestre 1
+</div>
+
+<p>
+
+Il s'agît d'un TP sur la commande <kbd>grep</kbd>. Il faut donc
+utiliser cette commande pour répondre aux questions du TP. La réponse
+correcte aux questions consiste à donner la commande Linux qui vous
+permet de répondre à la question.
+
+<br/>
+<br/>
+
+Remarque&nbsp;: d'une manière générale, il est toujours plus prudent
+de mettre l'expression que vous recherchez avec <kbd>grep</kbd> entre
+<kbd>'</kbd>. (Il y a certains cas oÃ¹ cela ne marche pas (il faut
+mettre des <kbd>""</kbd>), mais ces cas ne sont pas rencontrés dans ce
+TP.)
+
+</p>
+
+<h3>Exercice 1</h3>
+
+<p>
+
+<a href="./fichier1">Récupérez ce fichier</a> et mettez-le dans
+votre répertoire personnel.
+
+</p>
+
+<ol>
+  <li>la chaîne de caractères Â«&nbsp;the&nbsp;Â» est-elle présente dans
+    fichier1&nbsp;? combien de lignes comportent cette chaîne de
+    caractères&nbsp;? quelles lignes contiennent cette chaîne&nbsp;?</li>
+  <li>le mot Â«&nbsp;qwerty&nbsp;Â» est-il présent dans le
+    fichier1&nbsp;? (on cherche un <i>mot</i>, pas une chaîne de
+    caractères)</li>
+  <li>l'un des mots Â«&nbsp;the&nbsp;Â»,  Â«&nbsp;The&nbsp;Â»,
+    Â«&nbsp;tHe&nbsp;Â», Â«&nbsp;thE&nbsp;Â», Â«&nbsp;THe&nbsp;Â»,
+    Â«&nbsp;ThE&nbsp;Â», Â«&nbsp;tHE&nbsp;Â» ou Â«&nbsp;THE&nbsp;Â», est-il
+    présent dans fichier1&nbsp;?</li>
+  <li>l'un de ces mots est-il situé en début de ligne&nbsp;?</li>
+  <li>l'un de ces mots est-il seul sur une ligne&nbsp;?</li>
+  <li>l'un de ces mots est-il seul sur une ligne, éventuellement
+    entouré de caractères blancs&nbsp;?</li>
+  <li>y a-t-il des lignes qui contiennent la chaîne Â«&nbsp;abc&nbsp;Â»
+    ou la chaîne Â«&nbsp;abcabc&nbsp;Â»&nbsp;?</li>
+  <li>y a-t-il des lignes qui ne contiennent que des succesions de
+    abc&nbsp;? (abc ou abcabc ou ... abcabcabcabc ou ...)</li>
+  <li>combien y a-t-il de lignes vides&nbsp;?</li>
+  <li>trouve-t-on des chaînes de caractères composées d'un 'd' suivi
+    d'un seul caractère quelconque puis d'un 'f' dans fichier1&nbsp;?</li>
+  <li>trouve-t-on des chaînes de caractères composées d'un 'd' suivi
+    de trois caractères quelconques puis d'un 'f' dans fichier1&nbsp;?</li>
+  <li>trouve-t-on des chaînes de caractères composées d'un 'd' suivi
+    d'un 'e' ou d'un 'E' puis d'un 'f' dans fichier1&nbsp;?</li>
+  <li>trouve-t-on des chaînes de caractères composées d'un 'd' suivi
+    d'un chiffre puis d'un 'f' dans fichier1&nbsp;?</li>
+  <li>trouve-t-on des chaînes de caractères composées d'un 'd' suivi
+    d'une lettre minuscule puis d'une lettre majuscule puis d'un 'f'
+    dans fichier1&nbsp;?</li>
+  <li>trouve-t-on des nombres entiers (suite de chiffres) dans
+    fichier1&nbsp;? Faites en sorte que <kbd>grep</kbd> n'affiche que
+    les nombres et pas toute la ligne qui contient un nombre.</li>
+  <li>trouve-t-on des nombres hexadécimaux (Â«&nbsp;0x&nbsp;Â» suivi
+    d'une suite de chiffres et de 'a', 'b', 'c', 'd', 'e' ou 'f') dans
+    fichier1&nbsp;?</li>
+  <li>y a-t-il des <kbd>*</kbd> dans ce fichier&nbsp;?</li>
+</ol>
+
+<h3>Exercice 2</h3>
+
+<p>
+
+On travaille maintenant sur le fichier html contenant ce sujet de TP.
+
+</p>
+
+<ol>
+  <li>obtenez la liste de tous les balises html de ce document.</li>
+  <li>combien y en a-t-il&nbsp;? (pour répondre à cette question, la
+    commande Linux <kbd>uniq</kbd> peut Ãªtre utile)</li>
+  <li>lorsqu'on le visualise à l'aide d'un navigateur (c'est-à-dire,
+    je ne parle pas du source html mais de ce que l'on voit), voit-on
+    un caractère '&lt;'</li>
+  <li>y a-t-il des caractères en italique dans ce document&nbsp;?</li>
+</ol>
+
+<h3>Exercice 3</h3>
+
+
+<p>
+
+On travaille maintenant sur <a
+    href="https://philippe-preux.github.io/index.html">ce
+    fichier html</a>.
+
+</p>
+
+<ol>
+  <li>quelle commande tapez-vous pour obtenir les numéros de téléphone
+    qui s'y trouvent&nbsp;? (on suppose qu'un numéro de téléphone est
+    composé de deux chiffres suivis d'un point, suivis de deux chiffres
+    suivis d'un point, suivis de deux chiffres suivis d'un point suivis
+    de deux chiffres suivis d'un point suivis de deux chiffres)</li>
+  <li>quelle commande tapez-vous pour obtenir la liste des urls se
+    trouvant dans cette page&nbsp;?</li>
+</ol>
+
+<h3>Exercice 4</h3>
+
+<p>
+
+De nombreuses commandes Linux sont situées dans le répertoire
+<kbd>/usr/bin</kbd>.
+
+</p>
+
+<ol>
+  <li>listez les commandes de ce répertoire qui se terminent par la
+    lettre 'l'.</li>
+  <li>listez les commandes de ce répertoire qui s'écrivent avec deux
+    caractères.</li>
+  <li>listez les commandes de ce répertoire dont le nom contient (au 
+    moins) deux 'l'.</li>
+  <li>Il y a aussi des commandes dans les répertoires <kbd>/bin</kbd>
+    et <kbd>/usr/bin/X11</kbd>. Répondre à nouveau aux trois questions
+    précédentes en cherchant désormais dans les trois répertoires de
+    commandes en mÃªme temps.</li>
+</ol>
+
+
+<h3>Liens</h3>
+
+<ul>
+  <li><a href="http://www.panix.com/~elflord/unix/grep.html">un tutoriel grep</a></li>
+  <li><a href="http://www.gnu.org/software/grep/doc/grep.html">documentation GNU grep</a></li>
+</ul>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <title>TP sed, master MIASHS / ID, Université de Lille 3</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" type="text/css"
+    href="https://philippe-preux.github.io/css/ma.css" 
+    media="screen" />
+</head>
+
+<body vlink="#551A8B">
+<div class="tpID">
+
+<div class="titreDuModule">
+  «&nbsp;TP <kbd>sed</kbd>&nbsp;»
+</div>
+<div class="formation">
+  Master <acronym title="Mathématiques et Informatique Appliquées aux Sciences Humaines et Sociales">MIASHS</acronym>, <a href="./index.html"><acronym title="Informatique du Document">ID</acronym></a><br/>
+  Philippe Preux<br/>
+  Université de Lille 3<br/>
+  Semestre 1
+</div>
+
+<p>
+
+Pour répondre à certaines questions, il peut être utile d'utiliser des
+choses que l'on a vu dans le <a
+href="https://philippe-preux.github.io/Documents/lkds.pdf">TP
+d'initiation à Linux</a> et le TP <a href="./tp-grep.html">grep</a>.
+
+<br/>
+<br/>
+
+Il s'agît d'un TP sur la commande <kbd>sed</kbd>. Il faut donc
+utiliser cette commande pour répondre aux questions du TP. La réponse
+correcte aux questions consiste à donner la commande Linux qui vous
+permet de répondre à la question.
+
+<br/>
+<br/>
+
+Le problème général que l'on veut étudier concerne la transformation
+automatique de documents texte (des <i>news</i>) en documents
+xml. Cela sera réalisé en concevant des scripts <kbd>sed</kbd>.
+<kbd>sed</kbd> est l'outil idéal pour réaliser ce genre de tâche
+consistant à transformer un fichier texte en fichier balisé (html,
+xml, latex, groff pour n'en citer que quelques-uns), ou le contraire.
+
+</p>
+
+<h3>À faire</h3>
+
+<p>
+
+On va commencer par travailler sur les fichiers contenus <a href="./fichier2.tgz">dans cette archive</a> que vous mettez dans votre répertoire personnel et que vous décompressez par <kbd>tar zxf fichier2.tgz</kbd>. Cela crée 10 fichiers.
+
+</p>
+
+<ol>
+  <li>ces 10 fichiers sont 10 messages de <i>news</i>. Repérez les
+    différents champs de chaque message
+    <br/>
+    Une <i>news</i> (ou un email) est constitué d'un en-tête et d'un
+    corps&nbsp;; l'en-tête contient des informations concernant le
+    message&nbsp;: son sujet, qui l'a envoyé, à qui, quand, ... Le
+    corps contient le texte lui-même du message. L'en-tête est
+    constitué d'une suite de lignes (ne contenant aucune ligne
+    blanche) de la forme <kbd>Champ: contenu-du-champ</kbd>. L'en-tête
+    est séparé du corps par une ligne blanche&nbsp;: c'est la première
+    ligne blanche du message.</li>
+  <li>imaginez une DTD qui va permettre de représenter ces fichiers sous forme XML. On ne demande pas ici d'être très précis au niveau de
+    cette DTD. On veut juste avoir suffisamment d'information pour
+    pouvoir générer un fichier XML correct correspondant à un message&nbsp;;</li>
+  <li>écrivez un script
+    <kbd>sed</kbd> qui transforme les champs <kbd>From:</kbd> des
+    emails en une paire de balises <kbd>&lt;from&gt;</kbd>
+    <kbd>&lt;/from&gt;</kbd><br/>Par exemple, pour le premier email du
+    fichier, le champ <kbd>From: prb@access.digex.com (Pat)</kbd> sera
+    transformé en <kbd>&lt;from&gt;prb@access.digex.com
+    (Pat)&lt;/from&gt;</kbd>.<br/>Conseil&nbsp;: faites cette opération en effectuant deux substitutions, la première pour la balise de fin de champ, la seconde pour la balise de début de champ&nbsp;;</li>
+  <li>faites de même pour les autres champs des messages. Ainsi,
+    l'en-tête du premier email qui est&nbsp;:
+<pre>
+Path: cantaloupe.srv.cs.cmu.edu!rochester!udel!news.intercon.com!digex.com!digex.com!not-for-mail
+From: prb@access.digex.com (Pat)
+Newsgroups: sci.space
+Subject: Re: NAVSTAR positions
+Date: 21 Apr 1993 18:23:05 -0400
+Organization: Express Access Online Communications, Greenbelt, MD USA
+Lines: 7
+Message-ID: &lt;1r4hg9$sgi@access.digex.net>
+References: &lt;1993Apr19.063455.26363@ericsson.se>
+NNTP-Posting-Host: access.digex.net
+</pre>
+deviendra
+<pre>
+&lt;path>cantaloupe.srv.cs.cmu.edu!rochester!udel!news.intercon.com!digex.com!digex.com!not-for-mail&lt;/path>
+&lt;from>prb@access.digex.com (Pat)&lt;/from>
+&lt;newsgroups> sci.space&lt;/newsgroups>
+&lt;subject>Re: NAVSTAR positions&lt;/subject>
+&lt;date>21 Apr 1993 18:23:05 -0400&lt;/date>
+&lt;organization>Express Access Online Communications, Greenbelt, MD USA&lt;/organization>
+&lt;lines>7&lt;/lines>
+&lt;messageid>&lt;1r4hg9$sgi@access.digex.net>&lt;/messageid>
+&lt;references>&lt;1993Apr19.063455.26363@ericsson.se>&lt;/references>
+&lt;nntppostinghost>access.digex.net&lt;/nntppostinghost>
+</pre>
+</li>
+  <li>ajoutez une balise pour y placer le texte du message.
+    <br/>Conseil&nbsp;: après avoir réfléchi aux substitutions à
+    faire, vous pouvez vous aider de <a
+      href="http://www.faqs.org/faqs/editor-faq/sed/">la FAQ sed</a>
+    pour trouver la solution au placement de la balise de début de
+    message. Le placement de la balise de fin est facile&nbsp;; les
+    deux transformations se feront successivement à l'aide de deux commandes
+    <kbd>sed</kbd> pipelinées.</li>
+  <li>enfin, ajoutez une balise en début et en fin de message pour
+    obtenir un fichier xml complet&nbsp;;</li>
+  <li>en principe, vous avez fini. Appliquez votre script sur les fichiers <a
+    href="./fichier3.tgz">de cette archive</a>&nbsp;; regardez le résultat,
+    déterminez s'il est conforme à vos attentes et, si non, corrigez
+    votre script&nbsp;;</li>
+  <li>à l'issue de ces manipulations, vous devez avoir obtenu des
+    fichiers xml valide. Utilisez firefox pour vérifier que celui-ci
+    interprète correction la dtd et le fichier xml.</li>
+</ol>
+
+<h3>Liens</h3>
+
+<ul>
+  <li><a href="http://www.commentcamarche.net/faq/sujet-9536-sed-introduction-a-sed-part-i">Introduction à sed, partie I</a>, <a href="http://www.commentcamarche.net/faq/sujet-9559-sed-introduction-a-sed-part-ii">Introduction à sed, partie II</a>, <a href="http://www.commentcamarche.net/faq/sujet-9558-sed-introduction-a-sed-part-iii">et partie III</a>
+  <li><a href="http://www.faqs.org/faqs/editor-faq/sed/">la FAQ sed</a></li>
+  <li><a href="http://www.grymoire.com/Unix/Sed.html">un tutoriel sed</a></li>
+  <li><a href="http://www.gnu.org/software/sed/manual/sed.html">documentation GNU sed</a></li>
+</ul>
+
+</div>
+</body>
+</html>
