@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Étude expérimentale autour d'une conjecture</title>
+  <link href="https://philippe-preux.github.io/css/ma.css" 
+	rel="stylesheet" type="text/css" media="all" />
+</head>
+
+<body>
+
+<div class="tpR">
+<h1>La conjecture</h1>
+
+<p>
+
+On considère la procédure suivante&nbsp;: 
+
+</p>
+
+<ol>
+  <li>Prenez un nombre entier naturel quelconque (par exemple, je prends 1966)</li>
+  <li>s'il s'écrit avec 1 chiffre, on a déjà fini et on a réalisé 0 itération.</li>
+  <li>sinon, faites le produit de ses chiffres&nbsp;: 1&nbsp;x&nbsp;9&nbsp;x&nbsp;6&nbsp;x&nbsp;6 = 324</li>
+  <li>Itérez l'étape 2 sur ce nombre jusqu'à ce qu'il soit inférieur à 10 tout en comptant le nombre d'iétrations (ici, on fait 3&nbsp;x&nbsp;2&nbsp;x&nbsp;4 = 24 puis 4&nbsp;x&nbsp;2 = 8 et on s'arrête&nbsp;: 3 itérations).</li>
+</ol>
+
+<p>
+
+Une conjecture énonce que quel que soit le nombre de départ, aussi grand que l'on veut, le nombre d'itérations effectué par cette procédure ne dépassera pas 11.
+
+<br/>
+
+C'est tellement surprenant que l'on va y regarder de plus près et essayer de montrer que cette conjecture est fausse.
+
+<br/>
+<br/>
+
+Dans ce qui suit, chaque fonction doit être testée et vous devez vous assurez qu'elle fonctionne correctement avant de passer à la suivante.
+
+</p>
+
+<ul>
+  <li>Écrire une fonction python qui prend un nombre naturel en paramètre et renvoie le nombre d'itérations.</li>
+  <li>Écrire une fonction python qui prend deux paramètres naturels, teste tous les nombres entre ces deux naturels et renvoie une liste composée des nombres ne vérifiant pas la conjecture (une liste vide si tous la vérifie).</li>
+  <li>Écrire une fonction python qui prend deux paramètres naturels, teste tous les nombres entre ces deux naturels, réalise un histogramme des nombres d'itérations et le renvoie sous la forme d'une liste de 12 nombres (de 0 à 11 itérations).<br/><font size="-1">(Si on a l'espoir de trouver un nombre qui ne vérifie pas la conjecture, on doit utiliser un treizième élément qui compte le nombre de nombres ne vérifiant pas la conjecture.)</font></li>
+</ul>
+
+<p>
+
+Le test exhaustif de tous les nombres étant trop long, on va essayer d'avoir de la chance en utilisant le hasard&nbsp;:
+
+</p>
+
+<ul>
+  <li>Écrire une fonction python qui prend deux paramètres n et m, qui réalise un histogramme des nombres d'itérations à partir de n naturels s'écrivant avec m chiffres et le renvoit.</li>
+</ul>
+
+<p>
+
+Souvent, une représentation graphique apporte des éléments de compréhension, ou de nouveaux éléments de mystère. Qu'allons-nous trouver ici&nbsp;?
+
+<br/>
+<br/>
+
+On va associer une fenêtre graphique composée d'un simple canevas dans lequel on va dessiner. Supposons que le canevas fasse 100 pixels sur 100. On va représenter chaque nombre naturel par un carré de 5 pixels de côté, coloré en fonction du nombre d'itérations qui lui est associé. On dispose ces carrés/nombres en ligne, les uns après les autres&nbsp;; une ligne correspond donc ici à 20 nombres. Avec un canevas de 100 x 100 pixels, on peut représenter 400 naturels consécutifs.
+
+</p>
+
+<ul>
+  <li>Complétez votre programme avec cette représentation graphique. La taille de la fenêtre devra pouvoir facilement être modifiée, ainsi que les naturels représentés.</li>
+</ul>
+
+<p>
+
+Après quelques efforts, vous pourriez obtenir des graphiques ressemblant à celui-ci&nbsp;:
+
+</p>
+
+<img src="./conjecture.png" width="500" />
+
+<p>
+
+Finalement, avez-vous réussi à montrer que cet énoncé est faux&nbsp;?
+
+</p>
+
+</div>
+</body>
+</html>
