@@ -1,0 +1,307 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Apprentissage sur des données textuelles</title>
+  <link href="https://philippe-preux.github.io/css/ma.css" 
+	rel="stylesheet" type="text/css" media="all" />
+  <link rel="shortcut icon" type="image/x-icon" 
+	href="https://philippe-preux.github.io/img/site.ico" />
+</head>
+
+<body>
+
+<div class="tpR">
+<h1>Apprentissage sur des données textuelles</h1>
+
+<p>
+
+Avec ce TP, nous allons apprendre comment on peut traiter des textes en langue naturelle pour ensuite réaliser de la classification supervisée sur ces textes, en Python. Pour cela, on va utiliser la bibliothèque <kbd>scikit</kbd> qui contient de mulitples algorithmes pour appliquer des méthodes d'apprentissage automatique en Python. Nous utiliserons Python2 pendant ce TP.
+
+<br/>
+<br/>
+
+Ce TP utilise un certain jeu de données. Naturellement, il faut être capable d'utiliser n'importe quel jeu de textes, pas seulement celui utilisé ici.
+
+</p>
+
+<h2>Préambule</h2>
+
+<p>
+
+Nous allons travailler avec un ensemble de textes qui se nomme «&nbsp;20 newsgroups&nbsp;». <!--Ces textes sont disponibles sur Internet. Comme ils sont assez volumineux, je les ai téléchargés. Pour pouvoir réaliser le TP, tapez les deux commandes suivantes dans un terminal (faites des copier-coller pour être sûr de ne pas vous tromper).
+
+</p>
+
+<pre>mkdir scikit_learn_data
+cd scikit_learn_data
+ln -s /public/partage/mime/l3-miashs/apprentissage-supervise/20news-bydate.pkz .
+cd ..
+</pre>
+
+<p>
+
+Le fichier <kbd>20news-bydate.pkz</kbd> contient des milliers d'emails qui ont été postés dans 20 groupes de conversation différents sur Internet au début des années 1990. Le fichier est sous forme compressé&nbsp;; une fois décompressé, il est simplement composé d'une multitude d'emails mis bout à bout.
+
+</p-->
+
+<h3>Lecture du jeu d'exemples</h3>
+
+<p>
+
+<kbd>scikit</kbd> contient tout un ensemble de fonctions prêtes à l'usage pour charger des fichiers de données textuelles. 
+
+</p>
+
+<h4>Chargement des textes</h4>
+
+<p>
+
+Pour charger les données, on tape&nbsp;:
+
+</p>
+
+<pre>from sklearn.datasets import fetch_20newsgroups
+categories = ['alt.atheism', 'soc.religion.christian', 'comp.graphics', 'sci.med']
+vingt_train = fetch_20newsgroups (subset='train', categories=categories, shuffle=True, random_state=42)
+</pre>
+
+<p>
+
+<font color="ff0000" size="+2"><b>C'est très long</b></font> (environ 5 minutes.) Pas d'inquiétude&nbsp;; lisez la suite pendant ce temps-là.
+
+</p>
+
+<ul>
+  <li>la première ligne charge la fonction dont on a besoin pour accéder aux données</li>
+  <li>la deuxième ligne construit la liste des catégories/classes (ce sont des groupes de discussion) que l'on va utiliser pour l'instant.</li>
+  <li>la troisième ligne charge les données dans un objet Python dénommé <kbd>vingt_train</kbd>. Il ne charge pas toutes les données, seulement celles des catégories (classes) indiquées et seulement un sous-ensemble d'entraînement.</li>
+</ul>
+
+<h4>Les textes</h4>
+
+<p>
+
+On peut regarder les données que l'on vient de charger. Elles sont dans un objet dénommé <kbd>vingt_train</kbd>.
+
+<br/>
+
+On peut taper&nbsp;:
+
+</p>
+
+<pre>vingt_train.target_names
+</pre>
+
+<p>
+
+qui va afficher la liste des catégories présentes dans le jeu de données. On retrouve celles que l'on a spécifiées précédemment.
+
+<br/>
+
+Les textes se trouvent dans <kbd>vingt_train.data</kbd> que l'on peut considérer comme une liste de textes. Pour savoir combien il y en a, on tape donc&nbsp;:
+
+</p>
+
+<pre>len (vingt_train)
+</pre>
+
+<p>
+
+Pour voir un texte, on tape&nbsp;:
+
+</p>
+
+<pre>vingt_train. data [0]
+</pre>
+
+<p>
+
+qui affiche le texte composant le premier message. La lecture n'en est pas très aisée car les passages à la ligne ne sont pas réalisés&nbsp;; dans ce texte, les passages à la ligne sont symbolisés par la suite de caractères <kbd>\n</kbd>.
+
+<br/>
+
+On y voit plus clair en tapant&nbsp;:
+
+</p>
+
+<pre>print (vingt_train.data[0])
+</pre>
+
+<p>
+
+qui affiche le contenu du premier message en passant bien à la ligne.
+
+<!--pre>print ("\n".join (vingt_train.data[0].split ("\n")))
+</pre>
+
+<p>
+
+qui est le même message où cette fois les passages à la ligne sont réalisés.
+Cette instruction peut paraître compliqué, mais elle ne l'est pas tant que cela. Pour y voir plus clair, il faut la décomposer.
+
+</p>
+
+<ul>
+  <li><kbd>vingt_train. data [0]</kbd> est le premier texte de la liste, comme on l'a vu précédemment</li>
+  <li><kbd>vingt_train. data [0]. split ("\n")</kbd> coupe ce texte à chaque <kbd>\n</kbd>, donc à chaque passage à la ligne. Le résultat de cette découpe est la liste des lignes du message. 
+     <br/>
+     On peut ensuite taper&nbsp;:
+     <ul>
+       <li><kbd>vingt_train. data [0]. split ("\n") [0]</kbd> qui affiche la première ligne du message</li>
+       <li><kbd>vingt_train. data [0]. split ("\n") [:5]</kbd> qui affiche les 5 premières lignes du message</li>
+       <li>...</li>
+       <li>Comment faites-vous pour connaître le nombre de lignes constituant le premier message&nbsp;?</li>
+     </ul>
+     Si on résume, vous avez transformé le premier message en une liste de lignes. Le résultat n'est toujours pas très lisible.
+  </li>
+  <li>
+</ul-->
+
+
+<h4>La classe des textes</h4>
+
+<p>
+
+Pour chaque exemple, la classe est dans les listes <kbd>vingt_train.target_names</kbd> et <kbd>vingt_train.target</kbd>.
+
+<br/>
+
+<kbd>vingt_train.target_names</kbd> est la liste des noms des catégories pour l'ensemble des exemples.
+
+<br/>
+
+<kbd>vingt_train.target</kbd> contient la même information mais codée dans l'ordre où les noms de classes apparaissent dans l'objet <kbd>categories</kbd> que l'on a créé précédemment.
+
+</p>
+
+<h2>Représentation des textes sous forme vectorielle</h2>
+
+<p>
+
+On l'a vu en cours, chaque texte est représenté par un sac de mot, qui s'implante sous la forme d'un vecteur&nbsp;; chaque composante du vecteur correspond à un mot.
+
+<br/>
+<br/>
+
+Le principe est le suivant&nbsp;:
+
+</p>
+
+<ol>
+  <li>on découpe chaque message (chaque message est une chaîne de caractères) en une séquence de mots&nbsp;;</li>
+  <li>on construit l'ensemble de tous les mots présents dans l'ensemble des textes&nbsp;;</li>
+  <li>on compte le nombre d'occurences de chaque mot dans chaque texte&nbsp;;</li>
+  <li>on place ces décomptes dans une (grande) matrice dans laquelle chaque ligne correspond à un texte, chaque colonne correspond à un mot.</li>
+</ol>
+
+<p>
+
+Tout cela se fait en quelques instructions Python&nbsp;:
+
+</p>
+
+<pre>from sklearn.feature_extraction.text import CountVectorizer
+vingt_train_decomptes = CountVectorizer (). fit_transform (vingt_train.data)
+</pre>
+
+<ul>
+  <li>la première ligne charge la fonction donc on a besoin</li>
+  <li>la seconde ligne crée la matrice contenant le décompte de chaque mot dans chaque texte.</li>
+</ul>
+
+<p>
+
+En tapant <kbd>vingt_train_decomptes.shape</kbd>, on obtient les dimensions de cette matrice. Sans surprise, on retrouve le même nombre de lignes qu'il y a de textes. Le nombre de colonnes est le nombre de mots distincts présents dans cet ensemble de textes.
+
+</p>
+
+<div class="exercice">
+  <ul>
+    <li>quel est le nombre de textes&nbsp;?</li>
+    <li>quel est le nombre de mots distincts&nbsp;?</li>
+  </ul>
+</div>
+
+<p>
+
+On l'a vu, les décomptes ne fournissent pas une représentation adéquate. La représentation tf.idf est bien meilleure. On transforme très facilement les décomptes en tf.idf par&nbsp;:
+
+</p>
+
+<pre>from sklearn.feature_extraction.text import TfidfTransformer
+vingt_train_tfidf = TfidfTransformer().fit_transform(vingt_train_decomptes)
+</pre>
+
+<p>
+
+<kbd>vingt_train_tfidf</kbd> est une nouvelle matrice, de la même taille que <kbd>vingt_train_decomptes</kbd>, organisée de la même manière. Seulement, les valeurs sont différentes&nbsp;; au lieu de décomptes, ce sont maintenant les tf.idf.
+
+<br/>
+<br/>
+
+On peut vérifier que la taille des deux matrices est la même par <kbd>vingt_train_tfidf.shape</kbd>.
+
+<br/>
+<br/>
+
+On peut être curieux et vouloir voir comment est représenté un texte, <i>i.e.</i> les décomptes ou les valeurs tf.idf. Comme vous avez pu le constater précédemment, le nombre de mots (le nombre de colonnes) est assez grand. On a vu en cours que chaque texte ne contient généralement qu'un petit nombre de mots et que donc, les vecteurs et la matrice sont creux (dans l'exercice que nous sommes en train de réaliser, moins de 0,5% des éléments de la matrice sont non nuls). Aussi, <kbd>scikit</kbd> utilise une représentation particulière de la matrice pour ne pas stocker ces valeurs nulles.
+<!--
+vingt_train_tfidf.shape
+(2257, 35788)
+>>> 2257*35788
+80773516
+>>> vingt_train_tfidf.nnz/80773516
+0.004529776814469733
+-->
+
+<br/>
+<br/>
+
+Comme il s'agit de matrice particulière, optimisée pour que les traitements soient rapides et l'encombrement en mémoire minimal, regarder leur contenu n'est pas aussi simple que l'on pourrait l'espérer&nbsp;; la notation est un peu compliquée.
+
+<br/>
+
+Par exemple, pour voir le premier décompte du texte numéro 0, on tape&nbsp;:
+
+</p>
+
+<pre>vingt_train_decomptes.getrow(0).toarray()[0][0]
+</pre>
+
+<p>
+
+Pour voir les 100 premiers décomptes du texte numéro 0, on tape&nbsp;:
+
+</p>
+
+<pre>vingt_train_decomptes.getrow(0).toarray()[0][0:100]
+</pre>
+
+<p>
+
+On a vu que le produit scalaire revêt une importance cruciale. On peut calculer le produit scalaire entre deux textes, c'est-à-dire entre deux lignes d'une matrice creuse comme suit&nbsp;:
+
+</p>
+
+<pre>texte1 = 34
+texte2 = 176
+vingt_train_decomptes.getrow (texte1).toarray()[0].dot(vingt_train_decomptes.getrow(texte2).toarray()[0])
+</pre>
+
+<p>
+
+C'est lourd je vous l'accorde, mais il suffit de mettre le bon nom de matrice (ici c'est <kbd>vingt_train_decomptes</kbd>, mais ça pourrait être <kbd>vingt_train_tfidf</kbd>), et de mettre l'indice des textes dans les variables <kbd>texte1</kbd> et <kbd>texte2</kbd>.
+
+</p>
+
+<div class="exercice">
+<ul>
+  <li>Comment calculez-vous la norme d'un vecteur&nbsp;?</li>
+  <li>Ayant répondu à cette question, comment calculez-vous le cosinus entre deux textes&nbsp;?</li>
+</div>
+
+</div>
+</body>
+</html>
