@@ -1,0 +1,268 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Classification supervisée : la méthode des k plus proches voisins</title>
+  <link href="https://philippe-preux.github.io/css/ma.css" 
+	rel="stylesheet" type="text/css" media="all" />
+</head>
+
+<body>
+
+<div class="tpR">
+<h1>Classification supervisée : la méthode des k plus proches voisins</h1>
+
+<p>
+
+En guise d'initiation au problème d'apprentissage supervisé, nous allons implanter et manipuler l'algorithme des k plus proches voisins.
+
+</p>
+
+<h2>Implantation de l'algorithme des k plus proches voisins</h2>
+
+<p>
+
+On va réaliser un programme qui implante l'algorithme des k plus proches voisins. 
+Nous allons faire cela progressivement.
+</p>
+
+<h3>Lecture du jeu d'exemples</h3>
+
+<h4>Introduction</h4>
+
+<p>
+
+Avant même d'implanter l'algorithme des k plus proches voisins, nous avons besoin d'exemples qui seront traités par l'algorithme. Aussi, commençons par lire un jeu de données.
+
+<br/>
+
+L'un des formats les plus simples est le format csv. Dans ce format, chaque ligne contient une donnée (un exemple ici)&nbsp;; chaque ligne contient la valeur des attributs de la donnée, séparés par une virgule.
+
+<br/>
+
+Bien entendu, il faut impérativement que les attributs apparaissent dans le même ordre à chacune des lignes.
+
+<br/>
+
+Par exemple, pour le jeu de données que l'on va manipuler pour l'instant, les deux premières lignes du fichier sont&nbsp;:
+
+</p>
+
+<pre>5.1,3.5,1.4,0.2,Iris-setosa
+4.9,3.0,1.4,0.2,Iris-setosa
+</pre>
+
+<p>
+
+Il y a 4 virgules par ligne, donc 5 attribut par ligne/donnée. Les quatre premiers attributs sont des nombres, le dernier est un symbole. Par convention, le dernier attribut de la ligne est l'étiquette de la donnée.
+
+</p>
+
+<h4>Réalisation</h4>
+
+<p>
+
+Sauvegardez le fichier d'exemple dans votre répertoire de travail. Il est disponible <a href="./iris.data">là</a>.
+
+<br/>
+<br/>
+
+On va utiliser la bibliothèque <kbd>csv</kbd> de Python pour charger un jeu de données (n'oubliez pas de l'importer). Son utilisation est très simple. Par exemple, on peut écrire&nbsp;:
+
+</p>
+
+<pre>csvfile = open ("iris.data", "r")
+lines = csv.reader(csvfile)
+dataset = list (lines)
+</pre>
+
+<p>
+
+<kbd>dataset</kbd> contient maintenant une espère de table dont chaque ligne contient une donnée. Chaque ligne est une liste contenant les attributs d'une donnée. <kbd>dataset</kbd> est une liste de listes.
+
+<br/>
+
+Par exemple, une fois que vous avez effectué les instructions précédentes, vous pouvez tapez <kbd>dataset [0]</kbd> pour voir la première donnée.  Vous pouvez ensuite accéder individuellement à chaque attribut. <kbd>dataset [0]</kbd> produit l'affichage&nbsp;:
+
+<br/>
+
+<pre>['5.1', '3.5', '1.4', '0.2', 'Iris-setosa']
+</pre>
+
+<br/>
+
+Chacun des 4 attributs numériques est entouré d'apostrophes. Ces valeurs ont été lues comme des chaînes de caractères et non comme des nombres. Il faut donc transformer ces chaînes de caractères en nombres. On le fait par la fonction <kbd>float</kbd> que l'on applique aux quatre premiers attributs de chacun des exemples. La boucle suivante effectue cette transformation.
+
+<br/>
+
+<pre>for x in range(len(dataset)):
+  for y in range (4):
+    dataset[x][y] = float(dataset[x][y])
+</pre>
+
+On peut vérifier le résultat&nbsp;: <kbd>dataset [0]</kbd> produit maintenant l'affichage&nbsp;:
+
+<br/>
+
+<pre>[5.1, 3.5, 1.4, 0.2, 'Iris-setosa']
+</pre>
+
+Il est normal que le dernier attribut, l'étiquette, soit une chaîne de caractères.
+
+<br/>
+
+Répondez aux questions suivantes (qui ne doivent pas poser de problème)&nbsp;:
+
+</p>
+
+<ul>
+  <li>quelle instruction tapez-vous pour connaître le nombre d'exemples que vous avez chargé&nbsp;?</li>
+  <li>quelle instruction tapez-vous pour connaître le nombre d'attributs de chacune des données&nbsp;?</li>
+</ul>
+
+<h3>Déterminer le plus proche voisin d'un point</h3>
+
+<h4>Distance entre deux points</h4>
+
+<p>
+
+Avant toute chose, il nous faut définir une fonction qui mesure la distance entre deux données. Pour faire les choses les plus simples possibles pour l'instant, définissons une fonction <kbd>distance</kbd> qui prend deux points (deux listes de nombres) en paramètre et renvoie leur distance euclidienne.
+
+<br/>
+<br/>
+
+Vous pourrez tester votre fonction entre mesurant la distance entre les deux premières données&nbsp;: <kbd>distance (dataset [0][0:4], dataset [1][0:4])</kbd> qui doit renvoyer 0.538.... Entre la première donnée et la dernière, la distance est 4.140...
+
+</p>
+
+<h4>Le plus proche voisin</h4>
+
+<p>
+
+Écrire une fonction <kbd>lePlusProcheVoisin</kbd> qui prend en paramètre une donnée (une liste de 4 nombres, pas forcément un élément de <kbd>dataset</kbd>) et renvoie l'indice dans <kbd>dataset</kbd> du plus proche voisin (situé à une distance non nulle).
+
+<br/>
+<br/>
+
+Par exemple, le plus proche voisin de la première donnée est la donnée numéro 17 et le voisin le plus proche du point <kbd>[5, 3, 3, 2]</kbd> est la donnée numéro 98.
+
+</p>
+
+<h3>Déterminer les k plus proches voisins d'un point</h3>
+
+<p>
+
+Écrire une fonction <kbd>lesKplusProchesVoisins</kbd> qui prend en paramètre une donnée (une liste de 4 nombres, pas forcément un élément de <kbd>dataset</kbd>) et une valeur de <kbd>k</kbd> et renvoie la liste des indices dans <kbd>dataset</kbd> des k plus proches voisins.
+
+<br/>
+
+Quand vous prenez <lbd>k=1</kbd>, cette fonction doit renvoyer le même résultat que la précédente, mis à part le fait que <kbd>lePlusProcheVoisin</kbd> renvoie une valeur numérique alors que <kbd>lesKplusProchesVoisins</kbd> renvoie une liste d'un élément.
+
+<br/>
+<br/>
+
+Par exemple, les 3 plus proches voisins de la première donnée sont les données numérotées 17, 4 et 39. Donc, <kbd>lesKplusProchesVoisins</kbd> renvoit la liste <kbd>[17, 4, 39]</kbd>.
+
+<br/>
+
+Les 3 plus proches voisins du point <kbd>[5, 3, 3, 2]</kbd> sont les données numérotées 98, 64 et 59. Donc, <kbd>lesKplusProchesVoisins</kbd> renvoit la liste <kbd>[98, 64, 59]</kbd>.
+
+</p>
+
+<h3>Prédire l'étiquette d'une donnée</h3>
+
+<p>
+
+Écrire une fonction <kbd>predire</kbd> qui prend en paramètre une liste de numéro d'exemples (de <kbd>dataset</kbd>) et retourne l'étiquette qui est prédite.
+
+<br/>
+
+On décide de l'étiquette en appliquant un choix à la majorité.
+
+<br/>
+<br/>
+
+Par exemple, si on passe la liste <kbd>[17, 4, 39]</kbd> (les trois plus proches voisins de la première donnée), la fonction <kbd>predire</kbd> retournera la valeur Iris-setosa.
+
+</p>
+
+<h3>Construction des jeux d'entraînement et de test</h3>
+
+<p>
+
+Comme on l'a vu en cours, d'une manière générale, il faut distinguer les données avec lesquelles on prédit et les données que l'on prédit si l'on veut pouvoir estimer la probabilité qu'un classeur k pluis proches voisins se trompe dans sa prédiction. 
+
+<br/>
+
+Donc, il ne faut pas chercher les k plus proches voisins d'une donnée parmi toutes les données, mais dans un sous-ensemble de celles-ci&nbsp;; et il faut mesurer les erreurs de classification sur des données que l'on n'utilise pas pour prédire la classe.
+
+<br/>
+
+Donc, il faut découper le jeu de données en deux sous-ensembles disjoints, l'un qui est l'ensemble d'entraînement, l'autre qui est l'ensemble de test.
+
+<br/>
+
+On écrira donc une fonction <kbd>decoupeJeuDeDonnees</kbd> qui prendra au hasard une certaine proportion (qui lui est passée en paramètre) des exemples pour les mettre dans une liste que l'on nommera <kbd>exemplesDentrainement</kbd>, les autres exemples allant dans une liste <kbd>exemplesDeTest</kbd>.
+
+<br/>
+
+Dans les fonctions <kbd>lePlusProcheVoisin</kbd>, <kbd>lesKplusProchesVoisins</kbd> et <kbd>predire</kbd> écrites précédemment, on remplacera la référence à <kbd>dataset</kbd> par <kbd>exemplesDentrainement</kbd>.
+
+</p>
+
+<h3>Tout mettre bout à bout</h3>
+
+<p>
+
+Finalement, on peut maintenant combiner les fonctions précédentes pour obtenir le programme principal qui&nbsp;:
+
+</p>
+
+<ul>
+  <li>charge le jeu de données</li>
+  <li>le découpe en un jeu d'entraînement et un jeu de test</li>
+  <li>prédit la classe de chacune des données du jeu de test en utilisant les 3 plus proches voisins, compare la classe prédite et la vraie classe de la donnée, compte le nombre d'exemples dont la classe est mal prédite.</li>
+  <li>affiche la proportion d'exemples dont la classe est mal prédite.</li>
+</ul>
+
+<h3>Aller un peu plus loin</h3>
+
+<p>
+
+Implanter une fonction de validation croisée (VC)&nbsp;:
+une VC est une (autre) manière d'estimer la probabilité qu'à un classeur de se tromper. Plutôt que de découper une fois pour toute l'ensemble d'exemples en un sous-ensemble d'apprentissage et un sous-ensemble de test, on effectue cette découpe plusieurs fois (on appelle cela le nombre de «&nbsp;plis&nbsp;»).
+
+<br/>
+
+Si on fait 10 plis, on effectue le traitement suivant&nbsp;:
+
+</p>
+
+<ul>
+  <li>découper l'ensemble d'exemples en 10 sous-ensembles stratifiés, numérotés de 1 à 10</li>
+  <li>Pour pli de 1 à 10:
+    <ul>
+      <li>utiliser tous les sous-ensembles sauf celui portant le numéro i pour effectuer l'entraînement (ici, cela signifie que l'on utilise ces 9 sous-ensembles pour prédire la classe)</li>
+      <li><kbd>err_i <-</kbd> proportion d'erreur sur le sous-ensemble numéro i</li>
+    </ul>
+  </li>
+  <li><kbd>E <-</kbd> moyenne des <kbd>err_i</kbd></li>
+</ul>
+
+<p>
+
+<kbd>E</kbd> est une estimation de la probabilité d'erreur du classeur.
+
+<h2>Étude expérimentale</h2>
+
+<ul>
+  <li>Faire varier la proportion d'exemples utilisés pour l'entraînement (entre 20 et 90 %, en allant de 10 % en 10 %) et regarder comment varie l'erreur de prédiction</li>
+  <li>En prenant 70 % d'exemples dans le jeu d'entraînement, voir comment varie l'erreur de prédiction quand on fait varier k. Prendre les valeurs k = 1, 2, 3, 5, 10, 15, 20 et tous les exemples.</li>
+  <li>Mesurez le temps d'exécution de votre programme et faites un graphique représentant l'erreur de prédiction en fonction du temps d'exécution. Déterminez le meilleur «&nbsp;rapport qualité - prix&nbsp;». <!--(Pour mesurer le temps d'exécution d'un programme en Python, voir <a href="http://www.grappa.univ-lille3.fr/~gonzalez/enseignement/2013-2014/algo2/calendrier.php?voir=TD-2#2">cette page</a>.)--></li>
+</p>
+
+</div>
+
+</body>
+</html>
