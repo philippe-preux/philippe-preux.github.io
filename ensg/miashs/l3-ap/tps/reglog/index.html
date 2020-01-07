@@ -1,0 +1,430 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Régression logistique</title>
+  <link href="https://philippe-preux.github.io/css/ma.css" 
+	rel="stylesheet" type="text/css" media="all" />
+  <link rel="shortcut icon" type="image/x-icon" 
+	href="https://philippe-preux.github.io/img/site.ico" />
+</head>
+
+<body>
+
+<div class="tpR">
+<h1>Régression logistique</h1>
+
+<p>
+
+Nous allons utiliser une bibliothèque d'apprentissage automatique disponible dans python dénommée <kbd>scikit-learn</kbd>. Cette bibliothèque contient de très nombreux algorithmes de classification supervisée et non supervisée.
+
+</p>
+
+<h2>Réalisation d'une régression logistique</h2>
+
+<h3>Chargement du jeu de données</h3>
+
+<p>
+
+À nouveau, nous allons utiliser les iris. Pour cela, nous écrirons&nbsp;:
+
+</p>
+
+<pre>from sklearn import linear_model, datasets
+iris = datasets.load_iris()
+X = iris.data[:, :]
+Y = iris.target
+</pre>
+
+<ul>
+  <li>la première ligne donne accès au jeu de données iris.</li>
+  <li>la deuxième ligne charge le jeu de données iris.</li>
+  <li>la troisième ligne copie les attributs des iris dans <kbd>X</kbd>. <kbd>X</kbd> est un tableau à deux dimensions. La notation <kd>:</kbd> à gauche de la virgule indique que l'on prend toutes les lignes (toutes les données) du tableau&nbsp;; <kbd>:</kbd> à droite de la virgule indique que l'on prend toutes les colonnes (tous les attributs).
+  <br/>
+  Plutôt que de prendre toutes les lignes (ou toutes les colonnes), on peut n'en prendre que certaines. Par exemple&nbsp;:
+    <ul>
+      <li>la notation <kbd>3:9</kbd> indique de ne prendre que les lignes 3 à 8&nbsp;;</li>
+      <li>on peut aussi noter <kbd>[2, 7, 3]</kbd> pour ne prendre que les lignes 2, 7 et 3 (dans cet ordre).</li>
+    </ul>
+  </li>
+  <li>la quatrième ligne copie les étiquettes des iris dans <kbd>Y</kbd>.
+    Ici, les étiquettes sont codées par un numéro&nbsp;: 0, 1, et 2. Ceux-ci correspondent aux classes que l'on a déjà rencontrées&nbsp;: setosa, virginica, versicolor.</li>
+  </li>
+</ul>
+
+<p>
+
+Remarque&nbsp;: ce sont exactement les mêmes données que dans le TP sur les k plus proches voisins. Seulement, elles sont fournies ici sous forme de matrice car <kbd>scikit_learn</kbd> attend des données stockées sous cette forme.
+
+</p>
+
+<h3>Calculer le modèle de régression logistique</h3>
+
+<p>
+
+Effectuer la régression logistique est très simple. Il suffit d'écrire&nbsp;:
+
+</p>
+
+<pre>modele_regression_logistique = linear_model. LogisticRegression ()
+modele_regression_logistique. fit (X, Y)
+</pre>
+
+<ul>
+  <li>la première ligne construit un objet qui permet de réaliser une régression logistique. On accède à ce modèle par le nom <kbd>modele_regression_logistique</kbd>.</li>
+   <li>la seconde ligne effectue la régression logistique sur les données qui lui sont fournies.</li>
+</ul>
+
+<h3>Prédire la classe de données à partir du modèle de régression logistique</h3>
+
+<p>
+
+On peut maintenant utiliser le modèle pour prédire la classe d'une donnée ou obtenir la probabilité pour cette donnée d'appartenir à chacune des 3 classes.
+
+<br/>
+
+Pour cela, en supposant que <kbd>donneesApredire</kbd> est un tableau contenant les attributs des données à prédire (tableau de la même forme que <kbd>X</kbd>), on écrit&nbsp;:
+
+</p>
+
+<pre>classesPredites = modele_regression_logistique. predict (donneesApredire)
+</pre>
+
+<p>
+
+qui met dans <kbd>classesPredites</kbd> la classe prédite pour chacune des données contenues dans <kbd>donneesApredire</kbd>.
+
+<br/>
+<br/>
+
+Par exemple, si on applique le modèle sur l'ensemble d'entraînement, on obtient&nbsp;:
+
+</p>
+
+<pre>modele_regression_logistique. predict (X)
+[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 2 1 1 1
+ 1 1 1 1 1 1 1 1 1 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2
+ 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+ 2 2]
+</pre>
+
+<p>
+
+Quand vous le faites, le résultat que vous obtenez peut-être légérement différent. (Pourquoi d'après vous&nbsp;?)
+
+<br/>
+<br/>
+
+Pour obtenir les probablités d'appartenance à chacune des classes, on écrit&nbsp;:
+
+</p>
+
+<pre>probaClasses = modele_regression_logistique. predict_proba (donneesApredire)
+</pre>
+
+<p>
+
+<kbd>probaClasses</kbd> est alors un tableau dont chaque ligne correspond à une donnée de <kbd>donneesApredire</kbd>, chaque élément (colonne) correspondant à la probabilité d'appartenir à une classe.
+
+<br/>
+<br/>
+
+Par exemple, si on applique le modèle sur l'ensemble d'entraînement, on obtient&nbsp;:
+
+</p>
+
+<pre>modele_regression_logistique. predict_proba (X)
+[[  8.79681649e-01   1.20307538e-01   1.08131372e-05]
+ [  7.99706325e-01   2.00263292e-01   3.03825365e-05]
+ [  8.53796795e-01   1.46177302e-01   2.59031285e-05]
+...
+ [  1.45811816e-03   2.98379693e-01   7.00162189e-01]
+ [  1.09779827e-03   1.31785617e-01   8.67116585e-01]
+ [  1.68397530e-03   2.81057800e-01   7.17258224e-01]]
+</pre>
+
+<p>
+
+Quand vous le faites, le résultat que vous obtenez peut-être légérement différent. (Pourquoi d'après vous&nbsp;?)
+
+<br/>
+<br/>
+
+Naturellement, pour chaque donnée, la classe prédite correspond à la colonne ayant la plus grande valeur (probabilité).
+
+</p>
+
+<h2>À faire</h2>
+
+<div class="exercice">
+  <ol>
+    <li>Pour commencer, vous effectuez une régression logistique sur tous les iris en mettant bout à bout ce qui est expliqué ci-dessus.</li>
+    <li>Comme vous le savez, on n'utilise pas toutes les données pour construire un modèle d'apprentissage supervisé. Aussi, on va découper le jeu de données en une partie pour l'entraînement et une partie pour le test (mettez 80% des exemples dans le jeu d'entraînement, prenez garde à ce que le jeu d'entraînement soit stratifié).
+      <br/>
+      Calculez le taux d'erreur.
+      <br/>
+      Construisez la matrice de confusion.
+    </li>
+  </ol>
+</div>
+
+<div class="correction">
+  <ol>
+    <li>On fait du copier/coller des différents éléments indiqués ci-dessus.
+<pre>from sklearn import linear_model, datasets
+iris = datasets.load_iris()
+X = iris.data[:, :]
+Y = iris.target
+modele_regression_logistique = linear_model. LogisticRegression ()
+modele_regression_logistique. fit (X, Y)
+classe_predite = modele_regression_logistique. predict (X)
+</pre></li>
+    <li>
+<pre># à la suite de ce qui précède
+from random import shuffle
+nb_erreur = 0
+
+# découpe du jeu d'exemples en 80 % pour l'entraînement du modèle, le reste pour son test (voir le TP sur les k plus proches voisins)
+p = 0.8 # 80%
+listeDesIndices = [i for i in range (len (X))]
+shuffle (listeDesIndices)
+# la liste des indices des exemples utilisés pour l'entraînement
+indices_entrainement = listeDesIndices [0:int(p*len(X))]
+# la liste des indices des exemples utilisés pour le test
+indices_test = listeDesIndices [int(p*len(X)):len(X)]
+
+# on entraîne le modèle
+modele_regression_logistique. fit (X [indices_entrainement], Y [indices_entrainement])
+# on prédit la classe des exemples du jeu de test
+classe_predite = modele_regression_logistique. predict (X [indices_test])
+# on calcule le nombre d'erreurs de prédiction
+for i in range (len (indices_test)):
+    if Y [indices_test [i]] != classe_predite [i]:
+        nb_erreur += 1
+# et on calcule le taux d'erreur demandé
+taux_erreur = nb_erreur / len (indices_test)
+</pre>
+    <p>
+      Pour la matrice de confusion&nbsp;:
+    </p>
+<pre>matrice_confusion = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+for i in range (len (indices_test)):
+    matrice_confusion [Y [indices_test [i]]] [classe_predite [i]] += 1
+</pre>
+  </ol>
+</div>
+
+<h2>Quelques graphiques</h2>
+
+<p>
+
+Comme on dit, «&nbsp;un dessin vaut mieux qu'un long discours&nbsp;». Quand on cherche à extraire des informations de données, il est effectivement essentiel de faire des graphiques qui permettent de voir facilement des choses que des algorithmes ont du mal à trouver, pour comprendre des relations, ... Aussi, allons-nous apprendre à réaliser quelques graphiques simples pour poursuivre ce TP sur la régression logistique. Les notions vues ci-dessous sont très générales et s'appliquent bien entendu en dehors de la régression logistique.
+
+</p>
+
+<h3>Faire un <i>scatter-plot</i></h3>
+
+<p>
+
+Un <i>scatter-plot</i> représente un ensemble de points dans le plan. 
+Python fournit tous les éléments pour que cela se fasse sans difficulté. On fait comme cela&nbsp;:
+
+</p>
+
+<pre>from random import randint
+x = [randint (0, 10) for i in range(10)]
+y = [randint (5, 20) for i in range(10)]
+import matplotlib.pyplot as plt
+plt.figure ()
+plt.scatter (x, y)
+plt.show ()
+</pre>
+
+<ul>
+  <li>la ligne 1 importe une fonction pour générer des nombres pseudo-aléatoires entiers.</li>
+  <li>la ligne 2 génère un vecteur <kbd>x</kbd> de 10 nombres entiers pseudo-aléatoires compris entre 0 et 10 (bornes comprises).</li>
+  <li>la ligne 3 génère un vecteur <kbd>y</kbd> de 10 nombres entiers pseudo-aléatoires compris entre 5 et 20 (bornes comprises).</li>
+  <li>la ligne 4 importe des fonctions pour créer des graphiques.</li>
+  <li>la ligne 5 indique que l'on va créer une figure.</li>
+  <li>la ligne 6 indique le graphique que l'on veut créer&nbsp;: on veut représenter les données dont les abscisses sont spécifiées dans <kbd>x</kbd> et les ordonnées dans <kbd>y</kbd>.</li>
+  <li>la ligne 7 affiche le graphique.</li>
+</ul>
+
+<p>
+
+On peut donner une taille à chacun des points comme cela&nbsp;:
+
+</p>
+
+<pre>taille = [i*10 for i in range (10)]
+plt.scatter (x, y, s = taille)
+plt.show ()
+</pre>
+
+<p>
+
+et une couleur&nbsp;:
+
+</p>
+
+<pre>from matplotlib.colors import ListedColormap
+palette = ListedColormap(['#FF0000', '#00FF00', '#0000FF'])
+couleur = [i % 3 for i in range (10)]
+plt.scatter (x, y, c = couleur, s = taille, cmap = palette)
+plt.show ()
+</pre>
+
+<ul>
+  <li>la ligne 1 importe une fonction permettant de créer une palette de couleurs.</li>
+  <li>la ligne 2 crée cette palette&nbsp;; elle est composée de trois couleurs&nbsp;: du rouge, du vert et du bleu.</li>
+  <li>la ligne 3 crée un vecteur de numéro de couleurs, une couleur par point à afficher. La couleur est spécifiée par son numéro dans la palette (0 = rouge, 1 = vert, 2 = bleu).</li>
+  <li>la ligne 4 crée le graphique de ces points avec leur couleur et leur taille.</li>
+  <li>la ligne 5 affiche le graphique.</li>
+</ul>
+
+<p>
+
+Si on trouve que le cercle noir autour des points n'est pas joli, on ajoute <kbd>edgecolors='none'</kbd> en paramètre de la fonction <kbd>plt.scatter()</kbd> pour le retirer.
+
+<br/>
+
+On peut aussi dessiner autre chose que des cercles/disques avec le paramètre <kbd>marker</kbd>. Celui-ci prend la valeur <kbd>'o'</kbd> par défaut. Des tas d'autres valeurs sont possibles&nbsp;: voir <a href="http://matplotlib.org/api/markers_api.html#module-matplotlib.markers">cette page de documentation</a> pour en avoir la liste.
+
+<br/>
+
+Il faut toujours donner un titre à un graphique et indiquer ce que les axes représentent. Cela se fait à l'aide des fonctions&nbsp;:
+
+</p>
+
+<ul>
+  <li>plt. xlabel ('titre pour les abscisses')</li>
+  <li>plt. ylabel ('titre pour les ordonnées')</li>
+  <li>plt. title ('titre du graphique')</li>
+</ul>
+
+<h2>Faire un premier graphique des iris</h2>
+
+<div class="exercice">
+  <ol>
+    <li>Créer un graphique représentant les iris en fonction de leurs attributs 3 et 4 (longueur et largeur des pétales). Toutes les données doivent être de la même taille, représentées par un même symbole.</li>
+    <li>Les colorer en fonction de leur classe.</li>
+  </ol>
+</div>
+
+<h2>Faire un graphique des iris indiquant ceux dont la classe prédite est fausse</h2>
+
+<div class="exercice">
+  <p>
+    On veut maintenant identifier les données mal prédites.
+    <br/>
+    Refaites le même graphique en colorant les exemples en fonction de leur classe (comme précédemment). Cette fois-ci, vous indiquez les exemples mal classés en utilisant une forme particulière (à vous de choisir quelque chose de joli, qui se voit et qui se comprend au premier coup d'&oelig;il).
+  </p>
+</div>
+
+<h2>Classe prédite incertaine</h2>
+
+<div class="exercice">
+  <p>
+    La regression logistique estime la probabilité d'appartenance d'une donnée à chacune des classes. Cette probabilité donne une information quant à l'incertitude de cette prédiction. Pour une donnée, si toutes les probabilités sont faibles sauf une qui est presqu'égale à 1, alors la classe est (presque) certaine. Au contraire, pour certaines données, des probabilités significativement différentes de 0 et de 1 sont estimées&nbsp;; dans ce cas, la prédiction de la classe est incertaine.
+    <br/>
+    Ici, on dit que si une probabilité est < 0,9 ou > 0,1, alors la classe prédite pour cette donnée est incertaine.
+    <br/>
+    Refaites le même graphique que précédemment. Cette fois-ci vous indiquez les exemples dont la classe est incertaine par une couleur, une taille ou une forme particulière (à votre choix, du moment que l'on voit et comprend au premier coup d'&oelig;il).
+  </p>
+</div>
+
+<p>
+
+Quand toutes les couleurs spécifiées sont la même, les points sont rouges. Si on veut spécifier une autre couleur, on peut utiliser son nom&nbsp;: <a href="http://matplotlib.org/mpl_examples/color/named_colors.hires.png">voir ici la liste des couleurs disponibles</a>.
+
+</p>
+
+<h2>Courbe ROC et AUC</h2>
+
+<h3>Courbe ROC</h3>
+
+<p>
+
+La courbe ROC est un moyen très pratique pour estimer la qualité d'une procédure de classification. Nous allons la dessiner. Avant cela, il faut en calculer les points en suivant les indications données en cours, rappelées ci-dessous.
+
+<br/>
+<br/>
+
+La courbe ROC est un graphique en deux dimensions représentant le taux de vrais positifs par rapport au taux de faux positifs.
+
+</p>
+
+<h4>Cas de la classification binaire</h4>
+
+<p>
+
+Pour un problème de classification binaire, on procède comme suit&nbsp;:
+
+</p>
+
+<ol>
+  <li>On considère un ensemble de <kbd>n</kbd> exemples.</li>
+  <li>On calcule la probabilité d'appartenance à chacune des classes (avec <kbd>predict_proba()</kbd>, comme indiqué plus haut).</li>
+  <li>On trie les exemples selon ces probabilités par ordre décroissant. Pour cela, la fonction <kbd>argsort</kbd> dans <kbd>numpy</kbD> est bien utile&nbsp;:
+<pre>from numpy import argsort
+toto = [6, 8, 2, 1, 4]
+titi = argsort (toto)
+</pre>
+  <kbd>titi</kbd> contient un tableau dont les éléments sont <kbd>[3, 2, 4, 0, 1]</kbd>. Ce sont les indices des éléments du tableau qui ont été triés par <kbd>argsort</kbd> dans l'ordre croissant&nbsp;: le plus petit est celui d'indice 3, puis celui d'indice 2, ...
+  <br/>
+  Il ne reste plus qu'à inverser cette liste d'indice, ou à la parcourir du dernier élément au premier.</li>
+  <li>On compte le nombre d'exemples positifs, noté <kbd>n<sub>+</sub></kbd>.</li>
+  <li>Dans une boucle, on parcourt les exemples selon les probabilités décroissantes comme expliqué ci-dessus. On calcule&nbsp;:
+    <ul>
+      <li><kbd>tvp [i]</kbd> qui est le nombre de vrais positifs parmi les exemples numérotés de 0 à i (dans l'ordre décroissant)</li>
+      <li><kbd>tfp [i]</kbd> qui est le nombre de faux positifs parmi les exemples numérotés de 0 à i (dans l'ordre décroissant)</li>
+    </ul>
+    <kbd>i</kbd> prend les valeurs comprises entre 0 et <kbd>n</kbd>.
+    </li>
+  <li>On divise chacun des éléments de <kbd>tvp</kbd> et <kbd>tfp</kbd> par <kbd>n<sub>+</sub></kbd>.</li>
+</ol>
+
+<p>
+
+Reste à faire le graphique avec <kbd>tfp</kbd> en abscisses et <kbd>tvp</kbd> en ordonnées.
+
+</p>
+
+<h4>Cas de la classification non binaire</h4>
+
+<p>
+
+S'il y a k classes, on réalise k courbes ROC. Pour réaliser chacune de ces courbes, l'une des classes est considérée comme positive, toutes les autres comme négatives.
+
+</p>
+
+<div class="exercice">
+  <ol>
+    <li>Écrire une fonction python qui renvoie l'ensemble des points (x,y) qui permettent de dessiner la courbe ROC.
+    <br/>
+    Cette fonction prend trois paramètres&nbsp;:
+  </p>
+  <ol>
+    <li>les (vraies) classes des données utilisées.</li>
+    <li>les classes prédites des données utilisées.</li>
+    <li>les probabilités d'appartenance à chacune des deux classes.</li>
+  </ol>
+    <b>Attention</b>&nbsp;: la courbe ROC se calcule pour un problème de classification supervisée binaire (à 2 classes). Les iris comportent trois classes. On considérera donc 3 problèmes binaires&nbsp;: setosa ou autre, virginica ou autre, versicolor ou autre. On calculera la courbe ROC pour chacun de ces trois problèmes binaires.</li>
+    <li>Quand cette fonction est écrite, utilisez-là pour dessiner les 3 courbes ROC sur un même graphique.</li>
+    <li>Écrire une fonction qui calcule l'AUC. Calculez cette AUC pour chacune des 3 courbes ROC.</li>
+  </ol>
+</div>
+
+<h3>AUC (<i>Area under curve</i>)</h3>
+
+<p>
+
+L'AUC est la surface en dessous de la courbe ROC. Elle se calcule très facilement comme une intégrale de Riemann, en faisant la somme des surfaces des rectangles situés sous la courbe ROC. Avec les valeurs de <kbd>tvp</kbd> calculées précédemment, ce calcul est immédiat.
+
+</p>
+
+</div>
+
+</body></html>
