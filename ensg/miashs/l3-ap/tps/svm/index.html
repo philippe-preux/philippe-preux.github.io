@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>SVM</title>
+  <link href="https://philippe-preux.github.io/css/ma.css" 
+	rel="stylesheet" type="text/css" media="all" />
+  <link rel="shortcut icon" type="image/x-icon" 
+	href="https://philippe-preux.github.io/img/site.ico" />
+</head>
+
+<body>
+
+ <!-- 
+    http://scikit-learn.org/stable/modules/svm.html
+ -->
+
+<div class="tpR">
+<h1>Classification supervisée par SVM</h1>
+
+<p>
+
+Nous allons maintenant étudier l'algorithme SVM de classification supervisée. Nous utilisons la la bibliothèque d'apprentissage automatique disponible dans python dénommée <kbd>scikit-learn</kbd>. Il est indispensable d'avoir réalisé le TP sur la <a href="../reglog/">régression logistique</a> auparavant. Nous allons voir que passer de la régression logistique à une SVM se fait sans aucun effort&nbsp;!
+
+</p>
+
+<h2>Calcul d'une SVM</h2>
+
+<h3>Chargement du jeu de données</h3>
+
+<p>
+
+À nouveau, nous allons utiliser les iris. Nous reprenons à l'identique ce que nous avons fait pour la régresion logistique pour charger les données.
+
+</p>
+
+<h3>Calculer la SVM</h3>
+
+<p>
+
+On commence par importer la bilbiothèque nécessaire pour les SVM&nbsp;:
+
+</p>
+
+<pre>from sklearn import svm
+</pre>
+
+<p>
+
+puis on applique la SVM sur le jeu de données&nbsp;:
+
+</p>
+
+<pre>C = 1.0
+svc = svm. SVC (kernel = 'linear', C = C). fit(X, Y)
+</pre>
+
+<h3>Prédire la classe de données par la SVM</h3>
+
+<p>
+
+On peut maintenant utiliser le modèle pour prédire la classe d'une donnée.
+
+<br/>
+
+Pour cela, en supposant que <kbd>donneesApredire</kbd> est un tableau contenant les attributs des données à prédire (tableau de la même forme que <kbd>X</kbd>), on écrit&nbsp;:
+
+</p>
+
+<pre>classesPredites = svc. predict (donneesApredire)
+</pre>
+
+<p>
+
+qui met dans <kbd>classesPredites</kbd> la classe prédite pour chacune des données contenues dans <kbd>donneesApredire</kbd>.
+
+</p>
+
+<h2>À faire</h2>
+
+<div class="exercice">
+  <ol>
+    <li>Calculer la SVM pour les iris en utilisant 80 % des iris pour l'entraînement et les autres 20 % pour le test.
+      <br/>
+      Calculez le taux d'erreur.
+      <br/>
+      Construisez la matrice de confusion.
+    </li>
+    <li>Comparons la classe prédite par la régression logistique et celle prédite par la SVM. Pour cela, on utilise le même ensemble d'entraînement pour calculer la SVM et réaliser la régression logistique. On utilise ensuite le même ensemble de données de test.
+      <ul>
+        <li>Comparez le taux d'erreur de ces deux méthodes.</li>
+        <li>Déterminez les données mal prédites par les deux méthodes et celles mal prédites par l'une et bien prédite par l'autre.</li>
+      </ul></li>
+  </ol>
+</div>
+
+<h2>Faire un graphique des iris indiquant ceux dont la classe prédite est fausse</h2>
+
+<div class="exercice">
+  <p>
+    Faire un graphique dans le plan (longueur des pétales, largeur des pétales) dans lequel vous identifiez (par la taille, une couleur, ... comme vous voulez du moment que l'on comprend) les données mal prédites par l'une ou l'autre méthode, ou les deux.
+  </p>
+</div>
+
+<h2>Frontières de décision</h2>
+
+<p>
+
+Le but du graphique que nous allons réaliser maintenant et de visualiser les zones de l'espace des données correspondant à la prédiction de chacune des classes.
+
+<br/>
+<br/>
+
+Pour pouvoir réaliser un graphique en deux dimensions, nous ne considérons que 2 attributs des iris, la longueur et la largeur des pétales.
+
+<br/>
+
+Le principe consiste à balayer cet espace à intervalles réguliers, à prédire la classe de chacun de ces points et à réaliser un graphique avec ces prédictions.
+
+<br/>
+
+On balaie par exemple la longueur des pétales depuis la valeur minimale de cet attribut dans le jeu de données moins une marge (0,5 par exemple) jusque la valeur maximale de cet attribut dans le jeu de données plus une marge. On fait la même chose pour la largeur des pétales. Dans <kbd>scikit-learn</kbd>, on dispose de mécanismes qui nous permettent de faire cela très simplement. On construit une grille (<i>mesh</i> en anglais) dont les intersections sont ces points qui vont être balayés. Ainsi, on peut écrire&nbsp;:
+
+</p>
+
+<pre>import numpy as np
+h = .02  # pas de la grille
+X2d = iris.data [:, 2:4] # on ne prend que les deux attributs longueur et largeur des pétales
+# on crée la grille ci-après
+x_min = X2d [:, 0].min() - .5
+x_max = X2d [:, 0].max() + .5
+y_min = X2d [:, 1].min() - .5
+y_max = X2d [:, 1].max() + .5
+xx, yy = np.meshgrid (np.arange (x_min, x_max, h), np.arange (y_min, y_max, h))
+# la grille est créée. Les coordonnées des intersections sont dans xx et yy
+
+# on construit la SVM sur tous les exemples
+svc2d = svm. SVC (kernel = 'linear', C = C). fit (X2d, Y)
+svc2d. fit (X2d, Y)
+# on utilise ce modèle pour prédire la classe de chacun des exemples
+Z2d = svc2d. predict (np.c_[xx.ravel(), yy.ravel()])
+# et on fait la figure
+Z2d = Z2d. reshape (xx. shape)
+plt. figure ()
+plt. pcolormesh (xx, yy, Z2d, cmap=plt.cm.Paired)
+plt. show ()
+</pre>
+
+<p>
+
+Ces quelques lignes de python tracent les frontières de décision. Cette figure ressemble à cela&nbsp;:
+
+</p>
+
+<img src="./frontières.décision.svm.all-train.png" width="300" />
+
+<div class="exercice">
+  <ul>
+    <li>Ajoutez-y les exemples colorés en fonction de leur classe (exactement comme nous avons fait dans le TP de régression logistique).
+      <br/>
+      Vous devriez obtenir quelque chose comme cela&nbsp;:
+      <br/>
+      <img src="./frontières.décision.svm.all-train.avec-les-exemples.png" width = "300" /></li>
+    <li>Faites le même schéma pour la régression logistique. Vous devriez obtenir quelque chose comme cela&nbsp;:
+      <br/>
+      <img src="./frontières.décision.reglog.all-train.avec-les-exemples.png" width = "300" /></li>
+    <li>On peut afficher les deux figures en même temps&nbsp;: pour cela, il suffit de remplacer <kbd>plt. figure()</kbd> par <kbd>plt. subplot (1, 2, 1)</kbd> suivi de <kbd>plt.subplots_adjust (wspace = 0.4, hspace = 0.4)</kbd>. Vous faites cela pour la régression logistique puis pour la SVM et vous obtenez un graphique comme celui-ci&nbsp;:
+      <br/>
+      <img src="./frontières.décision.svm-reglog.all-train.avec-les-exemples.png" width = "600" /></li>
+    </li>
+  </ul>
+</div>
+
+<h2>Pour finir&nbsp;: ce n'est qu'un début</h2>
+
+<p>
+
+De nombreux algorithmes de classification supervisée (et non supervisée) sont disponibles dans <kbd>scikit-learn</kbd>. Une fois que vous savez en utilisez un, vous savez tous les utiliser. Il suffit d'importer les fonctions nécessaires et d'appeler ensuite la bonne fonction.
+
+<br/>
+
+Vous avez ainsi accès à&nbsp;:
+
+</p>
+
+<ul>
+  <li>Arbres de décision (<a href="http://scikit-learn.org/stable/modules/tree.html#tree-classification">voir la documentation</a>).</li>
+  <li>Les k plus proches voisins (<a href="http://scikit-learn.org/stable/modules/neighbors.html">voir la documentation</a>).</li>
+  <li>Classeur bayesien naïf (<a href="http://scikit-learn.org/stable/modules/naive_bayes.html">voir la documentation</a>).</li>
+  <li>Voir <a href="http://scikit-learn.org/stable/supervised_learning.html">ce document</a> pour la liste complète.</li>
+</ul>
+
+</div>
+</body>
+</html>
