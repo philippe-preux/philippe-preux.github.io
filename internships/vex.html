@@ -2,7 +2,7 @@
 	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
   <head>
-    <title>Model-based RL</title>
+    <title>R^2 in RL</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <!--link rel="stylesheet" type="text/css" href="./ma.css" /-->
     <style>
@@ -20,31 +20,28 @@
     </p>
 
     <ul>
-      <li>Title: Model-based RL</li>
-      <li>Supervisor: <a href="https://philippe-preux.github.io/">Philippe Preux</a></li>
+      <li>Title: R^2 in RL</li>
+      <li>Supervisor: <a href="https://ynns.io/">Yannis Flet-Berliac</a>, <a href="https://philippe-preux.github.io/">Philippe Preux</a></li>
       <li>Duration: 5 to 6 months</li>
       <li>When: Spring-Summer 2020</li>
       <li>Where: <a href="http://sequel.lille.inria.fr/">SequeL</a>, Inria Lille, Villeneuve d'Ascq, France</li>
-      <li>Expected background: master MVA, or master in CS specialized in machine learning.</li>
-      <li>Keywords: reinforcement learning, deep RL, algorithms, experimental</li>
+      <li>Expected background: master MVA, or equivalent.</li>
+      <li>Keywords: reinforcement learning, deep RL, algorithms.</li>
       <li>Context: <br/>
 	Reinforcement learning is a sub-field of machine learning in which we aim at designing agents that learn to act. Acting usually involves performing a sequence of actions in order to achieve a goal. Examples are countless; games are good examples, like pacman or chess in which the player has to perform a series of action either to reach a maximal score, or to defeat his opponent. Applications of RL go way beyond games.
 	<br/>
-	RL algorithms are inherently slow to learn. One way to make them more efficient is to make them learn a model of their environment; this model is meant to be refined along learning and the RL agent may use this model in order to learn more efficiently. This idea is not new, dating back at least to Sutton's Dyna architecture.
+	RL algorithms learn by exploring their environment and collecting information on transitions (state s<sub>t</sub>, action a<sub>t</sub>, return r<sub>t</sub>, next state s<sub>t+1</sub>). Usually, an RL algorithm uses all these samples. We have recently proposed that this is not a good idea, as the informative quality of samples is not the same for all of them: some samples are informative, others are not, and are misleading. To assess the informative quality of a sample, we use the notion of R<sup>2</sup>. This combination has led to improve very significantly the experimental performance of state-of-the-art policy gradient algorithms on a suite of classical RL tasks.
       </li>
       <li>What: <br/>
 	The goal of this internship is:
 	<ul>
-	  <li>Study the litterature of model-based RL.</li>
-	  <li>Explore new ideas. This exploration can be theoretical or algorithmic.</li>
-	  <li>Perform an experimental assessment of the ideas.</li>
+	  <li>to study further this idea. This study will be theoretical and experimental. We want to better understand how this criteria is impacting the learning process, how to make the best profit of it, possibly identify other ways to take advantage of this notion, and investigate it. As we consider algorithms that are quite difficult to study in a meaningfull way from a theoretical point of view, this study will also be experimental.</li>
 	</li>
     </ul>
     <li>Bibliography:
       <ul>
 	<li><a href="http://incompleteideas.net/book/the-book.html">Sutton and Barto, Reinforcement Learning, an Introduction</a></li>
-	<li>Sutton, <a href="http://incompleteideas.net/publications.html#Dyna">Integrated architectures for learning, planning, and reacting based on approximating dynamic programming</a>, ICML 1990</li>
-	<li>Weber <i>et al</i>., <a href="https://arxiv.org/abs/1707.06203">Imagination-Augmented Agents for Deep Reinforcement Learning</a>, 2018</li>
+        <li>Flet-Berliac, Preux, Unpublsihed paper.</li>
       </ul>
     </li>
     <li>Working environment: SequeL is a well-known research group in reinforcement learning and bandits. It is composed of 4 permanent researchers, 20+ PhD students, a couple of post-docs and engineers. SequeL provides a very rich and stimulating for doing cutting-edge research in RL.</li>
