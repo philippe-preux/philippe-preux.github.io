@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="fr" xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Décision dans l'incertain&nbsp;: processus de décision de Markov</title>
+  <script type="text/javascript" 
+    src="http://www.grappa.univ-lille3.fr/~ppreux/LaTeXMathML.js">
+  </script>
+  <link rel="https://philippe-preux.github.io/css/ma.css" media="all">
+</head>
+<body>
+<div class="tpR">
+<h1>Processus et problèmes de décision de Markov</h1>
+<p>
+Ce deuxième TP va concerner les processus de décision de Markov.
+<br/>
+L'objectif est de mettre en &oelig;uvre le contenu du cours. Les
+implantations logicielles seront effectuées en C.
+</p>
+<h2>Programmation dynamique</h2>
+<p>
+Vous commencerez par définir des structures de données pour représenter
+un problème de décision de Markov&nbsp;:
+</p>
+<ul>
+  <li>les états</li>
+  <li>les actions possibles dans chaque état</li>
+  <li>la fonction de transition</li>
+  <li>la fonction de retour immédiat</li>
+  <li>facteur de dépréciation &gamma;</li>  
+</ul>
+<p>
+Vous définirez également une structure de données permettant de
+représenter une politique &pi;.
+</p>
+<h3>Évaluation d'une politique</h3>
+<p>
+Nous étudions différentes méthodes pour évaluer une politique.
+</p>
+<h4>Évaluation par résolution de système d'équations linéaires</h4>
+<p>
+Vous écrivez une fonction qui prend un PDM en paramètre.  Cette
+fonction calcule la valeur d'une politique donnée. Pour résoudre le
+système d'équations linéaires, vous utilisez la GSL. Le chapitre 13
+contient le nécessaire pour cela&nbsp;; en particulier, la section
+13.15, page 141-142 présente un exemple de la résolution d'un système
+de 4 équations linéaires à 4 inconnues, qu'il vous suffit
+d'adapter. (ou section 14.15 page 147, selon la version de la doc.)
+<br/>
+La documentation est disponible dans <kbd>/usr/share/doc/gsl-...</kbd>
+aux formats html et pdf, en ligne à <a
+href="http://www.gnu.org/s/gsl/">cette url</a>.  <a
+href="http://www.gnu.org/software/gsl/manual/html_node/Linear-Algebra-Examples.html">L'exemple
+de résolution d'un système d'équations linéaires.</a>
+<br/>
+Suivre <a href="../bandits/index.html#gsl">les indications données
+lors du TP sur les bandits</a>, en l'adaptant.
+<br/>
+Vous appliquerez votre programme au problème du chauffeur de taxi vu en cours.
+<br/>
+On peut résoudre des problèmes de labyrinthe comme un problème de
+décision de Markov consistant à trouver la sortie en un minimum de
+transitions.
+<br/>
+Voici quelques labyrinthes que vous pouvez utiliser&nbsp;: <a
+href="./laby.1">laby.1</a>, <a href="./laby.2">laby.2</a>, <a
+href="./laby.3">laby.3</a>, <a href="./laby.4">laby.4</a>, <a
+href="./laby.pg">laby.pg</a>.
+</p>
+<h4>Algorithme itératif d'évaluation de la politique</h4>
+<p>
+Vous complétez votre programme avec une fonction qui calcule la valeur
+d'une politique itérativement.
+<br/>
+Vous appliquez votre programme au problème du chauffeur de taxi.  Il
+est intéressant d'observer la convergence de la fonction valeur, au
+fil des itérations, en utilisant <kbd>gnuplot</kbd>.
+</p>
+<h4>Évaluation de la politique par méthode de Monte Carlo</h4>
+<p>
+Vous complétez votre programme avec une fonction qui calcule la valeur
+d'une politique par méthode de Monte Carlo.
+<br/>
+Vous appliquez votre programme au problème du chauffeur de taxi.  Il
+est intéressant d'observer la convergence de la fonction valeur, au
+fil des itérations, en utilisant <kbd>gnuplot</kbd> et à la comparer à
+la convergence de la méthode itéartive précédente.
+</p>
+<!--?php
+  if (time () >= strtotime("7 October 2012"))
+    include ("seance2.html");
+  if (time () >= strtotime("14 October 2012"))
+    include ("seance3.html");
+  if (time () >= strtotime("22 October 2012"))
+    include ("cc.html");
+?-->
+</div>
+</body>
+  </html>
