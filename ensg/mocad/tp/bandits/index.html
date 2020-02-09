@@ -1,0 +1,491 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="fr" xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Décision dans l'incertain&nbsp;: le problème des bandits</title>
+  <link href="https://philippe-preux.github.io/css/ma.css"
+	rel="stylesheet" type="text/css" media="all">
+</head>
+<body>
+
+<div class="tpR">
+<h1>Bandits</h1>
+
+<p>
+
+Ce premier TP va concerner le problèmes des bandits décrit en cours.
+
+</p>
+
+<h2>Objectifs</h2>
+
+<p>
+
+L'objectif du TP est d'implanter et tester expérimentalement
+différentes stratégies pour résoudre des problèmes de bandits.
+
+<br/>
+
+Pour l'instant, on cherche une stratégie qui maximise la somme des
+retours perçus.
+
+</p>
+
+<ul>
+  <li>implanter plusieurs stratégies d'exploration/exploitation vues en cours (&epsilon;-glouton, &epsilon;-décroissant-glouton, softmax, Boltzman, UCB)</li>
+  <li>les comparer expérimentalement. Pour cela, chaque algorithme doit être exécuté plusieurs fois et sa performance moyenne mesurée. Chaque algorithme sera donc exécuté 30 fois pour obtenir une performance moyenne ne variant pas trop (c'est utile de mesurer aussi cette variation <i>via</i> son écart-type).
+     <br/>
+     Faire varier les paramètres pour les stratégies qui en ont et 
+     voir l'effet.</li>
+  <li>vous sauvegardez dans un fichier la somme des retours obtenus à chaque pas de temps. Cela vous permettra de représenter graphiquement la performance de vos algorithms à l'aide de <kbd>gnuplot</kbd></li>
+  <li>vous simulez N = 100000 itérations pour chaque algorithme (pour éviter d'avoir des fichiers trop gros, vous pouvez ne sauver la somme des retours obtenus que toutes les 100 itérations par exemple&nbsp;; ça suffira encore amplement pour réaliser un graphique précis)</li>
+</ul>
+
+<h2>Un peu de technique</h2>
+
+<p>
+
+Pour simuler le tirage de bras on utilisera le code ci-dessous. On suppose que vous le placez dans un fichier dénommé <kbd>bandits.c</kbd>.
+
+</p>
+
+<pre>
+#include &lt;stdio.h>
+#include &lt;stdlib.h>
+
+#include &lt;gsl/gsl_rng.h>
+#include &lt;gsl/gsl_randist.h>
+
+#define K 10  /* nombre de bras */
+#define N 1000
+
+
+/* Ne modifiez pas ce qui suit, jusqu'au prochain commentaire 
+   qui vous dit que vous pouvez le modifier...
+ */
+
+static double alphas [K], betas [K];
+static gsl_rng *generateur_r; /* global generator */
+static const gsl_rng_type *generateur_T;
+
+void init (void)
+{
+  unsigned int i;
+
+  gsl_rng_env_setup();
+  generateur_T = gsl_rng_default;
+  generateur_r = gsl_rng_alloc (generateur_T);
+
+  for (i = 0; i < K; i ++) {
+    alphas [i] = gsl_ran_flat (generateur_r, 0.0, 1.0);
+    betas [i] = gsl_ran_flat (generateur_r, 0.0, 1.0);
+  }
+}
+
+/* Bras avec résultat binaire, succès ou échec. */
+static double seuil_bras [K];
+
+void init_bras_binaires (void)
+{
+  unsigned int k;
+  for (k = 0; k < K; k ++) {
+    seuil_bras [k] = gsl_ran_flat (generateur_r, 0.0, 1.0);
+  }
+}
+
+double tire_bras_binaire (unsigned int k)
+{
+  if (k >= K) return 0.0;
+  return (gsl_ran_flat (generateur_r, 0.0, 1.0) < seuil_bras [k] ? 1.0 : 0.0);
+}
+
+
+/* Ne modifiez pas le source avant ce commentaire.
+   Après, faites ce que vous voulez... */
+
+
+/* La fonction main() ci-dessous est juste un exemple d'utilisation. */
+main (void)
+{
+  unsigned int k, j;
+  double somme_des_retours [K];
+
+  init ();
+  init_bras_binaires ();
+  for (k = 0; k < K; k ++) {
+    somme_des_retours [k] = 0;
+    for (j = 0; j < N; j ++) 
+      somme_des_retours [k] += tire_bras (k);
+    printf ("Performance moyenne du bras %d : %g\n", 
+            k, somme_des_retours [k] / N);
+  }
+}
+</pre>
+
+<p>
+
+La fonction <kbd>main()</kbd> est ici donnée à titre d'exemple
+d'utilisation de la fonction <kbd>tire_bras()</kbd>.
+
+<br/>
+
+<h4 id="gsl">Utilisation de la GSL</h4>
+
+<p>
+
+Pour générer des nombres pseudo-aléatoires, on utilise une
+bibliothèque de fonctions numériques très puissante, la <i>Gnu
+Scientific Library</i>, la GSL. Cette bibliothèque contient de très
+nombreuses fonctionnalités, dont la génération de nombres
+pseudo-aléatoires. Cette bibliothèque est très performante, il y a peu
+de bugs et elle est maintenue pour corriger ceux qui existent.
+
+<br/>
+<br/>
+
+Son utilisation est généralement très simple. Ci-dessus, on a indiqué
+les deux sources, à gauche celui que l'on a utilisé jusque maintenant,
+à droite en utilisant la GSL.
+
+<br/>
+<br/>
+
+Pour compiler ce source, on utilise une commande telle&nbsp;:
+
+</p>
+
+<pre>
+  gcc -o ./bandits bandits.c `pkg-config --cflags --libs gsl`
+</pre>
+
+<p>
+
+(Si par malchance la commande <kbd>pkg-config</kbd> n'est pas installée
+sur votre machine, vous pouvez remplacer <kbd>`pkg-config --cflags
+--libs gsl`</kbd> par <kbd>-lgsl -lgslcblas -lm</kbd>.)
+
+<br/>
+<br/>
+
+Quand on utilise ces fonctions de génération de nombres
+pseudo-aléatoires, la séquence de nombres engendrée est la même à
+chaque lancement du programme. Cela permet de simplifier la mise au
+point. Cette séquence est initialisée au lancement du programme avec
+un nombre (la graine, <i>seed</i> en anglais)&nbsp;; il suffit
+d'inialiser le générateur avec une graine différente à chaque
+lancement pour avoir des séquences différentes. Pour cela, on appelle
+la fonction <kbd>gsl_rng_set (generateur_r, seed)</kbd>, <i>seed</i>
+étant la graine, de type entier long. Le problème devient de donner
+des graines différentes à chaque lancement...
+
+</p>
+
+<h2>Gnuplot</h2>
+
+<p>
+
+Pour tracer les graphiques, je vous propose d'utiliser <kbd>gnuplot</kbd>. C'est une commande que vous tapez dans une fenêtre shell. Ensuite, vous tapez des commandes <kbd>gnuplot</kbd> comme je vous l'ai indiqué en cours.
+
+<br/>
+<br/>
+
+Pour en savoir plus sur ce logiciel très puissant, vous pouvez consulter <a href="http://t16web.lanl.gov/Kawano/gnuplot/index-e.html">cet excellent site</a>. Commencez par les <a href="http://t16web.lanl.gov/Kawano/gnuplot/intro/basic-e.html">Basic Use</a>, puis la page <a href="http://t16web.lanl.gov/Kawano/gnuplot/intro/plotcalc-e.html">Numerical Calculations</a>.
+
+</p>
+
+<h2>À faire</h2>
+
+<h3>Pour le 17 septembre</h3>
+
+<p>
+
+Pour lundi 17 septembre, vous implantez plusieurs stratégies de choix
+de bras on-line et vous comparez expérimentalement leurs performances.
+
+<br/>
+<br/>
+
+L'<b>objectif de l'algorithme</b> est de maximiser la somme des retours
+cumulés au fil des itérations. Quand on tire un bras (appel de la
+fonction <kbd>tire_bras(k)</kbd>), on obtient un retour qui est un
+nombre compris entre 0 et 1 qui, si vous voulez, correspond à une
+somme d'argent. Au fil des itérations, en tirant un bras à chaque
+itération, vous allez ainsi accumuler une certaine somme.
+
+<br/>
+
+Chaque tirage de bras fourni un retour de manière non
+déterministe&nbsp;: en tirant deux fois le même bras, le retour n'est
+pas le même. Néanmoins, 
+chaque bras fourni des retours qui ont une certaine moyenne. Chaque
+bras est associé à une certaine moyenne fixée&nbsp;; il y a donc des bras
+qui rapportent plus les uns que les autres&nbsp;; le but est de
+maximiser la somme que vous accumulez au fil de N itérations.
+
+<br/>
+<br/>
+
+Algorithmes que vous devez implanter&nbsp;:
+
+</p>
+
+<ul>
+<!--
+  <li>Algorithmes on-line&nbsp;:
+    <ul>
+-->
+      <li><b>&epsilon;-glouton</b>&nbsp;: 
+        <br/>
+	On a une variable &epsilon; comprise entre 0 et 1.
+        <br/>
+        à chaque itération&nbsp;:<br/>
+        avec une probabilité &epsilon; on sélectionne le bras qui jusqu'à maintenant à fourni le plus de retours cumulés<br/>
+        avec une probabilité 1-&epsilon; on sélectionne un bras au hasard
+        <br/>
+        <br/>
+        Techniquement, on utilise la fonction <kbd>drand48()</kbd> qui renvoie un nombre dans l'intervalle [0;1[ et on fait untest du genre&nbsp;:
+        <pre>
+          if (epsilon &lt; drand48 ())
+            /* sélection du meilleur bras jusque maintenant */
+          else
+            /* sélection d'un bras au hasard */
+        </pre></li>
+      <li><b>&epsilon;-décroissant-glouton</b>&nbsp;: identique à &epsilon;-glouton, sauf que cette fois-ci, on initilise &epsilon; à 1 et à chaque itération, la valeur de &epsilon; diminue. Par exemple, on peut prendre &epsilon; = 1 / log (t + 2) où t est le numéro de l'itération, ce qui donne une décroissance pas trop rapide.</li>
+      <li><b>softmax</b>&nbsp;:
+        pour chaque bras, on conserve à chaque itération le rapport cumul des retours obtenus en tirant ce bras / nombre de tirages de ce bras. Notons <kbd>retour_moyen [k]</kbd> ce rapport.
+        <br/>
+        Illustrons avec un exemple&nbsp;: avec 3 bras, les valeurs de ces variables pourraient être 0,12, 0,25 et 0,17. Le deuxième bras semble meilleur que le troisième, lui-même meilleur que le premier. On veut que la sélection se fasse en suivant ce sentiment. Pour cela&nbsp;:
+        <ol>
+          <li>On transforme ces valeurs en probabilités, <i>i.e.</i> leur somme vaut 1&nbsp;: p [k] = retour_moyen [k] / (retour_moyen [0] + retour_moyen [1] + retour_moyen [2]). Dans l'exemple, on obtient les valeurs&nbsp;: 0,22..., 0.46..., 0,31...</li>
+          <li>On veut sélectionner le bras que l'on va tirer avec une probabilité p [k]. Pour cela, on calcule les v [k] = somme des p[0] ... p[k], soit&nbsp;:
+            <br/>
+            v [0] = p [0]
+            <br/>
+            v [1] = p [0] + p [1] = v [0] + p [1]
+            <br/>
+            v [2] = p [0] + p [1] + p [2] = v [1] + p [2]
+            <br/>
+            D'une manière générale, v [k] = v [k-1] + p [k] pour 0 &lt; k &lt; K</li>
+        <li>Ensuite, on tire un nombre pseudo-aléatoire avec
+          <kbd>c = drand48()</kbd> et on sélectionne le bras k tel que 
+          v [k-1] &lt; c &lt; v [k]</li>
+        </ol>
+      </li>
+<!--
+    </ul></li>
+  <li>Algorithmes off-line&nbsp;: les 3 que vous avez proposés durant la séance.
+    <br/>
+    Pendant le cours, on a parlé de bandits produisant un retour binaire (gagné/perdu). Dans le TP, le bandit produit un retour numérique compris entre 0 et 1. Soit vous adaptez les algorithmes off-lines vus en cours à ce cas de figure, soit vous transformez ces bandits en bandits binaires. Pour cela, on se donne un seuil (par exemple 0,9) et on considère qu'il y a succès si et seulement si le retour est supérieur à ce seuil.</li>
+  -->
+  <li><b>baseline</b>&nbsp;: c'est une bonne idée d'implanter un algorithme qui sélectionne le bras à tirer au hasard. Vos autres algorithmes doivent avoir une meilleure performance que celui-là.
+</ul>
+
+<p>
+
+Remarques/conseils pour les algorithmes on-line&nbsp;:
+
+</p>
+
+<ul>
+  <li>il est judicieux de tirer chaque bras une fois au tout début...</li>
+  <li>pour sélectionner le bras à tirer, il faut stocker pour chaque bras le nombre de fois où il a été tiré et la somme des retours obtenus en le tirant</li>
+</ul>
+
+<p>
+
+En guise d'exemple de ce que l'on obtient, un graphique comparant les
+performances moyennes des 3 algorithmes on-line sus-mentionnés. Chaque
+algorithme est exécuté 30 fois durant 100000 itérations. On a
+représenté la moyenne des sommes cumulés à chaque itération.
+
+</p>
+
+<img src="Expe.bandits.png" />
+
+<p>
+
+Les algorithmes étant non déterministes et les retours des bras
+aléatoires également, on doit exécuter chaque algorithme plusieurs
+fois et moyenner ses performances. Votre programme aura donc une
+structure comme celle-ci&nbsp;:
+
+<pre>
+  /* initialisations */
+  for (execution = 0; execution &lt; Nombre-d-execution; execution ++) {
+    for (t = 0; t < T; t ++) {
+      k = selection_d_un_bras ();
+      r = tire_bras (k);
+      ...
+    }
+  }
+</pre>
+
+Il faut donc pour chaque exécution de chaque algorithme, à chaque
+itération, stocker la somme des retours obtenus pour l'ensemble des
+bras (pas la peine de conserver cette somme pour chaque bras puisque
+ce qui nous intéresse est la performance globale de l'algorithme).
+
+</p>
+
+<!--
+
+<h3>D'ici le 23 septembre</h3>
+
+<h4>Quelques stratégies de plus</h4>
+
+<p>
+
+Implantez et comparez les stratégies suivantes à celles déjà implantées&nbsp;:
+
+</p>
+
+<ul>
+  <li>Boltzmann, avec une température &tau; variant à partir de
+    &tau;<sub>0</sub> = 1000, suivant la fonction
+    &tau;<sub>t</sub>=&tau;<sub>0</sub> log t / t,</li> 
+  <li>UCB, pour lequel on cherchera une bonne valeur de la
+    constante,</li> 
+  <li>UCB-tuned pour lequel on cherchera de bonnes valeurs our les 2
+    constantes.</li> 
+</ul>
+
+
+<h4>Échantillonnage de Thompson</h4>
+
+<p>
+
+On se propose d'étudier expérimentalement l'algorithme d'«&nbsp;<a
+	  href="http://olivier.chapelle.cc/pub/thompson.pdf">échantillonnage
+	  de Thompson</a>&nbsp;». 
+En pseudo-code, il s'écrit&nbsp;:
+
+</p>
+
+<pre>
+  &alpha; = &beta; = 1
+  S<sub>k</sub> = E<sub>k</sub> = 0 pour tous les bras k
+  pour t de 1 à T
+    pour k de 1 à K
+      générer un nombre pseudo-aléatoire p<sub>k</sub> selon la loi Beta (S<sub>k</sub> + &alpha;, E<sub>k</sub> + &beta;)
+    déterminer k<sup>*</sup> = arg max<sub>k</sub> p<sub>k</sub>
+    tirer le bras k<sup>*</sup> et observer le retour r
+    si r == 1 alors S<sub>k</sub> ++
+    sinon E<sub>k</sub> ++
+</pre>
+
+<ul>
+  <li>Implantez cet algorithme et comparez-le aux algorithmes
+    précédemment implantés, selon le même protocole expérimental.
+    <br/>
+    Pour la génération de nombres pseudo-aléatoires, on utilisera la
+    fonction <kbd>gen_beta_initialize()</kbd> pour initialiser le
+    générateur de nombres pour un couple de paramètres de la fonction
+    Beta (donc, &alpha;+S<sub>k</sub> et &beta;+E<sub>k</sub>) fixé
+    (quand la valeur d'un de ces paramètres change, il faut
+    impérativement ré-initialisé le générateur). Une fois initialisé,
+    on utilise la fonction <kbd>gen_beta()</kbd> pour obtenir un
+    nombre issu de la loi voulue.
+    <br/>
+    Ces fonctions permettent de générer des nombres pseudo-aléatoires
+    distribués selon une loi <a
+    href="http://en.wikipedia.org/wiki/Beta_distribution">Beta</a>
+    </li>
+</ul>
+
+<p>
+
+On s'intéresse maintenant à une modification du problème&nbsp;: le
+retour n'est plus observé immédiatement, mais après un certain
+nombre d'itérations. Notons l ce temps.
+
+</p>
+
+<ul>
+  <li>Implantez cette modification dans votre programme. Comparez les
+    différents algorithmes en prenant l = 100. Qu'observez-vous&nbsp;?</li>
+</ul>
+
+<p>
+
+On s'intéresse maintenant à une autre modification du problème&nbsp;:
+toutes les L itérations, l'un des bras est remplacé par un autre
+bras. Autrement dit, on ré-initialise sa probabilité de succès, soit
+la variable <kbd>seuil_proba [k]</kbd> pour un certain <kbd>k</kbd>
+pris au hasard. Ce seuil est obtenu par tirage d'un nombre
+pseudo-aléatoire selon une loi uniforme comme dans la fonction
+<kbd>init_bras_binaires()</kbd>&nbsp;; pour changer, on peut aussi
+générer ce seuil selon la loi Beta(4,4).
+
+</p>
+
+<ul>
+  <li>Implantez cette modification dans votre programme. Comparez les
+    différents algorithmes en prenant L = 1000. Qu'observez-vous&nbsp;?</li>
+</ul>
+
+<h4>Initialisation des algorithmes</h4>
+
+<p>
+
+</p>
+
+<h4>Mesure du regret</h4>
+
+<p>
+
+Ici nous connaissons les probabilités de succès moyen de tirage de
+chaque bras. Mesurez le regret cumulé de chacun des algorithmes et
+faites-en un graphique.
+
+</p>
+
+<h2>Extensions</h2>
+
+<p>
+
+Refaire le même travail pour le problème d'exploration pure,
+c'est-à-dire&nbsp;: l'algorithme a le droit de tirer N fois les
+bras. Ensuite, il doit indiquer lequel des bras est le meilleur.
+
+<br/>
+
+Idem mais cette fois, il doit ordonner les bras du meilleur au moins
+bon.
+
+</p>
+
+<h2 id="cc">Contrôle continu</h2>
+
+<p>
+
+Pour le contrôle continu, pour le lundi 3 octobre 2011 au plus tard, vous
+m'envoyez par email une archive tar gzippée, portant un nom de la
+forme <kbd>bandits.mon-nom.tgz</kbd>&nbsp;:
+
+</p>
+
+<ul>
+  <li>votre/vos source(s) en .c, en utilisant la GSL</li>
+  <li>une note (format pdf) présentant les expérimentations que vous
+    avez faites. Vous expliquez ce que vous avez fait, les résultats
+    obtenus (courbes obtenues avec <kbd>gnuplot</kbd>). Vous pouvez
+    proposer d'autres algorithmes que ceux que nous avons vus
+    ensemble&nbsp;; il peut être utilie de déterminer des
+    «&nbsp;meilleures&nbsp;» valeurs de constante, comemnt les faire
+    varier (&epsilon;-décroissant, &tau; pour Boltzmann, ...). N'hésitez
+    pas à faire preuve d'imagination, expliquer et commenter ce que vous
+    avez tenté.
+    <br/>
+    <font color="#ff0000">Intéressez-vous uniquement au cas des bras
+    binaires</font> (à moins que pour une raison ou une autre, votre
+    programme ne marche pas avec ces bras-là, ce qui serait dommage...)
+  </li> 
+</ul>
+
+</div>
+-->
+
+</body>
+</html>
