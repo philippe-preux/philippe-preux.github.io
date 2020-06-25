@@ -1,0 +1,339 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <title>
+    Une correction au TP sed,
+    master MIASHS / ID,
+    Université de Lille 3</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <base href="https://philippe-preux.github.io/" />
+  <link rel="stylesheet" type="text/css"
+    href="https://philippe-preux.github.io/css/ma.css" 
+    media="screen" />
+</head>
+
+<body vlink="#551A8B">
+<div class="tpID">
+
+<div class="titreDuModule">
+  Une correction au « TP <kbd>sed</kbd> »
+</div>
+<div class="formation">
+  Master <acronym title="Mathématiques et Informatique Appliquées aux Sciences Humaines et Sociales">MIASHS</acronym>, <a href="ensg/id/index.html"><acronym title="Informatique du Document">ID</acronym></a><br/>
+  Philippe Preux<br/>
+  Université de Lille 3<br/>
+  Semestre 1
+</div>
+
+<p>
+
+Pour répondre à certaines questions, il peut être utile d'utiliser des
+choses que l'on a vu dans le <a
+href="https://philippe-preux.github.io/Documents/lkds.pdf">TP
+d'initiation à Linux</a> et le TP <a href="ensg/id/tp-grep.html">grep</a>.
+
+<br/>
+<br/>
+
+Il s'agît d'un TP sur la commande <kbd>sed</kbd>. Il faut donc
+utiliser cette commande pour répondre aux questions du TP. La réponse
+correcte aux questions consiste à donner la commande Linux qui vous
+permet de répondre à la question.
+
+<br/>
+<br/>
+
+Le problème général que l'on veut étudier concerne la transformation
+automatique de documents texte (des <i>news</i>) en documents
+xml. Cela sera réalisé en concevant des scripts <kbd>sed</kbd>.
+<kbd>sed</kbd> est l'outil idéal pour réaliser ce genre de tâche
+consistant à transformer un fichier texte en fichier balisé (html,
+xml, latex, groff pour n'en citer que quelques-uns), ou le contraire.
+
+</p>
+<div class="correction">
+<p>
+
+Des réponses possibles aux questions sont indiquées dans cette
+couleur. Pour chaque question, il y a plusieurs réponses possibles.
+Il s'agit d'<i>une</i> correction, pas de <i>la</i> correction (qui
+n'existe pas).
+
+</p>
+</div>
+
+
+<h3>À faire</h3>
+
+<p>
+
+On va commencer par travailler sur les fichiers contenus <a
+href="ensg/id/fichier2.tgz">dans cette archive</a> que vous mettez dans
+votre répertoire personnel et que vous décompressez par <kbd>tar zxf
+fichier2.tgz</kbd>. Cela crée 10 fichiers.
+
+</p>
+
+<ol>
+  <li>ces 10 fichiers sont 10 messages de <i>news</i>. Repérez les
+    différents champs de chaque message.
+    <br/>
+    Une <i>news</i> (ou un email) est constitué d'un en-tête et d'un
+    corps&nbsp;; l'en-tête contient des informations concernant le
+    message&nbsp;: son sujet, qui l'a envoyé, à qui, quand, ... Le
+    corps contient le texte lui-même du message. L'en-tête est
+    constitué d'une suite de lignes (ne contenant aucune ligne
+    blanche) de la forme <kbd>Champ: contenu-du-champ</kbd>. L'en-tête
+    est séparé du corps par une ligne blanche&nbsp;: c'est la première
+    ligne blanche du message.
+<div class="correction">
+  Il faut établir la liste des champs situés dans l'en-tête des <i>news</i>.
+  Pour cela, on peut s'y prendre de deux manières&nbsp;: travailler à
+  l'&oelig;il ou travailler en utilisant les outils dont on dispose
+  sous Linux... 
+  <br/>
+  Approche à l'&oelig;il&nbsp;: j'édite les fichiers avec mon éditeur
+  de textes préféré et je fais la liste des champs à la main... 
+  <br/>
+  Approche outils Linux&nbsp;: <kbd>cat 6* | grep -Eo '^.*:' | sort |
+  uniq &gt; les-noms-de-champs</kbd>. Le fichier
+  <kbd>les-noms-de-champs</kbd> contient ensuite une liste 
+  dégrossie des noms de champ figurant dans les fichiers de
+  l'archive. L'utilisation du pipeline <kbd> sort | uniq</kbd> a pour
+  but d'éviter les doublons. On peut constater que le résultat n'est
+  pas parfait, mais pas mal quand même... Il ne faut pas s'attendre à
+  un résultat parfait dans ce genre de manipulations mais savoir
+  utiliser à bon escient les commandes Linux pour nous simplifier la
+  vie au maximum.
+</div></li>
+  <li>imaginez une DTD qui permette de représenter ces fichiers sous
+  forme XML. On ne demande pas ici d'être très précis au niveau de 
+    cette DTD. On veut juste avoir suffisamment d'information pour
+    pouvoir générer un fichier XML correct correspondant à un
+  message&nbsp;;</li>
+  <li>écrivez un script
+    <kbd>sed</kbd> qui transforme les champs <kbd>From:</kbd> des
+    emails en une paire de balises <kbd>&lt;from&gt;</kbd>
+    <kbd>&lt;/from&gt;</kbd><br/>Par exemple, pour le premier email du
+    fichier, le champ <kbd>From: prb@access.digex.com (Pat)</kbd> sera
+    transformé en <kbd>&lt;from&gt;prb@access.digex.com
+    (Pat)&lt;/from&gt;</kbd>.<br/>Conseil&nbsp;: faites cette
+  opération en effectuant deux substitutions, la première pour la
+  balise de fin de champ, la seconde pour la balise de début de
+  champ&nbsp;; 
+<div class="correction">
+  Pour le fichier 61010, on aura par exemple&nbsp;:
+  <br/>
+  <kbd>
+sed -e '/^From:.*$/s@$@&lt;/from>@' -e '/^From:.*$/s@From:@&lt;from>@' 61010
+  </kbd></div>
+  Remarque&nbsp;: erreur à éviter&nbsp;: il n'est pas impossible que
+  le corps d'un message contienne<kbd>From: xxx</kbd>. Il ne faut pas
+  prendre cela pour le champ <kbd>From</kbd> de l'en-tête du
+  message. Chercher <kbd>From:</kbd> en début de ligne permet de
+  limiter les risques d'erreur. (Là aussi, une solution parfaite est
+  très difficile à obtenir, mais il faut essayer d'éviter les erreurs
+  les plus évidentes.)
+</li>
+  <li>faites de même pour les autres champs des messages. Ainsi,
+    l'en-tête du premier email qui est&nbsp;:
+<pre>
+      Path: cantaloupe.srv.cs.cmu.edu!rochester!udel!news.intercon.com!digex.com!digex.com!not-for-mail
+      From: prb@access.digex.com (Pat)
+      Newsgroups: sci.space
+      Subject: Re: NAVSTAR positions
+      Date: 21 Apr 1993 18:23:05 -0400
+      Organization: Express Access Online Communications, Greenbelt, MD USA
+      Lines: 7
+      Message-ID: &lt;1r4hg9$sgi@access.digex.net>
+      References: &lt;1993Apr19.063455.26363@ericsson.se>
+      NNTP-Posting-Host: access.digex.net
+</pre>
+deviendra
+<pre>
+      &lt;path>cantaloupe.srv.cs.cmu.edu!rochester!udel!news.intercon.com!digex.com!digex.com!not-for-mail&lt;/path>
+      &lt;from>prb@access.digex.com (Pat)&lt;/from>
+      &lt;newsgroups> sci.space&lt;/newsgroups>
+      &lt;subject>Re: NAVSTAR positions&lt;/subject>
+      &lt;date>21 Apr 1993 18:23:05 -0400&lt;/date>
+      &lt;organization>Express Access Online Communications, Greenbelt, MD USA&lt;/organization>
+      &lt;lines>7&lt;/lines>
+      &lt;messageid>&lt;1r4hg9$sgi@access.digex.net>&lt;/messageid>
+      &lt;references>&lt;1993Apr19.063455.26363@ericsson.se>&lt;/references>
+      &lt;nntppostinghost>access.digex.net&lt;/nntppostinghost>
+</pre>
+  <div class="correction">
+    On aura le script suivant (placé dans le fichier dénommé
+    <kbd>script</kbd>)&nbsp;:
+<pre>
+      /^Date:.*$/s@$@&lt;/date>@
+      /^Date:.*$/s@^@&lt;date>@
+      /^Distribution:.*$/s@$@&lt;/distribution>@
+      /^Distribution:.*$/s@^@&lt;distribution>@
+      /^Followup-To:.*$/s@$@&lt;/followupto>@
+      /^Followup-To:.*$/s@^@&lt;followupto>@
+      /^From:.*$/s@$@&lt;/from>@
+      /^From:.*$/s@^@&lt;from>@
+      /^In-reply-to:.*$/s@$@&lt;/inreplyto>@
+      /^In-reply-to:.*$/s@^@&lt;inreplyto>@
+      /^Lines:.*$/s@$@&lt;/lines>@
+      /^Lines:.*$/s@^@&lt;lines>@
+      /^Message-ID:.*$/s@$@&lt;/messageid>@
+      /^Message-ID:.*$/s@^@&lt;messageid>@
+      /^Newsgroups:.*$/s@$@&lt;/newsgroups>@
+      /^Newsgroups:.*$/s@^@&lt;newsgroups>@
+      /^News-Software:.*$/s@$@&lt;/newssoftware>@
+      /^News-Software:.*$/s@^@&lt;newssoftware>@
+      /^Nntp-Posting-Host:.*$/s@$@&lt;/nntpPostingHost>@
+      /^Nntp-Posting-Host:.*$/s@^@&lt;nntpPostingHost>@
+      /^NNTP-Posting-Host:.*$/s@$@&lt;/nntpPostingHost>@
+      /^NNTP-Posting-Host:.*$/s@^@&lt;nntpPostingHost>@
+      /^Organization:.*$/s@$@&lt;/organization>@
+      /^Organization:.*$/s@^@&lt;organization>@
+      /^Path:.*$/s@$@&lt;/path>@
+      /^Path:.*$/s@^@&lt;path>@
+      /^References:.*$/s@$@&lt;/references>@
+      /^References:.*$/s@^@&lt;references>@
+      /^Reply-To:.*$/s@$@&lt;/replyto>@
+      /^Reply-To:.*$/s@^@&lt;replyto>@
+      /^Sender:.*$/s@$@&lt;/sender>@
+      /^Sender:.*$/s@^@&lt;sender>@
+      /^Subject:.*$/s@$@&lt;/subject>@
+      /^Subject:.*$/s@^@&lt;subject>@
+      /^Xref:.*$/s@$@&lt;/xref>@
+      /^Xref:.*$/s@^@&lt;xref>@
+</pre>
+  </div>
+</li>
+  <li>ajoutez une balise pour y placer le texte du
+    message. <br/>Conseil&nbsp;: après avoir réfléchi aux substitutions à
+    faire, vous pouvez vous aider de <a
+      href="http://www.faqs.org/faqs/editor-faq/sed/">la FAQ sed</a>
+    pour trouver la solution au placement de la balise de début de
+    message. Le placement de la balise de fin est facile&nbsp;; les
+    deux transformations se feront successivement à l'aide de deux commandes
+    <kbd>sed</kbd> pipelinées.
+    <div class="correction">
+      Cela se fait en deux étapes&nbsp;: on place d'abord la balise de
+      début de texte, puis celle de fin de texte.
+      <br/>
+      Pour le début du texte, on a dit plus haut que cela se repère
+      par la première ligne blanche. Il faut donc repérer cette
+      première ligne blanche et uniquement la première. Il est très
+      facile de remplacer toutes les lignes blanches&nbsp;; ne
+      remplacer que la première nécessite un peu plus de soin.
+      La commande suivate fait le travail&nbsp;:
+      <pre>
+        sed -e '1,/^$/s/^$/&lt;text>/'
+      </pre>
+      Cette commande indique que pour les lignes situées entre la
+      première ligne (le <kbd>1</kbd>) et la première correspondant à
+      l'expression régulière <kbd>^$</kbd> (c'est-à-dire, une ligne
+      blanche), on applique la commande de substitution
+      <kbd>s/^$/&lt;text>/</kbd> qui remplace la ligne blanche par
+      <kbd>&lt;text>/</kbd>. Et voilà, le tour est joué.
+      <br/>
+      Pour la balise de fin, il suffit de l'ajouter à la fin du
+      fichier&nbsp;; ça, c'est très simple&nbsp;: on aura le script
+      <kbd>scriptfintexte</kbd> suivant&nbsp;:
+      <pre>
+      $ a \
+      &lt;/text>
+      </pre>
+    Donc, en résumé, il faut faire ces deux opérations à la suite
+    l'une de l'autre, soit en pipelinant deux sed comme suit&nbsp;:
+    <pre>
+      sed -e '1,/^$/s/^$/&lt;text>/' 61010 | sed -f scriptfintexte
+    </pre>
+    </div></li>
+  <li>enfin, ajoutez une balise en début et en fin de message pour
+    obtenir un fichier xml complet&nbsp;;
+  <div class="correction">
+    Très simple&nbsp;: insérer <kbd>&lt;message></kbd> en début de
+    fichier, et ajouter <kbd>&lt;/message></kbd> à la fin&nbsp;; pour
+    avoir un fichier xml valide, il faut aussi indiquer la DTD en début
+    de fichier. Si on suppose que celle-ci a été mise dans u nfichier
+    dénommé <kbd>new.dtd</kbd>, on aura finalement&nbsp;:
+    <pre>
+      sed -f scriptdebutfin 61010
+    </pre>
+    où <kbd>scriptdebutfin</kbd> contient&nbsp;:
+    <pre>
+      1 i \
+      &lt;!DOCTYPE message SYSTEM "new.dtd">\
+      &lt;message>
+      $ a \
+      &lt;/message>
+    </pre>
+  </div></li>
+  <li>en principe, vous avez fini. Appliquez vos scripts sur les fichiers <a
+  href="ensg/id/fichier3.tgz">de cette archive</a>&nbsp;; regardez le résultat,
+  déterminez s'il est conforme à vos attentes et, si non, corrigez
+  votre script.
+  <div class="correction">
+    Pour tout résumer, à chaque fichier, il faut appliquer le pipeline
+    suivant&nbsp;:
+    <pre>
+      sed -f script 61010 | sed -e '1,/^$/s/^$/&lt;text>/' | sed -f scriptfintexte | sed -f scriptdebutfin
+    </pre>
+    On peut placer aussi placer toutes les commandes dans un seul script sed. Ainsi, nous nommons <kbd>scriptpsed</kbd> le script composé des commandes mises bout à bout. On transformera le fichier par la commande&nbsp;:
+    <pre>
+      sed -f scriptpsed 61010
+    </pre>
+  Si on veut appliquer cette transformation à tous les fichiers de
+  l'archive, on écrira par exemple la boucle suivante&nbsp;:
+<pre>
+    for f in 6* ; do 
+      sed -f scriptpsed $f &gt; $f.xml ;
+    done 
+</pre>
+  </div></li>
+  <li>à l'issue de ces manipulations, vous devez avoir obtenu des
+    fichiers xml valide. Utilisez firefox pour vérifier que celui-ci
+    interprète correction la dtd et le fichier xml.
+    <div class="correction">
+      Il ext fort probable que vos fichiers ne sont pas correctement
+      généré&nbsp;; en effet, les messages contiennent des caractères
+      &lt; qui doivent être transformés dans la chaîne <kbd>&amp;lt;</kbd>
+      pour obtenir du xml valide... Pour cela, c'est très
+      simple&nbsp;: avant toutes les autres transformations, il faut
+      transfomer les &lt; dans cette chaîne. La commande suivante fait
+      l'affaire&nbsp;:
+      <pre>
+        1,$s/&lt;/\&amp;lt;/g
+      </pre>
+      Le <kbd>g</kbd> final spécifie que tous les &lt; présents sur
+      une ligne doivent être remplacés. Sans ce <kbd>g</kbd>, seul le
+      premier serait remplacer.
+      <br/>
+      On place donc cette comande au début du script
+      <kbd>scriptpsed</kbd> et on a fini. On a alors obtenu <a
+      href="ensg/id/scriptpsed">ce script sed</a>.
+    </div></li>
+</ol>
+
+<h3>Liens</h3>
+
+<ul>
+  <li><a href="http://www.faqs.org/faqs/editor-faq/sed/">la FAQ sed</a></li>
+  <li><a href="http://pegasus.rutgers.edu/~elflord/unix/sed.html">un tutoriel sed</a></li>
+  <li><a href="http://www.gnu.org/software/sed/manual/html_mono/sed_toc.html">documentation GNU sed</a></li>
+</ul>
+
+<p>
+
+<a href="http://validator.w3.org/check?uri=referer">
+  <img src="img/valid-xhtml10"
+       alt="Valid XHTML 1.0!" height="15" width="44" />
+</a>
+
+<a href="http://jigsaw.w3.org/css-validator/check?uri=referer">
+  <img src="img/vcss" alt="Valid CSS!" height="15" width="44" />
+</a>
+
+</p>
+
+</div>
+</body>
+</html>
