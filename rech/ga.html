@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<head>
+  <title>My research in genetic algorithms</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+</head>
+
+<body vlink="#551A8B">
+<div class="research">
+
+<div class="titreDuModule">
+  My research in genetic algorithms
+</div>
+
+<p>
+
+My interest in genetic algorithms grew from my search of an
+algorithmic mean to reproduce the mechanisms of natural evolution. I
+could not have found better!
+
+<br/>
+<br/>
+
+Being rather complex, I first tried to understand how genetic
+algorithms work. My readings had given me the feeling that there was
+something mysterious going on there. However, all that was going on a
+mere computer, so the mystery could not stand for long. I used very
+simple problems and studied how population of a canonical GA evolves
+in these cases.
+
+<br/>
+<br/>
+
+In the same time, I read much about natural selection and I was struck
+and fascinated by the mechanisms described there, and the dynamics I
+saw in GAs. Those concepts of the theory of evolution known as genetic
+drifts, epistasis, hitch-hiker genes, fitness landscapes, ... where
+happening in these simple simulations. I figured out that there was
+something profound here about the dynamics of systems in general,
+which was shared among them, regardless of their biological, or
+silicon nature.
+
+<br/>
+<br/>
+
+I then took interest in the resolution of real problems with GAs. In
+particular, I turned myself towards problems of combinatorial
+optimization, namely, the traveling salesman problem, the job-shop
+scheduling problem, and the quadratic assignment problem. We designed
+hybrid algorithms, combining genetic algorithms, tabu search, and basic
+hill-climber, and used the concept of fitness landscapes to understand
+what the algorithms were doing, and how we could improve them.
+
+<br/>
+<br/>
+
+To study the fitness landscapes, I had the idea to use hill-climbers
+as probes and gather information along their path in the
+landscape. Starting from points sampled at random (in the case of the
+problems under study, these were typically bad solutions), studying
+the length of trajectories, the increase in the quality of solutions
+found along the trajectories, the correlation between the solutions at
+the end-points of the trajectories, ... gave me many interesting
+information to be able to figure out what the fitness landscape looked
+like. It gave me a certain knowledge of the so-called massif central,
+that is, this region in the landscape where the global optima are
+located.
+
+<br/>
+
+In the case of the traveling salesman problem, going on along this
+experimental approach of the study of (combinatoiral optimization
+problems) fitness landscapes, I generated instances with particular
+characteristics to test my hypotheses regarding issues like:
+
+</p>
+
+<ul>
+  <li>most instances in TSP benchmarks are planar; this fact implies
+    many properties in the landscape; so, it is natural to ask what's
+    going on in non planar instances?</li>
+  <li>what's going on (w.r.t. to search) when there are many global
+    optima? How do the massif central structures interact?
+</ul>
+
+<p>
+
+Finding answers to these questions leads to some sort of a spectrum of
+fitness landscapes, ranging from those made of a Fujiyama sort --
+that is, a single very good optimum (by "very good", we mean an
+optimum which quality is much better than random solution), where
+hill-climbers can easily travel starting from the large valley made of
+random solutions -- to rather flat and dull landscapes with a
+very large number of small local optima (by "small", we mean that the
+quality of the optima are not much better than those of random
+solutions). This variety of landscapes is also well-known in so-called
+Nk-landscapes, introduced by S. Kauffman.
+
+<br/>
+<br/>
+
+This improved knowledge on the TSP helped me figure out the landscape
+of other problems, namely the QAP and the JSP. All NP-hard problems
+being equivalent (up to a polynomial transformation), there must be
+some equivalence between these TSP landscapes and those of all other
+NP-hard problems.
+
+</p>
+</div>
+</body>
+</html>
