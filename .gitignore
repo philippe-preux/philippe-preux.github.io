@@ -1,6 +1,7 @@
 **/*~
 **/.RData
 **/.Rhistory
+**/*.php
 /sed.bash
 /ar/
 /ensg/aeac/
@@ -11,6 +12,7 @@
 /ensg/m1psycho/
 /ensg/m2psycho/
 /ensg/miashs/aeac/
+/ensg/miashs/apbd2/tpArbres/abr1.2.png
 /ensg/miashs/ed/
 /ensg/miashs/ed-spi/
 /ensg/miashs/iaia/
