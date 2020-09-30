@@ -1,0 +1,261 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Le monde des fourmis</title>
+  <link href="https://philippe-preux.github.io/css/ma.css" 
+        rel="stylesheet" type="text/css" media="all" />
+  <link rel="shortcut icon" type="image/x-icon"
+        href="https://philippe-preux.github.io/img/site.ico" />
+</head>
+
+<body>
+
+<div class="tpR">
+<h1>Le monde des fourmis</h1>
+
+<h2>Introduction</h2>
+
+<p>
+
+On va simuler la construction de tas de brindilles par des insectes,
+que nous considérerons ici comme étant des des fourmis. Pour cela,
+dans un espace plan, on va considérer un ensemble de fourmis qui se
+déplacent. Dans cet espace se trouvent éparpillées des brindilles. Les
+fourmis ont le comportement suivant&nbsp;:
+
+</p>
+
+<ul>
+  <li>une fourmi avance sur une case voisine, en ayant tendance à aller vers une case qui se trouve devant elle. Néanmoins, elle peut changer de direction, voire de temps en, temps, faire demi-tour.</li>
+  <li>Quand une fourmi trouve devant elle une brindille, elle la met sur son dos et poursuit son cheminement.</li>
+  <li>Une fourmi ne peut transporter qu'une seule brindille à la fois. Donc, si elle porte déjà une brindille quand elle en trouve une nouvelle, elle ne la met pas sur son dos mais elle pose celle qui est sur son dos à côté de la brindille qui est devant elle.</li>
+</ul>
+
+<p>
+
+Objectifs de ce TP&nbsp;:
+
+</p>
+
+<ul>
+  <li>poursuivre l'étude de la notion de classes d'objet.</li>
+  <li>observer la notion d'<i>activité émergeante</i>&nbsp;: l'activité individuelle d'un ensemble d'entités au comportement très simple entraîne des conséquences globales.</li>
+</ul>
+
+<h2>Que va-t-on faire&nbsp;?</h2>
+
+<p>
+
+Le programme simule un ensemble de fourmis dont le comportement suit
+les règles qui viennent d'être énoncées.
+
+</p>
+
+
+<h2>On le fait</h2>
+
+<p>
+
+Le programme que nous allons écrire effectue les choses suivantes&nbsp;:
+
+</p>
+
+<ul>
+  <li>crée une fenêtre pour visualiser le mouvement des fourmis et des brindilles,</li>
+  <li>simule le mouvement des fourmis dans un espace plan.</li>
+</ul>
+
+<h3>Fenêtre de visualisation et interaction</h3>
+
+<p>
+
+On va utiliser le module <kbd>tkinter</kbd> pour cela. Même si c'est
+ce point qui donne son attrait au programme, c'est le point le moins
+intéressant.
+
+<br/>
+<br/>
+
+La fenêtre aura quelques boutons&nbsp;:
+
+</p>
+
+<ul>
+  <li>un bouton «&nbsp;Quitter&nbsp;» pour quitter l'application.</li>
+  <li>un bouton «&nbsp;Init&nbsp;» pour initialiser l'application (cela permet de relancer une nouvelle simulation).</li>
+  <li>Un bouton «&nbsp;Simuler&nbsp;» qui effectue un certain nombre de pas de simulation.</li>
+</ul>
+
+<p>
+
+Lorsque vous cliquez sur le bouton «&nbsp;Simuler&nbsp;», votre
+programme doit appeler une fonction qui va déclencher la
+simulation. Nommons cette fonction <kbd>faireUneSimulation</kbd>. Nous
+l'écrirons un peu plus loin.
+
+</p>
+
+<div class="exercice">
+  <p>
+  Écrire le morceau de programme qui crée cette fenêtre.
+  </p>
+</div>
+
+<h3>Simulation du mouvement des fourmis</h3>
+
+<p>
+
+Nous utilisons les classes d'objets suivant&nbsp;:
+
+</p>
+
+<ul>
+  <li>un espace dans lequel les fourmis et les brindilles se meuvent&nbsp;;</li>
+  <li>une fourmi&nbsp;;</li>
+  <li>une simulation.</li>
+</ul>
+
+<p>
+
+D'autres modélisations sont possibles&nbsp;: on pourrait imaginer d'avoir une classe Brindille par exemple. Néanmoins, les brindilles ne font rien&nbsp;: elles sont seulement posées sur le terrain ou sur le dos d'une fourmi&nbsp;; elles n'ont pas de propriétés particulière si ce n'est leur position qui est connue de l'espace (comme on va le voir ci-dessous) ou qui est celle de la fourmi qui les porte.
+
+</p>
+
+<h4>Espace</h4>
+
+<p>
+
+L'espace ne fait rien&nbsp;: c'est un (morceau de) plan, avec une
+longueur et une largeur. De plus, l'epace contient les fourmis et
+les brindilles&nbsp;: il doit connaître le contenu de chaque case.
+
+<br/>
+
+Il faut donc simplement définir une classe avec une méthode
+d'initialisation d'un espace aux dimensions voulues et d'un contenu.
+Quand on crée le contenu, on peut y placer directement les brindilles.
+
+</p>
+
+<div class="exercice">
+  <p>
+  Écrire la classe <kbd>Espace</kbd> et sa méthode d'initialisation <kbd>__init__()</kbd>.
+  </p>
+</div>
+
+<h4>Simulation</h4>
+
+<!--
+    espace : 700 x 700
+    1000 brindilles
+    100 termites/fourmis
+-->
+
+<p>
+
+La classe Simulation représente une simulation. Donc, elle crée une
+liste de fourmis, des brindilles et appelle ensuite la
+méthode <kbd>activation</kbd> répétitivement, autant de fois que l'on
+veut simuler de pas de temps.
+
+</p>
+
+<div class="exercice">
+
+<p>
+
+Définir cette classe et écrire ses deux méthodes&nbsp;:
+
+</p>
+
+<ul>
+  <li>la méthode d'initialisation <kbd>__init__()</kbd> de la simulation</li>
+  <li>la méthode de simulation&nbsp;; celle-ci prend un paramètre qui est le nombre de pas de simulations à effectuer.</li>
+</ul>
+
+</div>
+
+
+
+<h4>Fourmi</h4>
+
+<p>
+
+La fourmi constitue l'entité active de la simulation.
+
+<br/>
+
+Une fourmi a plusieurs propriétés&nbsp;: sa position, sa direction de
+déplacement, le fait qu'elle porte ou non une brindille et l'espace
+dans lequel elle se meut.
+
+<br/>
+<br/>
+
+Une fourmi est initialisée puis ensuite, elle se meut à chaque pas de
+temps. Il faut donc définir une méhode <kbd>deplacement</kbd> qui
+calcule sa position à l'instant suivant, étant donnée sa position à
+l'instant courant, sa direction de déplacement, la présence ou non de
+brindille devant elle.
+
+<br/>
+<br/>
+
+Le déplacement est aléatoire. Il se déroule en deux étapes&nbsp;:
+
+</p>
+
+<ul>
+  <li>avec probabilité 0,8, la fourmi essaie d'avancer sur la case située devant elle&nbsp;; si elle n'avance pas devant elle, elle se tourne sur la gauche ou sur la droite avec équi-probabilité. Dans ce cas, elle ne change pas de position&nbsp;: seule sa directoin change.</li>
+  <li>dans le premier cas (la fourmi essaie d'avancer devant elle), si une brindille se trouve dans la case devant elle, il y a deux cas&nbsp;:
+    <ul>
+      <li>elle ne porte pas de brindille pour l'instant. Dans ce cas, elle prend la brindille qui se trouve devant elle, la met sur son dos et avance (sa position est donc celle de la brindille)</li>
+      <li>elle porte une brindille&nbsp;: Dans ce cas, elle regarde s'il y a une case voisine libre. Si oui, la fourmi tourne dans la direction de cette case libre, pose sa brindille dans sa case courante et se place dans la case voisine libre. Si non, la fourmi ne bouge pas.
+    </ul></li>
+</ul>
+
+<div class="exercice">
+  <p>
+  Écrire la classe <kbd>Fourmi</kbd> et sa méthode
+  d'initialisation <kbd>__init__()</kbd>.
+  <br/>
+  Écrire ensuite la méthode <kbd>deplacement ()</kbd>.
+  </p>
+</div>
+
+<p>
+
+La méthode <kbd>deplacement ()</kbd> constitue le c&oelig;ur de la simulation. Son écriture est délicate et elle devra s'accompagner de la définition d'un certain nombre de méthodes de la classe Espace (car l'espace connaît le contenu des cases, pas la fourmi).
+
+</p>
+
+<h3>Visualisation de la simulation</h3>
+
+<p>
+
+On est maintenant prêt à visualiser l'activité de la colonie de
+fourmis en combinant les points vus précédemment.
+
+<br/>
+<br/>
+
+Assembler les éléments créés ci-dessus pour qu'une fois le programme
+lancé, l'appui sur le bouton «&nbsp;Simuler&nbsp;» provoque la
+réalisation d'un certain nombre de pas de simulations (1000 par
+exemple).
+
+</p>
+
+<p>
+
+Je mets à votre disposition un squelette de programme qui effectue tout ce que j'ai décrit ci-dessus sauf le déplacement des fourmis. Vous pouvez ainsi vous concentrez sur ce seul point. <a href="./squelette.py">Cliquez ici pour accéder à ce squelette.</a>
+
+</p>
+
+</div>
+
+</body></html>
+
+
