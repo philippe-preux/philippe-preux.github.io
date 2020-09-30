@@ -1,0 +1,276 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Arbres de jeu, minmax et Tic-Tac-Toe</title>
+  <link href="https://philippe-preux.github.io/css/ma.css" 
+	rel="stylesheet" type="text/css" media="all" />
+  <link rel="shortcut icon" type="image/x-icon"
+	href="https://philippe-preux.github.io/img/site.ico" />
+</head>
+
+<body>
+
+<div class="tpR">
+<h1>Arbres de jeu, minmax et Tic-Tac-Toe</h1>
+
+<h2>Objectif du TP</h2>
+
+<p>
+
+L'objectif du TP est d'écrire un programme en Python qui joue au <a href="http://en.wikipedia.org/wiki/Tic-tac-toe">Tic Tac Toe</a>.
+
+</p>
+
+<h2>L'algorithme minmax</h2>
+
+<p>
+
+Pour un jeu comme Tic-Tac-Toe, on peut déterminer à la main une stratégie optimale sous forme de règles. Le nombre de combinaisons est tellement faible que ce n'est pas un gros travail.
+
+<br/>
+
+Néanmoins, il est intéressant de considérer une approche générale de la résolution de ce genre de jeu déterministe à information complète (commes les dames, échecs, ...)&nbsp;: l'algorithme <a href="http://en.wikipedia.org/wiki/Minmax">minmax</a>.
+
+</p>
+
+<h2>Implantation</h2>
+
+<h3>Préliminaires</h3>
+
+<p>
+
+On a besoin de définir une classe&nbsp;:
+
+</p>
+
+<pre>
+class TTT (object):
+    def __init__ (self):
+        self. contenu = [[' ' for j in range(3)] for i in range(3)]
+</pre>
+
+<p>
+
+À la suite de quoi, on peut définir une méthode d'affichage&nbsp;:
+
+</p>
+
+<pre>
+    def __str__ (self):
+        res = ""
+        for i in range (0, 3):
+            res = res + "\n+---+---+---+\n| "
+            for j in range (0, 3):
+                res = res + str (self. contenu [i] [j]) + " | "
+        res = res + '\n+---+---+---+\n'
+        return (res)
+</pre>
+
+<p>
+
+et une méthode pour jouer un coup&nbsp;:
+
+</p>
+
+<pre>
+    def joue (self, what, x, y):
+        if x < 0 or x > 2:
+            return ()
+        if y < 0 or y > 2:
+            return ()
+        if what != 'o' and what != 'x':
+            return ()
+        if self. contenu [x] [y] == ' ':
+            self. contenu [x] [y] = what
+</pre>
+
+<p>
+
+que l'on peut combiner comme suit&nbsp;:
+
+</p>
+
+<pre>
+toto = TTT ()
+toto. joue ('x', 1, 0)
+toto. joue ('o', 0, 0)
+toto. joue ('x', 1, 1)
+print (toto)
+</pre>
+
+
+<h3>Minmax</h3>
+
+<p>
+
+L'algorithme minmax est récursif. On peut définir l'en-tête d'une méthode de la manière suivante&nbsp;:
+
+</p>
+
+<pre>
+    def minmax (self, joueur, autre, moi, coupsPossibles, racine):
+</pre>
+
+<p>
+
+où <kbd>joueur<Kbd> est une lettre ('x' ou 'o'), <kbd>autre</kbd> est l'autre lettre, <kbd>moi</kbd> un booléen indiquant si le joueur est moi ou mon opposany, <kbd>coupsPossibles</kbd> la liste des cases où lo'n peut jouer dans la configucaoitn courante et <kbd>racine</kbd> indique si c'est le premier appel de la fonction (<kbd>True</kbd> dans ce cas) ou pas.
+
+<br/>
+<br/>
+
+Cette méthode doit&nbsp;:
+
+</p>
+
+<ol>
+  <li>déterminer si la configuration courante est terminale&nbsp;; renvoyez -1, 0, ou 1 le cas échéant.</li>
+  <li>Si non, pour chaque coup possible, le jouer et appeler récursivement minmax.</li>
+  <li>Déterminer et renvoyer la valeur du meilleur coup ou le meilleur coup parmi les coups possibles.</li>
+</ol>
+
+<p>
+
+On peut l'écrire comme suit&nbsp;:
+
+</p>
+
+<pre>
+    def minmax (self, joueur, autre, moi, coupsPossibles, racine):
+        if self. agagne (joueur):
+            self.__str__ ()
+            if moi:
+                return (+1)
+            else:
+                return (-1)
+        if self. agagne (autre):
+            self.__str__ ()
+            if moi:
+                return (-1)
+            else:
+                return (+1)
+        if coupsPossibles == []:
+            return 0
+        valeur = [0 for i in range (9)]
+        for coup in coupsPossibles:
+            newPos = deepcopy (self)
+            newPos. joue (joueur, coup // 3, coup % 3)
+            cp = deepcopy (coupsPossibles)
+            cp. remove (coup)
+            valeur [coup] = newPos. minmax (autre, joueur, not moi, cp, False)
+        if moi:
+            v = valeur [coupsPossibles [0]]
+            which = coupsPossibles [0]
+            for coup in coupsPossibles:
+                if valeur [coup] > v:
+                    v = valeur [coup]
+                    which = coup
+            if racine:
+                return (which)
+            else:
+                return (v)
+        else:
+            v = valeur [coupsPossibles [0]]
+            which = coupsPossibles [0]
+            for coup in coupsPossibles:
+                if valeur [coup] < v:
+                    v = valeur [coup]
+                    which = coup
+            if racine:
+                return (which)
+            else:
+                return (v)
+</pre>
+
+<p>
+
+Cette méthode utilise une méthode <kbd>agagne(self, joueur)</kbd> qui indique si le joueur a gagné (renvoi d'un booléen)&nbsp;:
+
+</p>
+
+<pre>
+    def agagne (self, joueur):
+        for i in range (0, 3):
+            if (self. contenu [i] == [joueur, joueur, joueur]):
+                return (True)
+        for i in range (0, 3):
+            if (self. contenu [0] [i] == joueur) and (self. contenu [1] [i] == joueur) and (self. contenu [2] [i] == joueur):
+                return (True)
+        if (self. contenu [0] [0] == joueur) and (self. contenu [1] [1] == joueur) and (self. contenu [2] [2] == joueur):
+            return (True)
+        if (self. contenu [0] [2] == joueur) and (self. contenu [1] [1] == joueur) and (self. contenu [2] [0] == joueur):
+            return (True)
+        return (False)
+</pre>
+
+<h3>Jeu complet</h3>
+
+<p>
+
+Il reste à réaliser la boucle du jeu qui à partir d'une configuration vide, saisit la case dans laquelle vous jouez puis appelle <kbd>minmax()</kbd> pour que l'ordinateur joue, et ainsi de suite jusque la fin de la partie.
+
+<br/>
+
+On peut l'écrire de la manière suivante&nbsp;:
+
+</p>
+
+<pre>
+    jeu = TTT()
+    joueur = 'x'
+    autre = 'o'
+    coupsPossibles = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    while True:
+        while True:
+            case = int (input ("où jouez-vous ? "))
+            if case in coupsPossibles:
+                break
+        jeu. joue (joueur, case // 3, case % 3)
+        print (jeu)
+        if jeu. agagne (joueur):
+            print (joueur + " a gagné")
+            break
+        coupsPossibles. remove (case)
+        if coupsPossibles == []:
+            print ("partie nulle")
+            break
+        caseAjouer = jeu. minmax (autre, joueur, False, coupsPossibles, True)
+        print (autre + " joue en " + str (caseAjouer))
+        coupsPossibles. remove (caseAjouer)
+        jeu. joue (autre, caseAjouer // 3, caseAjouer % 3)
+        print (jeu)
+        if jeu. agagne (autre):
+            print (autre + " a gagné")
+            break
+</pre>
+
+<p>
+
+En recollant tous ces morceaux dans un fichier, vous obtenez un programme qui joue au Tic-Tac-Toe.
+
+<br/>
+
+Les cases sont numérotées dans l'ordre suivant&nbsp;:
+
+<center>
+<table border="1" cellpadding="5" >
+  <tr><td>0</td><td>1</td><td>2</td></tr>
+  <tr><td>3</td><td>4</td><td>5</td></tr>
+  <tr><td>6</td><td>7</td><td>8</td></tr>
+</table>
+</center>
+
+</p>
+
+<h2>Autres activités autour de l'arbre de jeu du tic-tac-toe</h2>
+
+<ul>
+  <li>On souhaite dénombrer les positions finales gagnantes ou nulles.
+Comment feriez-vous&nbsp;?</li>
+  <li>Pour chaque configuration de jeu, on souhaite établir le meilleur coup à jouer pour chacun des deux joueurs. Comment feriez-vous&nbsp;? </li>
+</ul>
+
+</div>
+
+</body></html>
