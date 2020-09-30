@@ -1,0 +1,575 @@
+<html><head><!--TITLE==GREP--><!--HEADER--><!--HEADFILE==head--><title>GREP</title>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="grep_files/elflord2.css" type="text/css"></head>
+<body background="grep_files/desk.jpg" bgcolor="#dddddd" text="#222222">
+
+<a name="top">
+
+
+
+
+</a><table width="100%">
+<tbody><tr>
+<td align="left">
+
+<ul>
+
+	<li>	<h3><a href="http://pegasus.rutgers.edu/%7Eelflord/index.html" target="_top">My Homepage</a></h3>		</li>
+
+
+	<li><h3><a href="http://pegasus.rutgers.edu/%7Eelflord/unix/">Unix/Linux Index Page</a></h3> </li>
+	<li>	<h3><a href="http://pegasus.rutgers.edu/%7Eelflord/linux/index.html">Linux</a></h3>	</li>
+
+</ul>
+</td>
+
+<td align="right" height="200" valign="top">
+
+<h1>UNIX and Linux</h1>
+<h2>GREP</h2>
+<br>
+<!--MAILTO--><tt> <font size="+1"><!--MAILTO-->
+
+<a href="mailto:elflord@pegasus.rutgers.edu">
+elflord@pegasus.rutgers.edu</a>
+
+<!--/MAILTO--></font><!--/MAILTO-->
+
+
+</tt></td>
+</tr></tbody></table>
+
+
+
+<a name="top">	</a><h2><a name="top">Tutorials</a></h2>
+<a name="top">	</a><p><a name="top">Useful information mostly written by me, the conspicuous exception
+	being the bash manpage ... </a></p>
+<a name="top">	</a><a href="http://pegasus.rutgers.edu/%7Eelflord/unix/intro.html">Intro to Unix</a> <br>
+	
+		<a href="http://pegasus.rutgers.edu/%7Eelflord/unix/quickguide.html">UNIX command summary</a><br>
+		<a href="http://pegasus.rutgers.edu/%7Eelflord/unix/grep.html">grep tutorial</a> powerful search tool<br>
+		<a href="http://pegasus.rutgers.edu/%7Eelflord/unix/sed.html">sed tutorial</a> scripts to edit text files<br>
+		<a href="http://pegasus.rutgers.edu/%7Eelflord/unix/autofs.html">Autofs in Linux </a> automatically mounting removable media<br>
+		<a href="http://pegasus.rutgers.edu/%7Eelflord/unix/procmail.html">procmail tutorial</a> well known email filter<br>
+		<a href="http://pegasus.rutgers.edu/%7Eelflord/unix/bash.html">bash manpage</a> the man page for the bash shell. Warning: this is long (~210k)<br>
+	
+
+
+
+<!--/HEADER-->
+
+
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#why">Why grep ?</a></li>
+<li><a href="#what">So what does it do?</a></li>
+<li><a href="#compatibility">Compatibility notes</a></li>
+<li><a href="#wildcards">Wildcards for grep</a></li>
+<li><a href="#expressions">Taking it further: Regular Expressions</a></li>
+<li><a href="#expressions2">More on Regular Expressions</a></li>
+<dir>
+<li><a href="#matchlist">Matching One of a Selection of Characters</a></li>
+<li><a href="#setnum">Matching a Set Number of repetitions</a></li>
+<li><a href="#startendline">Nailing it Down to the Start or the End of the Line</a></li>
+<li><a href="#or">This or That: Matching One of Two Strings</a></li>
+<li><a href="#backref">Backpedalling and Backreferences</a></li>
+</dir>
+
+<li><a href="#details">Some Crucial Details: Special Characters and Quoting</a></li>
+<dir>
+<li><a href="#special">Special Characters</a></li>
+<li><a href="#quote">Quoting</a></li>
+</dir>
+<li><a href="#egrep">Extended Regular Expression (egrep) Syntax</a></li>
+</ul>
+
+<a name="why">
+</a><h2><a name="why">Why grep ?</a></h2>
+<a href="#top">Back to top</a>
+<p>
+<em>grep</em> is not only one of the most useful commands, but also, mastery of 
+<em>grep</em> opens the gates to mastery of other tools such as <em>awk</em> , 
+<em>sed</em> and <em> perl </em>. 
+</p>
+<a name="what">
+</a><h2><a name="what">So what does it do ?</a></h2>
+<a href="#top">Back to top</a>
+<p>
+grep basically searches. More precisely,
+</p><blockquote>
+<code>grep foo file</code>  returns all the lines that <em>contain</em> a string matching the expression "foo" in the file "file". 
+</blockquote>
+For now, we will just think of an expression as a string. So <em>grep</em>
+returns all matching lines that contain foo as a substring. 
+<p></p>
+<p>
+Another way of using <em>grep</em> is to have it accept data
+through <code>STDIN</code>. instead of having it search a file. For example,
+</p><blockquote>
+<code> ls |grep blah </code>   lists all files in the current
+directory whose names contain the string "blah"
+</blockquote>
+<p></p>
+<a name="compatibility">
+</a><h2><a name="compatibility">Compatibility Notes</a></h2>
+<a href="#top">Back to top</a>
+
+<p>
+This tutorial is based on the <em>GNU</em> version of grep.
+It is recommended that you use this version. To use it, firstly, it needs
+to be installed on your system. Secondly, your <strong>PATH</strong> needs
+to be set so that GNU grep is used in preference to the standard version.
+</p>
+<a name="wildcards">
+</a><h2><a name="wildcards">Wildcards For Grep</a></h2>
+<a href="#top">Back to top</a>
+
+<h3>The Basics: Wildcards for grep</h3>
+<h4>The Wildcard Character</h4>
+<p>
+So the first question that probably comes to mind is something like 
+"does this <em>grep thing</em> support wildcards ? And the answer is better than 
+yes. In fact saying that <em>grep</em> supports wildcards is a big understatement. 
+<em>grep</em> uses <em>regular expressions</em> which go a few steps beyond 
+wildcards. But we will start with wildcards. The canonical wildcard character
+is the dot "." Here is an example : 
+<code>
+</code></p><pre>&gt;cat file
+
+big
+bad bug 
+bag
+bigger
+boogy
+
+&gt;grep b.g file
+
+big
+bad bug 
+bag
+bigger
+</pre>
+ 
+notice that boogy didn't match, since the "." matches exactly one character. 
+<p></p>
+<h4>The repetition character</h4><p>
+To match repetitions of a character, we use the star, which works in the 
+following way:
+</p><blockquote><em>
+the expression consisting of a character followed by a star matches any number
+(possibly zero) of repetitions of that character. 
+In particular, the expression ".*" matches any string, and hence acts as a 
+"wildcard".
+</em>
+</blockquote>
+To illustrate, we show some examples: 
+
+<h4>Examples: Wildcards</h4>
+<table width="100%">
+<tbody><tr>
+<td valign="top">
+<h4>The File for These Examples</h4>
+<code>
+</code><pre>&gt;cat file
+big
+bad bug 
+bag
+bigger
+boogy
+</pre>
+
+</td>
+<td valign="top">
+<h4>Wildcards #1</h4>
+<code>
+</code><pre>&gt;grep "b.*g" file
+big
+bad bug 
+bag
+bigger
+boogy
+</pre>
+
+</td>
+<td valign="top">
+<h4>Wildcards #2</h4>
+<code>
+</code><pre>&gt;grep "b.*g." file
+bigger
+boogy
+</pre>
+
+</td>
+<td valign="top">
+<h4>repetition</h4>
+<code>
+</code><pre>&gt;grep "ggg*" file
+bigger
+</pre>
+ 
+</td>
+</tr>
+</tbody></table>
+Read the repetion example carefully, and pay careful attention to the fact
+that the "*" in grep patterns denotes <em>repetition</em>. It does 
+<em>not</em> behave as a wildcard in regular expression syntax (as it is in UNIX
+or DOS glob patterns). Recall that the pattern ".*" behaves as a
+wildcard (because .* means "repeat any character any number of times). The 
+pattern "g*" matches the string "", "g", "gg", etc. Likewise, "gg*"
+matches "g", "gg", "ggg", so  "ggg*" matches "gg", "ggg", "gggg", etc.
+
+<a name="expressions">
+
+</a><h2><a name="expressions">Taking it Further - Regular Expressions</a></h2>
+<a href="#top">Back to top</a>
+The wildcards are a start, but the idea could be taken further. For example,
+suppose we want an expression that matches 
+<code>Frederic Smith</code> or <code>Fred Smith</code>. In other words, the letters
+<code>eric</code> are "optional". 
+<p>
+
+First, we introduce the concept of an "escaped" character.
+</p><blockquote>
+<em>
+An escaped character is a character preceded by a backslash. 
+The preceding backslash does one of the following:<br>
+(a) removes an implied special meaning from a character
+(b) adds special meaning to a "non-special" character
+</em>
+</blockquote>
+<h3>Examples</h3>
+To search for a line containing text <code>hello.gif</code>, the correct
+command is 
+<blockquote>
+<code>grep 'hello\.gif' file </code>
+</blockquote>
+since <code>grep 'hello.gif' file</code> will match lines containing 
+<code> hello-gif , hello1gif , helloagif</code> , etc. 
+<p>Now we move on to grouping expressions, in order to find a way of making an 
+expression to match <code>Fred</code> or <code>Frederic</code>
+</p>
+
+First, we start with the ? operator. 
+<blockquote>
+<em>
+an expression consisting of a character followed by an escaped question mark
+matches one or zero instances of that character.
+</em>
+</blockquote>
+<h4>Example</h4>
+<code>bugg?y </code> 
+matches all of the following: 
+<code>bugy , buggy</code>
+but not
+<code>bugggy</code>
+
+We move on to "grouping" expressions. In our example, we want to make
+the string "ederic" following "Fred" optional, we don't just want one 
+optional character. 
+<blockquote>
+<em>
+An expression surrounded by "escaped" parentheses is treated by a single character.
+</em>
+</blockquote>
+<h4>Examples</h4>
+<code>Fred\(eric\)\? Smith</code> matches <code> Fred Smith</code> or <code>Frederic Smith</code>
+<br>
+<code>\(abc\)*</code> matches <code>abc</code> , <code>abcabcabc</code> etc. 
+(i.e. , any number of repetitions of the string <code>abc</code> , including the empty string.)
+
+Note that we have to be careful when our expressions contain white
+spaces or stars. 
+When this happens, we need to enclose them in quotes so that the shell does not
+mis-interpret the command, because the shell will parse
+whitespace-separated strings as multiple arguments, and will expand an
+unquoted 
+* to a glob pattern. So to use our example above, we would need to
+type 
+<blockquote>
+grep "Fred\(eric\)\? Smith" file
+</blockquote>
+<p></p>
+
+We now mention several other useful operators. 
+
+<a name="expressions2">
+</a><h2><a name="expressions2">More on Regular Expressions</a></h2>
+<a href="#top">Back to top</a>
+
+<a name="matchlist">
+</a><h3><a name="matchlist">Matching a list of characters</a></h3>
+<a href="#top">Back to top</a><br>
+To match a selection of characters, use []. 
+
+<h3>Example</h3>
+<blockquote>
+<code>[Hh]ello</code> matches lines containing <code>hello</code> or
+<code>Hello</code>
+</blockquote>
+
+Ranges of characters are also permitted. 
+
+<h3>Example</h3>
+<blockquote>
+<code>[0-3]</code> is the same as <code>[0123]</code> <br>
+<code>[a-k]</code> is the same as <code>[abcdefghijk]</code><br>
+<code>[A-C]</code> is the same as <code>[ABC]</code><br>
+<code>[A-Ca-k]</code> is the same as <br>
+<code>[ABCabcdefghijk]</code><br>
+</blockquote>
+
+There are also some alternate forms : <br>
+<blockquote>
+<code>[[:alpha:]]</code> is the same as <code>[a-zA-Z]</code><br>
+<code>[[:upper:]]</code> is the same as <code>[A-Z]</code><br>
+<code>[[:lower:]]</code> is the same as <code>[a-z]</code><br>
+<code>[[:digit:]]</code> is the same as <code>[0-9]</code><br>
+<code>[[:alnum:]]</code> is the same as <code>[0-9a-zA-Z]</code><br>
+<code>[[:space:]]</code> matches any white space including tabs<br>
+</blockquote>
+<p>
+These alternate forms such as <code>[[:digit:]]</code>
+are preferable to the direct method <code>[0-9]</code>
+</p>
+
+The [] may be used to search for <em>non-matches</em>. This is done by
+putting a carat ^ as the first character inside the square brackets.
+<h4>Example</h4>
+<code>grep "([^()]*)a" file</code> returns any line containing a pair of
+parentheses that are innermost and are followed by the letter "a". 
+So it matches these lines
+<pre>(hello)a
+(aksjdhaksj d ka)a
+</pre>
+But not this
+<pre>x=(y+2(x+1))a
+</pre>
+
+<a name="setnum">
+</a><h3><a name="setnum">Matching a Specific Number Of Repetitions of a Pattern</a></h3>
+<a href="#top">Back to top</a><br>
+Suppose you want to match a specific number of repetitions of a pattern.
+A good example is phone numbers. You could search for a 7 digit phone
+number like this: 
+<blockquote>
+<code>grep "[[:digit:]]\{3\}[ -]\?[[:digit:]]\{4\}" file</code>
+</blockquote>
+This matches phone numbers, possibly containing a dash or whitespace
+in the middle.
+
+<a name="startendline">
+</a><h3><a name="startendline">Nailing it Down to Start of the Line and End of the Line</a></h3>
+<a href="#top">Back to top</a><br>
+
+Here's the deal. Suppose you want to search for lines containing a line consisting 
+of white space, then the word  hello, then the end of the line. Let us start with an 
+example.
+
+<blockquote>
+<pre>&gt;cat file
+
+	hello
+hello world
+	hhello
+
+&gt;grep hello file
+
+	hello
+hello world
+	hhello
+</pre>
+</blockquote>
+
+This is <em> not </em> what we wanted. So what went wrong ? The problem is that 
+grep searches for lines containing the string "hello" , and all the lines specified 
+contain this. To get around this problem, we introduce the end and beginning of line characters
+<blockquote>
+<em>
+The $ character matches the end of the line. The ^ character matches the beginning of the 
+line.
+</em>
+</blockquote>
+
+<h4>Examples</h4>
+
+returning to our previous example,
+
+<blockquote>
+<code>grep "^[[:space:]]*hello[[:space:]]*$" file </code> 
+
+</blockquote>
+does what we want (only returns one line) 
+
+Another example: <br>
+<code>grep "^From.*mscharmi" /var/spool/mail/elflord</code> searches my inbox for
+headers from a particular person. This kind of regular expression is extremely useful, 
+and mail filters such as procmail use it all the tims.
+
+<a name="or">
+</a><h3><a name="or">This or That: matching one of two strings</a></h3>
+<a href="#top">Back to top</a>
+<blockquote>
+<em>
+The expression consisting of two expressions seperated by the or operator <code>\|</code> 
+matches lines containing either of those two expressions.
+</em>
+</blockquote>
+
+Note that you <em>MUST</em> enclose this inside single or double quotes. 
+
+<h4>Example</h4>
+
+<code>grep "cat\|dog" file</code> 
+
+matches lines containing the word "cat" or the word "dog" 
+
+<br>
+
+<code>grep "I am a \(cat\|dog\)"</code> matches lines containing the string
+"I am a cat" or the string "I am a dog". 
+
+<a name="backref">
+</a><h3><a name="backref">Backpedalling and Backreferences</a></h3>
+<a href="#top">Back to top</a><br>
+
+Suppose you want to search for a string which contains a certain substring
+in more than one place. An example is the heading tag in HTML. Suppose I wanted
+to search for <code>&lt;H1&gt;some string&lt;/H1&gt;</code> . 
+This is easy enough to do.
+But suppose I wanted to do the same but allow <code>H2 H3 H4 H5 H6</code>
+in place of <code>H1</code>. The expression 
+<code>&lt;H[1-6]&gt;.*&lt;/H[1-6]&gt;</code>
+is not good enough since it matches 
+<code>&lt;H1&gt;Hello world&lt;/H3&gt;</code>
+but we want the opening tag to match the closing one. To do this, we use
+a <em>backreference</em>
+<blockquote>
+<em>
+The expression \n where n is a number, matches the contents of the n'th set
+of parentheses in the expression
+</em>
+</blockquote>
+Woah, this really needs an example!
+<h4>Examples</h4>
+<code>&lt;H\([1-6]\).*&lt;/H\1&gt;</code> matches what we were trying to match 
+before. <br>
+<code>"Mr \(dog\|cat\) came home to Mrs \1 and they went to 
+visit Mr \(dog\|cat\) and Mrs \2 to discuss the meaning of life
+</code> 
+matches ... well I'm sure you can work it out. the idea is that the cats and 
+dogs should match up in such a way that it makes sense. 
+
+
+<a name="details">
+</a><h2><a name="details">Some Crucial Details: Special Characters and Quotes</a></h2>
+<a href="#top">Back to top</a><br>
+<a name="special">
+</a><h3><a name="special">Special Characters</a></h3>
+<a href="#top">Back to top</a><br>
+Here, we outline the special characters for grep. Note that in egrep (which
+uses extended regular expressions), which actually are no more functional than
+standard regular expressions if you use GNU grep ) , the list of special
+characters increases ( | in grep is the same as \| egrep and vice versa, there
+are also other differences. Check the man page for details ) The following
+characters are considered special and need to be "escaped":
+<blockquote><pre>?  \  .  [  ]  ^  $
+</pre></blockquote>
+Note that a $ sign loses its meaning if characters follow it (I think) and
+the carat ^ loses its meaning if other characters precede it.
+<br>
+Square brackets behave a little differently. The rules for square brackets go as follows:
+<ul>
+<li>A closing square bracket loses its special meaning if placed first in a list.
+for example <code>[]12] </code> matches ] , 1, or 2. </li>
+<li>A dash - loses it's usual meaning inside lists if it is placed last.</li>
+<li>A carat ^ loses it's special meaning if it is not placed first</li>
+<li>Most special characters lose their meaning inside square brackets </li>
+
+</ul>
+<a name="quote">
+</a><h3><a name="quote">Quotes</a></h3>
+<a href="#top">Back to top</a><br>
+Firstly, single quotes are the safest to use, because they protect your
+regular expression from the shell. For example, <code>grep "!" file</code>
+will often produce an error (since the shell thinks that "!" is referring 
+to the shell command history) while <code>grep '!' file</code>
+will not. 
+<p>
+When should you use single quotes ? the answer is this: if you 
+want to use shell variables, you need double quotes. For example,
+</p><blockquote>
+<code>grep "$HOME" file </code>
+</blockquote>
+searches file for the name of your home directory, while 
+<blockquote>
+<code>grep '$HOME' file </code>
+</blockquote>
+searches for the string $HOME
+
+<a name="egrep">
+
+</a><p>
+<a name="egrep">
+</a></p><h2><a name="egrep">Extended Regular Expression Syntax</a></h2>
+<a href="#top">Back to top</a>
+<p>
+We now discuss egrep syntax as opposed to grep syntax. Ironically, 
+despite the origin of the name (extended), egrep actually has <em>less</em>
+functionality as it is designed for compatibility with the traditional egrep.
+A better way to do an extended "grep"  is to use <code>grep -E</code> 
+which uses extended regular expression syntax without loss of functionality. 
+</p><p>
+<table border="2" cellpadding="10">
+<tbody><tr>
+<td>grep</td>
+<td>grep -E</td>
+<td>Available for egrep?</td>
+</tr><tr>
+<td><code>a\+</code></td>
+<td><code>a+</code></td>
+<td>yes</td>
+</tr><tr>
+<td><code>a\?</code></td>
+<td><code>a?</code></td>
+<td>yes</td>
+</tr><tr>
+<td><code>expression1\|expression2</code></td>
+<td><code>expression1|expression2?</code></td>
+<td>yes</td>
+</tr><tr>
+<td><code>\(expression\)</code></td>
+<td><code>(expression1)</code></td>
+<td>yes</td>
+</tr><tr>
+<td><code>\{m,n\}</code></td>
+<td><code>{m,n}</code></td>
+<td>no</td>
+</tr><tr>
+<td><code>\{,n\}</code></td>
+<td><code>{,n}</code></td>
+<td>no</td>
+</tr><tr>
+<td><code>\{m,}</code></td>
+<td><code>{m,}</code></td>
+<td>no</td>
+</tr><tr>
+<td><code>\{m}</code></td>
+<td><code>{m}</code></td>
+<td>no</td>
+</tr>
+
+</tbody></table>
+</p></body></html>
