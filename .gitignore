@@ -2,6 +2,8 @@
 **/.RData
 **/.Rhistory
 **/*.php
+/mes-papiers.txt
+/mes-papiers/script.bash
 /sed.bash
 /ar/
 /ensg/aeac/
