@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Arbres</title>
+  <link href="./ma.css" 
+	rel="stylesheet" type="text/css" media="all" />
+</head>
+
+<body>
+
+<div class="tpR">
+<h1>Arbres</h1>
+
+<p>
+
+Nous abordons la notion de récursivité. Les arbres constitue une structure de données se définissant naturellement de manière récursive&nbsp;: un arbre, c'est une racine et éventuellement un ensemble de sous-arbres fils.
+
+<br/>
+
+La récursivité permet de définir les arbres ainsi que la plupart des algorithmes traitant des arbres de manière très élégante, très concentrée et très facile à lire (une fois que l'on a acquis le coup d'&oelig;il).
+
+</p>
+
+<h2>Introduction</h2>
+
+<ul>
+  <li>Définir une classe permettant de représenter un arbre binaire.
+
+    <br/>
+
+    On peut faire cela de la manière suivante&nbsp;: 
+<pre>
+class Arbre(object):
+  def __init__ (self, valeur = etiquette, sag = None, sad = None):
+    self.etiquette = valeur
+    self.fg = sag
+    self.fd = sad
+</pre></li>
+</ul>
+
+<h2>Quelques opérations simples sur un arbre</h2>
+
+<ul>
+  <li>Définir une méthode d'instance calculant la hauteur d'un arbre.
+
+    <br/>
+
+    On peut faire cela de la manière suivante&nbsp;: 
+<pre>
+  def hauteur (self):
+    if (self. fg != None):
+      hauteurAgauche = self. fg. nbNoeuds ()
+    else:
+      hauteurAgauche = 0
+    if (self. fd != None):
+      hauteurAdroite = self. fd. nbNoeuds ()
+    else:
+      hauteurAdroite = 0
+    return 1 + max (hauteurAdroite + hauteurAgauche)
+</pre></li>
+
+  <li>Définir une méthode d'instance calculant le nombre de n&oelig;ud d'un arbre. On considère qu'une feuille est un n&oelig;ud n'ayant pas de fils.
+
+    <br/>
+
+    On peut faire cela de la manière suivante&nbsp;: 
+<pre>
+  def nbNoeuds (self):
+    if (self. fg != None):
+      noeudsAgauche = self. fg. nbNoeuds ()
+    else:
+      noeudsAgauche = 0
+    if (self. fd != None):
+      noeudsAdroite = self. fd. nbNoeuds ()
+    else:
+      noeudsAdroite = 0
+    return 1 + noeudsAgauche + noeudsAdroite
+</pre></li>
+</ul>
+
+<h2>Représentation graphique d'un arbre</h2>
+
+<p>
+
+Créer une représentation graphique d'un arbre comme celui-ci&nbsp;:
+
+<br/>
+
+<img src="./abr1.png" width="300">
+
+<br/>
+
+n'est pas chose simple. Il faut pour cela bien disposer les n&oelig;uds et les branches. Plutôt que d'écrire une méthode qui le fait mal, nous allons utiliser une commande Linux qui crée un fichier png (ou pdf, jpg, ...) représentant un arbre (plus généralement un graphe) à partir d'une description. Pour l'arbre ci-dessus, la représentation est la suivante&nbsp;:
+
+</p>
+
+<pre>
+graph abr1 {
+  10 -- 5;
+  5 -- 1;
+  5 -- 7;
+  7 -- 6;
+  7 -- 9;
+  10 -- 20;
+  20 -- 18;
+  20 -- 23;
+  23 -- 21;
+}
+</pre>
+
+<p>
+
+Vous pouvez copier/coller ce contenu dans un fichier. Nommons ce fichier <kbd>abr.dot</kbd>.
+
+<br/>
+
+La première ligne indique que l'on décrit un graphe (un arbre est un type particulier de graphe) qui se nomme <kbd>arb1</kbd>. Tout ce qui se trouve ensuite entre accolades décrit les n&oelig;uds et les branches de cet arbre.
+
+<br/>
+
+Chaque ligne est de la forme&nbsp;: 
+<kbd>étiquette-n&oelig;ud-père -- étiquette-n&oelig;ud-fils;</kbd> qui
+indique qu'il y a une branche entre un n&oelig;ud
+d'étiquette <kbd>étiquette-n&oelig;ud-père</kbd> vers un n&oelig;ud
+d'étiquette <kbd>étiquette-n&oelig;ud-fils</kbd>. Les deux tirets
+entre les deux étiquettes et le point-virgule sont indispensables.
+
+<br/>
+
+L'ordre dans lequel les branches sont listées est important&nbsp;: il
+faut toujours que la branche du fils gauche d'un n&oelig;ud apparaisse
+avant la branche du fils droit. 
+
+<br/>
+<br/>
+
+À faire&nbsp;: écrire une fonction qui affiche à l'écran la description au format indiqué ci-dessus d'un arbre. Ensuite&nbsp;:
+
+</p>
+
+<ol>
+  <li>copiez/collez cette description dans un fichier (<kbd>mon.abr.dot</Kbd> par exemple). 
+  <li>générez un fichier graphique avec <kbd>dot</kbd>&nbsp;: tapez la commande suivante&nbsp;: <kbd>dot -Tpng mon.abr.dot -o mon.abr.png</kbd>
+  <li>Affichez-le pour voir le résultat.
+</ol>
+
+<!--
+<ol>
+  <li>déterminer l'ordre dans lequel les branches doivent être listées dans le fichier (d'une manière générale, pour un arbre quelconque).</li>
+  <li>Définissez une méthode qui fasse en sorte que quand on appelle <kbd>print (a)</kbd>, où <kbd>a</kbd> est une instance de la classe <kbd>Arbre</kbd>, s'affiche sur l'écran cette description sous forme de branches.</li>
+  <li>Dans votre programme en Python, créez un abr (par exemple avec la liste des nombres <kbd>10, 5, 1, 7, 6, 9, 20, 18, 23, 21</kbd>).</li>
+  <li>Faites un <kbd>print</kbd> de cet arbre.</li>
+  <li>Copiez le résultat de l'exécution de votre programme dans un fichier (<kbd>mon.abr.dot</Kbd> par exemple).</li>
+  <li>Dans le répertoire où se trouve ce fichier, tapez la commande suivante&nbsp;: <kbd>dot -Tpng mon.abr.dot -o mon.abr.png</kbd>.</li>
+  <li>Si vous n'avez pas commis d'erreur de syntaxe dans la description de l'arbre, vous devez maintenant avoir un fichier dénommé <kbd>mon.abr.png</kbd> dans votre répertoire courant, que vous pouvez ouvrir. Il doit ressembler à la figure ci-dessus.</li>
+</ol>
+-->
+</div>
+
+</body></html>
