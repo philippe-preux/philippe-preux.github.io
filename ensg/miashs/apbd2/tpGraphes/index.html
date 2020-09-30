@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Graphes</title>
+  <link href="https://philippe-preux.github.io/css/ma.css" 
+        rel="stylesheet" type="text/css" media="all" />
+  <link rel="shortcut icon" type="image/x-icon"
+        href="https://philippe-preux.github.io/img/site.ico" />
+</head>
+
+<body>
+
+<div class="tpR">
+<h1>Graphes</h1>
+
+<h2>Introduction</h2>
+
+<ul>
+  <li>Définir une classe permettant de représenter un graphe non orienté (non pondéré).
+
+    <br/>
+
+    On peut faire cela de la manière suivante&nbsp;: 
+<pre>
+class Graphe(object):
+  def __init__ (self, N):
+    self. N = N
+    self. arcs = [ [] for i in range (N)]
+</pre></li>
+
+  <li>Définir une méthode d'ajout d'un arc à un graphe.
+    <br/>
+
+    On peut faire cela de la manière suivante&nbsp;: 
+<pre>
+  def ajouteArc (self, n1, n2):
+    self. arcs [n1]. append (n2)
+    self. arcs [n2]. append (n1)
+</pre>
+
+mais cela n'est pas très satisfaisant car si on ajoute deux fois le même arc, celui-ci apparaît deux fois. Avant d'ajouter, un successeur à un n&oelig;ud, il vaut mieux tester s'il est déjà présent dans la sous-liste ou pas&nbsp;:
+<pre>
+  def ajouteArc (self, n1, n2):
+    if not n2 in self. arcs [n1]:
+        self. arcs [n1]. append (n2)
+    if not n1 in self. arcs [n2]:
+    self. arcs [n2]. append (n1)
+</pre>
+
+  <br/>
+
+
+</li>
+
+  <li>Définir une méthode qui affiche un graphe au format <kbd>dot</kbd> déjà vu pour les arbres.
+    <br/>
+    Par exemple&nbsp;:
+    <br/>
+    <img src="./g3.png" width="400pt"/>
+</li>
+</ul>
+
+<h2>Recherche de chemin</h2>
+
+<ul>
+  <li>Écrire une méthode qui détermine s'il existe un chemin entre deux n&oelig;uds. Elle renvoie True ou False selon le cas.
+    <br/>
+<pre>
+  def existeChemin (self, n1, n2):
+    ...
+</pre>
+</li>
+
+ <li>Écrire une méthode qui détermine la longueur d'un chemin entre deux n&oelig;uds d'un graphe. S'il n'y a pas de chemin entre ces deux n&oelig;uds, la fonction renvoie -1.</li>
+  <li>définir une méthode qui détermine le nombre de composantes connexes dans un graphe.</li>
+  <li>définir une méthode qui associe chaque n&oelig;ud à sa composante connexe (on numérote les composantes connexes et ensuite, on associe un numéro de composante connexe à chaque n&oelig;ud).
+<pre>
+  def composantes (self):
+    listeNonParcourus = [i for i in range (self. N)]
+    numeroComposantes = [0 for i in range (self. N)]
+    compteur = 0
+    while listeNonParcourus != []:
+        noeud = listeNonParcourus [0]
+        LNA = []
+        for i in range (1, len (listeNonParcourus)):
+            if not self. existeChemin (noeud, i):
+                LNA. append (listeNonParcourus [i])
+                numeroComposantes [listeNonParcourus [i]] = compteur + 1
+        compteur = compteur + 1
+        listeNonParcourus = LNA
+</pre></li>
+</ul>
+
+<h2>Génération de graphes aléaotoires</h2>
+
+<p>
+
+On va générer des graphes aléatoires, c'est-à-dire pour un nombre de n&oelig;uds fixé, on crée un certain nombre d'arcs aléatoirement. On se donne un paramètre (proportion) qui contrôle le nombre d'arcs du graphe.
+
+<br/>
+
+La forme générale de la fonction est la suivante&nbsp;:
+
+</p>
+
+<ul>
+  <li>on va générer proportion * N * (N-1)/2 arcs.</li>
+  <li>on fait une boucle réalisant ce nombre d'itérations. À chaque itération, on tire aléatoirement deux n&oelig;uds et on ajoute un arc les reliant.</li>
+</ul>
+
+<p>
+
+Écrire une fonction qui fait cela. 
+
+<pre>
+def genereGrapheAleatoire (N, proportion):
+    ga = Graphe (N)
+    nbarcs = int (proportion * N * (N - 1) / 2)
+    arcs = [[] for i in range (N)]
+    for i in range (nbarcs):
+        a = randint (0, N - 1)
+        b = randint (0, N - 1)
+        while (a == b) or (a in arcs [b]) or (b in arcs [a]):
+            a = randint (0, N - 1)
+            b = randint (0, N - 1)
+        arcs [a]. append (b)
+        arcs [b]. append (a)
+        ga. ajouteArc (a, b)
+    return (ga)
+</pre>
+
+</div>
+
+</body>
+</html>
