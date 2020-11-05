@@ -2,6 +2,7 @@
 **/.RData
 **/.Rhistory
 **/*.php
+/digest-RL/
 /mes-papiers.txt
 /mes-papiers/script.bash
 /sed.bash
