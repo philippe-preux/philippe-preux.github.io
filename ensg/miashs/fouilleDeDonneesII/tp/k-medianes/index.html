@@ -4,40 +4,40 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>Segmentation non hiérarchique par les k-médianes</title>
+  <title>Segmentation non hiÃ©rarchique par les k-mÃ©dianes</title>
   <link href="https://philippe-preux.github.io/css/ma.css" 
 	rel="stylesheet" type="text/css" media="all" />
 </head>
 
 <body>
 <div class="tpR">
-<h1>Segmentation non hiérarchique par les k-médianes</h1>
+<h1>Segmentation non hiÃ©rarchique par les k-mÃ©dianes</h1>
 
 <p>
 
-L'objectif de ce TD est de manipuler l'algorithme des k-médianes
+L'objectif de ce TD est de manipuler l'algorithme des k-mÃ©dianes
 disponible dans R.
 
 <br/>
 <br/>
 
-Pour la réalisation de ce TP, on suppose que le <a
-href="../k-moyennes/">TP sur l'algorithme des k-moyennes</a> a été
+Pour la rÃ©alisation de ce TP, on suppose que le <a
+href="../k-moyennes/">TP sur l'algorithme des k-moyennes</a> a Ã©tÃ©
 fait auparavant.
 
 </p>
 
-<h2>Les k-médianes en R</h2>
+<h2>Les k-mÃ©dianes en R</h2>
 
 <h3>La fonction <kbd>pam()</kbd></h3>
 
 <p>
 
-L'algorithme des k-médianes est disponible au travers de la fonction
-<kbd>pam()</kbd> de la bibliothèque <kbd>cluster</kbd> de R. <b>Il
+L'algorithme des k-mÃ©dianes est disponible au travers de la fonction
+<kbd>pam()</kbd> de la bibliothÃ¨que <kbd>cluster</kbd> de R. <b>Il
 faut donc toujours taper la commande <kbd>library (cluster)</kbd>
-avant de pouvoir utiliser les fonctions qui vont être décrites et
-manipulées ci-dessous.</b>. L'utilisation en est très simple&nbsp;:
+avant de pouvoir utiliser les fonctions qui vont Ãªtre dÃ©crites et
+manipulÃ©es ci-dessous.</b>. L'utilisation en est trÃ¨s simple&nbsp;:
 
 </p>
 
@@ -46,14 +46,14 @@ manipulées ci-dessous.</b>. L'utilisation en est très simple&nbsp;:
 
 <p>
 
-exécute l'algorithme des k-médianes sur le jeu de données iris en
-utilisant les quatre attributs longueur et largeur des sépales
-et des pétales, en utilisant 3 centres.
+exÃ©cute l'algorithme des k-mÃ©dianes sur le jeu de donnÃ©es iris en
+utilisant les quatre attributs longueur et largeur des sÃ©pales
+et des pÃ©tales, en utilisant 3 centres.
 
 <br/>
 
-À l'issue de son exécution, <kbd>pam()</kbd> a associé chaque
-donnée à un groupe&nbsp;; les groupes sont numérotés de 1 à K.
+Ã€ l'issue de son exÃ©cution, <kbd>pam()</kbd> a associÃ© chaque
+donnÃ©e Ã  un groupe&nbsp;; les groupes sont numÃ©rotÃ©s de 1 Ã  K.
 
 <br/>
 <br/>
@@ -64,12 +64,12 @@ la commande <kbd>help("pam.object")</kbd>&nbsp;:
 </p>
 
 <ul>
-  <li><kbd>clustering</kbd>&nbsp;: est un vecteur qui contient le numéro
-    du groupe de chacune des données&nbsp;;</li>
-  <li><kbd>medoids</kbd>&nbsp;: spécifie la position des K
+  <li><kbd>clustering</kbd>&nbsp;: est un vecteur qui contient le numÃ©ro
+    du groupe de chacune des donnÃ©es&nbsp;;</li>
+  <li><kbd>medoids</kbd>&nbsp;: spÃ©cifie la position des K
     centres&nbsp;;</li>
-  <li><kbd>id.med</kbd>&nbsp;: est un vecteur de K numéro&nbsp;: le
-    numéro de la donnée correspondant à chacun des centres.</li>
+  <li><kbd>id.med</kbd>&nbsp;: est un vecteur de K numÃ©ro&nbsp;: le
+    numÃ©ro de la donnÃ©e correspondant Ã  chacun des centres.</li>
 </ul>
 
 <p>
@@ -78,9 +78,9 @@ la commande <kbd>help("pam.object")</kbd>&nbsp;:
 
 <p>
 
-On peut visualiser le résultat de la segmentation à l'aide de
-couleurs. Ainsi, supposons que vous ayez segmenté en trois segments
-les iris et placé le résultat dans <kbd>iris.pam.3</kbd>.
+On peut visualiser le rÃ©sultat de la segmentation Ã  l'aide de
+couleurs. Ainsi, supposons que vous ayez segmentÃ© en trois segments
+les iris et placÃ© le rÃ©sultat dans <kbd>iris.pam.3</kbd>.
 
 </p>
 
@@ -90,8 +90,8 @@ les iris et placé le résultat dans <kbd>iris.pam.3</kbd>.
 
 <p>
 
-représente chacun des iris dans le plan longueur des pétales x largeur
-des pétales et coloré en fonction de la classe que lui a affecté
+reprÃ©sente chacun des iris dans le plan longueur des pÃ©tales x largeur
+des pÃ©tales et colorÃ© en fonction de la classe que lui a affectÃ©
 <kbd>pam()</kbd>.
 
 <br/>
@@ -108,7 +108,7 @@ On peut ajouter la position des centres sur ce graphique&nbsp;:
 <p>
 
 <kbd>pch=19</kbd> indique que l'on veut que les points soient
-représentés par des disques pleins.
+reprÃ©sentÃ©s par des disques pleins.
 
 </p>
 
@@ -126,7 +126,7 @@ On obtient la silhouette d'une segmentation par la commande&nbsp;:
 
 <p>
 
-que l'on peut représenter graphiquement par la fonction
+que l'on peut reprÃ©senter graphiquement par la fonction
 <kbd>plot()</kbd>&nbsp;:
 
 </p>
@@ -138,9 +138,9 @@ que l'on peut représenter graphiquement par la fonction
 <p>
 
 On peut obtenir des statistiques sur la silhouette par la commande
-<kbd>summary()</kbd>. On récupère ainsi le «&nbsp;coefficient de
-silhouette&nbsp;» qui indique la pertinence de la segmentation
-trouvée. On peut l'obtenir par la commande&nbsp;:
+<kbd>summary()</kbd>. On rÃ©cupÃ¨re ainsi le Â«&nbsp;coefficient de
+silhouette&nbsp;Â» qui indique la pertinence de la segmentation
+trouvÃ©e. On peut l'obtenir par la commande&nbsp;:
 
 </p>
 
@@ -150,7 +150,7 @@ trouvée. On peut l'obtenir par la commande&nbsp;:
 
 <p>
 
-(voir le cours pour l'interprétation.)
+(voir le cours pour l'interprÃ©tation.)
 
 </p>
 
@@ -161,7 +161,7 @@ trouvée. On peut l'obtenir par la commande&nbsp;:
 Pour choisir la bonne valeur de K, on se base sur le coefficient de
 silhouette. Donc, on fait une boucle pour calculer les segmentations
 pour K variant entre 2 et 10 ou 2 et 20 ou ... (selon ce que l'on
-cherche et le jeu de données à étudier), et en cherchant le maximum du
+cherche et le jeu de donnÃ©es Ã  Ã©tudier), et en cherchant le maximum du
 coefficient de silhouette.
 
 <br/>
@@ -183,30 +183,30 @@ et on en fera uhn <kbd>plot()</kbd>.
 
 </p>
 
-<h3>Activités exploratoires</h3>
+<h3>ActivitÃ©s exploratoires</h3>
 
 <ol>
-  <li>sur les iris, quel est le K optimal d'après <kbd>pam()</kbd>&nbsp;?</li>
+  <li>sur les iris, quel est le K optimal d'aprÃ¨s <kbd>pam()</kbd>&nbsp;?</li>
   <li>
     <ol>
-      <li>déterminez le nombre de groupes et les groupes dans le jeu de
-      données disponibles à l'url
+      <li>dÃ©terminez le nombre de groupes et les groupes dans le jeu de
+      donnÃ©es disponibles Ã  l'url
       <kbd>https://philippe.-preux.github.io/ensg/miashs/fouilleDeDonneesII/tp/k-medianes/jeu12.txt</kbd>
       et visualisez la segmentation optimale avec des couleurs</li> 
-      <li>mêmes questions pour ce fichier&nbsp;:
+      <li>mÃªmes questions pour ce fichier&nbsp;:
         <kbd>https://philippe-preux.github.io/ensg/miashs/fouilleDeDonneesII/tp/k-medianes/jeu19.txt</kbd> (dans ce cas, pour la visualisation, ne prendre en compte que les deux premiers attributs)</li> 
     </ol></li>
   </li>  
 </ol>
 
 
-<h3>k-médianes pour de gros jeux de données</h3>
+<h3>k-mÃ©dianes pour de gros jeux de donnÃ©es</h3>
 
 <p>
 
-Si le nombre de données est important (disons un gros millier pour un
-PC normalement constitué en 2007), <kbd>pam()</kbd> montre ses
-limites&nbsp;: les temps de calcul deviennent longs (problème que l'on
+Si le nombre de donnÃ©es est important (disons un gros millier pour un
+PC normalement constituÃ© en 2007), <kbd>pam()</kbd> montre ses
+limites&nbsp;: les temps de calcul deviennent longs (problÃ¨me que l'on
 rencontre beaucoup moins avec <kbd>kmeans()</kbd>). Dans ce cas, on
 utilise la fonction <kbd>clara()</kbd>.
 
@@ -216,18 +216,18 @@ utilise la fonction <kbd>clara()</kbd>.
 
   <p>
 
-  Regardez la documentation en ligne sur cette fonction et utilisez-là
+  Regardez la documentation en ligne sur cette fonction et utilisez-lÃ 
   pour reproduire ce que l'on a fait avec <kbd>pam()</kbd>.
 
   </p>
 </div>
 
-<h2>Segmentation non hiérarchique floue</h2>
+<h2>Segmentation non hiÃ©rarchique floue</h2>
 
 <p>
 
 La fonction <kbd>fanny()</kbd> permet de faire une segmentation non
-hiérarchique floue.
+hiÃ©rarchique floue.
 
 </p>
 
@@ -235,14 +235,14 @@ hiérarchique floue.
 
   <ul>
     <li>Utilisez <kbd>fanny()</kbd> sur les iris et observez les
-      probabilités d'appartenance des différentes données aux
-      différents groupes, en particulier dans la zone intermédiaire
+      probabilitÃ©s d'appartenance des diffÃ©rentes donnÃ©es aux
+      diffÃ©rents groupes, en particulier dans la zone intermÃ©diaire
       entre versicolor et virginica.</li>
-    <li>Une visualisation qui indiquerait si la probabilité
-      d'appartenance d'une donnée a un groupe est presque certaine ou,
-      au contraire, incertaine serait tout à fait utile ici. Vous avez
-      une idée&nbsp;? Mettez la en &oelig;uvre. Vous n'avez pas
-      d'idée&nbsp;? réflexhissez plus fort&nbsp;!</li>
+    <li>Une visualisation qui indiquerait si la probabilitÃ©
+      d'appartenance d'une donnÃ©e a un groupe est presque certaine ou,
+      au contraire, incertaine serait tout Ã  fait utile ici. Vous avez
+      une idÃ©e&nbsp;? Mettez la en &oelig;uvre. Vous n'avez pas
+      d'idÃ©e&nbsp;? rÃ©flexhissez plus fort&nbsp;!</li>
   </ul>
 
 </div>
