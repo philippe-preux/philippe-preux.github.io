@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="fr" xmlns="http://www.w3.org/1999/xhtml" lang="fr" />
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Décision dans l'incertain&nbsp;: le problème des bandits</title>
+  <link href="https://philippe-preux.github.io/css/ma.css"
+	rel="stylesheet" type="text/css" media="all" />
+  <link rel="shortcut icon" type="image/x-icon" 
+	href="https://philippe-preux.github.io/img/site.ico" />
+</head>
+<body>
+
+<div class="tpR">
+<h1>Bandits (suite)</h1>
+
+<h3>D'ici le 23 septembre</h3>
+
+<h4>Quelques stratégies de plus</h4>
+
+<p>
+
+Implantez et comparez les stratégies suivantes à celles déjà implantées&nbsp;:
+
+</p>
+
+<ul>
+  <li>Boltzmann, avec une température &tau; variant à partir de
+    &tau;<sub>0</sub> = 1000, suivant la fonction
+    &tau;<sub>t</sub>=&tau;<sub>0</sub> log t / t,</li> 
+  <li>UCB, pour lequel on cherchera une bonne valeur de la
+    constante,</li> 
+<!--
+  <li>UCB-tuned pour lequel on cherchera de bonnes valeurs our les 2
+    constantes.</li> 
+ -->
+</ul>
+
+
+<h4>Échantillonnage de Thompson</h4>
+
+<p>
+
+On se propose d'étudier expérimentalement l'algorithme d'«&nbsp;<a
+	  href="http://olivier.chapelle.cc/pub/thompson.pdf">échantillonnage
+	  de Thompson</a>&nbsp;». 
+En pseudo-code, il s'écrit&nbsp;:
+
+</p>
+
+<pre>
+  &alpha; = &beta; = 1
+  S<sub>k</sub> = E<sub>k</sub> = 0 pour tous les bras k
+  pour t de 1 à T
+    pour k de 1 à K
+      générer un nombre pseudo-aléatoire p<sub>k</sub> selon la loi Beta (S<sub>k</sub> + &alpha;, E<sub>k</sub> + &beta;)
+    déterminer k<sup>*</sup> = arg max<sub>k</sub> p<sub>k</sub>
+    tirer le bras k<sup>*</sup> et observer le retour r
+    si r == 1 alors S<sub>k</sub> ++
+    sinon E<sub>k</sub> ++
+</pre>
+
+<ul>
+  <li>Implantez cet algorithme et comparez-le aux algorithmes
+    précédemment implantés, selon le même protocole expérimental.
+    </li>
+</ul>
+
+<p>
+
+Pour en savoir plus sur la loi Beta,
+voir <a href="http://en.wikipedia.org/wiki/Beta_distribution">cette
+page wikipedia.</a>
+
+</p>
+
+<h4>Initialisation des algorithmes</h4>
+
+<p>
+
+Pour chacun des algorithmes, comment faites-vous&nbsp;?
+
+</p>
+
+<h4>Regret</h4>
+
+<p>
+
+Faites les courbes pour le regret.
+
+</p>
+
+
+<!--
+<h4>Mesure du regret</h4>
+
+<p>
+
+Ici nous connaissons les probabilités de succès moyen de tirage de
+chaque bras. Mesurez le regret cumulé de chacun des algorithmes et
+faites-en un graphique.
+
+</p>
+-->
+
+<!--
+<h2>Extensions</h2>
+
+<p>
+
+Refaire le même travail pour le problème d'exploration pure,
+c'est-à-dire&nbsp;: l'algorithme a le droit de tirer N fois les
+bras. Ensuite, il doit indiquer lequel des bras est le meilleur.
+
+<br/>
+
+Idem mais cette fois, il doit ordonner les bras du meilleur au moins
+bon.
+
+</p>
+-->
+
+</body>
+</html>

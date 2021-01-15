@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="fr" xmlns="http://www.w3.org/1999/xhtml" lang="fr" />
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Décision dans l'incertain&nbsp;: le problème des bandits</title>
+  <link href="https://philippe-preux.github.io/css/ma.css"
+	rel="stylesheet" type="text/css" media="all" />
+  <link rel="shortcut icon" type="image/x-icon" 
+	href="https://philippe-preux.github.io/img/site.ico" />
+</head>
+<body>
+
+<div class="tpR">
+<h1>Bandits (suite 2)</h1>
+
+<h3>D'ici le 30 septembre</h3>
+
+<p>
+
+On s'intéresse maintenant à une modification du problème&nbsp;: le
+retour n'est plus observé immédiatement, mais après un certain
+nombre d'itérations. Notons l ce temps.
+
+</p>
+
+<ul>
+  <li>Implantez cette modification dans votre programme. Comparez les
+    différents algorithmes en prenant l = 100. Qu'observez-vous&nbsp;?</li>
+</ul>
+
+<p>
+
+On s'intéresse à une autre modification du problème&nbsp;: toutes les
+L itérations, l'un des bras est remplacé par un autre bras. Autrement
+dit, on ré-initialise sa probabilité de succès, soit la
+variable <kbd>seuil_proba [k]</kbd> pour un certain <kbd>k</kbd> pris
+au hasard. Ce seuil est obtenu par tirage d'un nombre pseudo-aléatoire
+selon une loi uniforme comme dans la fonction
+<kbd>init_bras_binaires()</kbd>&nbsp;; pour changer, on peut aussi
+générer ce seuil selon la loi Beta(4,4).
+
+</p>
+
+<ul>
+  <li>Implantez cette modification dans votre programme. Comparez les
+    différents algorithmes en prenant L = 1000. Qu'observez-vous&nbsp;?</li>
+</ul>
+
+<h4>Bandits à probabilité de succès non stationnaire</h4>
+
+<p>
+
+Pour finir, on s'intéresse à des bandits dont les probabilités de succès varient au cours du temps.
+
+<br/>
+
+Dans l'exemple précédent, dans un contexte réel, il est courant que la
+probabilité de clic diminue au cours du temps. On implantera cela en
+faisant diminuer la probabilité de succès au fil du temps (contenue
+dans la variable <kbd>seuil_proba</kbd> pour chacun des bras). Pour
+cela, on peut procéder de différentes manières&nbsp;:
+
+</p>
+
+<ul>
+  <li>on la multiplie par un facteur 0,998 à chaque itération de la vie du bras. Avec cette valeur, la probabilité de succès décroît doucement.</li>
+  <li>On utilise un facteur de décroissance tiré aléatoirement dans l'intervalle [0,98 ; 0,9999] pour chaque bras. Ainsi, un bras optimal peut devenir sous-optimal, et réciproquement.</li>
+  <li>Après chaque itération, pour chaque bras, on tire un facteur de décroissance aléatoirement dans ce même intervalle. Ainsi, le facteur de décroissance n'est pas constant.</li>
+</ul>
+
+<ul>
+  <li>Cela a-t-il un effet sur les performances des algorithmes, les uns
+    relativement aux autres&nbsp;?</li>
+  <li>Devez-vous, ou faut-il, modifier vos algorithmes pour tenir compte
+    de cette variation du taux de succès&nbsp;?</li>
+  <li>Vous étudierez également cette variation sur la version initiale 
+    des bandits (L = l = 0)</li>
+</ul>
+
+</body>
+</html>
