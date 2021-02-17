@@ -1,6 +1,6 @@
 
 if (! exists ("laby")) {
-    url <- "http://www.grappa.univ-lille3.fr/~ppreux/ensg/miashs/rnf/tps/rl/"
+    url <- "https://philippe-preux.github.io/ensg/miashs/rnf/tps/rl/"
 # choisissez le labyrinthe qui vous plait en commentant les lignes ad hoc.
 #laby <- "laby.1bis"
 #laby <- "laby.2bis"
