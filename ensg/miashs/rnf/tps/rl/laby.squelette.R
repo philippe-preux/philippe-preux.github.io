@@ -9,6 +9,8 @@ if (! exists ("laby")) {
     filename <- paste (url, laby, sep = "")
 }
 
+etat.initial <- NA
+
 size <- scan (file = filename, what = integer(), n = 2, quiet = T)
 hauteur <- size [1]
 largeur <- size [2]
