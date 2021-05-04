@@ -183,7 +183,7 @@ de données&nbsp;:
 </p>
 
 <pre>&gt; tennis
-         Ciel Température Humidité   Vent Jouer
+         Ciel Temperature Humidite   Vent Jouer
 1  Ensoleillé        27.5       85 Faible    Non
 2  Ensoleillé        25.0       90   Fort    Non
 3     Couvert        26.5       86 Faible    Oui
@@ -271,7 +271,7 @@ C'est ce que fait la commande suivante&nbsp;:
 </p>
 
 <pre>
-&gt; ad.tennis &lt;- rpart (Jouer ~ Ciel + Température + Humidité + Vent, tennis, control = ad.tennis.cnt)
+&gt; ad.tennis &lt;- rpart (Jouer ~ Ciel + Temperature + Humidite + Vent, tennis, control = ad.tennis.cnt)
 </pre>
 
 <p>
@@ -280,20 +280,20 @@ Dans cette commande, la notation&nbsp;:
 
 </p>
 
-<pre>Jouer ~ Ciel + Température + Humidité + Vent</pre>
+<pre>Jouer ~ Ciel + Temperature + Humidite + Vent</pre>
 
 <p>
 
 est courante en R, lorsqu'il s'agît de construire un modèle de
 prédiction (classification supervisée ou régression). Elle
 signifie&nbsp;: prédire l'attribut <kbd>Jouer</kbd> en fonction des
-attributs <kbd>Ciel</kbd>, <kbd>Température</kbd>, <kbd>Humidité</kbd>
+attributs <kbd>Ciel</kbd>, <kbd>Temperature</kbd>, <kbd>Humidite</kbd>
 et <kbd>Vent</kbd>
 
 <br/>
 <br/>
 
-Après avoir effectuer cette commande, la variable <kbd>ad.tennis</kbd>
+Après avoir effectué cette commande, la variable <kbd>ad.tennis</kbd>
 contient l'arbre de décision qui a été construit. Regardons à quoi il
 ressemble...
 
@@ -319,12 +319,12 @@ node), split, n, loss, yval, (yprob)
 
  1) root 14 5 Oui (0.3571429 0.6428571)  
    2) Ciel=Ensoleillé,Pluie 10 5 Non (0.5000000 0.5000000)  
-     4) Humidité&gt;=82.5 5 1 Non (0.8000000 0.2000000)  
-       8) Température&gt;=20.25 4 0 Non (1.0000000 0.0000000) *
-       9) Température&lt; 20.25 1 0 Oui (0.0000000 1.0000000) *
-     5) Humidité&lt; 82.5 5 1 Oui (0.2000000 0.8000000)  
-      10) Température&lt; 18.25 1 0 Non (1.0000000 0.0000000) *
-      11) Température&gt;=18.25 4 0 Oui (0.0000000 1.0000000) *
+     4) Humidite&gt;=82.5 5 1 Non (0.8000000 0.2000000)  
+       8) Temperature&gt;=20.25 4 0 Non (1.0000000 0.0000000) *
+       9) Temperature&lt; 20.25 1 0 Oui (0.0000000 1.0000000) *
+     5) Humidite&lt; 82.5 5 1 Oui (0.2000000 0.8000000)  
+      10) Temperature&lt; 18.25 1 0 Non (1.0000000 0.0000000) *
+      11) Temperature&gt;=18.25 4 0 Oui (0.0000000 1.0000000) *
    3) Ciel=Couvert 4 0 Oui (0.0000000 1.0000000) *
 </pre>
 
@@ -417,7 +417,7 @@ situations suivantes&nbsp;:
 
 </p>
 
-  <pre>        Ciel Température Humidité   Vent
+  <pre>        Ciel Temperature Humidite   Vent
 1 Ensoleillé          30       90 Faible
 2    Couvert          25       70   Fort
 3      Pluie          15       86   Fort</pre>
