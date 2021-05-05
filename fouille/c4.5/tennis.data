@@ -1,0 +1,14 @@
+sunny, hot, high, false, Don't Play
+sunny, hot, high, true, Don't Play
+overcast, hot, high, false, Play
+rain, warm, high, false, Play
+rain, cool, normal, false, Play
+rain, cool, normal, true, Don't Play
+overcast, cool, normal, true, Play
+sunny, warm, high, false, Don't Play
+sunny, cool, normal, false, Play
+rain, warm, normal, false, Play
+sunny, warm, normal, true, Play
+overcast, warm, high, true, Play
+overcast, hot, normal, false, Play
+rain, warm, high, true, Don't Play
