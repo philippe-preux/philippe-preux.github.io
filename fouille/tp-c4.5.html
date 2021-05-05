@@ -1,0 +1,677 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<html>
+<head>
+  <title>Fouille de données, 
+    TP « arbres de décision », 
+    master MIASHS
+    Université de Lille 3</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+  <link rel="stylesheet" type="text/css"
+    href="ma.css" 
+    media="screen" />
+</head>
+
+<body vlink="#551A8B">
+
+<div class="titreDuModule">
+  Classification de données <br/>
+  « TP Arbres de décision »
+</div>
+<div class="formation">
+      Master <acronym title="Mathématiques et Informatique Appliqués aux Sciences Humaines et Sociales">MIASHS</acronym>, Tronc commun<br/>
+      Université de Lille 3<br/>
+      Semestre 1
+</div>
+
+<ul>
+  <li><a href="#objectif">Objectifs de ce TP</a></li>
+  <li><a href="#AFaire">À faire</a></li>
+    <ul>
+      <li><a href="#prelim">Préliminaires</a></li>
+      <li><a href="#exo1">Exercice 1</a></li>
+      <li><a href="#exo2">Exercice 2</a></li>
+      <li><a href="#exo3">Exercice 3</a></li>
+      <li><a href="#exo4">Exercice 4</a></li>
+      <li><a href="#exo5">Exercice 5</a></li>
+    </ul></li>
+</ul>
+
+<p>
+
+Les 4 premiers exercices sont liés : les 3 premiers permettent de
+découvrir le logiciel c4.5 sur un exemple simple. L'exercice 4
+consiste à effectuer quelques expériences supplémentaires sur ce jeu
+de données donnant quelques pistes pour analyser plus finement les
+performances de l'arbre de décision obtenu.
+
+L'exercice 5 consiste à travailler de manière plus autonome sur un
+autre jeu d'exemples.
+
+</p>
+
+<a name="objectif"></a>
+<center><font color="#FF0000"><font size=+1>Objectifs du TP :
+</font></font></center>
+
+<p>
+
+Manipuler le logiciel de construction d'arbres de décision C4.5. 
+
+<br/>
+<br/>
+
+Le TP se déroule sous l'environnement <a
+href="http://www.linux.org/">Linux</a> mais n'en nécessite aucune
+connaissance particulière.
+
+<br/>
+
+Remarque : c4.5 est le fruit d'une recherche académique et résulte du
+travail de plusieurs années. Il est gratuit pour les applications
+pédagogiques et dans le cadre d'activités de recherche ; son
+utilisation dans un autre contexte n'est pas gratuite.
+
+</p>
+
+<a name="AFaire"></a>
+<div class="section">
+  À faire
+</div>
+
+<a name="prelim"></a>
+<div class="subsection">
+  Préliminaires
+</div>
+
+<ul>
+  <li>Étape 0 : se connecter sous Linux et ouvrir une fenêtre <i>shell</i>.
+
+    <br/>
+
+    Note à l'égard des grands débutants sous Linux. Pour ouvrir une
+    fenêtre <i>shell</i>, une fois connecté sous Linux, une barre d'outils
+    apparaît en bas de l'écran. La partie gauche de cette barre est
+    représentée ci-dessous :
+
+    <br/>
+    <br/>
+
+    <center>
+    <img src="barreOutils.png" height="27" width="300" align="middle">
+    </center>
+
+    <br/>
+
+    Pour ouvrir un <i>shell</i>, il suffit de cliquer sur la troisième
+    icone en partant de la gauche (une espèce d'écran de moniteur).</li>
+
+  <li>Étape 1 : avec <i>konqueror</i>, <a
+     href="http://www.grappa.univ-lille3.fr/~ppreux/ensg/archives/c4.5r8b.tar.gz">récupérer
+     C4.5 en cliquant ici</a>.
+
+     <br/>
+
+     Note à l'égard des grands débutants sous Linux. Pour taper une
+     commande dans la fenêtre <i>shell</i>, il faut placer le pointeur de
+     la souris à l'intérieur et cliquer. Ensuite, ce que l'on tape au
+     clavier s'affiche dans la fénêtre. Après avoir tapé une commande, on
+     appuie sur la touche &laquo; Entrée &raquo; pour que la commande soit
+     exécutée.</li>
+
+  <li>Étape 2 : dans le <i>shell</i>, vous déplacer dans le répertoire
+    Documents par la commande :
+    <br/><kbd>cd Documents</kbd><br/>
+
+    puis, décompresser et déplier l'archive par la commande :
+    <br/><kbd>tar zxf c4.5r8b.tar.gz</kbd><br/></li>
+
+  <li>Étape 3 : dans le <i>shell</i>, aller dans le répertoire R8/Src par la
+    commande :
+    <br/><kbd>cd R8/Src</kbd></li>
+
+  <li>Étape 4 : dans le <i>shell</i>, compiler le logiciel par la
+    commande :
+    <br/><kbd>make all</kbd></li>
+
+  <li>Étape 5 : dans le <i>shell</i>, taper la commande :
+    <br/><kbd>PATH=$PATH:~/Documents/R8/Src</kbd></li>
+</ul>
+
+<p>
+
+À ce stade, vous disposez d'un ensemble de commandes qui permettent de
+construire un arbre de décision par l'algorithme C4.5 ainsi que de
+diverses autres petites choses que nous verrons plus bas.
+
+<br/>
+<br/>
+
+Remarque : si vous vous déconnectez, la prochaine fois que vous vous
+connectez vous n'aurez pas à recommencer l'ensemble de ces étapes : le
+logiciel sera installé. Par contre, il faudra que vous retapiez la
+commande de l'étape 5.
+
+</p>
+
+<a name="exo1"></a>
+
+<a name="prelim"></a>
+<div class="subsection">
+  Exercice 1 : construction d'un arbre de décision
+</div>
+
+<p>
+
+On considère le jeu de données se trouvant dans les fichiers dont le
+nom commence par tennis.
+
+Ce jeu de données est décrit dans deux fichiers :
+
+</p>
+
+<ul>
+  <li><a href="tennis.names">tennis.names</a> qui décrit
+    les attributs et leurs valeurs possibles : la première ligne
+    indique les valeurs possibles de l'attribut classe ; les lignes
+    suivantes donnent pour chaque attribut, les valeurs possibles
+    séparées par une virgule si cet ensemble est discret, le mot-clé
+    continuous si l'ensemble est continu ;</li>
+
+  <li><a href="tennis.data">tennis.data</a> qui contient
+   les valeurs des attributs des individus du jeu de données. Chaque
+   ligne correspond à un individu ; la valeur de ses attributs est
+   donnée en siuvant l'ordre dans lequel sont listés les attributs
+   dans le fichier tennis.names ; la dernière valeur est celle de la
+   classe de l'individu.</li>
+</ul>
+
+<p>
+
+Récupérer et sauvegarder ces deux fichiers en cliquant dessus ; les
+mettre dans le répertoire R8/Data.
+
+Analyser le contenu de ces deux fichiers.
+
+<br/>
+
+Note à l'égard des grands débutants sous Linux : pour voir le contenu
+d'un fichier, le moyen le plus simple est d'utiliser la commande
+<font color="#000000">cat</font> suivie du nom du fichier,
+par exemple <font color="#000000">cat tennis.names</font>.
+
+<br/>
+<br/>
+
+Pour construire un arbre de décision à partir du jeu de données tennis,
+on tape la commande :
+
+<br/><kbd>c4.5 -f tennis</kbd><br/>
+
+À la suite de cette commande, un certain nombre de choses sont
+affichées ; on trouve en particulier :
+
+</p>
+
+<ul>
+  <li> le fait que 14 individus décrits chacun par 4 attributs ont été
+    utilisés ;</li>
+  <li> l'arbre de décision qui a été construit sous une forme
+    vaguement graphique ;</li>
+  <li> l'évaluation sur les individus du jeu de données de cet arbre
+    de décision avant et après élagage de l'arbre (élaguer = <i>to
+    prune</i> en anglais).</li>
+</ul>
+
+<p>
+
+Repérer toutes ces informations dans ce que la commande a affiché à
+l'écran. En particulier, on pourra dessiner l'arbre produit par c4.5
+pour mieux le visualiser et repérer le nombre d'erreurs de
+classification commises.
+
+</p>
+
+<a name="exo2"></a>
+<div class="subsection">
+  Exercice 2 : classification de nouveaux exemples
+</div>
+
+<p>
+
+Une fois l'arbre de décision construit, on peut l'utiliser pour
+classer de nouvelles instances. Pour cela, on utilise la commande :
+
+<br/><kbd>consult -f tennis</kbd><br/>
+
+Celle-ci demande la valeur des attributs d'une nouvelle individu en
+parcourant l'arbre de décision. C'est donc la valeur de l'attribut
+testé en racine de l'arbre qui est demandée d'abord. Ensuite, en
+fonction de cette valeur, l'arbre est parcouru et la valeur de
+nouveaux attributs est demandée jusqu'à ce que l'instance puisse être
+classée. Finalement, l'individu est classé et la confiance dans la
+classification sont indiqués, la confiance étant indiquée par CF = ...
+
+<br/>
+
+Classer :
+
+</p>
+
+<ul>
+  <li> un individu dont les attributs sont : outlook = sunny,
+    temperature = hot, humidity = normal, windy = false ;</li>
+
+  <li> un individu dont les attributs sont : outlook = overcast,
+    temperature = warm, humidity = high, windy = true ;</li>
+
+  <li> un individu dont les attributs sont : outlook = rain,
+    temperature = cool, humidity = high, windy = true.</li>
+</ul>
+
+<p>
+
+<b>Que constatez-vous ?</b>
+
+<br/>
+<br/>
+
+On peut aussi ne pas spécifier la valeur d'un attribut en tapant '?'
+lorsque sa valeur est demandée. Par exemple, classer un individu dont
+on ne connaît pas la valeur de outlook, temperature vaut warm,
+humidity vaut high et windy est true.
+
+<br/>
+
+<b>Interpréter le résultat.</b>
+
+<br/>
+<br/>
+
+Classer un individu dont on ne connaît la valeur d'aucun attribut. 
+
+<br/>
+
+<b>Interpréter le résultat.</b>
+
+<br/>
+<br/>
+
+</p>
+
+<a name="exo3"></a>
+<div class="subsection">
+  Exercice 3 : le jeu de données golfc
+</div>
+
+<p>
+
+Le jeu de données golfc contient à peu près les mêmes données que
+tennis. La différence est que dans golfc, les attributs temperature
+et humidity ont des valeurs numériques et non qualitatives.
+
+<br/>
+<br/>
+
+Récupérer les fichiers de données : <a href="golfc.names">golfc.names</a>
+et <a href="golfc.data">golfc.data</a>.
+
+<br/><br/>
+
+Construire l'arbre de décision pour golfc.
+
+<br/><br/>
+
+De la même manière que précédemment, on peut classer de nouvelles
+instances.
+
+<br/><br/>
+
+Classer :
+
+</p>
+
+<ul>
+  <li> un individu dont les attributs sont : outlook = sunny,
+    temperature = 35, humidity = 37, windy = false ;</li>
+
+  <li> un individu dont les attributs sont : outlook = overcast,
+    temperature = 25, humidity = 73, windy = true ;</li>
+
+  <li> un individu dont les attributs sont : outlook = rain,
+    temperature = 18.5, humidity = 65, windy = true.</li>
+</ul>
+
+<p>
+
+<b>Que constatez-vous ?</b>
+
+<br/><br/>
+
+On peut aussi indiquer que la valeur d'un attribut se situe dans un
+certain intervalle en utilsant la notation 35-43 pour indiquer que la
+valeur se situe dans l'intervalle de valeurs comprises entre 35 et 43.
+
+Classer :
+
+</p>
+
+<ul>
+  <li> un individu dont les attributs sont : outlook = sunny,
+    temperature = 35, humidity = 37-45, windy = false ;</li>
+
+  <li> un individu dont les attributs sont : outlook = overcast,
+    temperature = 25, humidity = 70-80, windy = true.</li>
+</ul>
+
+<p>
+
+<b>Que constatez-vous ?</b>
+
+</p>
+
+<a name="exo4"></a>
+<div class="subsection">
+  Exercice 4 : quelques expériences
+</div>
+
+<p>
+
+On reprend le jeu de données tennis parce que c'est le plus simple.
+
+On veut observer la dégradation des performances de l'arbre de
+décision en fonction du nombre d'exemples fournis pour
+l'apprentissage. Pour cela, on va procéder comme suit : en partant du
+jeu de données initial, on va constituer des jeux d'apprentissage de
+plus en plus pauvres, c'est-à-dire contenant de moins en moins
+d'exemples. À chaque fois que l'on aura retiré un exemple du jeu
+d'apprentissage, on reconstruira un arbre de décision avec ce nouveau
+jeu de données appauvri et on notera le taux d'erreurs de
+classification effectuées sur l'ensemble du jeu de données initial.
+
+</p>
+
+<ul>
+  <li> à partir du fichier tennis.data, composez 13 fichiers
+    (appelez-les tennis-1.data, tennis-2.data, ... tennis-13.data par
+    exemple) en retirant à chaque fois une ligne (= un exemple) du fichier
+    précédent. Vous pouvez retirer la première ligne à chaque fois, ou
+    retirer les lignes au hasard ;</li>
+
+  <li> à chacun de ces 13 fichiers doit être associé un fichier .names
+  : vous pouvez obtenir le résultat en tapant 13 instructions
+  ressemblant à la suivante :
+<br/>
+<kbd>
+  ln -s tennis.names tennis-1.names
+</kbd>
+</li>
+
+  <li> à chacun de ces 13 fichiers doit être associé un fichier .test
+  qui contient les exemples sur lesquels il faut évaluer les
+  performances de l'arbre. Comme on l'a dit plus haut, c'est
+  l'ensemble d'exemples initial. Vous pouvez obtenir le résultat en
+  tapant 13 instructions telles que :
+<br/>
+<font color="#000000">
+<pre>
+  ln -s tennis.data tennis-1.test
+</pre>
+</font></li>
+</ul>
+
+Arrivé à ce stade, vous disposez de tous les fichiers
+nécessaires. Nous allons conduire l'expérimentation proprement dite.
+
+<ul>
+  <li>reste donc à construire les arbres de décision sur ces 13 jeux
+    de données et à évaluer les performances de classification sur le
+    jeu de données initial. Pour le jeu tennis-1, vous obtiendrez le
+    résultat voulu en tapant la commande :
+<br/>
+<kbd>
+  c4.5 -f tennis-1 -u 
+</kbd>
+  L'option -u indique que l'arbre construit doit être évalué sur le
+  jeu de données se trouvant dans le fichier tennis-1.test.
+  <br/>
+  En observant le résultat de cette commande, vous voyez que
+  l'information qui vous intéresse (taux d'erreur) se trouve sur la
+  huitième ligne en partant de la fin. Cette ligne sera extraite
+  automatiquement en tapant la commande suivante :
+<br/>
+<kbd>
+  c4.5 -f tennis-1 -u | tail -8 | head -1
+</kbd>
+  <font size=-1>
+  Remarque pour le linuxien débutant : dans cette commande, la
+  notation <font color="#000000">| tail 
+  -8</font> indique qu'il faut ne considérer que les 8 dernières lignes
+  générées par la commande précédant la <font
+  color="#000000">|</font>, soit <font color="#000000">c4.5 -f
+  tennis-1 -u</font>. De même, <font
+  color="#000000">| head -1</font> indique qu'il ne faut prendre que
+  la première ligne de ce qui est généré par ce qui précède,
+  c'est-à-dire, la première ligne parmi les 8 dernières lignes
+  générées par <font color="#000000">c4.5 -f tennis-1 -u</font>. Le
+  tour est joué...
+
+  <br/>
+
+  Cette ligne met en oeuvre un mécanisme puissant des commandes Linux
+  : le pipeline : ce qui est généré par une commande (à gauche d'une
+  <font color="#000000">|</font>) est envoyé vers une autre commande
+  (à droite d'une <font color="#000000">|</font>). Ce qui est
+  réellement magnifique, c'est que l'on peut itérer ce procédé autant
+  de fois que l'on veut : on met bout à bout des commandes, autrement
+  dit, on les <i>pipeline</i>. Ici, on a pipeliné 3 commandes.
+  </font>
+
+  <br/>
+
+  Cette ligne ainsi sélectionnée contient dans l'ordre :
+  <ul>
+    <li> la taille de l'arbre avant élagage</li>
+    <li> le nombre d'exemples mal classés par l'arbre non élagué</li>
+    <li> la proportion que cela représente parmi l'ensemble des
+      exemples de tests</li>
+    <li> la taille de l'arbre après élagage</li>
+    <li> le nombre d'exemples mal classés par l'arbre élagué</li>
+    <li> la proportion que cela représente parmi l'ensemble des
+      exemples de tests</li>
+    <li> une estimation de l'erreur réalisé par l'arbre élagué sur un
+      jeu d'exemples quelconque</li>
+  </ul>
+
+  On peut par exemple tracer le taux d'erreur de l'arbre non élagué en
+  fonction de la taille du jeu d'apprentissage.
+
+  <br/>
+
+  Pour cela :
+
+  <ul>
+    <li> pour chaque jeu de données, placer dans un fichier un
+      ensemble de lignes contenant chacune : le nombre
+      d'exemples dans le jeu d'apprentissage, les informations
+      fournies par c4.5 sur la huitième ligne avant la fin (retirer
+      les parenthèses, % et autres << : remplacer les par des
+      espaces). Appelons ce fichier tennis.resultats ;</li>
+
+    <li> utiliser la commande <a href="http://www.ucc.ie/gnuplot/">gnuplot</a>
+      pour tracer un joli graphe comme suit :
+<br/>
+<font color="#000000">
+<pre>
+  gnuplot
+  set data style lines
+  plot "tennis.resultats" using 1:4
+</pre>
+</font>
+     Cet ensemble de commandes trace la courbe voulue.
+     <br/>
+     Vous pouvez améliorer votre graphe en ajoutant des légendes comme
+     suit :
+<br/>
+<font color="#000000">
+<pre>
+  set xlabel "Nombre d'exemples dans le jeu d'apprentissage"
+  set ylabel "Taux d'erreurs"
+  set title "Influence du nombre d'exemples d'apprentissage sur le taux d'erreurs"
+  plot "tennis.resultats" using 1:4 title "avant élagage"
+</pre>
+</font>
+    Vous devriez obtenir quelque chose qui ressemble à cela :
+<img src="taux-erreur.png" height="400" align="middle">
+</l>
+
+    <li>vous pouvez aussi obtenir sur le même graphe la variation du
+    taux d'erreur avant et après élagage comme suit :
+<br/>
+<font color="#000000">
+<pre>
+  plot "tennis.resultats" using 1:4 title "avant élagage", "tennis.resultats" using 1:7 title "après élagage"
+</pre>
+</font>
+</li>
+
+  <li>vous pouvez aussi obtenir sur le même graphe la variation du
+    taux d'erreur avant, après élagage et estimation de l'erreur comme
+    suit :
+<br/>
+<font color="#000000">
+<pre>
+  plot "tennis.resultats" using 1:4 title "avant élagage", "tennis.resultats" using 1:7 title "après élagage", "tennis.resultats" using 1:8 title "estimation"
+</pre>
+</font>
+
+    Il ne vous aura pas échappé que l'on indique les colonnes du
+    fichier de données à utiliser par l'option using, et que l'on
+    donne un titre à une courbe par l'option title.
+
+    <br/>
+    Pour quitter l'environnement <font color="#000000">gnuplot</font>,
+    taper la commande <font color="#000000">quit</font>.
+  </ul></li>
+</ul>
+
+Vous en savez maintenant suffisamment pour continuer l'analyse
+expérimentale du comportement de c4.5 sur un jeu de données.
+
+<br/>
+<br/>
+
+Par exemple, vous pouvez tracer les courbes indiquant le nombre de
+faux positifs et de faux négatifs en fonction du nombre d'exemples
+dans le jeu d'apprentissage.
+
+</p>
+
+<a name="exo5"></a>
+<div class="subsection">
+  Exercice 5 : le jeu de données animaux
+</div>
+
+<p>
+
+Dans ce dernier exercice, vous allez créer les fichiers de données à
+partir de données collectées au long de vos propres observations. On
+suppose que vous avez observé un ensemble de caractéristiques chez des
+animaux et que vous vouliez les classer en &laquo; oiseau &raquo; et
+&laquo; pas-oiseau &raquo;. Ces observations sont résumées dans la
+table ci-dessous (il peut s'être glissé quelques erreurs
+d'observation) :
+
+<br/>
+<br/>
+
+<table border="1">
+<tr align="center"><th>nom</th>
+    <th>colombe</th><th>coq</th><th>canard</th><th>oie</th>
+    <th>hibou</th><th>faucon</th><th>aigle</th><th>renard</th>
+    <th>chien</th><th>loup</th><th>chat</th><th>tigre</th>
+    <th>lion</th><th>cheval</th><th>zèbre</th><th>vache</th></tr>
+<tr align="center"><td>taille</td>
+    <td>petit</td><td>petit</td><td>petit</td><td>petit</td>
+    <td>petit</td><td>petit</td><td>moyen</td><td>moyen</td>
+    <td>moyen</td><td>moyen</td><td>petit</td><td>grand</td>
+    <td>grand</td><td>grand</td><td>grand</td><td>grand</td></tr>
+<tr align="center"><td>sabots</td>
+    <td>.</td><td>.</td><td>.</td><td>.</td>
+    <td>.</td><td>.</td><td>.</td><td>.</td>
+    <td>.</td><td>.</td><td>.</td><td>.</td>
+    <td>.</td><td>x</td><td>x</td><td>x</td></tr>
+<tr align="center"><td>crinière</td>
+    <td>.</td><td>.</td><td>.</td><td>.</td>
+    <td>.</td><td>.</td><td>.</td><td>.</td>
+    <td>.</td><td>x</td><td>.</td><td>.</td>
+    <td>x</td><td>x</td><td>x</td><td>x</td></tr>
+<tr align="center"><td>chasse</td>
+    <td>.</td><td>.</td><td>.</td><td>.</td>
+    <td>x</td><td>x</td><td>x</td><td>x</td>
+    <td>.</td><td>x</td><td>x</td><td>x</td>
+    <td>x</td><td>.</td><td>.</td><td>.</td></tr>
+<tr align="center"><td>court</td>
+    <td>.</td><td>.</td><td>.</td><td>.</td>
+    <td>.</td><td>.</td><td>.</td><td>.</td>
+    <td>x</td><td>x</td><td>.</td><td>x</td>
+    <td>x</td><td>x</td><td>x</td><td>.</td></tr>
+<tr align="center"><td>vole</td>
+    <td>x</td><td>.</td><td>.</td><td>x</td>
+    <td>x</td><td>x</td><td>.</td><td>.</td>
+    <td>.</td><td>.</td><td>.</td><td>.</td>
+    <td>.</td><td>.</td><td>.</td><td>.</td></tr>
+<tr align="center"><td>nage</td>
+    <td>.</td><td>.</td><td>x</td><td>x</td>
+    <td>.</td><td>.</td><td>.</td><td>.</td>
+    <td>.</td><td>.</td><td>.</td><td>.</td>
+    <td>.</td><td>.</td><td>.</td><td>.</td></tr>
+</table>
+
+<br/>
+<br/>
+
+<ul>
+  <li> créer des fichiers d'apprentissage animaux.names et
+  animaux.data contenant ces données et, bien entendu, complété par
+  la valeur de l'attribut cible : oiseau ou pas-oiseau. Pour cela,
+  inspirez-vous des fichiers utilisés dans les exercices précédents ;</li>
+  <li> construire l'arbre de décision avec c4.5 ;</li>
+  <li> classer les instances suivantes avec consult :
+    <ul>
+      <li> la chauve-souris, qui est petite, n'a pas de sabot ni de
+      crinière, chasse, vole, ne court ni ne nage et n'est pas un
+      oiseau ;</li>
+      <li> le kiwi qui est petit, n'a ni sabot ni crinière, court,
+      mais ne chasse pas, ni ne vole ni ne nage et est un oiseau ;</li>
+      <li> le manchot qui est de grande taille, n'a ni sabot ni
+      crinière, nage et chasse, mais ne vole ni ne court et est un
+      oiseau ;</li>
+    </ul>
+    Ces instances sont-elles bien classées ?</li>
+  <li> ajouter ces trois instances au jeu de données d'apprentissage
+      et ré-effectuer la construction de l'arbre de décision.</li>
+  <li> classer maintenant l'autruche qui est un oiseau de grande
+      taille, n'ayant ni sabot, ni crinière, qui court, mais ne
+      chasse, ni ne vole, ni ne nage ;</li>
+  <li> poursuivant vos observations, vous notez que certains animaux
+      ont deux pattes, d'autres quatre et enfin, pour d'autres, vous
+      n'avez pas cette information. Vous décidez donc d'enrichir votre
+      jeu d'apprentissage avec ces informations. Pour cela, vous
+      reprenez le jeu d'apprentissage ne contenant pas la
+      chauve-souris, ni le kiwi, ni le manchot ; vous avez noté que la
+      colombe, le coq, le canard et l'oie ont deux pattes, le chien,
+      le cheval et la vache ont quatre pattes et vous n'avez
+      pas réussi à obtenir l'information pour les autres ; pour les
+      autres animaux, cet attribut prend la valeur ? dans le fichier
+      de données. Construire l'arbre de décision, l'analyser et
+      classer la chauve-souris, le kiwi, le manchot et l'autruche ;</li>
+  <li> poursuivant toujours vos observations, vous avez également noté
+      que le faucon et l'aigle ont 4 pattes (l'erreur est humaine!),
+      alors que renard et loup ont 2 pattes.  Construire l'arbre de
+      décision, l'analyser et classer la chauve-souris, le kiwi, le
+      manchot et l'autruche.</li>
+</ul>
+
+</body>
+</html>
