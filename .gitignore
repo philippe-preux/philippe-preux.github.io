@@ -2,6 +2,10 @@
 **/.RData
 **/.Rhistory
 **/*.php
+**/.gitignore
+/2check.if.ok
+/index-prev.html
+/mes-papiers/liste.updated.TPMS
 /yet.to.do
 /digest-RL/
 /mes-papiers.txt
