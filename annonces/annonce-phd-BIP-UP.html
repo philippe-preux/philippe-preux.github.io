@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+  <head>
+    <title>Task scheduling by reinforcement learning</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!--link rel="stylesheet" type="text/css" href="./ma.css" /-->
+    <style>
+      body {font-family: Comic Sans MS;}
+      body {background-color: #33ffff;}
+      h3 {color: Tomato;}
+    </style>
+  </head>
+  <body>
+
+    <h1>Bourse de thèse, projet ANR BIP-UP.</h1>
+
+    <p>
+      
+    Sujet : Théorie des bandits pour le suivi de patients.
+
+    <br/>
+    <br/>
+    Début de la thèse : 1er octobre 2023.
+
+    <br/>
+    <br/>
+    Direction : Émilie Kaufmann, Odalric-Ambrym Maillard, Philippe Preux.
+    <br/>
+    Équipe <a href="https://team.inria.fr/scool">Scool</a>, Inria, CNRS, UMR CRIStAL, Université de Lille.
+
+    </p>
+    
+    <h2>Contexte du projet</h2>
+
+    <p>
+      
+    Le projet BIP-UP financé par l'ANR débute le 1er janvier 2023 et durera 4 années. BIP-UP s'appuie sur une collaboration existant depuis plusieurs années entre l'équipe Inria Scool, dirigée par Philippe Preux et l'unité INSERM 1190 localisée au CHU de Lille, dirigée par François Pattou, tous deux professeurs à l'Université de Lille.
+
+    <br/>
+	
+    Cette collaboration a pour objectif d'étudier l'exploitation de données de santé pour le suivi personnalisé de patient après intervention chirurgicale. L'espoir est que les données de santé collectées par différents acteurs permettent de passer d'un protocole de suivi identique pour tous les patients à un protocole personnalisé qui, en étant adapté à chaque patient, serait mieux suivi par les patients, avec donc un meilleur bénéfice pour leur santé.
+
+    <br/>
+
+    Débutée en 2019, cette collaboration a déjà porté ses fruits. D'une part, ces 3 années de travail nous ont permis de mieux identifier et caractériser les problèmes à aborder et des voies pour les aborder. D'autre part, outre des personnels permanents dans les deux équipes, un ingénieur, un doctorant et un post-doc ont réalisé des travaux préliminaires significatifs.
+
+    <br/>
+
+    Un aspect particulièrement passionnant de ce contexte de travail est l'ancrage sur le terrain puisque l'équipe INSERM est en contact direct avec des patients (consultation, opération, suivi) et est bien entendu experte sur les aspects médicaux liés à la pathologie opérée.
+
+    <br/>
+
+    Un article sur le site Inria présente le travail déjà réalisé dans le cadre du projet B4H (\textit{Bandits for Health}): \href{https://www.inria.fr/en/obesity-surgery-machine-learning-personalise-patient-follow}{cliquer ici}.
+
+    </p>
+
+    <h2>Travail à réaliser</h2>
+
+
+    <p>
+
+      Nous avons exprimé le problème à résoudre sous la forme d'un problème de bandit particulier. Ses caractéristiques principales sont~: problème de bandit contextuel, nécessitant la prise en compte du risque (pour le patient), absence de simulateur pour entraîner les algorithmes et données disponibles en quantité limitée, une distribution des retours non gausienne.
+
+      <br/>
+
+      Sans que cela ait clos ces sujets, la thèse en cours (Patrick Saux, 2020--2023) a permis d'avancer sur le sujet de la prise de risque et des distributions de retours non gausiennes. La prise en compte du risque demeure un sujet sur lequel il reste beaucoup à faire.
+
+      De nombreux points restent à définir et travailler dans le projet BIP-UP :
+
+    </p>
+    
+    <ul>
+      <li> modélisation précise comme un problème de bandits ; ce point inclut la définition opérationnelle de la notion de récompense.</li>
+      <li> développement de la théorie sur les, ou certains des, aspects cités ci-dessus caractérisant le problème concret étudié.</li>
+      <li> étude de la mise en pratique en tenant compte des données dont nous disposons et des données dont on pourrait disposer.</li>
+      <li> conception/réalisation d'une preuve de concept.</li>
+    </ul>
+
+    <h2>Profil attendu</h2>
+
+    <p>
+
+      Nous attendons des candidatures provenant de personnes ayant un master 2 ou un diplôme d'ingénieur. Une partie importante de la formation suivie est constituée d'apprentissage automatique, théorie de la prise de décision séquentielle dans l'incertain (bandit, apprentissage par renforcement).
+
+      <br/>
+      
+      La candidature idéale pour cette thèse allie :
+
+    </p>
+    
+    <ul>
+      <li>de bonnes connaissances en probabilités et en statistiques seront nécessaires pour étudier formellement les propriétés et les garanties que l'on peut obtenir pour les algorithmes qui seront proposés. Des connaissances sur la théorie des bandits ou l'apprentissage par renforcement seront un plus pour la candidature.</li>
+      <li>un intérêt, et des connaissances, pour l'analyse de données médicales qui peuvent être utilisées pour entraîner les algorithmes de bandits. Des connaissances dans toutes les méthodes de fouille de données (apprentissage supervisé et non supervisé) sont donc plus que bienvenues. Ainsi, une bonne connaissance de R ou de python avec ses paquetages d'analyse de données est plus que bienvenue.</li>
+      </ul>
+
+    <p>
+
+      Lecture de l'anglais indispensable et capacité à présenter à l'oral et par écrit en anglais nécessaires.
+
+    </p>
+    
+    <h2>Contexte de réalisation de la thèse</h2>
+
+    <p>
+      
+      La personne sélectionnée sera recrutée dans l'équipe Scool dans le centre Inria de Lille, également équipe de l'UMR CRIStAL de l'université de Lille. Elle réalisera une thèse d'informatique. La thèse sera réalisée dans l'école doctorale MADIS. La direction de la thèse sera assurée par É.\@ Kaufmann, O-A.\@ Maillard et Ph.\@ Preux.
+
+      <br/>
+      
+      La personne recrutée aura l'occasion d'interagir et de collaborer avec d'autres membres de l'équipe Scool, au-delà de ces directeurs de thèse. Par ailleurs, elle interagira de manière très régulière avec l'équipe partenaire en médecine. Plus généralement, elle participera à toutes les activités liées au projet BIP-UP. Elle cherchera à publier ses travaux dans les meilleures conférences d'apprentissage automatique (en particulier ICML, NeurIPS, voire AI\&Stats, COLT) ou le JMLR, mais également en collaboration avec les médecins dans des congrès et revues de médecine.
+
+    </p>
+    
+    <h2>Contact</h2>
+    
+    <p>
+      
+      Pour toute information, contacter \url{emilie.kaufmann@inria.fr}, \url{odalric.maillard@inria.fr} et \url{philippe.preux@inria.fr}.
+
+    </p>
+    
+    <h2>Éléments bibliographiques</h2>
+    
+
+    <ul>
+      <li>Baudry, Saux, Maillard, <a href="https://hal.archives-ouvertes.fr/hal-03421252">From Optimality to Robustness : Dirichlet Sampling Strategies in Stochastic Bandits</a>, NeurIPS 2022</li>
+      <li>Saux, Maillard, <a href="https://hal.archives-ouvertes.fr/hal-03776680">Risk-aware linear bandits with convex loss</a>, EWRL 2022</li>
+      <li>Lattimore, Szepesvári, <a href="https://tor-lattimore.com/downloads/book/book.pdf">Bandit algorithms</a>, CUP 2019</li>
+    </ul>
+
+  </body>
+</html>
