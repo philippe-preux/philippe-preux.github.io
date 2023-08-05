@@ -14,12 +14,94 @@
 <body>
 <div class="tpR">
 
-<h2>xxx</h2>
+  <h1>Les structures de données de base en python</h1>
 
-<p>
+  <p>
 
-</p>
+    Cette page effectue quelques rappels de Python. On se référera à <a href="https://inforef.be/swi/python.htm">cet ouvrage</a> pour une présentation complète du langage.
+    
+  </p>
 
+  <h2>Les structures de données natives</h2>
+
+  <h3>Les listes</h3>
+
+  <p>
+
+    Une liste est une suite ordonnée d'élements. Par exemple&nbsp;: <kbd>[ 12, "hello", -5, 3.12 ]</kbd>.
+
+    <ul>
+      <li><kbd>l = [ 12, "hello", -5, 3.12 ]</kbd>.</li>
+      <li><kbd>len (l)</kbd> renvoie 4, le nombre d'éléments de la liste.</li>
+      <li><kbd>l [2]</kbd> renvoie <kbd>-5</kbd>.</li>
+      <li><kbd>l [1:3]</kbd>renvoie la sous-liste <kbd>['hello', -5]</kbd>.</li>
+      <li><kbd>l [:3]</kbd>renvoie la sous-liste <kbd>[12, 'hello', -5]</kbd>.</li>
+      <li><kbd>l [1]</kbd>renvoie la sous-liste <kbd>['hello', -5, 3.12]</kbd>.</li>
+      <li><kbd>l.append ("world")</kbd> ajoute l'élément indiqué à la fin de la liste.</li>
+      <li><kbd>l.insert (2, 0)</kbd> insère la valeur 0 à l'indice 2 de la liste.</li>
+      <li><kbd>0 in l</kbd> renvoie <kbd>True</kbd> car la valeur 0 est présente dans la liste <kbd>l</kbd>.</li>
+      <li>etc.</li>
+      <li>En tapant <kbd>l.</kbd>suivi d'une tabulation, on obtient la liste des méthodes que l'on peut appliquer à une liste :
+	<pre>
+>>> l.
+l.append(    l.copy()     l.extend(    l.insert(    l.remove(    l.sort(
+l.clear()    l.count(     l.index(     l.pop(       l.reverse()  
+</pre></li>
+      <li>On peut itérer sur les éléments d'une liste pour les traiter un par un :
+	<pre>
+for e in l:
+    print (e)
+</pre>
+	affiche à l'écran tous les éléments d'une liste, un par un.</li>
+    </ul>
+    
+  <p>
+
+    Un élément d'une liste peut-être une liste, un dictionnaire, ...
+    
+  </p>
+  
+  <h3>Les Dictionnaires</h3>
+
+  <p>
+
+    Un dictionnaire est un ensemble de couples (clé, valeur). Ceux-ci ne sont pas ordonnés : on ne peut pas accéder au i<sup>è</sup> élément d'un dictionnaire, cela n'a pas de sens. On accède à un élément d'un dictionnaire par sa clé.
+    
+  </p>
+
+  <ul>
+    <li><kbd></kbd></li>
+  </ul>
+  
+  <h2>Vecteurs, matrices</li>
+
+  <p>
+
+    En science des données, on utilise couramment des vecteurs et des matrices. Ces structures de données sont des tableaux de nombres, entiers ou flottants. Ils sont définis dans le paquetage <kbd>numpy</kbd>.
+
+    <br/>
+
+    Ce qui nous importe ici est la création et l'accès aux éléments de ces vecteurs et matrices.
+
+    <br/>
+
+    On se référera au <a href="https://numpy.org/doc/stable">site web de <kbd>numpy</kbd></a> pour une documentation complète. Ici, nous ne présentons brièvement qu'une petite partie de <kbd>numpy</kbd> décrite <a href="">dans cette page</a>.
+    
+  </p>
+
+  <h3>Création de vecteurs et matrices <kbd>numpy</kbd></h3>
+
+  <p>
+
+  </p>
+
+  <h3>Accès aux éléments de vecteurs et matrices <kbd>numpy</kbd></h3>
+
+  <p>
+
+  </p>
+
+  
 </div>
 
 </body>
