@@ -36,16 +36,84 @@
     <li>Voir en particulier les <a href="https://matplotlib.org/cheatsheets/">pense-bêtes</a></li>
     <li>et les <a href="https://matplotlib.org/stable/plot_types/index.html">exemples</a>.</li>
   </ul>
+
+  <h2>Pré-requis</h2>
+
+  <p>
+
+    Ce TP est la suite du TP sur les tableaux de données. Celui-ci doit avoir été réalisé avant de commencer ce TP.
+
+    <br/>
+
+    Il faut donc charger le jeu de données dans un tableau de données avant de commencer.
+    
+  </p>
   
-  <h2>xxx</h2>
+  <h2>Répartition des valeurs d'un attribut</h2>
+
+  <h3>Premier essai</h3>
+  
+  <p>
+
+    L'un des premiers types de graphiques que l'on réalise consiste à visualiser la répartition des valeurs des attributs.
+
+    <br/>
+
+    Commençons par
+    <pre>olives.plot ()
+plt.show()
+</pre>
+
+    <br/>
+
+    ce qui donne :
+    
+  </p>
+
+  <img src="olives-figure1.pdf"/>
+
+  <p>
+
+    On peut faire des remarques&nbsp;:
+
+  </p>
+
+  <ol>
+    <li>on ne sait pas ce que cela représente, ni la figure dans son ensemble, ni les axes des abscisses et des ordonnées. Il faut ajouter des légendes.</li>
+    <li>Ça représente la valeur de chaque donnée pour chacun des attributs. L'abiscisse est le numéro de la donnée. Chaque attribut est représenté avec ue couleur différente et une légende indique la correspondance entre couleur et attribut : c'est un point positif.</li>
+    <li>On voit un attribut dont les valeurs sont très élevées (oleic), deux autres intermédiaires (palmitic et linoleic) et tous les autres mélangés tout en bas : on ne voit rien&nbsp;!</li>
+    <li>Pour chaque attribut on voit une ligne qui zigzague. Traditionnellement, un graphique qui a cet aspect-là représente l'évolution au fil du temps de la valeur d'un attribut. Or, ce graphique ne représente pas du tout cela : comme dit ci-dessus, l'axe des abscisses représente l'indice de la donnée dans le tableau et en aucun cas ne représente une information temporelle. Ce graphique nous induit donc en erreur. C'est un énorme défaut d'un graphique que de ne pas représenter ce à quoi l'on s'attend. Un graphique est là pour aider à comprendre et donc, la dernière chose qu'il doit faire est de nous induire en erreur&nbsp;!</li>
+  </ol>
+
+  <p>
+
+    En conclusion ce graphique est très mauvais. En regardant la documentation, transformez-le dans le graphique suivant&nbsp;:
+
+  </p>
+
+  <img src="olives-figure2.pdf"/>
+
+  <h3>Boxplot</h3>
+
+  <p>
+
+    Une manière d'obtenir une représentation qui a du sens, c'est-à-dire qui montre bien l'information que l'on veut montrer, consiste à utiliser un «&nbsp;boxplot&nbsp;».
+
+    <br/>
+    
+    <pre>olives.plot.box (title = "Répartition des valeurs des attributs\n du jeu de données olives", xlabel = "Attribut", ylabel = "Répartition des valeurs de l'attribut")
+plt.show()
+</pre>
+
+    qui donne&nbsp;:
+    
+  </p>
+
+    <img src="olives-figure3.pdf"/>
 
   <p>
 
   </p>
-  
-<p>
-
-</p>
 
 </div>
 
