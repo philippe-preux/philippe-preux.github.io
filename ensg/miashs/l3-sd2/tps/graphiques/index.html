@@ -70,7 +70,7 @@ plt.show()
     
   </p>
 
-  <img src="olives-figure1.pdf"/>
+  <img src="olives-figure1.png"/>
 
   <p>
 
@@ -91,30 +91,117 @@ plt.show()
 
   </p>
 
-  <img src="olives-figure2.pdf"/>
+  <img src="olives-figure2.png"/>
 
-  <h3>Boxplot</h3>
+  <h3>Boîtes à moustaches (<i>Boxplots</i>)</h3>
 
   <p>
 
-    Une manière d'obtenir une représentation qui a du sens, c'est-à-dire qui montre bien l'information que l'on veut montrer, consiste à utiliser un «&nbsp;boxplot&nbsp;».
+    Une manière d'obtenir une représentation qui a du sens, c'est-à-dire qui montre bien l'information que l'on veut montrer, consiste à utiliser une boîte à moustaches.
 
-    <br/>
+  </p>
     
-    <pre>olives.plot.box (title = "Répartition des valeurs des attributs\n du jeu de données olives", xlabel = "Attribut", ylabel = "Répartition des valeurs de l'attribut")
+  <pre>olives.plot.box (title = "Répartition des valeurs des attributs\n du jeu de données olives", xlabel = "Attribut", ylabel = "Répartition des valeurs de l'attribut")
 plt.show()
 </pre>
 
+  <p>
+    
     qui donne&nbsp;:
     
   </p>
 
-    <img src="olives-figure3.pdf"/>
+    <img src="olives-figure3.png" width="250pt" />
+
+  <p>
+
+    On retrouve le même problème que précédemment, oleic ayant des valeurs bien supérieures aux autres attributs, et palmitic et linoleic étant eux-aussi bien plus grands que tous les autres attributs. Le plus simple est de faire trois graphiques.
+    
+  </p>
+
+  <img src="olives-figure5.png" width="250pt" />
+  <img src="olives-figure6.png" width="250pt" />
+  <img src="olives-figure7.png" width="250pt" />
+
+  <h3>Histogrammes</h3>
+
+  <p>
+
+    Un histogramme fournit beaucoup d'information sur la répartition des valeurs d'un attribut. Dans certains cas, on peut juger d'un coup d'&oelig;il que les valeurs ne sont pas distribuées uniformément ou normalement, ce qui est une information importante.
+
+    <br/>
+
+    On utilise pour cela la méthode <kbd>plot.hist (bins = ..., ...)</kbd>. Le paramètre <kbd>bns</kbd> indique la finesse de l'histogramme. Les autres paramètres sont à peu près les mêmes que pour <kbd>plot.box</kbd>. Regardez la documentation et réalisez les graphiques ci-dessous. Utilisez une boucle pour générer tous ces 8 graphiques d'un coup.
+    
+  </p>
+
+  <img src="olives-figure-histo3.png" width="150pt" />
+  <img src="olives-figure-histo4.png" width="150pt" />
+  <img src="olives-figure-histo5.png" width="150pt" />
+
+  <img src="olives-figure-histo6.png" width="150pt" />
+  <img src="olives-figure-histo7.png" width="150pt" />
+  <img src="olives-figure-histo8.png" width="150pt" />
+
+  <img src="olives-figure-histo9.png" width="150pt" />
+  <img src="olives-figure-histo10.png" width="150pt" />
+
+
+  <h3>Estimation de la densité</h3>
 
   <p>
 
   </p>
 
+  <img src="olives-figure-densite3.png" width="150pt" />
+  <img src="olives-figure-densite4.png" width="150pt" />
+  <img src="olives-figure-densite5.png" width="150pt" />
+
+  <img src="olives-figure-densite6.png" width="150pt" />
+  <img src="olives-figure-densite7.png" width="150pt" />
+  <img src="olives-figure-densite8.png" width="150pt" />
+
+  <img src="olives-figure-densite9.png" width="150pt" />
+  <img src="olives-figure-densite10.png" width="150pt" />
+
+  <h3>Remarques sur les histogrammes et l'estimation de la densité</h3>
+
+  <p>
+
+    Ces deux visualisations produisent des résultats qui se ressemblent&nbsp;: on retrouve les mêmes pics et creux. Néanmoins, elles sont à utiliser avec prudence&nbsp;: ni l'une ni l'autre ne représente une information parfaite. Si on peut se dire que les 4 premiers couples (histogramme, densité) se ressemble, c'est beaucoup moins évidents pour les 4 suivants. Les histogrammes montrent des pics qui n'apparaissent pas dans les densités estimées. Ces pics isolés dans les histogrammes sont lissés dans les densités et disparaissent&nbsp;: existent-ils&nbsp;? Quelle méthode donne la visualisation la plus fidèle des données&nbsp;?
+
+    <br/>
+    <br/>
+
+    L'allure de l'histogramme dépend fortement de la discrétisation utilisée (le paramètres <kbd>bins</kbd>), notamment si le nombre de données est faible par rapport à la discrétisation.
+    
+    <br/>
+
+    Par ailleurs, il existe plusieurs manières de réaliser un histogramme, chacune donnant une certaine représentation de la distribution des valeurs d'un attribut.
+
+    <br/>
+    <br/>
+
+    De même, la forme de la densité estimée vaie selon les paramètres utilisés. Ici, on a utilisé les paramètres par défaut.
+    
+  </p>
+  
+  <h2>Visualisation de deux attributs</h2>
+
+  <p>
+
+    Une part très importante de la science des données consiste à trouver des relations entre des attibuts.
+    Pour cela, on peut s'aider de visualisations graphiques.
+    
+  </p>
+
+  <h3><i>Scatter plots</i></h3>
+
+  <p>
+
+    
+  </p>
+  
 </div>
 
 </body>
