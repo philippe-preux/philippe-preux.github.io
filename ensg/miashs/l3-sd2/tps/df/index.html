@@ -35,11 +35,198 @@
 
   <br/>
 
-  Un tableau de données est donc constitué d'un ensemble de lignes et de colonnes. Chaque ligne correspond à une donnée, chaque colonne correspond à un attribut. À l'intersection d'une ligne avec une colonne, on trouve la valeur de l'attribut pour la donnée. Si celle-ci est inconnue, on utilise généralement la valeur <kbd>NA</kbd> qui signifie <i>Non Available</i>.
+  Un tableau de données est donc constitué d'un ensemble de lignes et de colonnes. Chaque ligne correspond à une donnée, chaque colonne correspond à un attribut. À l'intersection d'une ligne avec une colonne, on trouve la valeur de l'attribut pour la donnée. Si celle-ci est inconnue, on utilise généralement la valeur <kbd>NA</kbd> qui signifie <i>Non Available</i>, quoique cette convention ne soit pas toujours bien respectée.
 
   </p>
   
-  <h2></h2>
+  <h2>Manipulations</h2>
+
+  <h3>Chargement du contenu d'un tableau de données</h3>
+
+  <p>
+
+    Les données d'un tableau sont généralement stockées dans un fichier. En préalable à toute analyse, les données doivent être chargées dans un <kbd>data frame</kbd>. Il existe de multiples formats pour stocker les données d'un tableau dans un fichier. L'un des plus répandus quand il s'agît de données simples est un fichier <kbd>csv</kbd>.
+
+    <br/>
+
+    Comme dans un tableau de données, dans un fichier <kbd>csv</kbd>, chaque ligne correspond à une donnée et chaque colonne à un attribut. Sur une ligne, les valeurs des attributs sont séparées par une virgule. La première ligne du fichier <kbd>csv</kbd> peut indiquer le nom des attributs ; elle est optionnelle.
+
+    <br/>
+
+    Dans ce TP, nous allons utiliser un jeu de données qui représentent la composition en différentes molécules d'olives. La fonction <kbd>pandas</kbd> qui charge un fichier <kbd>csv</kbd> est <kbd>read_csv</kbd>. Le fichier se trouve à cette url&nbsp;: <kbd>https://philippe-preux.github.io/ensg/miashs/datasets/olives.csv</kbd>.
+
+    <br/><br/>
+
+    <b>À faire&nbsp;:</b> dans python, en s'aidant si nécessaire de la documentation, charger ce fichier dans un objet dénommé <kbd>olives</kbd>.
+    
+  </p>
+
+  <h3>Premiers pas</h3>
+
+  <p>
+
+    Une fois un jeu de données chargé, les toutes premières choses à faire consistent à simplement inspecter son contenu :
+
+
+    <br/><br/>
+
+    <b>À faire&nbsp;:</b>
+    
+  </p>
+  
+  <ul>
+    <li>a-t-il été chargé correctement&nbsp;? Il est facile de mal lire le fichier selon que celui-ci possède une première ligne indiquant ou non le nom des attributs. Le plus simple est de regarder les quelques premières lignes de fichier (en ouvrant l'url dans son navigateur par exemple) et de les comparer aux premières lignes du tableau de données. Pour cela, utiliser la méthode <kbd>head()</kbd> de <kbd>pandas</kbd>. Si les deux ne correspondent pas, les données ont été mal lues. Il faut comprendre pourquoi et corriger (la documentation est là pour vous aider). Par exemple, vous derviez obtenir quelque chose comme cela&nbsp;:
+      <br/>
+<pre>
+>>> olives.head (n=5)
+     Unnamed: 0  region  area  ...  linolenic  arachidic  eicosenoic
+0  North-Apulia       1     1  ...         36         60          29
+1  North-Apulia       1     1  ...         31         61          29
+2  North-Apulia       1     1  ...         31         63          29
+3  North-Apulia       1     1  ...         50         78          35
+4  North-Apulia       1     1  ...         50         80          46
+
+[5 rows x 11 columns]
+</pre>	
+    </li>
+    <li>On peut aussi afficher les dernières lignes du tableau de données avec la méthode <kbd>tail()</kbd>.</li>
+    <li>En tapant le nom de l'objet (<kbd>olives</kbd>), python affiche les premières et dernières lignes.</li>
+    <li>Quelle est sa taille&nbsp;? nombre de lignes (nombre de données) et nombre de colonnes (nombre d'attributs). Utiliser l'attribut <kbd>shape</kbd> du tableau de données.</li>
+    <li>Obtenir la liste des noms d'attributs&nbsp;: utiliser la méthode <kbd>list()</kbd> ou l'attribut <kbd>columns</kbd>. Remarque : tous ces noms qui se terminent pas <kbd>ic</kbd> sont des noms d'acides dont la concentration dans les olives a été mesurée. Les premiers attributs indiquent la région d'Italie d'où provient l'olive.</li>
+    <li>On voit que l'attribut 0 n'a pas de nom. Ce n'est pas très pratique. On lui en donne un en faisant comme cela&nbsp;: <kbd>olives = olives.rename (columns = {"Unnamed: 0": "Region Name"})</kbd>.</li>
+  </ul>
+
+  <h3>Accès aux éléments d'un tableau de données</h3>
+
+  <p>
+
+    Pour analyser un jeu de données, il faut accéder aux valeurs des attributs des données. En particulier, il faut accéder à la valeur des attributs qui nous intéresse, pour les données qui nous intéressent.
+
+    <br/><br/>
+
+    <b>À faire&nbsp;:</b>
+
+  </p>
+
+  <ul>
+    <li>Accès à la donnée numéro 27&nbsp;: <kbd>olives.iloc [27]</kbd>.</li>
+    <li>Accès aux données numéro 20 à 27&nbsp;: <kbd>olives.iloc [20:28]</kbd>.</li>
+    <li>Accès à l'attribut 5 de la donnée 27&nbsp;: <kbd>olives.iloc[27,5]</kbd> (à comparer à ce que vous avez obtenu ci-dessus).
+      <br/>
+      On peut aussi accéder à l'attribut via son nom&nbsp;: <kbd>olives.iloc[27,"stearic"]</kbd>.
+      <br/>
+      ou encore <kbd>olives.stearic</kbd>.
+      <br/>
+      Ces trois lignes doivent donner le même résultat.
+      <br/>
+      Une autre variante&nbsp;: <kbd>olives.stearic.values()</kbd>.
+      <br/>
+      Si on ne connait pas le nom du 5è attribut, on peut aussi écrire&nbsp;: <kbd>olives.iloc [27, list (olives)[5]]</kbd>.
+    </li>
+    <li>Je vous laisse trouver comment on accède à l'attribut 5 des données numérotées 20 à 28.</li>
+    <li>Je vous laisse trouver comment on accède aux attributs 3 à 6 des données numérotées 20 à 28.</li>
+  </ul>
+
+  <h3>Quelques opérations simples</h3>
+
+  <p>
+
+    <b>À faire&nbsp;:</b> en consultant la documentation de <kbd>pandas</kbd>, effectuer les opérations suivantes&nbsp;:
+        
+  </p>
+
+  <ul>
+    <li>valeur moyenne de l'attribut 5&nbsp;?</li>
+    <li>valeur minimum de l'attribut 5&nbsp;?</li>
+    <li>valeur maximum de l'attribut 5&nbsp;?</li>
+    <li>valeur médiane de l'attribut 5&nbsp;?</li>
+    <li>écart-type de l'attribut 5&nbsp;?</li>
+    <li>variance de l'attribut 5&nbsp;?</li>
+  </ul>
+
+  <p>
+
+    Mêmes choses pour les attributs 3 à 6.
+
+    <br/>
+    <br/>
+
+    La méthode <kbd>describe()</kbd> donne plusieurs statistiques d'un coup. Testez-l et regardez la documentation pour comprendre ce qu'elle affiche.
+    
+  </p>
+  
+  <h3>Accès aux éléments d'un tableau de données, la suite</h3>
+
+  <p>
+
+    <b>À faire&nbsp;:</b>
+        
+  </p>
+
+  <ul>
+    <li>déterminer quelle donnée a la valeur la plus petite pour l'attribut <kbd>stearic</kbd>.</li>
+    <li>la plus grande&nbsp;?</li>
+  </ul>
+
+  <p>
+
+    Pour les attributs numériques, on peut utiliser les méthodes de la bibliotèque <kbd>numpy</kbd>. Par exemple, pour calculer la valeur moyenne de l'attribut 5, on peut aussi écrire&nbsp;: <kbd>np.mean (olives.iloc [:,5])</kbd> (en supposant que vous avez importé <kbd>numpy</kbd> en le renommant <kbd>np</kbd>).
+
+    <br/>
+    <br/>
+
+    <b>À faire&nbsp;:</b> répondre aux deux questions précédentes en utilisant des méthodes de la bibliothèque <kbd>numpy</kbd>.
+    
+  </p>
+
+  <h3>Attributs catégoriques</h3>
+
+  <p>
+
+    Un attribut catégorique, ou nominal, est un attribut qui associe un nom à une donnée. Par exemple, l'attribut 0 est un attribut catégorique qui indique la région de provenance de l'olive. De même, malgré les apparences qui peuvent faire croire que les attributs 1 et 2 sont numériques, ce sont en fait des attributs catégoriques&nbsp;: l'attribut 2 est simplement un numéro correspond à l'attribut 0. Quant à l'attribut 1, c'est une valeur 1, 2 ou 3 qui indique grossiérement la zone géographique : nord, sud, centre.
+
+    <br/>
+
+    Pour éviter des erreurs malencontreuse comme calculer la valeur moyenne d'un attribut catégorique, il faut indiquer explicitement les attributs catégoriques. Pour cela, on fait&nbsp;: <kbd>olives ["Region Name"] = olives ["Region Name"].astype("category")</kbd>.
+
+    <br/>
+
+    Vérifier maintenant que vous ne pouvez plus calculer la moyenne de cet attribut.
+
+  <p>
+
+    <b>À faire&nbsp;:</b>
+        
+  </p>
+
+  <ul>
+    <li>Vérifier que python vous laisse calculer la moyenne des attributs <kbd>Region</kbd> et <kbd>Area</kbd>, ce qui n'a aucun sens.</li>
+    <li>Transformer les en attributs catégoriques.</li>
+    <li>Vérifier que vous ne pouvez plus calculer la moyenne de ces attributs.</li>
+  </ul>
+  
+  <p>
+
+    Pour les attributs catégoriques, il est intéressant d'obtenir la liste des valeurs présentes dans le jeu de données et également le nombre de données dans chaque catégorie.
+
+    <br/>
+    <br/>
+    
+    <b>À faire&nbsp;:</b>
+    
+  </p>
+  
+  <ul>
+    <li>Pour obtenir la liste des valeurs, on utilise la méthode <kbd>unique()</kbd>.</li>
+    <li>Pour obtenir le décompte de données correspondant à chaque valeur d'un attribut catégorique, on utilise la méthode <kbd>value_counts()</kbd>.</li>
+  </ul>
+  
+  <h3></h3>
+
+  <p>
+
+  </p>
+  <h3></h3>
 
   <p>
 
