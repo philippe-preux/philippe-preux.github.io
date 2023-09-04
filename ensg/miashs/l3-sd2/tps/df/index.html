@@ -118,15 +118,15 @@
     <li>Accès aux données numéro 20 à 27&nbsp;: <kbd>olives.iloc [20:28]</kbd>.</li>
     <li>Accès à l'attribut 5 de la donnée 27&nbsp;: <kbd>olives.iloc [27,5]</kbd> (à comparer à ce que vous avez obtenu ci-dessus).
       <br/>
-      On peut aussi accéder à l'attribut via son nom&nbsp;: <kbd>olives.iloc [27,"stearic"]</kbd>.
+      On peut aussi accéder à l'attribut via son nom&nbsp;: <kbd>olives.loc [27,"stearic"]</kbd>.
       <br/>
       ou encore <kbd>olives.stearic</kbd>.
       <br/>
       Ces trois lignes doivent donner le même résultat.
       <br/>
-      Une autre variante&nbsp;: <kbd>olives.stearic.values()</kbd>.
+      Une autre variante&nbsp;: <kbd>olives.stearic.values</kbd>.
       <br/>
-      Si on ne connait pas le nom du 5è attribut, on peut aussi écrire&nbsp;: <kbd>olives.iloc [27, list (olives)[5]]</kbd>.
+      Si on ne connait pas le nom du 5è attribut, on peut aussi écrire&nbsp;: <kbd>olives.loc [27, list (olives)[5]]</kbd>.
     </li>
     <li>Je vous laisse trouver comment on accède à l'attribut 5 des données numérotées 20 à 28.</li>
     <li>Je vous laisse trouver comment on accède aux attributs 3 à 6 des données numérotées 20 à 28.</li>
