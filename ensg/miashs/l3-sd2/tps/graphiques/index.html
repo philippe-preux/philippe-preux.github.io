@@ -208,12 +208,22 @@ plt.show()
 
     Faites un <i>scatter plot</i> pour les attributs <kbd>oleic</kbd> et <kbd>palmitic</kbd>. Vous devez obtenir ceci&nbsp;:
 
-    </p>
+  </p>
     
-    <img src="olives-palmitic-vs-oleic.png" width="150pt" />
+  <img src="olives-palmitic-vs-oleic.png" width="500pt" />
+    
+  <p>
+
+    Il est courant de donner des couleurs différentes aux données selon la valeur de l'un de leurs attributs. Par exemple, on pourrait donner des couleurs différentes en fonction de la région d'origine de l'olive, en utilisant pour cela l'attribut <kbd>region</kbd>.
+
+    <br/>
+
+    Le paramètre <kbd>c</kbd> indique l'attribut à utiliser (son nom ou son numéro) et le paramètre <kbd>colormap</kbd> indique la palette de couleur à utiliser (voir les palettes pré-définies sur <a href="https://matplotlib.org/stable/tutorials/colors/colormaps.html">cette page</a>).
     
   </p>
-  
+
+  <img src="olives-palmitic-vs-oleic-against-region.png" width="500pt" />
+
 </div>
 
 </body>
