@@ -22,7 +22,7 @@
 
     <br/>
 
-    Les 2 TPs précédents (<a href="../df">tableaux de données</a> et <a href="../graphiques">graphiques</a>) doivent avoir été faits.
+    Les 2 TPs précédents (<a href="../df">tableaux de données</a> et <a href="../graphiques">graphiques</a>) doivent impérativement avoir été faits.
 
   </p>
 
@@ -56,11 +56,11 @@
 
     Donc, on commence par faire des graphiques très simples pour voir s'il est possible de prédire la région de provenance de l'olive.
 
-    On commence par la région car il y a 3 régions qui se découpent en 8 zones. Il est donc probablement plus facile de déterminer la région que la zone.
+    On commence par la région car il y a 3 régions (attribut <kbd>region</kbd>) qui se découpent en 8 zones (attributs et <kbd>Area Name</kbd> et <kbd>area</kbd>). Il est donc probablement plus facile de déterminer la région que la zone.
 
     <br/>
 
-    Outre voir les choses, cette exploration visuelle permet de choisir un modèle pour réaliser la tâche de prédiction&nbsp;: si on voit des relations simples, on sait que des modèles simples pourront réaliser les prédictions voulues.
+    Cette exploration visuelle permet également d'orienter le choix d'un modèle pour réaliser la tâche de prédiction&nbsp;: si on voit des relations simples, on sait que des modèles simples pourront réaliser les prédictions voulues.
     
   </p>
   
@@ -77,8 +77,8 @@
   </p>
 
   <ul>
-    <li>En abscisses, c'est le numéro de la donnée (la ligne dans le jeu de données)&nbsp;;</li>
-    <li>en ordonnées, la valeur de l'attribut <kbd>palmitic</kbd>&nbsp;;</li>
+    <li>En ordonnées, c'est le numéro de la donnée (la ligne dans le jeu de données)&nbsp;;</li>
+    <li>en abscisses, la valeur de l'attribut <kbd>palmitic</kbd>&nbsp;;</li>
     <li>la couleur indique la région&nbsp;:
       <ol>
 	<li>sud de l'italie en bleu&nbsp;;</li>
@@ -89,7 +89,7 @@
 
   <p>
 
-    D'un coup d'&oelig;il, on voit que cet attribut ne permet pas de distinguer les olives des 3 classes. En effet, quand on considère une valeur de l'acide palmitique supérieure à 1400, on voit que l'on peut en déduire que l'olive provient de la zone 1&nbsp;: il n'y a que des points bleus à ces ordonnées. Par contre, si cette valeur est comprise entre 1000 et 1200, les 3 classes sont possibles&nbsp;: pour ces ordonnées, on voit des points des 3 couleurs.
+    D'un coup d'&oelig;il, on voit que cet attribut ne permet pas de distinguer les olives des 3 classes. Quand on considère une valeur de l'acide palmitique supérieure à 1400, on voit que l'on peut en déduire que l'olive provient de la zone 1&nbsp;: il n'y a que des points bleus pour ces abscisses&nbsp;: tout va bien. Par contre, si cette valeur est comprise entre 1000 et 1200, les 3 classes sont possibles&nbsp;: pour ces abscisses, on voit des points des 3 couleurs. Donc, si la teneur en acide palmitique est 1100, on ne peut pas déterminer la zone d'origine de l'olive.
 
     <br/>
 
@@ -98,11 +98,32 @@
     <br/>
     <br/>
 
-    <b>À faire&nbsp;:</b> réalisez ce graphique pour chacun des 8 acides et concluez. Y a-t-il un, ou des attributs, qui permet de déterminer la région d'origine&nbsp;? ou qui peut aider&nbsp;?
+    <b>À faire&nbsp;:</b> réalisez ce graphique pour chacun des 8 acides et concluez (vérifiez que vous obtenez bien le même graphique que moi pour l'acide palmitique). Y a-t-il un, ou des attributs, qui permet de déterminer la région d'origine&nbsp;? ou qui peut aider&nbsp;?
 
     <br/>
 
     Remarque&nbsp: pour réaliser ce graphique, j'ai ajouté une colonne <kbd>numero</kbd> au tableau de données <kbd>olives</kbd>. Cette colonne contient tout simplement le numéro de la donnée.
+
+    <br/>
+    <br/>
+
+    <b>À faire&nbsp;:</b> sans dévoiler la solution, vous devez trouver un attribut qui sépare l'une des classes des deux autres. Pour celui-ci, vous obtenez un graphique qui ressemble à celui-ci&nbsp;:
+
+  </p>
+
+  <img src="allure-generale.png" width="500pt" />
+  
+  <p>
+
+    Ce graphique montre que la classe 1 (points bleus) est facilement identifiée grace à cet attribut.
+
+    <br/>
+    
+    Quand vous l'avez trouvé, vous pouvez vous concentrer sur les 2 classes qui sont encore mélangées (jaune et rouge) et recommencer le même raisonnement en vous occupant uniquement des données de ces deux classes. Vous devez trouver un attribut qui sépare bien les 2 classes restantes.
+
+    <br/>
+
+    Quels sont ces deux attributs et comment pouvez-vous déterminer la classe à partir de ces deux attributs&nbsp;?
     
   </p>
 
@@ -136,17 +157,17 @@
 
   <p>
 
-    Même si nous avons vu des relations en faisant nos graphiques, nous avons vu que la solution ne saute pas aux yeux. Nous allons donc essayer de prédire la région d'origine de l'olive à l'aide de méthode qui ont pour objectif d'apprendre un modèle réalisant ce type de prédiction.
+    Il arrive que l'approche visuelle ne permette pas de voir quelque chose (c'est rare). Quoiqu'il en soit, en complément de l'exploration visuelle, nous allons essayer de prédire la région d'origine de l'olive à l'aide de méthodes qui ont pour objectif d'apprendre un modèle réalisant ce type de prédiction.
 
     <br/>
     <br/>
 
-    Face à un jeu de données de petite taille comme celui-ci (quelques centaines de lignes, une dizaine de colonnes), on commence par tester les arbres de décision. C'est ce que nous allons faire.
+    Face à un jeu de données de petite taille comme celui-ci (quelques centaines de lignes, une dizaine de colonnes, quelques classes), on commence par essayer une méthode qui généralement donnent de très bons résultats, les arbres de décision. L'apprentissage d'arbre de décision est très souvent une méthode très efficace, très peu coûteuse en temps de calcul, qui donne de très bonnes performances pour la prédiction de la classe.
 
     <br/>
     <br/>
 
-    Pour cela, on va utiliser la bibliotèque <kbd>scikit_learn</kbd> qu'il vous faut donc importer. Pour pouvoir créer des arbres de décision, on fera&nbsp;: <kbd>from sklearn import tree</kbd>.
+    Pour cela, on va utiliser la bibliotèque <kbd>scikit_learn</kbd>. Pour pouvoir créer des arbres de décision, on fera&nbsp;: <kbd>from sklearn import tree</kbd>.
 
     <br/>
 
@@ -159,28 +180,74 @@
 
   <p>
 
-    Induction
+    Pour induire un modèle, on fait comme suit&nbsp;: le jeu de données est découpé en deux parties, l'une utilisée pour induire le modèle, la seconde pour estimer la probabilité qu'il commette une erreur lors d'une prédiction.
 
     <br/>
+
+    La première partie constitue les données d'entraînement, la seconde les données de test.
+
+    <br/>
+
+    Il est classique d'utiliser 80% des données disponibles comme données d'entraînement, les 20% restant constituant les données de test.
+
+    <br/>
+
+    La répartition entre les deux parties est faite aléatoirement. Il est important de vérifier que les données sont stratifiées, c'est-à-dire que la proportion des données de chaque classe est à peu près la même dans les deux parties.
+
+    <br/>
+    <br/>
+
+    Pour découper le jeu de données en ces deux parties, on fait comme suit&nbsp;:
+
+  </p>
+
+  <ol>
+    <li>on crée un vecteur de N nombres aléatoires uniformément répartis entre 0 et 1, où N est le nombre total de données. Pour cela, on utilise la fonction <kbd>random.rand (N)</kbd> du paquetage <kbd>numpy</kbd>. Appelons ce vecteur <kbd>v</kbd>.</li>
+    <li>À partir de <kbd>v</kbd>, on construit un vecteur booléen qui contient 80% de valeurs <kbd>True</kbd>. Appelons ce vecteur <kbd>b</kbd>. Appelons-le <kbd>olives_train</kbd>.</li>
+    <li>On utilise <kbd>b</kbd> pour construire les deux jeux de données, l'un pour les données d'entraînement, l'autre pour les données de test. Appelons-le <kbd>olives_test</kbd>.</li>
+  </ol>
+  
+  <p>
+
+    Nous pouvons maintenant induire l'arbre de décision.
+
+    <br/>
+    <br/>
+    
+    <b>À faire&nbsp;:</b>
+
+    </p>
+
+  <ol>
+    <li>créer les deux jeux de données <kbd>olives_train</kbd> et <kbd>olives_test</kbd>.</li>
+    <li>Induire un arbre de décision à partir de <kbd>olives_train</kbd>. Il y a beaucoup de paramètres qui peuvent être réglés mais nous nous en tiendrons à leur valeur par défaut dans un premier temps.</li>
+  </ol>
+  
+  <h3>Diagnostic de l'arbre de décision</h3>
+
+  <p>
+
+    Avant même de regarder à quoi l'arbre ressemble, il est important de commencer par déterminer si cet arbre est capable de prédire la classe de manière précise. On va donc estimer la probabilité qu'il commette une erreur lorsqu'il prédit la classe d'une donnée. Pour cela, on&nbsp;:
 
   </p>
 
   <ul>
-    <li>On lance l'algo et on voit.</li>
-    <li>train/test split</li>
-    <li>Si ça ne marche pas, on devra réflêchir aux paramètres...</li>
-  </ul>
-    
-
-  <h3>Diagnostic de l'arbre de décision</h3>
-
-  <ul>
-    <li>taux d'erreur</li>
-    <li>certaines classes mieux prédites que d'autres</li>
+    <li>utilise les données de test que l'on a mis de côté dans <kbd>olives_test</kbd>,</li>
+    <li>on utilise l'arbre pour prédire leur classe,</li>
+    <li>on compare la classe prédite avec la classe de la donnée.</li>
+    <li>On divise le nombre d'erreurs de prédiction par le nombre de données de test&nbsp;: cela nous fournit une estimation de la probabilité d'erreur.</li>
   </ul>
   
   <p>
 
+    <b>À faire&nbsp;:</b> faites ce qui vient d'être expliqué. Quelle est la valeur de cette estimation&nbsp;?
+
+    <br/>
+    <br/>
+
+    Il est intéressant de mesurer ce taux d'erreur pour chaque classe.
+
+    <b>À faire&nbsp;:</b> mesurer le taux d'erreur pour chaque classe. Les 3 classes sont-elles toutes les 3 prédites correctement avec la même probabilité&nbsp;?
     
   </p>
   
@@ -231,8 +298,14 @@ fig.show ()
   <p>
 
     <b>Faites-le.</b>
+
+    <br/>
+    <br/>
+
+    Un arbre de décision peut facilement être transformé en un ensemble de règles de décision. Ici l'arbre est très petit, c'est facile. <b>Faites-le&nbsp;: quelles sont ces règles&nbsp;?</b>
     
   </p>
+
   
   <h3>Test de l'arbre de décision</h3>
 
@@ -240,14 +313,29 @@ fig.show ()
 
     Nous avons construit un arbre de décision qui donne de très bons résultats. Est-ce juste de la chance ou est-ce que décidément, cette tâche se résout facilement à l'aide d'un arbre de décision&nbsp;?
 
-    reproductibilité et multiples runs
-    
-  </p>
-  
-  <h2>yyy</h2>
+    <br/>
+    <br/>
 
+    Pour apporter des éléments de réponse à cette question, on refait plusieurs fois la construction de l'arbre de décision en découpant le jeu de données aléatoirement à chaque fois. Par exemple, on peut refaire toute cette procédure 30 fois (ou 100, ...). Pour chaque arbre induit, on estime sa probabilité d'erreur de prédiction que l'on stocke. Une fois les 30 (ou 100, ...) constructions réalisées, on vérifie que la probabilité d'erreur varie, peu, un peu, beaucoup, ... Si elle varie peu, c'est très signe&nbsp;: tous les arbres induits ont à peu près la même précision, qui est très bonne pour la prédiction de la région d'origine de l'olive.
+
+    <br/>
+    <br/>
+
+    <b>À faire&nbsp;:</b> effectuer ce qui vient d'être expliqué. Que pensez-vous du résultat&nbsp;?
+
+  </p>
+
+  <h3>Reproductibilité</h3>
+  
   <p>
 
+    Pour construire les jeux de données d'entraînement et de test, nous avons utiliser des nombres générés pseudo-aléatoirement. Si vous effectuez ce qui a été expliqué plus haut pour l'induction d'un arbre deux fois de suite, vous obtiendrez des résultats différents (dans le cas présent, la différence est petite). Il est important de pouvoir reproduire les résultats que vous avez obtenu. Pour cela, il faut que les nombres pseudo-aléatoires qui sont générés soient les mêmes d'une exécution à la suivante. Pour obtenir ce résultat, il faut initialiser la <i>graine</i> du généreteur de nombres pseudo-aléatoires. Ces nombres étant générés dans le paquetage <kbd>numpy</kbd>, il faut initialiser cette graine dès que ce paquetage a été chargé. Pour cela, on exécute l'instruction <kbd>np.random.seed (le-nombre-que-vous-voulez)</kbd> où vous remplacez <kbd>le-nombre-que-vous-voulez</kbd> par le nombre que vous voulez, éventuellement avec beaucoup de chiffres.
+
+    <br/>
+    <br/>
+
+    <b>À faire&nbsp;:</b> effectuer l'initialisation de cette graine et refaites toute la procédure d'induction d'arbre. Estimer sa probabiité d'erreur. Si vous effectuez cela plusieurs fois, vous devez obtenir exactement le même résultat à chaque fois.
+    
   </p>
 
   <h2>Pour finir...</h2>

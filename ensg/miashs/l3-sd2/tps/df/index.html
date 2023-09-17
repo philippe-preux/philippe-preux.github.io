@@ -93,7 +93,9 @@
     <li>En tapant le nom de l'objet (<kbd>olives</kbd>), python affiche les premières et dernières lignes.</li>
     <li>Quelle est sa taille&nbsp;? nombre de lignes (nombre de données) et nombre de colonnes (nombre d'attributs). Utiliser l'attribut <kbd>shape</kbd> du tableau de données.</li>
     <li>Obtenir la liste des noms d'attributs&nbsp;: utiliser la méthode <kbd>list()</kbd> ou l'attribut <kbd>columns</kbd>. Remarque : tous ces noms qui se terminent pas <kbd>ic</kbd> sont des noms d'acides dont la concentration dans les olives a été mesurée. Les premiers attributs indiquent la région d'Italie d'où provient l'olive.</li>
-    <li>On voit que l'attribut 0 n'a pas de nom. Ce n'est pas très pratique. On lui en donne un en faisant comme cela&nbsp;: <kbd>olives = olives.rename (columns = {"Unnamed: 0": "Region Name"})</kbd>.</li>
+    <li>On voit que l'attribut 0 n'a pas de nom. Ce n'est pas très pratique. On lui en donne un en faisant comme cela&nbsp;:
+      <br/>
+      <kbd>olives.rename (columns = {"Unnamed: 0": "Region Name"}, inplace = True)</kbd>.</li>
   </ul>
 
   <h3>Accès aux éléments d'un tableau de données</h3>
@@ -195,7 +197,7 @@
 
     <br/>
 
-    Pour éviter des erreurs malencontreuse comme calculer la valeur moyenne d'un attribut catégorique, il faut indiquer explicitement les attributs catégoriques. Pour cela, on fait&nbsp;: <kbd>olives ["Region Name"] = olives ["Region Name"].astype("category")</kbd>.
+    Pour éviter des erreurs malencontreuse comme calculer la valeur moyenne d'un attribut catégorique, il faut indiquer explicitement les attributs catégoriques. Pour cela, on fait&nbsp;: <kbd>olives ["Area Name"] = olives ["Area Name"].astype("category")</kbd>.
 
     <br/>
 
@@ -208,7 +210,7 @@
   </p>
 
   <ul>
-    <li>Vérifier que python vous laisse calculer la moyenne des attributs <kbd>Region</kbd> et <kbd>Area</kbd>, ce qui n'a aucun sens.</li>
+    <li>Vérifier que python vous laisse calculer la moyenne des attributs <kbd>region</kbd> et <kbd>area</kbd>, ce qui n'a aucun sens.</li>
     <li>Transformer les en attributs catégoriques.</li>
     <li>Vérifier que vous ne pouvez plus calculer la moyenne de ces attributs.</li>
   </ul>
