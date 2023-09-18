@@ -24,6 +24,11 @@
 
     Les 2 TPs précédents (<a href="../df">tableaux de données</a> et <a href="../graphiques">graphiques</a>) doivent impérativement avoir été faits.
 
+    <br/>
+    <br/>
+
+    À l'issue de ce TP, vous m'envoyez par email un compte-rendu (format <kbd>odt</kbd>) indiquant la réponse aux questions qui sont posées. Vous m'envoyez également un fichier python réalisant toutes les manipulations de ce TP&nbsp;: je dois pouvoir exécuter ce fichier en tapant <kbd>python3 nom-de-votre-fichier.py</kbd> et reproduire vos résultats. Cette exécution ne doit pas provoquer d'erreur de python. Remarque&nbsp;: un <i>notebook</i> ne convient pas.
+    
   </p>
 
   <h2>Introduction</h2>
@@ -233,6 +238,7 @@
 
   <ol>
     <li>créer les deux jeux de données <kbd>olives_train</kbd> et <kbd>olives_test</kbd>.</li>
+    <li>Vérifier que la propotion des données de chacun des 3 classes est à peu près la même dans les deux jeux de données.</li>
     <li>Induire un arbre de décision à partir de <kbd>olives_train</kbd>. Il y a beaucoup de paramètres qui peuvent être réglés mais nous nous en tiendrons à leur valeur par défaut dans un premier temps.</li>
   </ol>
   
@@ -245,7 +251,7 @@
   </p>
 
   <ul>
-    <li>utilise les données de test que l'on a mis de côté dans <kbd>olives_test</kbd>,</li>
+    <li>utilise les données de test que l'on a mises de côté dans <kbd>olives_test</kbd>,</li>
     <li>on utilise l'arbre pour prédire leur classe,</li>
     <li>on compare la classe prédite avec la classe de la donnée.</li>
     <li>On divise le nombre d'erreurs de prédiction par le nombre de données de test&nbsp;: cela nous fournit une estimation de la probabilité d'erreur.</li>
@@ -259,6 +265,8 @@
     <br/>
 
     Il est intéressant de mesurer ce taux d'erreur pour chaque classe.
+
+    <br/>
 
     <b>À faire&nbsp;:</b> mesurer le taux d'erreur pour chaque classe. Les 3 classes sont-elles toutes les 3 prédites correctement avec la même probabilité&nbsp;?
     
@@ -294,7 +302,7 @@ fig.show ()
     <br/>
     <br/>
 
-    Les tests réalisés à chaque n&oelig;ud sont difficile à comprendre. Pour afficher le nom des attributs, on ajoutera <kbd>feature_names = list (X_test)</kbd> dans l'appel de la méthode <kbd>plot_tree()</kbd>. Et on obtient&nbsp;:
+    Les tests réalisés à chaque n&oelig;ud sont difficile à comprendre. Pour afficher le nom des attributs, on ajoutera <kbd>feature_names = list (olives_test)</kbd> dans l'appel de la méthode <kbd>plot_tree()</kbd>. Et on obtient&nbsp;:
     
   </p>
 
@@ -315,7 +323,11 @@ fig.show ()
     <br/>
     <br/>
 
-    Un arbre de décision peut facilement être transformé en un ensemble de règles de décision. Ici l'arbre est très petit, c'est facile. <b>Faites-le&nbsp;: quelles sont ces règles&nbsp;?</b>
+    Un arbre de décision peut facilement être transformé en un ensemble de règles de décision. Ici l'arbre est très petit, c'est facile.
+
+    <br/>
+
+    <b>Faites-le&nbsp;: quelles sont ces règles&nbsp;?</b>
     
   </p>
 
@@ -329,7 +341,7 @@ fig.show ()
     <br/>
     <br/>
 
-    Pour apporter des éléments de réponse à cette question, on refait plusieurs fois la construction de l'arbre de décision en découpant le jeu de données aléatoirement à chaque fois. Par exemple, on peut refaire toute cette procédure 30 fois (ou 100, ...). Pour chaque arbre induit, on estime sa probabilité d'erreur de prédiction que l'on stocke. Une fois les 30 (ou 100, ...) constructions réalisées, on vérifie que la probabilité d'erreur varie, peu, un peu, beaucoup, ... Si elle varie peu, c'est très signe&nbsp;: tous les arbres induits ont à peu près la même précision, qui est très bonne pour la prédiction de la région d'origine de l'olive.
+    Pour apporter des éléments de réponse à cette question, on refait plusieurs fois la construction de l'arbre de décision en découpant le jeu de données aléatoirement à chaque fois. Par exemple, on peut refaire toute cette procédure 30 fois (ou 100, ...). Pour chaque arbre induit, on estime sa probabilité d'erreur de prédiction que l'on stocke. Une fois les 30 (ou 100, ...) constructions réalisées, on vérifie que la probabilité d'erreur varie, peu, un peu, beaucoup, ... Si elle varie peu, c'est très bon signe&nbsp;: tous les arbres induits ont à peu près la même précision, qui est très bonne pour la prédiction de la région d'origine de l'olive.
 
     <br/>
     <br/>
@@ -342,7 +354,7 @@ fig.show ()
   
   <p>
 
-    Pour construire les jeux de données d'entraînement et de test, nous avons utiliser des nombres générés pseudo-aléatoirement. Si vous effectuez ce qui a été expliqué plus haut pour l'induction d'un arbre deux fois de suite, vous obtiendrez des résultats différents (dans le cas présent, la différence est petite). Il est important de pouvoir reproduire les résultats que vous avez obtenu. Pour cela, il faut que les nombres pseudo-aléatoires qui sont générés soient les mêmes d'une exécution à la suivante. Pour obtenir ce résultat, il faut initialiser la <i>graine</i> du généreteur de nombres pseudo-aléatoires. Ces nombres étant générés dans le paquetage <kbd>numpy</kbd>, il faut initialiser cette graine dès que ce paquetage a été chargé. Pour cela, on exécute l'instruction <kbd>np.random.seed (le-nombre-que-vous-voulez)</kbd> où vous remplacez <kbd>le-nombre-que-vous-voulez</kbd> par le nombre que vous voulez, éventuellement avec beaucoup de chiffres.
+    Pour construire les jeux de données d'entraînement et de test, nous avons utilisé des nombres générés pseudo-aléatoirement. Si vous effectuez ce qui a été expliqué plus haut pour l'induction d'un arbre deux fois de suite, vous obtiendrez des résultats différents (dans le cas présent, la différence est petite). Il est important de pouvoir reproduire les résultats que vous avez obtenu. Pour cela, il faut que les nombres pseudo-aléatoires qui sont générés soient les mêmes d'une exécution à la suivante. Pour obtenir ce résultat, il faut initialiser la <i>graine</i> du générateur de nombres pseudo-aléatoires. Ces nombres étant générés dans le paquetage <kbd>numpy</kbd>, il faut initialiser cette graine dès que ce paquetage a été chargé. Pour cela, on exécute l'instruction <kbd>np.random.seed (le-nombre-que-vous-voulez)</kbd> où vous remplacez <kbd>le-nombre-que-vous-voulez</kbd> par le nombre que vous voulez, éventuellement avec beaucoup de chiffres.
 
     <br/>
     <br/>
