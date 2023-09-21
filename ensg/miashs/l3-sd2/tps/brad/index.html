@@ -4,7 +4,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>Classification supervisée</title>
+  <title>Brad's sweet home</title>
   <link href="https://philippe-preux.github.io/css/ma.css" 
 	rel="stylesheet" type="text/css" media="all" />
   <link rel="shortcut icon" type="image/x-icon" 
@@ -14,15 +14,15 @@
 <body>
 <div class="tpR">
 
-  <h1>Classification supervisée</h1>
+  <h1></h1>
   
   <p>
 
-    Dans ce TP, on va aborder la classification supervisée en la mettant en &oelig;uvre sur le jeu de données <kbd>olives</kbd>. Les notions essentielles de classification supervisée ont été vues en L2. Il s'agît donc ici de rappel et surtout de mise en pratique. Si nécessaire, on pourra consulter mes <a href="https://philippe-preux.github.io/Documents/notes-de-cours-de-fouille-de-donnees.pdf">notes de cours de fouille de données</a> pour une présentation de la classification supervisée.
+    Dans ce TP, on continue notre exploration de notions et techniques de base pour la science des données. On va notamment manipuler des fichiers de données beaucoup plus gros que précédemment et réaliser des tâches de régression.
 
     <br/>
 
-    Les 2 TPs précédents (<a href="../df">tableaux de données</a> et <a href="../graphiques">graphiques</a>) doivent impérativement avoir été faits.
+    Tous les TPs précédents doivent impérativement avoir été faits.
 
     <br/>
     <br/>
@@ -35,11 +35,137 @@
     
   <p>
 
-    Les olives du jeu de données proviennent chacune d'une région particulière d'Italie&nbsp;: nord, sud, Sardaigne. Celles-ci sont numérotées et la valeur associée à chaque olive est dans l'attribut 1 dénommé <kbd>region</kbd>. Chaque région est découpée en sous-régions&nbsp;; cette sous-région est dans les attributs 0 et 2&nbsp;; l'attribut 2 est juste le numéro de la sous-région dont le nom est donné par l'attribut 0. La carte ci-dessous indique ces régions et certaines sous-régions.
+    Brad vit en altitude, dans les montagnes du Colorado (il y fait froid assez tôt dans l’automne et tardivement au printemps). Il a aménagé une station de collecte des températures. Ainsi, quatre thermomètres électroniques mesurent-ils la température dans son séjour, son bureau, son sous-sol et à l’extérieur de chez lui, toutes les 3 minutes. Ces thermomètres sont reliés à son ordinateur qui stocke chacune des mesures dans quatre fichiers, un fichier par thermomètre. On dispose de ces quatre fichiers qui contiennent plusieurs dizaines de milliers de mesures. Notre objectif est d’étudier les températures ainsi mesurées. On sait également que le thermostat de Brad est réglé à 21°C pendant la journée, à 16°C pendant la nuit.
+
+    <br/>
+    <br/>
+
+    Ces 4 fichiers de données sont disponibles à ces 4 urls&nbsp;:
+
+    <ul>
+      <li><kbd>https://philippe-preux.github.io/ensg/miashs/datasets/brad-basement</kbd></li>
+      <li><kbd>https://philippe-preux.github.io/ensg/miashs/datasets/brad-lab</kbd></li>
+      <li><kbd>https://philippe-preux.github.io/ensg/miashs/datasets/brad-livingroom</kbd></li>
+      <li><kbd>https://philippe-preux.github.io/ensg/miashs/datasets/brad-outside</kbd></li>
+    </ul>
+
+  <p>
+
+    Ces 4 fichiers ont le même format. 
+    Dans votre navigateur, regardez l'un d'eux.
+    Vous constatez qu'il ne s'agit pas de fichiers <kbd>csv</kbd> et qu'il n'ont pas d'en-tête avec le nom des attributs.
+
+    <br/>
     
+    Dans ces 4 fichiers, les colonnes sont séparées par un espace. Dans l'ordre, les colonnes correspondent aux informations suivantes&nbsp;:
+
   </p>
 
-  <figure>
+  <ul>
+    <li>l'année</li>
+    <li>le mois</li>
+    <li>le quantième</li>
+    <li>heure</li>
+    <li>minute</li>
+    <li>seconde</li>
+    <li>température</li>
+  </ul>
+
+  <p>
+
+    Les lignes de chacun de ces fichiers sont ordonnées chronologiquement.
+    
+  </p>  
+  
+  <h2>Construction d'un tableau de données</h2>
+
+  <p>
+
+    On doit donc rassembler le contenu de ces 4 fichiers dans un tableau de données. Cette fusion doit s'effectuer en fonction de l'instant de la mesure.
+    
+    <br/>
+
+    On commence par lire chacun de ces fichiers en le stockant dans un tableau de données.
+    
+    <br/>
+
+    Ensuite, on fusionne ces 4 tableaux de données pour n'en faire qu'un seul que nous dénommerons <kbd>brad</kbd>. Une fois cela, fait, on peut détruire les 4 tableaux de données (commande python <kbd>del</kbd>).
+
+    <br/>
+    <br/>
+
+    <b>À faire&nbsp;:</b> comment construisez ce tableau de données <kbd>brad</kbd>&nbsp;?
+
+    <br/>
+    <br/>
+
+    Remarque&nbsp;: bien entendu, lorsqu'on réalise une telle opération de fusion, on vérifie que tout se passe bien. Puisque nous allons ensuite travailler uniquement sur le tableau de données <kbd>brad</kbd>, si celui-ci, pour une raison ou une autre, n'est pas construit correctement, tout ce que nous ferons par la suite sera faux.
+    <br/>
+    Il faut donc impérativement passer quelques instants à s'assurer que <kbd>brad</kbd> a été correctement construit.
+    <br/>
+    Pour vous aider, je vous indique ci-dessous les début et fin de <kbd>brad</kbd> correctement chargé&nbsp;:
+
+  </p>
+
+<pre>
+>>> brad.head()
+     an  mois   j   h  mn  temp_b  temp_l  temp_lr  temp_o
+0  2003     7  25  16   4    24.0     NaN     29.8    27.5
+1  2003     7  25  16   7    24.0     NaN     29.8    27.3
+2  2003     7  25  16  10    24.0     NaN     29.8    27.3
+3  2003     7  25  16  13    24.1     NaN     29.8    27.4
+4  2003     7  25  16  16    24.1     NaN     29.8    27.8
+>>> brad.tail()
+          an  mois   j   h  mn  temp_b  temp_l  temp_lr  temp_o
+169831  2004     7  16  15  16    21.7    22.9     22.8    16.8
+169832  2004     7  16  15  19    21.7    22.9     22.8    16.9
+169833  2004     7  16  15  22    21.7    22.9     22.8    16.8
+169834  2004     7  16  15  25    21.7    22.9     22.8    16.8
+169835  2004     7  16  15  28    21.7    22.9     22.8    16.4
+</pre>
+
+  <p>
+
+    Obtenez-vous le même résultat&nbsp;? Est-ce que votre tableau de données semble correct&nbsp;?
+    
+    <br/>
+    <br/>
+    
+    J'ai nommé les colonnes correspondant aux différentes températures <kbd>temp_b</kbd> pour le sous-sol (<i>basement</i>), <kbd>temp_l</kbd> pour la laboratoire (<i>lab</i>),  <kbd>temp_lr</kbd> pour le salon (<i>living-room</i>) et <kbd>temp_o</kbd> pour l'extérieur (<i>outside</i>).
+
+    <br/>
+
+    Notez bien les <kbd>NaN</kbd>&nbsp;: vous devez les avoir aussi pour ces lignes-là.
+
+    <br/>
+    <br/>
+    
+    <b>Question&nbsp;:</b> qu'est ce que ces <kbd>NaN</kbd>&nbsp;? Que font-ils là&nbsp;? Quel est leur signification&nbsp;?
+    
+  </p>
+  
+
+  <h2>Exploration visuelle du jeu de données</h2>
+
+
+
+
+  <h3>Dates</h3>
+
+  <p>
+
+  </p>
+  
+  <h2>Corrélation des températures&nbsp;?</h2>
+
+
+
+
+
+
+
+
+<figure>
     <img src="./olives-italie.png" width="400pt"/>
     <figcaption><font size="-3">(Cette figure est issue du livre sur <a href="http://ggobi.org/book.html">ggobi</a>.)</font></figcaption>
   </figure>
@@ -351,15 +477,6 @@ fig.show ()
   </p>
 
   <h3>Reproductibilité</h3>
-
-  <img src="https://www.istockphoto.com/vector/attention-gm866109136-143897377" width="300pt" />
-
-  <p>
-
-    Le contenu de cette section a changé depuis la séance du 18 octobre.
-    Si vous aviez atteint cet partie de l'énoncé, corrigez votre code python.
-    
-  </p>
   
   <p>
 
