@@ -4,6 +4,10 @@ body {
 /*  font-family: Comic Sans MS;*/
 }
 
+.aligncenter {
+      text-align: center;
+}
+
 div.research {
   background-color: #33ffff; /*#208090 */ /*#228491*/;
   color: #0000ff; /* ffffff */

@@ -11,6 +11,12 @@
 	href="https://philippe-preux.github.io/img/site.ico" />
 </head>
 
+<style>
+  .aligncenter {
+      text-align: center;
+  }
+</style>
+
 <body>
 <div class="tpR">
 
@@ -39,11 +45,13 @@
     
   </p>
 
-  <figure>
-    <img src="./olives-italie.png" width="400pt"/>
-    <figcaption><font size="-3">(Cette figure est issue du livre sur <a href="http://ggobi.org/book.html">ggobi</a>.)</font></figcaption>
-  </figure>
-  
+  <p class="aligncenter">
+    <!--figure-->
+      <img src="./olives-italie.png" width="400pt"/>
+      <!--figcaption--><font size="-3">(Cette figure est issue du livre sur <a href="http://ggobi.org/book.html">ggobi</a>.)</font><!--/figcaption-->
+    <!--/figure-->
+  </p>
+    
   <p>
 
     Chaque olive étant par ailleurs caractérisée par sa teneur en certains acides, la question que nous étudions dans ce TP est&nbsp;: à partir de cette composition chimique, peut-on déterminer la provenance géographique de l'olive&nbsp;?
@@ -124,7 +132,9 @@
 
   </p>
 
-  <img src="allure-generale.png" width="500pt" />
+  <p class="aligncenter">
+    <img src="allure-generale.png" width="500pt" />
+  </p>
   
   <p>
 
@@ -153,8 +163,10 @@
     
   </p>
 
-  <img src="../graphiques/olives-palmitic-vs-oleic-against-region.png" width="500pt" />
-
+  <p class="aligncenter">
+    <img src="../graphiques/olives-palmitic-vs-oleic-against-region.png" width="500pt" />
+  </p>
+  
   <p>
 
     On voit que ces deux attributs ne permettent pas de déterminer la classe de manière simple&nbsp;: les points des 3 couleurs sont mélangés.
@@ -292,9 +304,11 @@ fig.show ()
     qui ouvre une fenêtre avec le graphique suivant&nbsp;:
 
   </p>
-  
-  <img src="arbre-region.png" width="500pt" />
 
+  <p class="aligncenter">
+    <img src="arbre-region.png" width="500pt" />
+  </p>
+  
   <p>
     
     <b>À faire&nbsp;:</b> réalisez ce graphique et le comprendre. En particulier, comprendre ce qui est affiché dans chaque n&oelig;ud.
@@ -306,16 +320,20 @@ fig.show ()
     
   </p>
 
-  <img src="arbre-region-avec-le-nom-des-attributs.png" width="500pt" />
-
+  <p class="aligncenter">
+    <img src="arbre-region-avec-le-nom-des-attributs.png" width="500pt" />
+  </p>
+  
   <p>
 
     En consultant <a hef="https://scikit-learn.org/stable/modules/tree.html#tree">la documentation</a>, on peut avoir une représentation plus jolie et informative avec la classe prédite qui est indiquée dans chaque feuille, comme celle-ci&nbsp;:
 
   </p>
   
-  <img src="arbre-region-plus-joli.png" width="500pt" />
-
+  <p class="aligncenter">
+    <img src="arbre-region-plus-joli.png" width="500pt" />
+  </p>
+  
   <p>
 
     <b>Faites-le.</b>
