@@ -384,15 +384,173 @@
 
   <h3>Approche quantitative</h3>
 
+  <h4>Corrélation linéaire entre chaque paire d'attributs</h4>
+
   <p>
+
+    La méthode <kbd>corr ()</kbd> du paquetage <kbd>pandas</kbd> calcule le coefficient de corrélation linéaire.
+
+    <br/>
+    <br/>
     
     <b>À faire&nbsp;:</b> calculer les coefficients de corrélation linéaire entre les différentes paires d'attributs. Ces valeurs confirment-elles votre intuition et vos constatations sur les graphiques&nbsp;?
+
+    <br/>
+    <br/>
+
+    Vous devez trouver les coefficients suivants&nbsp;:
+
+  </p>
+  
+<pre>           temp_b    temp_l   temp_lr    temp_o
+temp_b   1.000000  0.801845  0.949450  0.623215
+temp_l   0.801845  1.000000  0.790496  0.726466
+temp_lr  0.949450  0.790496  1.000000  0.644963
+temp_o   0.623215  0.726466  0.644963  1.000000
+</pre>
+
+  <h4>Modèles linéaires</h4>
+
+  <p>
+
+    On souhaite modéliser la relation linéaire entre les températures. Pour cela, on va utiliser les modèles linéaires du paquetage <kbd>sklearn</kbd> documentés <a href="https://scikit-learn.org/stable/modules/linear_model.html">sur cette page</a> et <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html#sklearn.linear_model.LinearRegression">celle-ci</a>.
+
+    <br/>
+    <br/>
+
+    Vous commencez par créer un objet régresseur linéaire par une commande comme <kbd>reg = linear_model.LinearRegression()</kbd>.
+
+    <br/>
+
+    Vous devez fournir un ensemble de couples (x, y) et <kbd>sklearn</kbd> calcule la droite de régression par la méthode <kbd>fit ()</kbd> appliquée au régresseur (donc <kbd>reg.fit (x, y)</kbd>). Cette méthode prend en paramètre deux tableaux <kbd>numpy</kbd>. Il faut donc transformer les attributs en tableaux bidimensionnels <kbd>numpy</kbd> et ensuite appeler la méthode <kbd>fit () </kbd> avec ces deux tableaux.
+    
+    <br/>
+
+    À l'issue de l'appel de <kbd>fit ()</kbd>, si tout s'est bien passé, l'objet <kbd>reg</kbd> contient deux attributs&nbsp;: <kbd>coef_</kbd> est le coefficient directeur de la droite de régression, <kbd>intercept_</kbd> est l'ordonnée à laquelle la droite de régression coupe l'axe des ordonnées.
+    
+    <br/>
+    <br/>
+
+    Essayez de calculer les paramètres du modèle linéaire entre la température dans le salon et celle dans le sous-sol. Que se passe-t-il&nbsp;? Pourquoi&nbsp;?
+    Essayez de comprendre avant de lire la suite.
+    
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    
+    Comme l'indique la documentation, la méthode utilisée ne fonctionne pas en présence de données manquantes. La première question à se poser est&nbsp;: y en a-t-il beaucoup ou juste quelques-une&nbsp? S'il y en a quelques une, on peut calculer le modéle linéaire en retirant les individus correspondants à ces données manquantes et cela ne devrait pas avoir de sérieuses conséquences. S'il y en a beaucoup, c'est plus compliqué. Voyons dans quel cas on se trouve...
+
+  </p>
+
+  <h4>Les NAs</h4>
+
+  <p>
+    
+    La méthode <kbd>isna ()</kbd> du paquetage <kbd>pandas</kbd> indique les valeurs inconnues dans un vecteur sous la forme d'un vecteur de booléens. Le nombre de NAs peut ensuite être compté en sommant les booléens car une valeur <kbd>False</kbd> correspond à l'entier 0 et une valeur <kbd>True</kbd> correspond à l'entier 1.
+
+    <br/>
+    <br/>
+    
+    <b>À faire&nbsp;:</b> les attributs correspondants aux 4 températures contiennent-ils des valeurs NA&nbsp;? Si oui, combien&nbsp;?
+
+    <br/>
+    <br/>
+    
+    On voit que pour les températures dans le salon, dans le sous-sol et à l'extérieur, le nombre de valeurs manquantes est très réduit.
+    <!--
+	3 pour temp_lr
+	>>> np.where (brad.temp_lr.isna())
+	(array([113459, 150871, 158386]),)
+	2 pour temp_b
+	>>> np.where (brad.temp_b.isna())
+	(array([105554, 158386]),)
+	6 pour temp_o
+	>>> np.where (brad.temp_o.isna())
+	(array([ 53496,  92324, 113459, 144858, 158386, 165055]),)
+	>>> brad.temp_l.isna().sum()
+	554
+      -->
+    On va donc simplement ne pas tenir compte des individus avec des données manquantes et calculer les modèles linéaires.
+    
+    <br/>
+    <br/>
+
+    Vous pouvez essayer de le faire sans lire la suite.
+
+    <br/>
+    <br/>
+
+    Une idée simple consiste à construire l'ensemble des indices des individus qui n'ont pas de valeur manquante. Pour cela, je vous donne quelques ingrédients&nbsp;:
+
+  </p>
+
+  <ul>
+    <li>la fonction <kbd>append ()</kbd> du paquetage <kbd>numpy</kbd> met les éléments d'un vecteur au bout d'un autre. Par exemple&nbsp;: <kbd>np.append (np.array ([1, 2, 3]), np.array ([-1, 6, 9, -4]))</kbd> produit le vecteur <kbd>array([ 1,  2,  3, -1,  6,  9, -4])</kbd>.</li>
+    <li>la fonction <kbd>delete ()</kbd> du paquetage <kbd>nnumpy</kbd> retire les valeurs dont les indices sont spécifiés. Par exemple&nbsp;: <kbd>np.delete (np.append (np.array ([1, 2, 3]), np.array ([-1, 6, 9, -4])), np.array ([3, 4, 1]))</kbd> produit le vecteur <kbd>array([ 1,  3,  9, -4])</kbd>.</li>
+    <li>la fonction <kbd>where ()</kbd> du paquetage <kbd>numpy</kbd> renvoie un vecteur contenant les indices d'un vecteur dont les éléments vérifient une certaines conditions. Par exemple, <kbd>np.where (np.array (range (10)) % 2 == 1)</kbd> renvoie <kbd>(array([1, 3, 5, 7, 9]),)</kbd> qui est un vecteur dont les éléments sont les indices des éléments impairs du premier.</li>
+  </ul>
+  
+  <p>
+
+    Avec ces 3 méthodes, vous avez toutes les informations nécessaires pour construire un modèle linéaire en éliminant au préalable les valeurs manquantes.
+
+    <br/>
+    <br/>
+    
+    <b>À faire&nbsp;:</b> calculez les coefficients des droites de régression linéaire entre les températures du salon, du sous-sol et à l'extérieur.
     
   </p>
   
-
-
-</div>
+  </div>
 
 <!-- Default Statcounter code for on github
 https://philippe-preux.github.io -->
