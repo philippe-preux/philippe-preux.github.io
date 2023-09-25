@@ -182,7 +182,7 @@
     <br/>
     <br/>
 
-    Réalisez le graphique ci-dessous qui montre les 4 courbes de températures séparées les unes des autres.
+    <b>À faire&nbsp;:</b> réalisez le graphique ci-dessous qui montre les 4 courbes de températures séparées les unes des autres. Notez bien les ordonnées de chaque courbe&nbsp;: c'est le même intervalle de valeurs (-25°, 25°), ceci pour pouvoir mieux les comparer visuellement.
     
   </p>
   
@@ -202,9 +202,25 @@
 
   <p>
 
-    C'est ce que nous allons faire mais cela nécessite quelques explications concernant les dates.
+    C'est ce que nous allons faire mais cela nécessite quelques explications concernant les dates. Nous y reviendrons un peu plus loin.
     
   </p>
+
+  <h4>Quelques autres graphiques</h4>
+
+  <p>
+
+    <b>À faire&nbsp;:</b>
+
+    réaliser le graphique ci-dessous qui affiche les histogrammes des 4 températures. J'utilise le paramètre <kbd>bins = 250</kbd> à gauche et <kbd>bins = 1000</kbd> à droite. Remarquez les différences que cela entraîne sur le graphique. D'où viennent ces «&nbsp;trous&nbsp;»&nbsp;?
+
+  </p>
+
+  <p class="aligncenter">
+      <img src="./histogrammesTemperature250.png" width="400pt"/>
+      <img src="./histogrammesTemperature.png" width="400pt"/>
+  </p>
+
 
   <h3>Dates</h3>
 
@@ -223,10 +239,28 @@
     <br/>
     <br/>
 
-    Nous allons transformer les 6 attributs indiquant les instants de mesure de températures en un attribut date. Nous commençons par quelques généralités sur les dates en python.
+    On distingue deux cas&nbsp;: la date (et l'heure) est représentée par une chaîne de caractères qu'il faut correctement analyser&nbsp;; la date (et l'heure) est représentée par un ensemble d'attributs, comme c'est le cas dans le jeu de données de Brad.
 
   </p>
 
+  <!--
+    Nous allons transformer les 6 attributs indiquant les instants de mesure de températures en un attribut date. Nous commençons par quelques généralités sur les dates en python.
+
+  </p-->
+
+  <h4>Transformation d'une chaîne de caractères en date</h4>
+
+  <p>
+
+    On utilise le paquetage <kbd>datetime</kbd> que l'on a coûtume d'abréger en <kbd>dt</kbd>.
+
+    <br/>
+    <br/>
+
+    
+
+  </p>
+  
   <h4>Les dates avec <kbd>pandas</kbd></h4>
 
   <p>
@@ -318,28 +352,42 @@
 
   <p>
 
+    <b>À faire&nbsp;:</b> répondez aux questions suivantes&nbsp;:
+    
   </p>
 
+  <ul>
+    <li>quelle est la température extérieure moyenne entre 13h et 14h dans l'ensemble du jeu de données&nbsp;?</li>
+    <li>quelle est la température extérieure moyenne pour chaque mois&nbsp;?</li>
+    <li>quelle est la température extérieure moyenne à chaque saison&nbsp;? On supposera que les saisons comments les 21 des mois de mars, juin, septembre et décembre.</li>
+  </ul>
+  
   <h2>Corrélation des températures&nbsp;?</h2>
 
   <p>
 
-    intuitivement, il doit y avoir des corrélations...
-    
+    Intuitivement, il doit y avoir des corrélations entre les températures relevées en certains endroits.
+
+    <br/>
+
+    <b>À faire&nbsp;:</b> quelle corrélation vous attendez-vous à observer&nbsp;?
+
   </p>
   
   <h3>Exploration visuelle</h3>
 
   <p>
 
-    scatter plot
+    <b>À faire&nbsp;:</b> faites des scatter plot entre les différents couples de températures. Quelles températures sont corrélées linéairement&nbsp;? Cela correspond-il à vos attentes&nbsp;?
     
   </p>
 
   <h3>Approche quantitative</h3>
 
   <p>
-
+    
+    <b>À faire&nbsp;:</b> calculer les coefficients de corrélation linéaire entre les différentes paires d'attributs. Ces valeurs confirment-elles votre intuition et vos constatations sur les graphiques&nbsp;?
+    
   </p>
   
 
