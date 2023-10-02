@@ -99,7 +99,24 @@
     <br/>
 
     Pour cela, on commence par lire chacun de ces fichiers en le stockant dans un tableau de données.
-    Pour lire ces fichiers qui ne sont pas au format <kbd>csv</kbd>, on utilisera la méthode <kbd>read_table()</kbd> de <kbd>pandas</kbd>. Regardez la documentation pour utiliser les bons arguments et lisez ces 4 fichiers dans 4 tableaux de données différents. Comme ces fichiers n'ont pas d'en-tête indiquant le nom des colonnes, donnez-leur un nom lors de la lecture. On trouve les mêmes 6 attributs indiquant la date et l'heure dans les 4 fichiers&nbsp;; donnez-leur le même nom (ce qui vous simplifiera les choses un peu plus tard). Vérifiez que la lecture s'est bien passée.
+    Pour lire ces fichiers qui ne sont pas au format <kbd>csv</kbd>, on utilisera la méthode <kbd>read_table()</kbd> de <kbd>pandas</kbd>. Regardez <a href="https://pandas.pydata.org/docs/reference/api/pandas.read_table.html">la documentation</a> pour utiliser les bons arguments et lisez ces 4 fichiers dans 4 tableaux de données différents. Comme ces fichiers n'ont pas d'en-tête indiquant le nom des colonnes, donnez-leur un nom lors de la lecture. On trouve les mêmes 6 attributs indiquant la date et l'heure dans les 4 fichiers&nbsp;; donnez-leur le même nom (ce qui vous simplifiera les choses un peu plus tard).
+
+    <br/>
+    
+    Comme la méthode <kbd>read_table()</kbd> est très générale (on peut lire des tas de formats différents), elle possède de très nombreux paramètre. On peut être un peu perdu face à tous ces paramètres. Aussi, pour vous aider, je vous indique les paramètres de <kbd>read_table()</kbd> à utiliser. D'une manière générale, pour trouver les bons paramètres il faut impérativement avoir regardé le contenu du fichier pour voir s'il y a un en-tête avec le nom des attributs, comment les valeurs des attributs sont séparées, ... Cette inspection faite, dans le cas présent&nbsp;:
+
+  </p>
+
+  <ul>
+    <li>il faut indiquer le nom du fichier (ou son url) contenant les données à charger dans un tableau de données.</li>
+    <li>comme il n'y a pas d'en-tête, il faut l'indiquer avec le paramètre <kbd>header</kbd>,</li>
+    <li>et il faut indiquer le noms des attributs avec le paramètre <kbd>names</kbd>.</li>
+    <li>Enfin, vous avez constaté que les valeurs sont séparées par un espace, il faut donc le spécifier avec le paramètre <kbd>delim_whitespace</kbd>.</li>
+  </ul>
+  
+  <p>
+
+    Vérifiez que la lecture s'est bien passée.
     
     <br/>
 
