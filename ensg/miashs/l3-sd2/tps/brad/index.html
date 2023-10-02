@@ -74,7 +74,6 @@
     <li>le quantième</li>
     <li>heure</li>
     <li>minute</li>
-    <li>seconde</li>
     <li>température</li>
   </ul>
 
@@ -97,7 +96,7 @@
   <p>
     
     On commence par lire chacun de ces fichiers en le stockant dans un tableau de données.
-    Pour lire ces fichiers qui ne sont pas au format <kbd>csv</kbd>, on utilisera la méthode <kbd>read_table()</kbd> de <kbd>pandas</kbd>. Regardez <a href="https://pandas.pydata.org/docs/reference/api/pandas.read_table.html">la documentation</a> pour utiliser les bons arguments et lisez ces 4 fichiers dans 4 tableaux de données différents. Comme ces fichiers n'ont pas d'en-tête indiquant le nom des colonnes, donnez-leur un nom lors de la lecture. On trouve les mêmes 6 attributs indiquant la date et l'heure dans les 4 fichiers&nbsp;; donnez-leur le même nom (ce qui vous simplifiera les choses un peu plus tard).
+    Pour lire ces fichiers qui ne sont pas au format <kbd>csv</kbd>, on utilisera la méthode <kbd>read_table()</kbd> de <kbd>pandas</kbd>. Regardez <a href="https://pandas.pydata.org/docs/reference/api/pandas.read_table.html">la documentation</a> pour utiliser les bons arguments et lisez ces 4 fichiers dans 4 tableaux de données différents. Comme ces fichiers n'ont pas d'en-tête indiquant le nom des colonnes, donnez-leur un nom lors de la lecture. On trouve les mêmes 5 attributs indiquant la date et l'heure dans les 4 fichiers&nbsp;; donnez-leur le même nom (ce qui vous simplifiera les choses un peu plus tard).
 
     <br/>
     
@@ -302,7 +301,7 @@
     
     <br/>
 
-    La transformation des 6 attributs jour, mois, année, heure, minute, seconde en date se fait à l'aide de la méthode <kbd>to_datetime()</kbd> de <kbd>pandas</kbd>.
+    La transformation des 5 attributs jour, mois, année, heure, minute en date se fait à l'aide de la méthode <kbd>to_datetime()</kbd> de <kbd>pandas</kbd>.
     
     <br/>
     
