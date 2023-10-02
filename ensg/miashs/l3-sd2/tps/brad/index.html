@@ -105,9 +105,33 @@
 
     Ensuite, on fusionne ces 4 tableaux de données pour n'en faire qu'un seul que nous dénommerons <kbd>brad</kbd>.
     Il faut utiliser la méthode <kbd>merge_ordered()</kbd> de <kbd>pandas</kbd> qui fusionne deux tableaux de données.
-    N'hésitez pas à regarder la documentation concernant cette méthode.
 
     <br/>
+    
+    N'hésitez pas à regarder la documentation concernant cette méthode, la page décrivant <a href="https://pandas.pydata.org/docs/reference/api/pandas.merge_ordered.html#pandas.merge_ordered"><kbd>merge_ordered ()</kbd></a> et une <a href="https://pandas.pydata.org/docs/user_guide/merging.html">page qui explique la fusion de tableaux de données</a>.
+
+    <br/>
+    
+    Comme les opérations de fusion sont assez compliquées à maîtriser et qu'il en existe de différentes sortes, je vous donne l'idée générale de ce qui doit être fait dans ce TP. La commande suivante&nbsp;:
+
+  </p>
+
+<pre>pd.merge_ordered (df1, df1, on = liste_des_attributs_communs_sur_lesquels_on_fait_la_fusion, how = "outer")
+</pre>
+  
+  <p>
+
+    fait la chose suivante&nbsp;:
+
+  </p>
+
+  <ul>
+    <li>on suppose que l'on a deux tableaux de données <kbd>df1</kbd> et <kbd>df2</kbd> à fusionner.</li>
+    <li>On suppose que ces deux tableaux de données pnt un certain nombre d'attributs ayant le même nom selon lesquels on veut effectuer la fusion&nbsp;: la liste de ces attributs est fournie dans le paramètre <kbd>on</kbd>.</li>
+    <li>Cette commande renvoie un tableau de données qui est la fusion de <kbd>df1</kbd> et <kbd>df2</kbd>.</li>
+  </ul>
+  
+  <p>
     
     Une fois cela, fait, on peut détruire les 4 tableaux de données (commande python <kbd>del</kbd>) et ne conserver que <kbd>brad</kbd>.
 
