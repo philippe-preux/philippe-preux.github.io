@@ -589,7 +589,7 @@ temp_o   0.623215  0.726466  0.644963  1.000000
   <ul>
     <li>la fonction <kbd>append ()</kbd> du paquetage <kbd>numpy</kbd> met les éléments d'un vecteur au bout d'un autre. Par exemple&nbsp;: <kbd>np.append (np.array ([1, 2, 3]), np.array ([-1, 6, 9, -4]))</kbd> produit le vecteur <kbd>array([ 1,  2,  3, -1,  6,  9, -4])</kbd>.</li>
     <li>la fonction <kbd>delete ()</kbd> du paquetage <kbd>nnumpy</kbd> retire les valeurs dont les indices sont spécifiés. Par exemple&nbsp;: <kbd>np.delete (np.append (np.array ([1, 2, 3]), np.array ([-1, 6, 9, -4])), np.array ([3, 4, 1]))</kbd> produit le vecteur <kbd>array([ 1,  3,  9, -4])</kbd>.</li>
-    <li>la fonction <kbd>where ()</kbd> du paquetage <kbd>numpy</kbd> renvoie un vecteur contenant les indices d'un vecteur dont les éléments vérifient une certaine condition. Par exemple, <kbd>np.where (np.array (range (10)) % 2 == 1)</kbd> renvoie <kbd>(array([1, 3, 5, 7, 9]),)</kbd> qui est un vecteur dont les éléments sont les indices des éléments impairs du premier.</li>
+    <li>la fonction <kbd>where ()</kbd> du paquetage <kbd>numpy</kbd> renvoie un vecteur contenant les indices d'un vecteur dont les éléments vérifient une certaine condition. Par exemple, <kbd>np.where (np.array (range (10)) % 2 == 1)</kbd> renvoie <kbd>(array([1, 3, 5, 7, 9]),)</kbd> qui est un vecteur dont les éléments sont les indices des éléments impairs du premier. Plutôt que de trouver les valeurs impaires, on peut chercher les NAs.</li>
   </ul>
   
   <p>
@@ -621,6 +621,7 @@ temp_o   0.623215  0.726466  0.644963  1.000000
 
   <p>
 
+    On a vu qu'il y a quelques valeurs manquantes dans 
   </p>
   
   
