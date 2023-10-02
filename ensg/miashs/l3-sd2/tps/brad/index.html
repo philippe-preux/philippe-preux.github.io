@@ -92,13 +92,11 @@
   
   <h2>Construction d'un tableau de données</h2>
 
+  <h3>Chargement des tableaux de données</h3>
+
   <p>
-
-    On doit donc rassembler le contenu de ces 4 fichiers dans un tableau de données. Cette fusion doit s'effectuer en fonction de l'instant de la mesure.
     
-    <br/>
-
-    Pour cela, on commence par lire chacun de ces fichiers en le stockant dans un tableau de données.
+    On commence par lire chacun de ces fichiers en le stockant dans un tableau de données.
     Pour lire ces fichiers qui ne sont pas au format <kbd>csv</kbd>, on utilisera la méthode <kbd>read_table()</kbd> de <kbd>pandas</kbd>. Regardez <a href="https://pandas.pydata.org/docs/reference/api/pandas.read_table.html">la documentation</a> pour utiliser les bons arguments et lisez ces 4 fichiers dans 4 tableaux de données différents. Comme ces fichiers n'ont pas d'en-tête indiquant le nom des colonnes, donnez-leur un nom lors de la lecture. On trouve les mêmes 6 attributs indiquant la date et l'heure dans les 4 fichiers&nbsp;; donnez-leur le même nom (ce qui vous simplifiera les choses un peu plus tard).
 
     <br/>
@@ -117,10 +115,19 @@
   <p>
 
     Vérifiez que la lecture s'est bien passée.
-    
-    <br/>
 
-    Ensuite, on fusionne ces 4 tableaux de données pour n'en faire qu'un seul que nous dénommerons <kbd>brad</kbd>.
+  </p>
+
+  <h3>Fusion</h3>
+
+  <p>
+    
+    On doit maintenant rassembler le contenu de ces 4 tableaux de données dans un seul. Cette fusion doit s'effectuer en fonction de l'instant de la mesure.
+    Le tableau de données fusionnés sera nommé <kbd>brad</kbd>.
+
+    <br/>
+    <br/>
+    
     Il faut utiliser la méthode <kbd>merge_ordered()</kbd> de <kbd>pandas</kbd> qui fusionne deux tableaux de données.
 
     <br/>
