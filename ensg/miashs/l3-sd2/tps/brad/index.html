@@ -42,7 +42,7 @@
     
   <p>
 
-    Brad vit en altitude, dans les montagnes du Colorado (il y fait froid assez tôt dans l’automne et tardivement au printemps). Il a aménagé une station de collecte des températures. Ainsi, quatre thermomètres électroniques mesurent la température dans son séjour, son bureau, son sous-sol et à l’extérieur de chez lui, toutes les 3 minutes. Ces thermomètres sont reliés à son ordinateur qui stocke chacune des mesures dans quatre fichiers, un fichier par thermomètre. On dispose de ces quatre fichiers qui contiennent plusieurs dizaines de milliers de mesures. Notre objectif est d’étudier les températures ainsi mesurées. On sait également que le thermostat de Brad est réglé à 21°C pendant la journée, à 16°C pendant la nuit.
+    Brad vit en altitude, dans les montagnes du Colorado (il y fait froid assez tôt dans l’automne et jusque tardivement au printemps). Il a aménagé une station de collecte des températures. Ainsi, quatre thermomètres électroniques mesurent la température dans son séjour, son bureau, son sous-sol et à l’extérieur de chez lui, toutes les 3 minutes. Ces thermomètres sont reliés à son ordinateur qui stocke chacune des mesures dans quatre fichiers, un fichier par thermomètre. On dispose de ces quatre fichiers qui contiennent plusieurs dizaines de milliers de mesures. Notre objectif est d’étudier les températures ainsi mesurées. On sait également que le thermostat de Brad est réglé à 21°C pendant la journée, à 16°C pendant la nuit.
 
     <br/>
     <br/>
@@ -82,6 +82,12 @@
 
     Les lignes de chacun de ces fichiers sont ordonnées chronologiquement.
 
+
+    <br/>
+    <br/>
+
+    Comme d'habitude, on va commencer par créer un tableau de données, les explorer à la main et visuellement, avant d'utiliser des méthodes analytiques.
+    
   </p>  
   
   <h2>Construction d'un tableau de données</h2>
@@ -108,7 +114,7 @@
     <br/>
     <br/>
 
-    <b>À faire&nbsp;:</b> construisez ce tableau de données <kbd>brad</kbd>&nbsp;?
+    <b>À faire&nbsp;:</b> construisez ce tableau de données <kbd>brad</kbd>.
 
     <br/>
     <br/>
@@ -182,7 +188,7 @@
     <br/>
     <br/>
 
-    <b>À faire&nbsp;:</b> réalisez le graphique ci-dessous qui montre les 4 courbes de températures séparées les unes des autres. Notez bien les ordonnées de chaque courbe&nbsp;: c'est le même intervalle de valeurs (-25°, 25°), ceci pour pouvoir mieux les comparer visuellement.
+    <b>À faire&nbsp;:</b> réalisez le graphique ci-dessous qui montre les 4 courbes de températures séparées les unes des autres. Notez bien les ordonnées de chaque courbe&nbsp;: c'est le même intervalle de valeurs (-25°, 25°), ceci pour pouvoir mieux les comparer visuellement. Vous devez obtenir exactement les mêmes figures.
     
   </p>
   
@@ -212,7 +218,7 @@
 
     <b>À faire&nbsp;:</b>
 
-    réaliser le graphique ci-dessous qui affiche les histogrammes des 4 températures. J'utilise le paramètre <kbd>bins = 250</kbd> à gauche et <kbd>bins = 1000</kbd> à droite. Remarquez les différences que cela entraîne sur le graphique. D'où viennent ces «&nbsp;trous&nbsp;»&nbsp;?
+    réaliser les 2 graphiques ci-dessous qui affichent les histogrammes des 4 températures. J'utilise le paramètre <kbd>bins = 250</kbd> à gauche et <kbd>bins = 1000</kbd> à droite. Remarquez les différences que cela entraîne sur le graphique. D'où viennent ces «&nbsp;trous&nbsp;»&nbsp;?
 
   </p>
 
@@ -241,31 +247,18 @@
 
     On distingue deux cas&nbsp;: la date (et l'heure) est représentée par une chaîne de caractères qu'il faut correctement analyser&nbsp;; la date (et l'heure) est représentée par un ensemble d'attributs, comme c'est le cas dans le jeu de données de Brad.
 
-  </p>
-
-  <!--
-    Nous allons transformer les 6 attributs indiquant les instants de mesure de températures en un attribut date. Nous commençons par quelques généralités sur les dates en python.
-
-  </p-->
-
-  <h4>Transformation d'une chaîne de caractères en date</h4>
-
-  <p>
-
-    On utilise le paquetage <kbd>datetime</kbd> que l'on a coûtume d'abréger en <kbd>dt</kbd>.
-
     <br/>
     <br/>
 
+    Dans les deux cas, on utilise la méthode <kbd>to_datetime ()</kbd> de <kbd>pandas</kbd>.
     
+    <br/>
 
-  </p>
-  
-  <h4>Les dates avec <kbd>pandas</kbd></h4>
-
-  <p>
-
-    La transformation des 6 attributs jour, mois, année, heure, minute, seconde en date se fait à l'aide de la méthode <kbd>to_datetime()</kbd> de <kbd>pandas</kbd>. Regardez la documentation de cette méthode (regardez les exemples) et ajoutez un attribut <kbd>date</kbd> au tableau de données <kbd>brad</kbd> contenant la date et l'heure de chaque ligne.
+    La transformation des 6 attributs jour, mois, année, heure, minute, seconde en date se fait à l'aide de la méthode <kbd>to_datetime()</kbd> de <kbd>pandas</kbd>.
+    
+    <br/>
+    
+    <b>À faire&nbsp;:</b> Regardez la documentation de cette méthode (regardez les exemples) et ajoutez un attribut <kbd>date</kbd> au tableau de données <kbd>brad</kbd> contenant la date et l'heure de chaque ligne.
 
     <br/>
     <br/>
@@ -308,7 +301,7 @@
 
   <p>
 
-    et à d'autres&nbsp;:
+    et à d'autres informations&nbsp;:
 
   </p>
   
@@ -358,17 +351,18 @@
 
   <ul>
     <li>à quelle date a-t-il gelé la première fois en 2003&nbsp;?</li>
-    <li>durée de la période de gel durant l'hiver 20023-2004&nbsp;?</li>
-    <li>quelle est la température extérieure moyenne entre 13h et 14h dans l'ensemble du jeu de données&nbsp;?</li>
-    <li>quelle est la température extérieure moyenne pour chaque mois&nbsp;?</li>
-    <li>quelle est la température extérieure moyenne à chaque saison&nbsp;? On supposera que les saisons comments les 21 des mois de mars, juin, septembre et décembre.</li>
+    <li>Durée de la période de gel durant l'hiver 2023-2004&nbsp;?</li>
+    <li>Quelle est la température extérieure moyenne entre 13h et 14h dans l'ensemble du jeu de données&nbsp;?</li>
+    <li>Quelle est la température extérieure moyenne pour chaque mois&nbsp;?</li>
+    <li>Quelle est la température extérieure moyenne à chaque saison&nbsp;? On supposera que les saisons comments les 21 des mois de mars, juin, septembre et décembre.</li>
+    <li>Le thermostat joue-t-il bien son rôle de régulation de la température intérieure dans les 3 pièces&nbsp;? Dit autrement, fait-il à peu près 21°C pendant la journée, à 16°C pendant la nuit tout au long de l'année chez Brad&nbsp;?
   </ul>
   
   <h2>Corrélation des températures&nbsp;?</h2>
 
   <p>
 
-    Intuitivement, il doit y avoir des corrélations entre les températures relevées en certains endroits.
+    Intuitivement, il doit y avoir des corrélations entre les températures relevées dans les différentes pièces chez Brad.
 
     <br/>
 
@@ -380,7 +374,7 @@
 
   <p>
 
-    <b>À faire&nbsp;:</b> faites des scatter plot entre les différents couples de températures. Quelles températures sont corrélées linéairement&nbsp;? Cela correspond-il à vos attentes&nbsp;?
+    <b>À faire&nbsp;:</b> faites des scatter plot entre les différents couples de températures. Quelles températures sont/semblent corrélées linéairement&nbsp;? Cela correspond-il à vos attentes&nbsp;?
     
   </p>
 
@@ -424,9 +418,18 @@ temp_o   0.623215  0.726466  0.644963  1.000000
 
     <br/>
 
-    Vous devez fournir un ensemble de couples (x, y) et <kbd>sklearn</kbd> calcule la droite de régression par la méthode <kbd>fit ()</kbd> appliquée au régresseur (donc <kbd>reg.fit (x, y)</kbd>). Cette méthode prend en paramètre deux tableaux <kbd>numpy</kbd>. Il faut donc transformer les attributs en tableaux bidimensionnels <kbd>numpy</kbd> et ensuite appeler la méthode <kbd>fit () </kbd> avec ces deux tableaux.
-    
-    <br/>
+    Vous devez fournir un ensemble de couples (x, y) et <kbd>sklearn</kbd> calcule la droite de régression par la méthode <kbd>fit ()</kbd> appliquée au régresseur (donc <kbd>reg.fit (x, y)</kbd>). Cette méthode prend en paramètre deux tableaux <kbd>numpy</kbd>. Pour cela, il faut transformer les attributs en tableaux bidimensionnels <kbd>numpy</kbd> et ensuite appeler la méthode <kbd>fit () </kbd> avec ces deux tableaux. Je reprends tranquillement pour la température dans le sous-sol et celle dans le salon&nbsp;:
+
+  </p>
+
+  <ol>
+    <li>je mets dans un objet (appelons-le <kbd>temp_b</kbd> comme l'attribut du tableau de données) un tableau <kbd>numpy</kbd> de taille Nx1 (il faut qu'il ait deux dimensions) les températures dans le sous-sol de Brad.</li>
+    <li>je mets dans un autre objet (appelons-le <kbd>temp_lr</kbd> comme l'attribut du tableau de données) un autre tableau <kbd>numpy</kbd> de taille Nx1 les températures dans le salon de Brad.</li>
+    <li>je crée un objet régresseur&nbsp;: <kbd>reg = linear_model.LinearRegression()</kbd></li>
+    <li>je calcule les paramètres du modèles (la droite de régression encore nommée la droite des moindres carrées)&nbsp;: <kbd>reg.fit (temp_b, temp_lr)</kbd></li>
+  </ol>
+  
+  <p>
 
     À l'issue de l'appel de <kbd>fit ()</kbd>, si tout s'est bien passé, l'objet <kbd>reg</kbd> contient deux attributs&nbsp;: <kbd>coef_</kbd> est le coefficient directeur de la droite de régression, <kbd>intercept_</kbd> est l'ordonnée à laquelle la droite de régression coupe l'axe des ordonnées.
     
@@ -489,7 +492,7 @@ temp_o   0.623215  0.726466  0.644963  1.000000
     <br/>
     <br/>
     
-    Comme l'indique la documentation, la méthode utilisée ne fonctionne pas en présence de données manquantes. La première question à se poser est&nbsp;: y en a-t-il beaucoup ou juste quelques-une&nbsp? S'il y en a quelques une, on peut calculer le modéle linéaire en retirant les individus correspondants à ces données manquantes et cela ne devrait pas avoir de sérieuses conséquences. S'il y en a beaucoup, c'est plus compliqué. Voyons dans quel cas on se trouve...
+    Comme l'indique la documentation, la méthode utilisée ne fonctionne pas en présence de données manquantes. La première question à se poser est&nbsp;: y en a-t-il beaucoup ou juste quelques-une&nbsp? S'il y en a quelques-unes, on peut calculer le modéle linéaire en retirant les individus correspondants à ces données manquantes et cela ne devrait pas avoir de sérieuses conséquences. S'il y en a beaucoup, c'est plus compliqué. Voyons dans quel cas on se trouve...
 
   </p>
 
@@ -497,7 +500,7 @@ temp_o   0.623215  0.726466  0.644963  1.000000
 
   <p>
     
-    La méthode <kbd>isna ()</kbd> du paquetage <kbd>pandas</kbd> indique les valeurs inconnues dans un vecteur sous la forme d'un vecteur de booléens. Le nombre de NAs peut ensuite être compté en sommant les booléens car une valeur <kbd>False</kbd> correspond à l'entier 0 et une valeur <kbd>True</kbd> correspond à l'entier 1.
+    La méthode <kbd>isna ()</kbd> du paquetage <kbd>pandas</kbd> indique les valeurs inconnues dans un vecteur sous la forme d'un vecteur de booléens. Le nombre de NAs peut ensuite être compté en sommant les booléens (car, comme vous le savez, une valeur <kbd>False</kbd> correspond à l'entier 0 et une valeur <kbd>True</kbd> correspond à l'entier 1).
 
     <br/>
     <br/>
@@ -538,7 +541,7 @@ temp_o   0.623215  0.726466  0.644963  1.000000
   <ul>
     <li>la fonction <kbd>append ()</kbd> du paquetage <kbd>numpy</kbd> met les éléments d'un vecteur au bout d'un autre. Par exemple&nbsp;: <kbd>np.append (np.array ([1, 2, 3]), np.array ([-1, 6, 9, -4]))</kbd> produit le vecteur <kbd>array([ 1,  2,  3, -1,  6,  9, -4])</kbd>.</li>
     <li>la fonction <kbd>delete ()</kbd> du paquetage <kbd>nnumpy</kbd> retire les valeurs dont les indices sont spécifiés. Par exemple&nbsp;: <kbd>np.delete (np.append (np.array ([1, 2, 3]), np.array ([-1, 6, 9, -4])), np.array ([3, 4, 1]))</kbd> produit le vecteur <kbd>array([ 1,  3,  9, -4])</kbd>.</li>
-    <li>la fonction <kbd>where ()</kbd> du paquetage <kbd>numpy</kbd> renvoie un vecteur contenant les indices d'un vecteur dont les éléments vérifient une certaines conditions. Par exemple, <kbd>np.where (np.array (range (10)) % 2 == 1)</kbd> renvoie <kbd>(array([1, 3, 5, 7, 9]),)</kbd> qui est un vecteur dont les éléments sont les indices des éléments impairs du premier.</li>
+    <li>la fonction <kbd>where ()</kbd> du paquetage <kbd>numpy</kbd> renvoie un vecteur contenant les indices d'un vecteur dont les éléments vérifient une certaine condition. Par exemple, <kbd>np.where (np.array (range (10)) % 2 == 1)</kbd> renvoie <kbd>(array([1, 3, 5, 7, 9]),)</kbd> qui est un vecteur dont les éléments sont les indices des éléments impairs du premier.</li>
   </ul>
   
   <p>
@@ -548,7 +551,7 @@ temp_o   0.623215  0.726466  0.644963  1.000000
     <br/>
     <br/>
     
-    <b>À faire&nbsp;:</b> calculez les coefficients des droites de régression linéaire entre les températures du salon, du sous-sol et à l'extérieur.
+    <b>À faire&nbsp;:</b> calculer les coefficients des droites de régression linéaire entre les températures du salon, du sous-sol et à l'extérieur.
 
     <br/>
 
@@ -560,6 +563,12 @@ temp_o   0.623215  0.726466  0.644963  1.000000
       <img src="./dr_b_lr.png" width="400pt"/>
   </p>
 
+    <p>
+
+      On ajoute une droite avec la méthode <kbd>plt.axline ()</kbd> du paquetage <kbd>matplotlib</kbd.>
+
+    </p>
+    
   <h4>Imputation des valeurs manquantes</h4>
 
   <p>
