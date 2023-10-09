@@ -341,7 +341,11 @@ arbre = arbre.fit (X_train, Y_train)
   <p>
 
     <b>À faire&nbsp;:</b> faites ce qui vient d'être expliqué. Quelle est la valeur de cette estimation&nbsp;?
-
+<div class="correction">
+<pre>prediction = arbre.predict (X_test)
+sum (arbre.predict (X_test) != Y_test) / X_test.shape [0]
+</pre>
+</div>
     <br/>
     <br/>
 
@@ -350,6 +354,10 @@ arbre = arbre.fit (X_train, Y_train)
     <br/>
 
     <b>À faire&nbsp;:</b> mesurer le taux d'erreur pour chaque classe. Les 3 classes sont-elles toutes les 3 prédites correctement avec la même probabilité&nbsp;?
+<div class="correction">
+<pre>
+</pre>
+</div>
     
   </p>
   
