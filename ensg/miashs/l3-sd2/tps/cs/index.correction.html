@@ -267,9 +267,24 @@ fig.show ()
   </p>
 
   <ol>
-    <li>on crée un vecteur de N nombres aléatoires uniformément répartis entre 0 et 1, où N est le nombre total de données. Pour cela, on utilise la fonction <kbd>random.rand (N)</kbd> du paquetage <kbd>numpy</kbd>. Appelons ce vecteur <kbd>v</kbd>.</li>
+    <li>on crée un vecteur de N nombres aléatoires uniformément répartis entre 0 et 1, où N est le nombre total de données. <!--Pour cela, on utilise la fonction <kbd>random.rand (N)</kbd> du paquetage <kbd>numpy</kbd>.--> Appelons ce vecteur <kbd>v</kbd>.
+      <div class="correction">
+<pre>import numpy as np
+graine = int ("LaScienceDesDonneesCestExtra", base=36)%2**31
+rs = np.random.RandomState (graine)
+rnd_v = rs.rand (olives.shape [0])
+</pre>
+      </div>
+    </li>
     <li>À partir de <kbd>v</kbd>, on construit un vecteur booléen qui contient 80% de valeurs <kbd>True</kbd>. Appelons ce vecteur <kbd>b</kbd>.</li>
+      <div class="correction">
+<pre>b = rnd_v < 0.8
+</pre>
     <li>On utilise <kbd>b</kbd> pour construire les deux jeux de données, l'un pour les données d'entraînement, l'autre pour les données de test. Appelons-les respectivement <kbd>olives_train</kbd> et <kbd>olives_test</kbd>.</li>
+      <div class="correction">
+<pre>olives_train = olives [b]
+olives_test = olives [~ b]
+</pre>
   </ol>
   
   <p>
