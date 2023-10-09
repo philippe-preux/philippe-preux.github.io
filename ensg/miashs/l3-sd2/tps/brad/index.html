@@ -631,18 +631,19 @@ temp_o   0.623215  0.726466  0.644963  1.000000
     <br/>
     <br/>
     
-    On peut imaginer au moins deux manières de donner une valeur&nbsp;:
+    On peut imaginer au moins trois manières de donner une valeur&nbsp;:
     
   </p>
   
   <ul>
-    <li>la moyenne des valeurs à l'instant d'avant et à l'instant d'après&nbsp;;</li>
+    <li>s'agissant d'une série temporelle (une suite de valeurs mesurées à des instants successifs), par inspection visuelle, on peut vérifier si les valeurs un peu avant et un peu après sont relativement constantes. Si elles sont constantes, on peut simplement remplacer le NA par cette valeur&nbsp;;</li>
+    <li>une solution très classique consiste à remplacer le NA par la moyenne des valeurs à l'instant d'avant et à l'instant d'après. Il est beaucoup mieux de réaliser une inspection visuelle et si celle-ci ne montre pas que la valeur est constante, faire un graphique de l'évolution de la valeur de l'attribut et «&nbsp;voir&nbsp;» quelle valeur conviendrait le mieux&nbsp;;</li>
     <li>utiliser les corrélations linéaires entre les températures dans les différents endroits pour prédire les valeurs manquantes.</li>
   </ul>
 
     <p>
 
-      <b>À faire&nbsp;:</b> réaliser et comparer les deux méthodes.
+      <b>À faire&nbsp;:</b> imputer les valeurs manquantes pour ces 3 pièces.
       
     </p>
     
