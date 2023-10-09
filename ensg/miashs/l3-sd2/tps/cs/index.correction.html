@@ -298,14 +298,27 @@ olives_test = olives [~ b]
     <li>Vérifier que la propotion des données de chacun des 3 classes est à peu près la même dans les deux jeux de données.
       <div class="correction">
 	On compare le résultat de ces deux commandes&nbsp;:
+	<br/>
 <pre>olives_train.region.value_counts()/olives_train.shape[0]
 olives_test.region.value_counts()/olives_test.shape[0]
 </pre>
+        <br/>
       C'est à peu près la même répartition. On peut faire mieux en séparant les exemples des 3 classes lors de la construction des deux sous-ensemble&nbsp;: on prend 80% des exemples de classe 1, 2 et 3 pour <kbd>olives_train</kbd> et les autres exemples pour <kbd>olives_test</kbd>. Ainsi, on est sûr que la répartition est la même dans les deux sous-ensembles.
       </div></li>
     <li>Induire un arbre de décision à partir de <kbd>olives_train</kbd>. Il y a beaucoup de paramètres qui peuvent être réglés mais nous nous en tiendrons à leur valeur par défaut dans un premier temps.
       <div class="correction">
-<pre>
+	<br/>
+	Pour simplifier les choses, je construis des tableaux de données contenant d'une part les données, d'autre part les classes, pour les deux sous-ensembles&nbsp;:
+	<br/>
+<pre>Classe = 1
+X_train = olives_train.iloc [:, 3:olives.shape[1]]
+Y_train = olives_train.iloc [:, 1]
+X_test = olives_test.iloc [:, 3:olives.shape[1]]
+Y_test = olives_test.iloc [:, 1]
+
+from sklearn import tree
+arbre = tree.DecisionTreeClassifier()
+arbre = arbre.fit (X_train, Y_train)
 </pre>
       </div></li>
   </ol>
