@@ -58,6 +58,11 @@
     <br/><br/>
 
     <b>À faire&nbsp;:</b> dans python, en s'aidant si nécessaire de la documentation, charger ce fichier dans un objet dénommé <kbd>olives</kbd>.
+
+    <div class="correction">
+<pre>olives = pd.read_csv ("/home/ppreux/philippe-preux.github.io/ensg/miashs/datasets/olives.csv", header = 0)
+</pre>
+    </div>
     
   </p>
 
@@ -133,8 +138,20 @@
       <kbd>olives.stearic [:]</kbd><br/>
       ou autre variante&nbsp;: <kbd>olives.stearic.values</kbd>.
     </li>
-    <li>Je vous laisse trouver comment on accède à l'attribut 5 des données numérotées 20 à 28.</li>
-    <li>Je vous laisse trouver comment on accède aux attributs 3 à 6 des données numérotées 20 à 28.</li>
+    <li>Je vous laisse trouver comment on accède à l'attribut 5 des données numérotées 20 à 28.
+      <br/>
+    <div class="correction">
+<pre>olives.iloc [20:29,5]
+</pre>
+    </div>
+    </li>
+    <li>Je vous laisse trouver comment on accède aux attributs 3 à 6 des données numérotées 20 à 28.
+      <br/>
+      <div class="correction">
+<pre>olives.iloc [20:29,3:7]
+</pre>
+    </div>
+    </li>
   </ul>
 
   <h3>Quelques opérations simples</h3>
@@ -154,10 +171,74 @@
     <li>variance de l'attribut 5&nbsp;?</li>
   </ul>
 
+  <div class="correction">
+<pre>>>> olives.iloc [:,5].mean()
+228.8653846153846
+>>> olives.iloc [:,5].mean ()
+228.8653846153846
+>>> olives.iloc [:,5].min ()
+152
+>>> olives.iloc [:,5].max ()
+375
+>>> olives.iloc [:,5].median ()
+223.0
+>>> olives.iloc [:,5].std ()
+36.74493506956942
+>>> olives.iloc [:,5].var ()
+1350.190253266873
+</pre>
+  </div>
+    
   <p>
 
     Mêmes choses pour les attributs 3 à 6.
 
+    <div class="correction">
+<pre>>>> olives.iloc [:,3:7].var ()
+palmitic        28423.351500
+palmitoleic      2755.658322
+stearic          1350.190253
+oleic          164681.936512
+dtype: float64
+>>> olives.iloc [:,3:7].mean ()
+palmitic       1231.741259
+palmitoleic     126.094406
+stearic         228.865385
+oleic          7311.748252
+dtype: float64
+>>> olives.iloc [:,3:7].min ()
+palmitic        610
+palmitoleic      15
+stearic         152
+oleic          6300
+dtype: int64
+>>> olives.iloc [:,3:7].max ()
+palmitic       1753
+palmitoleic     280
+stearic         375
+oleic          8410
+dtype: int64
+>>> olives.iloc [:,3:7].median ()
+palmitic       1201.0
+palmitoleic     110.0
+stearic         223.0
+oleic          7302.5
+dtype: float64
+>>> olives.iloc [:,3:7].std ()
+palmitic       168.592264
+palmitoleic     52.494365
+stearic         36.744935
+oleic          405.810222
+dtype: float64
+>>> olives.iloc [:,3:7].var ()
+palmitic        28423.351500
+palmitoleic      2755.658322
+stearic          1350.190253
+oleic          164681.936512
+dtype: float64
+</pre>
+    </div>
+    
     <br/>
     <br/>
 
@@ -178,6 +259,20 @@
     <li>la plus grande&nbsp;?</li>
   </ul>
 
+  <div class="correction">
+<pre>>>> olives [olives.stearic == olives.stearic.min ()]
+      Region Name  region  area  ...  linolenic  arachidic  eicosenoic
+304  South-Apulia       1     3  ...         27         50          20
+
+[1 rows x 11 columns]
+>>> olives [olives.stearic == olives.stearic.max ()]
+    Region Name  region  area  ...  linolenic  arachidic  eicosenoic
+262      Sicily       1     4  ...         52         69          45
+
+[1 rows x 11 columns]
+</pre>
+  </div>
+    
   <p>
 
     Pour les attributs numériques, on peut utiliser les méthodes de la bibliotèque <kbd>numpy</kbd>. Par exemple, pour calculer la valeur moyenne de l'attribut 5, on peut aussi écrire&nbsp;: <kbd>np.mean (olives.iloc [:,5])</kbd> (en supposant que vous avez importé <kbd>numpy</kbd> en le renommant <kbd>np</kbd>).
@@ -186,6 +281,36 @@
     <br/>
 
     <b>À faire&nbsp;:</b> répondre aux deux questions précédentes en utilisant des méthodes de la bibliothèque <kbd>numpy</kbd>.
+    
+    <div class="correction">
+<pre>>>> olives.iloc [np.argmin (olives.stearic)]
+Region Name    South-Apulia
+region                    1
+area                      3
+palmitic               1420
+palmitoleic             175
+stearic                 152
+oleic                  7004
+linoleic               1149
+linolenic                27
+arachidic                50
+eicosenoic               20
+Name: 304, dtype: object
+>>> olives.iloc [np.argmax (olives.stearic)]
+Region Name    Sicily
+region              1
+area                4
+palmitic         1112
+palmitoleic        68
+stearic           375
+oleic            7770
+linoleic          448
+linolenic          52
+arachidic          69
+eicosenoic         45
+Name: 262, dtype: object
+</pre>
+    </div>
     
   </p>
 
@@ -211,10 +336,63 @@
 
   <ul>
     <li>Vérifier que python vous laisse calculer la moyenne des attributs <kbd>region</kbd> et <kbd>area</kbd>, ce qui n'a aucun sens.</li>
-    <li>Transformer-les en attributs catégoriques.</li>
+    <li>Transformer les en attributs catégoriques.</li>
     <li>Vérifier que vous ne pouvez plus calculer la moyenne de ces attributs.</li>
   </ul>
-  
+
+
+
+  <div class="correction">
+    <br/>
+    On vérifie que python nous laisse calculer la moyenne des attributs <kbd>region</kbd> et <kbd>area</kbd>&nbsp;:
+    <br/>
+<pre>>>> olives.region.mean()
+1.6993006993006994
+>>> olives.area.mean()
+4.59965034965035
+</pre>
+<br/>
+    On indique que ce sont des attributs nominaux&nbsp;:
+<br/>
+<pre>>>> olives.region = olives.region.astype("category")
+>>> olives.area = olives.area.astype("category")
+</pre>
+    <br/>
+    et on ne peut plus calculer leur moyenne&nbsp;:
+    <br/>
+<pre>>>> olives.region.mean()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/home/ppreux/.local/lib/python3.10/site-packages/pandas/core/generic.py", line 11847, in mean
+    return NDFrame.mean(self, axis, skipna, level, numeric_only, **kwargs)
+  File "/home/ppreux/.local/lib/python3.10/site-packages/pandas/core/generic.py", line 11401, in mean
+    return self._stat_function(
+  File "/home/ppreux/.local/lib/python3.10/site-packages/pandas/core/generic.py", line 11353, in _stat_function
+    return self._reduce(
+  File "/home/ppreux/.local/lib/python3.10/site-packages/pandas/core/series.py", line 4797, in _reduce
+    return delegate._reduce(name, skipna=skipna, **kwds)
+  File "/home/ppreux/.local/lib/python3.10/site-packages/pandas/core/arrays/base.py", line 1435, in _reduce
+    raise TypeError(
+TypeError: 'Categorical' with dtype category does not support reduction 'mean'
+>>> olives.area.mean()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/home/ppreux/.local/lib/python3.10/site-packages/pandas/core/generic.py", line 11847, in mean
+    return NDFrame.mean(self, axis, skipna, level, numeric_only, **kwargs)
+  File "/home/ppreux/.local/lib/python3.10/site-packages/pandas/core/generic.py", line 11401, in mean
+    return self._stat_function(
+  File "/home/ppreux/.local/lib/python3.10/site-packages/pandas/core/generic.py", line 11353, in _stat_function
+    return self._reduce(
+  File "/home/ppreux/.local/lib/python3.10/site-packages/pandas/core/series.py", line 4797, in _reduce
+    return delegate._reduce(name, skipna=skipna, **kwds)
+  File "/home/ppreux/.local/lib/python3.10/site-packages/pandas/core/arrays/base.py", line 1435, in _reduce
+    raise TypeError(
+TypeError: 'Categorical' with dtype category does not support reduction 'mean'
+</pre>
+
+	Toutes ces lignes incompréhensibles pour que python nous indique qu'il ne peut pas calculer la moyenne d'un attribut catégoriel.
+  </div>
+	
   <p>
 
     Pour les attributs catégoriques, il est intéressant d'obtenir la liste des valeurs présentes dans le jeu de données et également le nombre de données dans chaque catégorie.
@@ -230,7 +408,27 @@
     <li>Pour obtenir la liste des valeurs, on utilise la méthode <kbd>unique()</kbd>.</li>
     <li>Pour obtenir le décompte de données correspondant à chaque valeur d'un attribut catégorique, on utilise la méthode <kbd>value_counts()</kbd>.</li>
   </ul>
-  
+
+  <div class="correction">
+<pre>>>> olives ["Region Name"].unique()
+['North-Apulia', 'Calabria', 'South-Apulia', 'Sicily', 'Inland-Sardinia', 'Coast-Sardinia', 'Umbria', 'East-Liguria', 'West-Liguria']
+Categories (9, object): ['Calabria', 'Coast-Sardinia', 'East-Liguria', 'Inland-Sardinia', ...,
+                         'Sicily', 'South-Apulia', 'Umbria', 'West-Liguria']
+>>> olives ["Region Name"].value_counts()
+South-Apulia       206
+Inland-Sardinia     65
+Calabria            56
+Umbria              51
+East-Liguria        50
+West-Liguria        50
+Sicily              36
+Coast-Sardinia      33
+North-Apulia        25
+Name: Region Name, dtype: int64
+</pre>
+  </div>
+    
+
   <!--h3></h3>
 
   <p>

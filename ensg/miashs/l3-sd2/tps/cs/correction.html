@@ -310,14 +310,13 @@ olives_test.region.value_counts()/olives_test.shape[0]
 	<br/>
 	Pour simplifier les choses, je construis des tableaux de données contenant d'une part les données, d'autre part les classes, pour les deux sous-ensembles&nbsp;:
 	<br/>
-<pre>Classe = 1
-X_train = olives_train.iloc [:, 3:olives.shape[1]]
+<pre>X_train = olives_train.iloc [:, 3:olives.shape[1]]
 Y_train = olives_train.iloc [:, 1]
 X_test = olives_test.iloc [:, 3:olives.shape[1]]
 Y_test = olives_test.iloc [:, 1]
 
 from sklearn import tree
-arbre = tree.DecisionTreeClassifier()
+arbre = tree.DecisionTreeClassifier(random_state = rs)
 arbre = arbre.fit (X_train, Y_train)
 </pre>
       </div></li>
@@ -353,10 +352,16 @@ sum (arbre.predict (X_test) != Y_test) / X_test.shape [0]
 
     <br/>
 
-    <b>À faire&nbsp;:</b> mesurer le taux d'erreur pour chaque classe. Les 3 classes sont-elles toutes les 3 prédites correctement avec la même probabilité&nbsp;?
-<div class="correction">
-<pre>à suivre...
+    <b>À faire&nbsp;:</b> mesurer le taux d'erreur pour chaque classe. Les 3 classes sont-elles toutes les 3 prédites correctement avec le même taux d'erreur&nbsp;?
+    <div class="correction">
+      On peut répondre que comme il n'y a aucun exemple mal prédit, c'est vrai pour les 3 classes.
+      <br/>
+      Si ce n'était pas le cas on pourrait procéder comme suite&nbsp;:
+<pre>sum((Y_test == 1) & (arbre.predict (X_test) != Y_test))
+sum((Y_test == 2) & (arbre.predict (X_test) != Y_test))
+sum((Y_test == 3) & (arbre.predict (X_test) != Y_test))
 </pre>
+      Les 3 commandes python renvoient la valeur 0.
 </div>
     
   </p>
@@ -389,10 +394,21 @@ fig.show ()
   <p>
     
     <b>À faire&nbsp;:</b> réalisez ce graphique et le comprendre. En particulier, comprendre ce qui est affiché dans chaque n&oelig;ud.
-<div class="correction">
-<pre>à suivre...
-</pre>
-</div>
+    <div class="correction">
+      Chaque n&eolig;ud contient&nbsp;:
+      <ul>
+	<li>le test qui y est réalisé</li>
+	<li>l'indice d'impureté de Gini des exemples atteignant ce n&oelig;ud</li>
+	<li>le nombre d'exemples atteingnant ce n&oelig;ud</li>
+	<li>le nombre d'exemples de chacune des classes atteignant ce n&oelig;ud</li>
+      </ul>
+      Chaque feuille contient&nbsp;:
+      <ul>
+	<li>l'indice d'impureté de Gini (ici 0)</li>
+	<li>le nombre d'exemples atteignant cette feuille</li>
+	<li>le nombre d'exemples de chacune des classes atteignant ce n&oelig;ud. COmme cet arbre ne commet aucune erreur de prédiction sur les exemples d'entraînement, on retrouve uniquement les exemples d'une seule classe dans chacune des feuilles.</li>
+      </ul>
+    </div>
 
     <br/>
     <br/>
@@ -419,7 +435,7 @@ fig.show ()
 
     <b>Faites-le.</b>
 <div class="correction">
-<pre>à suivre...
+<pre>tree.plot_tree (arbre, feature_names = list (olives_test), class_names = ["Sud", "Sardaigne", "Nord"], filled = True)
 </pre>
 </div>
 
@@ -431,7 +447,7 @@ fig.show ()
     <br/>
 
     <b>Faites-le&nbsp;: quelles sont ces règles&nbsp;?</b>
-
+    <br/>
     <div class="correction">
       <b>Si</b> linoleic &gt; 6,5 <b>alors</b> la classe est Sud
       <br/>
@@ -459,28 +475,32 @@ fig.show ()
 
     <b>À faire&nbsp;:</b> effectuer ce qui vient d'être expliqué. Que pensez-vous du résultat&nbsp;?
 <div class="correction">
-<pre>à suivre...
+<pre>N = 30
+taux = np.zeros (N)
+for i in range (N):
+    rnd_v = rs.rand (olives.shape [0])
+    rnd_train = rnd_v < 0.8
+    rnd_test = rnd_v >= 0.8
+    olives_train = olives [rnd_train]
+    olives_test = olives [rnd_test]
+    X_train2 = olives_train.iloc [:, 3:olives.shape[1]]
+    Y_train2 = olives_train.iloc [:, 1]
+    X_test2 = olives_test.iloc [:, 3:olives.shape[1]]
+    Y_test2 = olives_test.iloc [:, 1]
+    arbreN = tree.DecisionTreeClassifier (random_state = rs)
+    arbreN = arbreN.fit (X_train2, Y_train2)
+    taux [i] = sum (arbreN.predict (X_test2) != Y_test2) / X_test2.shape [0]
 </pre>
+  On peut ensuite afficher <kbd>np.mean (taux)</kbd> et constater que le taux d'erreur est très faible en moyenne.
 </div>
 
   </p>
 
   <h3>Reproductibilité</h3>
 
-  <!--p>
-    
-    <img src="https://philippe-preux.github.io/img/attention-vector-id866109136.jpg" width="300pt" />
-
-    Le contenu de cette section a changé depuis la séance du 18 octobre.
-    Si vous aviez atteint cet partie de l'énoncé, corrigez votre code python.
-    
-  </p-->
-  
   <p>
 
     Pour construire les jeux de données d'entraînement et de test, nous avons utilisé des nombres générés pseudo-aléatoirement. Si vous effectuez ce qui a été expliqué plus haut pour l'induction d'un arbre deux fois de suite, vous obtiendrez des résultats différents (dans le cas présent, la différence est petite). Il est important de pouvoir reproduire les résultats que vous avez obtenu. Pour cela, il faut que les nombres pseudo-aléatoires qui sont générés soient les mêmes d'une exécution à la suivante. Pour obtenir ce résultat, il faut initialiser la <i>graine</i> du générateur de nombres pseudo-aléatoires.
-    <!--
-	Ces nombres étant générés dans le paquetage <kbd>numpy</kbd>, il faut initialiser cette graine dès que ce paquetage a été chargé. Pour cela, on exécute l'instruction <kbd>np.random.seed (le-nombre-que-vous-voulez)</kbd> où vous remplacez <kbd>le-nombre-que-vous-voulez</kbd> par le nombre que vous voulez, éventuellement avec beaucoup de chiffres. -->
     On fait ainsi&nbsp;:
 
   </p>
@@ -507,11 +527,7 @@ DecisionTreeClassifier (random_state = rs)
   <p>
 
     <b>À faire&nbsp;:</b> effectuer l'initialisation de cette graine et refaites toute la procédure d'induction d'arbre. Estimer sa probabiité d'erreur. Si vous effectuez cela plusieurs fois, vous devez obtenir exactement le même résultat à chaque fois.
-<div class="correction">
-<pre>à suivre...
-</pre>
-</div>
-    
+
   </p>
 
   <h2>Pour finir...</h2>
