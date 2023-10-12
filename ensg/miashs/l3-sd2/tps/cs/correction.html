@@ -9,13 +9,12 @@
 	rel="stylesheet" type="text/css" media="all" />
   <link rel="shortcut icon" type="image/x-icon" 
 	href="https://philippe-preux.github.io/img/site.ico" />
+  <style type="text/css">
+    .aligncenter {
+	text-align: center;
+    }
+  </style>
 </head>
-
-<style>
-  .aligncenter {
-      text-align: center;
-  }
-</style>
 
 <body>
 <div class="tpR">
@@ -57,7 +56,7 @@
 
   <p class="aligncenter">
     <!--figure-->
-      <img src="./olives-italie.png" width="400pt"/>
+      <img src="./olives-italie.png" width="400pt" alt="carte des zones géographiques d'origine des olvies du jeu de données" />
       <!--figcaption--><font size="-3">(Cette figure est issue du livre sur <a href="http://ggobi.org/book.html">ggobi</a>.)</font><!--/figcaption-->
     <!--/figure-->
   </p>
@@ -104,7 +103,7 @@
   </p>
 
   <p class="aligncenter">
-    <img src="palmitic-par-classe.png" width="500pt" align="middle" />
+    <img src="palmitic-par-classe.png" width="500pt" align="middle" alt="Taux d'acide palmatique dans les olives du jeu de données" />
   </p>
 
   <ul>
@@ -168,7 +167,7 @@ fig.show ()
 
     <br/>
 
-    Remarque&nbsp: pour réaliser ce graphique, j'ai ajouté une colonne <kbd>numero</kbd> au tableau de données <kbd>olives</kbd>. Cette colonne contient tout simplement le numéro de la donnée.
+    Remarque&nbsp;: pour réaliser ce graphique, j'ai ajouté une colonne <kbd>numero</kbd> au tableau de données <kbd>olives</kbd>. Cette colonne contient tout simplement le numéro de la donnée.
 
     <br/>
     <br/>
@@ -178,7 +177,7 @@ fig.show ()
   </p>
 
   <p class="aligncenter">
-    <img src="allure-generale.png" width="500pt" />
+    <img src="allure-generale.png" width="500pt" alt="Allure générale du graphique recherché." />
   </p>
   
   <p>
@@ -199,7 +198,7 @@ fig.show ()
 
   <p>
 
-    «&nbsp;Bivariée&nbsp» signifie que l'on considère deux attributs.
+    «&nbsp;Bivariée&nbsp;» signifie que l'on considère deux attributs.
     L'idée est ici la même que précédemment, mais au lieu de chercher une relation entre un attribut et la classe, on cherche une relation entre un couple d'attributs et la classe.
 
     <br/>
@@ -209,7 +208,7 @@ fig.show ()
   </p>
 
   <p class="aligncenter">
-    <img src="../graphiques/olives-palmitic-vs-oleic-against-region.png" width="500pt" />
+    <img src="../graphiques/olives-palmitic-vs-oleic-against-region.png" width="500pt" alt="Les olives du jeu de données dans le plan des attributs oleic/palmitic." />
   </p>
   
   <p>
@@ -300,7 +299,7 @@ fig.show ()
 graine = int ("LaScienceDesDonneesCestExtra", base=36)%2**31
 rs = np.random.RandomState (graine)
 rnd_v = rs.rand (olives.shape [0])
-b = rnd_v < 0.8
+b = rnd_v &lt; 0.8
 olives_train = olives [b]
 olives_test = olives [~ b]
 </pre>
@@ -368,8 +367,8 @@ sum (arbre.predict (X_test) != Y_test) / X_test.shape [0]
       <br/>
       Si ce n'était pas le cas on pourrait procéder comme suite&nbsp;:
 <pre>sum((Y_test == 1) & (arbre.predict (X_test) != Y_test))
-sum((Y_test == 2) & (arbre.predict (X_test) != Y_test))
-sum((Y_test == 3) & (arbre.predict (X_test) != Y_test))
+sum((Y_test == 2) &amp; (arbre.predict (X_test) != Y_test))
+sum((Y_test == 3) &amp; (arbre.predict (X_test) != Y_test))
 </pre>
       Les 3 commandes python renvoient la valeur 0.
 </div>
@@ -398,14 +397,14 @@ fig.show ()
   </p>
 
   <p class="aligncenter">
-    <img src="arbre-region.png" width="500pt" />
+    <img src="arbre-region.png" width="500pt" alt="Arbre de décision" />
   </p>
   
   <p>
     
     <b>À faire&nbsp;:</b> réalisez ce graphique et le comprendre. En particulier, comprendre ce qui est affiché dans chaque n&oelig;ud.
     <div class="correction">
-      Chaque n&eolig;ud contient&nbsp;:
+      Chaque n&oelig;ud contient&nbsp;:
       <ul>
 	<li>le test qui y est réalisé</li>
 	<li>l'indice d'impureté de Gini des exemples atteignant ce n&oelig;ud</li>
@@ -428,7 +427,7 @@ fig.show ()
   </p>
 
   <p class="aligncenter">
-    <img src="arbre-region-avec-le-nom-des-attributs.png" width="500pt" />
+    <img src="arbre-region-avec-le-nom-des-attributs.png" width="500pt" alt="Arbre de décision avec le nom des attributs" />
   </p>
   
   <p>
@@ -438,7 +437,7 @@ fig.show ()
   </p>
   
   <p class="aligncenter">
-    <img src="arbre-region-plus-joli.png" width="500pt" />
+    <img src="arbre-region-plus-joli.png" width="500pt" alt="Joli arbre de décision" />
   </p>
   
   <p>
