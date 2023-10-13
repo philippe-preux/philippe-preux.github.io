@@ -130,11 +130,13 @@
 
     <b>À faire&nbsp;:</b> réalisez ce graphique pour chacun des 8 acides et concluez (vérifiez que vous obtenez bien le même graphique que moi pour l'acide palmitique). Y a-t-il un, ou des attributs, qui permet de déterminer la région d'origine&nbsp;? ou qui peut aider&nbsp;?
 
+  </p>
+  
     <div class="correction">
 
       Méthode 1&nbsp;: on crée un graphique par acide, c'est-à-dire 8 graphiques&nbsp;:
       
-<pre>
+      <pre>
 import matplotlib
 import matplotlib.pyplot as plt
 olives ["numero"] = range (olives.shape [0])
@@ -143,13 +145,13 @@ for acide in acides:
     olives.plot.scatter (x = acide, y = "numero", title = "Scatter plot", c = "region", colormap = "plasma")
 
 plt.show ()
-</pre>
+      </pre>
 
       <br/>
 
       Méthode 2&nbsp;: on crée un seul graphique avec tous les acides&nbsp;:
       
-<pre>
+      <pre>
 import matplotlib
 import matplotlib.pyplot as plt
 olives ["numero"] = range (olives.shape [0])
@@ -161,20 +163,19 @@ for i in range (4):
         ax [i, j]. set_xlabel (acides [2*i+j])
 
 fig.show ()
-</pre>
-
+      </pre>
     </div>
 
-    <br/>
+    <p>
 
-    Remarque&nbsp;: pour réaliser ce graphique, j'ai ajouté une colonne <kbd>numero</kbd> au tableau de données <kbd>olives</kbd>. Cette colonne contient tout simplement le numéro de la donnée.
+      Remarque&nbsp;: pour réaliser ce graphique, j'ai ajouté une colonne <kbd>numero</kbd> au tableau de données <kbd>olives</kbd>. Cette colonne contient tout simplement le numéro de la donnée.
 
-    <br/>
-    <br/>
+      <br/>
+      <br/>
+      
+      <b>À faire&nbsp;:</b> sans dévoiler la solution, vous devez trouver un attribut qui sépare l'une des classes des deux autres. Pour celui-ci, vous obtenez un graphique qui ressemble à celui-ci&nbsp;:
 
-    <b>À faire&nbsp;:</b> sans dévoiler la solution, vous devez trouver un attribut qui sépare l'une des classes des deux autres. Pour celui-ci, vous obtenez un graphique qui ressemble à celui-ci&nbsp;:
-
-  </p>
+    </p>
 
   <p class="aligncenter">
     <img src="allure-generale.png" width="500pt" alt="Allure générale du graphique recherché." />
@@ -349,31 +350,37 @@ arbre = arbre.fit (X_train, Y_train)
   <p>
 
     <b>À faire&nbsp;:</b> faites ce qui vient d'être expliqué. Quelle est la valeur de cette estimation&nbsp;?
-<div class="correction">
-<pre>prediction = arbre.predict (X_test)
+
+  </p>
+  
+  <div class="correction">
+    <pre>
+>>>prediction = arbre.predict (X_test)
 sum (arbre.predict (X_test) != Y_test) / X_test.shape [0]
-</pre>
-</div>
-    <br/>
-    <br/>
+    </pre>
+  </div>
+
+  <p>
 
     Il est intéressant de mesurer ce taux d'erreur pour chaque classe.
 
     <br/>
 
     <b>À faire&nbsp;:</b> mesurer le taux d'erreur pour chaque classe. Les 3 classes sont-elles toutes les 3 prédites correctement avec le même taux d'erreur&nbsp;?
-    <div class="correction">
-      On peut répondre que comme il n'y a aucun exemple mal prédit, c'est vrai pour les 3 classes.
-      <br/>
-      Si ce n'était pas le cas on pourrait procéder comme suite&nbsp;:
-<pre>sum((Y_test == 1) & (arbre.predict (X_test) != Y_test))
-sum((Y_test == 2) &amp; (arbre.predict (X_test) != Y_test))
-sum((Y_test == 3) &amp; (arbre.predict (X_test) != Y_test))
-</pre>
-      Les 3 commandes python renvoient la valeur 0.
-</div>
     
   </p>
+  
+  <div class="correction">
+    On peut répondre que comme il n'y a aucun exemple mal prédit, c'est vrai pour les 3 classes.
+    <br/>
+    Si ce n'était pas le cas on pourrait procéder comme suite&nbsp;:
+    <pre>
+>>> sum((Y_test == 1) & (arbre.predict (X_test) != Y_test))
+sum((Y_test == 2) &amp; (arbre.predict (X_test) != Y_test))
+sum((Y_test == 3) &amp; (arbre.predict (X_test) != Y_test))
+    </pre>
+    Les 3 commandes python renvoient la valeur 0.
+  </div>
   
   <h3>Interprétation d'un arbre de décision</h3>
 
@@ -383,12 +390,13 @@ sum((Y_test == 3) &amp; (arbre.predict (X_test) != Y_test))
     
   </p>
 
-<pre>import matplotlib as mpl
+  <pre>
+>>> import matplotlib as mpl
 import matplotlib.pyplot as plt
 fig, ax = plt.subplots ()
 tree.plot_tree (arbre)
 fig.show ()
-</pre>
+  </pre>
 
   <p>
     
@@ -403,24 +411,26 @@ fig.show ()
   <p>
     
     <b>À faire&nbsp;:</b> réalisez ce graphique et le comprendre. En particulier, comprendre ce qui est affiché dans chaque n&oelig;ud.
-    <div class="correction">
-      Chaque n&oelig;ud contient&nbsp;:
-      <ul>
-	<li>le test qui y est réalisé</li>
-	<li>l'indice d'impureté de Gini des exemples atteignant ce n&oelig;ud</li>
-	<li>le nombre d'exemples atteingnant ce n&oelig;ud</li>
-	<li>le nombre d'exemples de chacune des classes atteignant ce n&oelig;ud</li>
-      </ul>
-      Chaque feuille contient&nbsp;:
-      <ul>
-	<li>l'indice d'impureté de Gini (ici 0)</li>
-	<li>le nombre d'exemples atteignant cette feuille</li>
-	<li>le nombre d'exemples de chacune des classes atteignant ce n&oelig;ud. COmme cet arbre ne commet aucune erreur de prédiction sur les exemples d'entraînement, on retrouve uniquement les exemples d'une seule classe dans chacune des feuilles.</li>
-      </ul>
-    </div>
 
-    <br/>
-    <br/>
+  </p>
+  
+  <div class="correction">
+    Chaque n&oelig;ud contient&nbsp;:
+    <ul>
+      <li>le test qui y est réalisé</li>
+      <li>l'indice d'impureté de Gini des exemples atteignant ce n&oelig;ud</li>
+      <li>le nombre d'exemples atteingnant ce n&oelig;ud</li>
+      <li>le nombre d'exemples de chacune des classes atteignant ce n&oelig;ud</li>
+    </ul>
+    Chaque feuille contient&nbsp;:
+    <ul>
+      <li>l'indice d'impureté de Gini (ici 0)</li>
+      <li>le nombre d'exemples atteignant cette feuille</li>
+      <li>le nombre d'exemples de chacune des classes atteignant ce n&oelig;ud. COmme cet arbre ne commet aucune erreur de prédiction sur les exemples d'entraînement, on retrouve uniquement les exemples d'une seule classe dans chacune des feuilles.</li>
+    </ul>
+  </div>
+
+  <p>
 
     Les tests réalisés à chaque n&oelig;ud sont difficile à comprendre. Pour afficher le nom des attributs, on ajoutera <kbd>feature_names = list (olives_test)</kbd> dans l'appel de la méthode <kbd>plot_tree()</kbd>. Et on obtient&nbsp;:
     
@@ -443,31 +453,33 @@ fig.show ()
   <p>
 
     <b>Faites-le.</b>
-<div class="correction">
-<pre>tree.plot_tree (arbre, feature_names = list (olives_test), class_names = ["Sud", "Sardaigne", "Nord"], filled = True)
-</pre>
-</div>
 
-    <br/>
-    <br/>
+  </p>
+  
+  <div class="correction">
+    <pre>
+>>> tree.plot_tree (arbre, feature_names = list (olives_test), class_names = ["Sud", "Sardaigne", "Nord"], filled = True)
+    </pre>
+  </div>
+
+  <p>
 
     Un arbre de décision peut facilement être transformé en un ensemble de règles de décision. Ici l'arbre est très petit, c'est facile.
 
     <br/>
 
     <b>Faites-le&nbsp;: quelles sont ces règles&nbsp;?</b>
-    <br/>
-    <div class="correction">
-      <b>Si</b> linoleic &gt; 6,5 <b>alors</b> la classe est Sud
-      <br/>
-      <b>Sinon si</b>palmitoleic &lt; 1053,5 <b>alors</b> la classe est Nord
-      <br/>
-      <b>Sinon</b> la classe est Sardaigne.
-    </div>
-    
+
   </p>
 
-  
+  <div class="correction">
+    <b>Si</b> linoleic &gt; 6,5 <b>alors</b> la classe est Sud
+    <br/>
+    <b>Sinon si</b>palmitoleic &lt; 1053,5 <b>alors</b> la classe est Nord
+    <br/>
+    <b>Sinon</b> la classe est Sardaigne.
+  </div>
+    
   <h3>Test de l'arbre de décision</h3>
 
   <p>
@@ -483,8 +495,12 @@ fig.show ()
     <br/>
 
     <b>À faire&nbsp;:</b> effectuer ce qui vient d'être expliqué. Que pensez-vous du résultat&nbsp;?
-<div class="correction">
-<pre>N = 30
+
+  </p>
+  
+  <div class="correction">
+    <pre>
+N = 30
 taux = np.zeros (N)
 for i in range (N):
     rnd_v = rs.rand (olives.shape [0])
@@ -501,9 +517,7 @@ for i in range (N):
     taux [i] = sum (arbreN.predict (X_test2) != Y_test2) / X_test2.shape [0]
 </pre>
   On peut ensuite afficher <kbd>np.mean (taux)</kbd> et constater que le taux d'erreur est très faible en moyenne.
-</div>
-
-  </p>
+    </div>
 
   <h3>Reproductibilité</h3>
 
@@ -548,12 +562,14 @@ DecisionTreeClassifier (random_state = rs)
     <br/>
 
     Arrive-t-on à bien prédire toutes les classes&nbsp;? Aussi bien que la région&nbsp;?
-    
-<div class="correction">
-<pre>à suivre...
-</pre>
-</div>
+
   </p>
+  
+  <div class="correction">
+    <pre>
+à suivre...
+    </pre>
+  </div>
   
 </div>
 
