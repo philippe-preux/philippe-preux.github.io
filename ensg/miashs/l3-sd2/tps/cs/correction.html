@@ -375,7 +375,7 @@ sum (arbre.predict (X_test) != Y_test) / X_test.shape [0]
     <br/>
     Si ce n'était pas le cas on pourrait procéder comme suite&nbsp;:
     <pre>
->>> sum((Y_test == 1) & (arbre.predict (X_test) != Y_test))
+>>> sum((Y_test == 1) &amp; (arbre.predict (X_test) != Y_test))
 sum((Y_test == 2) &amp; (arbre.predict (X_test) != Y_test))
 sum((Y_test == 3) &amp; (arbre.predict (X_test) != Y_test))
     </pre>
@@ -442,7 +442,7 @@ fig.show ()
   
   <p>
 
-    En consultant <a hef="https://scikit-learn.org/stable/modules/tree.html#tree">la documentation</a>, on peut avoir une représentation plus jolie et informative avec la classe prédite qui est indiquée dans chaque feuille, comme celle-ci&nbsp;:
+    En consultant <a href="https://scikit-learn.org/stable/modules/tree.html#tree">la documentation</a>, on peut avoir une représentation plus jolie et informative avec la classe prédite qui est indiquée dans chaque feuille, comme celle-ci&nbsp;:
 
   </p>
   
@@ -504,8 +504,8 @@ N = 30
 taux = np.zeros (N)
 for i in range (N):
     rnd_v = rs.rand (olives.shape [0])
-    rnd_train = rnd_v < 0.8
-    rnd_test = rnd_v >= 0.8
+    rnd_train = rnd_v &lt; 0.8
+    rnd_test = rnd_v &gt;= 0.8
     olives_train = olives [rnd_train]
     olives_test = olives [rnd_test]
     X_train2 = olives_train.iloc [:, 3:olives.shape[1]]
