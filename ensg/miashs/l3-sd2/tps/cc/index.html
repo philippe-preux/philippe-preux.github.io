@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Contrôle 1</title>
+  <link href="https://philippe-preux.github.io/css/ma.css" 
+	rel="stylesheet" type="text/css" media="all" />
+  <link rel="shortcut icon" type="image/x-icon" 
+	href="https://philippe-preux.github.io/img/site.ico" />
+</head>
+
+<body>
+<div class="tpR">
+
+  <h1>Contrôle 1</h1>
+  <h3>Science des données 2
+    <br/>
+    L3 MIASHS, 16 octobre 2023
+    <br/>
+    Tout document autorisé
+    <br/>
+    Durée&nbsp;: 1h45</h3>
+
+  <p>
+
+    Ce contrôle s'appuie sur le travail réalisé depuis le début du semestre.
+
+    <br/>
+    <br/>
+
+    La difficulté des questions va de très facile à moins facile. Seules les toutes dernières questions sont un peu plus compliquées, mais largement faisables pour quiconque a réalisé les TPs jusqu'à maintenant.
+
+    <br/>
+    <br/>
+
+    L'énoncé est ci-dessous. Vous répondez dans <a href="./Prénom-Nom.cc1-sd2.odt">ce document</a> que vous m'envoyez au plus tard à 16h (horaire strict). Vous m'envoyez également un fichier contenant le code python à exécuter pour résoudre les questions. Je dois pouvoir exécuter ce script sans erreur.
+
+  </p>
+
+  <h2>Énoncé</h2>
+
+  <p>
+
+    Nous allons étudier un jeu de données qui contient toutes les éruptions volcaniques connues s'étant déroulées jusqu'en 2020.
+
+    <br/>
+
+    Ce fichier est disponible à l'url <kbd>https://philippe-preux.github.io/ensg/miashs/datasets/eok.csv</kbd>.
+    <br/>
+
+    Pour chaque éruption, le jeu de données indique&nbsp;:
+
+  </p>
+
+  <ul>
+    <li>un numéro du volcan concerné&nbsp;;</li>
+    <li>le nom du volcan&nbsp;;</li>
+    <li>un numéro d'éruption&nbsp;;</li>
+    <li>le type d'éruption&nbsp;;</li>
+    <li>la zone d'activité du volcan&nbsp;;</li>
+    <li>l'intensité de l'éruption (<i>Volcanic explosivity index</i>)&nbsp;;</li>
+    <li>la date de début d'éruption&nbsp;;</li>
+    <li>la méthode utilisée pour dater l'éruption&nbsp;;</li>
+    <li>la date de fin de l'éruption&nbsp;;</li>
+    <li>la latitude du volcan&nbsp;;</li>
+    <li>la longitude du volcan&nbsp;;</li>
+    <li>le pays où est situé le volcan.</li>
+  </ul>
+  
+  <p>
+
+    Les questions&nbsp;:
+
+  </p>
+
+  <ol>
+    <li>quelle commande effectuez-vous pour charger le jeu de données. Faites-le&nbsp;;</li>
+    <li>quelle commande effectuez-vous pour connaître le nombre de données contenues dans ce jeu de données&nbsp;? Indiquez ce nombre dans le compte-rendu&nbsp;;</li>
+    <li>quelle commande effectuez-vous pour connaître le nombre d'attributs décrivant les données&nbsp;? Indiquez ce nombre dans le compte-rendu&nbsp;;</li>
+    <li>quelle commande effectuez-vous pour obtenir la liste de ces attributs&nbsp;? Indiquez cette liste dans le compte-rendu&nbsp;;</li>
+    <li>quelle commande effectuez-vous pour obtenir l'année où a eu lieu l'éruption la plus ancienne enregistrée dans ce jeu de données&nbsp;? Indiquez cette année dans le compte-rendu&nbsp;;</li>
+    <li>quelle commande effectuez-vous pour obtenir le pays dans lequel a eu lieu cette éruption&nbsp;? Indiquez ce pays dans le compte-rendu&nbsp;;</li>
+    <li>quelle commande effectuez-vous pour connaître le nombre d'éruptions qui ont eu lieu dans chaque pays&nbsp;? Indiquez la dans le compte-rendu&nbsp;;</li>
+    <li>quelle commande effectuez-vous pour connaître le pays qui a enregistré le plus grand nombre d'éruptions&nbsp;? Indiquez le pays et le nombre d'éruptions dans le compte-rendu&nbsp;;</li>
+    <li>quelle commande effectuez-vous pour connaître le nombre d'éruptions qui se sont déroulées en France et combien il y en a eu&nbsp;? Indiquez ce nombre d'éruptions dans le compte-rendu&nbsp;;</li>
+    <li>quelle(s) commande(s) effectuez-vous pour connaître les années de la plus ancienne et la plus récente éruptions qui se sont déroulées en France&nbsp;? Indiquez ces deux années dans le compte-rendu&nbsp;;</li>
+    <li>La célèbre éruption du Vésuve qui a detruit Pompeï est-elle dans le jeu de données. Elle a eu lieu en 79 et en anglais, on dit "Vesuvius". Quelle commande tapez-vous pour répondre à cette question&nbsp;? Si elle est présente, indiquez le numéro de la donnée correspondante (le numéro de la ligne dans le jeu de données)&nbsp;;</li>
+    <li>quelle commande effectuez-vous pour obtenir le nombre d'éruptions volcaniques pour chaque pays depuis 2000 ? Indiquez ce nombre dans le compte-rendu&nbsp;;</li>
+    <li>quelle commande effectuez-vous pour réaliser un graphique de la répartition des éruptions dans le monde (en fonction de la longitude et de la latitutde du volcan), autrement dit, cette figure&nbsp;:
+
+      <br/>
+
+      <img src="eruptions_connues_s_1.png" width="300pt" alt="position des éruptions volcaniques connues." />
+
+      Insérez la figure que vous avez réalisée dans le compte-rendu.</li>
+
+    Comment faites-vous pour ajouter un point rouge indiquant la position de Greenwich (longitude = 0, latitude = 51°28'44").
+
+    <br/>
+
+    <img src="eruptions_connues_avec_Greenwich.png" width="300pt" alt="position des éruptions volcaniques connues avec Greenwich en rouge." />
+
+      Insérez cette figure dans le compte-rendu.</li>
+    
+  <li>Les attributs <kbd>start_year</kbd>, <kbd>start_month</kbd>, <kbd>start_day</kbd> indiquent la date de début de l'éruption. Les attributs <kbd>end_year</kbd>, <kbd>end_month</kbd>, <kbd>end_day</kbd> indiquent la date de fin.
+    <br/>
+    Ajouter un attribut <kbd>duration</kbd> au jeu de données qui contient la durée de l'éruption. Quelle commande tapez-vous pour réaliser cela&nbsp;?</li>
+  <li> Pour que vous ne soyez pas bloqué pour la suite, si vous ne savez pas résoudre la question précédente, vous pouvez charger le fichier qui contient cet attribut à l'url <kbd>https://philippe-preux.github.io/ensg/miashs/datasets/eok+duration.csv</kbd>.
+    <br/>
+    Quelle commande effectuez-vous pour connaître la plus longue éruption connue de l'histoire&nsp;? Où s'est-elle déroulée&nbsp;? Est-elle terminée&nbs;? Combien de temps a-t-elle duré&nbsp;? Vous indiquez la réponse à ces questions dans le compte-rendu.</li>
+    <li>Au dernier graphique, ajouter la position de ce volcan en orange. Insérez cette nouvelle figure dans votre compte-rendu&nbsp;;</li>
+    <li>&nbsp;;</li>
+    <li>&nbsp;;</li>
+    <li>&nbsp;;</li>
+    <li>&nbsp;;</li>
+  </ol>
+  
+  
+</div>
+
+<!-- Default Statcounter code for on github
+https://philippe-preux.github.io -->
+<script type="text/javascript">
+var sc_project=12923547; 
+var sc_invisible=1; 
+var sc_security="627600d4"; 
+</script>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="Web Analytics"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/12923547/0/627600d4/1/"
+alt="Web Analytics"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
+  <!-- End of Statcounter Code -->
+  
+</body>
+</html>
