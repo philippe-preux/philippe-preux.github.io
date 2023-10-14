@@ -387,31 +387,11 @@ Name: 262, dtype: object
     <pre>
 >>> olives.region.mean()
 Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-  File "/home/ppreux/.local/lib/python3.10/site-packages/pandas/core/generic.py", line 11847, in mean
-    return NDFrame.mean(self, axis, skipna, level, numeric_only, **kwargs)
-  File "/home/ppreux/.local/lib/python3.10/site-packages/pandas/core/generic.py", line 11401, in mean
-    return self._stat_function(
-  File "/home/ppreux/.local/lib/python3.10/site-packages/pandas/core/generic.py", line 11353, in _stat_function
-    return self._reduce(
-  File "/home/ppreux/.local/lib/python3.10/site-packages/pandas/core/series.py", line 4797, in _reduce
-    return delegate._reduce(name, skipna=skipna, **kwds)
-  File "/home/ppreux/.local/lib/python3.10/site-packages/pandas/core/arrays/base.py", line 1435, in _reduce
-    raise TypeError(
+  [...]
 TypeError: 'Categorical' with dtype category does not support reduction 'mean'
 >>> olives.area.mean()
 Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-  File "/home/ppreux/.local/lib/python3.10/site-packages/pandas/core/generic.py", line 11847, in mean
-    return NDFrame.mean(self, axis, skipna, level, numeric_only, **kwargs)
-  File "/home/ppreux/.local/lib/python3.10/site-packages/pandas/core/generic.py", line 11401, in mean
-    return self._stat_function(
-  File "/home/ppreux/.local/lib/python3.10/site-packages/pandas/core/generic.py", line 11353, in _stat_function
-    return self._reduce(
-  File "/home/ppreux/.local/lib/python3.10/site-packages/pandas/core/series.py", line 4797, in _reduce
-    return delegate._reduce(name, skipna=skipna, **kwds)
-  File "/home/ppreux/.local/lib/python3.10/site-packages/pandas/core/arrays/base.py", line 1435, in _reduce
-    raise TypeError(
+  [...]
 TypeError: 'Categorical' with dtype category does not support reduction 'mean'
     </pre>
 
@@ -470,7 +450,7 @@ href="https://statcounter.com/" target="_blank"><img
 class="statcounter"
 src="https://c.statcounter.com/12923547/0/627600d4/1/"
 alt="Web Analytics"
-referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
+referrerPolicy="no-referrer-when-downgrade"/></a></div></noscript>
   <!-- End of Statcounter Code -->
   
 </body>
