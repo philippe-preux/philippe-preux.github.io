@@ -35,7 +35,7 @@
     <br/>
     <br/>
 
-    L'énoncé est ci-dessous. Vous répondez dans <a href="./Prénom-Nom.cc1-sd2.odt">ce document</a> que vous m'envoyez au format <b>pdf</b> au plus tard à 16h (horaire strict). Vous m'envoyez également un fichier contenant le code python à exécuter pour résoudre les questions. Je dois pouvoir exécuter ce script sans erreur.
+    L'énoncé est ci-dessous. Vous répondez dans <a href="./Prénom-Nom.cc1-sd2.odt">ce document</a> que vous m'envoyez au format <font color="red"><b>pdf</b></font> au plus tard à 16h (horaire strict). Vous m'envoyez également un fichier contenant le code python à exécuter pour résoudre les questions. Je dois pouvoir exécuter ce script sans erreur. Vous pouvez m'envoyer plusieurs emails successifs. Dans ce cas, seul le dernier (envoyé avant 16h) sera pris en compte.
 
   </p>
 
@@ -43,11 +43,12 @@
 
   <p>
 
-    Nous allons étudier un jeu de données qui contient toutes les éruptions volcaniques connues s'étant déroulées jusqu'en 2020.
+    Nous allons étudier un jeu de données qui contient de nombreuses éruptions volcaniques connues s'étant déroulées dans les 14000 dernières années. Les données sont ordonnées de l'éruption la plus récente à la plus ancienne.
 
     <br/>
 
     Ce fichier est disponible à l'url <kbd>https://philippe-preux.github.io/ensg/miashs/datasets/eok.csv</kbd>.
+
     <br/>
 
     Pour chaque éruption, le jeu de données indique&nbsp;:
@@ -55,12 +56,12 @@
   </p>
 
   <ul>
-    <li>un numéro du volcan concerné&nbsp;;</li>
+    <li>le numéro du volcan concerné&nbsp;;</li>
     <li>le nom du volcan&nbsp;;</li>
-    <li>un numéro d'éruption&nbsp;;</li>
+    <li>le numéro d'éruption&nbsp;;</li>
     <li>le type d'éruption&nbsp;;</li>
     <li>la zone d'activité du volcan&nbsp;;</li>
-    <li>l'intensité de l'éruption (<i>Volcanic explosivity index</i>)&nbsp;;</li>
+    <li>l'indice d'explositivité de l'éruption (<i>Volcanic explosivity index</i>)&nbsp;;</li>
     <li>la date de début d'éruption&nbsp;;</li>
     <li>la méthode utilisée pour dater l'éruption&nbsp;;</li>
     <li>la date de fin de l'éruption&nbsp;;</li>
@@ -94,27 +95,35 @@
 
       <img src="eruptions_connues_s_1.png" width="300pt" alt="position des éruptions volcaniques connues." />
 
-      Insérez la figure que vous avez réalisée dans le compte-rendu.</li>
+      <br/>
+      
+      Insérez la figure que vous avez réalisée dans le compte-rendu.
 
-    Comment faites-vous pour ajouter un point rouge indiquant la position de Greenwich (longitude = 0, latitude = 51°28'44")&nbsp;? Faites-le.
+      Comment faites-vous pour ajouter un point rouge indiquant la position de Greenwich (longitude = 0, latitude = 51°28'44")&nbsp;? Faites-le.
 
-    <br/>
+      <br/>
+      
+      <img src="eruptions_connues_avec_Greenwich.png" width="300pt" alt="position des éruptions volcaniques connues avec Greenwich en rouge." />
 
-    <img src="eruptions_connues_avec_Greenwich.png" width="300pt" alt="position des éruptions volcaniques connues avec Greenwich en rouge." />
+      <br/>
 
-      Insérez cette figure dans le compte-rendu.</li>
+      Insérez cette autre figure dans le compte-rendu.</li>
     
   <li>Les attributs <kbd>start_year</kbd>, <kbd>start_month</kbd>, <kbd>start_day</kbd> indiquent la date de début de l'éruption. Les attributs <kbd>end_year</kbd>, <kbd>end_month</kbd>, <kbd>end_day</kbd> indiquent la date de fin.
     <br/>
     Ajouter un attribut <kbd>duration</kbd> au jeu de données qui contient la durée de l'éruption. Quelle commande tapez-vous pour réaliser cela&nbsp;?</li>
   <li>Pour que vous ne soyez pas bloqué pour la suite, si vous ne savez pas résoudre la question précédente, vous pouvez charger le fichier qui contient cet attribut à l'url <kbd>https://philippe-preux.github.io/ensg/miashs/datasets/eok+duration.csv</kbd>.
     <br/>
-    Quelle commande effectuez-vous pour connaître la plus longue éruption connue de l'histoire&nbsp;? Où s'est-elle déroulée&nbsp;? Est-elle terminée&nbs;? Combien de temps a-t-elle duré&nbsp;? Vous indiquez la réponse à ces questions dans le compte-rendu.</li>
+    Quelle commande effectuez-vous pour connaître la plus longue éruption connue de l'histoire&nbsp;? Où s'est-elle déroulée&nbsp;? Est-elle terminée&nbsp;? Combien de temps a-t-elle duré&nbsp;? Vous indiquez la réponse à ces questions dans le compte-rendu.</li>
     <li>Au graphique précédent, ajouter la position de ce volcan en orange. Insérer cette nouvelle figure dans votre compte-rendu&nbsp;;</li>
-    <li>&nbsp;;</li>
-    <li>&nbsp;;</li>
-    <li>&nbsp;;</li>
-    <li>&nbsp;;</li>
+    <li>Pour quel volcan a-t-on le plus d'éruptions connues ? Combien y en a-t-il ? De quand date la plus ancienne&nbsp;?</li>
+    <li>Combien d'éruptions dans la "Chaine des Puys" (utilisez ce nom pour le volcan) sont conues&nbsp;? Quelle est l'année de la plus récente&nbsp;?</li>
+    <li>Combien y a-t-il d'éruptions en moyenne chaque année depuis 1900&nbsp;? Faire un graphique de ce nombre au fil des années, de 1900 à 2020 comme celui-ci&nbsp;:
+      <br/>
+      <img src="nb_eruptions_entre_1900_et_2019.png" width="300pt" alt="Nb éruptions par année." />
+      <br/>
+    </li>
+    <li>Faire le même graphique pour les années comprises entre 0 et maintenant. Que constatez-vous&nbsp;? Pensez-vous que cela reflète la réalité&nbsp;?</li>
   </ol>
   
   
