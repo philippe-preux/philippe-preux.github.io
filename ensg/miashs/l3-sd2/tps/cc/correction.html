@@ -83,7 +83,7 @@ eok.shape [0]
     <li>Quelle commande effectuez-vous pour connaître le nombre d'attributs décrivant les données&nbsp;? Indiquez ce nombre dans le compte-rendu.  <div class="correction">
 	<pre>
 eok.shape [1]
-# 19</pre>
+# 16</pre>
 </div></li>
     <li>Quelle commande effectuez-vous pour obtenir la liste de ces attributs&nbsp;? Indiquez cette liste dans le compte-rendu.  <div class="correction">
 	<pre>
@@ -169,7 +169,7 @@ eok [eok.start_year > 2000].shape[0]
 
       <div class="correction">
 	<pre>
-eruptions.plot.scatter (x="longitude", y = "latitude", title = "Position des éruptions volcaniques connues.", xlabel = "Longitude", ylabel = "Latitude", s = 1)</pre>
+eok.plot.scatter (x="longitude", y = "latitude", title = "Position des éruptions volcaniques connues.", xlabel = "Longitude", ylabel = "Latitude", s = 1)</pre>
       </div>
 
       <img src="eruptions_connues_s_1.png" width="300pt" alt="position des éruptions volcaniques connues." />
@@ -190,7 +190,7 @@ eruptions.plot.scatter (x="longitude", y = "latitude", title = "Position des ér
       
       <div class="correction">
 	<pre>
-eruptions.plot.scatter (x="longitude", y = "latitude", title = "Position des éruptions volcaniques connues.\nGreenwich indiqué par un point rouge", xlabel = "Longitude", ylabel = "Latitude")
+eok.plot.scatter (x="longitude", y = "latitude", title = "Position des éruptions volcaniques connues.\nGreenwich indiqué par un point rouge", xlabel = "Longitude", ylabel = "Latitude", s = 1)
 plt.plot (0,51+28/60+44/3600,'ro',color="red")</pre>
       </div>
     </li>
@@ -221,7 +221,7 @@ max (eok.duration)</pre>
     <li>Au graphique précédent, ajouter la position de ce volcan en orange. Insérer cette nouvelle figure dans votre compte-rendu&nbsp;;
       <div class="correction">
 	<pre>
-eruptions.plot.scatter (x="longitude", y = "latitude", title = "Position des éruptions volcaniques connues.\nGreenwich indiqué par un point rouge", s = 1, xlabel = "Longitude", ylabel = "Latitude")
+eok.plot.scatter (x="longitude", y = "latitude", title = "Position des éruptions volcaniques connues.\nGreenwich indiqué par un point rouge", s = 1, xlabel = "Longitude", ylabel = "Latitude")
 plt.plot (0, 51+28/60+44/3600, "ro", color="red")
 plt.plot (eok.longitude [eok.duration==max(eok.duration)], eok.latitude [eok.duration==max(eok.duration)], "ro", color = "orange")</pre>
       </div>
