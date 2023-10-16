@@ -9,6 +9,11 @@
 	rel="stylesheet" type="text/css" media="all" />
   <link rel="shortcut icon" type="image/x-icon" 
 	href="https://philippe-preux.github.io/img/site.ico" />
+  <style type="text/css">>
+    pre {
+	white-space: pre-wrap;
+    }
+  </style>
 </head>
 
 <body>
@@ -152,7 +157,7 @@ eok.start_year [eok.country == "France"].tail(1)</pre>
     <li>La célèbre éruption du Vésuve qui a detruit Pompeï est-elle dans le jeu de données&nbsp;? Elle a eu lieu en 79 et en anglais, le volcan s'appelle "Vesuvius". Quelle commande tapez-vous pour répondre à cette question&nbsp;? Si l'éruption est présente, indiquez le numéro de la donnée correspondante (le numéro de la ligne dans le jeu de données).
       <div class="correction">
 	<pre>
-eok [(eok.start_year  == 79) & (eok.volcano_name=="Vesuvius")]</pre>
+eok [(eok.start_year  == 79) &amp; (eok.volcano_name=="Vesuvius")]</pre>
 	<p>
 	  numéro 7480.
 	</p>
@@ -251,7 +256,7 @@ eok.start_year [eok.volcano_name == "Chaine des Puys"]</pre>
       Insérez-le dans le compte-rendu.
       <div class="correction">
 	<pre>
-nb = eok.start_year [(eok.start_year >= 1900)&(eok.start_year < 2020)].value_counts()
+nb = eok.start_year [(eok.start_year >= 1900)&amp;(eok.start_year &lt; 2020)].value_counts()
 nb.sort_index().plot(linestyle = "--", marker = "o", color = "magenta", xlabel = "Année", ylabel ="Nombre d'éruptions", title = "Nombre d'éruptions volcaniques par année.")
 plt.show()</pre>
       </div>
@@ -286,7 +291,7 @@ href="https://statcounter.com/" target="_blank"><img
 class="statcounter"
 src="https://c.statcounter.com/12923547/0/627600d4/1/"
 alt="Web Analytics"
-referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
+referrerPolicy="no-referrer-when-downgrade"/></a></div></noscript>
   <!-- End of Statcounter Code -->
   
 </body>
