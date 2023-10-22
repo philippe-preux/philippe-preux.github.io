@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Volcans</title>
+  <link href="https://philippe-preux.github.io/css/ma.css" 
+	rel="stylesheet" type="text/css" media="all" />
+  <link rel="shortcut icon" type="image/x-icon" 
+	href="https://philippe-preux.github.io/img/site.ico" />
+  <style type="text/css">
+    .aligncenter {
+	text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+<div class="tpR">
+
+  <h1>Divers sujets avec les volcans</h1>
+
+  <h2>Introduction au TP</h2>
+
+  <p>
+
+    Ce TP est la suite du <a href="../cc/index.html">contrôle 1</a>.
+
+    <br/>
+    
+    On suppose que toutes les questions du contrôle ont été réalisées.
+    
+  </p>
+
+  <h2>Représentation géolocalisée</h2>
+  
+  <h3>Introduction</h3>
+
+  <p>
+
+    Lorsque l'on traite des données contenant des informations géographiques, il est courant de souhaiter les représenter sur une carte pour obtenir quelque chose comme cela&nbsp;:
+    
+  </p>
+
+  <p class="aligncenter">
+    <img src="./volcan-sur-planisphere.png" width="600pt" alt="Planisphère avec des volcans actifs ces 12000 dernières années." />
+    
+  </p>
+
+  <p>
+
+    Pour faire cela, on procède comme suit.
+
+    <br/>
+    <br/>
+
+    On a besoin d'importer le paquetage <kbd>geopandas</kbd>.
+
+    <br/>
+
+    S'il n'est pas installé, vous devez le faire. Sous Ubuntu vous faites&nbsp;:
+    
+  </p>
+
+  <ol>
+    <li>ouvrir une fenêtre terminal</li>
+    <li>taper la commande&nbsp;: <kbd>pip3 install geopandas</kbd></li>
+  </ol>
+
+  <p>
+
+    c'est fait. Vous pouvez maintenant importer <kbd>geopandas</kbd>.
+
+    <br/>
+
+    Si contrairement à ce que je recommande vous n'êtes pas sous Ubuntu, je ne sais pas comment il faut faire. À vous de trouver.
+
+  </p>
+
+  <h3>Activités en autonomie</h3>
+
+  <p>
+
+    <b>À faire&nbsp;:</b>
+
+  </p>
+
+  <ul>
+    <li>afficher uniquement les volcans ayant eu au moins un éruption depuis 1 siècle.</li>
+    <li>Afficher uniquement les volcans des États-Unis.</li>
+    <li>Afficher uniquement les volcans en France.</li>
+    <li>Afficher uniquement les volcans qui ont eu plus de 100 éruptions.</li>
+  </ul>
+
+  <h2>Enrichissement du jeu de données</h2>
+
+  <h3>Introduction</h3>
+
+  <p>
+
+    Nous avons étudié un jeu de données contenant des éruptions volcaniques. Chaque volcan est décrit dans un autre jeu de données qui contient des informations générales à propos de chaque volcan.
+
+    <br/>
+    <br/>
+
+    Ce jeu de données est disponible à cette url&nbsp;: <kbd>https://philippe-preux.github.io/ensg/miashs/l3-sd2/datasets/volcanos/volcano.csv</kbd>.
+
+    <br/>
+    <br/>
+
+    On va utiliser ce second jeu de données en complément du premier qui contient les éruptions.
+
+    <br/>
+    <br/>
+
+    <b>À faire&nbsp;:</b> charger ce jeu de données. Appelons <kbd>volcans</kbd> ce jeu de données.
+    
+    <br/>
+    <br/>
+
+    L'attribut <kbd>volcano_number</kbd> fait le lien entre les deux&nbsp;: ainsi, la première éruption du jeu de données <kbd>éruptions</kbd> a eu lieu sur le volcan numéro 266030. Dans le jeu de données <kbd>volcans</kbd>, on retrouve le volcan avec ce numéro. Il a bien le même nom dans les deux jeux de données mais en plus, dans <kbd>volcans</kbd>, on a des informations sur son type, l'année de sa dernière éruption (que l'on retrouve dans <kbd>érptions</kbd>), le pays où il se trouve, ses coordonnées géographiques, sa composition rocheuse, et des informations sur la population alentour, dans un rayon de 5, 10, 30 et 100 km.
+    
+  </p>
+  
+</div>
+
+<!-- Default Statcounter code for on github
+https://philippe-preux.github.io -->
+<script type="text/javascript">
+var sc_project=12923547; 
+var sc_invisible=1; 
+var sc_security="627600d4"; 
+</script>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="Web Analytics"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/12923547/0/627600d4/1/"
+alt="Web Analytics"
+referrerPolicy="no-referrer-when-downgrade" /></a></div></noscript>
+  <!-- End of Statcounter Code -->
+  
+</body>
+</html>

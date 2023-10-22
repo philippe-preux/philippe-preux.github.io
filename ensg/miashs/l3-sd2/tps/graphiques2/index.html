@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Graphiques pour la science des données&nbsp;: suite</title>
+  <link href="https://philippe-preux.github.io/css/ma.css" 
+	rel="stylesheet" type="text/css" media="all" />
+  <link rel="shortcut icon" type="image/x-icon" 
+	href="https://philippe-preux.github.io/img/site.ico" />
+  <style type="text/css">
+    .aligncenter {
+	text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+<div class="tpR">
+
+  <h1>Graphiques pour la science des données&nbsp;: suite</h1>
+
+  <h2>Introduction</h2>
+  
+  <p>
+
+    Dans un <a href="../graphiques/index.html">TP précédent</a>, on a vu comment réaliser des graphiques.
+
+    <br/>
+
+    Comme toujours avec python, il existe plusieurs manières de réaliser à peu près la même chose. Lors de ce TP, nous avions utilisé les fonctions graphiques du paquetage <kbd>pandas</kbd> qui elles-mêmes utilisent celles du paquetage <kbd>matplotlib</kbd>. Ce dernier est un paquetage très utile et de grande qualité, très riche en possibilités dont seule une petite partie peut être utilisée via <kbd>panda</kbd>.
+
+    <br/>
+
+    On peut utiliser directement <kbd>matplotlib</kbd> ce qui donne beaucoup plus de libertés et qui est très pratique lorsque l'on veut réaliser une figure contenant plusieurs graphiques. C'est celui-là que j'ai utilisé pour le TP <a href="../brad/index.html">Brad's sweet home</a> pour réaliser la figure <a href="../brad/index.html#figTempératures">avec les 4 courbes de températures</a> par exemple.
+
+    <br/>
+
+    Ce court TP a pour objectif de vous présenter cette autre manière de faire.
+    
+  </p>
+
+  <h2>Les 2 manières de faire un graphique avec <kbd>pandas</kbd> ou <kbd>matplotlib</kbd></h2>
+
+  <p>
+
+    On considère le graphique suivant du TP <i>Brad's sweet home</i>&nbsp;:
+    
+  </p>
+
+  <p class="aligncenter">
+      <img src="../brad/1erEssai.png" width="400pt" alt="Premier essai, pas beau." />
+  </p>
+
+  <p>
+
+    On l'a dit, c'est un mauvais graphique où l'on ne voit rien, mais il est très simple, donc facile à expliquer pour commencer.
+
+  </p>
+  
+  <center>
+    <table>
+      <tr><th>Vu précédemment avec <kbd>pandas</kbd></th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th>2<sup>è</sup> manière avec <kbd>matplotlib</kbd></th></tr>
+      <tr><td><kbd></kbd></td><td></td><td><kbd>figure, axe = plt.subplots ()</kbd></td></tr>
+      <tr><td><kbd>for a in ["temp_b", "temp_l", "temp_lr", "temp_o"]:</kbd></td><td></td><td><kbd>for a in ["temp_b", "temp_l", "temp_lr", "temp_o"]:</kbd></td></tr>
+      <tr><td><kbd>&nbsp;&nbsp;&nbsp;&nbsp;plt.plot (brad [a]) # ou brad [a].plot ()</kbd></td><td></td><td><kbd>&nbsp;&nbsp;&nbsp;&nbsp;axe.plot (brad [a])</kbd></td></tr>
+      <tr><td><kbd>plt.xlabel ("Temps")</kbd></td><td></td><td><kbd>axe.set_xlabel ("Temps")</kbd></td></tr>
+      <tr><td><kbd>plt.ylabel ("Température")</kbd></td><td></td><td><kbd>axe.set_ylabel ("Température")</kbd></td></tr>
+      <tr><td><kbd>plt.title ("Les températures relevées par Brad.")</kbd></td><td></td><td><kbd>axe.set_title ("Les températures relevées par Brad.")</kbd></td></tr>
+      <tr><td><kbd>plt.show ()</kbd></td><td></td><td><kbd>fig.show ()</kbd></td></tr>
+      <tr><td><kbd></kbd></td><td></td><td><kbd></kbd></td></tr>
+      <tr><td><kbd></kbd></td><td></td><td><kbd></kbd></td></tr>
+      <tr><td><kbd></kbd></td><td></td><td><kbd></kbd></td></tr>
+      <tr><td><kbd></kbd></td><td></td><td><kbd></kbd></td></tr>
+      <tr><td><kbd></kbd></td><td></td><td><kbd></kbd></td></tr>
+      <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="../brad/1erEssai.png" width="200pt" /></td><td></td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="fig2.png" width="200pt"/></td></tr>
+    </table>
+  </center>
+
+  <p>
+    
+    <b>À faire&nbsp;:</b> faites les 2 manières et comparer.
+    
+  </p>
+  
+  <p>
+
+    Dans la 2<sup>è</sup> manière, on commence par une instruction <kbd>figure, axe = plt.subplots ()</kbd> qui crée deux objects, un objet <kbd>figure</kbd> et un objet <kbd>axe</kbd>. L'objet <kbd>figure</kbd> contient l'ensemble de la figure&nbsp;: quand cette figure ne contient qu'un seul graphique, on ne comprend pas forcément la différence entre figure et graphique, on comprendra mieux un peu plus tard. Dans une figure, il peut y avoir plusieurs «&nbsp;axes&nbsp;», c'est-à-dire plusieurs sous-figures. Quand on invoque la méthode <kbd>subplots ()</kbd> sans argument, celle-ci crée une figure qui contient une seule sous-figure&nbsp;; c'est ce que nous faisons ici. Le contenu de la sous-figure est spécifié via l'<kbd>axe</kbd>. Ici, on commence par ajouter les 4 séries de températures avec une boucle, puis on spécifie l'étiquette des abscisses, puis des ordonnées, puis un titre pour la sous-figure. Enfin, on l'affiche à l'écran.
+
+  </p>
+  
+  <h2>Figure avec sous-figures</h2>
+
+  <h3>Le principe</h3>
+  
+  <p>
+
+    Maintenant, on va réaliser une figure contenant des sous-figures, comme celle-ci du TP <i>Brad's sweet home</i>&nbsp;:
+
+  </p>
+
+  <p class="aligncenter">
+      <img src="../brad/courbesTemperature.png" width="400pt" alt="Courbes de température." />
+  </p>
+
+  <p>
+
+    Ici, on voit qu'il y a 4 sous-figures, une sous-figure par série de températures.
+
+    <br/>
+
+    Une première manière de créer cette figure&nbsp;:
+
+  </p>
+  
+    <pre>    labels = ["basement", "lab", "living room", "outside"]
+    fig, ax = plt.subplots (4,1)
+    ax [0].plot (brad.iloc [:,5], c = "red")
+    ax [1].plot (brad.iloc [:,6], c = "blue")
+    ax [2].plot (brad.iloc [:,7], c = "green")
+    ax [3].plot (brad.iloc [:,8], c = "turquoise")
+    for i in range (4):
+        ax [i].set_ylim (bottom = -25, top = 35)
+        ax [i].set_ylabel (labels [i])
+    ax[3].set_xlabel ("Temps")
+    ax[0].set_title ("Les températures relevées par Brad.")
+    fig.show ()
+    </pre>
+    
+  <p>
+
+    L'instruction <kbd>plt.subplots (4,1)</kbd> indique que la figure est composé de 4 lignes et 1 colonne, chacune pouvant contenir une sous-figure. Chacune de ces sous-figure est un axe. Ici <kbd>ax</kbd> et un tableau composé de 4 lignes et 1 colonne, <kbd>ax [ligne]</kbd> permet de spécifier une certaine sous-figure (en ligne <kbd>ligne</kbd>). S'il y avait 2 colonnes, on écrirait <kbd>ax [ligne, colonne]</kbd>.
+
+    <br/>
+
+    Ensuite, on dessine le contenu de chaque sous-figure en indiquant&nbsp;: dans tel axe, on représente telle donnée.
+
+    <br/>
+
+    Ensuite, dans la boucle, on indique pour chaque axe l'intervalle de valeurs en ordonnées afin que les sous-figures soient facilement comparables, ainsi qu'une étiquette indiquant ce que représente l'axe des ordonnées pour chacune des sous-figures.
+
+    <br/>
+
+    Ensuite, on indique ce que représente l'axe des abscisses. Plutôt que de l'indiquer pour chaque axe, on l'indique seulement pour la sous-figure qui se trouve en bas de la figure (axe 3).
+
+    <br/>
+
+    Enfin, on donne un titre à la figure entière en donnant un titre à l'axe 0 qui est celui qui est en haut de la figure.
+    
+  </p>
+
+  <h3>Un peu mieux</h3>
+  
+  <p>
+    
+    Une autre version un peu plus sophistiquée avec une boucle qui fait tout le travail&nbsp;: une itération par série de températures.
+    
+  </p>
+  
+    <pre>    labels = ["basement", "lab", "living room", "outside"]
+    couleurs = ["red", "blue", "green", "turquoise"]
+    fig, ax = plt.subplots (4,1)
+    for i in range (4):
+        ax [i].plot (brad.iloc [:,i+5], c = couleurs [i])
+        ax [i].set_ylim (bottom = -25, top = 35)
+        ax [i].set_ylabel (labels [i])
+    ax[3].set_xlabel ("Temps")
+    ax[0].set_title ("Les températures relevées par Brad.")
+    fig.show ()
+    </pre>
+
+  <p>
+
+  </p>
+
+  <h2>En guise de conclusion</h2>
+
+  <p>
+
+    Les possibilités de <kbd>matplotlib</kbd> sont très nombreuses. Vous pouvez réaliser à peu près n'importe quel graphique, ... plus ou moins facilement. Il faut consulter la documentation&nbsp;:
+
+  </p>
+
+  <ul>
+    <li>sur le <a href="https://matplotlib.org/">site web de <kbd>matplotlib</kbd></a>.</li>
+    <li>Voir en particulier les <a href="https://matplotlib.org/cheatsheets/">pense-bêtes</a></li>
+    <li>et les <a href="https://matplotlib.org/stable/plot_types/index.html">exemples</a>.</li>
+  </ul>
+
+</div>
+
+<!-- Default Statcounter code for on github
+https://philippe-preux.github.io -->
+<script type="text/javascript">
+var sc_project=12923547; 
+var sc_invisible=1; 
+var sc_security="627600d4"; 
+</script>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="Web Analytics"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/12923547/0/627600d4/1/"
+alt="Web Analytics"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
+  <!-- End of Statcounter Code -->
+  
+</body>
+</html>
