@@ -78,6 +78,27 @@
 
   </p>
 
+  <h3></h3>
+
+  <p>
+
+    Pour réaliser le graphique ci-dessus, on fait ainsi&nbsp;:
+    
+  </p>
+
+  <pre>import geopandas as gpd
+pays = gpd.read_file (gpd.datasets.get_path ("naturalearth_lowres"))
+fig, ax = plt.subplots ()
+pays.plot (color = "lightgrey", ax = ax)
+volcano.plot (x = "longitude", y = "latitude", kind = "scatter",
+              color = "peru", alpha = 0.3, s = 1,
+              title = f"Éruptions volcaniques durant\n les 12 derniers milliers d'années.",
+              ax = ax)
+ax.set_xlabel ("Longitude")
+ax.set_ylabel ("Latitude")
+fig.show ()
+  </pre>
+  
   <h3>Activités en autonomie</h3>
 
   <p>
