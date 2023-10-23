@@ -87,9 +87,9 @@
   </p>
 
   <pre>import geopandas as gpd
-pays = gpd.read_file (gpd.datasets.get_path ("naturalearth_lowres"))
-fig, ax = plt.subplots ()
-pays.plot (color = "lightgrey", ax = ax)
+planisphere = gpd.read_file (gpd.datasets.get_path ("naturalearth_lowres"))
+fig, ax = plt.subplots ()    
+planisphere.plot (color = "lightgrey", ax = ax)
 volcano.plot (x = "longitude", y = "latitude", kind = "scatter",
               color = "peru", alpha = 0.3, s = 1,
               title = f"Éruptions volcaniques durant\n les 12 derniers milliers d'années.",
@@ -98,6 +98,19 @@ ax.set_xlabel ("Longitude")
 ax.set_ylabel ("Latitude")
 fig.show ()
   </pre>
+
+  <p>
+
+    Quelques informations&nbs;:
+    
+  </p>
+
+  <ul>
+    <li>on commence par charger dans l'objet <kbd>planisphere</kbd> une représentation géométrique de tous les pays du monde.</li>
+    <li>on dessine la planisphère en gris clair.</li>
+    <li>on ajoute les volcans selon leurs longitude et latitude.</li>
+    <li>on ajoute des étiquettes sur les deux axes de coordonnées.</li>
+  </ul>
   
   <h3>Activités en autonomie</h3>
 
@@ -113,6 +126,9 @@ fig.show ()
     <li>Afficher uniquement les volcans en France.</li>
     <li>Afficher uniquement les volcans qui ont eu plus de 100 éruptions.</li>
   </ul>
+
+  <h3></h3>
+
 
   <h2>Enrichissement du jeu de données</h2>
 
@@ -142,7 +158,23 @@ fig.show ()
 
     L'attribut <kbd>volcano_number</kbd> fait le lien entre les deux&nbsp;: ainsi, la première éruption du jeu de données <kbd>éruptions</kbd> a eu lieu sur le volcan numéro 266030. Dans le jeu de données <kbd>volcans</kbd>, on retrouve le volcan avec ce numéro. Il a bien le même nom dans les deux jeux de données mais en plus, dans <kbd>volcans</kbd>, on a des informations sur son type, l'année de sa dernière éruption (que l'on retrouve dans <kbd>érptions</kbd>), le pays où il se trouve, ses coordonnées géographiques, sa composition rocheuse, et des informations sur la population alentour, dans un rayon de 5, 10, 30 et 100 km.
     
+    <br/>
+    <br/>
+
+    <b>À faire&nbsp;:</b>
+
   </p>
+
+  <ul>
+    <li>combien y a-t-il de volcans autour desquels plus d'un million de personnes vivent dans un rayon de 5km&nbsp;?</li>
+    <li>même question 30km&nbsp;?</li>
+    <li>représentez-les sur le planisphère, les premiers en rouge, les seconds en bleu.</li>
+  </ul>
+
+  <ul>
+    <li>représenter sur le planisphère le lieu des éruptions volcaniques dont le VEI est &ge; 5 et s'étant déroulés depuis 1900.</li>
+  </ul>
+
   
 </div>
 

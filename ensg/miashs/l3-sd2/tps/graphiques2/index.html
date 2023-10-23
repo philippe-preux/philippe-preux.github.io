@@ -41,27 +41,28 @@
     
   </p>
 
-  <h2>Les 2 manières de faire un graphique avec <kbd>pandas</kbd> ou <kbd>matplotlib</kbd></h2>
+  <h2>Graphiques avec <kbd>matplotlib</kbd></h2>
 
   <p>
 
-    On considère le graphique suivant du TP <i>Brad's sweet home</i>&nbsp;:
+    On considère la figure suivante du TP <i>Brad's sweet home</i>&nbsp;:
     
   </p>
 
   <p class="aligncenter">
-      <img src="../brad/1erEssai.png" width="400pt" alt="Premier essai, pas beau." />
+    <img src="../brad/1erEssai.png" width="400pt"
+	 alt="Premier essai, pas beau." />
   </p>
 
   <p>
 
-    On l'a dit, c'est un mauvais graphique où l'on ne voit rien, mais il est très simple, donc facile à expliquer pour commencer.
+    On l'a dit, c'est un mauvais graphique où l'on ne voit rien, mais il est très simple, donc facile à expliquer pour commencer. On compare ce que l'on a fait précédemment avec une autre manière de faire. Les deux utilisent le paquetage <kbd>matplotlib</kbd>.
 
   </p>
   
   <center>
     <table>
-      <tr><th>Vu précédemment avec <kbd>pandas</kbd></th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th>2<sup>è</sup> manière avec <kbd>matplotlib</kbd></th></tr>
+      <tr><th>Vu précédemment</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th>2<sup>è</sup> manière avec <kbd>matplotlib</kbd></th></tr>
       <tr><td><kbd></kbd></td><td></td><td><kbd>figure, axe = plt.subplots ()</kbd></td></tr>
       <tr><td><kbd>for a in ["temp_b", "temp_l", "temp_lr", "temp_o"]:</kbd></td><td></td><td><kbd>for a in ["temp_b", "temp_l", "temp_lr", "temp_o"]:</kbd></td></tr>
       <tr><td><kbd>&nbsp;&nbsp;&nbsp;&nbsp;plt.plot (brad [a]) # ou brad [a].plot ()</kbd></td><td></td><td><kbd>&nbsp;&nbsp;&nbsp;&nbsp;axe.plot (brad [a])</kbd></td></tr>
@@ -86,11 +87,16 @@
   
   <p>
 
-    Dans la 2<sup>è</sup> manière, on commence par une instruction <kbd>figure, axe = plt.subplots ()</kbd> qui crée deux objects, un objet <kbd>figure</kbd> et un objet <kbd>axe</kbd>. L'objet <kbd>figure</kbd> contient l'ensemble de la figure&nbsp;: quand cette figure ne contient qu'un seul graphique, on ne comprend pas forcément la différence entre figure et graphique, on comprendra mieux un peu plus tard. Dans une figure, il peut y avoir plusieurs «&nbsp;axes&nbsp;», c'est-à-dire plusieurs sous-figures. Quand on invoque la méthode <kbd>subplots ()</kbd> sans argument, celle-ci crée une figure qui contient une seule sous-figure&nbsp;; c'est ce que nous faisons ici. Le contenu de la sous-figure est spécifié via l'<kbd>axe</kbd>. Ici, on commence par ajouter les 4 séries de températures avec une boucle, puis on spécifie l'étiquette des abscisses, puis des ordonnées, puis un titre pour la sous-figure. Enfin, on l'affiche à l'écran.
+    La 2<sup>è</sup> manière est très utile lorsqu'une figure est composée de plusieurs sous-figures. Dans ce premier exemple, il n'y a qu'une seule sous-figure qui est la partie contenant le graphique. On verra plus bas un exemple avec des sous-figures.
+
+    <br/>
+    <br/>
+    
+    Dans la 2<sup>è</sup> manière, on commence par une instruction <kbd>figure, axe = plt.subplots ()</kbd> qui crée deux objects, un objet <kbd>figure</kbd> et un objet <kbd>axe</kbd>. L'objet <kbd>figure</kbd> contient l'ensemble de la figure&nbsp;: quand cette figure ne contient qu'une seule sous-figure, on ne comprend pas forcément la différence entre figure et sous-figure, on comprendra mieux un peu plus tard. Dans une figure, il peut y avoir plusieurs «&nbsp;axes&nbsp;», c'est-à-dire plusieurs sous-figures. Quand on invoque la méthode <kbd>subplots ()</kbd> sans argument, celle-ci crée une figure qui contient une seule sous-figure&nbsp;; c'est ce que nous faisons ici. Le contenu de la sous-figure est spécifié via l'<kbd>axe</kbd>. Ici, on commence par ajouter les 4 séries de températures avec une boucle, puis on spécifie l'étiquette des abscisses, puis des ordonnées, puis un titre pour la sous-figure. Enfin, on l'affiche à l'écran.
 
   </p>
   
-  <h2>Figure avec sous-figures</h2>
+  <h2>Figure avec des sous-figures</h2>
 
   <h3>Le principe</h3>
   
@@ -101,7 +107,8 @@
   </p>
 
   <p class="aligncenter">
-      <img src="../brad/courbesTemperature.png" width="400pt" alt="Courbes de température." />
+    <img src="../brad/courbesTemperature.png"
+	 width="400pt" alt="Courbes de température." />
   </p>
 
   <p>
@@ -130,7 +137,7 @@
     
   <p>
 
-    L'instruction <kbd>plt.subplots (4,1)</kbd> indique que la figure est composé de 4 lignes et 1 colonne, chacune pouvant contenir une sous-figure. Chacune de ces sous-figure est un axe. Ici <kbd>ax</kbd> et un tableau composé de 4 lignes et 1 colonne, <kbd>ax [ligne]</kbd> permet de spécifier une certaine sous-figure (en ligne <kbd>ligne</kbd>). S'il y avait 2 colonnes, on écrirait <kbd>ax [ligne, colonne]</kbd>.
+    L'instruction <kbd>plt.subplots (4,1)</kbd> indique que la figure est composée de 4 éléments, chacune pouvant contenir une sous-figure. Chacune de ces sous-figure est un axe. Ici <kbd>ax</kbd> et un tableau composé de 4 lignes et 1 colonne, <kbd>ax [ligne]</kbd> permet de spécifier une certaine sous-figure (en ligne <kbd>ligne</kbd>). On peut dispose les sous-figures sur plusieurs lignes et plusieurs colonnes&nbsp;; dans ce cas, on écrit <kbd>ax [ligne, colonne]</kbd>.
 
     <br/>
 
@@ -147,7 +154,17 @@
     <br/>
 
     Enfin, on donne un titre à la figure entière en donnant un titre à l'axe 0 qui est celui qui est en haut de la figure.
+
+    <br/>
+    <br/>
+
+    <b>À faire&nbs;:</b> les axes des abscisses des 4 sous-figures sont les mêmes. Aussi, il n'est pas nécessaire d'afficher l'axe des abscisses des 3 sous-figures du haut (living room, lab, basement) que l'on voit mal. Utiliser la méthode <kbd>set_xtickslabels ("")</kbd> pour les retirer et obtenir cette figure ci-dessous&nbsp;:
     
+  </p>
+
+  <p class="aligncenter">
+    <img src="../brad/courbesTemperatureSansXlabels.png" width="400pt"
+	 alt="Courbes de température sans étiquettes en abscisses." />
   </p>
 
   <h3>Un peu mieux</h3>
