@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Music recommendation</title>
+  <link href="https://philippe-preux.github.io/css/ma.css" 
+	rel="stylesheet" type="text/css" media="all" />
+  <link rel="shortcut icon" type="image/x-icon" 
+	href="https://philippe-preux.github.io/img/site.ico" />
+  <style type="text/css">
+    .aligncenter {
+	text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="tpR">
+
+  <h1>Music recommendation</h1>
+  
+  <p>
+
+    Dans ce TP, on continue notre exploration de notions et techniques de base pour la science des données. On va notamment manipuler un fichier de données beaucoup plus gros que précédemment. Après avoir exploré ce jeu de données, on s'intéressera à la recommandation de produits.
+
+    <br/>
+
+    Tous les TPs précédents doivent impérativement avoir été faits.
+    
+  </p>
+
+  <h2>Exploration du jeu de données</h2>
+
+  <h3>Introduction</h3>
+    
+  <p>
+
+    Dans ce TP, nous allons utiliser un jeu de données qui contient tous les morceaux de musique de 1960 à 2009 qui ont été classés au <i>Billboard</i> aux États-Unis, c'est-à-dire les morceaux les plus populaires durant cette période.
+
+    <br/>
+    <br/>
+
+    Ce fichier de données est disponible à l'url suivante&nbsp;:
+
+  </p>
+  
+  <ul>
+    <li><kbd>https://philippe-preux.github.io/ensg/miashs/l3-sd2/datasets/EvolutionPopUSA_MainData.csv</kbd></li>
+  </ul>
+
+  <p>
+
+    <b>À faire&nbsp;:</b>
+    
+  </p>
+
+  <ul>
+    <li>Chargez ce fichier. Appelons <kbd>music</kbd> l'objet python dans lequel vous chargez ce tableau de données.</li>
+    <li>Combien y a-t-il de données&nbsp;?</li>
+    <li>Combien y a-t-il d'attributs par donnée&nbsp;?</li>
+    <li>Quels sont ces attributs&nbsp;?</li>
+    <li>Que représente chaque ligne&nbsp;?</li>
+  </ul>
+
+  <h3>Exploration du jeu de données</h3>
+  
+  <p>
+
+    Ce jeu de données indiquant les morceaux populaires au fil des années, on peut étudier l'évolution des styles de musique populaire au cours de ces dernières décennies.
+
+  </p>
+  
+  <p>
+    Ce jeu de données contient de nombreuses données, chacune décrite par de nombreux attributs. On a&nbsp;:
+
+  </p>
+
+  <ul>
+    <li><kbd>recording_id</kbd> est un numéro permettant d'identifier un morceau</li>
+    <li><kbd>artist_name</kbd> est le nom de l'artiste associé à ce morceau.</li>
+    <li><kbd>artist_name_clean</kbd> contient la même information mais nettoyée&nbsp;: si on veut trouver tous les morceaux d'un artiste donné, c'est cet attribut qu'il faut utiliser.</li>
+    <li><kbd>track_name</kbd> est le titre du morceau</li>
+    <li><kbd>first_entry</kbd> est la date d'entrée dans le classement.</li>
+    <li><kbd>quarter</kbd> est le trimestre d'entrée dans le classement.</li>
+    <li><kbd>year</kbd> est l'année d'entrée dans le classement.</li>
+    <li><kbd>cluster</kbd>&nbsp;: les morceaux ont été segmentés/regroupés automatiquement par genres musicaux. Cet attribut est le numéro de segment/groupe associé à un morceau. Il s'interprête comme suit&nbsp;:
+      <ol>
+	<li>northern soul/soul/hip hop/dance</li>
+	<li>hip hop/rap/gangsta rap/old school</li>
+	<li>easy listening/country/love song/piano</li>
+	<li>funk/blues/jazz/soul</li>
+	<li>rock/pop/new wave</li>
+	<li>female voice/pop/R'n'B/Motown</li>
+	<li>country/classic country/folk/rockability</li>
+	<li>dance/new wave/pop/electronic</li>
+	<li>classic rock/country/rocj/singer-songwriter</li>
+	<li>love song/slow jams/soul/folk</li>
+	<li>funk/blues/dance/blues rock</li>
+	<li>soul/R'n'B/funk/disco</li>
+	<li>rock/hard rock/alternative/classic-rock</li>
+      </ol>
+    <li><kbd>hTopic_01</kbd>..<kbd>hTopic_08</kbd> sont 8 attributs décrivant des caractéristiques harmoniques des morceaux (tonalité, ...).</li>
+    <li><kbd>tTopic_01</kbd>..<kbd>tTopic_08</kbd> sont 8 attributs décrivant le timbre des morceaux (percussion, calme, voix, ...).</li>
+    <li>des tas d'attributs numériques décrivant différents caractéristiques musicales du morceau.</li>
+    </ul>
+
+    <p>
+
+      S'agissant d'un si gros jeu de données, il est vraiment indispensable de passer un peu de temps pour comprendre sa structure. C'est le but des questions qui suivent.
+
+      <b>À faire&nbsp;:</b>
+
+    </p>
+
+    <ul>
+      <li>Regardez quelques données pour comprendre ces différents champs.</li>
+      <li>Recherchez des morceaux que vous connaissez.</li>
+      <li>Recherchez tous les morceaux d'un artiste que vous connaissez.</li>
+    </ul>
+
+    <p>
+
+      Les attributs (numériques) 12 à 269 ont été générés par divers algorithmes à partir des signaux audio de chaque morceau. Ces attributs encodent différents aspects liés au style de musique (rythme, accords, ...).
+
+    </p>
+  
+    <h3></h3>
+
+  <p>
+    
+  </p>
+
+  <h2>Recommandation</h2>
+
+  <p>
+
+    La recommandation est un élément essentiel des sites Internet diffusant de la musique, et plus généralement, des sites de commerce électronique. La réalisation d'un système de recommandation qui fonctionne vraiment bien est quelque chose d'assez sophistiqué, chaque entreprise ayant ses secrets de fabrication pour être meilleure que ses concurrentes. Néanmoins, il existe quelques principes simples sur lesquels ces systèmes s'appuient. Nous allons explorer l'un d'eux sur ce jeu de données, dite <i>recommandation par le contenu</i>.
+
+  </p>
+
+  </div>
+
+<!-- Default Statcounter code for on github
+https://philippe-preux.github.io -->
+<script type="text/javascript">
+var sc_project=12923547; 
+var sc_invisible=1; 
+var sc_security="627600d4"; 
+</script>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="Web Analytics"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/12923547/0/627600d4/1/"
+alt="Web Analytics"
+referrerPolicy="no-referrer-when-downgrade"/></a></div></noscript>
+  <!-- End of Statcounter Code -->
+  
+</body>
+</html>
+

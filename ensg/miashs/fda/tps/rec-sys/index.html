@@ -4,7 +4,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>Systèmes de recommendation par le contenu</title>
+  <title>Systèmes de recommandation par le contenu</title>
   <link href="https://philippe-preux.github.io/css/ma.css" 
 	rel="stylesheet" type="text/css" media="all" />
   <link rel="shortcut icon" type="image/png"
@@ -15,11 +15,11 @@
 
 <div class="tpR">
 
-<h1>Systèmes de recommendation par le contenu</h1>
+<h1>Systèmes de recommandation par le contenu</h1>
 
 <p>
 
-Ce TP concerne les systèmes de recommendation par le contenu. C'est-à-dire, on dispose d'un ensemble d'items, chaque item est décrit par un certain nombre d'attributs et on veut par exemple trouver les k items qui ressemblent le plus à un item fixé.
+Ce TP concerne les systèmes de recommandation par le contenu. C'est-à-dire, on dispose d'un ensemble d'items, chaque item est décrit par un certain nombre d'attributs et on veut par exemple trouver les k items qui ressemblent le plus à un item fixé.
 
 <br/>
 <br/>
@@ -31,7 +31,7 @@ Table des matières&nbsp;:
 <ul>
   <li><a href="#load.and.clean">Chargement et pré-traitement des données</a></li>
   <li><a href="#explore">Exploration visuelle des données</a></li>
-  <li><a href="#recommend">Recommendation</a></li>
+  <li><a href="#recommand">Recommandation</a></li>
   <li><a href="#ref">Référence bibliographique</a></li>
 </ul>
 
@@ -121,7 +121,7 @@ Les attributs (numériques) 12 à 269 ont été générés par divers algorithme
 
 <br/>
 
-La question que l'on va étudier ci-dessous est&nbsp;: si j'aime tel morceau de musique (présent dans ce jeu de données), quels autres morceaux de musique peut-on me recommender si je veux écouter le même genre de musique&nbsp;?
+La question que l'on va étudier ci-dessous est&nbsp;: si j'aime tel morceau de musique (présent dans ce jeu de données), quels autres morceaux de musique peut-on me recommander si je veux écouter le même genre de musique&nbsp;?
 
 <!--
 et si on veut des morceaux différents ??
@@ -137,7 +137,7 @@ et si on veut des morceaux différents ??
   </p>
   <ul>
     <li>l'attribut <kbd>artist_name</kbd> est une chaîne de caractères.</li>
-    <li>l'attribut <kbd>artist_name_clean</kbd> est un attribut nomail (un facteur en R)</li>
+    <li>l'attribut <kbd>artist_name_clean</kbd> est un attribut normal (un facteur en R)</li>
     <li>l'attribut <kbd>track_name</kbd> est une chaîne de caractères.</li>
     <li>l'attribut <kbd>first_entry</kbd> est une date. Modifiez cet attribut pour que ce soit une véritable date et non une chaîne de caractères qui ressemble à une date.</li>
     <li>l'attribut <kbd>quarter</kbd> contient l'année et le trimestre. L'année est déjà présente dans le champ <kbd>year</kbd>. Aussi, modifiez cet attribut pour qu'il ne contienne que le numéro du trimestre.</li>
@@ -222,7 +222,7 @@ Avant d'étudier le problème qui nous intéresse ici, il faut toujours commence
   </ul>
 </div>
 
-<h2 id="recommend">Recommendation</h2>
+<h2 id="recommand">Recommandation</h2>
 
 <p>
 
@@ -234,7 +234,7 @@ Dans cet espace, on peut considérer la distance euclidienne et déterminer les 
 
 <div class="exercice">
   <ol>
-    <li>Avant d'aborder la recommendation, on s'intéresse d'abord à la distance séparant un morceau des autres morceaux. Pour un morceau donné, on va calculer sa distance à chacun des autres. On peut faire cela à l'aide d'une boucle. Vu le nombre de données, c'est assez long de calculer cette distance à chacun des autres morceaux. C'est un très bon exercice de le faire&nbsp;; ne soyez pas surpris par le temps que prend le calcul. Vous prendrez une donnée quelconque (numéro i) et vous calculez sa distance à toutes les autres données. Vous utilisez les attributs numérotés 12 à 269 qui sont tous numériques.</li>
+    <li>Avant d'aborder la recommandation, on s'intéresse d'abord à la distance séparant un morceau des autres morceaux. Pour un morceau donné, on va calculer sa distance à chacun des autres. On peut faire cela à l'aide d'une boucle. Vu le nombre de données, c'est assez long de calculer cette distance à chacun des autres morceaux. C'est un très bon exercice de le faire&nbsp;; ne soyez pas surpris par le temps que prend le calcul. Vous prendrez une donnée quelconque (numéro i) et vous calculez sa distance à toutes les autres données. Vous utilisez les attributs numérotés 12 à 269 qui sont tous numériques.</li>
     <li>On va plutôt utiliser une fonction qui fait ce calcul de manière très efficace. Pour cela, il faut installer un paquet dénommé <kbd>FNN</kbd>. Faites&nbsp;:
 <pre>install.packages ("FNN")</pre>
     Une fois installé, vous devrez le charger pour pouvoir utiliser la fonction <kbd>knn()</kbd> qui y est définie.
@@ -290,7 +290,7 @@ fournit l'indice des k plus proches voisins.
 
 <p>
 
-Si l'on veut recommender des morceaux à quelqu'un qui aime un morceau en particlier, il suffit de rechercher ce morceau dans les données, de déterminer ces plus proches et de les proposer.
+Si l'on veut recommander des morceaux à quelqu'un qui aime un morceau en particlier, il suffit de rechercher ce morceau dans les données, de déterminer ces plus proches et de les proposer.
 
 </p>
 
@@ -311,9 +311,9 @@ En réalité, en général, on dispose d'une liste de morceaux qui ont été éc
   <p>
     Cette question n'est pas facile. Elle nécessite de la réflexion...
     <br/>
-    Vous disposez d'une liste d'écoute d'un utilisateur. Quels items recommendez-vous à partir de cette liste&nbsp;?
+    Vous disposez d'une liste d'écoute d'un utilisateur. Quels items recommandez-vous à partir de cette liste&nbsp;?
     <br/>
-    Pour donner quelques exemples, voici quelques listes d'écoutes deplusieurs utilisateurs. Quelles recommendations faites-vous&nbsp;?
+    Pour donner quelques exemples, voici quelques listes d'écoutes deplusieurs utilisateurs. Quelles recommandations faites-vous&nbsp;?
   </p>
   <ul>
     <li>c (140, 315, 319, 454)</li> <!-- genesis -->
