@@ -4,7 +4,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>Music recommendation</title>
+  <title>Recommandation de musique</title>
   <link href="https://philippe-preux.github.io/css/ma.css" 
 	rel="stylesheet" type="text/css" media="all" />
   <link rel="shortcut icon" type="image/x-icon" 
@@ -19,7 +19,7 @@
 <body>
   <div class="tpR">
 
-  <h1>Music recommendation</h1>
+  <h1>Recommandation de musique</h1>
   
   <p>
 
@@ -42,16 +42,11 @@
     <br/>
     <br/>
 
-    Ce fichier de données est disponible à l'url suivante&nbsp;:
-
-  </p>
+    Ce fichier de données est disponible à l'url suivante&nbsp;: <kbd>https://philippe-preux.github.io/ensg/miashs/l3-sd2/datasets/EvolutionPopUSA_MainData.csv</kbd>.
+    
+    <br/>
+    <br/>
   
-  <ul>
-    <li><kbd>https://philippe-preux.github.io/ensg/miashs/l3-sd2/datasets/EvolutionPopUSA_MainData.csv</kbd></li>
-  </ul>
-
-  <p>
-
     <b>À faire&nbsp;:</b>
     
   </p>
@@ -64,7 +59,7 @@
     <li>Que représente chaque ligne&nbsp;?</li>
   </ul>
 
-  <h3>Exploration du jeu de données</h3>
+  <h3>Exploration initiale du jeu de données</h3>
   
   <p>
 
@@ -78,10 +73,10 @@
   </p>
 
   <ul>
-    <li><kbd>recording_id</kbd> est un numéro permettant d'identifier un morceau</li>
+    <li><kbd>recording_id</kbd> est un numéro permettant d'identifier un morceau de manière unique.</li>
     <li><kbd>artist_name</kbd> est le nom de l'artiste associé à ce morceau.</li>
     <li><kbd>artist_name_clean</kbd> contient la même information mais nettoyée&nbsp;: si on veut trouver tous les morceaux d'un artiste donné, c'est cet attribut qu'il faut utiliser.</li>
-    <li><kbd>track_name</kbd> est le titre du morceau</li>
+    <li><kbd>track_name</kbd> est le titre du morceau.</li>
     <li><kbd>first_entry</kbd> est la date d'entrée dans le classement.</li>
     <li><kbd>quarter</kbd> est le trimestre d'entrée dans le classement.</li>
     <li><kbd>year</kbd> est l'année d'entrée dans le classement.</li>
@@ -101,42 +96,156 @@
 	<li>soul/R'n'B/funk/disco</li>
 	<li>rock/hard rock/alternative/classic-rock</li>
       </ol>
-    <li><kbd>hTopic_01</kbd>..<kbd>hTopic_08</kbd> sont 8 attributs décrivant des caractéristiques harmoniques des morceaux (tonalité, ...).</li>
+    <li><kbd>hTopic_01</kbd>..<kbd>hTopic_08</kbd> sont 8 attributs décrivant des caractéristiques harmoniques des morceaux (tonalité, changements d'accord).</li>
     <li><kbd>tTopic_01</kbd>..<kbd>tTopic_08</kbd> sont 8 attributs décrivant le timbre des morceaux (percussion, calme, voix, ...).</li>
-    <li>des tas d'attributs numériques décrivant différents caractéristiques musicales du morceau.</li>
+    <li>Les attributs (numériques) suivants numérotés 28 à 269 ont été générés par divers algorithmes à partir des signaux audio de chaque morceau. Ces attributs encodent différents aspects liés au style de musique (rythme, accords, ...).</li>
     </ul>
 
     <p>
 
-      S'agissant d'un si gros jeu de données, il est vraiment indispensable de passer un peu de temps pour comprendre sa structure. C'est le but des questions qui suivent.
+      S'agissant d'un si gros jeu de données, il est vraiment indispensable de passer un peu de temps pour comprendre sa structure et aussi faire en sorte que les champs soient bien typés. C'est le but des questions qui suivent.
+
+      <br/>
+      <br/>
 
       <b>À faire&nbsp;:</b>
 
     </p>
 
     <ul>
-      <li>Regardez quelques données pour comprendre ces différents champs.</li>
-      <li>Recherchez des morceaux que vous connaissez.</li>
-      <li>Recherchez tous les morceaux d'un artiste que vous connaissez.</li>
+      <li>l'attribut <kbd>artist_name_clean</kbd> doit être un attribut nominal.</li>
+      <li>L'attribut <kbd>first_entry</kbd> doit être une date.</li>
+      <li>Combien y a-t-il d'artistes différents dans ce jeu de données&nbsp;?
+	<br/>&nbsp;
+      </li>
+      <li>Regardez quelques données pour comprendre les différents champs.</li>
+      <li>Recherchez des morceaux que vous connaissez.
+	<br/>
+	Pour cette question (et d'autres), il peut être utile d'utiliser la fonction <kbd>find ()</kbd> qui recherche une chaîne de caractères dans une autre. Regardez page 137 de <a href="https://inforef.be/swi/python.htm">ce livre</a> dont je vous ai déjà conseillé la lecture.
+      </li>
+      <li>Recherchez tous les morceaux d'un artiste que vous connaissez.
+	<br/>
+	Écrire une fonction <kbd>recherche_artiste ()</kbd> qui renvoie la liste des numéros de données correspondant à une certaine chaînes des caractères. Par exemple&nbsp;:
+	<pre>recherche_artiste ("Swift")
+>>> [8589, 8590, 8591, 8592, 8593, 8890, 10049, 10050, 10051, 10052, 11249, 11351, 11352, 11396, 11397, 11398, 11939, 13919]</pre>
+	Attention, dans certains cas, rechercher seulement le nom d'un artiste produit des résultats correspondant à plusieurs artistes portant le même nom. Par exemple, regardez de près le résultat de <kbd>recherche_artiste ("Jackson")</kbd>&nbsp;; le champ <kbd>artist_name_clean</kbd> est là pour résoudre ce problème, à moins d'indiquer le prénom et le nom (par exemple, <kbd>find_artist("Janet Jackson")</kbd>).
+      </li>
     </ul>
+  
+    <h3>Amélioration de la structure du jeu de données</h3>
 
     <p>
 
-      Les attributs (numériques) 12 à 269 ont été générés par divers algorithmes à partir des signaux audio de chaque morceau. Ces attributs encodent différents aspects liés au style de musique (rythme, accords, ...).
+      Plusieurs choses sont à faire sur ce jeu de données avant de l'utiliser.
+
+      <br/>
+      <br/>
+      
+      <b>À faire&nbsp;:</b>
 
     </p>
-  
-    <h3></h3>
 
-  <p>
+    <ul>
+      <li>Ajouter un attribut <kbd>month</kbd> qui contient le numéro du mois de sortie du morceau (c'est-à-dire le mois dans l'attribut <kbd>first_entry</kbd>). Comme c'est un peu compliqué, je vous indique comment faire&nbsp;:
+	<pre>import datetime as dt
+music ["month"] = music.loc [:,"first_entry"].dt.month</pre>
+      </li>
+      <li>L'attribut <kbd>quarter</kbd> est censé contenir le numéro du trimestre mais il contient aussi l'année et la lettre Q (comme Trimestre en anglais). Regardez la valeur de cet attribut pour la première donnée par exemple qui est la chaîne de caractères <kbd>"1987 Q3"</kbd>. On veut donc que l'attribut <kbd>quarter</kbd> contienne seulement le numéro du trimestre, soit 3 pour cette donnée.
+	<br/>
+	Aide&nbsp;: la fonction <kbd>split()</kbd> agit sur une chaîne de caractères et devrait vous être très utile pour réaliser cela (voir le livre indiqué ci-dessus).
+	<br/>
+	Remarque&nbsp;: il faut que cet attribut soit numérique, pas une chaîne de caractères.
+      </li>
+    </ul>
+
+    <h3>Sorties au fil du temps</h3>
+
+    <ul>
+      <li>On s'intéresse à la répartition du nombre de morceaux différents sortis chaque année. Commencez par faire un graphique de ce nombre. Cela doit vous donner quelque chose comme cela&nbsp;:
+	<br/>
+	<img src="NbNewTracksPerYear.png" width="300pt" alt="Nombre de morceaux sortis chaque année."/>
+	<br/>
+	Qu'observez-vous&nbsp;? Comment interprêtez-vous cela&nbsp;?</li>
+      <li>Y a-t-il des mois pendant lesquels il y a systématiquement plus, ou moins, d'entrées dans le classement&nbsp;? Faire un graphique pour répondre à cette question.</li>
+      <li>Cela évolue-t-il au cours du temps&nbsp;? Vous pouvez faire un graphique par année ou, plus simplement, vous pouvez faire un graphique pour un certain ensemble d'années, par exemple tous les 10 ans à partir de 1960.
+	<br/>
+	(On appelle cela de l'échantillonnage&nbsp;: quand il y a trop de possibilités à regarder, on en sélectionne quelques-unes et si elles partagent les mêmes caractéristiques, on se dit que probablement, celles que l'on n'a pas regardées sont identiques. Bien sûr, ce n'est pas très rigoureux et si l'on veut être rigoureux, il faut toutes les regarder. On comprend bien ici la notion de biais&nbsp;: si l'on ne sélectionne pas les échantillons au hasard mais avec un certain biais, on n'a pas de raison de penser que les échantillons non examinés sont identiques à ceux que l'on a choisi. Par exemple si on prend les années de début de décennie comme je le propose ici, il y a un biais&nbsp;; il faudrait prendre des années en les sélectionnant au hasard entre 1960 et 2009.)</li>
+      <li>Même question pour les trimestres.</li>
+    </ul>
     
-  </p>
+    <h3>Popularité des genres musicaux au fil du temps</h3>
 
+    <ul>
+      <li>On s'intéresse à l'évolution de la popularité des genres musicaux. Pour cela, on va faire des graphiques représentation le nombre de morceaux d'un genre donné (caractérisé par l'attribut <kbd>cluster</kbd>) au fil du temps.
+	<br/>
+	Faire un tel graphe en comptant le nombre de morceaux du cluster 1 présent dans le classement durant chaque année. Vous devez obtenir quelque chose comme cela&nbsp;:
+	<br/>
+	<img src="sortiesParGenreParAnneeGenre1.png" width="300pt" alt="Nombre de morceaux sortis chaque année pour le genre 1."/>
+	<br/>
+	et les autres genres&nbsp;:
+	<br/>
+	<img src="sortiesParGenreParAnneeGenre2.png" width="100pt" alt="Nombre de morceaux sortis chaque année pour le genre 2."/>
+	<img src="sortiesParGenreParAnneeGenre3.png" width="100pt" alt="Nombre de morceaux sortis chaque année pour le genre 3."/>
+	<img src="sortiesParGenreParAnneeGenre4.png" width="100pt" alt="Nombre de morceaux sortis chaque année pour le genre 4."/>
+	<img src="sortiesParGenreParAnneeGenre5.png" width="100pt" alt="Nombre de morceaux sortis chaque année pour le genre 5."/>
+	<img src="sortiesParGenreParAnneeGenre6.png" width="100pt" alt="Nombre de morceaux sortis chaque année pour le genre 6."/>
+	<img src="sortiesParGenreParAnneeGenre7.png" width="100pt" alt="Nombre de morceaux sortis chaque année pour le genre 7."/>
+	<img src="sortiesParGenreParAnneeGenre8.png" width="100pt" alt="Nombre de morceaux sortis chaque année pour le genre 8."/>
+	<img src="sortiesParGenreParAnneeGenre9.png" width="100pt" alt="Nombre de morceaux sortis chaque année pour le genre 9."/>
+	<img src="sortiesParGenreParAnneeGenre10.png" width="100pt" alt="Nombre de morceaux sortis chaque année pour le genre 10."/>
+	<img src="sortiesParGenreParAnneeGenre11.png" width="100pt" alt="Nombre de morceaux sortis chaque année pour le genre 11."/>
+	<img src="sortiesParGenreParAnneeGenre12.png" width="100pt" alt="Nombre de morceaux sortis chaque année pour le genre 12."/>
+	<img src="sortiesParGenreParAnneeGenre13.png" width="100pt" alt="Nombre de morceaux sortis chaque année pour le genre 13."/>
+	<br/>
+	<br/>
+	Qu'en pensez-vous&nbsp;? Trouvez-vous normal que toutes ces courbes aient la même allure&nbsp;? N'aviez-vous pas l'impression que les années 1970 étaient les années disco et qu'on devrait le voir&nbsp;? Pareil pour la new wave dans les années 1980, le funk, sans parler du hip hop et du rap un peu plus récemment&nbsp;?
+	<br/>
+	Qu'est ce qui ne va pas&nbsp;?
+	<br/>
+	Une fois prise en compte cette remarque, j'obtiens ce genre de graphiques&nbsp;:
+	<br/>
+	<img src="ProportionSortiesParGenreParAnneeGenre1.png" width="300pt" alt="genre 1."/>
+	<br/>
+	<img src="ProportionSortiesParGenreParAnneeGenre2.png" width="100pt" alt="genre 2."/>
+	<img src="ProportionSortiesParGenreParAnneeGenre3.png" width="100pt" alt="genre 3."/>
+	<img src="ProportionSortiesParGenreParAnneeGenre4.png" width="100pt" alt="genre 4."/>
+	<img src="ProportionSortiesParGenreParAnneeGenre5.png" width="100pt" alt="genre 5."/>
+	<img src="ProportionSortiesParGenreParAnneeGenre6.png" width="100pt" alt="genre 6."/>
+	<img src="ProportionSortiesParGenreParAnneeGenre7.png" width="100pt" alt="genre 7."/>
+	<img src="ProportionSortiesParGenreParAnneeGenre8.png" width="100pt" alt="genre 8."/>
+	<img src="ProportionSortiesParGenreParAnneeGenre9.png" width="100pt" alt="genre 9."/>
+	<img src="ProportionSortiesParGenreParAnneeGenre10.png" width="100pt" alt="genre 10."/>
+	<img src="ProportionSortiesParGenreParAnneeGenre11.png" width="100pt" alt="genre 11."/>
+	<img src="ProportionSortiesParGenreParAnneeGenre12.png" width="100pt" alt="12."/>
+	<img src="ProportionSortiesParGenreParAnneeGenre13.png" width="100pt" alt="13."/>
+	<br/>
+	Sur ces graphiques, on voit beaucoup mieux ce que l'on s'attend à voir&nbsp;: l'arrivée massive to rap depuis les années 1990, la new wave dans les années 1980, le disco dans les années 1970, ... (Vous voyez la même chose que moi&nbsp;?)
+	<br/>
+	Ayant compris ce qui ne va pas plus haut, corrigez votre approche pour obtenir les mêmes graphiques que moi (ci-dessus).
+      </li>
+      <li>Faites de même pour chaque trimestre.</li>
+      <!--li>Faites ce graphique pour les 13 clusters en associant une couleur différente à chaque cluster.<-->
+    </ul>
+
+    <h3>Popularité des artistes</h3>
+
+    <ul>
+      <li>On va s'intéresser à la popularité des artistes. Pour cela, pour chaque artiste, on compte le nombre de morceaux qu'il a eu dans les classements.
+	<br/>
+	Quel est l'artiste qui a eu le plus de morceaux dans ce classement&nbsp;?
+	<br/>
+	Quels sont les artistes qui ont eu plus de 30 morceaux dans ce classement&nbsp;?
+      </li>
+      <li>Calculez le nombre d'artistes ayant eu n morceaux dans ce classement, pour n variant de 1 à la valeur maximale trouvée à la question précédente. Appelons <kbd>decompte</kbd> le vecteur dont le i-ème élément contient le nombre d'atrtistes ayant eu i morceaux dans ce classement.</li>
+      <li>Faites un plot de <kbd>decompte</kbd>.</li>
+      <li>Faites un plot log-log, c'est-à-dire qu'en abscisses et en ordonnées, vous mettez le log de la quantité que vous avez mise dans le plot précédent. Vous devez obtenir une figure assez remarquable.</li>
+    </ul>
+    
   <h2>Recommandation</h2>
 
   <p>
 
-    La recommandation est un élément essentiel des sites Internet diffusant de la musique, et plus généralement, des sites de commerce électronique. La réalisation d'un système de recommandation qui fonctionne vraiment bien est quelque chose d'assez sophistiqué, chaque entreprise ayant ses secrets de fabrication pour être meilleure que ses concurrentes. Néanmoins, il existe quelques principes simples sur lesquels ces systèmes s'appuient. Nous allons explorer l'un d'eux sur ce jeu de données, dite <i>recommandation par le contenu</i>.
+    La recommandation est un élément essentiel des sites Internet diffusant de la musique, et plus généralement, des sites de commerce électronique. La réalisation d'un système de recommandation qui fonctionne vraiment bien est quelque chose d'assez sophistiqué, chaque entreprise ayant ses secrets de fabrication pour être meilleure, ou originale, par rapport à ses concurrentes. Néanmoins, il existe quelques principes simples sur lesquels ces systèmes s'appuient. Nous allons explorer l'un d'eux sur ce jeu de données, la <i>recommandation par le contenu</i>.
 
   </p>
 

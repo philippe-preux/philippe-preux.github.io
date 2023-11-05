@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Méthodes non supervisées</title>
+  <link href="https://philippe-preux.github.io/css/ma.css" 
+	rel="stylesheet" type="text/css" media="all" />
+  <link rel="shortcut icon" type="image/x-icon" 
+	href="https://philippe-preux.github.io/img/site.ico" />
+  <style type="text/css">
+    .aligncenter {
+	text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="tpR">
+
+  <h1>Méthodes non supervisées</h1>
+  
+  <p>
+
+    Dans ce TP, on aborde très brièvement les méthodes non supervisées. Celles-ci sont très nombreuses et permettent de traiter de nombreuses problématiques. On s'intéresse ici à deux d'entre-elles, la segmentation de données par la méthode des k-moyennes, et l'analyse en coposantes principales. Le but de ce TP est uniquement de savoir à peu près les mettre en &oelig;uvre en pratique.
+
+    <br/>
+
+    Tous les TPs précédents doivent impérativement avoir été faits.
+
+    <br/>
+
+    En supposant que leurs attributs soient numériques, une donnée est un point dans un espace géométrique. Il est très utile de garder cela en tête pour lire la suite de l'énoncé et réaliser ce TP.
+
+    <br/>
+
+    Dans les méthodes non supervisées, les données n'ont pas d'étiquette/classe. Le but des méthodes non supervisées est précisément de proposer des méthodes permettant de découvrir automatiquement ces classes.
+    Si dans ce TP nous utilisons des données ayant une classe, c'est uniquement pour pouvoir comparer le résultat que nous obtenons avec la méthode non supervisée avec la «&nbsp;vérité terrain&nbsp;» fournie par un expert humain. Cette classe n'est pas utilisée pour appliquer les méthodes.
+
+    <!--Si les attributs sont indépendants les uns des autres, chaque attribut correspond à un axe de coordonnées et l'ensemble des axes constitue une base orthogonale de cet espace. En général, les attributs ne sont pas indépendants les uns des autres et la relation les liant est inconnue&nbsp;; c'est justement l'une des questions que l'on essaie d'élucider quand on fait de la science des données&nbsp;: quelles sont les relations entre les attributs&nbsp;? S'il existe de telles relations, alors la base que nous évoquons ci-dessus n'est pas orthogonale. Nous n'allons pas vraiment aborder ce point dans ce TP, mais je le signale car il est très important pour comprendre ce que nous faisons et les limites de ce que nous allons faire dans ce TP.-->
+
+  </p>
+
+  <h2>Segmentation de données par la méthode des k-moyennes</h2>
+
+  <h3>Introduction</h3>
+    
+  <p>
+
+    Segmenter des données consiste à regrouper les données en fonction de leur ressemblance entre-elles. Il existe des tas de méthodes de segmentation de données, nous n'en présentons qu'une, probablement la plus connue, de manière très succincte, la méthode des k-moyennes. Pour pouvoir prétendre connaître cette méthode, il faudrait réaliser un TP bien plus long.
+
+    <br/>
+    <br/>
+
+    Sous sa forme la plus simple, 
+  </p>
+
+  <h3>Mise en pratique</h3>
+
+  <h4>Introduction</h4>
+  
+  <p>
+
+    On va utiliser le jeu de données des iris qui est très simple, et très célère en statistiques. Celui-ci est disponible dans <kbd>scikit_learn</kbd> en faisant&nbsp;:
+    
+  </p>
+
+  <pre>from sklearn import datasets
+iris = datasets.load_iris()</pre>
+
+  <p>
+    Ensuite, <kbd>iris.data</kbd> est un tableau <kbd>numpy</kbd> contenant les données.
+
+    <br/>
+    <br/>
+
+    <b>À faire&nbsp;:</b>
+    
+  </p>
+  
+  <ul>
+    <li>Chargez ce jeu de données.</li>
+    <li>Combien y a-t-il de données&nbsp;?</li>
+    <li>Combien y a-t-il d'attributs par donnée&nbsp;?</li>
+    <li>Quels sont ces attributs&nbsp;?</li>
+  </ul>
+
+  <p>
+
+    Chaque donnée est donc une fleur d'iris, chacune décrite par la longueur et la largeur de ses pétales et de ses sépales.
+
+    <br/>
+
+    Il y a des fleurs de 3 espèces d'iris différents dans ce jeu de données, donc 3 classes possibles. La classe des données est disponible dans l'attribut <kbd>target</kbd> du jeu de données.
+
+  </p>
+
+  <h4>Segmentation</h4>
+  
+  <p>
+
+    Pour segmenter un jeu de données, on va utiliser la méthode des k-moyennes. Celle-ci est disponible dans <kbd>scikit_learn</kbd> en faisant&nbsp;:
+
+  </p>
+
+  <pre>from sklearn.cluster import KMeans</pre>
+
+  <p>
+
+    puis par exemple si on veut segmenter le jeu de données (un tableau <kbd>numpy</kbd>) présent dans l'objet <kbd>toto</kbd> en 4 segments&nbsp;:
+    
+  </p>
+
+  <pre>km = KMeans (n_clusters = 4).fit (toto)</pre>
+
+  <p>
+
+    L'objet <kbd>km</kbd> contient alors différents attributs avec le résultat de la segmentation&nbsp;:
+    
+  </p>
+
+  <ul>
+    <li>l'attribut <kbd>inertia_</kbd> contient l'inertie intraclasse de la segmentation&nbsp;;</li>
+    <li>l'attribut <kbd>clusters_centers_</kbd> contient les coordonnées des centroïdes&nbsp;;</li>
+    <li>l'attribut <kbd>labels_</kbd> contient le numéro de segment de chaque donnée.</li>
+  </ul>
+
+  <p>
+
+    <b>À faire&nbsp;:</b>
+
+  </p>
+
+  <ul>
+    <li>pour ce jeu de données, on sait qu'il y a trois classes/groupes. On commence par utiliser cette information et on applique la méthode des k-moyennes en lui indiquant que l'on veut réaliser 3 groupes. Faites-le.</li>
+    <li>Faire un graphique représentant chaque donnée dans le plan longueur des pétales en abscisses, largueur des pétales en ordonnées, avec une couleur différente selon son groupe. Vous devez obtenir queque chose qui ressemble à cela&nbsp;:
+      <br/>
+      
+      <img src="irisEn3groupes.png" width="300pt" alt="iris segmentés en 3 groupes" />
+    </li>
+  </ul>
+
+  <h4>Diagnostic</h4>
+
+  <p>
+
+    Comme on dispose de la classe de chaque donnée, on peut comparer le résultat de la segmentation avec ces classes.
+    
+  </p>
+  
+  <ul>
+    <li>Faire un autre graphique dans le même plan, cette fois-ci, la couleur indique la classe de chaque donnée. Vous devez obtenir quelque chose comme cela&nbsp;:
+      <br/>
+      
+      <img src="iris3classes.png" width="300pt" alt="iris segmentés en 3 groupes" />
+      <br/>
+      En comparant visuellement les deux graphiques, on voit que les données sont à peu près regroupées de la même manière.
+    </li>
+    <li>Pour avoir une meilleure appréciation du résultat, on produit une table de confusion qui indique pour chaque classe la répartition des données parmi les 3 groupes. Il faut donc comparer les groupes qui ont été créés par k-moyenne et les classes. Pour cela on utilise la fonction <kbd>confusion_matrix ()</kbd> que l'on doit importer pa <kbd>from sklearn.metrics import confusion_matrix</kbd>.
+      <br/>
+      On l'utilise ensuite en faisant&nbsp;:
+      <pre>confusion_matrix (classes_des_données, groupes_créés_par_k_moyenne)</pre>
+      <br/>
+      Faites-le. Que pensez-vous du résultat&nbsp;?
+    </li>
+  </ul>
+
+  <h4>Nombre de segments</h4>
+
+  <p>
+
+    Quand on utilise une méthode comme les k-moyennes, une question essentielle est le choix du nombre de groupes à réaliser qui est un paramètre de cette méthode. Ce nombre étant <i>a priori</i> inconnu, la solution consiste à tester plusieurs valeurs et à choisir la meilleure.
+
+    <br/>
+    <br/>
+
+    Le choix de la meilleure segmentation se fait en utilisant le score de silhouette. Celui-ci se calcule à l'aide de la fonction <kbd>silhouette_score ()</kbd> que l'on importe avec <kbd>from sklearn.metrics import silhouette_score</kbd>.
+    
+  </p>
+
+
+  </div>
+
+<!-- Default Statcounter code for on github
+https://philippe-preux.github.io -->
+<script type="text/javascript">
+var sc_project=12923547; 
+var sc_invisible=1; 
+var sc_security="627600d4"; 
+</script>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="Web Analytics"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/12923547/0/627600d4/1/"
+alt="Web Analytics"
+referrerPolicy="no-referrer-when-downgrade"/></a></div></noscript>
+  <!-- End of Statcounter Code -->
+  
+</body>
+</html>
+
