@@ -23,7 +23,7 @@
   
   <p>
 
-    Dans ce TP, on aborde très brièvement les méthodes non supervisées. Celles-ci sont très nombreuses et permettent de traiter de nombreuses problématiques. On s'intéresse ici à deux d'entre-elles, la segmentation de données par la méthode des k-moyennes, et l'analyse en coposantes principales. Le but de ce TP est uniquement de savoir à peu près les mettre en &oelig;uvre en pratique.
+    Dans ce TP, on aborde très brièvement les méthodes non supervisées. Celles-ci sont très nombreuses et permettent de traiter de nombreuses problématiques. On s'intéresse ici à deux d'entre-elles, la segmentation de données par la méthode des k-moyennes.<!--, et l'analyse en coposantes principales-->. Le but de ce TP est uniquement de savoir à peu près la mettre en &oelig;uvre en pratique.
 
     <br/>
 
@@ -176,6 +176,16 @@ iris = datasets.load_iris()</pre>
     <br/>
 
     Le choix de la meilleure segmentation se fait en utilisant le score de silhouette. Celui-ci se calcule à l'aide de la fonction <kbd>silhouette_score ()</kbd> que l'on importe avec <kbd>from sklearn.metrics import silhouette_score</kbd>.
+
+    <br/>
+    <br/>
+
+    Le principe est donc très simple&nbsp;: on fait une boucle égrénant le nombre de segments à réaliser et pour chacun, on effectue k-moyenne et on mesure le score du résultat. Celui-ci est stocké dans un tableau pour pouvoir ensuite comparer les scores des différentes segmentations. La meilleure segmentation est celle ayant le plus grand score.
+
+    <br/>
+    <br/>
+
+    <b>À faire&nbsp;:</b> faites tout cela pour un nombre de groupes variant entre 2 et 10. D'après cette méthode, quelle est le nombre de groupes&nbsp;? Êtes-vous étonné du résultat&nbsp;?
     
   </p>
 
