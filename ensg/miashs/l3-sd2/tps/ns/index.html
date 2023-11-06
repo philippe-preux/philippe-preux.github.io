@@ -154,14 +154,14 @@ iris = datasets.load_iris()</pre>
   </p>
   
   <ul>
-    <li>Faire un autre graphique dans le même plan, cette fois-ci, la couleur indique la classe de chaque donnée. Vous devez obtenir quelque chose comme cela&nbsp;:
+    <li>Faire un autre graphique dans le même plan. Cette fois, la couleur indique la classe de chaque donnée. Vous devez obtenir quelque chose comme cela&nbsp;:
       <br/>
       
       <img src="iris3classes.png" width="300pt" alt="iris segmentés en 3 groupes" />
       <br/>
       En comparant visuellement les deux graphiques, on voit que les données sont à peu près regroupées de la même manière.
     </li>
-    <li>Pour avoir une meilleure appréciation du résultat, on produit une table de confusion qui indique pour chaque classe la répartition des données parmi les 3 groupes. Il faut donc comparer les groupes qui ont été créés par k-moyenne et les classes. Pour cela on utilise la fonction <kbd>confusion_matrix ()</kbd> que l'on doit importer pa <kbd>from sklearn.metrics import confusion_matrix</kbd>.
+    <li>Pour avoir une meilleure appréciation du résultat, on produit une table de confusion qui indique pour chaque classe la répartition des données parmi les 3 groupes. Il faut donc comparer les groupes qui ont été créés par k-moyenne et les classes. Pour cela on utilise la fonction <kbd>confusion_matrix ()</kbd> que l'on doit importer par <kbd>from sklearn.metrics import confusion_matrix</kbd>.
       <br/>
       On l'utilise ensuite en faisant&nbsp;:
       <pre>confusion_matrix (classes_des_données, groupes_créés_par_k_moyenne)</pre>
@@ -179,7 +179,7 @@ iris = datasets.load_iris()</pre>
     <br/>
     <br/>
 
-    Le choix de la meilleure segmentation se fait en utilisant le score de silhouette. Celui-ci se calcule à l'aide de la fonction <kbd>silhouette_score ()</kbd> que l'on importe avec <kbd>from sklearn.metrics import silhouette_score</kbd>.
+    Le choix de la meilleure segmentation peut se faire en utilisant le score de silhouette. Celui-ci se calcule à l'aide de la fonction <kbd>silhouette_score ()</kbd> que l'on importe avec <kbd>from sklearn.metrics import silhouette_score</kbd>.
 
     <br/>
     <br/>
