@@ -108,11 +108,11 @@ iris = datasets.load_iris()</pre>
 
   <p>
 
-    puis par exemple si on veut segmenter le jeu de données (un tableau <kbd>numpy</kbd>) présent dans l'objet <kbd>toto</kbd> en 4 segments&nbsp;:
+    puis par exemple si on veut segmenter le jeu de données en 4 segments&nbsp;:
     
   </p>
 
-  <pre>km = KMeans (n_clusters = 4).fit (toto)</pre>
+  <pre>km = KMeans (n_clusters = 4).fit (iris.data)</pre>
 
   <p>
 
@@ -137,7 +137,11 @@ iris = datasets.load_iris()</pre>
     <li>Faire un graphique représentant chaque donnée dans le plan longueur des pétales en abscisses, largueur des pétales en ordonnées, avec une couleur différente selon son groupe. Vous devez obtenir queque chose qui ressemble à cela&nbsp;:
       <br/>
       
-      <img src="irisEn3groupes.png" width="300pt" alt="iris segmentés en 3 groupes" />
+      <img src="irisEn3groupes.png" width="300pt" alt="Iris segmentés en 3 groupes" />
+    </li>
+    <li>Ajouter à ce graphique les centroïdes en rouge.
+      <br/>
+      <img src="irisEn3groupesAvecCentroides.png" width="300pt" alt="Iris segmentés en 3 groupes avec les centroïdes." />
     </li>
   </ul>
 
