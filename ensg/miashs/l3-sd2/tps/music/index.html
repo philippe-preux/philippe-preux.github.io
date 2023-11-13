@@ -165,7 +165,10 @@ music ["month"] = music.loc [:,"first_entry"].dt.month</pre>
 	<br/>
 	<img src="NbNewTracksPerYear.png" width="300pt" alt="Nombre de morceaux sortis chaque année."/>
 	<br/>
-	Qu'observez-vous&nbsp;? Comment interprêtez-vous cela&nbsp;?</li>
+	Qu'observez-vous&nbsp;? Comment interprêtez-vous cela&nbsp;?
+	<br/>
+	Remarque&nbsp;: si vous utilisez <kbd>value_counts()</kbd> pour répondre à cette question (c'est une très bonne idée), il faut faire attention au fait que cette fonction renvoie un tableau trié en fonction des décomptes. Pour obtenir le graphique correct, on veut que le décompte soit affiché en fonction de l'année. On peut soit faire un graphique en indiquant qu'il faut utiliser l'index en abcisses (<kbd>value_counts().index</kbd>) et le décompte en ordonnées (<kbd>value_counts().value</kbd>), soit trier les décomptes en fonction de l'index  (<kbd>value_counts().sort_index()</kbd>).
+      </li>
       <li>Y a-t-il des mois pendant lesquels il y a systématiquement plus, ou moins, d'entrées dans le classement&nbsp;? Faire un graphique pour répondre à cette question.</li>
       <li>Cela évolue-t-il au cours du temps&nbsp;? Vous pouvez faire un graphique par année ou, plus simplement, vous pouvez faire un graphique pour un certain ensemble d'années, par exemple tous les 10 ans à partir de 1960.
 	<br/>
