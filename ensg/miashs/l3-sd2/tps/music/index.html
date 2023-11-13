@@ -270,21 +270,170 @@ music ["month"] = music.loc [:,"first_entry"].dt.month</pre>
 
     La recommandation est un élément essentiel des sites Internet diffusant de la musique, et plus généralement, des sites de commerce électronique. La réalisation d'un système de recommandation qui fonctionne vraiment bien est quelque chose d'assez sophistiqué, chaque entreprise ayant ses secrets de fabrication pour être meilleure, ou originale, par rapport à ses concurrentes. Néanmoins, il existe quelques principes simples sur lesquels ces systèmes s'appuient. Nous allons explorer l'un d'eux sur ce jeu de données, la <i>recommandation par le contenu</i>.
 
+  </p>
+
+  <h3>Quelques idées trop simples</h3>
+
+  <p>
+
+    On peut commencer par recommander des morceaux en fonction du nombre de l'artiste&nbsp;: si j'écoute <i>Thriller</i> de Michael Jackson, que peut-on me proposer&nbsp;? Les autres titres de Mickael Jackson.
+    
     <br/>
     <br/>
 
-    <b>À suivre...</b>
+    <b>À faire&nbsp;:</b> écrire une fonction qui prend en paramètre le numéro d'un morceau (par exemple 13954) et renvoie une liste composée des numéros de tous les morceaux de cet artiste. Testez-cette fonction.
     
+    <br/>
+    <br/>
+
+    Ce n'est pas très intéressant&nbsp;: j'aimerais bien qu'on me propose des titres d'autres artistes.
+
+    <br/>
+
+    Je peux recommander tous les morceaux du même genre musicale. Cette fois-ci, je vais avoir plus de 1000 titres et rien de bien spécifique non plus.
+
+  </p>
+
+  <h3>À la recherche des attributs utiles pour la recommandation</h3>
+
+  <p>
+
+    Pour recommander des items, il faut utiliser des caractéristiques suffisamment précises, mais pas trop. Le nom d'un artiste est trop précis&nbsp;; le genre musical est à la fois pas assez précis et trop restrictif.
+
+    <br/>
+    <br/>
+
+    En général, si on apprécie un morceau de musique, c'est à cause de ses caratcéristiques musicales, en particulier des choses comme la tonalité mais aussi d'autres assez complexes comme des suites d'accords.
+
+    <br/>
+
+    Dans le jeu de données que nous étudions, les attributs numérotés à partir de 12 contiennent de telles caractéristiques musicales. Ils ont été calculés à partir des fichiers audios de chacun des morceaux. Cet ensemble d'attributs caractérisent assez finement chaque morceau. Aussi, pour recommander des morceaux, on va utiliser ces attributs&nbsp;: si j'apprécie tel morceau, je vais chercher les autres morceaux qui ont à peu près les mêmes caractéristiques musicales.
+    
+  </p>
+
+  <h4>Similarité entre deux morceaux de musique</h4>
+
+  <p>
+    
+    La mise en &oelig;uvre de l'idée «&nbsp;les autres morceaux qui ont à peu près les mêmes caractéristiques musicales&nbsp;» nécessite de définir une notion de similarité&nbsp;: plus la similarité est grande entre deux morceaux, plus il y a de chance que si on apprécie l'un, on apprécie le second et que donc, si on apprécie l'un, on peut recommander l'autre.
+
+    <br/>
+
+    La définition de cette notion de similarité est capitale&nbsp;: si elle est bien définie, la recommandation va fonctionner, sinon elle ne fonctionnera pas.
+
+    <br/>
+
+    C'est tout un art que de définir cette similarité&nbsp;: c'est la partie la plus difficile. Chaque morceau possède un vecteur de 259 composantes caractérisant le style musical du morceau. On peut essayer de toutes les utiliser, ou en utiliser seulement un sous-ensemble. C'est impossible <i>a priori</i> de savoir lesquelles de ces composantes donneront les recommandations les plus intéressantes.
+
+    <br/>
+
+    Quoiqu'il en soit, un morceau de musique va être représenté par un vecteur contenant un certain nombre de composantes numériques.
+
+    Pour quantifier la similarité entre deux mroceaux de musique, on va calculer l'angle entre ces deux vecteurs&nbsp;: si cet angle est petit, cela signifie que les deux vecteurs ont des composantes proches. Plus précisément, on calcule le cosinus de cet angle&nbsp;: plus l'angle est petit, plus le cosinus est proche de 1. Par ailleurs, le cosinus de l'angle entre deux vecteurs normés se calcule très facilement et très rapidement&nbsp;: c'est le produit scalaire des deux vecteurs.
+
+    <br/>
+
+    Il faut donc que les vecteurs soient normés, c'est-à-dire de norme 1.
+
+    <br/>
+
+    On considère les attributs numérotés 11 à 27. Ainsi, chaque mrceau de musique est caractérisé par un vecteur ayant 16 composantes.
+    
+    <br/>
+
+    <b>À faire&nbsp;:</b> ces vecteurs sont-ils normés&nbsp;? S'ils ne le sont pas, normez-les.
+
+    On peut utiliser la fonction <kbd>numpy.linalg.norm (v)</kbd> qui renvoie la norme du vecteur <kbd>v</kbd>. Pour normer un vecteur <kbd>v</kbd>, il suffit donc de diviser chacu de ses éléments par sa norme.
+
+    <br/>
+
+    Conseil&nbsp;: tous ces attributs sont numériques. Pour simplifier les manipulations, je vous conseille de mettre ces attributs dans une matrice et de travailler avec cette matrice dans ce qui suit.
+
+    <br/>
+
+    Pour trouver les morceaux proches du morceau numéro i, on calcule donc la similarité entre ce morceau et tous les autres (on stocke ces similarités dans un vecteur) et on cherche ensuite les morceaux pour lesquels cette similarité est la plus grande. Comme on vient de le dire, la similarité entre les morceaux numéros i et j est définie par la valeur du produit scalaire entre les vecteurs représentant les morceaux i et j (les 16 attributs indiqués plus haut).
+    
+    <br/>
+    <br/>
+
+    <b>À faire&nbsp;:</b> calculer la similarité entre la donnée 22 et toutes les autres. Faites un graphique de la distribution de cette similarité. Vous devez obtenir quelque chose comme&nbsp;:
+
+    <br/>
+
+    <img src="22.png" width="300pt"
+	 alt="Distribution de la similarité entre la donnée 23 et toutes les autres" />
+
+    <br/>
+    
+    Faites de même pour les données 146, 5383 et 13954. Vous devez obtenir des graphiques comme ceux-ci&nbsp;:
+    
+    <br/>
+
+    <img src="146.png" width="300pt"
+	 alt="Distribution de la similarité entre la donnée 146 et toutes les autres" />
+
+    <img src="5383.png" width="300pt"
+	 alt="Distribution de la similarité entre la donnée 5383 et toutes les autres" />
+
+    <img src="13954.png" width="300pt"
+	 alt="Distribution de la similarité entre la donnée 13954 et toutes les autres" />
+
+    <br/>
+
+    Interprêtez et discutez ces graphiques.
+    
+  </p>
+
+  <h4>Recommandation</h4>
+
+  <p>
+
+    Considérons le morceau numéro i. On calcule la similarité entre ce morceau et chacun des autres. Ces similarités sont stockés dans un vecteur. En cherchant les 10 morceaux pour lesquels la similarité est la plus grande, on trouve les 10 morceaux à recommander.
+
+    <br/>
+
+    Pour faire cela, il faut déterminer les 10 morceaux pour lesquels la similarité est la plus grande. On utilisera la fonction <kbd>argsort ()</kbd>.
+
+    <br/>
+    <br/>
+
+    <b>À faire&nbsp;:</b> déterminer les 10 morceaux les plus similaires à des morceaux que vous connaissez (pour pouvoir juger de la pertinence du résultat). Êtes-vous satisfait du résultat&nbsp;?
+
+    Si oui, tant mieux. Si non, il ne vous reste plus qu'à améliorer cette procédure (pour concevoir cet énoncé de TP, j'ai cherché des attributs qui ont l'air de donner des résultats assez satisfaisants&nbsp;; aussi, je n'ai pas «&nbsp;la&nbsp;» bonne réponse à la question).
+
+  </p>
+
+  <h4>Pour aller plus loin</h4>
+
+  <p>
+
+    Je propose quelques activités libres à partir de ce que nous avons fait. Si vous obtenez des résultats intéressants, n'hésitez pas à me le dire.
+
+  </p>
+  
+  <ol>
+    <li>On peut s'intéresser à la recommandation de morceaux de musique en fonction d'un ensemble de morceaux (ci-dessus, on fait une recommandation en fonction d'un seul morceau). Concevoir et implanter une fonction qui prend en paramètre une liste de morceaux et renvoie une liste de recommandations.</li>
+    <li>On peut utiliser d'autres attributs que les 16 que nous avons utilisés ci-dessus. J'ai essayé d'utiliser tous les attributs à partir du douxième mais les résultats obtenus en utilisant seulement les 16 attributs me semblaient plus pertinents. N'hésitez pas à chercher si d'autres attributs ne donneraient pas des résultats plus intéressants.
+      <br/>
+      Il est bon de savoir que les 16 attributs numérotés 27 à 41 (leur nom commence par PC) résulent d'une ACP des 16 attributs que nous avons utilisés&nbsp;: ces deux jeux de 16 attributs contiennent donc la même information et il ne faut pas utiliser les deux.</li>
+  </ol>
+      
+  <h2>Remarque finale</h2>
+
+  <p>
+
+    Les systèmes de recommandation utilisent des informations du type&nbsp;: les personnes écoutant tel morceau écoutent aussi tels autres morceaux. Nous ne disposons pas de ce type d'information ici, d'où des performances plutôt décevantes. Par expérience, on sait que ces informations sont bien plus utiles pour réaliser de bonnes recommandation que les informations concernant les items eux-mêmes.
+
   </p>
 
   <h2 id="ref">Référence</h2>
 
   <p>
 
-    Ce TP est basé sur l'article qui suit.
-    
+    Ce TP est basé sur les données issues de l'article&nbsp;:
+
     <br/>
-    
+
     <a href="http://dx.doi.org/10.1098/rsos.150081">[1] Mauch M., MacCallum RM, Levy M, Leroi AM. 2015 The evolution of popular music USA 1960-2010. R.Soc. open sci. <b>2</b>:150081.</a>
   </p>
 
