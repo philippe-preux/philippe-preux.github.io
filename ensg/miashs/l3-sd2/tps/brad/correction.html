@@ -501,8 +501,13 @@ fig.show ()</pre>
       </div>
     </li>
     <li>Quelle est la température extérieure moyenne pour chaque mois&nbsp;?
-      <div class="correction">	
-	<pre></pre>
+      <div class="correction">
+	<pre>for an in range (2003, 2005):
+    for mois in range (1, 13):
+        if brad.loc [(brad.loc [:,"an"]==an) & (brad.loc [:,"mois"]==mois),"temp_o"].shape[0]:
+            temp_moyenne = np.mean (brad.loc [(brad.loc [:,"an"]==an) & (brad.loc [:,"mois"]==mois),"temp_o"])
+            ch = "{}/{} : {:4.2f}"
+            print (ch.format (mois, an, temp_moyenne))</pre>
       </div>
     </li>
     <li>Quelle est la température extérieure moyenne à chaque saison&nbsp;? On supposera que les saisons comments les 21 des mois de mars, juin, septembre et décembre.
@@ -512,7 +517,26 @@ fig.show ()</pre>
     </li>
     <li>Le thermostat joue-t-il bien son rôle de régulation de la température intérieure dans les 3 pièces&nbsp;? Dit autrement, fait-il à peu près 21°C pendant la journée, à 16°C pendant la nuit tout au long de l'année chez Brad&nbsp;?
       <div class="correction">
-	<pre></pre>
+	<p>
+	  Pour répondre à cette question sans quand même trop se compliquer la tâche (quand commence la nuit, quand se termine-t-elle&nbsp;?), on considère que la nuit commence à 20h et se termine à 7h. En fonction du résultat obtenu, parait-il correct ou abérant, on pourra affiner au besoin.
+	  <br/>
+	  Donc on calcule la température moyenne pour les 3 pièces, de 20h à 7h d'une aprt, entre 7h et 20h d'autre part.
+	</p>
+	<pre>>>> np.mean (brad.loc [(brad.loc [:,"h"] > 20)|(brad.loc [:,"h"]<7),"temp_b"])
+18.50657665751719
+>>> np.mean (brad.loc [(brad.loc [:,"h"] > 7)|(brad.loc [:,"h"]<20),"temp_b"])
+18.87542006891018
+>>> np.mean (brad.loc [(brad.loc [:,"h"] > 20)|(brad.loc [:,"h"]<7),"temp_l"])
+17.972960595396884
+>>> np.mean (brad.loc [(brad.loc [:,"h"] > 7)|(brad.loc [:,"h"]<20),"temp_l"])
+18.118903601193296
+>>> np.mean (brad.loc [(brad.loc [:,"h"] > 20)|(brad.loc [:,"h"]<7),"temp_lr"])
+19.722822488221063
+>>> np.mean (brad.loc [(brad.loc [:,"h"] > 7)|(brad.loc [:,"h"]<20),"temp_lr"])
+20.173351426295763</pre>
+        <p>
+          Dans le labo et dans le sous-sol, la température moyenne est presque la même de jour comme de nuit. Dans le salon, aussi mais il y fait 1 à 2°C de plus.
+	</p>
       </div>
     </li>
   </ul>
@@ -544,6 +568,30 @@ fig.show ()</pre>
 
   <div class="correction">
     <p>
+      Les scatter plot entre une température intérieure et une température montre qu'il n'y a pas de corrélation&nbsp;:
+      <br/>
+      <img src="scatter_l_o.png" width="300pt" alt="scatter_l_o"/>
+      <img src="scatter_lr_o.png" width="300pt" alt="scatter_lr_o"/>
+      <img src="scatter_b_o.png" width="300pt" alt="scatter_b_o"/>
+      <br/>
+      <br/>
+      Entre le sous-sol et le salon, on a une belle corrélation linéaire&nbsp;:
+      <img src="scatter_b_lr.png" width="300pt" alt="scatter_b_lr"/>
+      <br/>
+      <br/>
+      Entre le laboratoire et le salon, on obtient ce graphique&nbsp;:
+      <br/>
+      <img src="scatter_l_lr.png" width="300pt" alt="scatter_l_lr"/>
+      <br/>
+      <br/>
+      Un examen superficiel pourrait nous faire conclure à l'absence de corrélation linéaire. Or, on voit quelques points sur la gauche de la figure qui sont des anomalies et qui peuvent changer complétement l'aspect de la figure. On refait donc la figure en se concentrant sur la partie droite, c'est-à-dire des températures supérieures à 10°C&nbsp;:
+      <br/>
+      <img src="scatter_l_lr2.png" width="300pt" alt="scatter_l_lr2"/>
+      <br/>
+      <br/>
+      La corrélation linéaire est maintenant évidente.
+      <br/>
+      C'est la même chose quand on réalise le graphique pour le laboratoire et le sous-sol.
     </p>
   </div>
     
