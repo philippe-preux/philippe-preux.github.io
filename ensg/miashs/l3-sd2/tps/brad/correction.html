@@ -612,8 +612,7 @@ fig.show ()</pre>
   </p>
   
   <div class="correction">
-    <p>
-    </p>
+    <pre>brad.loc [:, ["temp_l", "temp_lr", "temp_b", "temp_o"]].corr()</pre>
   </div>
   
   <p>
@@ -731,27 +730,34 @@ temp_o   0.623215  0.726466  0.644963  1.000000
     
     <b>À faire&nbsp;:</b> les attributs correspondants aux 4 températures contiennent-ils des valeurs NA&nbsp;? Si oui, combien&nbsp;?
 
-  <p>
+  </p>
       
   <div class="correction">
     <p>
+      Par exemple, pour l'attribut <kbd>temp_b</kbd>, on fait&nbsp;:
+    </p>
+    <pre>np.size (np.where (brad.temp_b.isna()))</pre>
+    <p>
+      Il y a 2 valeurs inconnues pour cet attribut.
+      <br/>
+      De la même manière, on en trouve 3 pour le salon, 554 pour la laboratoire, 6 pour les températures extérieures.
     </p>
   </div>
   
-  </p>
+  <p>
 
   On voit que pour les températures dans le salon, dans le sous-sol et à l'extérieur, le nombre de valeurs manquantes est très réduit.
     <!--
 	3 pour temp_lr
-	>>> np.where (brad.temp_lr.isna())
-	(array([113459, 150871, 158386]),)
+	>>> np.where (brad.loc [:,"temp_lr"].isna())
+	(array([113121, 150533, 158048]),)
 	2 pour temp_b
-	>>> np.where (brad.temp_b.isna())
-	(array([105554, 158386]),)
+	>>> np.where (brad.loc [:,"temp_b"].isna())
+	(array([105216, 158048]),)
 	6 pour temp_o
-	>>> np.where (brad.temp_o.isna())
-	(array([ 53496,  92324, 113459, 144858, 158386, 165055]),)
-	>>> brad.temp_l.isna().sum()
+	>>> np.where (brad.loc ["temp_o"].isna())
+	(array([ 53211,  91986, 113121, 144520, 158048, 164717]),)
+	>>> brad.loc [:,"temp_l"].isna().sum()
 	554
       -->
     On va donc simplement ne pas tenir compte des individus avec des données manquantes et calculer les modèles linéaires.
@@ -783,7 +789,23 @@ temp_o   0.623215  0.726466  0.644963  1.000000
     
     <b>À faire&nbsp;:</b> calculer les coefficients des droites de régression linéaire entre les températures du salon, du sous-sol et à l'extérieur.
 
-    <br/>
+  </p>
+      
+  <div class="correction">
+    <p>
+      Pour le salon par rapport au sous-sol&nbsp;:
+    </p>
+    <pre>valid_indices = np.delete (np.array (range (brad.shape [0])), np.append (np.where (brad.loc [:,"temp_b"].isna()), np.where (brad.loc [:,"temp_lr"].isna())))
+nb_valid_indices = len (valid_indices)
+sc_lr = np.zeros ((nb_valid_indices, 1))
+sc_b = np.zeros ((nb_valid_indices, 1))
+sc_b [:,0] = brad.temp_b [valid_indices]
+sc_lr [:,0] = brad.temp_lr [valid_indices]
+reg = linear_model.LinearRegression ()
+reg.fit (sc_b, sc_lr)</pre>
+  </div>
+  
+  <p>
 
     Puis, réaliser un graphique pour chacune des 3 combinaisons représentant les couples de températures et la droite de régression. Par exemple, pour les températures du sous-sol et du salon, vous devez obtenir quelque chose comme cela&nbsp;:
     
@@ -806,6 +828,7 @@ temp_o   0.623215  0.726466  0.644963  1.000000
 
   <div class="correction">
     <p>
+      Ce sont des mesures aberrantes.
     </p>
   </div>
       
@@ -825,7 +848,7 @@ temp_o   0.623215  0.726466  0.644963  1.000000
   <ul>
     <li>s'agissant d'une série temporelle (une suite de valeurs mesurées à des instants successifs), par inspection visuelle, on peut vérifier si les valeurs un peu avant et un peu après sont relativement constantes. Si elles sont constantes, on peut simplement remplacer le NA par cette valeur&nbsp;;</li>
     <li>une solution très classique consiste à remplacer le NA par la moyenne des valeurs à l'instant d'avant et à l'instant d'après. Il est beaucoup mieux de réaliser une inspection visuelle et si celle-ci ne montre pas que la valeur est constante, faire un graphique de l'évolution de la valeur de l'attribut et «&nbsp;voir&nbsp;» quelle valeur conviendrait le mieux&nbsp;;</li>
-    <li>utiliser les corrélations linéaires entre les températures dans les différents endroits pour prédire les valeurs manquantes.</li>
+    <li>utiliser les coefficients de régression linéaire entre les températures dans les différents lieux pour prédire les valeurs manquantes.</li>
   </ul>
 
     <p>
@@ -836,7 +859,18 @@ temp_o   0.623215  0.726466  0.644963  1.000000
     
   <div class="correction">
     <p>
+      Par exemple, pour les 3 valeurs manquantes dans le salon, on commence par le faire pour l'une des 3 valeurs.
     </p>
+    <pre>
+    </pre>
+    <p>
+    </p>
+    
+      
+	>>> np.where (brad.loc [:,"temp_lr"].isna())
+	(array([113121, 150533, 158048]),)
+
+
   </div>
   
   </div>
