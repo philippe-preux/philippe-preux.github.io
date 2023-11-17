@@ -510,9 +510,17 @@ fig.show ()</pre>
             print (ch.format (mois, an, temp_moyenne))</pre>
       </div>
     </li>
-    <li>Quelle est la température extérieure moyenne à chaque saison&nbsp;? On supposera que les saisons comments les 21 des mois de mars, juin, septembre et décembre.
+    <li>Quelle est la température extérieure moyenne à chaque saison&nbsp;? On supposera que les saisons commencent les 21 des mois de mars, juin, septembre et décembre.
       <div class="correction">
-	<pre></pre>
+	<p>
+	  Il y a différentes manières de faire. Pour faire très simple, j'ajoute un attribut <kbd>saison</kbd> qui vaut 1 pour le printemps, 2 pour l'été, 3 pour l'automne, 4 pour l'hiver. Ensuite, je filtre les lignes en fonction de la saison et j'en calcule la moyenne.
+	</p>
+	<pre>brad ["saison"] = 1
+brad.loc [(brad.loc [:,"date"] >= pd.Timestamp(2003,6,21)) & (brad.loc [:,"date"] < pd.Timestamp(2003,9,21)),"saison"] = 2
+brad.loc [(brad.loc [:,"date"] >= pd.Timestamp(2004,6,21)) & (brad.loc [:,"date"] < pd.Timestamp(2004,9,21)),"saison"] = 2
+brad.loc [(brad.loc [:,"date"] >= pd.Timestamp(2003,9,21)) & (brad.loc [:,"date"] < pd.Timestamp(2003,12,21)),"saison"] = 3
+brad.loc [(brad.loc [:,"date"] >= pd.Timestamp(2004,9,21)) & (brad.loc [:,"date"] < pd.Timestamp(2004,12,21)),"saison"] = 3
+brad.loc [(brad.loc [:,"date"] >= pd.Timestamp(2003,12,21)) & (brad.loc [:,"date"] < pd.Timestamp(2004,3,21)),"saison"] = 4</pre>
       </div>
     </li>
     <li>Le thermostat joue-t-il bien son rôle de régulation de la température intérieure dans les 3 pièces&nbsp;? Dit autrement, fait-il à peu près 21°C pendant la journée, à 16°C pendant la nuit tout au long de l'année chez Brad&nbsp;?
