@@ -521,14 +521,14 @@ brad.loc [(brad.loc [:,"date"] >= pd.Timestamp(2004,6,21)) & (brad.loc [:,"date"
 brad.loc [(brad.loc [:,"date"] >= pd.Timestamp(2003,9,21)) & (brad.loc [:,"date"] < pd.Timestamp(2003,12,21)),"saison"] = 3
 brad.loc [(brad.loc [:,"date"] >= pd.Timestamp(2004,9,21)) & (brad.loc [:,"date"] < pd.Timestamp(2004,12,21)),"saison"] = 3
 brad.loc [(brad.loc [:,"date"] >= pd.Timestamp(2003,12,21)) & (brad.loc [:,"date"] < pd.Timestamp(2004,3,21)),"saison"] = 4
->>> np.mean (brad.loc [brad.loc [:,"saison"] == 2,"temp_o"])
-18.60659823861916
->>> np.mean (brad.loc [brad.loc [:,"saison"] == 1,"temp_o"])
-12.197569880205362
->>> np.mean (brad.loc [brad.loc [:,"saison"] == 3,"temp_o"])
-6.797878844887593
->>> np.mean (brad.loc [brad.loc [:,"saison"] == 4,"temp_o"])
-1.462302654257153</pre>
+np.mean (brad.loc [brad.loc [:,"saison"] == 2,"temp_o"])
+# 18.60659823861916
+np.mean (brad.loc [brad.loc [:,"saison"] == 1,"temp_o"])
+# 12.197569880205362
+np.mean (brad.loc [brad.loc [:,"saison"] == 3,"temp_o"])
+# 6.797878844887593
+np.mean (brad.loc [brad.loc [:,"saison"] == 4,"temp_o"])
+# 1.462302654257153</pre>
       </div>
     </li>
     <li>Le thermostat joue-t-il bien son rôle de régulation de la température intérieure dans les 3 pièces&nbsp;? Dit autrement, fait-il à peu près 21°C pendant la journée, à 16°C pendant la nuit tout au long de l'année chez Brad&nbsp;?
@@ -538,18 +538,18 @@ brad.loc [(brad.loc [:,"date"] >= pd.Timestamp(2003,12,21)) & (brad.loc [:,"date
 	  <br/>
 	  Donc on calcule la température moyenne pour les 3 pièces, de 20h à 7h d'une aprt, entre 7h et 20h d'autre part.
 	</p>
-	<pre>>>> np.mean (brad.loc [(brad.loc [:,"h"] > 20)|(brad.loc [:,"h"]<7),"temp_b"])
-18.50657665751719
->>> np.mean (brad.loc [(brad.loc [:,"h"] > 7)|(brad.loc [:,"h"]<20),"temp_b"])
-18.87542006891018
->>> np.mean (brad.loc [(brad.loc [:,"h"] > 20)|(brad.loc [:,"h"]<7),"temp_l"])
-17.972960595396884
->>> np.mean (brad.loc [(brad.loc [:,"h"] > 7)|(brad.loc [:,"h"]<20),"temp_l"])
-18.118903601193296
->>> np.mean (brad.loc [(brad.loc [:,"h"] > 20)|(brad.loc [:,"h"]<7),"temp_lr"])
-19.722822488221063
->>> np.mean (brad.loc [(brad.loc [:,"h"] > 7)|(brad.loc [:,"h"]<20),"temp_lr"])
-20.173351426295763</pre>
+	<pre>np.mean (brad.loc [(brad.loc [:,"h"] > 20)|(brad.loc [:,"h"]<7),"temp_b"])
+# 18.50657665751719
+np.mean (brad.loc [(brad.loc [:,"h"] > 7)|(brad.loc [:,"h"]<20),"temp_b"])
+# 18.87542006891018
+np.mean (brad.loc [(brad.loc [:,"h"] > 20)|(brad.loc [:,"h"]<7),"temp_l"])
+# 17.972960595396884
+np.mean (brad.loc [(brad.loc [:,"h"] > 7)|(brad.loc [:,"h"]<20),"temp_l"])
+# 18.118903601193296
+np.mean (brad.loc [(brad.loc [:,"h"] > 20)|(brad.loc [:,"h"]<7),"temp_lr"])
+# 19.722822488221063
+np.mean (brad.loc [(brad.loc [:,"h"] > 7)|(brad.loc [:,"h"]<20),"temp_lr"])
+# 20.173351426295763</pre>
         <p>
           Dans le labo et dans le sous-sol, la température moyenne est presque la même de jour comme de nuit. Dans le salon, aussi mais il y fait 1 à 2°C de plus.
 	</p>
