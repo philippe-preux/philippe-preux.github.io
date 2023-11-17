@@ -818,8 +818,10 @@ sc_lr = np.zeros ((nb_valid_indices, 1))
 sc_b = np.zeros ((nb_valid_indices, 1))
 sc_b [:,0] = brad.temp_b [valid_indices]
 sc_lr [:,0] = brad.temp_lr [valid_indices]
+from sklearn import linear_model
 reg = linear_model.LinearRegression ()
-reg.fit (sc_b, sc_lr)</pre>
+ch = "L'équation de la droite de régression est : y = {:4.2f} x + {:4.2f}"
+print (ch.format (reg.coef_[0][0], reg.intercept_ [0]))</pre>
   </div>
   
   <p>
