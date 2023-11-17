@@ -520,7 +520,15 @@ brad.loc [(brad.loc [:,"date"] >= pd.Timestamp(2003,6,21)) & (brad.loc [:,"date"
 brad.loc [(brad.loc [:,"date"] >= pd.Timestamp(2004,6,21)) & (brad.loc [:,"date"] < pd.Timestamp(2004,9,21)),"saison"] = 2
 brad.loc [(brad.loc [:,"date"] >= pd.Timestamp(2003,9,21)) & (brad.loc [:,"date"] < pd.Timestamp(2003,12,21)),"saison"] = 3
 brad.loc [(brad.loc [:,"date"] >= pd.Timestamp(2004,9,21)) & (brad.loc [:,"date"] < pd.Timestamp(2004,12,21)),"saison"] = 3
-brad.loc [(brad.loc [:,"date"] >= pd.Timestamp(2003,12,21)) & (brad.loc [:,"date"] < pd.Timestamp(2004,3,21)),"saison"] = 4</pre>
+brad.loc [(brad.loc [:,"date"] >= pd.Timestamp(2003,12,21)) & (brad.loc [:,"date"] < pd.Timestamp(2004,3,21)),"saison"] = 4
+>>> np.mean (brad.loc [brad.loc [:,"saison"] == 2,"temp_o"])
+18.60659823861916
+>>> np.mean (brad.loc [brad.loc [:,"saison"] == 1,"temp_o"])
+12.197569880205362
+>>> np.mean (brad.loc [brad.loc [:,"saison"] == 3,"temp_o"])
+6.797878844887593
+>>> np.mean (brad.loc [brad.loc [:,"saison"] == 4,"temp_o"])
+1.462302654257153</pre>
       </div>
     </li>
     <li>Le thermostat joue-t-il bien son rôle de régulation de la température intérieure dans les 3 pièces&nbsp;? Dit autrement, fait-il à peu près 21°C pendant la journée, à 16°C pendant la nuit tout au long de l'année chez Brad&nbsp;?
