@@ -879,30 +879,15 @@ print (ch.format (reg.coef_[0][0], reg.intercept_ [0]))</pre>
     
   <div class="correction">
     <p>
-      Par exemple, pour les 3 valeurs manquantes dans le salon, on va utiliser la relation linéaire entre les températures du salon et celles du sous-sol. 
+      Par exemple, la température du salon est manquante pour la donnée d'indice 113121 (et deux autres). On va utiliser la relation linéaire existant entre la température du salon et celle du sous-sol.
     </p>
-    <pre>
-    </pre>
+    <pre>brad.loc [113121, "temp_lr"] = reg_l_lr.coef_ [0] [0] * brad.loc [113121, "temp_l"] + reg_l_lr.intercept_ [0]</pre>
     <p>
+      On fait de même pour les deux autres valeurs manquantes. Le seul petit ennui est que pour la valeur manquant à l'indice 158048, elle est aussi manquante pour le sous-sol. Par contre, on peut utiliser celle du laboratoire et la relation entre température du laboratoire et température du salon.
     </p>
-valid_indices_l_lr = np.delete (np.array (range (brad.shape [0])), np.append (np.where (brad.loc [:,"temp_l"].isna()), np.where (brad.loc [:,"temp_lr"].isna())))
-nb_valid_indices_l_lr = len (valid_indices_l_lr)
-sc_lr = np.zeros ((nb_valid_indices_l_lr, 1))
-sc_l = np.zeros ((nb_valid_indices_l_lr, 1))
-sc_l [:,0] = brad.temp_l [valid_indices_l_lr]
-sc_lr [:,0] = brad.temp_lr [valid_indices_l_lr]
-from sklearn import linear_model
-reg_l_lr = linear_model.LinearRegression ()
-reg_l_lr.fit (sc_l, sc_lr)      
-for idx in np.where (brad.loc [:,"temp_lr"].isna()):
-    brad.loc [idx, "temp_lr"] = reg_l_lr.coef_ [0] [0] * brad.loc [idx, "temp_l"] + reg_l_lr.intercept_ [0]
-#	(array([113121, 150533, 158048]),)
-
-
+    
   </div>
   
-  </div>
-
 <!-- Default Statcounter code for on github
 https://philippe-preux.github.io -->
 <script type="text/javascript">
