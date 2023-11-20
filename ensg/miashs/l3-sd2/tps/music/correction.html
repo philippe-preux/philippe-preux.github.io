@@ -248,13 +248,7 @@ if plotRepartitionParAnnee:
       <li>Y a-t-il des mois pendant lesquels il y a systématiquement plus, ou moins, d'entrées dans le classement&nbsp;? Faire un graphique pour répondre à cette question.</li>
     </ul>
     <div class="correction">
-      <pre>les_années = range (1960,2010)
-nbSortiesParAnParMois = np.zeros ([len (les_années), 12])
-for y in les_années:
-    v = music.loc [music.loc [:, "year"] == y, :].month.value_counts()
-    for m in range (12):
-        nbSortiesParAnParMois [y - 1960, m] = v [m + 1]
-fig, ax = plt.subplots ()
+      <pre>fig, ax = plt.subplots ()
 ax.scatter (range (1, 13), music ["month"].value_counts())
 ax.set_title ("Nombre de nouveaux morceaux par mois")</pre>
       <p>
@@ -271,7 +265,27 @@ ax.set_title ("Nombre de nouveaux morceaux par mois")</pre>
 	(On appelle cela de l'échantillonnage&nbsp;: quand il y a trop de possibilités à regarder, on en sélectionne quelques-unes et si elles partagent les mêmes caractéristiques, on se dit que probablement, celles que l'on n'a pas regardées sont identiques. Bien sûr, ce n'est pas très rigoureux et si l'on veut être rigoureux, il faut toutes les regarder. On comprend bien ici la notion de biais&nbsp;: si l'on ne sélectionne pas les échantillons au hasard mais avec un certain biais, on n'a pas de raison de penser que les échantillons non examinés sont identiques à ceux que l'on a choisi. Par exemple si on prend les années de début de décennie comme je le propose ici, il y a un biais&nbsp;; il faudrait prendre des années en les sélectionnant au hasard entre 1960 et 2009.)</li>
     </ul>
     <div class="correction">
-      <pre></pre>
+      <p>
+	Je commence par calculer le nombre de sorties pour chaque mois de chaque année. Puis, je fais ce graphique pour 5 années prises au hasard&nbsp;: 1966, 1973, 1985, 1994, 2008.
+      </p>
+      <pre>les_années = range (1960,2010)
+nbSortiesParAnParMois = np.zeros ([len (les_années), 12])
+for y in les_années:
+    v = music.loc [music.loc [:, "year"] == y, :].month.value_counts()
+    for m in range (12):
+        nbSortiesParAnParMois [y - 1960, m] = v [m + 1]
+années = [1966, 1973, 1985, 1994, 2008]
+fig, ax = plt.subplots (5,1)
+for i in range (len (années)):
+    ax[i].plot (nbSortiesParAnParMois [années [i]-1960, :], marker = 'o')
+    ax[i].set_title ("Nombre de nouveaux morceaux en " + str (années [i]))
+    ax[i].set_xticklabels ("")
+    ax[i].set_ylabel (str (années [i]))
+    ax[i].set_ylim (bottom = 10, top = 60)
+ax[4].set_xlabels (["jan", "fév", "mars", "avr", "mai", "juin", "juil", "août", "sep", "oct, "nov", "déc"]
+fig.show()</pre>
+      <p>
+      </p>
     </div>
     <ul>
       <li>Même question pour les trimestres.</li>
