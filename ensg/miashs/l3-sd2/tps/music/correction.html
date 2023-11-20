@@ -202,6 +202,20 @@ music ["month"] = music.loc [:,"first_entry"].dt.month</pre>
 	Aide&nbsp;: la fonction <kbd>split()</kbd> agit sur une chaîne de caractères et devrait vous être très utile pour réaliser cela (voir le livre indiqué ci-dessus).
 	<br/>
 	Remarque&nbsp;: il faut que cet attribut soit numérique, pas une chaîne de caractères.
+	<div class="correction">
+	  <p>
+	    On peut faire cela avec une boucle&nbsp;:
+	  </p>
+	  <pre>for i in range (music.shape [0]):
+    music.loc [i, "quarter"] = int (music.loc [i, "quarter"].split()[1][1])</pre>
+	  <p>
+	    Et si on connait, on écrira plutôt en une seule ligne&nbsp;:
+	  </p>
+	  <pre>music.loc [:, "quarter"] = music.loc [:, "quarter"].apply (lambda x:int(x.split()[1][1]))</pre>
+	  <p>
+	    en utilisant une fonction anonyme.
+	  </p>
+	</div>
       </li>
     </ul>
 
@@ -320,11 +334,26 @@ for n in range (2,20):
 	  <br/>
 	  Faire un graphique de ce score en fonction du nombre de segments.
 	  <br/>
-	  <pre></pre>
+	  <pre>fig, ax = plt.subplots ()
+ax.plot (np.arange (2, 20), sil_score[2:20], color = "red")
+ax.set_xlim ([0,20])
+#ax.set_ylim ([0, 0.15])
+ax.xaxis.set_major_locator (ticker.LinearLocator (numticks=11))
+ax.set_xlabel ("Nombre de clusters")
+ax.set_ylabel ("Silhouette score")
+fig.show()</pre>
+	  <br/>
+	  qui donne ce graphique&nbsp;:
+	  <img src="DeterminationNbClusters.png" width="300pt" alt="Détermination du nombre de clusters" />
 	  <br/>
 	  Quel serait le nombre de genres musicaux d'après ce score&nbsp;?
 	  <br/>
-	  Trouvez-vous 13&nbsp;? Qu'en pensez-vous&nbsp;?</li>
+	  8 (confirmé par <kbd>np.argmax (sil_score)</kbd>).
+	  <br/>
+	  Trouvez-vous 13&nbsp;? Qu'en pensez-vous&nbsp;?
+	  <br/>
+	  Non. C'est bizarre et ennuyeux. Ce TP est basé sur des données utilises par les auteurs d'un article qui étudie l'évolution des genres musicaux durant 50 ans. En principe, on a refait ce qu'ont fait les auteurs de l'étude (ils ont fait un peu différemment mais j'ai essayé de faire exactement ce qu'ils décrivent et cela ne me donne toujours pas 13). Le résultat de la méthode des k-moyennes est sensible à l'initialisation des centroïdes ce qui, pour un nombre de groupe fixé, peut entraîner des variations. Mais ne pas retrouver 13 ou un nombre proche de 13 est un vrai problème. Cette valeur est importante pour l'argumentation et les analyses qui sont ensuite faites dans l'article.
+	</li>
       </ul>
     </div>
     <h2>Recommandation</h2>
@@ -345,7 +374,7 @@ for n in range (2,20):
     <br/>
 
     <b>À faire&nbsp;:</b> écrire une fonction qui prend en paramètre le numéro d'un morceau (par exemple 13954) et renvoie une liste composée des numéros de tous les morceaux de cet artiste. Testez-cette fonction.
-    
+
     <br/>
     <br/>
 
