@@ -278,13 +278,17 @@ années = [1966, 1973, 1985, 1994, 2008]
 fig, ax = plt.subplots (5,1)
 for i in range (len (années)):
     ax[i].plot (nbSortiesParAnParMois [années [i]-1960, :], marker = 'o')
-    ax[i].set_title ("Nombre de nouveaux morceaux en " + str (années [i]))
     ax[i].set_xticklabels ("")
     ax[i].set_ylabel (str (années [i]))
-    ax[i].set_ylim (bottom = 10, top = 60)
-ax[4].set_xlabels (["jan", "fév", "mars", "avr", "mai", "juin", "juil", "août", "sep", "oct, "nov", "déc"]
+    ax[i].set_ylim (bottom = 10, top = 65)
+
+ax[0].set_title ("Répartition par mois du nombre de sorties de morceaux\npour différentes années.")
+ax[4].set_xticks ([0,2,4,6,8,10], ["jan", "mars", "mai", "juil", "sep", "nov"])
 fig.show()</pre>
       <p>
+	ce qui donne&nbsp;:
+	<br/>
+	<img src="RepartitionParMois.png" width="300pt" alt="Répartition le long de l'année pour 5 années" />
       </p>
     </div>
     <ul>
