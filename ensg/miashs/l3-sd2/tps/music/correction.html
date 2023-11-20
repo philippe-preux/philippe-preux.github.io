@@ -240,12 +240,30 @@ if plotRepartitionParAnnee:
     ax.plot (music ["year"].value_counts().sort_index(), marker = 'o')
     ax.set_title ("Nombre de nouveaux morceaux par année.")
     fig.show()</pre>
+      <p>
+	On voit qu'il y a une diminution du nombre de sorties au fil du temps de 1970 à 2000. Ce nombre a augmenté durant la dernière décennie pour laquelle on dispose de données.
+      </p>
     </div>
     <ul>
       <li>Y a-t-il des mois pendant lesquels il y a systématiquement plus, ou moins, d'entrées dans le classement&nbsp;? Faire un graphique pour répondre à cette question.</li>
     </ul>
     <div class="correction">
-      <pre></pre>
+      <pre>les_années = range (1960,2010)
+nbSortiesParAnParMois = np.zeros ([len (les_années), 12])
+for y in les_années:
+    v = music.loc [music.loc [:, "year"] == y, :].month.value_counts()
+    for m in range (12):
+        nbSortiesParAnParMois [y - 1960, m] = v [m + 1]
+fig, ax = plt.subplots ()
+ax.scatter (range (1, 13), music ["month"].value_counts())
+ax.set_title ("Nombre de nouveaux morceaux par mois")</pre>
+      <p>
+	Le graphique est le suivant&nbsp;:
+	<br/>
+	<img src="NbNewTracksPerMonth.png" width="300pt" alt="Nombre de sorties par mois" />
+	<br/>
+	On voit que globalement, le nombre de sorties diminue au fil de l'année.
+      </p>
     </div>
     <ul>
       <li>Cela évolue-t-il au cours du temps&nbsp;? Vous pouvez faire un graphique par année ou, plus simplement, vous pouvez faire un graphique pour un certain ensemble d'années, par exemple tous les 10 ans à partir de 1960.
