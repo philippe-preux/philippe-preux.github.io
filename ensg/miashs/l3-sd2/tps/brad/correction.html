@@ -822,7 +822,10 @@ from sklearn import linear_model
 reg = linear_model.LinearRegression ()
 reg.fit (sc_b, sc_lr)
 ch = "L'équation de la droite de régression entre le salon et le sous-sol est : y = {:4.2f} x + {:4.2f}"
-print (ch.format (reg.coef_[0][0], reg.intercept_ [0]))</pre>
+      print (ch.format (reg.coef_[0][0], reg.intercept_ [0]))</pre>
+    <p>
+      La dernière ligne affiche&nbsp;: <kbd>L'équation de la droite de régression entre le salon et le sous-sol est : y = 1.18 x + -2.08</kbd>.
+    </p>
   </div>
   
   <p>
@@ -879,13 +882,28 @@ print (ch.format (reg.coef_[0][0], reg.intercept_ [0]))</pre>
     
   <div class="correction">
     <p>
-      Par exemple, la température du salon est manquante pour la donnée d'indice 113121 (et deux autres). On va utiliser la relation linéaire existant entre la température du salon et celle du sous-sol.
+      Par exemple, la température du salon est manquante pour la donnée d'indice 113121 (et deux autres).
+      <br/>
+      S'agissant d'une valeur isolée, on regarde les valeurs un peu avant et un peu après celle qui manque&nbsp;:
+      <pre>>>> brad.loc [113117:113125, "temp_lr"]
+113117    20.2
+113118    20.2
+113119    20.0
+113120    19.8
+113121     NaN
+113122    19.9
+113123    19.8
+113124    19.8
+113125    19.8</pre>
+      Les températures sont enregistrées toutes les 3 minutes&nbsp;: elles varient donc très peu. On peut imputer 19,8 ou 19,85 ou 19.
+      <br/>
+      <br/>
+      Même si ici ce n'est pas la peine de chercher à faire plus compliqué, je montre comment on ferait pour déterminer une valeur en utilisant la relation linéaire existant entre la température du salon et celle du sous-sol. Précédemment, on a calculé les paramètres du modèle linéaire entre ces deux attributs et ceux-ci sont dans l'object <kbd>reg</kbd>. On va donc imputer la valeur&nbsp;:
     </p>
-    <pre>brad.loc [113121, "temp_lr"] = reg_l_lr.coef_ [0] [0] * brad.loc [113121, "temp_l"] + reg_l_lr.intercept_ [0]</pre>
+    <pre>reg.coef_ [0][0] * brad.loc [113121, "temp_b"] + reg.intercept_ [0]</pre>
     <p>
-      On fait de même pour les deux autres valeurs manquantes. Le seul petit ennui est que pour la valeur manquant à l'indice 158048, elle est aussi manquante pour le sous-sol. Par contre, on peut utiliser celle du laboratoire et la relation entre température du laboratoire et température du salon.
+      qui donne <kbd>19,73</kbd>. C'est très proche de la valeur que l'on a imputé par une démarche purement manuelle.
     </p>
-    
   </div>
   
 <!-- Default Statcounter code for on github
