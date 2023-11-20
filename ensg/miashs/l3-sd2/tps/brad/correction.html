@@ -903,6 +903,15 @@ print (ch.format (reg.coef_[0][0], reg.intercept_ [0]))</pre>
     <pre>reg.coef_ [0][0] * brad.loc [113121, "temp_b"] + reg.intercept_ [0]</pre>
     <p>
       qui donne <kbd>19,73</kbd>. C'est très proche de la valeur que l'on a imputé par une démarche purement manuelle.
+      <br/>
+      <br/>
+      Pour cet indice, la température est également inconnnue dans le laboratoire, on ne peut donc pas l'utiliser pour prédire la température du salon. Il est intéressant d'examiner un cas où l'on dispose des températures dans le laboratoire et dans le sous-sol. C'est le cas pour l'indice 150533.
+      <br/>
+      Si on prédit la température du salon à partir de celle du sous-sol en utilsiant le modèle linéaire, on obtient <kbd>26,57</kbd>°C.
+      <br/>
+      Si on prédit la température du salon à partir de celle du laboratoire, on obtient <kbd>23,69</kbd>°C.
+      <br/>
+      Si on inspecte visuellement les tempéatures du salon avant et après cet indice, on voit que la température est constante, à <kbd>26,7</kbd>°C. C'est proche de la valeur prédite à partir de la température du sous-sol, plus éloignée de celle prédite à partir de la température du laboratoire. On peut (on doit&nbsp;!) être intrigué. Or, on note que le coefficient de corrélation linéaire entre la température du salon est celle du sous-sol (<kbd>0,95</kbd>, c'est vraiment beaucoup) est bien supérieure à ce coefficient entre température du sous-sol et celle du laboratoire (<kbd>0,79</kbd>). Aussi, c'est normal que la température du sous-sol prédise mieux la température du salon.
     </p>
   </div>
   
