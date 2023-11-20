@@ -155,7 +155,7 @@
 	  <br/>
 	  On le fait comme cela (TP <i>Brad's sweet home</i>)&nbsp;:
 	  <br/>
-	  <pre></pre>
+	  <pre>music.loc [:,"first_entry"] = pd.to_datetime (music.loc [:,"first_entry"])</pre>
 	</li>
 	<li>Combien y a-t-il d'artistes différents dans ce jeu de données&nbsp;?
 	  <br/>
@@ -230,12 +230,37 @@ music ["month"] = music.loc [:,"first_entry"].dt.month</pre>
 	<br/>
 	Remarque&nbsp;: si vous utilisez <kbd>value_counts()</kbd> pour répondre à cette question (c'est une très bonne idée), il faut faire attention au fait que cette fonction renvoie un tableau trié en fonction des décomptes. Pour obtenir le graphique correct, on veut que le décompte soit affiché en fonction de l'année. On peut soit faire un graphique en indiquant qu'il faut utiliser l'index en abscisses (<kbd>value_counts().index</kbd>) et le décompte en ordonnées (<kbd>value_counts().values</kbd>), soit trier les décomptes en fonction de l'index (<kbd>value_counts().sort_index()</kbd>).
       </li>
+    </ul>
+    <div class="correction">
+      <pre>plotRepartitionParAnnee= True
+if plotRepartitionParAnnee:
+    fig, ax = plt.subplots ()
+    ax.set_xlabel ("Année")
+    ax.set_ylabel ("Nombre de sorties")
+    ax.plot (music ["year"].value_counts().sort_index(), marker = 'o')
+    ax.set_title ("Nombre de nouveaux morceaux par année.")
+    fig.show()</pre>
+    </div>
+    <ul>
       <li>Y a-t-il des mois pendant lesquels il y a systématiquement plus, ou moins, d'entrées dans le classement&nbsp;? Faire un graphique pour répondre à cette question.</li>
+    </ul>
+    <div class="correction">
+      <pre></pre>
+    </div>
+    <ul>
       <li>Cela évolue-t-il au cours du temps&nbsp;? Vous pouvez faire un graphique par année ou, plus simplement, vous pouvez faire un graphique pour un certain ensemble d'années, par exemple tous les 10 ans à partir de 1960.
 	<br/>
 	(On appelle cela de l'échantillonnage&nbsp;: quand il y a trop de possibilités à regarder, on en sélectionne quelques-unes et si elles partagent les mêmes caractéristiques, on se dit que probablement, celles que l'on n'a pas regardées sont identiques. Bien sûr, ce n'est pas très rigoureux et si l'on veut être rigoureux, il faut toutes les regarder. On comprend bien ici la notion de biais&nbsp;: si l'on ne sélectionne pas les échantillons au hasard mais avec un certain biais, on n'a pas de raison de penser que les échantillons non examinés sont identiques à ceux que l'on a choisi. Par exemple si on prend les années de début de décennie comme je le propose ici, il y a un biais&nbsp;; il faudrait prendre des années en les sélectionnant au hasard entre 1960 et 2009.)</li>
+    </ul>
+    <div class="correction">
+      <pre></pre>
+    </div>
+    <ul>
       <li>Même question pour les trimestres.</li>
     </ul>
+    <div class="correction">
+      <pre></pre>
+    </div>
     
     <h3>Popularité des genres musicaux au fil du temps</h3>
 
@@ -286,10 +311,18 @@ music ["month"] = music.loc [:,"first_entry"].dt.month</pre>
 	Sur ces graphiques, on voit beaucoup mieux ce que l'on s'attend à voir&nbsp;: l'arrivée massive to rap depuis les années 1990, la new wave dans les années 1980, le disco dans les années 1970, ... (Vous voyez la même chose que moi&nbsp;?)
 	<br/>
 	Ayant compris ce qui ne va pas plus haut, corrigez votre approche pour obtenir les mêmes graphiques que moi (ci-dessus).
-      </li>
+	</li>
+	</ul>
+    <div class="correction">
+      <pre></pre>
+    </div>
+    <ul>
       <li>Faites de même pour chaque trimestre.</li>
       <!--li>Faites ce graphique pour les 13 clusters en associant une couleur différente à chaque cluster.<-->
     </ul>
+    <div class="correction">
+      <pre></pre>
+    </div>
 
     <h3>Popularité des artistes</h3>
 
@@ -300,13 +333,31 @@ music ["month"] = music.loc [:,"first_entry"].dt.month</pre>
 	<br/>
 	Quels sont les artistes qui ont eu plus de 30 morceaux dans ce classement&nbsp;?
       </li>
+    </ul>
+    <div class="correction">
+      <pre></pre>
+    </div>
+    <ul>
       <li>Calculez le nombre d'artistes ayant eu n morceaux dans ce classement, pour n variant de 1 à la valeur maximale trouvée à la question précédente. Appelons <kbd>decompte</kbd> le vecteur dont le i-ème élément contient le nombre d'artistes ayant eu i morceaux dans ce classement.</li>
+    </ul>
+    <div class="correction">
+      <pre></pre>
+    </div>
+    <ul>
       <li>Faites un plot de <kbd>decompte</kbd>. Vous devez obtenir quelque chose comme cela&nbsp;:
 	<br/>
 	<img src="NbTitresParArtiste.png" width="300pt" alt="Distribution du nombre de titres" />
       </li>
+    </ul>
+    <div class="correction">
+      <pre></pre>
+    </div>
+    <ul>
       <li>Faites un plot log-log, c'est-à-dire qu'en abscisses et en ordonnées, vous mettez le log de la quantité que vous avez mise dans le plot précédent. Vous devez obtenir une figure assez remarquable.</li>
     </ul>
+    <div class="correction">
+      <pre></pre>
+    </div>
     
     <h3>Segmentation en genres musicaux</h3>
 
