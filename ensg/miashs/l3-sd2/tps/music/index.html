@@ -179,7 +179,7 @@ music ["month"] = music.loc [:,"first_entry"].dt.month</pre>
     <h3>Popularité des genres musicaux au fil du temps</h3>
 
     <ul>
-      <li>On s'intéresse à l'évolution de la popularité des genres musicaux. Pour cela, on va faire des graphiques représentation le nombre de morceaux d'un genre donné (caractérisé par l'attribut <kbd>cluster</kbd>) au fil du temps.
+      <li>On s'intéresse à l'évolution de la popularité des genres musicaux. Pour cela, on va faire des graphiques représentant le nombre de morceaux d'un genre donné (caractérisé par l'attribut <kbd>cluster</kbd>) au fil du temps.
 	<br/>
 	Faire un tel graphe en comptant le nombre de morceaux du cluster 1 présent dans le classement durant chaque année. Vous devez obtenir quelque chose comme cela&nbsp;:
 	<br/>
@@ -201,9 +201,9 @@ music ["month"] = music.loc [:,"first_entry"].dt.month</pre>
 	<img src="sortiesParGenreParAnneeGenre13.png" width="100pt" alt="Nombre de morceaux sortis chaque année pour le genre 13.">
 	<br/>
 	<br/>
-	Qu'en pensez-vous&nbsp;? Trouvez-vous normal que toutes ces courbes aient la même allure&nbsp;? N'aviez-vous pas l'impression que les années 1970 étaient les années disco et qu'on devrait le voir&nbsp;? Pareil pour la new wave dans les années 1980, le funk, sans parler du hip hop et du rap un peu plus récemment&nbsp;?
+	Qu'en pensez-vous&nbsp;? 
 	<br/>
-	Qu'est ce qui ne va pas&nbsp;?
+	Ces graphiques donnent une fausse impression. Le nombre de morceaux sortis chaque année varie. Aussi, il faut représenter non pas le nombre de morceaux de chacun des genres par année, mais la proportion des morceaux de chaque des genres chaque année.
 	<br/>
 	Une fois prise en compte cette remarque, j'obtiens ce genre de graphiques&nbsp;:
 	<br/>
