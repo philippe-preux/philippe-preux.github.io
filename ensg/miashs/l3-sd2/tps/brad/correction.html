@@ -298,7 +298,7 @@ ax[0].set_title ("Les températures relevées par Brad.")</pre>
 
   </p>
   
-  <p class="aligncenter" name="figTempératures">
+  <p class="aligncenter" id="figTempératures">
       <img src="./courbesTemperatureAvecDates.png" width="400pt" alt="Courbes avec la date." />
   </p>
 
@@ -474,7 +474,7 @@ fig.show ()</pre>
 	<p>
 	  Le 26 octobre 2003 à 2h19mn. Il y a beaucoup de manière de trouver cette valeur. En voici une&nbsp;:
 	</p>
-	<pre>brad.loc [brad.loc [:,"an"] == 2004] [brad.loc [:,"temp_o"] < 0].loc [:,"date"].iloc [0]</pre>
+	<pre>brad.loc [brad.loc [:,"an"] == 2004] [brad.loc [:,"temp_o"] &lt; 0].loc [:,"date"].iloc [0]</pre>
       </div>
     </li>
     <li>Durée de la période de gel durant l'hiver 2023-2004&nbsp;?
@@ -482,11 +482,11 @@ fig.show ()</pre>
 	<p>
 	  En 2004, la dernière géle a eu lieu le 30 avril à 17h43. On obtient cette date par exemple en faisant&nbsp;:
 	</p>
-	<pre>brad.loc [brad.loc [:,"an"] == 2004] [brad.loc [:,"temp_o"] < 0].loc [:,"date"].iloc [-1]</pre>
+	<pre>brad.loc [brad.loc [:,"an"] == 2004] [brad.loc [:,"temp_o"] &lt; 0].loc [:,"date"].iloc [-1]</pre>
         <p>
 	Pour connaître le durée, il suffit de faire la différence entre ces deux dates&nbsp;:
 	</p>								     
-	<pre>rad.loc [brad.loc [:,"an"] == 2004] [brad.loc [:,"temp_o"] < 0].loc [:,"date"].iloc [-1] - brad.loc [brad.loc [:,"an"] == 2004] [brad.loc [:,"temp_o"] < 0].loc [:,"date"].iloc [0]</pre>
+	<pre>rad.loc [brad.loc [:,"an"] == 2004] [brad.loc [:,"temp_o"] &lt; 0].loc [:,"date"].iloc [-1] - brad.loc [brad.loc [:,"an"] == 2004] [brad.loc [:,"temp_o"] &lt; 0].loc [:,"date"].iloc [0]</pre>
       </div>
       <p>
 	qui répond 118 jours, 22 heures et 54 minutes.
@@ -494,7 +494,7 @@ fig.show ()</pre>
     </li>
     <li>Quelle est la température extérieure moyenne entre 13h et 14h dans l'ensemble du jeu de données&nbsp;?
       <div class="correction">
-	<pre>brad.loc [brad.loc [:,"h"] >= 13] [brad.loc [:,"h"] <= 14].loc [:,"temp_o"].mean()</pre>
+	<pre>brad.loc [brad.loc [:,"h"] >= 13] [brad.loc [:,"h"] &le; 14].loc [:,"temp_o"].mean()</pre>
       <p>
 	qui donne presque 14 °C.
       </p>
@@ -504,8 +504,8 @@ fig.show ()</pre>
       <div class="correction">
 	<pre>for an in range (2003, 2005):
     for mois in range (1, 13):
-        if brad.loc [(brad.loc [:,"an"]==an) & (brad.loc [:,"mois"]==mois),"temp_o"].shape[0]:
-            temp_moyenne = np.mean (brad.loc [(brad.loc [:,"an"]==an) & (brad.loc [:,"mois"]==mois),"temp_o"])
+        if brad.loc [(brad.loc [:,"an"]==an) &amp; (brad.loc [:,"mois"]==mois),"temp_o"].shape[0]:
+            temp_moyenne = np.mean (brad.loc [(brad.loc [:,"an"]==an) &amp; (brad.loc [:,"mois"]==mois),"temp_o"])
             ch = "{}/{} : {:4.2f}"
             print (ch.format (mois, an, temp_moyenne))</pre>
       </div>
@@ -516,11 +516,11 @@ fig.show ()</pre>
 	  Il y a différentes manières de faire. Pour faire très simple, j'ajoute un attribut <kbd>saison</kbd> qui vaut 1 pour le printemps, 2 pour l'été, 3 pour l'automne, 4 pour l'hiver. Ensuite, je filtre les lignes en fonction de la saison et j'en calcule la moyenne.
 	</p>
 	<pre>brad ["saison"] = 1
-brad.loc [(brad.loc [:,"date"] >= pd.Timestamp(2003,6,21)) & (brad.loc [:,"date"] < pd.Timestamp(2003,9,21)),"saison"] = 2
-brad.loc [(brad.loc [:,"date"] >= pd.Timestamp(2004,6,21)) & (brad.loc [:,"date"] < pd.Timestamp(2004,9,21)),"saison"] = 2
-brad.loc [(brad.loc [:,"date"] >= pd.Timestamp(2003,9,21)) & (brad.loc [:,"date"] < pd.Timestamp(2003,12,21)),"saison"] = 3
-brad.loc [(brad.loc [:,"date"] >= pd.Timestamp(2004,9,21)) & (brad.loc [:,"date"] < pd.Timestamp(2004,12,21)),"saison"] = 3
-brad.loc [(brad.loc [:,"date"] >= pd.Timestamp(2003,12,21)) & (brad.loc [:,"date"] < pd.Timestamp(2004,3,21)),"saison"] = 4
+brad.loc [(brad.loc [:,"date"] &ge; pd.Timestamp(2003,6,21)) &amp; (brad.loc [:,"date"] &lt; pd.Timestamp(2003,9,21)),"saison"] = 2
+brad.loc [(brad.loc [:,"date"] &ge; pd.Timestamp(2004,6,21)) &amp; (brad.loc [:,"date"] &lt; pd.Timestamp(2004,9,21)),"saison"] = 2
+brad.loc [(brad.loc [:,"date"] &ge; pd.Timestamp(2003,9,21)) &amp; (brad.loc [:,"date"] &lt; pd.Timestamp(2003,12,21)),"saison"] = 3
+brad.loc [(brad.loc [:,"date"] &ge; pd.Timestamp(2004,9,21)) &amp; (brad.loc [:,"date"] &lt; pd.Timestamp(2004,12,21)),"saison"] = 3
+brad.loc [(brad.loc [:,"date"] &ge; pd.Timestamp(2003,12,21)) &amp; (brad.loc [:,"date"] &lt; pd.Timestamp(2004,3,21)),"saison"] = 4
 np.mean (brad.loc [brad.loc [:,"saison"] == 2,"temp_o"])
 # 18.60659823861916
 np.mean (brad.loc [brad.loc [:,"saison"] == 1,"temp_o"])
@@ -538,17 +538,17 @@ np.mean (brad.loc [brad.loc [:,"saison"] == 4,"temp_o"])
 	  <br/>
 	  Donc on calcule la température moyenne pour les 3 pièces, de 20h à 7h d'une aprt, entre 7h et 20h d'autre part.
 	</p>
-	<pre>np.mean (brad.loc [(brad.loc [:,"h"] > 20)|(brad.loc [:,"h"]<7),"temp_b"])
+	<pre>np.mean (brad.loc [(brad.loc [:,"h"] &gt; 20)|(brad.loc [:,"h"] &lt; 7),"temp_b"])
 # 18.50657665751719
-np.mean (brad.loc [(brad.loc [:,"h"] > 7)|(brad.loc [:,"h"]<20),"temp_b"])
+np.mean (brad.loc [(brad.loc [:,"h"] &gt; 7)|(brad.loc [:,"h"] &lt; 20),"temp_b"])
 # 18.87542006891018
-np.mean (brad.loc [(brad.loc [:,"h"] > 20)|(brad.loc [:,"h"]<7),"temp_l"])
+np.mean (brad.loc [(brad.loc [:,"h"] &ge; 20)|(brad.loc [:,"h"] &lt; 7),"temp_l"])
 # 17.972960595396884
-np.mean (brad.loc [(brad.loc [:,"h"] > 7)|(brad.loc [:,"h"]<20),"temp_l"])
+np.mean (brad.loc [(brad.loc [:,"h"] &ge; 7)|(brad.loc [:,"h"] &lt; 20),"temp_l"])
 # 18.118903601193296
-np.mean (brad.loc [(brad.loc [:,"h"] > 20)|(brad.loc [:,"h"]<7),"temp_lr"])
+np.mean (brad.loc [(brad.loc [:,"h"] &ge; 20)|(brad.loc [:,"h"] &lt; 7),"temp_lr"])
 # 19.722822488221063
-np.mean (brad.loc [(brad.loc [:,"h"] > 7)|(brad.loc [:,"h"]<20),"temp_lr"])
+np.mean (brad.loc [(brad.loc [:,"h"] &ge; 7)|(brad.loc [:,"h"] &lt; 20),"temp_lr"])
 # 20.173351426295763</pre>
         <p>
           Dans le labo et dans le sous-sol, la température moyenne est presque la même de jour comme de nuit. Dans le salon, aussi mais il y fait 1 à 2°C de plus.
@@ -885,7 +885,7 @@ print (ch.format (reg.coef_[0][0], reg.intercept_ [0]))</pre>
       Par exemple, la température du salon est manquante pour la donnée d'indice 113121 (et deux autres).
       <br/>
       S'agissant d'une valeur isolée, on regarde les valeurs un peu avant et un peu après celle qui manque&nbsp;:
-      <pre>>>> brad.loc [113117:113125, "temp_lr"]
+      <pre>&gt;&gt;&gt; brad.loc [113117:113125, "temp_lr"]
 113117    20.2
 113118    20.2
 113119    20.0
