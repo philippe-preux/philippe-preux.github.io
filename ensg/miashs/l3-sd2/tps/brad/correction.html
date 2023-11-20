@@ -822,7 +822,7 @@ from sklearn import linear_model
 reg = linear_model.LinearRegression ()
 reg.fit (sc_b, sc_lr)
 ch = "L'équation de la droite de régression entre le salon et le sous-sol est : y = {:4.2f} x + {:4.2f}"
-      print (ch.format (reg.coef_[0][0], reg.intercept_ [0]))</pre>
+print (ch.format (reg.coef_[0][0], reg.intercept_ [0]))</pre>
     <p>
       La dernière ligne affiche&nbsp;: <kbd>L'équation de la droite de régression entre le salon et le sous-sol est : y = 1.18 x + -2.08</kbd>.
     </p>
