@@ -294,9 +294,6 @@ fig.show()</pre>
     <ul>
       <li>Même question pour les trimestres.</li>
     </ul>
-    <div class="correction">
-      <pre></pre>
-    </div>
     
     <h3>Popularité des genres musicaux au fil du temps</h3>
 
@@ -323,9 +320,9 @@ fig.show()</pre>
 	<img src="sortiesParGenreParAnneeGenre13.png" width="100pt" alt="Nombre de morceaux sortis chaque année pour le genre 13.">
 	<br/>
 	<br/>
-	Qu'en pensez-vous&nbsp;? Trouvez-vous normal que toutes ces courbes aient la même allure&nbsp;? N'aviez-vous pas l'impression que les années 1970 étaient les années disco et qu'on devrait le voir&nbsp;? Pareil pour la new wave dans les années 1980, le funk, sans parler du hip hop et du rap un peu plus récemment&nbsp;?
+	Qu'en pensez-vous&nbsp;?
 	<br/>
-	Qu'est ce qui ne va pas&nbsp;?
+	Ces graphiques donnent une fausse impression. Le nombre de morceaux sortis chaque année varie. Aussi, il faut représenter non pas le nombre de morceaux de chacun des genres par année, mais la proportion des morceaux de chaque des genres chaque année.
 	<br/>
 	Une fois prise en compte cette remarque, j'obtiens ce genre de graphiques&nbsp;:
 	<br/>
@@ -344,23 +341,31 @@ fig.show()</pre>
 	<img src="ProportionSortiesParGenreParAnneeGenre12.png" width="100pt" alt="12."/>
 	<img src="ProportionSortiesParGenreParAnneeGenre13.png" width="100pt" alt="13."/>
 	<br/>
-	Sur ces graphiques, on voit beaucoup mieux ce que l'on s'attend à voir&nbsp;: l'arrivée massive to rap depuis les années 1990, la new wave dans les années 1980, le disco dans les années 1970, ... (Vous voyez la même chose que moi&nbsp;?)
+	Sur ces graphiques, on voit beaucoup mieux ce que l'on s'attend à voir&nbsp;: l'arrivée massive du rap depuis les années 1990, la new wave dans les années 1980, le disco dans les années 1970, ... (Vous voyez la même chose que moi&nbsp;?)
 	<br/>
 	Ayant compris ce qui ne va pas plus haut, corrigez votre approche pour obtenir les mêmes graphiques que moi (ci-dessus).
 	</li>
 	</ul>
-    <div class="correction">
-      <pre></pre>
-    </div>
-    <ul>
-      <li>Faites de même pour chaque trimestre.</li>
-      <!--li>Faites ce graphique pour les 13 clusters en associant une couleur différente à chaque cluster.<-->
-    </ul>
-    <div class="correction">
-      <pre></pre>
-    </div>
+	<div class="correction">
+	  <p>
+	    Pour chaque musical, il faut compter le nombre de sorties par année et diviser celui-ci par le nombre total (tous genres confondus) de sorties durant l'année. On commence par calculer le nombre de sorties total par année (dans le vecteur <kbd>vc</kbd>), puis on calcule le nombre de sorties par genre par année (<kbd>vc2</kbd>), on divise ce dernier par le premier et on l'affiche.
+	  </p>
+	  <pre>vc = music ["year"].value_counts().sort_index()
+colors = ["blue", "red", "green", "pink", "yellow", "m", "aquamarine", "fuchsia", "sandybrown", "coral", "teal", "olive", "slateblue"]
+for numero in range (13):
+    fig, ax = plt.subplots ()
+    vc2 = music [music.loc [:, "cluster"] == numero + 1].loc [:, "year"].value_counts()
+    ax.plot (range (1960, 2010), vc2 / vc, c = colors [numero], ls = "-", label = genres [numero])
+    ax.set_title ("Proportion de sorties par année pour le genre musical " + str (numero + 1) + "\n(" + genres [numero] + ")")
+    ax.set_ylim (bottom = 0, top = .3)
+    fig.show ()</pre>
+	</div>
+	<ul>
+	  <li>Faites de même pour chaque trimestre.</li>
+	  <!--li>Faites ce graphique pour les 13 clusters en associant une couleur différente à chaque cluster.<-->
+	</ul>
 
-    <h3>Popularité des artistes</h3>
+	<h3>Popularité des artistes</h3>
 
     <ul>
       <li>On va s'intéresser à la popularité des artistes. Pour cela, pour chaque artiste, on compte le nombre de morceaux qu'il a eu dans les classements.
