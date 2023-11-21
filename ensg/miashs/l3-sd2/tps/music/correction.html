@@ -376,13 +376,34 @@ for numero in range (13):
       </li>
     </ul>
     <div class="correction">
-      <pre></pre>
+      <p>
+	On compte les occurences des données pour chaque valeur de l'attribut <kbd>artist_name_clean</kbd> et on retient les valeurs apparaissant plus de 30 fois.
+      </p>
+      <pre>music.loc [:,"artist_name_clean"].value_counts ().index [music.loc [:,"artist_name_clean"].value_counts () &gt; 30]</pre>
+      <p>
+	qui se comprend en décomposant cette ligne&nbsp;:
+      </p>
+      <ul>
+	<li><kbd>music.loc[:,"artist_name_clean"].value_counts()</kbd> compte le nombre d'occurences de chacune des valeurs de l'attribut <kbd>artist_name_clean</kbd> et renvoie le résultat dans une liste ordonnée.</li>
+	<li>En y ajoutant <kbd>.index</kbd>, on obtient la liste des valeurs de cet attribut (donc des <kbd>artist_name_clean</kbd>).</li>
+	<li>Parmi ces valeurs, il faut sélectionner celles correspondant à un décompte supérieur à 30, d'où la sélection de ces valeurs par <kbd>[music.loc[:,"artist_name_clean"].value_counts() > 30]</kbd></li>
+      </ul>
+      <p>
+	Remarque&nbsp;: le résultat est différent si on fait ce décompte sur l'attribut <kbd>artist_name</kbd>, signe qu'un même artiste est représenté de différentes manières par cet attribut.
+	<br/>
+	Vous pouvez chercher de quel(s) artiste(s) il s'agit, c'est un bon exercice complémentaire.
     </div>
     <ul>
       <li>Calculez le nombre d'artistes ayant eu n morceaux dans ce classement, pour n variant de 1 à la valeur maximale trouvée à la question précédente. Appelons <kbd>decompte</kbd> le vecteur dont le i-ème élément contient le nombre d'artistes ayant eu i morceaux dans ce classement.</li>
     </ul>
     <div class="correction">
-      <pre></pre>
+      <p>
+	<kbd>music.loc[:,"artist_name_clean"].value_counts()</kbd> fournit le nombre de morceaux par artiste. Pour répondre à cette question, il faut appliquer <kbd>value_counts()</kbd> sur le résultat, soit <kbd>music.loc[:,"artist_name_clean"].value_counts().value_counts()</kbd>.
+	<br/>
+	Cela nous indique qu'il y a un artiste qui a eu 96 morceaux (ce que l'on a identifié plus tôt). On retrouve que 33 artistes ont au moins 30 titres (ou 28 ont eu plus de 30 titres). <i>etc</i>
+	<br/>
+	Donc, il faut juste mettre le résultat dans l'objet <kbd>decompte</kbd>.
+      </p>
     </div>
     <ul>
       <li>Faites un plot de <kbd>decompte</kbd>. Vous devez obtenir quelque chose comme cela&nbsp;:
@@ -391,13 +412,27 @@ for numero in range (13):
       </li>
     </ul>
     <div class="correction">
-      <pre></pre>
+      <pre>fig, ax = plt.subplots ()
+ax.plot (decompte.to_numpy ())
+ax.set_title ("Répartition du nombre de titres par artiste.")
+fig.show ()</pre>
+      <p>
+	L'application de <kbd>to_numpy()</kbd> est nécessaire pour que seuls les décomptes soient affichés&nbsp;: comparez le résultat de <kbd>decompte</kbd> et de <kbd>decompte.to_numpy()</kbd> pour bien comprendre.
+      </p>
     </div>
     <ul>
       <li>Faites un plot log-log, c'est-à-dire qu'en abscisses et en ordonnées, vous mettez le log de la quantité que vous avez mise dans le plot précédent. Vous devez obtenir une figure assez remarquable.</li>
     </ul>
     <div class="correction">
-      <pre></pre>
+      <pre>fig, ax = plt.subplots ()
+ax.loglog(decompte.to_numpy())
+ax.set_title ("Répartition du nombre de titres par artiste en échelles logarithmiques.")
+fig.show()</pre>
+      <p>
+	Ce qui est remarquable est que ce graphique est presque une droite. Dans ce contexte où on étudie la distribution des réalisations d'une variabe aléatoire et où un graphique en échelles logarithmiques donne (presque) une droite, on sait que se cache derrière ce processus aléatoire un type de processus très général omniprésent dans la nature mais aussi dans les sociétés. Ce type de processus génère très souvent de très petites valeurs (ici 1) et de plus en plus rarement, il génère des valeurs plus grandes. La taille des cratères lunaires est distribuée selon une telle loi, de même que la fréquence des mots dans d'une langue ou l'intensité des éruptions volcaniques. On appelle cela une loi de puissance.
+	<br/>
+	<img src="loglogplot.png" width="300pt" alt="Plot log-log du decompte." />
+      </p>
     </div>
     
     <h3>Segmentation en genres musicaux</h3>
@@ -455,10 +490,10 @@ fig.show()</pre>
     La recommandation est un élément essentiel des sites Internet diffusant de la musique, et plus généralement, des sites de commerce électronique. La réalisation d'un système de recommandation qui fonctionne vraiment bien est quelque chose d'assez sophistiqué, chaque entreprise ayant ses secrets de fabrication pour être meilleure, ou originale, par rapport à ses concurrentes. Néanmoins, il existe quelques principes simples sur lesquels ces systèmes s'appuient. Nous allons explorer l'un d'eux sur ce jeu de données, la <i>recommandation par le contenu</i>.
 
   </p>
-
+  
   <h3>Quelques idées trop simples</h3>
 
-  <p>
+      <p>
 
     On peut commencer par recommander des morceaux en fonction du nombre de l'artiste&nbsp;: si j'écoute <i>Thriller</i> de Michael Jackson, que peut-on me proposer&nbsp;? Les autres titres de Mickael Jackson.
     
@@ -467,18 +502,36 @@ fig.show()</pre>
 
     <b>À faire&nbsp;:</b> écrire une fonction qui prend en paramètre le numéro d'un morceau (par exemple 13954) et renvoie une liste composée des numéros de tous les morceaux de cet artiste. Testez-cette fonction.
 
-    <br/>
-    <br/>
-
-    Ce n'est pas très intéressant&nbsp;: j'aimerais bien qu'on me propose des titres d'autres artistes.
-
-    <br/>
-
-    Je peux recommander tous les morceaux du même genre musicale. Cette fois-ci, je vais avoir plus de 1000 titres et rien de bien spécifique non plus.
-
   </p>
 
-  <h3>À la recherche des attributs utiles pour la recommandation</h3>
+  <div class="correction">
+    <p>
+      On peut écrire cette fonction comme cela&nbsp;:
+    </p>
+    <pre>def find_artist (name):
+liste = []
+for i in range(music.shape[0]):
+    if music.at [i,"artist_name"].find (name) != -1:
+        liste.append (i)
+return (liste)</pre>
+    <p>
+      Ce n'est pas parfait parce qu'on utilise l'attribut <kbd>artist_name</kbd> plutôt que <kbd>artist_name_clean</kbd>. Mais c'est beaucoup plus facile pour un être humain de donner le nom qui apparaît dans le champ <kbd>artist_name</kbd> que celui qui est présent dans <kbd>artist_name_clean</kbd>. Cela va provoquer quelques erreurs.
+      <br/>
+      On peut l'utiliser ainsi&nbsp;: <kbd>music.loc [find_artist("Michael Jackson"), "track_name"]</kbd>.
+    </p>
+  </div>
+  
+      <p>
+	
+	Ce n'est pas très intéressant&nbsp;: j'aimerais bien qu'on me propose des titres d'autres artistes.
+
+	<br/>
+	
+	Je peux recommander tous les morceaux du même genre musicale. Cette fois-ci, je vais avoir plus de 1000 titres et rien de bien spécifique non plus.
+	
+      </p>
+      
+      <h3>À la recherche des attributs utiles pour la recommandation</h3>
 
   <p>
 
