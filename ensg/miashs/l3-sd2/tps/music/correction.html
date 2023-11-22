@@ -618,7 +618,22 @@ fig.show()</pre>
     <img src="22.png" width="300pt"
 	 alt="Distribution de la similarité entre la donnée 23 et toutes les autres" />
 
-    <br/>
+  </p>
+
+  <div class="correction">
+    <p>
+    </p>
+    <pre>v = np.zeros (music.shape [0]) # ce vecteur va contenir la similarité entre le morceau 22 et tous les autres
+for i in range (music.shape [0]):
+    v [i] = np.dot (m [numero,], m [i, ])
+# et on affiche le graphique
+fig, ax = plt.subplots ()
+ax.hist (v, bins = 100, color = couleurs [indice])
+ax.set_title ("Répartition de la similarité des titres à la donnée 22")
+fig.show ()</pre>
+  </div>
+  
+  <p/>
     
     Faites de même pour les données 146, 5383 et 13954. Vous devez obtenir des graphiques comme ceux-ci&nbsp;:
     
