@@ -494,8 +494,8 @@ fig.show()</pre>
   
   <h3>Quelques idées trop simples</h3>
 
-      <p>
-
+  <p>
+    
     On peut commencer par recommander des morceaux en fonction du nombre de l'artiste&nbsp;: si j'écoute <i>Thriller</i> de Michael Jackson, que peut-on me proposer&nbsp;? Les autres titres de Michael Jackson.
     
     <br/>
@@ -522,17 +522,17 @@ fig.show()</pre>
     </p>
   </div>
   
-      <p>
+  <p>
 	
-	Ce n'est pas très intéressant&nbsp;: j'aimerais bien qu'on me propose des titres d'autres artistes.
-
-	<br/>
-	
-	Je peux recommander tous les morceaux du même genre musicale. Cette fois-ci, je vais avoir plus de 1000 titres et rien de bien spécifique non plus.
-	
-      </p>
-      
-      <h3>À la recherche des attributs utiles pour la recommandation</h3>
+    Ce n'est pas très intéressant&nbsp;: j'aimerais bien qu'on me propose des titres d'autres artistes.
+    
+    <br/>
+    
+    Je peux recommander tous les morceaux du même genre musicale. Cette fois-ci, je vais avoir plus de 1000 titres et rien de bien spécifique non plus.
+    
+  </p>
+  
+  <h3>À la recherche des attributs utiles pour la recommandation</h3>
 
   <p>
 
@@ -587,7 +587,24 @@ fig.show()</pre>
 
     Conseil&nbsp;: tous ces attributs sont numériques. Pour simplifier les manipulations, je vous conseille de mettre ces attributs dans une matrice et de travailler avec cette matrice dans ce qui suit.
 
-    <br/>
+  </p>
+
+  <div class="correction">
+    <p>
+      Comme conseillé, je mets les attributs dans une matrice dénommée <kbd>m</kbd>.
+    </p>
+    <pre>m = np.array (music.iloc [:, 11:27], dtype=float)</pre>
+    <p>
+      Je calcule la nombre pour une ligne prise au hasard, et je constate que <kbd>np.linalg.norm (m [2307, ])</kbd> est différent de 1.
+      <br/>
+      Pour normer, on va faire une boucle sur chaque ligne et simplement appliqué la formule mathématique&nbsp;:
+    </p>
+    <pre>for ligne in range (music.shape [0]):
+    norme = np.linalg.norm (m [ligne, ])
+    m [ligne, ] = m [ligne, ] / norme</pre>
+  </div>
+  
+  <p>
 
     Pour trouver les morceaux proches du morceau numéro i, on calcule donc la similarité entre ce morceau et tous les autres (on stocke ces similarités dans un vecteur) et on cherche ensuite les morceaux pour lesquels cette similarité est la plus grande. Comme on vient de le dire, la similarité entre les morceaux numéros i et j est définie par la valeur du produit scalaire entre les vecteurs représentant les morceaux i et j (les 16 attributs indiqués plus haut).
     
