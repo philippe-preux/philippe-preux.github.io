@@ -673,6 +673,19 @@ fig.show ()</pre>
 
   </p>
 
+  <div class="correction">
+    <p>
+      Je reprends la ligne 22 utilisée plus haut.
+    </p>
+    <pre>v = np.zeros (music.shape [0])
+for i in range (music.shape [0]):
+    v [i] = np.dot (m [22,], m [i, ])
+argsimilarite_aux_voisins = np.argsort (v)
+print (music.artist_name [argsimilarite_aux_voisins [music.shape[0]-10:music.shape[0]]])</pre>
+    <p>
+    </p>
+  </div>
+  
   <h4>Pour aller plus loin</h4>
 
   <p>
