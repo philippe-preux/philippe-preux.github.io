@@ -509,11 +509,11 @@ fig.show()</pre>
       On peut écrire cette fonction comme cela&nbsp;:
     </p>
     <pre>def find_artist (name):
-liste = []
-for i in range(music.shape[0]):
-    if music.at [i,"artist_name"].find (name) != -1:
-        liste.append (i)
-return (liste)</pre>
+    liste = []
+    for i in range(music.shape[0]):
+        if music.at [i,"artist_name"].find (name) != -1:
+            liste.append (i)
+    return (liste)</pre>
     <p>
       Ce n'est pas parfait parce qu'on utilise l'attribut <kbd>artist_name</kbd> plutôt que <kbd>artist_name_clean</kbd>. Mais c'est beaucoup plus facile pour un être humain de donner le nom qui apparaît dans le champ <kbd>artist_name</kbd> que celui qui est présent dans <kbd>artist_name_clean</kbd>. Cela va provoquer quelques erreurs.
       <br/>
