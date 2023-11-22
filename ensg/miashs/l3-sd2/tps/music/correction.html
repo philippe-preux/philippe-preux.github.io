@@ -171,10 +171,17 @@
 	</li>
 	<li>Recherchez tous les morceaux d'un artiste que vous connaissez.
 	  <br/>
-	  Écrire une fonction <kbd>recherche_artiste ()</kbd> qui renvoie la liste des numéros de données correspondant à une certaine chaînes des caractères. Par exemple&nbsp;:
-	  <pre>recherche_artiste ("Swift")
-	    >>> [8589, 8590, 8591, 8592, 8593, 8890, 10049, 10050, 10051, 10052, 11249, 11351, 11352, 11396, 11397, 11398, 11939, 13919]</pre>
-	  Attention, dans certains cas, rechercher seulement le nom d'un artiste produit des résultats correspondant à plusieurs artistes portant le même nom. Par exemple, regardez de près le résultat de <kbd>recherche_artiste ("Jackson")</kbd>&nbsp;; le champ <kbd>artist_name_clean</kbd> est là pour résoudre ce problème, à moins d'indiquer le prénom et le nom (par exemple, <kbd>find_artist("Janet Jackson")</kbd>).
+	  Écrire une fonction <kbd>recherche_artiste ()</kbd> qui renvoie la liste des numéros de données correspondant à une certaine chaîne de caractères. Par exemple&nbsp;:
+	  <pre>def recherche_artiste (name):
+    liste = []
+    for i in range(music.shape[0]):
+        if music.at [i,"artist_name"].find (name) != -1:
+            liste.append (i)
+    return (liste)
+
+recherche_artiste ("Swift")
+>>> [8589, 8590, 8591, 8592, 8593, 8890, 10049, 10050, 10051, 10052, 11249, 11351, 11352, 11396, 11397, 11398, 11939, 13919]</pre>
+	  Attention, dans certains cas, rechercher seulement le nom d'un artiste produit des résultats correspondant à plusieurs artistes portant le même nom. Par exemple, regardez de près le résultat de <kbd>recherche_artiste ("Jackson")</kbd>&nbsp;; le champ <kbd>artist_name_clean</kbd> est là pour résoudre ce problème, à moins d'indiquer le prénom et le nom (par exemple, <kbd>recherche_artiste ("Janet Jackson")</kbd>).
 	</li>
       </ul>
     </div>
@@ -229,28 +236,29 @@ music ["month"] = music.loc [:,"first_entry"].dt.month</pre>
 	Qu'observez-vous&nbsp;? Comment interprêtez-vous cela&nbsp;?
 	<br/>
 	Remarque&nbsp;: si vous utilisez <kbd>value_counts()</kbd> pour répondre à cette question (c'est une très bonne idée), il faut faire attention au fait que cette fonction renvoie un tableau trié en fonction des décomptes. Pour obtenir le graphique correct, on veut que le décompte soit affiché en fonction de l'année. On peut soit faire un graphique en indiquant qu'il faut utiliser l'index en abscisses (<kbd>value_counts().index</kbd>) et le décompte en ordonnées (<kbd>value_counts().values</kbd>), soit trier les décomptes en fonction de l'index (<kbd>value_counts().sort_index()</kbd>).
-      </li>
-    </ul>
-    <div class="correction">
-      <pre>plotRepartitionParAnnee= True
-if plotRepartitionParAnnee:
-    fig, ax = plt.subplots ()
-    ax.set_xlabel ("Année")
-    ax.set_ylabel ("Nombre de sorties")
-    ax.plot (music ["year"].value_counts().sort_index(), marker = 'o')
-    ax.set_title ("Nombre de nouveaux morceaux par année.")
-    fig.show()</pre>
-      <p>
-	On voit qu'il y a une diminution du nombre de sorties au fil du temps de 1970 à 2000. Ce nombre a augmenté durant la dernière décennie pour laquelle on dispose de données.
-      </p>
+
+	<div class="correction">
+	  <pre>fig, ax = plt.subplots ()
+ax.set_xlabel ("Année")
+ax.set_ylabel ("Nombre de sorties")
+ax.plot (music ["year"].value_counts().sort_index(), marker = 'o')
+ax.set_title ("Nombre de nouveaux morceaux par année.")
+fig.show()</pre>
+	  <p>
+	    On voit qu'il y a une diminution du nombre de sorties au fil du temps de 1970 à 2000. Ce nombre a augmenté durant la dernière décennie pour laquelle on dispose de données.
+	  </p>
+	</li>
+      </ul>
     </div>
+    
     <ul>
-      <li>Y a-t-il des mois pendant lesquels il y a systématiquement plus, ou moins, d'entrées dans le classement&nbsp;? Faire un graphique pour répondre à cette question.</li>
-    </ul>
-    <div class="correction">
+      <li>Y a-t-il des mois pendant lesquels il y a systématiquement plus, ou moins, d'entrées dans le classement&nbsp;? Faire un graphique pour répondre à cette question.
+	<br/>
+	<div class="correction">
       <pre>fig, ax = plt.subplots ()
 ax.scatter (range (1, 13), music ["month"].value_counts())
-ax.set_title ("Nombre de nouveaux morceaux par mois")</pre>
+ax.set_title ("Nombre de nouveaux morceaux par mois")
+fig.show ()</pre>
       <p>
 	Le graphique est le suivant&nbsp;:
 	<br/>
@@ -258,7 +266,9 @@ ax.set_title ("Nombre de nouveaux morceaux par mois")</pre>
 	<br/>
 	On voit que globalement, le nombre de sorties diminue au fil de l'année.
       </p>
-    </div>
+      </div></li>
+    </ul>
+    
     <ul>
       <li>Cela évolue-t-il au cours du temps&nbsp;? Vous pouvez faire un graphique par année ou, plus simplement, vous pouvez faire un graphique pour un certain ensemble d'années, par exemple tous les 10 ans à partir de 1960.
 	<br/>
@@ -274,6 +284,7 @@ for y in les_années:
     v = music.loc [music.loc [:, "year"] == y, :].month.value_counts()
     for m in range (12):
         nbSortiesParAnParMois [y - 1960, m] = v [m + 1]
+
 années = [1966, 1973, 1985, 1994, 2008]
 fig, ax = plt.subplots (5,1)
 for i in range (len (années)):
@@ -348,9 +359,24 @@ fig.show()</pre>
 	</ul>
 	<div class="correction">
 	  <p>
-	    Pour chaque musical, il faut compter le nombre de sorties par année et diviser celui-ci par le nombre total (tous genres confondus) de sorties durant l'année. On commence par calculer le nombre de sorties total par année (dans le vecteur <kbd>vc</kbd>), puis on calcule le nombre de sorties par genre par année (<kbd>vc2</kbd>), on divise ce dernier par le premier et on l'affiche.
+	    Pour chaque genre musical, il faut compter le nombre de sorties par année et diviser celui-ci par le nombre total (tous genres confondus) de sorties durant l'année. On commence par calculer le nombre de sorties total par année (dans le vecteur <kbd>vc</kbd>), puis on calcule le nombre de sorties par genre par année (<kbd>vc2</kbd>), on divise ce dernier par le premier et on l'affiche.
 	  </p>
-	  <pre>vc = music ["year"].value_counts().sort_index()
+	  <pre># je définis une liste avec le nom des 13 genres
+genres = ["northern soul/soul/hip hop/dance",
+          "hip hop/rap/gangsta rap/old school",
+          "easy listening/country/love song/piano",
+          "funk/blues/jazz/soul",
+          "rock/pop/new wave",
+          "female voice/pop/R'n'B/Motown",
+          "country/classic country/folk/rockability",
+          "dance/new wave/pop/electronic",
+          "classic rock/country/rock/singer-songwriter",
+          "love song/slow jams/soul/folk",
+          "funk/blues/dance/blues rock",
+          "soul/R'n'B/funk/disco",
+          "rock/hard rock/alternative/classic-rock"]
+
+vc = music ["year"].value_counts().sort_index()
 colors = ["blue", "red", "green", "pink", "yellow", "m", "aquamarine", "fuchsia", "sandybrown", "coral", "teal", "olive", "slateblue"]
 for numero in range (13):
     fig, ax = plt.subplots ()
@@ -430,7 +456,7 @@ ax.loglog(decompte.to_numpy())
 ax.set_title ("Répartition du nombre de titres par artiste en échelles logarithmiques.")
 fig.show()</pre>
       <p>
-	Ce qui est remarquable est que ce graphique est presque une droite. Dans ce contexte où on étudie la distribution des réalisations d'une variabe aléatoire et où un graphique en échelles logarithmiques donne (presque) une droite, on sait que se cache derrière ce processus aléatoire un type de processus très général omniprésent dans la nature mais aussi dans les sociétés. Ce type de processus génère très souvent de très petites valeurs (ici 1) et de plus en plus rarement, il génère des valeurs plus grandes. La taille des cratères lunaires est distribuée selon une telle loi, de même que la fréquence des mots dans d'une langue ou l'intensité des éruptions volcaniques. On appelle cela une loi de puissance.
+	Ce qui est remarquable est que ce graphique est presque une droite. Dans ce contexte où on étudie la distribution des réalisations d'une variabe aléatoire et où un graphique en échelles logarithmiques donne (presque) une droite, on sait que se cache derrière un type de processus très général, omniprésent dans la nature mais aussi dans les sociétés. Ce type de processus génère très souvent de très petites valeurs (ici 1) et de plus en plus rarement, il génère des valeurs plus grandes. La taille des cratères lunaires est distribuée selon une telle loi, de même que la fréquence des mots dans d'une langue ou l'intensité des éruptions volcaniques. On appelle cela une loi de puissance.
 	<br/>
 	<img src="loglogplot.png" width="300pt" alt="Plot log-log du decompte." />
       </p>
@@ -462,7 +488,8 @@ for n in range (2,20):
 	  <br/>
 	  Faire un graphique de ce score en fonction du nombre de segments.
 	  <br/>
-	  <pre>fig, ax = plt.subplots ()
+	  <pre># from matplotlib import ticker
+fig, ax = plt.subplots ()
 ax.plot (np.arange (2, 20), sil_score[2:20], color = "red")
 ax.set_xlim ([0,20])
 #ax.set_ylim ([0, 0.15])
@@ -472,15 +499,16 @@ ax.set_ylabel ("Silhouette score")
 fig.show()</pre>
 	  <br/>
 	  qui donne ce graphique&nbsp;:
+	  <br/>
 	  <img src="DeterminationNbClusters.png" width="300pt" alt="Détermination du nombre de clusters" />
 	  <br/>
 	  Quel serait le nombre de genres musicaux d'après ce score&nbsp;?
 	  <br/>
-	  8 (confirmé par <kbd>np.argmax (sil_score)</kbd>).
+	  Réponse&nbsp;: 8 (confirmé par <kbd>np.argmax (sil_score)</kbd>).
 	  <br/>
 	  Trouvez-vous 13&nbsp;? Qu'en pensez-vous&nbsp;?
 	  <br/>
-	  Non. C'est bizarre et ennuyeux. Ce TP est basé sur des données utilises par les auteurs d'un article qui étudie l'évolution des genres musicaux durant 50 ans. En principe, on a refait ce qu'ont fait les auteurs de l'étude (ils ont fait un peu différemment mais j'ai essayé de faire exactement ce qu'ils décrivent et cela ne me donne toujours pas 13). Le résultat de la méthode des k-moyennes est sensible à l'initialisation des centroïdes ce qui, pour un nombre de groupe fixé, peut entraîner des variations. Mais ne pas retrouver 13 ou un nombre proche de 13 est un vrai problème. Cette valeur est importante pour l'argumentation et les analyses qui sont ensuite faites dans l'article.
+	  Réponse&nbsp;: non. C'est bizarre et ennuyeux. Ce TP est basé sur des données utilisées par les auteurs d'un article qui étudie l'évolution des genres musicaux durant 50 ans. En principe, on a refait ce qu'ont fait les auteurs de l'étude (ils ont fait un peu différemment mais j'ai essayé de faire exactement ce qu'ils décrivent dans leur article et cela ne me donne toujours pas 13 mais toujours 7 ou 8). Le résultat de la méthode des k-moyennes est sensible à l'initialisation des centroïdes ce qui, pour un nombre de groupe fixé, peut entraîner des variations. Mais ne pas retrouver 13 ou un nombre proche de 13 est un vrai problème. Cette valeur est importante pour l'argumentation et les analyses qui sont ensuite faites dans l'article.
 	</li>
       </ul>
     </div>
@@ -507,18 +535,7 @@ fig.show()</pre>
 
   <div class="correction">
     <p>
-      On peut écrire cette fonction comme cela&nbsp;:
-    </p>
-    <pre>def find_artist (name):
-    liste = []
-    for i in range(music.shape[0]):
-        if music.at [i,"artist_name"].find (name) != -1:
-            liste.append (i)
-    return (liste)</pre>
-    <p>
-      Ce n'est pas parfait parce qu'on utilise l'attribut <kbd>artist_name</kbd> plutôt que <kbd>artist_name_clean</kbd>. Mais c'est beaucoup plus facile pour un être humain de donner le nom qui apparaît dans le champ <kbd>artist_name</kbd> que celui qui est présent dans <kbd>artist_name_clean</kbd>. Cela va provoquer quelques erreurs.
-      <br/>
-      On peut l'utiliser ainsi&nbsp;: <kbd>music.loc [find_artist("Michael Jackson"), "track_name"]</kbd>.
+      On peut utiliser la fonction écrite précédemment&nbsp;: <kbd>music.loc [recherche_artiste ("Michael Jackson"), "track_name"]</kbd>.
     </p>
   </div>
   
@@ -591,11 +608,11 @@ fig.show()</pre>
 
   <div class="correction">
     <p>
-      Comme conseillé, je mets les attributs dans une matrice dénommée <kbd>m</kbd>.
+      Comme conseillé, je mets les attributs dans une matrice dénommée <kbd>m</kbd>. C'est vraiment juste pour se simplifier la vie et les notations.
     </p>
     <pre>m = np.array (music.iloc [:, 11:27], dtype=float)</pre>
     <p>
-      Je calcule la nombre pour une ligne prise au hasard, et je constate que <kbd>np.linalg.norm (m [2307, ])</kbd> est différent de 1.
+      Je calcule la norme pour une ligne prise au hasard et je constate que <kbd>np.linalg.norm (m [2307, ])</kbd> est différent de 1.
       <br/>
       Pour normer, on va faire une boucle sur chaque ligne et simplement appliqué la formule mathématique&nbsp;:
     </p>
@@ -606,23 +623,16 @@ fig.show()</pre>
   
   <p>
 
-    Pour trouver les morceaux proches du morceau numéro i, on calcule donc la similarité entre ce morceau et tous les autres (on stocke ces similarités dans un vecteur) et on cherche ensuite les morceaux pour lesquels cette similarité est la plus grande. Comme on vient de le dire, la similarité entre les morceaux numéros i et j est définie par la valeur du produit scalaire entre les vecteurs représentant les morceaux i et j (les 16 attributs indiqués plus haut).
+    Pour trouver les morceaux proches du morceau numéro i, on calcule donc la similarité entre ce morceau et tous les autres (on stocke ces similarités dans un vecteur) et on cherche ensuite les morceaux pour lesquels cette similarité est la plus grande. Comme on vient de le dire, la similarité entre les morceaux numéros i et j est définie par la valeur du produit scalaire entre les vecteurs normés représentant les morceaux i et j (les 16 attributs indiqués plus haut, normés).
     
     <br/>
     <br/>
 
-    <b>À faire&nbsp;:</b> calculer la similarité entre la donnée 22 et toutes les autres. Faites un graphique de la distribution de cette similarité. Vous devez obtenir quelque chose comme&nbsp;:
-
-    <br/>
-
-    <img src="22.png" width="300pt"
-	 alt="Distribution de la similarité entre la donnée 23 et toutes les autres" />
+    <b>À faire&nbsp;:</b> calculer la similarité entre la donnée 22 et toutes les autres. Faites un graphique de la distribution de cette similarité. 
 
   </p>
 
   <div class="correction">
-    <p>
-    </p>
     <pre>v = np.zeros (music.shape [0]) # ce vecteur va contenir la similarité entre le morceau 22 et tous les autres
 for i in range (music.shape [0]):
     v [i] = np.dot (m [numero,], m [i, ])
@@ -633,7 +643,13 @@ ax.set_title ("Répartition de la similarité des titres à la donnée 22")
 fig.show ()</pre>
   </div>
   
-  <p/>
+  <p>
+
+    <img src="22.png" width="300pt"
+	 alt="Distribution de la similarité entre la donnée 23 et toutes les autres" />
+
+    <br/>
+    <br/>
     
     Faites de même pour les données 146, 5383 et 13954. Vous devez obtenir des graphiques comme ceux-ci&nbsp;:
     
@@ -675,7 +691,7 @@ fig.show ()</pre>
 
   <div class="correction">
     <p>
-      Je reprends la ligne 22 utilisée plus haut.
+      Je reprends la donnée 22 utilisée plus haut.
     </p>
     <pre>v = np.zeros (music.shape [0])
 for i in range (music.shape [0]):
