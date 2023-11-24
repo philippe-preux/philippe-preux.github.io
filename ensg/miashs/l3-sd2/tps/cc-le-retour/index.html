@@ -38,7 +38,7 @@
 
   <p>
 
-    Nous allons étudier un jeu de données qui contient des informations concernant des tremblements de terre.
+    Nous allons étudier un jeu de données qui contient des informations concernant des tremblements de terre s'étant déroulé sur la terre de 1965 à 2916.
 
     <br/>
 
@@ -50,19 +50,25 @@
 
   </p>
 
+  Date,Time,Latitude,Longitude,Type,Depth,Depth Error,Depth Seismic Stations,Magnitude,Magnitude Type,Magnitude Error,Magnitude Seismic Stations,Azimuthal Gap,Horizontal Distance,Horizontal Error,Root Mean Square,ID,Source,Location Source,Magnitude Source,Status,pays
+  
   <ul>
-    <li>le numéro du volcan concerné&nbsp;;</li>
-    <li>le nom du volcan&nbsp;;</li>
-    <li>le numéro d'éruption&nbsp;;</li>
-    <li>le type d'éruption&nbsp;;</li>
-    <li>la zone d'activité du volcan&nbsp;;</li>
-    <li>l'indice d'explositivité de l'éruption (<i>Volcanic explosivity index</i>)&nbsp;;</li>
-    <li>la date de début d'éruption&nbsp;;</li>
-    <li>la méthode utilisée pour dater l'éruption&nbsp;;</li>
-    <li>la date de fin de l'éruption&nbsp;;</li>
-    <li>la latitude du volcan&nbsp;;</li>
-    <li>la longitude du volcan&nbsp;;</li>
-    <li>le pays où est situé le volcan.</li>
+    <li>6 attributs&nbsp;: mois, jour, année, heure, minute, seconde de l'événement&nbsp;;</li>
+    <li>latitude et longitude&nbsp;;</li>
+    <li>le type de tremblement&nbsp;;</li>
+    <li>la profondeur à laquelle l'événement s'est déroulé&nbsp;;</li>
+    <li>une erreur sur l'estimation de cette profondeur&nbsp;;</li>
+    <li>un attribut dont je ne connais pas la signification&nbsp;;</li>
+    <li>la magnitude de l'événement&nbsp;;</li>
+    <li>le type de magnitude mesuré&nbsp;;</li>
+    <li>l'erreur sur cette magnitude&nbsp;;</li>
+    <li>deux attributs dont je ne connais pas la signification&nbsp;;</li>
+    <li>la distance horizontale à l'événement&nbsp;;</li>
+    <li>l'erreur sur cette distance&nbsp;;</li>
+    <li>un attribut dont je ne connais pas la signification&nbsp;;</li>
+    <li>un numéro d'identification de l'événement&nbsp;;</li>
+    <li>6 attributs sans intérêt&nbsp;;</li>
+    <li>le pays où s'est déroulé l'événement.</li>
   </ul>
   
   <p>
@@ -73,12 +79,18 @@
 
   <ol>
     <li>quelle commande effectuez-vous pour charger le jeu de données&nbsp;? Faites-le et indiquez-la dans le compte-rendu.</li>
-    <li>Quelle commande effectuez-vous pour connaître le nombre de données contenues dans ce jeu de données&nbsp;? Indiquez ce nombre dans le compte-rendu.</li>
-    <li>Quelle commande effectuez-vous pour connaître le nombre d'attributs décrivant les données&nbsp;? Indiquez ce nombre dans le compte-rendu.</li>
-    <li>Quelle commande effectuez-vous pour obtenir la liste de ces attributs&nbsp;? Indiquez cette liste dans le compte-rendu.</li>
+    <li>Ajouter un attribut dénommé <kbd>DateHeure</kbd> qui contient un «&nbsp;tampon temporel&nbsp;» calculé à partir des 6 premiers attributs. Indiquer comment vous faites dans le compte-rendu.</li>
+    <li></li>
     <li>Quelle commande effectuez-vous pour obtenir l'année où a eu lieu l'éruption la plus ancienne enregistrée dans ce jeu de données&nbsp;? Indiquez cette année dans le compte-rendu.</li>
+    <li>Comment vérifiez-vous que les données sont ordonnées chronologiquement dans le tableau de données&nbsp;? Indiquer comment vous faites dans le compte-rendu.</li>
+    <li>Quelle commande effectuez-vous pour connaître le nombre de tremblements de terre qui ont eu lieu dans chaque pays&nbsp;? Indiquez cette commande dans le compte-rendu.</li>
+    <li>Dans quel pays y a-t-il eu le plus grand nombre de tremblements de terre depuis 1965&nbsp;? indiquez-le dans le compte-rendu.</li>
+    <li>Combien y a-t-il eu de tremblements de terre en France&nbsp;? Indiquez ce nombre et les dates de ces tremblements de terre dans le compte-rendu.</li>
+    <li>D'après vous, que signifie <kbd>unknown</kbd> dans l'attribut <kbd>pays</kbd>&nbsp;? Indiquez votre réponse dans le compte-rendu.</li>
+    <li>Faites un graphe du nombre de tremblements de terre par année. Insérez-le dans votre compte-rendu.</li>
+        
     <li>Quelle commande effectuez-vous pour obtenir le pays dans lequel a eu lieu cette éruption&nbsp;? Indiquez ce pays dans le compte-rendu.</li>
-    <li>Quelle commande effectuez-vous pour connaître le nombre d'éruptions qui ont eu lieu dans chaque pays&nbsp;? Indiquez-la dans le compte-rendu.</li>
+
     <li>Quelle commande effectuez-vous pour connaître le pays qui a enregistré le plus grand nombre d'éruptions&nbsp;? Indiquez le pays et le nombre d'éruptions dans le compte-rendu.</li>
     <li>Quelle commande effectuez-vous pour connaître le nombre d'éruptions qui se sont déroulées en France&nbsp;? Indiquez ce nombre d'éruptions dans le compte-rendu.</li>
     <li>Quelle(s) commande(s) effectuez-vous pour connaître les années de la plus ancienne et la plus récente éruptions qui se sont déroulées en France&nbsp;? Indiquez ces deux années dans le compte-rendu.</li>
