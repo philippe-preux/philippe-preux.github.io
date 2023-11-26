@@ -504,8 +504,8 @@ fig.show ()</pre>
       <div class="correction">
 	<pre>for an in range (2003, 2005):
     for mois in range (1, 13):
-        if brad.loc [(brad.loc [:,"an"]==an) &amp; (brad.loc [:,"mois"]==mois),"temp_o"].shape[0]:
-            temp_moyenne = np.mean (brad.loc [(brad.loc [:,"an"]==an) &amp; (brad.loc [:,"mois"]==mois),"temp_o"])
+        if brad.loc [(brad.loc [:,"an"]==an) and (brad.loc [:,"mois"]==mois),"temp_o"].shape[0]:
+            temp_moyenne = np.mean (brad.loc [(brad.loc [:,"an"]==an) and (brad.loc [:,"mois"]==mois),"temp_o"])
             ch = "{}/{} : {:4.2f}"
             print (ch.format (mois, an, temp_moyenne))</pre>
       </div>
@@ -516,11 +516,11 @@ fig.show ()</pre>
 	  Il y a différentes manières de faire. Pour faire très simple, j'ajoute un attribut <kbd>saison</kbd> qui vaut 1 pour le printemps, 2 pour l'été, 3 pour l'automne, 4 pour l'hiver. Ensuite, je filtre les lignes en fonction de la saison et j'en calcule la moyenne.
 	</p>
 	<pre>brad ["saison"] = 1
-brad.loc [(brad.loc [:,"date"] &ge; pd.Timestamp(2003,6,21)) &amp; (brad.loc [:,"date"] &lt; pd.Timestamp(2003,9,21)),"saison"] = 2
-brad.loc [(brad.loc [:,"date"] &ge; pd.Timestamp(2004,6,21)) &amp; (brad.loc [:,"date"] &lt; pd.Timestamp(2004,9,21)),"saison"] = 2
-brad.loc [(brad.loc [:,"date"] &ge; pd.Timestamp(2003,9,21)) &amp; (brad.loc [:,"date"] &lt; pd.Timestamp(2003,12,21)),"saison"] = 3
-brad.loc [(brad.loc [:,"date"] &ge; pd.Timestamp(2004,9,21)) &amp; (brad.loc [:,"date"] &lt; pd.Timestamp(2004,12,21)),"saison"] = 3
-brad.loc [(brad.loc [:,"date"] &ge; pd.Timestamp(2003,12,21)) &amp; (brad.loc [:,"date"] &lt; pd.Timestamp(2004,3,21)),"saison"] = 4
+brad.loc [(brad.loc [:,"date"] &ge; pd.Timestamp(2003,6,21)) and (brad.loc [:,"date"] &lt; pd.Timestamp(2003,9,21)),"saison"] = 2
+brad.loc [(brad.loc [:,"date"] &ge; pd.Timestamp(2004,6,21)) and (brad.loc [:,"date"] &lt; pd.Timestamp(2004,9,21)),"saison"] = 2
+brad.loc [(brad.loc [:,"date"] &ge; pd.Timestamp(2003,9,21)) and (brad.loc [:,"date"] &lt; pd.Timestamp(2003,12,21)),"saison"] = 3
+brad.loc [(brad.loc [:,"date"] &ge; pd.Timestamp(2004,9,21)) and (brad.loc [:,"date"] &lt; pd.Timestamp(2004,12,21)),"saison"] = 3
+brad.loc [(brad.loc [:,"date"] &ge; pd.Timestamp(2003,12,21)) and (brad.loc [:,"date"] &lt; pd.Timestamp(2004,3,21)),"saison"] = 4
 np.mean (brad.loc [brad.loc [:,"saison"] == 2,"temp_o"])
 # 18.60659823861916
 np.mean (brad.loc [brad.loc [:,"saison"] == 1,"temp_o"])
