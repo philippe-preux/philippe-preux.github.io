@@ -5,8 +5,10 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>Contrôle 2</title>
-  <link href="https://philippe-preux.github.io/css/ma.css" 
+  <link href="/home/ppreux/philippe-preux.github.io/css/ma.css" 
 	rel="stylesheet" type="text/css" media="all" />
+  <!--link href="https://philippe-preux.github.io/css/ma.css" 
+	rel="stylesheet" type="text/css" media="all" /-->
   <link rel="shortcut icon" type="image/x-icon" 
 	href="https://philippe-preux.github.io/img/site.ico" />
 </head>
@@ -108,7 +110,7 @@ quakes ["ID"] = quakes ["ID"].astype("category")</pre>
 	  Il suffit de compter le nombre d'occurences de chacune des années pour connaître le nombre de séisme pour chaque année. De plus, <kbd>value_counts()</kbd> trie les valeurs dans l'ordre décroissant. Aussi, l'année où il y a eu le plus de séisme est la première, celle où il y en a eu le moins est la dernière&nbsp;:
 	</p>
 	<pre># l'année où il y a eu le plus de séismes :
-quakes.loc[:,"a"].value_counts().index[0]</pre>
+quakes.loc[:,"a"].value_counts().index[0]
 # 2011
 # l'année où il y a eu le moins de séismes :
 quakes.loc [:,"a"].value_counts().index [len(quakes.loc[:,"a"].value_counts())-1]
@@ -121,10 +123,10 @@ quakes.loc [:,"a"].value_counts().index [len(quakes.loc[:,"a"].value_counts())-1
     <li>Comment vérifiez-vous si les données sont ordonnées chronologiquement dans le tableau de données&nbsp;? Indiquez comment vous faites dans le compte-rendu.
       <div class="correction">
 	<p>
-	  Le pluss imple est de faire une boucle et de vérifier que la date correspondant à la i<sup>è</sup> ligne est inférieure ou égale à celle de la ligne i+1.
+	  Une manière simple consiste à faire une boucle vérifiant que la date correspondant à la i<sup>è</sup> ligne est inférieure ou égale à celle de la ligne i+1.
 	</p>
 	<pre>ordonne = True
-for i in quakes.shape [0]-2:
+for i in range (quakes.shape [0]-2):
     if quakes.loc [i, "DateHeure"] > quakes.loc [i+1, "DateHeure"]:
         ordonne = False
         break
@@ -183,6 +185,8 @@ ax.set_title ("Nombre de tremblements de terre par année.")
 fig.show()</pre>
 	<p>
 	  <img src="NbTremblementsParAnnee.png" width="300pt" alt="Nombre de séismes par année." />
+	  <br/>
+	  Il y a une tendance à une augmentation du nombre annuel de séismes de 1965 à 2011 et moins entre 2011 et 2016. On constate quand même que la différence entre le minimum et le maximum est d'environ 450 séismes, soit la valeur médiane, donc une grande variabilité au fil des ans.
 	</p>
       </div>
     </li>
@@ -222,7 +226,10 @@ ax.loglog (quakes.loc [:, "Magnitude"].value_counts()) #, marker = 'o')
 ax.set_title ("Réprésentation log-log\nde la distribution empirique de la magnitude des séismes.")
 fig.show()</pre>
 	<p>
-<img src="DistributionEmpiriqueMagnitudeSeismeLoglog.png" width="300pt" alt="Représentation log-log de la distribution empirique de la magnitude des séismes" />
+	  <img src="DistributionEmpiriqueMagnitudeSeismeLoglog.png" width="300pt" alt="Représentation log-log de la distribution empirique de la magnitude des séismes" />
+	  <br/>
+	  La courbe est assez droite sur une grande partie, ce qui est indice d'une loi de puissance (cf. le TP sur la recommandation de musique).
+	</p>
       </div>
     </li>
     <li>Y a-t-il une corrélation linéaire entre la magnitude d'un séisme et sa profondeur&nbsp;? Dans votre compte-rendu, indiquez ce que vous faites pour mesurer cette corrélation et répondez à la question.
@@ -299,8 +306,8 @@ fig.show()</pre>
 	<pre>volcano = pd.read_csv ("/home/ppreux/philippe-preux.github.io/ensg/miashs/l3-sd2/datasets/volcanos/volcano.csv")
 
 fig, ax = plt.subplots ()
-ax.scatter (volcano.longitude, volcano.latitude, color = "red", s = 5)
 ax.scatter (quakes.Longitude, quakes.Latitude, s = 3)
+ax.scatter (volcano.longitude, volcano.latitude, color = "red", s = 5)
 ax.set_title ("Position des séismes depuis 1965 (en bleu) et des éruptions volcaniques (en rouge) connus.")
 fig.show()</pre>
 	<p>
