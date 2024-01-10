@@ -26,7 +26,31 @@
 
   <p>
 
+    On va écrire un script python qui calcule la valeur en sortie d'un perceptro binaire.
+
+    <br/>
+    <br/>
+
+    Supposons que le perceptron possède 3 entrées. Ce script doit réaliser les opérations suivantes&nbsp;:
+    
   </p>
+
+  <ol>
+    <li>on va utiliser 4 variables pour stocker la valeur du biais et des 3 poids. Initialiser ces 4 variables avec des valeurs que nous avons rencontrées en cours.</li>
+    <li>en utilisant la fonction python <kbd>input()</kbd>, on va saisir les valeurs des 3 entrées.
+      <br/>
+      <br/>
+      Si vous ne connaissez pas la fonction <kbd>input()</kbd>, tapez <kbd>input ("Entrer une valeur : ")</kbd> dans python et voyez ce qui se passe.
+      <br/>
+      Ensuite, tapez <kbd>v = input ("Entrer une valeur : ")</kbd> dans python et voyez ce qui se passe. La valeur tapée au clavier est maintenant stockée dans la variable dénommée <kbd>v</kbd>.
+      <br/>
+      Quand on affiche cette valeur, elle est entourée d'apostrophes ce qui signifie que cette valeur n'est pas un nombre mais une chaîne de caractères (il ne faut pas confondre <kbd>34</kbd> avec <kbd>'34'</kbd> : la première est un nombre avec lequel on peut faire des calculs&nbsp;; la seconde est une chaîne de caractères, ce n'est pas un nombre&nbsp;; si vous tapez <kbd>34+5</kbd> vous obtenez le résultat attendu de l'addition du nombre 34 avec le nombre 5. Si vous tapez <kbd>'34'+5</kbd>, vous obtenez un message d'erreur car python ne sait pas ajouter le nombre 5 à une chaîne de caractères.
+      <br/>
+      Pour transformer la chaîne de caractères <kbd>'34'</kbd> dans le nombre <kbd>34</kbd>, il faut écrire <kbd>int ('34')</kbd>. On peut alors ajouter 5 à ce nombre&nbsp;: <kbd>int ('34')+5</kbd> qui donne bien le nombre 39.
+      <br/>
+      Pour revenir à la saisie de la valeur (numérique) d'une entrée du perceptron, il faut donc transformer la chaîne de caractères lue avec <kbd>input()</kbd> en nombre. Aussi, nous taperons la commande&nbsp;: <kbd>v = int (input ("Entrer une valeur : "))</kbd>.
+      </li>
+  </ol>
   
   <h3>v1</h3>
 
