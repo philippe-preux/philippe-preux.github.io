@@ -79,8 +79,28 @@
   <h3>v1</h3>
 
   <p>
+
+    On va maintenant écrire un deuxième script python qui calcule la sortie d'un perceptron ayant un nombre quelconque d'entrées. 
+
+    <br/>
+    <br/>
+
+    Cette fois-ci, on suppose que la première instruction du script définie le nombre d'entrées en stockant celle-ci dans une variable que nous appellerons <kbd>N</kbd>.
+
+    <br/>
+
+    Ce nouveau script doit réaliser les opérations suivantes&nbsp;:    
     
   </p>
+
+  <ol>
+    <li>Définir la variable <kbd>N</kbd> et lui donner une valeur, pas exemple <kbd>N = 5</kbd> pour un perceptron ayant 5 entrées. Nous devons écrire le script de telle manière que si l'on change cette valeur (on écrit <kbd>N = 2</kbd> ou <kbd>N = 10</kbd> par exemple, le script fonnctionnera encore correctmement.</li>
+    <li>Définir le biais et les poids des entrées du perceptron. Le biais est unique et peut être stocké dans une simple variable. Les poids vont être stockées dans une liste de <kbd>N</kbd> éléments.</li>
+    <li>Lire la valeur des <kbd>N</kbd> entrées. On utilisera à nouveau la fonction <kbd>input()</kbd>, mais cette fois-ci, on doit l'utiliser dans une boucle réalisant <kbd>N</kbd> itérations.</li>
+    <li>Calculer l'activation du perceptron. Pour cela on fera une autre boucle afin de sommer les <kbd>N</kbd> produits d'une entrée avec son poids, sans oublier le biais.</li>
+    <li>À partir de l'activation, calculer la sortie du perceptron.</li>
+    <li>Afficher la valeur de la sortie à l'écran.</li>
+  </ol>
   
   <h2></h2>
 
