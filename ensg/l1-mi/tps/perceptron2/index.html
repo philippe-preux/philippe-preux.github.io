@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Le perceptron, suite</title>
+  <link href="https://philippe-preux.github.io/css/ma.css" 
+	rel="stylesheet" type="text/css" media="all" />
+  <link rel="shortcut icon" type="image/x-icon" 
+	href="https://philippe-preux.github.io/img/site.ico" />
+</head>
+
+<body>
+<div class="tpR">
+
+  <h1>Le perceptron</h1>
+
+  <p>
+
+    Dans ce TP, on va écrire des scripts python (très simples) qui permettent de vérifier qu'un perceptron binaire réalise les prédictions qui sont attendues.
+
+  </p>
+
+  <h2>Verification des prédictions d'un perceptron</h2>
+
+  <p>
+
+    On va écrire un premier script qui détermine si un perceptron binaire ayant deux entrées prédit les valeurs attendues en sortie. On le mettra en application sur les fonctions logiques vues en cours (ET, OU, ...).
+
+  </p>
+  
+  <h3>Perceptron binaire à 2 entrées</h3>
+
+  <p>
+
+    Le script doit contenir la liste des sorties attendues en fonction des entrées et les poids. Pour chacune des sorties, il doit vérifier qu'elle correspond bien à la sortie calculée pour les entrées. Il doit ensuite vérifier On va écrire un script python qui calcule la valeur en sortie d'un perceptron binaire.
+
+    <br/>
+    <br/>
+
+    On illustre sur le ET-logique à 2 entrées dont la table de vérité est&nbsp;:
+
+  </p>
+
+  <table>
+    <tr><th>e<sub>1</sub></th><th>e<sub>2</sub></th><th>s</th></tr>
+    <tr><td>0</td><td>0</td><td>&lt;0</td></tr>
+    <tr><td>0</td><td>1</td><td>&lt;0</td></tr>
+    <tr><td>1</td><td>0</td><td>&lt;0</td></tr>
+    <tr><td>1</td><td>1</td><td>&ge;0</td></tr>
+  </table>
+  
+  <p>
+    
+    Le script doit donc commencer par&nbsp;:
+
+  </p>
+
+  <ol>
+    <li>la liste des entrées possibles. Pour le ET logique, on aura une liste de listes, chaque sous-liste correspondant à l'une des combinaisons possibles en entrées.
+      <br/>
+      <pre>entrées = [[0, 0], [0, 1], [1, 0], [1, 1]]</pre>
+    </li>
+    <li>la liste des valeurs de la sortie pour chacune des combinaisons d'entrées, bien entendu dans le même ordre : le i<sup>è</sup> élément de cette liste doit correspondre au i<sup>è</sup> élément de la liste des entrées.
+      <br/>
+      <pre>sorties = [0, 0, 0, 1]</li>
+    <li>la liste des poids, par exemple&nbsp;:
+      <br/>
+      <pre>poids = [-5, 3, 3]</pre>
+      Le premier élément de cette liste (d'indice 0) est le biais.
+    </li>
+  </ol>
+  
+  <p>
+    
+    Ces éléments étant définis, on peut maintenant vérifier si les sorties attendues correspondent aux sorties calculées par le perceptron avec les poids qui sont spécifiés.
+
+    <br/>
+
+    Pour cela, on réalise une boucle qui itère sur chaque élément de la liste <kbd>entrées</kbd>. À chaque itération, on calcule la sortie du perceptron correspondant à ces valeurs en entrée et on compare cette valeur à la sortie attendue. Par exemple lors de la première itération&nbsp;:
+    
+  </p>
+
+  <ol>
+    <li>la combinaison en entrée est la première sous-liste de <kbd>entrées</kbd>, soit <kbd>[0, 0]</kbd>, c'est-à-dire que l'entrée e<sub>1</sub> vaut 0 (le premier 0 de la sous-liste) et l'entrée e<sub>2</sub> vaut 0 (le second 0 de la sous-liste). Il ne faut pas oublier l'entrée qui vaut toujours 1 qui correspond au biais.</li>
+    <li>On calcule la sortie correspond à cette entrée en utilisant les poids. C'est ce que l'on a fait lors du TP précédent. Appelons <kbd>s</kbd> la variable dans laquelle cette valeur est mémorisée. Dans le cas présent, -5+3x0+3x0 est négatif, donc la sortie vaut 0.</li>
+    <li>On compare la valeur de <kbd>s</kbd> à la valeur attendue en sortie, c'est-à-dire le premier élément de la liste <kbd>sorties</kbd>. Donc on compare <kbd>s</kbd> à <kbd>sorties [0]</kbd>. Si ces deux valeurs diffèrent on affiche un message indiquant qu'il y a un problème. Par exemple, on peut faire un message comme <kbd>Pour l'entrée numéro 0, la sortie n'est pas celle qui est attendues.</kbd> ou un message un peu plus sophistiqué comme <kbd>Pour l'entrée numéro 0 ([0, 0]), la sortie calculée (1) diffère de la sortie attendue (0).</kbd></li>
+  </ol>
+  
+  <p>
+
+    À l'issue de toutes les itérations, si aucune erreur n'a été détectée, on peut afficher un message comme <kbd>Aucune erreur détectée.</kbd>.
+
+    <br/>
+    <br/>
+    
+    Faites tout ce qui précède et assurez-vous que votre script fonctionne correctement.
+    
+  </p>
+  
+  <h4>Pour finir le script</h4>
+  
+    <p>
+    
+      Vous ajouterez également un test pour vérifier que la liste des entrées contient autant d'également que la liste des sorties.
+      
+      <br/>
+      
+      Enfin, vous ajouterez un test vérifiant que chaque sous-liste de <kbd>entrées</kbd> contient bien 2 éléments (2 car le perceptron possède 2 entrées et le biais).
+      
+    </p>
+
+    <h4>Pour finir</h4>
+
+    <p>
+
+      Écrivez le script qui vient d'être décrit. Testez-le sur le ET logique puis sur les autres fonctions logiques que l'on a vu en cours (OU, NON-ET, NON-OU).
+      
+    </p>
+    
+    <h3>Perceptron binaire avec «&nbsp;beaucoup&nbsp;» d'entrées</h3>
+
+    <p>
+
+    On va maintenant écrire un deuxième script python qui effectue la même vérification pour un nombre quelconque d'entrées. Comme exemple, on prendra l'afficheur vu en cours mais il faut que votre script puisse fonctionner pour n'importe quel liste d'entrées et n'importe quel nombre de poids.
+
+    <br/>
+    <br/>
+
+    Pour cette exemple, on a maintenant 7 entrées et 8 poids. On a également 10 combinaisons d'entrées et leurs sorties associées.
+
+    <br/>
+
+    On définira une variable dénommée <kbd>Npoids</kbd> qui contient le nombre de poids, donc 8 pour cet exemple.
+
+    <br/>
+    <br/>
+
+    Le script est presque le même que précédemment. Il suffit de combiner ce que vous venez de faire avec ce que vous avez fait lors du TP précédent.
+
+    <br/>
+    <br/>
+
+    Une fois que vous avez fait tout cela, vérifiez que les poids vus en cours permettent de calculer correctement la parité du chiffre qui est affiché.
+    
+  </p>
+
+    <h3>Pour finir</h3>
+
+    <p>
+
+      Pour finir, vous m'envoyez vos 2 scripts par email, en mettant votre binôme en cc.
+
+    </p>
+    
+</div>
+
+</body>
+</html>
