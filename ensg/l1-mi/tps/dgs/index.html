@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Minimisation d'une fonction par descente de gradient stochastique</title>
+  <link href="https://philippe-preux.github.io/css/ma.css" 
+	rel="stylesheet" type="text/css" media="all" />
+  <link rel="shortcut icon" type="image/x-icon" 
+	href="https://philippe-preux.github.io/img/site.ico" />
+</head>
+
+<body>
+<div class="tpR">
+
+  <h1>Minimisation d'une fonction par descente de gradient stochastique</h1>
+
+  <p>
+
+    Dans ce TP, on aborde un ingrédient essentiel pour le perceptron et plus généralement, dans tous les réseaux de neurones et même bien au-delà, la <i>descente de gradient stochastique</i>. C'est un algorithme qui détermine un minimum d'une fonction. Nous allons en manipuler une version très simple.
+
+    <br/>
+
+    On suppose que l'on minimise une fonction d'une seule variable, soit f(x), x pouvant prendre sa valeur dans un certain intervalle [x<sub>min</sub>, x<sub>max</sub>]. On suppose que f est dérivable sur cet intervalle et on note f' sa dérivée.
+
+    <br/>
+
+    Remarque&nbsp;: cette algorithme trouve un minimum <strong>local</strong> de f.
+    
+  </p>
+
+  <h2>Principe de la descente de gradient stochastique</h2>
+
+  <p>
+
+    Supposons que l'on veuille trouver un minimum d'une fonction f à valeur réelle. Comme on l'a vu en cours, le principe de cette méthode est&nbsp;:
+
+  </p>
+
+  <ol>
+    <li>partir d'un point du domaine de définition de la fonction x<sub>0</sub>&nbsp;;</li>
+    <li>regarder de quel côté (gauche ou droite) f décroît en x<sub>0</sub>&nbsp;;</li>
+    <li>faire un petit déplacement dans cette direction en apportant une correction à x<sub>0</sub> ce qui fournit x<sub>1</sub>&nbsp;;</li>
+    <li>continuer ainsi à corriger x<sub>t</sub> pour obtenir x<sub>t+1</sub>&nbsp;;</li>
+    <li>s'arrêter quand f'(x<sub>t</sub>) est (presque) nul.</li>
+  </ol>
+  
+  <h3>Programmation de la descente de gradient stochastique</h3>
+
+  <p>
+
+    Écrire un script python qui réalise une descente de gradient stochastique.
+    On s'exercera sur la fonction f(x) = 0,3x<sup>2</sup> - 2x + 4 avec x &in; [-10, 10].
+    
+    <br/>
+
+    On définira une fonction (python) <kbd>f (x)</kbd> qui renvoie la valeur de la fonction (mathématique) f en x&nbsp;:
+    <br/>
+    <pre>def f (x):
+    return (0.3 * x * x - 2 * x + 4)</pre>
+
+    De même, vous définirez une fonction (python) <kbd>df (x)</kbd> qui renvoie la valeur de la dérivée de f en x. (Je vous laisse calculer la dérivée de f.)
+
+    <br/>
+    <br/>
+
+    Ensuite, vous réalisez la descente de gradient stochastique. Vous prendrez &eta;=0,01 (par exemple).
+
+    <br/>
+
+    Par exemple, vous pouvez arrêter les itérations quand la dérivée est inférieure à 0,1.
+
+    <br/>
+
+    En partant de x<sub>0</sub> = -5, vous devriez obtenir exactement la même séquence d'itérés que moi et donc réaliser 65 itérations et atteindre x=3,17 (arrondi au centième).
+
+  </p>
+
+  <h3>Test de votre programme</h3>
+
+  <p>
+
+    Une fois que votre programme fonctionne, vous l'utiliserez pour trouver un minimum pour la fonction f (x) = 0,2 x<sup>5</sup> - 1,1 x<sup>3</sup> + 0,7 x<sup>2</sup> - x + 1,2.
+
+    <br/>
+    <br/>
+
+    Comme on l'a dit, l'algorithme de descente de gradient stochastique trouve un minimum local. Recherchez un minimum local pour différentes valeurs de x<sub>0</sub> &in; [-2, 3] (par exemple, vous prenez x<sub>0</sub> = -2, puis -1, puis 0, puis 1, puis 2, puis 3)&nbsp;; pour chaque valeur de x<sub>0</sub>, affichez le minimum trouvé. Que constatez-vous&nbsp;?
+    
+    <br/>
+    <br/>
+
+    Pour votre information, j'affiche le graphe de cette fonction&nbsp;:
+
+    <br/>
+    
+    <img src="fct-exo.png" width="400pt" />
+
+    <br/>
+    
+    Ce graphe est-il cohérent avec les minima que vous avez trouvés&nbsp;?
+    
+  </p>
+
+  <h3>Utilisation de votre programme</h3>
+
+  <p>
+
+    De la même manière, vous chercherez les minima de la fonction&nbsp;: g(x) = (x+4)(x+2)(x+1)(x-1)(x-3)(x-0,5)(x+1,5)/20 pour x &in; [-3, 3[. Votre programme doit afficher les abscisses des minima.
+    
+  </p>
+
+  <h3>Pour finir</h3>
+
+  <p>
+    
+    Pour finir, vous m'envoyez votre/vos script(s) par email, en mettant votre binôme en cc.
+    
+  </p>
+    
+</div>
+
+</body>
+</html>
