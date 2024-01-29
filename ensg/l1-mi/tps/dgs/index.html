@@ -41,9 +41,9 @@
   <ol>
     <li>partir d'un point du domaine de définition de la fonction x<sub>0</sub>&nbsp;;</li>
     <li>regarder de quel côté (gauche ou droite) f décroît en x<sub>0</sub>&nbsp;;</li>
-    <li>faire un petit déplacement dans cette direction en apportant une correction à x<sub>0</sub> ce qui fournit x<sub>1</sub>&nbsp;;</li>
-    <li>continuer ainsi à corriger x<sub>t</sub> pour obtenir x<sub>t+1</sub>&nbsp;;</li>
-    <li>s'arrêter quand f'(x<sub>t</sub>) est (presque) nul.</li>
+    <li>faire un petit déplacement dans cette direction en apportant une correction à x<sub>0</sub> ce qui fournit x<sub>1</sub>. Cette correction est&nbsp;: - &eta; f' (x<sub>0</sub>). On peut prendre &eta;=0,01&nbsp;;</li>
+    <li>continuer ainsi à corriger x<sub>t</sub> pour obtenir x<sub>t+1</sub>. Cette correction est&nbsp;: - &eta; f' (x<sub>t</sub>)&nbsp;;</li>
+    <li>s'arrêter quand f'(x<sub>t</sub>) est (presque) nul. En pratique, on s'arrêtera quand |f'(x)| sera inférieur à 0,1.</li>
   </ol>
   
   <h3>Programmation de la descente de gradient stochastique</h3>
