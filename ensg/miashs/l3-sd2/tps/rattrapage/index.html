@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Rattrapage</title>
+  <link href="https://philippe-preux.github.io/css/ma.css" 
+	rel="stylesheet" type="text/css" media="all" />
+  <link rel="shortcut icon" type="image/x-icon" 
+	href="https://philippe-preux.github.io/img/site.ico" />
+</head>
+
+<body>
+<div class="tpR">
+
+  <h1>Rattrapage</h1>
+  <h3>Science des données 2
+    <br/>
+    L3 MIASHS, 6 février 2024
+    <br/>
+    Tout document autorisé
+    <br/>
+    Durée&nbsp;: 1h15</h3>
+
+  <p>
+
+    <i>Modus operandi</i>&nbsp;: l'énoncé est ci-dessous. Vous répondez dans <a href="./Prénom-Nom.rattrapage-sd2.odt">ce document</a> que vous m'envoyez au format <font color="red"><b>pdf</b></font> au plus tard à 17h25 (horaire strict). Vous m'envoyez également un fichier contenant le code python à exécuter pour résoudre les questions. Je dois pouvoir exécuter ce script sans erreur et les réponses aux questions doivent s'afficher de manière claire (affichage d'un message tel que : <kbd>La réponse à la question 3 est : ...</kbd>). Vous pouvez m'envoyer plusieurs emails successifs. Dans ce cas, seul le dernier (envoyé avant 17h25) sera pris en compte.
+
+    <br/>
+    <br/>
+
+    Ne pas oublier d'indiquer votre nom dans le compte-rendu et dans un commentaire au début du script python.
+    
+  </p>
+
+  <h2>Énoncé</h2>
+
+  <p>
+
+    Nous allons étudier un jeu de données qui contient des informations concernant des météorites trouvées à la surface de la terre.
+
+    <br/>
+
+    Ce fichier est disponible à l'url <kbd>https://philippe-preux.github.io/ensg/miashs/datasets/meteorite-landings.csv</kbd>.
+
+    <br/>
+
+    Pour chaque météorite, le jeu de données indique&nbsp;:
+
+  </p>
+
+  <ul>
+    <li><kbd>name</kbd>&nbsp;: le nom du lieu de la découverte de la météorite&nbsp;;</li>
+    <li><kbd>id</kbd>&nbsp;: un numéro identifiant la découverte de manière unique&nbsp;;</li>
+    <li><kbd>nametype</kbd>&nbsp;: cet attribut vaut <kbd>valid</kbd> si c'est une météorite normale, <kbd>relict</kbd> si elle a été dégradée par la météo terrestre&nbsp;;</li>
+    <li><kbd>recclass</kbd>&nbsp;: la classe de la météorite qui caractérise ses propriétés physiques, chmiques, <i>etc.</i>&nbsp;;</li>
+    <li><kbd>mass</kbd>&nbsp;: la masse de la météorite en grammes&nbsp;;</li>
+    <li><kbd>fall</kbd>&nbsp;: indique si la météorité a été vue tomber (<kbd>Fell</kbd>) ou juste trouvée (<kbd>Found</kbd>)&nbsp;;</li>
+    <li><kbd>year</kbd>&nbsp;: l'année de la découverte de la météorite&nbsp;;</li>
+    <li><kbd>reclat</kbd>&nbsp;: la latitude à laquelle la découverte a eu lieu&nbsp;;</li>
+    <li><kbd>reclong</kbd>&nbsp;: la longitude à laquelle la découverte a eu lieu&nbsp;;</li>
+    <li><kbd>GeoLocation</kbd>&nbsp;: une chaine de caractères contenant latitude et longitude séparées par une virgule.</li>
+  </ul>
+  
+  <p>
+
+    Les questions&nbsp;:
+
+  </p>
+
+  <ol>
+    <li>quelle(s) commande(s) effectuez-vous pour charger le jeu de données&nbsp;? Indiquez-la/les dans le compte-rendu. Indiquez également le nombre de séismes recensés dans ce jeu de données.</li>
+    <li>Les attributs <kbd>nametype</kbd>, <kbd>recclass</kbd> et <kbd>fall</kbd> sont catégoriques. Faites-le nécessaire. Déterminez les différents types de tremblements de terre. Indiquez ce que vous faites pour répondre à ces questions dans votre compte-rendu.</li>
+    <li>Combien y a-t-il de données dans ce jeu de données&nbsp;? Indiquez la commande que vous tapez pour le savoir et la valeur obtenue.</li>
+    
+    <li>Quelle(s) commande(s) effectuez-vous pour connaître le nombre de découvertes réalisé chaque année&nbsp;? Indiquez cette/ces commande(s) dans le compte-rendu.</li>
+    <li>Quelle(s) commande(s) effectuez-vous pour obtenir l'année où on a découvert le plus de météorites&nbsp;? Indiquez cette année dans le compte-rendu.</li>
+
+    <li>Quel(les) commande(s) tapez-vous pour obtenir un graphique représentant le nombre de découvertes de météorites par année&nbsp;? Indiquez cela dans votre compte-rendu, insérez le graphique que vous obtenu et commentez-le. Voyez-vous quelque chose de bizarre sur ce graphique&nbsp;?
+      <br/>
+      Ce graphique doit ressembler à celui-ci&nbsp;:</li>
+
+    <img src="NbMétéoritesParAnnée.png" width="400pt" alt="Nb découvertes météorites par année" />
+
+    <li>Faire un zoom sur la zone où il y a eu le plus grand nombre de découvertes, soit entre 1950 et maintenant. Indiquez la/les commande(s) dans votre compte-rendu.</li>
+    
+
+
+
+
+    <li>Réalisez une représentation graphique de la position des découvertes de météorites (longitude, latitude). Quel(les) commandes tapez-vous&nbsp;? Insérez le graphique dans le compte-rendu.</li>
+
+    <li>Voyez-vous quelque chose de bizarre sur ce graphique&nbsp;? Si non, passez à la question suivante. Si oui, indiquez ce qui ne va pas dans le compte-rendu et que faites-vous pour remédier au problème&nbsp;? Insérez le nouveau graphique dans le compte-rendu.</li>
+
+    <li>Faites ce même genre de représentation des lieux de découvertes pour d'une part les découvertes avant 1900 et celles postérieures à 1900. Indiquez la/les commande(s) que vous tapez pour obtenir ces deux graphiques. Insérez-les dans le compte-rendu.</li>
+
+    <li>Commentez ces deux graphiques.</li>
+
+  </ol>
+  
+</div>
+
+<!-- Default Statcounter code for on github
+https://philippe-preux.github.io -->
+<script type="text/javascript">
+var sc_project=12923547; 
+var sc_invisible=1; 
+var sc_security="627600d4"; 
+</script>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="Web Analytics"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/12923547/0/627600d4/1/"
+alt="Web Analytics"
+referrerPolicy="no-referrer-when-downgrade" /></a></div></noscript>
+  <!-- End of Statcounter Code -->
+  
+</body>
+</html>
