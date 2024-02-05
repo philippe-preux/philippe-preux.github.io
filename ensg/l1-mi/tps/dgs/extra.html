@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Complément sur la minimisation d'une fonction par descente de gradient stochastique</title>
+  <link href="https://philippe-preux.github.io/css/ma.css" 
+	rel="stylesheet" type="text/css" media="all" />
+  <link rel="shortcut icon" type="image/x-icon" 
+	href="https://philippe-preux.github.io/img/site.ico" />
+</head>
+
+<body>
+<div class="tpR">
+
+  <h1>Complément sur la minimisation d'une fonction par descente de gradient stochastique</h1>
+
+  <p>
+
+    Ce TP est optionnel (mais je vous encourage fortement à le faire).
+
+    <br/>
+
+    Il est la suite du TP sur la <a href="./index.html">descente de gradient stochastique</a>. Il faut absolument avoir terminé le TP sur la DGS avant d'aborder celui-ci.
+
+    <br/>
+
+    Ce TP étant optionnel, je donne peu d'explications et je vous encourage fortement à réfléchir à ce que vous faites, à avoir des idées et à les tester.
+
+    <br/>
+    <br/>
+
+    Comme dans le TP précédent, on suppose que l'on minimise une fonction d'une seule variable, soit f(x), x pouvant prendre sa valeur dans un certain intervalle [x<sub>min</sub>, x<sub>max</sub>]. On suppose que f est dérivable sur intervalle et on note f' sa dérivée.
+
+  </p>
+
+  <h2>Nature du point trouvé</h2>
+    
+  <p>
+
+    L'algorithme vu dans le TP précédent est censé trouver un minimum local.
+    On va vérifier s'il en est bien ainsi.
+
+    <br/>
+    
+    On peut déterminer si le point trouvé est un minimum en comparant f(x) à f(x&pm; &epsilon;). Si x est un minimum, alors on a f(x - &epsilon;) &gt; f (x) &lt; f (x + &epsilon;).
+
+    <br/>									    
+    Sur les exemples vu dans le TP précédent, regardez si votre algorithme a trouvé un minimum. (On pourra prendre &epsilon; = 10<sup>-6</sup>.)
+
+    <br/>
+
+    Avez-vous des idées pour qu'il trouve vraiment un minimum&nbsp;? Si oui, testez-les.
+    
+  </p>
+
+  <h2>Un autre algorithme de minimisation de fonctions</h2>
+
+  <p>
+
+    Rechercher le minimum d'une fonction est un problème que l'on rencotnre très fréquemment. Aussi existe-t-il beaucoup de méthodes pour cela qui sont adaptées à différents cas de figures. Dans le cas où l'on recherche le minimum de l'une des fonctions que nous avons rencontrées dans le TP sur la DGS (qui sont de simples polynômes), il existe des méthodes bien plus performantes pour trouver un minimum. Nous étudions l'une d'elle ci-dessous, la méthode de Newton-Raphson.
+
+  </p>
+  
+  <h3>La méthode de Newton-Raphson</h3>
+
+  <p>
+
+    La méthode de Newton-Raphson nécessite que la fonction dont on cherche un minimum soit dérivable deux fois. On note f'' la dérivé seconde de f.
+
+    <br/>
+    <br/>
+
+    Cette méthode est alors très simple&nbsp;: en partant d'un x quelconque, on apporte itérativement une correction f' (x) / f'' (x).
+
+    <br/>
+
+    On s'arrête quand la valeur absolue de cette correction est suffisamment petite, par exemple 10<sup>-6</sup>.
+
+    <br/>
+    <br/>
+
+    <b>À faire&nbsp;:</b> programmez la méthode de Newton-Raphson et appliquez-la aux trois fonctions vues précédemment.
+
+    <br/>
+
+    Vérifiez que l'on atteint bien des minima.
+
+    <br/>
+
+    Si vous effectuez cette vérification, vous constaterez que l'on atteint pas toujours un minimum. Comprenez ce qui se passe et corrigez votre programme.
+
+  </p>
+
+</div>
+
+</body>
+</html>
