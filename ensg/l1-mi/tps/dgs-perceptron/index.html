@@ -39,7 +39,7 @@
     <ul>
       <li>on a un jeu d'exemples constitué de N données d'entrées et des N valeurs de sortie attendues. Chaque donnée est décrite par P attributs.
 	<br/>
-	On note x<sub>i</sub> la i<sup>è</sup> donnée et x<sub>i,j</sub> l'attribut j de la i<sup>è</sup> donnée.</li>
+	On note x<sub>i</sub> la i<sup>è</sup> donnée et x<sub>i,j</sub> l'attribut j de la i<sup>è</sup> donnée. On note y<sub>i</sub> la sortie attendue pour la i<sup>è</sup> donnée. Le i<sup>è</sup> exemple est donc le couple (x<sub>i</sub>, y<sub>i</sub>).</li>
       <li>On effectue la descente de gradient stochastique&nbsp;:
 	<ol>
 	  <li>On initialise les P poids avec une valeur quelconque.</li>
@@ -50,7 +50,8 @@
 	      <li><b>Pour</b> chaque exemple x<sub>i</sub><b>:</b>
 		<ol>
 		  <li>on calcule la sortie s du perceptron pour cet exemple.</li>
-		  <li><b>Si</b> s est différent de la valeur attendue en sortie pour l'exemple i<b>:</b>
+		  <li>d = s - y<sub>i</sub>
+		  <li><b>Si</b> d est non nulle <b>:</b>
 		    <br/>
 		    <ol>
 		      <li>nb_erreurs = nb_erreurs + 1</li>
