@@ -32,7 +32,7 @@
   
   <p>
 
-    Comme on l'a vu en cours, le principe de la DGS pour calculer les poids d'un perceptron est le suivant&nbsp;:
+    Comme on l'a vu en cours, pour calculer les poids d'un perceptron, le principe de la DGS est le suivant&nbsp;:
 
     </p>
 
@@ -144,7 +144,7 @@ def ajoute_dernière_droite (fig, ax, a, b, c):
   <ul>
     <li>Avant de commencer la DGS, vous ajoutez la commande&nbsp;: <kbd>fig, ax = debut_figure (entrées, sorties)</kbd>. Cette commande va afficher le plan avec les données, un disque bleu pour les données correspondant à la sortie 0, un disque rouge pour les données correspondant à la sortie 1.</li>
     <li>À la fin du corps du <b>Tant-que</b>, vous ajoutez la commande&nbsp;: <kbd>ajoute_droite (ax, a, b, c)</kbd>. <kbd>a</kbd>, <kbd>b</kbd> et <kbd>c</kbd> sont les 3 poids (<kbd>a</kbd> et le biais). Cette commande va afficher la droite correspondant à ces 3 poids.</li>
-    <li>Une fois que vous êtez sorti du <b>Tant-que</b>, ajoutez la commande &nbsp;: <kbd>ajoute_dernière_droite (fig, ax, a, b, c)</kbd>. Cette commande va affiche avec un trait gras rouge la droite correspondant aux poids finaux.</li>
+    <li>Une fois que vous êtes sorti du <b>Tant-que</b>, ajoutez la commande &nbsp;: <kbd>ajoute_dernière_droite (fig, ax, a, b, c)</kbd>. Cette commande va afficher la droite correspondant aux poids finaux par un trait gras rouge.</li>
   </ul>
 
   <p>
@@ -162,7 +162,7 @@ def ajoute_dernière_droite (fig, ax, a, b, c):
   </p>
   
   <ul>
-    <li>La droite initiale est celle dont la représentation commence à l'ordonnée 0,5 (la plus basse) et se termine le plus haut (3) à droite du graphique.</li>
+    <li>la droite initiale est celle dont la représentation commence à l'ordonnée 0,5 (la plus basse) et se termine le plus haut (3) à droite du graphique.</li>
     <li>La droite finale est en trait gras, rouge. Elle semble horizontale, mais elle est légérement penchée.</li>
     <li>Toutes les autres droites constituent cette zone plus ou moins colorée&nbsp;: il y en a beaucoup d'où cette effet&nbsp;; elles balaient le plan entre la droite initiale et la droite finale.</li>
   </ul>
@@ -170,12 +170,15 @@ def ajoute_dernière_droite (fig, ax, a, b, c):
   <h3>Mise en &oelig;uvre sur les iris</h3>
   
   <p>
-    
+
+    Les iris constituent un célèbre jeu de données.
+    <br/>
     Faites fonctionner votre DGS sur un sous-ensemble du jeu de données iris.
     
     <br/>
     
     Copiez-collez les entrées et sorties ci-dessous.
+    Ce sont les longueurs et les largeurs des pétales de 11 iris, soit un sous-ensemble du jeu de données complet. Les sorties donnent une information sur l'espèce de l'iris, codée par 0 ou 1.
     
   </p>
 
@@ -202,7 +205,7 @@ sorties = [0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 0]</pre>
 
   <p>
 
-    Si vous programme fonctionne correctement, on peut le tester sur l'ensemble des 150 iris. Pour cela, copiez-collez ces quelques instructions python qui stockent dans <kbd>entrées</kbd> et <kbd>sorties</kbd> les 150 exemples.
+    Si votre programme fonctionne correctement, vous pouvez le tester sur l'ensemble complet des 150 iris. Pour cela, copiez-collez ces quelques instructions python qui stockent dans <kbd>entrées</kbd> et <kbd>sorties</kbd> les 150 exemples.
   
   </p>
 
@@ -230,6 +233,18 @@ for i in range (len (iris.target)):
 
   <p>
 
+    D'une manière générale, le perceptron ne peut pas calculer parfaitement l'étiquette de chaque exemple, il commet des erreurs.
+
+    <br/>
+
+    Comme il n'est pas facile de savoir à l'avance si un perceptron réussira à calculer correctement la sortie attendue pour tous les exemples, il faut que l'algorithme de calcul des poids fonctionne même lorsqu'il n'arrive pas à ne faire aucune erreur.
+    
+  </p>
+  
+  <h3>Principe</h3>
+
+  <p>
+
     Dans le cas où le perceptron ne peut pas calculer la sortie attendue pour tous les exemples, on ne s'arrête plus quand le nombre d'erreurs est nul mais quand ce nombre d'erreurs ne diminue plus.
 
     <br/>
@@ -241,12 +256,20 @@ for i in range (len (iris.target)):
     <br/>
     <br/>
     
-    D'une manière générale, même si le nombre d'erreurs ne diminue pas, les poids continuent d'être modifiés. Aussi, un meilleur critère d'arrêt est plutôt d'itérer la DGS tant que les poids continuent d'être corrigés significativement. On peut donc s'arrêter quand la somme des corrections des poids réalisées dans la boucle <b>Pour</b> est inférieure à un certain seuil (10<sub>-3</sub> par exemple).
+    <b>Facultatif&nbsp;:</b> d'une manière générale, même si le nombre d'erreurs ne diminue pas, les poids continuent d'être modifiés. Aussi, un meilleur critère d'arrêt est plutôt d'itérer la DGS tant que les poids continuent d'être corrigés significativement. On peut donc s'arrêter quand la somme des corrections des poids réalisées dans la boucle <b>Pour</b> est inférieure à un certain seuil (10<sup>-3</sup> par exemple).
+
+    </p>
+  
+  <h3>Test de votre programme sur les iris</h3>
+
+
+  <p>
+
+    On reprend le jeu de données des iris mais on l'utilise différemment.
 
     <br/>
-    <br/>
-  
-    Test de votre programme sur les iris&nbsp;: remplacez les lignes indiquées plus haut par celles-ci&nbsp;:
+
+    Pour cela, remplacez les lignes indiquées plus haut par celles-ci&nbsp;:
   
   </p>
 
@@ -262,7 +285,7 @@ for i in range (len (iris.target)):
 
   <p>
   
-    Dans ce cas, les données sont mélangées, il n'existe pas de droite les séparant correctement.
+    Dans ce cas, les données correspondant aux deux étiquettes sont mélangées, il n'existe pas de droite les séparant correctement.
 
     <br/>
 
