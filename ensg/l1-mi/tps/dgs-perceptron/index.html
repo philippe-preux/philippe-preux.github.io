@@ -173,8 +173,10 @@ def ajoute_dernière_droite (fig, ax, a, b, c):
   <p>
 
     Les iris constituent un jeu de données célèbre.
+
     <br/>
-    L'objectif est d'appliquer votre DGS sur un sous-ensemble du jeu de données iris.
+
+    L'objectif est ici d'appliquer la DGS sur un sous-ensemble du jeu de données iris.
     
     <br/>
     
@@ -226,15 +228,52 @@ for i in range (len (iris.target)):
         sorties.append (1)</pre>
 
   <p>
-
-    Exécutez la DGS. En prenant <kbd>a = 1</kbd>, <kbd>b = -3</kbd> et <kbd>c = 0</kbd>, vous devez obtenir la figure suivante&nbsp;:
-
+    
+    Exécutez la DGS sur ces 150 exemples. En prenant <kbd>a = 1</kbd>, <kbd>b = -3</kbd> et <kbd>c = 0</kbd>, vous devez obtenir la figure suivante&nbsp;:
+    
     <br/>
 
     <img src="iris_setosa_vs_others.png" width="300pt" alt="" />
   
   </p>
 
+  <h3>Prise en compte de tous les attributs des iris</h3>
+
+      <p>
+
+	Chaque iris est en fait décrit par 4 attributs&nbsp;: longueur et largeur des sépales, longueur et largeur des pétales. On peut appliquer la même méthode que ci-dessus en prenant en compte les 4 attributs par un perceptron ayant 4 entrées (+ le biais).
+
+	<br/>
+	<br/>
+
+	Pour cela, copier-coller les instructions suiavntes&nbsp;:
+	
+      </p>
+
+<pre>from sklearn import datasets
+iris = datasets.load_iris()
+entrées = iris.data
+sorties = []
+for i in range (len (iris.target)):
+    if iris.target [i] == 0:
+        sorties.append (0)
+    else:
+        sorties.append (1)</pre>
+
+  <p>
+
+    <kbd>entrées</kbd> est maintenant un tableau de 150 iris (lignes) et 4 attributs (colonnes). Vous pouvez appliquer ce qui a été fait plus haut à un perceptron a 4 entrées (+ son biais).
+
+    <br/>
+
+    Cette fois-ci, ne faites pas de représentation graphique car les fonctions données plus ne sont pas adaptées à ce cas de figure (elles supposent que les données sont décrites par 2 attributs seulement).
+
+    <br/>
+
+    À la place, vous affichez le nombre d'erreurs commises par le perceptron à chaque itération de la boucle Tant-que de la DGS.
+    
+  </p>
+  
   <h2>v1&nbsp;: cas d'une fonction qui ne peut pas être calculée sans erreur par un perceptron</h2>
 
   <p>
