@@ -252,7 +252,7 @@ for i in range (len (iris.target)):
 
 <pre>from sklearn import datasets
 iris = datasets.load_iris()
-entrées = iris.data
+entrées = iris.data [:,[2,3,0,1]]
 sorties = []
 for i in range (len (iris.target)):
     if iris.target [i] == 0:
@@ -278,7 +278,7 @@ for i in range (len (iris.target)):
 
   <p>
 
-    D'une manière générale, le perceptron ne peut pas calculer l'étiquette de tous les exemples, il commet des erreurs.
+    D'une manière générale, le perceptron ne peut pas calculer l'étiquette de tous les exemples sans commettre d'erreurs.
 
     <br/>
 
@@ -310,7 +310,7 @@ for i in range (len (iris.target)):
 
   <p>
 
-    On reprend le jeu de données des iris mais on l'utilise différemment.
+    On reprend le jeu de données des iris avec 2 attributs, mais on l'utilise différemment.
 
     <br/>
 
