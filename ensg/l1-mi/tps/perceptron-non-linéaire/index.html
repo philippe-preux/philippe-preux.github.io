@@ -56,12 +56,12 @@
 		<li><b>Si</b> d est non nulle <b>:</b>
 		  <br/>
 		  <ol>
-		    <li>biais = biais - &eta; d <font color="red">(1 - s)</font></li>
-		    <li><font color="red">corrections = corrections + |&eta; d (1 - s)|</font></li>
+		    <li>biais = biais - &eta; d <font color="red">s (1 - s)</font></li>
+		    <li><font color="red">corrections = corrections + |&eta; d s (1 - s)|</font></li>
 		    <li><b>Pour</b> chaque poids j <b>:</b>
 		      <ul>
-			<li>p<sub>j</sub> = p<sub>j</sub> - &eta; d x<sub>i,j</sub><font color="red">(1 - s)</font></li>
-			<li><font color="red">corrections = corrections + |&eta; d x<sub>i,j</sub> (1 - s)|</font></li>
+			<li>p<sub>j</sub> = p<sub>j</sub> - &eta; d x<sub>i,j</sub><font color="red">s (1 - s)</font></li>
+			<li><font color="red">corrections = corrections + |&eta; d x<sub>i,j</sub> s (1 - s)|</font></li>
 		      </ul>
 		    </li>
 		  </ol>
@@ -95,7 +95,7 @@
 
     <br/>
 
-    Dans le TP précédent, qand nous avons utilisé le jeu de données iris, celles-ci étaient stockées dans une matrice.
+    Dans le TP précédent, quand nous avons utilisé le jeu de données iris, celles-ci étaient stockées dans une matrice.
 
     <br/>
 
@@ -121,7 +121,7 @@
 
       <br/>
 
-      Cette opration est essentielle si on veut que la DGS fonctionne bien.
+      Cette opération est essentielle si on veut que la DGS fonctionne bien.
 
       <br/>
 
@@ -129,8 +129,8 @@
 
       <br/>
 
-      Cette opération est tellement importante qu'elle est disponible. On fait comme cela sur l'exemple des iris&nbsp;:
-      
+      Cette opération est tellement importante qu'elle est déjà codée. On fait comme cela sur l'exemple des iris&nbsp;:
+
     <p>
 <pre># on charge le jeu de données iris (cf. TP précédent)
 from sklearn import datasets
@@ -140,21 +140,29 @@ entrées_iris = iris.data[:,2:4]
 # on centre et on réduit comme suit
 from sklearn.preprocessing import StandardScaler  
 scaler = StandardScaler ()
-scaler.fit (entrées_iris)
-entrées = scaler.transform (entrées_iris)</pre>
+scaler.fit (entrées_iris) # cette instruction indique que l'on veut centrer et réduire les données se trouvant dans matrice dénommé entrées_iris.
+entrées = scaler.transform (entrées_iris) # cette instruction effectue le centrage et la réduction.</pre>
 
     <p>
 
       <kbd>entrées</kbd> est une matrice qui contient les iris décrits par leurs 4 attributs centrés et réduits.
 
     </p>
-    
+
     <h4>Fonction d'activation</h4>
-    
+
     <p>
-      
-      Il est utile de définir une fonction <kbd>logistique (v)</kbd> qui applique la formule de la fonction logistique sur le potentiel <kbd>v</kbd>.
-      
+
+      Il est utile de définir une fonction <kbd>logistique (v)</kbd> qui renvoie la valeur de la fonction logistique appliquée au potentiel <kbd>v</kbd>.
+
+    </p>
+
+    <h4>&eta; et &epsilon;</h4>
+
+    <p>
+
+      On peut prendre &eta; = 0,01. &epsilon; doit être petit, 10<sup>-8</sup> par exemple.
+
     </p>
     
     <h3>Réalisation</h3>
@@ -173,6 +181,16 @@ entrées = scaler.transform (entrées_iris)</pre>
 
     <p>
 
+      ...
+
+      <br/>
+
+      Compter et afficher le nombre d'exemples dont la classe est mal prédite.
+
+      <br/>
+      
+      Tester différentes valeur de &epsilon; (par exemple 10<sup>-2</sup>, 10<sup>-4</sup>, 10<sup>-6</sup>)
+
     </p>
 
     <h4>Cas où les classes ne sont pas linéairement séparables</h3>
@@ -186,8 +204,19 @@ entrées = scaler.transform (entrées_iris)</pre>
 
     <p>
 
+      Refaire tout ce que vous avez fait pour la fonction d'activation tangente hyperbolique.
+      
     </p>
-    
+
+    <ul>
+      <li>Il faut bien sûr changer le calcul de l'activation du perceptron. Pour utiliser la fonction <kbd>tanh()</kbd>, on doit auparavant effectuer l'instruction <kbd>from math import tanh</kbd>.
+	<br/>
+	Quand on calcule la sortie s du perceptron, on doit donc utiliser la tangente hyperbolique.
+      </li>
+      <li>Il faut modifier la correction des poids. Le terme s (1 - s) correspond à la fonction logistique. Pour la tangente hyperbolique, il faut le remplacer par (1 - s * s).</li>
+      <li>Avec ces deux modifications, votre programme devrait déjà fonctionner.</li>
+      <li></li>
+    </ul>
   
     <h2>Pour finir</h2>
 
