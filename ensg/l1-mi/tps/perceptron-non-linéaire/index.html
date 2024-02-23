@@ -215,7 +215,7 @@ entrées = scaler.transform (entrées_iris) # cette instruction effectue le cent
       </li>
       <li>Il faut modifier la correction des poids. Le terme s (1 - s) correspond à la fonction logistique. Pour la tangente hyperbolique, il faut le remplacer par (1 - s * s).</li>
       <li>Avec ces deux modifications, votre programme devrait déjà fonctionner.</li>
-      <li></li>
+      <li>Avec la tangente hyperbolique, la valeur de &epsilon; peut être bien plus grande. 0,1 suffit, ce qui permet de réaliser beaucoup moins d'itérations, donc que le calcul des poids est beaucoup plus rapide. Comparez le résultat en utilisant différentes valeurs de &epsilon; comme vous l'avez fait plus haut pour la fonction d'activation logistique.</li>
     </ul>
   
     <h2>Pour finir</h2>
