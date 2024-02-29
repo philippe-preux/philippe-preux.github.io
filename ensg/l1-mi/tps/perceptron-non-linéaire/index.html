@@ -53,14 +53,14 @@
 		<li>on calcule la sortie s du perceptron pour cet exemple.</li>
 		<li><font color="red">On en déduit la classe prédite&nbsp;: <b>si</b> s &ge; 0, <b>alors</b> classe.prédite = 1, <b>sinon</b> classe.prédite = 0.</font></li>
 		<li>d = <font color="red">classe.prédite</font> - y<sub>i</sub>
-		<li><b>Si</b> d est non nulle <b>:</b>
+		<li><b>Si</b> d est non nulle <b>alors</b>
 		  <br/>
 		  <ol>
 		    <li>biais = biais - &eta; d <font color="red">s (1 - s)</font></li>
 		    <li><font color="red">corrections = corrections + |&eta; d s (1 - s)|</font></li>
 		    <li><b>Pour</b> chaque poids j <b>:</b>
 		      <ul>
-			<li>p<sub>j</sub> = p<sub>j</sub> - &eta; d x<sub>i,j</sub><font color="red">s (1 - s)</font></li>
+			<li>p<sub>j</sub> = p<sub>j</sub> - &eta; d x<sub>i,j</sub><font color="red"> s (1 - s)</font></li>
 			<li><font color="red">corrections = corrections + |&eta; d x<sub>i,j</sub> s (1 - s)|</font></li>
 		      </ul>
 		    </li>
@@ -109,7 +109,7 @@
 
       <br/>
 
-      Il faut donc transformer la valeur en sortie du perceptron en un 0 ou un 1 pour povuoir comparer la prédiction du perceptron avec l'étiquette de l'exemple.
+      Il faut donc transformer la valeur en sortie du perceptron en un 0 ou un 1 pour pouvoir comparer la prédiction du perceptron avec l'étiquette de l'exemple.
       
     </p>
 
@@ -117,7 +117,7 @@
 
     <p>
 
-      On l'a vu en cours, centrer un attribut signifie retirer la moyenne à chacune de ses valeurs et réduire consiste à diviser l'attribut centré par l'écart-type de l'attribut centré.
+      On l'a vu en cours, centrer un attribut signifie retirer la moyenne à chacune de ses valeurs et le réduire consiste à diviser l'attribut par l'écart-type de l'attribut centré.
 
       <br/>
 
@@ -140,7 +140,7 @@ entrées_iris = iris.data[:,2:4]
 # on centre et on réduit comme suit
 from sklearn.preprocessing import StandardScaler  
 scaler = StandardScaler ()
-scaler.fit (entrées_iris) # cette instruction indique que l'on veut centrer et réduire les données se trouvant dans matrice dénommé entrées_iris.
+scaler.fit (entrées_iris) # cette instruction indique que l'on veut centrer et réduire les données se trouvant dans la matrice dénommé entrées_iris.
 entrées = scaler.transform (entrées_iris) # cette instruction effectue le centrage et la réduction.</pre>
 
     <p>
@@ -169,7 +169,7 @@ entrées = scaler.transform (entrées_iris) # cette instruction effectue le cent
     
     <p>
 
-      On a maintenant tous les ingrédients pour réaliser la DGS. Pour s'assurer que le programme fonctionne bien dans un cas simple, on commence par le cas où le perceptron peut correctement calculer la sortie attendue. Une fois assurés que le programme fonctionne bien dans ce cas-là, on vérifiera qu'il fonctionne aussi lorsqu'il ne peut pas calculer correctement la valeur attendue quelle que soit la donné en entrée.
+      On a maintenant tous les ingrédients pour réaliser la DGS. Pour s'assurer que le programme fonctionne bien dans un cas simple, on commence par le cas où le perceptron peut correctement calculer la sortie attendue. Une fois assuré que le programme fonctionne bien dans ce cas-là, on vérifiera qu'il fonctionne aussi lorsqu'il ne peut pas calculer correctement la valeur attendue quelle que soit la donnée en entrée.
 
       <br/>
 
@@ -215,7 +215,7 @@ entrées = scaler.transform (entrées_iris) # cette instruction effectue le cent
       </li>
       <li>Il faut modifier la correction des poids. Le terme s (1 - s) correspond à la fonction logistique. Pour la tangente hyperbolique, il faut le remplacer par (1 - s * s).</li>
       <li>Avec ces deux modifications, votre programme devrait déjà fonctionner.</li>
-      <li>Avec la tangente hyperbolique, la valeur de &epsilon; peut être bien plus grande. 0,1 suffit, ce qui permet de réaliser beaucoup moins d'itérations, donc que le calcul des poids est beaucoup plus rapide. Comparez le résultat en utilisant différentes valeurs de &epsilon; comme vous l'avez fait plus haut pour la fonction d'activation logistique.</li>
+      <li>Avec la tangente hyperbolique, la valeur de &epsilon; peut être bien plus grande. &epsilon;=0,1 suffit, ce qui permet de réaliser beaucoup moins d'itérations, donc que le calcul des poids soit beaucoup plus rapide. Comparez le résultat en utilisant différentes valeurs de &epsilon; comme vous l'avez fait plus haut pour la fonction d'activation logistique.</li>
     </ul>
   
     <h2>Pour finir</h2>
