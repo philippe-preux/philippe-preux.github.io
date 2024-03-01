@@ -44,13 +44,11 @@ def signe (x):
         return 0
 
 eta = 0.01
-erreur = 150
-prev_erreur = 151
-compteur = 0
-while (prev_erreur > erreur):
-    prev_erreur = erreur
-    erreur = 0
-    compteur += 1
+nb_erreurs = 150
+prev_nb_erreurs = 151
+while (prev_nb_erreurs > nb_erreurs):
+    prev_nb_erreurs = nb_erreurs
+    nb_erreurs = 0
     # On parcourt tous les exemples :
     for i in range (len (sorties)):
         potentiel = p [0]
@@ -58,9 +56,10 @@ while (prev_erreur > erreur):
             potentiel += p [j] * entrées [i] [j-1]
         s = signe (potentiel)
         d = s - sorties [i]
-        erreur += d * d
-        p [0] -= eta * d
-        for j in range (1, len (p)):
-            p [j] -= eta * d * entrées [i] [j-1]
-    print ("Nombre d'erreurs : {:d}".format (erreur))
+        if d != 0:
+            nb_erreurs += 1
+            p [0] -= eta * d
+            for j in range (1, len (p)):
+                p [j] -= eta * d * entrées [i] [j-1]
+    print ("Nombre d'erreurs : {:d}".format (nb_erreurs))
 
