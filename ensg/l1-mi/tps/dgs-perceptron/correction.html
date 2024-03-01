@@ -1,0 +1,397 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Recherche des poids d'un perceptron</title>
+  <link href="https://philippe-preux.github.io/css/ma.css" 
+	rel="stylesheet" type="text/css" media="all" />
+  <link rel="shortcut icon" type="image/x-icon" 
+	href="https://philippe-preux.github.io/img/site.ico" />
+</head>
+
+<body>
+<div class="tpR">
+
+  <p>
+
+    On donne quelques éléments de correction concernant ce TP.
+    
+  </p>
+  
+  <h1>Recherche des poids d'un perceptron</h1>
+
+  <p>
+
+    Dans ce TP, on applique la descente de gradient stochastique pour calculer les poids d'un perceptron.
+
+    <br/>
+
+    Comme en cours, on considère un perceptron réel à sortie binaire&nbsp;: sa sortie vaut 1 si l'activation du perceptron est positive ou nulle, elle vaut 0 sinon.
+
+  </p>
+
+  <h2>v0&nbsp;: cas d'une fonction qui peut être calculée par un perceptron</h2>
+  
+  <h3>Rappel&nbsp;: DGS pour calculer les poids d'un perceptron</h3>
+  
+  <p>
+
+    Comme on l'a vu en cours, pour calculer les poids d'un perceptron, le principe de la DGS est le suivant&nbsp;:
+
+    </p>
+
+    <ul>
+      <li>on a un jeu d'exemples constitué de N données d'entrées et des N valeurs de sortie attendues. Chaque donnée est décrite par P attributs.
+	<br/>
+	On note x<sub>i</sub> la i<sup>è</sup> donnée et x<sub>i,j</sub> l'attribut j de la i<sup>è</sup> donnée. On note y<sub>i</sub> la sortie attendue pour la i<sup>è</sup> donnée. Le i<sup>è</sup> exemple est donc le couple (x<sub>i</sub>, y<sub>i</sub>).</li>
+      <li>On effectue la descente de gradient stochastique&nbsp;:
+	<ol>
+	  <li>On initialise les P poids avec une valeur quelconque.</li>
+	  <li>nb_erreurs = 1</li>
+	  <li><b>Tant-que</b> nb_erreurs &gt; 0<b>:</b>
+	    <ol>
+	      <li>nb_erreurs = 0</li>
+	      <li><b>Pour</b> chaque exemple x<sub>i</sub><b>:</b>
+		<ol>
+		  <li>on calcule la sortie s du perceptron pour cet exemple.</li>
+		  <li>d = s - y<sub>i</sub>
+		  <li><b>Si</b> d est non nulle <b>:</b>
+		    <br/>
+		    <ol>
+		      <li>nb_erreurs = nb_erreurs + 1</li>
+		      <li>biais = biais - &eta; d</li>
+		      <li><b>Pour</b> chaque poids j <b>:</b> p<sub>j</sub> = p<sub>j</sub> - &eta; d x<sub>i,j</sub></li>
+		  </ol></li>
+	      </ol></li>
+	  </ol></li>
+      </ol></li>
+      <li>C'est fini.</li>
+    </ul>
+
+    <h3>Mise en &oelig;uvre</h3>
+    
+  <p>
+    
+    Écrire le programme python qui réalise cette DGS. Comme dans le <a href="https://philippe-preux.github.io/ensg/l1-mi/tps/perceptron2/">TP 2</a>, on suppose que l'on dispose de deux listes&nbsp;:
+    
+  </p>
+  
+  <ul>
+    <li><kbd>entrées</kbd> qui contient les données, donc N sous-listes comprenant chacune P valeurs&nbsp;;</li>
+    <li><kbd>sorties</kbd> qui contient les sorties attendues pour chaque donnée, soit N valeurs 0 ou 1.</li>
+  </ul>
+  
+  <p>
+    
+    À chaque itération du <b>Tant-que</b>, affichez le nombre d'erreurs.
+    Ce nombre doit décroître au fil des itérations.
+    Vous pouvez prendre &eta; = 0,01 (ou une autre valeur).
+    
+    <br/>
+    <br/>
+    
+    <b>À faire&nbsp;:</b>
+    
+  </p>
+  
+  <ul>
+    <li>Réalisez une DGS pour chacune des fonctions logiques à deux entrées que nous avons rencontrées précédemment et qui peuvent être calculées par un perceptron (ET, OU, NON-ET, NON-OU).</li>
+    <li>Faites-le également pour ces 4 fonctions logiques à 4 entrées.</li>
+  </ul>
+  
+  <h4>Représentation graphique</h4>
+  
+  <p>
+    
+    Comme on l'a vu en cours, les poids d'un perceptron représentent une droite dans le cas où le perceptron a deux entrées (un plan s'il en a 3, <i>etc</i>).
+    
+    <br/>
+    
+    Dans le cas où il y a deux entrées, on peut réaliser une représentation graphique des exemples, de la droite résultant de la DGS et aussi les droites au fil des itérations.
+
+    <br/>
+
+    Pour réaliser une représentation graphique, je vous fournis les quelques lignes de python qui suivent.
+    
+  </p>
+
+<pre>import matplotlib.pyplot as plt
+
+def debut_figure (entrées, sorties):
+    fig, ax = plt.subplots ()
+    couleurs = []
+    for i in range (len (sorties)):
+        if sorties [i] == 1:
+            couleurs.append ("red")
+        else:
+            couleurs.append ("blue")
+    for i in range (len (sorties)):
+        ax.scatter (entrées [i] [0], entrées [i] [1], color = couleurs [i], s = 2)
+    return fig, ax
+
+def ajoute_droite (ax, a, b, c):
+    x1 = [0, 5]
+    y1 = [-a/c, -(5*b+a)/c]
+    ax.plot (x1, y1, linestyle = ":")
+
+def ajoute_dernière_droite (fig, ax, a, b, c):
+    x1 = [0, 5]
+    y1 = [-a/c, -(5*b+a)/c]
+    ax.plot (x1, y1, color = "red", linestyle = "-", linewidth= 3)
+    fig.show ()</pre>
+
+  <p>
+
+    Copiez-les et collez-les au début de votre programme en python. Pas la peine de chercher à comprendre comment elles fonctionnent, on va juste les utiliser dans ce TP. On fait comme cela&nbsp;:
+  
+  </p>
+
+  <ul>
+    <li>Avant de commencer la DGS, vous ajoutez la commande&nbsp;: <kbd>fig, ax = debut_figure (entrées, sorties)</kbd>. Cette commande affiche le plan avec les données, un disque bleu pour les données correspondant à la sortie 0, un disque rouge pour les données correspondant à la sortie 1.</li>
+    <li>À la fin du corps du <b>Tant-que</b>, vous ajoutez la commande&nbsp;: <kbd>ajoute_droite (ax, a, b, c)</kbd>. <kbd>a</kbd>, <kbd>b</kbd> et <kbd>c</kbd> sont les 3 poids (<kbd>a</kbd> et le biais). Cette commande affiche la droite correspondant à ces 3 poids.</li>
+    <li>Une fois que vous êtes sorti du <b>Tant-que</b>, ajoutez la commande &nbsp;: <kbd>ajoute_dernière_droite (fig, ax, a, b, c)</kbd>. Cette commande affiche la droite correspondant aux poids finaux par un trait gras rouge.</li>
+  </ul>
+
+  <p>
+
+    Pour la ET logique, si vous prenez initialement <kbd>a = b = -1</kbd> et <kbd>c = 2</kbd>, vous devez obtenir le graphique suivant&nbsp;:
+
+    <br/>
+
+    <img src="dgs_ET.png" width="300pt" alt="" />
+
+    <br/>
+    
+    On y voit&nbsp;:
+    
+  </p>
+  
+  <ul>
+    <li>la droite initiale est celle dont la représentation commence à l'ordonnée 0,5 (la plus basse) et se termine le plus haut (3) à droite du graphique.</li>
+    <li>La droite finale est en trait gras, rouge. Elle semble horizontale, mais elle est légérement penchée.</li>
+    <li>Toutes les autres droites constituent cette zone plus ou moins colorée&nbsp;: il y en a beaucoup d'où cette effet&nbsp;; elles balaient le plan entre la droite initiale et la droite finale.</li>
+  </ul>
+
+  <p>
+
+    <b>Remarque&nbsp;:</b> sur les ordinateurs en salle de TP, si aucun graphique ne s'affiche, essayer de modifier la fonction <kbd>ajoute_dernière_droite ()</kbd> en remplaçant <kbd>fig.show ()</kbd> par <kbd>plt. show()</kbd>.
+
+  <br/>  
+  <br/>  
+
+  <b>Correction&nbsp;;</b> une correction est disponible en suivant <a href=".dgs-perceptron-et-logique.py">ce lien</a>.
+  
+  </p>
+      
+  <h3>Mise en &oelig;uvre sur les iris</h3>
+  
+  <p>
+
+    Les iris constituent un jeu de données célèbre.
+
+    <br/>
+
+    L'objectif est ici d'appliquer la DGS sur un sous-ensemble du jeu de données iris.
+    
+    <br/>
+    
+    Pour cela, copiez-collez les entrées et sorties ci-dessous.
+    Ce sont les longueurs et les largeurs des pétales de 11 iris, soit un sous-ensemble du jeu de données complet qui en comprend 150. Les sorties donnent une information sur l'espèce de l'iris, codée par 0 ou 1.
+    
+  </p>
+
+<pre>entrées = [[1.4, 0.2],
+           [4.0, 1.3],
+           [1.7, 0.4],
+           [1.6, 0.2],
+           [3.9, 1.2],
+           [5.1, 1.6],
+           [1.5, 0.3],
+           [4.0, 1.0],
+           [1.9, 0.4],
+           [4.1, 1.3],
+           [1.7, 0.5]]
+sorties = [0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 0]</pre>
+
+  <p>
+
+    Si vous prenez <kbd>a = b = -1</kbd> et <kbd>c = 1</kbd>, en quelques itérations, vous obtenez cette figure&nbsp;:
+
+  </p>
+
+  <img src="DGS_small_iris.png" width="300pt" alt="" />
+
+  <p>
+
+  <b>Correction&nbsp;;</b> une correction est disponible en suivant <a href=".dgs-perceptron-11iris.py">ce lien</a>.
+
+  <br/>  
+  <br/>  
+
+  Prenez d'autres valeurs de poids initiales et refaites une DGS à partir de celles-ci.
+    
+  <br/>
+  <br/>
+  
+  Si votre programme fonctionne correctement, vous pouvez le tester sur l'ensemble complet des 150 iris. Pour cela, copiez-collez ces quelques instructions python qui stockent dans <kbd>entrées</kbd> et <kbd>sorties</kbd> les 150 exemples.
+  
+  </p>
+
+<pre>from sklearn import datasets
+iris = datasets.load_iris()
+entrées = iris.data [:,2:4]
+sorties = []
+for i in range (len (iris.target)):
+    if iris.target [i] == 0:
+        sorties.append (0)
+    else:
+        sorties.append (1)</pre>
+
+  <p>
+    
+    Exécutez la DGS sur ces 150 exemples. En prenant <kbd>a = 1</kbd>, <kbd>b = -3</kbd> et <kbd>c = 0</kbd>, vous devez obtenir la figure suivante&nbsp;:
+    
+    <br/>
+
+    <img src="iris_setosa_vs_others.png" width="300pt" alt="" />
+
+    <br/>  
+    <br/>  
+    
+    <b>Correction&nbsp;;</b> une correction est disponible en suivant <a href=".dgs-perceptron-iris2attributs.py">ce lien</a>.
+
+  </p>
+
+  <h3>Prise en compte de tous les attributs des iris</h3>
+
+      <p>
+
+	Chaque iris est en fait décrit par 4 attributs&nbsp;: longueur et largeur des sépales, longueur et largeur des pétales. On peut appliquer la même méthode que ci-dessus en prenant en compte les 4 attributs par un perceptron ayant 4 entrées (+ le biais).
+
+	<br/>
+	<br/>
+
+	Pour cela, copier-coller les instructions suiavntes&nbsp;:
+	
+      </p>
+
+<pre>from sklearn import datasets
+iris = datasets.load_iris()
+entrées = iris.data [:,[2,3,0,1]]
+sorties = []
+for i in range (len (iris.target)):
+    if iris.target [i] == 0:
+        sorties.append (0)
+    else:
+        sorties.append (1)</pre>
+
+  <p>
+
+    <kbd>entrées</kbd> est maintenant un tableau de 150 iris (lignes) et 4 attributs (colonnes). Vous pouvez appliquer ce qui a été fait plus haut à un perceptron a 4 entrées (+ son biais).
+
+    <br/>
+
+    Cette fois-ci, ne faites pas de représentation graphique car les fonctions données plus haut ne sont pas adaptées à ce cas de figure (elles supposent que les données sont décrites par 2 attributs seulement). (Vous pouvez essayer de les modifier pour qu'elles fonctionnent avec 4 attributs. Pour cela, commencez par bien comprendre comment fonctionnent les fonctions que j'ai donné plus haut.)
+
+    <br/>
+
+    À la place d'un graphique, vous affichez le nombre d'erreurs commises par le perceptron à chaque itération de la boucle Tant-que de la DGS. Ce nombre doit atteindre 0 dans cet exemple.
+
+  </p>
+  
+  <h2>v1&nbsp;: cas d'une fonction qui ne peut pas être calculée sans erreur par un perceptron</h2>
+
+  <p>
+
+    D'une manière générale, le perceptron ne peut pas calculer l'étiquette de tous les exemples sans commettre d'erreurs.
+
+    <br/>
+
+    Comme il n'est pas facile de savoir à l'avance si un perceptron réussira à calculer correctement la sortie attendue pour tous les exemples, il faut que l'algorithme de calcul des poids fonctionne même lorsqu'il n'arrive pas à ne faire aucune erreur.
+    
+  </p>
+  
+  <h3>Principe</h3>
+
+  <p>
+
+    Dans le cas où le perceptron ne peut pas calculer la sortie attendue pour tous les exemples, on ne s'arrête plus quand le nombre d'erreurs est nul mais quand ce nombre d'erreurs ne diminue plus.
+
+    <br/>
+    <br/>
+    
+    <b>À faire&nbsp;:</b> modifiez votre programme pour qu'il fonctionne ainsi.
+    Testez-le sur la fonction logique ou-exclusif.
+    
+    <br/>
+    <br/>
+    
+    D'une manière générale, même si le nombre d'erreurs ne diminue pas, les poids continuent d'être modifiés. Aussi, un meilleur critère d'arrêt est plutôt d'itérer la DGS tant que les poids continuent d'être corrigés significativement. On peut donc s'arrêter quand la somme des corrections des poids réalisées dans la boucle <b>Pour</b> est inférieure à un certain seuil (10<sup>-3</sup> par exemple).
+
+    </p>
+  
+  <h3>Test de votre programme sur les iris</h3>
+
+
+  <p>
+
+    On reprend le jeu de données des iris avec 2 attributs, mais on l'utilise différemment.
+
+    <br/>
+
+    Pour cela, remplacez les lignes indiquées plus haut par celles-ci&nbsp;:
+  
+  </p>
+
+<pre>from sklearn import datasets
+iris = datasets.load_iris()
+entrées = iris.data [:,2:4]
+sorties = []
+for i in range (len (iris.target)):
+    if iris.target [i] != 2:
+        sorties.append (0)
+    else:
+        sorties.append (1)</pre>
+
+  <p>
+  
+    Dans ce cas, les données correspondant aux deux étiquettes sont mélangées, il n'existe pas de droite les séparant correctement.
+
+    <br/>
+
+    Si vous avez bien fait ce qu'il faut, votre programme doit s'arrêter alors que le nombre d'erreurs n'est pas nul (mais il est faible) et la droite ne sépare pas parfaitement les points bleus des points rouges.
+  
+    <br/>  
+    <br/>  
+    
+    <b>Correction&nbsp;;</b> une correction est disponible en suivant <a href=".dgs-perceptron-iris.py">ce lien</a>.
+
+  </p>
+
+  
+  <h2>Pour finir</h2>
+
+  <p>
+
+    Le source de votre programme doit respecter les points suivants&nbsp;:
+
+  </p>
+
+  <ul>
+    <li>il doit commencer par un commentaire indiquant son titre, son objet, ses auteurs, la date de réalisation.</li>
+    <li>Chaque fonction doit commencer par un commentaire indiquant au minimum ce que fait la fonction, le sens des paramètres, les pré-conditions et ce que la fonction retourne.</li>
+    <li>Le type des paramètres des fonctions doit être indiqué, ainsi que le type de la valeur retournée.</li>
+  </ul>
+
+  <p>
+  
+    Pour finir, vous m'envoyez votre/vos script(s) par email, en mettant votre binôme en cc.
+  
+  </p>
+    
+</div>
+
+</body>
+</html>
