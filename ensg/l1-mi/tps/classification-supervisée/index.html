@@ -22,7 +22,148 @@
     
   </p>
 
-  <h2></h2>
+  <h2>Points clés méthodologiques</h2>
+
+  <p>
+
+    Ce que nous avons fait jusqu'à maintenant a consisté à mettre au point l'algorithme de descente de gradient stochastique pour calculer les poids d'un perceptron.
+
+    <br/>
+
+    Disposant de cet algorithme, il s'agit maintenant de l'utiliser correctement. Ce n'est pas ce que nous fait dans le TP précédent. Pour cela, il y a quelques points méthodologiques à respecter impérativement&nbsp;:
+
+  </p>
+
+  <ol>
+    <li>pour arrêter le calcul des poids, on doit utiliser une partie des exemples distincte des exemples que l'on utilise pour calculer les poids. On doit donc partitionner l'ensemble des exemples en deux parties, l'une constituée d'exemples qui sont uniquement utilisés pour calculer les poids, la second constituée d'exemples qui sont uniquement utilisés pour déterminer quand on arrête les itérations. Les premiers constituent les exemples d'entraînement, les seconds constituant les exemples de test.</li>
+    <li>Durant le calcul des poids, les exemples doivent être parcourus dans un ordre aléatoire, qui change à chaque itération du tant-que.</li>
+  </ol>
+
+  <p>
+
+    Prendre en compte ces points permet de résoudre une tâche d'apprentissage supervisé.
+
+  </p>
+
+  <h2>Mise en &oelig;uvre de la méthodologie</h2>
+
+  <h3>Partionnement du jeu d'exemples</h3>
+
+  <p>
+
+  </p>
+  
+  <h3>Parcours dans un ordre aléatoire des exemples</h3>
+
+  <p>
+
+  </p>
+
+  <h2>Réalisation</h2>
+
+  <p>
+
+  </p>
+
+  <h2>Reproductibilité expérimentale</h2>
+
+  <p>
+
+    Lorsque l'on utilise un programme qui utilise des nombres aléatoires, il faut impérativement faire en sorte que le résultat soit reproductible. Pour cela, il faut insérer un mécanisme qui garantit que l'on peut ré-exécuter le programme et que son comportement sera le même et qu'il fournira le même résultat à chaque exécution. Si on ne le fait pas, le programme peut donner des résultats différents à chaque exécution. C'est ennuyeux pour deux raisons&nbsp;:
+    
+  </p>
+
+  <ul>
+    <li>lors de la mise au point de votre programme et tant qu'il ne fonctionne pas correctement, si son fonctionnement change à chaque exécution, sa mise en point est très complexe. On vérifie beaucoup plus facilement le fonctionnement d'un programme qui donne toujours le même résultat à chacune de ses exécutions.</li>
+    <li>D'un point de vue méthodologique expérimentale, il faut pouvoir reproduire un résultat. Exécuter un programme de classification supervisée revient à réaliser une expérience&nbsp;; celle-ci doit pouvoir être reproduite.</li>
+  </ul>
+
+  <p>
+
+    Bien entendu, ce mécanisme qui permet la reproductibilité du comportement du programme n'empêche pas que le programme se comporte différemment à chacune de ses exécutions <b>si on le souhaite</b>. Ce que l'on veut, c'est maîtriser le comportement aléatoire du programme, pas l'empêcher.
+
+    <br/>
+    <br/>
+
+    Dans un ordinateur, les nombres aléatoires ne sont pas générés de manière aléatoire, bien au contraire. Ils sont générés en utilisant une formule de récurrence qui produit un flux de nombres aléatoires. Pour être précis, on parle de nombres pseudo-aléatoires car justement ils ne sont pas aléatoires mais engendrer de manière très précise pour que la suite de nombres ainsi générée ait toutes les caractéristiques qu'aurait une séquence de nombres effectivement aléatoires.
+
+    <br/>
+
+    Dans tout raisonnement par récurrence, on a une règle qui permet de calculer le terme suivant et il y a le premier terme qui est fixé. Dans un générater de nombre pseudo-aléatoire, la récurrence est initialisé à l'aide d'une graine qui est un simple nombre entier&nbsp;; vous prenez le nombre que vous voulez, mais vous vous en rappeler.
+
+    <br/>
+
+    Très concrétement, tout cela se traduit dans votre programme par l'ajout de cette instruction&nbsp;:
+
+  </p>
+
+  <pre>rng = np.random.default_rng (123)</pre>
+
+  <p>
+
+    123 est la graine que j'ai choisie.
+
+    <br/>
+
+    Il faut placer cette instruction le plus tôt possible dans votre programme. Il faut avoir fait <kbd>import numpy as np</kbd> auparavant. Vous pouvez initialiser la graine juste après.
+
+    <br/>
+    <br/>
+
+    Un petit exemple de son effet. <kbd>rng.integers (a, b)</kbd> génère un nombre compris entre -10 et 10. Si vous exécutez ce programme&nbsp;:
+    
+  </p>
+  <pre>import numpy as np
+
+print ("5 nombres pseudo-aléatoires :")
+rng = np.random.default_rng (123)
+for i in range(5):
+    print (rng.integers (-10, 10))
+
+print ("5 autres nombres pseudo-aléatoires :")
+rng = np.random.default_rng (456)
+for i in range(5):
+    print (rng.integers (-10, 10))
+
+print ("Les 5 premiers à nouveau :")
+rng = np.random.default_rng (123)
+for i in range(5):
+    print (rng.integers (-10, 10))</pre>
+
+  <p>
+
+    vous obtenez la sortie&nbsp;:
+
+  </p>
+
+  <pre>5 nombres pseudo-aléatoires :
+-10
+3
+1
+-9
+8
+5 autres nombres pseudo-aléatoires :
+-3
+-1
+-1
+-2
+-10
+Les 5 premiers à nouveau :
+-10
+3
+1
+-9
+8</pre>
+
+  <p>
+
+    Comme vous utilisez la même graine, vous êtes certain d'obtenir exactement le même résultat.
+
+    <br/>
+
+    En conclusion, ajoutez l'initialisation de la graine dans votre programme. Ainsi, le partitionnement du jeu d'exemples entre les exemples d'entraînement et exemples de test sera toujours le même. Si vous voulez changer ce partionnement, changez la valeur de la graine.
+    
+  </p>
   
   <h2>Pour finir</h2>
 
@@ -34,6 +175,7 @@
   
   <ul>
     <li>il doit commencer par un commentaire indiquant son titre, son objet, ses auteurs, la date de réalisation.</li>
+    <li>Que vous utilisiez des fonctions ou pas (ce n'est pas obligatoire), vous commentez votre programme avec parcimonie, là où c'est utile.</li>
     <li>Chaque fonction doit commencer par un commentaire indiquant au minimum ce que fait la fonction, le sens des paramètres, les pré-conditions et ce que la fonction retourne.</li>
     <li>Le type des paramètres des fonctions doit être indiqué, ainsi que le type de la valeur retournée.</li>
   </ul>

@@ -51,7 +51,7 @@
 	    <li><b>Pour</b> chaque exemple x<sub>i</sub><b>:</b>
 	      <ol>
 		<li>on calcule la sortie s du perceptron pour cet exemple.</li>
-		<li><font color="red">On en déduit la classe prédite&nbsp;: <b>si</b> s &ge; 0, <b>alors</b> classe.prédite = 1, <b>sinon</b> classe.prédite = 0.</font></li>
+		<li><font color="red">On en déduit la classe prédite&nbsp;: <b>si</b> s &ge; 1/2, <b>alors</b> classe.prédite = 1, <b>sinon</b> classe.prédite = 0.</font></li>
 		<li>d = <font color="red">classe.prédite</font> - y<sub>i</sub>
 		<li><b>Si</b> d est non nulle <b>alors</b>
 		  <br/>
@@ -392,7 +392,14 @@ c = 0
 	Quand on calcule la sortie s du perceptron, on doit donc utiliser la tangente hyperbolique à la place de la fonction logistique.
       </li>
       <li>Il faut modifier la correction des poids. Le terme s (1 - s) correspond à la fonction logistique. Pour la tangente hyperbolique, il faut le remplacer par (1 - s * s).</li>
-      <li>Avec ces deux petites modifications, votre programme devrait déjà fonctionner.</li>
+      <li>Puisque la tangente hyperbolique produit une valeur entre -1 et 1, il faut modifier la calcul de la classe prédite&nbsp;: au lieu de
+	<br/>
+	<b>si</b> s &ge; 1/2, <b>alors</b> classe.prédite = 1, <b>sinon</b> classe.prédite = 0.
+	<br/>
+	il faut comparer a à 0&nbsp;:
+	<br/>
+      	<b>si</b> s &ge; 0, <b>alors</b> classe.prédite = 1, <b>sinon</b> classe.prédite = 0.</li>
+      <li>Avec ces trois petites modifications, votre programme devrait déjà fonctionner.</li>
       <li>Avec la tangente hyperbolique, la valeur de &epsilon; peut être bien plus grande. &epsilon;=10<sup>-5</sup> convient, ce qui permet de réaliser moins d'itérations, donc que le calcul des poids soit plus rapide.</li> <!-- 66 itérations tanh1c.py, 80 pour logistique1c.py -->
     </ul>
   
@@ -406,17 +413,18 @@ c = 0
     
     <ul>
       <li>il doit commencer par un commentaire indiquant son titre, son objet, ses auteurs, la date de réalisation.</li>
+      <li>Que vous utilisiez des fonctions ou pas (ce n'est pas obligatoire), vous commentez votre programme avec parcimonie, là où c'est utile.</li>
       <li>Chaque fonction doit commencer par un commentaire indiquant au minimum ce que fait la fonction, le sens des paramètres, les pré-conditions et ce que la fonction retourne.</li>
       <li>Le type des paramètres des fonctions doit être indiqué, ainsi que le type de la valeur retournée.</li>
     </ul>
-    
+
     <p>
-      
+
       Pour finir, vous m'envoyez votre/vos script(s) par email, en mettant votre binôme en cc.
-      
+
     </p>
-    
+
     </div>
-    
+
     </body>
 </html>
