@@ -14,8 +14,6 @@
   Utilisation : python3 -i dgs-perceptron-iris.py
 '''
 
-
-
 # On récupère le jeu de données iris :
 from sklearn import datasets
 iris = datasets.load_iris()
@@ -53,13 +51,21 @@ while (prev_nb_erreurs > nb_erreurs):
     for i in range (len (sorties)):
         potentiel = p [0]
         for j in range (1, len (p)):
-            potentiel += p [j] * entrées [i] [j-1]
+            potentiel += p [j] * entrées [i, j-1]
         s = signe (potentiel)
         d = s - sorties [i]
         if d != 0:
             nb_erreurs += 1
             p [0] -= eta * d
             for j in range (1, len (p)):
-                p [j] -= eta * d * entrées [i] [j-1]
+                p [j] -= eta * d * entrées [i, j-1]
     print ("Nombre d'erreurs : {:d}".format (nb_erreurs))
 
+'''
+  Remarque : dans ce programme, entrées n'est pas une liste de listes
+      comme dans les programmes précédents, c'est une matrice, c'est-à-dire
+      un tableau de nombres en 2 dimensions.
+      Pour l'utilisation que nous en faisons ici, cela ne change rien,
+      si ce n'est qu'on écrit entrées [i, j] que entrées [i] [j]
+      (les deux écritures sont néanmoins valables).
+'''

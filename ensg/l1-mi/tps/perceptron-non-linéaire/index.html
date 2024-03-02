@@ -42,7 +42,7 @@
       On note x<sub>i</sub> la i<sup>è</sup> donnée et x<sub>i,j</sub> l'attribut j de la i<sup>è</sup> donnée. On note y<sub>i</sub> la sortie attendue pour la i<sup>è</sup> donnée. Le i<sup>è</sup> exemple est donc le couple (x<sub>i</sub>, y<sub>i</sub>).</li>
     <li>On effectue la descente de gradient stochastique&nbsp;:
       <ol>
-	<li><font color="red">center et réduire les exemples.</font></li>
+	<li><font color="red">centrer et réduire les exemples.</font></li>
 	<li>Initialiser les P poids avec une valeur quelconque.</li>
 	<li><font color="red">corrections = 1</font></li>
 	<li><b>Tant-que</b> <font color="red">|corrections| &gt; &epsilon;</font><b>:</b>
@@ -83,7 +83,7 @@
 
     <p>
 
-      On précise quelques points nouveaux concernant la DGS.
+      On précise quelques points nouveaux concernant l'écriture du programme en python et l'implantation de cette nouvelle version de la DGS.
 
     </p>
     
@@ -95,17 +95,39 @@
 
     <br/>
 
-    Dans le TP précédent, quand nous avons utilisé le jeu de données iris, celles-ci étaient stockées dans une matrice.
+    Dans le TP précédent, quand nous avons utilisé le jeu de données iris, celles-ci étaient stockées dans une matrice. Je ne vous l'ai pas dit, vous ne vous êtes pas rendu compte, ce qui montre qu'il n'y a rien de compliqué. Pour accéder à l'attribut numéro j de la donnée numéro i, on écrit <kbd>nom_de_la_matrice [i, j]</kbd>.
 
     <br/>
 
+    Pour pouvoir utiliser des matrices, vous devez au préalable écrire dans votre programme <kbd>import numpy as np</kbd>.
+
+    </p>
+
+    <h4>Fonction d'activation</h4>
+
+    <p>
+
+      Il est utile de définir une fonction <kbd>logistique (v)</kbd> qui renvoie la valeur de la fonction logistique appliquée au potentiel <kbd>v</kbd>.
+
+      <br/>
+      
+      La fonction logistique est définie par&nbsp;: &phi; (x) = 1 / (1 + e<sup>-x</sup>). Son graphe est&nbsp;:
+
+      <br/>
+
+      <img src="logistique.png" width="300pt" alt="Graphe de la fonction logistique" />
+
+      <br/>
+
+      Pour utiliser la fonction exponentielle <kbd>exp ()</kbd>, vous devez préalablement écrire l'instruction&nbsp;: <kbd>from math import exp</kbd>.
+      
     </p>
 
     <h4>Classe prédite</h4>
 
     <p>
 
-      Avec une fonction d'activation sigmoïde, la sortie du perceptron prend une valeur dans l'intervalle ]0, 1[. On veut interpréter cette valeur comme&nbsp;: si elle est inférieure à 0,5, cela signifie que le perceptron prédit la classe 0 pour la donnée placée en entrée&nbsp;; si cette valeur est &ge; 0,5, c'est que le perceptron prédit la classe 1.
+      Avec une fonction d'activation sigmoïde, la sortie du perceptron prend une valeur dans l'intervalle ]0, 1[. On veut interpréter cette valeur comme&nbsp;: si elle est inférieure à 0,5, cela signifie que le perceptron prédit la classe 0 pour la donnée placée sur son entrée&nbsp;; si cette valeur est &ge; 0,5, c'est que le perceptron prédit la classe 1 pour cette donnée.
 
       <br/>
 
@@ -149,22 +171,6 @@ entrées = scaler.transform (entrées_iris) # cette instruction effectue le cent
 
     </p>
 
-    <h4>Fonction d'activation</h4>
-
-    <p>
-
-      Il est utile de définir une fonction <kbd>logistique (v)</kbd> qui renvoie la valeur de la fonction logistique appliquée au potentiel <kbd>v</kbd>.
-
-    </p>
-
-    <h4>&eta; et &epsilon;</h4>
-
-    <p>
-
-      On peut prendre &eta; = 0,01. &epsilon; doit être petit, 10<sup>-8</sup> par exemple.
-
-    </p>
-    
     <h3>Réalisation</h3>
     
     <p>
@@ -174,48 +180,220 @@ entrées = scaler.transform (entrées_iris) # cette instruction effectue le cent
       <br/>
 
       Comme dans le TP précédent, vous utiliserez les lignes de python que je vous avez indiquées pour réaliser des graphiques.
+
+      <br/>
+
+      Je résume les différents éléments expliqués ci-dessus. Vous n'avez plus qu'à compléter avec la DGS proprement dite, laquelle ressemble à ce que vous avez écrit lors du précédent TP.
       
     </p>
+
+    <pre>'''
+commentaire habituel en début de programme.
+
+Je vous laisse compléter...
+'''
+
+# Les fonctions permettant de créer le graphique
+import matplotlib.pyplot as plt
+
+def debut_figure (entrées, sorties):
+    fig, ax = plt.subplots ()
+    couleurs = []
+    for i in range (len (sorties)):
+        if sorties [i] == 1:
+            couleurs.append ("red")
+        else:
+            couleurs.append ("blue")
+    for i in range (len (sorties)):
+        ax.scatter (entrées [i, 0], entrées [i, 1], color = couleurs [i], s = 2)
+    return fig, ax
+
+def ajoute_droite (ax, a, b, c, xlim = [-2, 2]):
+    x1 = xlim
+    y1 = [-(xlim[0]*b+a)/c, -(xlim[1]*b+a)/c]
+    ax.set_ylim (bottom = -5, top = 5)
+    ax.plot (x1, y1, linestyle = ":")
+
+def ajoute_dernière_droite (fig, ax, a, b, c, xlim = [-2, 2]):
+    x1 = xlim
+    y1 = [-(xlim[0]*b+a)/c, -(xlim[1]*b+a)/c]
+    ax.set_ylim (bottom = -5, top = 5)
+    ax.plot (x1, y1, color = "red", linestyle = "-", linewidth= 3)
+    fig.show ()
+
+# Je charge le jeu de données iris (comme dans le TP précédent).
+from sklearn import datasets
+iris = datasets.load_iris()
+entrées_iris = iris.data[:,2:4]
+
+# Il est essentiel de centrer-réduire !!!!!
+# On fait comme cela :
+from sklearn.preprocessing import StandardScaler  
+scaler = StandardScaler ()
+scaler.fit (entrées_iris)
+entrées = scaler.transform (entrées_iris)
+'''
+    entrées est une matrice de 150 lignes (le nombre de données iris) et 4 colonnes (les 4 attributs).
+    Les 4 attributs sont maintenant centrés et réduits.
+'''
+
+# Je calcule la sortie attendue pour chaque donnée.
+sorties_iris = []
+for i in range (len (iris.target)):
+    if iris.target [i] == 0:
+        sorties_iris.append (0)
+    else:
+        sorties_iris.append (1)
+sorties = sorties_iris
+
+# J'ai besoin d'utiliser la fonction exp(), donc j'écris :
+from math import exp
+
+# On définit la fonction logistique (je vous laisse le faire) :
+def logistique (v):
+    ...
+
+# On va maintenant réaliser la DGS
+'''
+    On commence par initialiser les poids. Vous initialisez avec les valeurs
+    que vous voulez mais si vous voulez obtenir exactement le même résultat
+    que moi, il faut les initialiser comme cela :
+'''
+a = 1
+b = -3
+c = 0
+
+'''
+    Tout est en place.
+    Maintenant, vous écrivez la DGS.
+
+
+
+'''</pre>
 
     <h4>Distinguer une classe séparable</h3>
 
     <p>
 
-      ...
+      Lancez votre programme python. Dans la boucle pour qui égrène les exemples, comptez le nombre d'exemples mal prédits et affichez ce nombre.
+      On peut prendre &eta; = 0,01 et &epsilon; = 0,001.
 
       <br/>
+      <br/>
 
-      Compter et afficher le nombre d'exemples dont la classe est mal prédite.
-
+      Vous devez obtenir le graphique suivant&nbsp;:
       <br/>
       
-      Tester différentes valeur de &epsilon; (par exemple 10<sup>-2</sup>, 10<sup>-4</sup>, 10<sup>-6</sup>)
+      <img src="logistique1.png" width="300pt" alt="" />
 
+      <br/>
+
+      et le perceptron ne doit commettre aucune erreur de prédiction.
+      
     </p>
 
     <h4>Cas où les classes ne sont pas linéairement séparables</h3>
 
     <p>
 
+      Dans le cas où le perceptron ne peut pas réaliser une prédiction parfaite, le test du tant-que n'est pas adapté. Si on itère tant que la correction est supérieure à un seuil, le choix du seuil &epsilon; est compliqué&nbsp;: on risque soit de le prendre trop grand ce qui a pour conséquences que les poids sont ajustés grossiérement, donc que le nombre d'erreurs de prédiction est plus grand que ce qu'il devrait être&nbsp;; si &epsilon; est pris trop petit, on risque de boucler infiniment car la correction ne sera jamais assez petite pour satisfaire le test et quitter la boucle. On pourrait contrecarrer ce problème soit en limitant arbitrairement le nombre d'itérations du tant-que, soit en diminuant la valeur de &eta; au fil des itérations.
+
+      <br/>
+      <br/>
+
+      Vous essayerez deux solutions différentes&nbsp;:
+      
     </p>
 
+    <ol>
+      <li>compter le nombre d'itérations de la boucle tant-que et quitter la boucle par exemple après 10<sup>3</sup> itérations.</li>
+      <li>Remplacer le test&nbsp;:
+	<br/>
+	<b>Tant-que</b> |corrections| &gt; &epsilon;<b>:</b>
+	<br/>
+	par le test&nbsp;:
+	<br/>
+	<b>Tant-que</b> |corrections_précédentes - corrections_courantes| &gt; &epsilon;</font><b>:</b>
+      où corrections_courantes est la somme des corrections appliquées aux poids lors de l'itération précédente du tant-que et corrections_précédentes est la somme des corrections effectuées lors de l'itération encore précédente.
+      <br/>
+      L'idée du test est que l'on itère tant que les corrections diminuent significativement d'une itération du tant-que à la suivante. Il faut prendre un seuil très petit, comme &epsilon; = 10<sup>-7</sup>.
+      </ol>
+
+    <p>
+
+      Commencez par tester ces modifications sur l'exemple précédent. Vous devez obtenir les mêmes résultats que précédemment.
+
+      <br/>
+      <br/>
+
+      On va maintenant appliquer cette DGS à un cas où les données ne sont pas linéairement séparables. Pour cela, vous remplacez les lignes&nbsp;:
+      
+    </p>
+    <pre>if iris.target [i] == 0:
+        sorties_iris.append (0)
+    else:
+        sorties_iris.append (1)</pre>
+
+    <p>
+
+      par&nbsp;:
+      
+    </p>
+
+    <pre>if iris.target [i] != 2:
+        sorties_iris.append (0)
+    else:
+        sorties_iris.append (1)</pre>
+
+    <p>
+      uniquement ces lignes-là&nbsp;!
+
+      <br/>
+
+      Cette fois-ci, le perceptron doit distinguer les données qui sont en haut à droite du graphique des autres. Elles se mélangent avec celles qui se trouvent au milieu et elles ne peuvent pas être séparées par une droite.
+
+      <br/>
+
+      Prendre une valeur encore plus petite du seuil que plus haut, par exemple &epsilon; = 10<sup>-8</sup>.
+      
+      <br/>
+
+      Vous devez obtenir ce graphique&nbsp;:
+
+      <br/>
+
+      <img src="logistique2c.png" width="300pt" alt="" />
+
+      <br/>
+
+      et le perceptron commet 6 erreurs de prédiction.
+      
+    </p>
     
     <h2>Fonction d'activation tangente hyperbolique</h2>
 
     <p>
 
-      Refaire tout ce que vous avez fait pour la fonction d'activation tangente hyperbolique.
+      La tangente hyperbolique a la même forme que la fonction logistique, sauf qu'elle est dilatée selon l'axe des ordonnées. Cette petite différence change pas mal de choses quant à l'efficacité du perceptron et de la DGS.
+
+      <br/>
+
+      Vous allez refaire tout ce qui précède en changeant simplement la fonction d'activation. Il faut que vous ayez fait ce qui précède avec la fonction logistique. Les modifications à apporter sont très très simples.
+
+      <br/>
+
+      Pour cela&nbsp;:
       
     </p>
 
     <ul>
-      <li>Il faut bien sûr changer le calcul de l'activation du perceptron. Pour utiliser la fonction <kbd>tanh()</kbd>, on doit auparavant effectuer l'instruction <kbd>from math import tanh</kbd>.
+      <li>il faut bien sûr changer le calcul de l'activation du perceptron. Pour utiliser la fonction <kbd>tanh()</kbd>, on doit auparavant effectuer l'instruction <kbd>from math import tanh</kbd> (à la place de <kbd>from math import exp</kbd>).
 	<br/>
-	Quand on calcule la sortie s du perceptron, on doit donc utiliser la tangente hyperbolique.
+	Quand on calcule la sortie s du perceptron, on doit donc utiliser la tangente hyperbolique à la place de la fonction logistique.
       </li>
       <li>Il faut modifier la correction des poids. Le terme s (1 - s) correspond à la fonction logistique. Pour la tangente hyperbolique, il faut le remplacer par (1 - s * s).</li>
-      <li>Avec ces deux modifications, votre programme devrait déjà fonctionner.</li>
-      <li>Avec la tangente hyperbolique, la valeur de &epsilon; peut être bien plus grande. &epsilon;=0,1 suffit, ce qui permet de réaliser beaucoup moins d'itérations, donc que le calcul des poids soit beaucoup plus rapide. Comparez le résultat en utilisant différentes valeurs de &epsilon; comme vous l'avez fait plus haut pour la fonction d'activation logistique.</li>
+      <li>Avec ces deux petites modifications, votre programme devrait déjà fonctionner.</li>
+      <li>Avec la tangente hyperbolique, la valeur de &epsilon; peut être bien plus grande. &epsilon;=10<sup>-5</sup> convient, ce qui permet de réaliser moins d'itérations, donc que le calcul des poids soit plus rapide.</li> <!-- 66 itérations tanh1c.py, 80 pour logistique1c.py -->
     </ul>
   
     <h2>Pour finir</h2>
