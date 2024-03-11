@@ -162,7 +162,7 @@ entrées_iris = iris.data[:,2:4]
 # on centre et on réduit comme suit
 from sklearn.preprocessing import StandardScaler  
 scaler = StandardScaler ()
-scaler.fit (entrées_iris) # cette instruction indique que l'on veut centrer et réduire les données se trouvant dans la matrice dénommé entrées_iris.
+scaler.fit (entrées_iris) # cette instruction indique que l'on veut centrer et réduire les données se trouvant dans la matrice dénommée entrées_iris.
 entrées = scaler.transform (entrées_iris) # cette instruction effectue le centrage et la réduction.</pre>
 
     <p>
