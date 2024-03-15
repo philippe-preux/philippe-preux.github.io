@@ -35,7 +35,11 @@
   </p>
 
   <ol>
-    <li>pour arrêter le calcul des poids, on doit utiliser une partie des exemples distincte des exemples que l'on utilise pour calculer les poids. On doit donc partitionner l'ensemble des exemples en deux parties, l'une constituée d'exemples qui sont uniquement utilisés pour calculer les poids, la second constituée d'exemples qui sont uniquement utilisés pour déterminer quand on arrête les itérations. Les premiers constituent les exemples d'entraînement, les seconds constituant les exemples de test.</li>
+    <li>pour arrêter le calcul des poids, on doit utiliser une partie des exemples distincte des exemples que l'on utilise pour calculer les poids. On doit donc partitionner l'ensemble des exemples en deux parties&nbsp;:
+      <ul>
+	<li>l'ensemble d'entraînement est constitué d'exemples qui sont uniquement utilisés pour calculer les poids,</li>
+	<li>l'ensemble de test est constitué d'exemples qui sont uniquement utilisés pour mesurer l'erreur de prédiction commise par le perceptron. Cette erreur est utilisée pour déterminer le moment d'arrêter le calcul des poids (la DGS).</li>
+      </ul></li>
     <li>Durant le calcul des poids, les exemples doivent être parcourus dans un ordre aléatoire, qui change à chaque itération du tant-que.</li>
   </ol>
 
@@ -47,10 +51,18 @@
 
   <h2>Mise en &oelig;uvre de la méthodologie</h2>
 
+  <p>
+
+    Nous devons ajouter les deux éléments liés de méthodologie à l'algorithme de calcul des poids vu lors du TP précédant.
+
+  </p>
+  
   <h3>Partionnement du jeu d'exemples</h3>
 
   <p>
 
+    Le partionnement du jeu d'exemples consiste à découper l'ensemble des exemples en deux sous-ensembes disjoints. On note <i>p</i> la proportion d'exemples utilisés pour mesurer
+    
   </p>
   
   <h3>Parcours dans un ordre aléatoire des exemples</h3>
