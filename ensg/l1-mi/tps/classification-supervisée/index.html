@@ -136,7 +136,7 @@
     <pre>from sklearn.model_selection import train_test_split
 graine = int ("Perceptron", base=36)%2**31
 import numpy as np
-rs = np.random.RandomState(graine)</kbd>
+rs = np.random.RandomState(graine)</pre>
 
     <br/>
 
@@ -160,6 +160,15 @@ rs = np.random.RandomState(graine)</kbd>
 
   <p>
 
+    Pour parcourir aléatoirement les exemples, il suffit d'égrener leurs indices dans un ordre aléatoire. Pour cela, on peut écrire&nbsp;:
+
+    <pre>N_train = len (Y_train)
+        permutation = np.random.choice (np.arange (N_train), N_train,
+                                        replace=False)</pre>
+
+    <br/>
+
+    Il fat avoir préalablement importer le paquetage <kbd>numpy</kbd>.
   </p>
 
   <h2>Réalisation</h2>
