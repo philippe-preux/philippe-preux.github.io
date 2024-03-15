@@ -144,9 +144,7 @@ rs = np.random.RandomState(graine)</pre>
 
     Maintenant, on peut partitionner le jeu d'exemples. On fait comme cela. Supposons que p=0,2, on écrit&nbsp;:
 
-    <pre>X_train, X_test, Y_train, Y_test = train_test_split (X, Y,
-                                                     test_size = 0.2,
-                                                     random_state = rs)</pre>
+    <pre>X_train, X_test, Y_train, Y_test = train_test_split (X, Y, test_size = 0.2, random_state = rs)</pre>
 
     <br/>
 
@@ -161,8 +159,7 @@ rs = np.random.RandomState(graine)</pre>
     Pour parcourir aléatoirement les exemples, il suffit d'égrener leurs indices dans un ordre aléatoire. Pour cela, on peut écrire&nbsp;:
 
     <pre>N_train = len (Y_train)
-        permutation = np.random.choice (np.arange (N_train), N_train,
-                                        replace=False)</pre>
+permutation = np.random.choice (np.arange (N_train), N_train, replace=False)</pre>
 
     <br/>
 
