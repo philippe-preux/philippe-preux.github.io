@@ -63,17 +63,22 @@
 
     On note X<sub>i</sub> la i<sup>è</sup> donnée et X<sub>i,j</sub> l'attribut j de la i<sup>è</sup> donnée. On note Y<sub>i</sub> la sortie attendue pour la i<sup>è</sup> donnée. Le i<sup>è</sup> exemple est donc le couple (X<sub>i</sub>, Y<sub>i</sub>). X est une matrice dont chaque ligne correspond à une donnée et chaque colonne correspond à un attribut. Y est un vecteur.
 
+    <br/>
+
+    On note E_train et E_test respectivement l'erreur de prédiction mesurée sur (X_train, Y_train) d'une part, sur (X_test, Y_test) d'autre part. Cette erreur est estimée par la proportion d'exemples dont l'étiquette est mal prédite par le perceptron.
+
   </p>
 
   <ol>
     <li>Centrer et réduire les exemples.</li>
     <li><font color="red">Découper le jeu d'exemple (X, Y) en un jeu d'entraînement noté (X_train, Y_train) et un jeu de test noté (X_test, Y_test).</font></li>
     <li>Initialiser les P poids avec une valeur quelconque.</li>
-    <li>corrections = 1</li>
-    <li><b>Tant-que</b> |corrections| &gt; &epsilon;<b>:</b>
+    <li><font color="red"><s>corrections = 1</s></font></li>
+    <li><b>Tant-que</b> <font color="red">E_test diminue</font><b>:</b>
       <ol>
-	<li>corrections = 0</li>
-	<li><b>Pour</b> chaque exemple x<sub>i</sub><b>:</b>
+	<li><s>corrections = 0</s></li>
+	<li><font color="red">Mélanger les exemples d'entraînement.</font></li>
+	<li><b>Pour</b> chaque exemple X_train<sub>i</sub><b>:</b>
 	  <ol>
 	    <li>on calcule la sortie s du perceptron pour cet exemple.</li>
 	    <li>On en déduit la classe prédite&nbsp;: <b>si</b> s &ge; 1/2, <b>alors</b> classe.prédite = 1, <b>sinon</b> classe.prédite = 0.</li>
@@ -82,11 +87,11 @@
 	      <br/>
 	      <ol>
 		<li>biais = biais - &eta; d s (1 - s)</li>
-		<li>corrections = corrections + |&eta; d s (1 - s)|</li>
+		<li><s>corrections = corrections + |&eta; d s (1 - s)|</s></li>
 		<li><b>Pour</b> chaque poids j <b>:</b>
 		  <ul>
 		    <li>p<sub>j</sub> = p<sub>j</sub> - &eta; d x<sub>i,j</sub> s (1 - s)</li>
-		    <li>corrections = corrections + |&eta; d x<sub>i,j</sub> s (1 - s)|</li>
+		    <li><s>corrections = corrections + |&eta; d x<sub>i,j</sub> s (1 - s)|</s></li>
 		  </ul>
 		</li>
 	      </ol>
