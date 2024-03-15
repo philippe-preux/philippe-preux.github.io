@@ -118,7 +118,41 @@
 
   <p>
 
-    Le partionnement du jeu d'exemples consiste à découper l'ensemble des exemples en deux sous-ensembes disjoints. On note <i>p</i> la proportion d'exemples utilisés pour mesurer
+    Le partionnement du jeu d'exemples consiste à découper l'ensemble des exemples en deux sous-ensembes disjoints. Une proportion <i>p</i> d'exemples constitue (X_test, Y_test), les autres constituant (X_train, Y_train).
+
+    <br/>
+
+    On peut s'y prendre de deux manières&nbsp;: le faire soi-même ou utiliser une fonction qui réalise ce découpage.
+
+    <br/>
+
+    Je vous encourage très fortement à réaliser ce découpage vous-même car c'est très facile à faire (en particulier, les étudiants qui réalisent les TPs rapidement doivent effectuer ce découpage en codant eux-mêmes ce traitement&nbsp;: c'est juste une boucle).
+
+    <br/>
+
+    La fonction qui réalise ce découpage se nomme <kbd>train_test_split()</kbd>.
+    Pour l'utiliser, on doit d'abord écrire&nbsp;:
+    
+    <pre>from sklearn.model_selection import train_test_split
+graine = int ("Perceptron", base=36)%2**31
+import numpy as np
+rs = np.random.RandomState(graine)</kbd>
+
+    <br/>
+
+    <i>Strico senso</i>, les 3 dernières lignes ne sont pas indispensables pour effectuer le partionnement du jeu d'exemples. Ces 3 lignes garantissent qu'à chaque fois que vous lancez votre programme, il partitionne le jeu d'exemples exactement de la même manière. C'est un point important sur lequel nous revenons <a href="#repro">plus bas</a>.
+
+    <br/>
+
+    Maintenant, on peut partitionner le jeu d'exemples. On fait comme cela. Supposons que p=0,2, on écrit&nbsp;:
+
+    <pre>X_train, X_test, Y_train, Y_test = train_test_split (X, Y,
+                                                     test_size = 0.2,
+                                                     random_state = rs)</pre>
+
+    <br/>
+
+    On a désormais partitionnement le jeu d'exemples (X, Y) en un jeu d'entraînement (X_train, Y_train) et un jeu d'exemples (X_test, Y_test).
     
   </p>
   
@@ -134,7 +168,7 @@
 
   </p>
 
-  <h2>Reproductibilité expérimentale</h2>
+  <h2 id="repro">Reproductibilité expérimentale</h2>
 
   <p>
 
