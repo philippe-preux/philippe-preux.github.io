@@ -40,7 +40,7 @@
 	<li>l'ensemble d'entraînement est constitué d'exemples qui sont uniquement utilisés pour calculer les poids,</li>
 	<li>l'ensemble de test est constitué d'exemples qui sont uniquement utilisés pour mesurer l'erreur de prédiction commise par le perceptron. Cette erreur est utilisée pour déterminer le moment d'arrêter le calcul des poids (la DGS).</li>
       </ul></li>
-    <li>Durant le calcul des poids, les exemples doivent être parcourus dans un ordre aléatoire, qui change à chaque itération du tant-que.</li>
+    <li>Durant le calcul des poids, les exemples doivent être parcourus dans un ordre aléatoire, qui change à chaque itération de la boucle principale de la DGS.</li>
   </ol>
 
   <p>
@@ -49,6 +49,53 @@
 
   </p>
 
+  <h2>Algorithme de calcul des poids</h2>
+
+  <p>
+
+    Pour calculer les poids, on utilise l'algorithme ci-dessous. C'est l'algorithme du TP précédent dans lequel ce qui change est indiqué <font color="red">en rouge</font>.
+
+    <br/>
+
+    Comme précédemment, on utilise les notations suivantes : on a un jeu d'exemples constitué de N données d'entrées et des N valeurs de sortie attendues. Chaque donnée est décrite par P attributs.
+
+    <br/>
+
+    On note X<sub>i</sub> la i<sup>è</sup> donnée et X<sub>i,j</sub> l'attribut j de la i<sup>è</sup> donnée. On note Y<sub>i</sub> la sortie attendue pour la i<sup>è</sup> donnée. Le i<sup>è</sup> exemple est donc le couple (X<sub>i</sub>, Y<sub>i</sub>). X est une matrice dont chaque ligne correspond à une donnée et chaque colonne correspond à un attribut. Y est un vecteur.
+
+  </p>
+
+  <ol>
+    <li>Centrer et réduire les exemples.</li>
+    <li><font color="red">Découper le jeu d'exemple (X, Y) en un jeu d'entraînement noté (X_train, Y_train) et un jeu de test noté (X_test, Y_test).</font></li>
+    <li>Initialiser les P poids avec une valeur quelconque.</li>
+    <li>corrections = 1</li>
+    <li><b>Tant-que</b> |corrections| &gt; &epsilon;<b>:</b>
+      <ol>
+	<li>corrections = 0</li>
+	<li><b>Pour</b> chaque exemple x<sub>i</sub><b>:</b>
+	  <ol>
+	    <li>on calcule la sortie s du perceptron pour cet exemple.</li>
+	    <li>On en déduit la classe prédite&nbsp;: <b>si</b> s &ge; 1/2, <b>alors</b> classe.prédite = 1, <b>sinon</b> classe.prédite = 0.</li>
+	    <li>d = classe.prédite - y<sub>i</sub>
+	    <li><b>Si</b> d est non nulle <b>alors</b>
+	      <br/>
+	      <ol>
+		<li>biais = biais - &eta; d s (1 - s)</li>
+		<li>corrections = corrections + |&eta; d s (1 - s)|</li>
+		<li><b>Pour</b> chaque poids j <b>:</b>
+		  <ul>
+		    <li>p<sub>j</sub> = p<sub>j</sub> - &eta; d x<sub>i,j</sub> s (1 - s)</li>
+		    <li>corrections = corrections + |&eta; d x<sub>i,j</sub> s (1 - s)|</li>
+		  </ul>
+		</li>
+	      </ol>
+	    </li>
+	    </ol>
+	  </li>
+      </ol></li>
+    </ol>
+  
   <h2>Mise en &oelig;uvre de la méthodologie</h2>
 
   <p>
