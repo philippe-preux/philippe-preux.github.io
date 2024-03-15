@@ -78,19 +78,19 @@
       <ol>
 	<li><s>corrections = 0</s></li>
 	<li><font color="red">Mélanger les exemples d'entraînement.</font></li>
-	<li><b>Pour</b> chaque exemple X_train<sub>i</sub><b>:</b>
+	<li><b>Pour</b> chaque exemple (X_train<sub>i</sub>, Y_train<sub>i</sub>)<b>:</b>
 	  <ol>
 	    <li>on calcule la sortie s du perceptron pour cet exemple.</li>
 	    <li>On en déduit la classe prédite&nbsp;: <b>si</b> s &ge; 1/2, <b>alors</b> classe.prédite = 1, <b>sinon</b> classe.prédite = 0.</li>
-	    <li>d = classe.prédite - y<sub>i</sub>
+	    <li>d = classe.prédite - Y_train<sub>i</sub></li>
 	    <li><b>Si</b> d est non nulle <b>alors</b>
 	      <br/>
 	      <ol>
 		<li>biais = biais - &eta; d s (1 - s)</li>
-		<li><s>corrections = corrections + |&eta; d s (1 - s)|</s></li>
+		<li><s>corrections = corrections + |&eta; d (1 - s<sub>2</sub>)|</s></li>
 		<li><b>Pour</b> chaque poids j <b>:</b>
 		  <ul>
-		    <li>p<sub>j</sub> = p<sub>j</sub> - &eta; d x<sub>i,j</sub> s (1 - s)</li>
+		    <li>p<sub>j</sub> = p<sub>j</sub> - &eta; d x<sub>i,j</sub> (1 - s<sub>2</sub>)</li>
 		    <li><s>corrections = corrections + |&eta; d x<sub>i,j</sub> s (1 - s)|</s></li>
 		  </ul>
 		</li>
