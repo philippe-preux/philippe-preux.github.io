@@ -169,6 +169,15 @@ rs = np.random.RandomState(graine)</pre>
     <br/>
 
     Il faut avoir préalablement importer le paquetage <kbd>numpy</kbd>.
+
+    <br/>
+
+    <kbd>permutation</kbd> contient une permutation des entiers de 0 à <kbd>N_train</kbd>-1.
+
+    <br/>
+
+    Ensuite dans le corps de la boucle, il suffit de remplacer la variable <kbd>i</kbd> par <kbd>permutation [i]</kbd> et les exemples seront parcourus dans un ordre aléatoire. En calculant une nouvelle permutation à chaque itération de la DGS, le parcours des exemples d'entraînement sera différent à chaque itération.
+
   </p>
 
   <h2>Réalisation</h2>
