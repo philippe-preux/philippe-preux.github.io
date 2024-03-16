@@ -61,7 +61,7 @@
 
     <br/>
 
-    Comme précédemment, on utilise les notations suivantes : on a un jeu d'exemples constitué de N données d'entrées et des N valeurs de sortie attendues. Chaque donnée est décrite par P attributs.
+    Comme précédemment, on utilise les notations suivantes : on a un jeu d'exemples constitué de N données d'entrées et des N valeurs de sortie attendues (étiquettes). Chaque donnée est décrite par P attributs.
 
     <br/>
 
@@ -69,13 +69,13 @@
 
     <br/>
 
-    On note E_train et E_test respectivement l'erreur de prédiction mesurée sur (X_train, Y_train) d'une part, sur (X_test, Y_test) d'autre part. Cette erreur est estimée par la proportion d'exemples dont l'étiquette est mal prédite par le perceptron.
+    On note E_trainl'erreur de prédiction mesurée sur (X_train, Y_train) et on note E_test l'erreur mesurée sur (X_test, Y_test). Ces erreurs sont estimées par la proportion d'exemples dont l'étiquette est mal prédite par le perceptron.
 
   </p>
 
   <ol>
     <li>Centrer et réduire les exemples.</li>
-    <li><font color="red">Découper le jeu d'exemple (X, Y) en un jeu d'entraînement noté (X_train, Y_train) et un jeu de test noté (X_test, Y_test).</font></li>
+    <li><font color="red">Découper le jeu d'exemples (X, Y) en un jeu d'entraînement noté (X_train, Y_train) et un jeu de test noté (X_test, Y_test).</font></li>
     <li>Initialiser les P poids avec une valeur quelconque.</li>
     <li><font color="red"><s>corrections = 1</s></font></li>
     <li><b>Tant-que</b> <font color="red">E_test diminue</font><b>:</b>
@@ -105,6 +105,44 @@
 	  </li>
       </ol></li>
     </ol>
+
+  <h2>Les jeux d'exemples basés sur les <i>iris</i></h2>
+
+  <p>
+
+    Le jeu d'exemples <i>iris</i> est constitué d'exemples appartenant à 3 classes différentes qui sont des espèces d'iris&nbsp;: <i>setosa</i>, <i>versicolor</i>, <i>virginica</i>. La figure ci-dessous représente les exemples de ces trois classes dans le plan longueur x largeur des pétales&nbsp: les <i>setosa</i> en bleu, les <i>versicolor</i> en vert, les <i>virginica</i> en rouge.
+
+    <br/>
+
+    <img src="iris.png" alt="Répartition des 3 espèces d'iris." />
+
+    <br/>
+
+    Puisqu'un perceptron permet de séparer deux classes seulement (pas trois, n perceptron réalise une tâche de classification binaire), dans le TP précédent et celui-ci on transforme ce problème à 3 classes en un problème à 2 classes. Ou plutôt, en 2 problèmes différents&nbsp;: si on veut prédire les <i>setosa</i> par rapport aux deux autres espèces, le problème est linéairement séparable&nbsp;: si on veut prédire les <i>virginica</i> par rapport aux deux autres, le problème n'est pas linairement séparable&nbsp;: dans la figure ci-dessus, les rouge (<i>virgicinica</i>) se mélangent avec les verts (<i>versicolor</i>).
+
+    <br/>
+
+    Dans le premier cas, il faut que l'étiquette à prédire indique si la donnée est un iris <i>setosa</i> ou pas&nbsp;; dans le second cas, il faut que l'étiquette indique si la donnée est un iris <i>virginica</i> ou pas.
+
+    <br/>
+    
+    Pour cela, on effectue ce qui suit&nbsp;:
+
+    <pre>setosa = []
+virginica = []
+for i in range (len (iris.target)):
+    if iris.target [i] == 0:
+        setosa. append (1)
+    else:
+        setosa.append (0)
+    if iris.target [i] == 2:
+        virginica.append (1)
+    else:
+        virginica.append (0)</pre>
+
+    Ensuite, si on veut prédire les <i>setosa</i>, on affecte <kbd>setosa</kbd> à <kbd>sorties</kbd>. Si on veut prédire les <i>virginica</i>, on affecte <kbd>virginica</kbd> à <kbd>sorties</kbd>.
+    
+  </p>
   
   <h2>Mise en &oelig;uvre de la méthodologie</h2>
 
@@ -118,7 +156,7 @@
 
   <p>
 
-    Le partionnement du jeu d'exemples consiste à découper l'ensemble des exemples en deux sous-ensembes disjoints. Une proportion <i>p</i> d'exemples constitue (X_test, Y_test), les autres constituant (X_train, Y_train).
+    Le partionnement du jeu d'exemples consiste à découper l'ensemble des exemples (X, Y) en deux sous-ensembes disjoints. Une proportion <i>p</i> d'exemples constitue (X_test, Y_test), les autres constituant (X_train, Y_train).
 
     <br/>
 
@@ -177,8 +215,12 @@ permutation = np.random.choice (np.arange (N_train), N_train, replace=False)</pr
 
   <h2>Réalisation</h2>
 
+  <h3>Application aux iris</h3>
+
   <p>
 
+    Mettre en &oelig;uvre cette démarche sur le jeu de données iris utilisé dans le TP précédent.
+    
   </p>
 
   <h2 id="repro">Reproductibilité expérimentale</h2>
