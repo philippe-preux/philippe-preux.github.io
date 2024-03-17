@@ -69,7 +69,11 @@
 
     <br/>
 
-    On note E_trainl'erreur de prédiction mesurée sur (X_train, Y_train) et on note E_test l'erreur mesurée sur (X_test, Y_test). Ces erreurs sont estimées par la proportion d'exemples dont l'étiquette est mal prédite par le perceptron.
+    On note N_train le nombre d'exemples composant X_train et N_test le nombre d'exemples composant X_test.
+
+    <br/>
+
+    On note E_train l'erreur de prédiction mesurée sur (X_train, Y_train) et on note E_test l'erreur mesurée sur (X_test, Y_test). Ces erreurs sont estimées par la proportion d'exemples dont l'étiquette est mal prédite par le perceptron.
 
   </p>
 
@@ -105,12 +109,12 @@
 	  </li>
       </ol></li>
     </ol>
-
+  
   <h2>Les jeux d'exemples basés sur les <i>iris</i></h2>
 
   <p>
 
-    Le jeu d'exemples <i>iris</i> est constitué d'exemples appartenant à 3 classes différentes qui sont des espèces d'iris&nbsp;: <i>setosa</i>, <i>versicolor</i>, <i>virginica</i>. La figure ci-dessous représente les exemples de ces trois classes dans le plan longueur x largeur des pétales&nbsp: les <i>setosa</i> en bleu, les <i>versicolor</i> en vert, les <i>virginica</i> en rouge.
+    Le jeu d'exemples <i>iris</i> est constitué d'exemples appartenant à 3 classes différentes qui sont des espèces d'iris&nbsp;: <i>Setosa</i>, <i>Versicolor</i>, <i>Virginica</i>. La figure ci-dessous représente les exemples de ces trois classes dans le plan longueur x largeur des pétales&nbsp: les <i>Setosa</i> en bleu, les <i>Versicolor</i> en vert, les <i>Virginica</i> en rouge.
 
     <br/>
 
@@ -118,11 +122,11 @@
 
     <br/>
 
-    Puisqu'un perceptron permet de séparer deux classes seulement (pas trois, un perceptron réalise une tâche de classification binaire), dans le TP précédent et celui-ci on transforme ce problème à 3 classes en un problème à 2 classes. Ou plutôt, en 2 problèmes différents&nbsp;: si on veut prédire les <i>setosa</i> par rapport aux deux autres espèces, le problème est linéairement séparable&nbsp;: si on veut prédire les <i>virginica</i> par rapport aux deux autres, le problème n'est pas linéairement séparable&nbsp;: sur la figure ci-dessus, les rouges (<i>virgicinica</i>) se mélangent avec les verts (<i>versicolor</i>).
+    Puisqu'un perceptron permet de séparer deux classes seulement (pas trois, un perceptron réalise une tâche de classification binaire), dans le TP précédent et celui-ci on transforme ce problème à 3 classes en un problème à 2 classes. Ou plutôt, en 2 problèmes différents&nbsp;: si on veut prédire les <i>Setosa</i> par rapport aux deux autres espèces, le problème est linéairement séparable&nbsp;: si on veut prédire les <i>Virginica</i> par rapport aux deux autres, le problème n'est pas linéairement séparable&nbsp;: sur la figure ci-dessus, les rouges (<i>Virgicinica</i>) se mélangent avec les verts (<i>Versicolor</i>).
 
     <br/>
 
-    Dans le premier cas, il faut que l'étiquette à prédire indique si la donnée est un iris <i>setosa</i> ou pas&nbsp;; dans le second cas, il faut que l'étiquette indique si la donnée est un iris <i>virginica</i> ou pas.
+    Dans le premier cas, il faut que l'étiquette à prédire indique si la donnée est un iris <i>Setosa</i> ou pas&nbsp;; dans le second cas, il faut que l'étiquette indique si la donnée est un iris <i>Virginica</i> ou pas.
 
     <br/>
     
@@ -141,7 +145,7 @@ for i in range (len (iris.target)):
     else:
         Y_virginica [i] = 0</pre>
 
-    Ensuite, si on veut prédire les <i>setosa</i>, on affecte <kbd>Y_setosa</kbd> à <kbd>sorties</kbd>. Si on veut prédire les <i>virginica</i>, on affecte <kbd>Y_virginica</kbd> à <kbd>sorties</kbd>.
+    Ensuite, si on veut prédire les <i>Setosa</i>, on affecte <kbd>Y_setosa</kbd> à <kbd>sorties</kbd>. Si on veut prédire les <i>Virginica</i>, on affecte <kbd>Y_virginica</kbd> à <kbd>sorties</kbd>.
 
   </p>
   
@@ -216,14 +220,145 @@ permutation = gnpa.choice (np.arange (N_train), N_train, replace = False)</pre>
 
   <h2>Réalisation</h2>
 
-  <h3>Application aux iris</h3>
+  <h3>Application aux iris&nbsp;: cas de deux classes linéairement séparables</h3>
 
   <p>
 
-    Mettre en &oelig;uvre cette démarche sur le jeu de données iris utilisé dans le TP précédent.
+    Mettre en &oelig;uvre toute cette démarche sur le jeu de données iris utilisé dans le TP précédent.
+
+    <br/>
+
+    Attention&nbsp;: vous entrez dans la manipulation d'un type d'algorithmes qu'il n'est pas toujours facile de faire fonctionner comme on le voudrait. Quand ça ne marche pas, il faut bien réfléchir à ce que vous faites, vérifiez que votre programme fait bien ce que vous croyez, ou espérez, qu'il fait&nbsp;: il faut mener l'enquête jusquà comprendre ce qui ne va pas, le corriger et le faire fonctionner. En particulier, déterminer quand il faut arrêter les itérations de la DGS n'est pas si simple qu'on pourrait l'espérer.
+
+    <br/>
+    <br/>
+
+    On va commencer par calculer les poids d'un perceptron qui sépare les <i>Setosa</i> des deux autres espèces&nbsp;: ce problème est linéairement séparable. On va donc utiliser les étiquettes stockées dans <kbd>Y_setosa</kbd>.
+
+    <br/>
+
+    Rédigez votre programme en mettant bout à bout tout ce que j'ai expliqué. Vous itérez tant que l'erreur de test E_test diminue.
+
+    <br/>
+    
+    Pour vous donner quelques points de repères&nbsp;: au bout de quelques itérations, E_test ne diminue plus donc le programme s'arrête. E_train et E_test sont non nuls. Les poids correspondent à cette droite&nbsp;:
+
+    <br/>
+
+    <img src="./expe1.png" width="300pt" alt="Expérience 1 : le perceptron ne sépare pas les deux classes." />
+
+    <br/>
+
+    Sur cette figure, j'indique avec des points plus gros les exemples de test. Ces exemples ne sont pas utilisés pour calculer les poids, seuls les petits points le sont.
+
+    <br/>
+
+    Si vous êtes étonné ou déçu, c'est normal&nbsp;: on s'attend à ce que le perceptron prédise correctement la classe et il ne le fait pas, ça devrait marcher. Avant de lire la suite, il est utile de réfléchir à ce qui peut ne pas bien se passer.
+
+    <br/>
+    <br/>
+
+    Maintenant que <b>vous avez réfléchi pendant plusieurs minutes</b>, vous pouvez lire la suite. Néanmoins, si vous avez eu une ou des idées de ce qui peut ne pas bien fonctionner et causer cet étonnement ou cette déception, avant de lire la suite, testez vos idées&nbsp;: modifiez votre programme et voyez si ça améliore le résultat.
+
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+
+    La raison de l'échec est que la DGS s'est arrêtée trop tôt. Ce n'est pas parce E_test ne diminue pas d'une itération à la suivante qu'il ne pourrait pas le faire si on itère un peu car à chaque itération, les poids sont corrigés à l'aide des exemples d'entraînement et cela peut faire diminuer E_test.
+
+    <br/>
+
+    Pour ne pas s'arrêter trop tôt, on pourrait se dire que si E_test ne diminue pas, on va encore réaliser 10 itérations (par exemple 10) et si décidément E_test ne diminue pas, on va s'arrêter.
+
+    <br/>
+
+    En pratiquant ainsi, mon programme effectue une vingtaine d'itérations et trouve finalement cette droite&nbsp;:
+
+    <br/>
+
+    <img src="./expe2.png" width="300pt" alt="Expérience 2 : le perceptron ne toujours sépare pas les deux classes, mais il a fait des progrès." />
+
+    <br/>
+
+    Comparons-la à la précédente&nbsp;: c'est mieux. Par ailleurs, si votre programme affiche E_test à chaque itération du tant-que de la DGS, vous pouvez constater qu'après avoir stagné, elle a continuer de diminuer.
+
+    <br/>
+
+    On est sur la bonne voie. Si j'autorise E_test à stagner encore plus longtemps, j'obtiens la séparation des deux classes&nbsp;:
+    
+    <br/>
+
+    <img src="./expe3.png" width="300pt" alt="Expérience 3 : le perceptron sépare Setosa des autres iris. Un exemple d'entraînement est mal classé." />
+
+    <br/>
+
+    On voit que l'un des exemples bleus est mal prédit&nbsp;: c'est un exemple d'entraînement aussi la DGS n'en tient pas compte pour s'arrêter&nbsp;: seuls les exemples de test sont utilisés pour déterminer l'arrêt du tant-que.
+    Si cet exemple était dans le jeu de test, les itérations se seraient poursuivies.
+
+    <br/>
+
+    Si on continue encore les itérations, cet exemple d'entraînement est bien prédit lui-aussi car les poids continuent d'être corrigés. J'obtiens cela&nbsp;:
+
+    <br/>
+
+    <img src="./expe4.png" width="300pt" alt="Expérience 4 : le perceptron sépare Setosa des autres iris, y compris les exemples d'entraînement." />
+
+    <br/>    
     
   </p>
 
+  <h3>Application aux iris&nbsp;: cas de deux classes non linéairement séparables</h3>
+
+  <p>
+
+    On considère maintenant le problème de prédire les <i>Virginica</i> par rapport aux autres iris. Pour cela, vous utilisez les étiquettes de Y_virginica.
+
+    <br/>
+
+    Refaites tout ce que l'on vient de faire.
+
+    <br/>
+
+    Dans les mêmes conditions que ci-dessus, j'obtiens les 4 figures ci-dessous&nbsp;:
+
+    <br/>
+
+    <img src="./expe5.png" width="300pt" alt="Expérience 5 : séparation des Virginica." />
+    <img src="./expe6.png" width="300pt" alt="Expérience 5 : séparation des Virginica." />
+    <img src="./expe7.png" width="300pt" alt="Expérience 5 : séparation des Virginica." />
+    <img src="./expe8.png" width="300pt" alt="Expérience 5 : séparation des Virginica." />
+
+    <br/>
+    <br/>
+
+    On pourrait se dire qu'après tout, pourquoi se compliquer les choses et pourquoi ne pas tout simplement itérer par exemple 100 la boucle tant-que. Modifiez votre programme pour le faire et exécutez-le. Il est intéressant de tracer E_train et E_test au fil des itérations. J'obtiens cela&nbsp;:
+    
+    <br/>
+
+    <img src="./Erreurs.png" width="300pt" alt="E_train et E_test au fil de 100 itérations de DGS." />
+    
+    <br/>
+
+    Sur ce graphique, on voit qu'au bout d'une trentaine d'itérations E_test augmente&nbsp;! Cela signifie que l'on a fait trop d'itérations&nbsp;: le perceptron est en situation de sur-apprentissage, situation qu'il faut impérativement éviter.
+
+    <br/>
+
+    Conclusion&nbsp;: comme on ne sait jamais à l'avance quand le sur-apprentissage va survenir, on ne peut pas faire de boucle pour et on a besoin d'une boucle tant-que. Et savoir quand arrêter cette boucle tant-que n'est pas si simple.
+
+  </p>
+  
   <h2 id="repro">Reproductibilité expérimentale</h2>
 
   <p>
@@ -244,25 +379,24 @@ permutation = gnpa.choice (np.arange (N_train), N_train, replace = False)</pre>
     <br/>
     <br/>
 
-    Dans un ordinateur, les nombres aléatoires ne sont pas générés de manière aléatoire, bien au contraire. Ils sont générés en utilisant une formule de récurrence qui produit un flux de nombres aléatoires. Pour être précis, on parle de nombres pseudo-aléatoires car justement ils ne sont pas aléatoires mais engendrer de manière très précise pour que la suite de nombres ainsi générée ait toutes les caractéristiques qu'aurait une séquence de nombres effectivement aléatoires.
+    Dans un ordinateur, les nombres aléatoires ne sont pas générés de manière aléatoire, bien au contraire. Ils sont générés en utilisant une formule de récurrence qui produit un flux de nombres qui semblent aléatoires au fil de ses itérations. Pour être précis, on parle de nombres pseudo-aléatoires car justement ils ne sont pas aléatoires mais engendrés de manière très précise pour que la suite de nombres ainsi générée ait toutes les caractéristiques qu'aurait une séquence de nombres effectivement aléatoires.
 
     <br/>
 
-    Dans tout raisonnement par récurrence, on a une règle qui permet de calculer le terme suivant et il y a le premier terme qui est fixé. Dans un générater de nombre pseudo-aléatoire, la récurrence est initialisé à l'aide d'une graine qui est un simple nombre entier&nbsp;; vous prenez le nombre que vous voulez, mais vous vous en rappeler.
+    Dans tout raisonnement par récurrence, on a une règle qui permet de calculer le terme suivant et il y a le premier terme qui est fixé. Dans un générateur de nombres pseudo-aléatoires, la récurrence est initialisée à l'aide d'une graine qui est un simple nombre entier&nbsp;; vous prenez le nombre que vous voulez, mais vous vous en rappelez.
+    Plus haut, on a effectué l'instruction <kbd>graine = int ("Perceptron", base=36)%2**31</kbd>. C'est une manière un peu sophistiquée de calculer une graine &nbsp;; on pourrait tout aussi bien écrire <kbd>graine = 123</kbd>. En effet, <kbd>int ("Perceptron", base=36)%2**31</kbd> transforme une chaîne de caractères en un entier.
 
+    
     <br/>
 
-    Très concrétement, tout cela se traduit dans votre programme par l'ajout de cette instruction&nbsp;:
+    Très concrétement, tout cela se traduit dans votre programme par l'ajout de&nbsp;:
 
   </p>
 
-  <pre>gnpa = np.random.default_rng (123)</pre>
+  <pre>graine = int ("Perceptron", base=36)%2**31  # ou graine = un entier
+gnpa = np.random.default_rng (graine)</pre>
 
   <p>
-
-    123 est la graine que j'ai choisie.
-
-    <br/>
 
     Il faut placer cette instruction le plus tôt possible dans votre programme. Il faut avoir fait <kbd>import numpy as np</kbd> auparavant. Vous pouvez initialiser la graine juste après.
 
@@ -275,7 +409,8 @@ permutation = gnpa.choice (np.arange (N_train), N_train, replace = False)</pre>
   <pre>import numpy as np
 
 print ("5 nombres pseudo-aléatoires :")
-gnpa = np.random.default_rng (123)
+graine = 123
+gnpa = np.random.default_rng (graine)
 for i in range(5):
     print (gnpa.integers (-10, 10))
 
@@ -285,7 +420,7 @@ for i in range(5):
     print (gnpa.integers (-10, 10))
 
 print ("Les 5 premiers à nouveau :")
-gnpa = np.random.default_rng (123)
+gnpa = np.random.default_rng (graine)
 for i in range(5):
     print (gnpa.integers (-10, 10))</pre>
 
@@ -316,12 +451,12 @@ Les 5 premiers à nouveau :
 
   <p>
 
-    Comme vous utilisez la même graine, vous êtes certain d'obtenir exactement le même résultat.
+    Comme vous utilisez les mêmes graines que mois, vuos obtenez le même résultat.
 
     <br/>
 
-    En conclusion, ajoutez l'initialisation de la graine dans votre programme. Ainsi, le partitionnement du jeu d'exemples entre les exemples d'entraînement et exemples de test sera toujours le même. Si vous voulez changer ce partionnement, changez la valeur de la graine.
-    
+    En conclusion, ajoutez l'initialisation de la graine dans votre programme. Ainsi, le partitionnement du jeu d'exemples entre les exemples d'entraînement et les exemples de test sera toujours le même. Si vous voulez changer ce partionnement, changez la valeur de la graine.
+
   </p>
   
   <h2>Pour finir</h2>
