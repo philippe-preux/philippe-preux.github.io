@@ -174,17 +174,16 @@ for i in range (len (iris.target)):
     
     <pre>import numpy as np
 graine = int ("Perceptron", base=36)%2**31
-gnpa = np.random.default_rng (graine)
-rs = np.random.RandomState (graine)</pre>
+gnpa = np.random.default_rng (graine)</pre>
 
-    <i>Strico senso</i>, les lignes ne sont pas indispensables pour effectuer le partionnement du jeu d'exemples. Ces lignes garantissent qu'à chaque fois que vous lancez votre programme, il partitionne le jeu d'exemples exactement de la même manière. C'est un point important sur lequel nous revenons <a href="#repro">plus bas</a>.
+    <i>Strico senso</i>, ces lignes ne sont pas indispensables pour effectuer le partionnement du jeu d'exemples. Ces lignes garantissent qu'à chaque fois que vous lancez votre programme, il partitionne le jeu d'exemples exactement de la même manière. C'est un point important sur lequel nous revenons <a href="#repro">plus bas</a>.
 
     <br/>
 
     Maintenant, on peut partitionner le jeu d'exemples. On fait comme suit. Supposons que p=0,2, on écrit&nbsp;:
 
     <pre>from sklearn.model_selection import train_test_split
-X_train, X_test, Y_train, Y_test = train_test_split (X, Y, test_size = 0.2, random_state = rs)</pre>
+X_train, X_test, Y_train, Y_test = train_test_split (X, Y, test_size = 0.2, random_state = np.random.RandomState (graine))</pre>
 
     <br/>
 
