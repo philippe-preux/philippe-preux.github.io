@@ -118,7 +118,7 @@
 
     <br/>
 
-    Puisqu'un perceptron permet de séparer deux classes seulement (pas trois, n perceptron réalise une tâche de classification binaire), dans le TP précédent et celui-ci on transforme ce problème à 3 classes en un problème à 2 classes. Ou plutôt, en 2 problèmes différents&nbsp;: si on veut prédire les <i>setosa</i> par rapport aux deux autres espèces, le problème est linéairement séparable&nbsp;: si on veut prédire les <i>virginica</i> par rapport aux deux autres, le problème n'est pas linairement séparable&nbsp;: dans la figure ci-dessus, les rouge (<i>virgicinica</i>) se mélangent avec les verts (<i>versicolor</i>).
+    Puisqu'un perceptron permet de séparer deux classes seulement (pas trois, un perceptron réalise une tâche de classification binaire), dans le TP précédent et celui-ci on transforme ce problème à 3 classes en un problème à 2 classes. Ou plutôt, en 2 problèmes différents&nbsp;: si on veut prédire les <i>setosa</i> par rapport aux deux autres espèces, le problème est linéairement séparable&nbsp;: si on veut prédire les <i>virginica</i> par rapport aux deux autres, le problème n'est pas linéairement séparable&nbsp;: sur la figure ci-dessus, les rouges (<i>virgicinica</i>) se mélangent avec les verts (<i>versicolor</i>).
 
     <br/>
 
@@ -128,20 +128,21 @@
     
     Pour cela, on effectue ce qui suit&nbsp;:
 
-    <pre>setosa = []
-virginica = []
+    <pre>N = len (iris.target) # le nombre d'exemples
+Y_setosa = np.zeros ((N))      # Y_setosa est un tableau contenant N 0
+Y_virginica = np.zeros ((N))   # idem pour Y_virginica
 for i in range (len (iris.target)):
     if iris.target [i] == 0:
-        setosa. append (1)
+        Y_setosa [i] = 1
     else:
-        setosa.append (0)
+        Y_setosa [i] = 0
     if iris.target [i] == 2:
-        virginica.append (1)
+        Y_virginica [i] = 1
     else:
-        virginica.append (0)</pre>
+        Y_virginica [i] = 0</pre>
 
-    Ensuite, si on veut prédire les <i>setosa</i>, on affecte <kbd>setosa</kbd> à <kbd>sorties</kbd>. Si on veut prédire les <i>virginica</i>, on affecte <kbd>virginica</kbd> à <kbd>sorties</kbd>.
-    
+    Ensuite, si on veut prédire les <i>setosa</i>, on affecte <kbd>Y_setosa</kbd> à <kbd>sorties</kbd>. Si on veut prédire les <i>virginica</i>, on affecte <kbd>Y_virginica</kbd> à <kbd>sorties</kbd>.
+
   </p>
   
   <h2>Mise en &oelig;uvre de la méthodologie</h2>
@@ -171,18 +172,19 @@ for i in range (len (iris.target)):
     La fonction qui réalise ce découpage se nomme <kbd>train_test_split()</kbd>.
     Pour l'utiliser, on doit d'abord écrire&nbsp;:
     
-    <pre>from sklearn.model_selection import train_test_split
+    <pre>import numpy as np
 graine = int ("Perceptron", base=36)%2**31
-import numpy as np
-rs = np.random.RandomState(graine)</pre>
+gnpa = np.random.default_rng (graine)
+rs = np.random.RandomState (graine)</pre>
 
-    <i>Strico senso</i>, les 3 dernières lignes ne sont pas indispensables pour effectuer le partionnement du jeu d'exemples. Ces 3 lignes garantissent qu'à chaque fois que vous lancez votre programme, il partitionne le jeu d'exemples exactement de la même manière. C'est un point important sur lequel nous revenons <a href="#repro">plus bas</a>.
+    <i>Strico senso</i>, les lignes ne sont pas indispensables pour effectuer le partionnement du jeu d'exemples. Ces lignes garantissent qu'à chaque fois que vous lancez votre programme, il partitionne le jeu d'exemples exactement de la même manière. C'est un point important sur lequel nous revenons <a href="#repro">plus bas</a>.
 
     <br/>
 
-    Maintenant, on peut partitionner le jeu d'exemples. On fait comme cela. Supposons que p=0,2, on écrit&nbsp;:
+    Maintenant, on peut partitionner le jeu d'exemples. On fait comme suit. Supposons que p=0,2, on écrit&nbsp;:
 
-    <pre>X_train, X_test, Y_train, Y_test = train_test_split (X, Y, test_size = 0.2, random_state = rs)</pre>
+    <pre>from sklearn.model_selection import train_test_split
+X_train, X_test, Y_train, Y_test = train_test_split (X, Y, test_size = 0.2, random_state = rs)</pre>
 
     <br/>
 
@@ -190,14 +192,14 @@ rs = np.random.RandomState(graine)</pre>
     
   </p>
   
-  <h3>Parcours dans un ordre aléatoire des exemples</h3>
+  <h3>Parcours des exemples dans un ordre aléatoire</h3>
 
   <p>
 
     Pour parcourir aléatoirement les exemples, il suffit d'égrener leurs indices dans un ordre aléatoire. Pour cela, on peut écrire&nbsp;:
 
     <pre>N_train = len (Y_train)
-permutation = np.random.choice (np.arange (N_train), N_train, replace=False)</pre>
+permutation = gnpa.choice (np.arange (N_train), N_train, replace = False)</pre>
 
     <br/>
 
@@ -255,7 +257,7 @@ permutation = np.random.choice (np.arange (N_train), N_train, replace=False)</pr
 
   </p>
 
-  <pre>rng = np.random.default_rng (123)</pre>
+  <pre>gnpa = np.random.default_rng (123)</pre>
 
   <p>
 
@@ -268,25 +270,25 @@ permutation = np.random.choice (np.arange (N_train), N_train, replace=False)</pr
     <br/>
     <br/>
 
-    Un petit exemple de son effet. <kbd>rng.integers (a, b)</kbd> génère un nombre compris entre -10 et 10. Si vous exécutez ce programme&nbsp;:
+    Un petit exemple de son effet. <kbd>gnpa.integers (a, b)</kbd> génère un nombre compris entre -10 et 10. Si vous exécutez ce programme&nbsp;:
     
   </p>
   <pre>import numpy as np
 
 print ("5 nombres pseudo-aléatoires :")
-rng = np.random.default_rng (123)
+gnpa = np.random.default_rng (123)
 for i in range(5):
-    print (rng.integers (-10, 10))
+    print (gnpa.integers (-10, 10))
 
 print ("5 autres nombres pseudo-aléatoires :")
-rng = np.random.default_rng (456)
+gnpa = np.random.default_rng (456)
 for i in range(5):
-    print (rng.integers (-10, 10))
+    print (gnpa.integers (-10, 10))
 
 print ("Les 5 premiers à nouveau :")
-rng = np.random.default_rng (123)
+gnpa = np.random.default_rng (123)
 for i in range(5):
-    print (rng.integers (-10, 10))</pre>
+    print (gnpa.integers (-10, 10))</pre>
 
   <p>
 
