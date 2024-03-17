@@ -5,7 +5,8 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>Classification supervisée avec un perceptron</title>
-  <link href="https://philippe-preux.github.io/css/ma.css" 
+  <!--link href="https://philippe-preux.github.io/css/ma.css"  -->
+  <link href="/home/ppreux/philippe-preux.github.io/css/ma.css" 
 	rel="stylesheet" type="text/css" media="all" />
   <link rel="shortcut icon" type="image/x-icon" 
 	href="https://philippe-preux.github.io/img/site.ico" />
@@ -118,7 +119,7 @@
 
     <br/>
 
-    <img src="iris.png" alt="Répartition des 3 espèces d'iris." />
+    <img src="iris.png" width="300pt" alt="Répartition des 3 espèces d'iris." />
 
     <br/>
 
@@ -253,6 +254,10 @@ permutation = gnpa.choice (np.arange (N_train), N_train, replace = False)</pre>
 
     <br/>
 
+    <font size="-5">Si vous voulez reproduire ce graphique avec des gros points et des petits, il faut vous inspirez de la fonction <kbd>debut_figure()</kbd>&nbsp;: dans la fonction <kbd>scatter()</kbd>, le paramètre <kbd>s = 2</kbd> indique la surface des points. Il suffit donc d'afficher les exemples d'entraînement avec <kbd>s = 2</kbd> et les exemples de test avec une valeur de <kbd>s</kbd> plus grande.</font>
+
+    <br/>
+
     Si vous êtes étonné ou déçu, c'est normal&nbsp;: on s'attend à ce que le perceptron prédise correctement la classe et il ne le fait pas, ça devrait marcher. Avant de lire la suite, il est utile de réfléchir à ce qui peut ne pas bien se passer.
 
     <br/>
@@ -351,11 +356,17 @@ permutation = gnpa.choice (np.arange (N_train), N_train, replace = False)</pre>
     
     <br/>
 
-    Sur ce graphique, on voit qu'au bout d'une trentaine d'itérations E_test augmente&nbsp;! Cela signifie que l'on a fait trop d'itérations&nbsp;: le perceptron est en situation de sur-apprentissage, situation qu'il faut impérativement éviter.
+    Sur ce graphique, on voit qu'au bout d'une trentaine d'itérations, E_test augmente&nbsp;! Cela signifie que l'on a fait trop d'itérations&nbsp;: le perceptron est en situation de sur-apprentissage, situation qu'il faut impérativement éviter.
 
     <br/>
 
     Conclusion&nbsp;: comme on ne sait jamais à l'avance quand le sur-apprentissage va survenir, on ne peut pas faire de boucle pour et on a besoin d'une boucle tant-que. Et savoir quand arrêter cette boucle tant-que n'est pas si simple.
+
+  </p>
+
+  <h3>Travail en autonomie</h3>
+
+  <p>
 
   </p>
   
