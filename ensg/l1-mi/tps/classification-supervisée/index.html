@@ -5,7 +5,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>Classification supervisée avec un perceptron</title>
-  <-link href="https://philippe-preux.github.io/css/ma.css"
+  <link href="https://philippe-preux.github.io/css/ma.css"
 	rel="stylesheet" type="text/css" media="all" />
   <link rel="shortcut icon" type="image/x-icon" 
 	href="https://philippe-preux.github.io/img/site.ico" />
@@ -114,7 +114,7 @@
 
   <p>
 
-    Le jeu d'exemples <i>iris</i> est constitué d'exemples appartenant à 3 classes différentes qui sont des espèces d'iris&nbsp;: <i>Setosa</i>, <i>Versicolor</i>, <i>Virginica</i>. La figure ci-dessous représente les exemples de ces trois classes dans le plan longueur x largeur des pétales&nbsp: les <i>Setosa</i> en bleu, les <i>Versicolor</i> en vert, les <i>Virginica</i> en rouge.
+    Le jeu d'exemples <i>iris</i> est constitué de fleurs d'iris appartenant à 3 espèces différentes&nbsp;: <i>Setosa</i>, <i>Versicolor</i>, <i>Virginica</i>. L'objectif est de déterminer l'espèce (= la classe) d'une fleur étant données ses caractéristiques&nbsp;: longueur et largeur des sépales, longueur et largeur des pétales. Chaque donnée est donc un vecteur de 4 nombres. La figure ci-dessous représente les exemples de ces trois classes dans le plan longueur x largeur des pétales&nbsp: les <i>Setosa</i> en bleu, les <i>Versicolor</i> en vert, les <i>Virginica</i> en rouge.
 
     <br/>
 
@@ -122,7 +122,7 @@
 
     <br/>
 
-    Puisqu'un perceptron permet de séparer deux classes seulement (pas trois, un perceptron réalise une tâche de classification binaire), dans le TP précédent et celui-ci on transforme ce problème à 3 classes en un problème à 2 classes. Ou plutôt, en 2 problèmes différents&nbsp;: si on veut prédire les <i>Setosa</i> par rapport aux deux autres espèces, le problème est linéairement séparable&nbsp;: si on veut prédire les <i>Virginica</i> par rapport aux deux autres, le problème n'est pas linéairement séparable&nbsp;: sur la figure ci-dessus, les rouges (<i>Virgicinica</i>) se mélangent avec les verts (<i>Versicolor</i>).
+    Puisqu'un perceptron permet de séparer deux classes seulement (pas trois, un perceptron réalise une tâche de classification binaire), dans le TP précédent et celui-ci on transforme ce problème à 3 classes en un problème à 2 classes. Ou plutôt, en 2 problèmes différents&nbsp;: si on veut prédire les <i>Setosa</i> par rapport aux deux autres espèces, le problème est linéairement séparable&nbsp;: si on veut prédire les <i>Virginica</i> par rapport aux deux autres, le problème n'est pas linéairement séparable&nbsp;: sur la figure ci-dessus, on voit que les rouges (<i>Virgicinica</i>) se mélangent avec les verts (<i>Versicolor</i>).
 
     <br/>
 
@@ -130,9 +130,11 @@
 
     <br/>
     
-    Pour cela, on effectue ce qui suit&nbsp;:
+    Dans ce TP, on va donc utiliser deux étiquettes, l'une indiquant que la donnée est un <i>Setosa</i>, l'autre que la donnée est un <i>Virginica</i>. Pour cela, on effectue ce qui suit&nbsp;:
 
-    <pre>N = len (iris.target) # le nombre d'exemples
+  </p>
+  
+  <pre>N = len (iris.target) # le nombre d'exemples
 Y_setosa = np.zeros ((N))      # Y_setosa est un tableau contenant N 0
 Y_virginica = np.zeros ((N))   # idem pour Y_virginica
 for i in range (len (iris.target)):
@@ -145,6 +147,8 @@ for i in range (len (iris.target)):
     else:
         Y_virginica [i] = 0</pre>
 
+  <p>
+    
     Ensuite, si on veut prédire les <i>Setosa</i>, on affecte <kbd>Y_setosa</kbd> à <kbd>sorties</kbd>. Si on veut prédire les <i>Virginica</i>, on affecte <kbd>Y_virginica</kbd> à <kbd>sorties</kbd>.
 
   </p>
@@ -161,7 +165,7 @@ for i in range (len (iris.target)):
 
   <p>
 
-    Le partionnement du jeu d'exemples consiste à découper l'ensemble des exemples (X, Y) en deux sous-ensembes disjoints. Une proportion <i>p</i> d'exemples constitue (X_test, Y_test), les autres constituant (X_train, Y_train).
+    Le partionnement du jeu d'exemples consiste à découper l'ensemble des exemples (X, Y) en deux sous-ensembles disjoints. Une proportion <i>p</i> d'exemples constitue (X_test, Y_test), les autres constituant (X_train, Y_train).
 
     <br/>
 
@@ -173,26 +177,42 @@ for i in range (len (iris.target)):
 
     <br/>
 
-    La fonction qui réalise ce découpage se nomme <kbd>train_test_split()</kbd>.
-    Pour l'utiliser, on doit d'abord écrire&nbsp;:
-    
-    <pre>import numpy as np
+    Une fonction est disponible dans le paquetage <kbd>sklearn</kbd> qui réalise ce découpage. Elle se nomme <kbd>train_test_split()</kbd>.
+    Pour l'utiliser, on écrit d'abord&nbsp;:
+
+  </p>
+  
+  <pre>import numpy as np
 graine = int ("Perceptron", base=36)%2**31
 gnpa = np.random.default_rng (graine)</pre>
 
+  <p>
+    
     <i>Strico senso</i>, ces lignes ne sont pas indispensables pour effectuer le partionnement du jeu d'exemples. Ces lignes garantissent qu'à chaque fois que vous lancez votre programme, il partitionne le jeu d'exemples exactement de la même manière. C'est un point important sur lequel nous revenons <a href="#repro">plus bas</a>.
 
     <br/>
 
     Maintenant, on peut partitionner le jeu d'exemples. On fait comme suit. Supposons que p=0,2, on écrit&nbsp;:
 
-    <pre>from sklearn.model_selection import train_test_split
+  </p>
+  
+  <pre>from sklearn.model_selection import train_test_split
 X_train, X_test, Y_train, Y_test = train_test_split (X, Y, test_size = 0.2, random_state = np.random.RandomState (graine))</pre>
+
+  <p>
+    
+    On a désormais partitionné le jeu d'exemples (X, Y) en un jeu d'entraînement (X_train, Y_train) et un jeu d'exemples (X_test, Y_test). Le premier est composé de 80% des exemples de (X, Y), le second est composé des 20% restants. Sur la figure ci-dessous, j'indique avec des points plus gros les exemples de test. Il faut bien garder à l'esprit que ces exemples ne sont pas utilisés pour calculer les poids, seuls les petits points le sont.
+    
+    <br/>
+
+    <img src="./train_test.png" width="300pt" alt="Les exemples d'iris où le jeu de test est indiqué par des points plus gros." />
 
     <br/>
 
-    On a désormais partitionnement le jeu d'exemples (X, Y) en un jeu d'entraînement (X_train, Y_train) et un jeu d'exemples (X_test, Y_test). Le premier est composé de 80% des exemples de (X, Y), le second est composé des 20% restants.
-    
+    <font size="-5">Si vous voulez reproduire ce graphique avec des gros points et des petits, il faut vous inspirez de la fonction <kbd>debut_figure()</kbd>&nbsp;: dans la fonction <kbd>scatter()</kbd>, le paramètre <kbd>s = 2</kbd> indique la surface des points. Il suffit donc d'afficher les exemples d'entraînement avec <kbd>s = 2</kbd> et les exemples de test avec une valeur de <kbd>s</kbd> plus grande.</font>
+
+    <br/>
+
   </p>
   
   <h3>Parcours des exemples dans un ordre aléatoire</h3>
@@ -201,20 +221,22 @@ X_train, X_test, Y_train, Y_test = train_test_split (X, Y, test_size = 0.2, rand
 
     Pour parcourir aléatoirement les exemples, il suffit d'égrener leurs indices dans un ordre aléatoire. Pour cela, on peut écrire&nbsp;:
 
-    <pre>N_train = len (Y_train)
+  </p>
+  
+  <pre>N_train = len (Y_train)
 permutation = gnpa.choice (np.arange (N_train), N_train, replace = False)</pre>
 
-    <br/>
-
+  <p>
+    
     Il faut avoir préalablement importer le paquetage <kbd>numpy</kbd>.
-
+    
     <br/>
 
     <kbd>permutation</kbd> contient une permutation des entiers de 0 à <kbd>N_train - 1</kbd>.
 
     <br/>
 
-    Ensuite dans le corps de la boucle, il suffit de remplacer la variable <kbd>i</kbd> par <kbd>permutation [i]</kbd> et les exemples seront parcourus dans un ordre aléatoire. En calculant une nouvelle permutation à chaque itération de la DGS, le parcours des exemples d'entraînement sera différent à chaque itération.
+    Ensuite dans le corps de la boucle, il suffit de remplacer la variable <kbd>i</kbd> par <kbd>permutation [i]</kbd> et les exemples seront parcourus dans un ordre aléatoire. En calculant une nouvelle permutation à chaque itération de la DGS, le parcours des exemples d'entraînement sera différent à chaque itération de la DGS.
 
   </p>
 
@@ -228,12 +250,12 @@ permutation = gnpa.choice (np.arange (N_train), N_train, replace = False)</pre>
 
     <br/>
 
-    Attention&nbsp;: vous entrez dans la manipulation d'un type d'algorithmes qu'il n'est pas toujours facile de faire fonctionner comme on le voudrait. Quand ça ne marche pas, il faut bien réfléchir à ce que vous faites, vérifiez que votre programme fait bien ce que vous croyez, ou espérez, qu'il fait&nbsp;: il faut mener l'enquête jusquà comprendre ce qui ne va pas, le corriger et le faire fonctionner. En particulier, déterminer quand il faut arrêter les itérations de la DGS n'est pas si simple qu'on pourrait l'espérer.
+    Attention&nbsp;: vous entrez dans la manipulation d'un type d'algorithmes qu'il n'est pas toujours facile de faire fonctionner comme on le voudrait. Quand ça ne marche pas, il faut bien réfléchir à ce que l'on fait, vérifier que le programme fait bien ce que l'on croit, ou espére, qu'il fait&nbsp;: il faut mener l'enquête jusqu'à comprendre ce qui ne va pas, le corriger et le faire fonctionner. En particulier, déterminer quand il faut arrêter les itérations de la DGS n'est pas si simple qu'on pourrait l'espérer. On voit cela maintenant.
 
     <br/>
     <br/>
 
-    On va commencer par calculer les poids d'un perceptron qui sépare les <i>Setosa</i> des deux autres espèces&nbsp;: ce problème est linéairement séparable. On va donc utiliser les étiquettes stockées dans <kbd>Y_setosa</kbd>.
+    On va commencer par calculer les poids d'un perceptron qui sépare les <i>Setosa</i> des deux autres espèces&nbsp;: ce problème est linéairement séparable, ce doit être facile. On va donc utiliser les étiquettes stockées dans <kbd>Y_setosa</kbd>.
 
     <br/>
 
@@ -249,15 +271,7 @@ permutation = gnpa.choice (np.arange (N_train), N_train, replace = False)</pre>
 
     <br/>
 
-    Sur cette figure, j'indique avec des points plus gros les exemples de test. Ces exemples ne sont pas utilisés pour calculer les poids, seuls les petits points le sont.
-
-    <br/>
-
-    <font size="-5">Si vous voulez reproduire ce graphique avec des gros points et des petits, il faut vous inspirez de la fonction <kbd>debut_figure()</kbd>&nbsp;: dans la fonction <kbd>scatter()</kbd>, le paramètre <kbd>s = 2</kbd> indique la surface des points. Il suffit donc d'afficher les exemples d'entraînement avec <kbd>s = 2</kbd> et les exemples de test avec une valeur de <kbd>s</kbd> plus grande.</font>
-
-    <br/>
-
-    Si vous êtes étonné ou déçu, c'est normal&nbsp;: on s'attend à ce que le perceptron prédise correctement la classe et il ne le fait pas, ça devrait marcher. Avant de lire la suite, il est utile de réfléchir à ce qui peut ne pas bien se passer.
+    Si vous êtes étonné ou déçu, c'est normal&nbsp;: on s'attend à ce que le perceptron prédise correctement la classe et il ne le fait pas. Pourtant, ça devrait marcher. Avant de lire la suite, il est utile de réfléchir à ce qui peut ne pas bien se passer.
 
     <br/>
     <br/>
@@ -280,11 +294,11 @@ permutation = gnpa.choice (np.arange (N_train), N_train, replace = False)</pre>
     <br/>
     <br/>
 
-    La raison de l'échec est que la DGS s'est arrêtée trop tôt. Ce n'est pas parce E_test ne diminue pas d'une itération à la suivante qu'il ne pourrait pas le faire si on itère un peu car à chaque itération, les poids sont corrigés à l'aide des exemples d'entraînement et cela peut faire diminuer E_test.
+    La raison de l'échec est que la DGS s'est arrêtée trop tôt. Les poids du perceptron sont corrigés en utilisant le jeu d'entraînement, pas le jeu de test. Aussi, ce n'est pas parce que l'on modifie les poids que l'erreur de test diminue. Ce n'est pas parce E_test ne diminue pas d'une itération à la suivante qu'il ne pourrait pas le faire si on itère un peu plus car à chaque itération, les poids sont corrigés à l'aide des exemples d'entraînement et cela peut faire diminuer E_test.
 
     <br/>
 
-    Pour ne pas s'arrêter trop tôt, on pourrait se dire que si E_test ne diminue pas, on va encore réaliser 10 itérations (par exemple 10) et si décidément E_test ne diminue pas, on va s'arrêter.
+    Pour ne pas s'arrêter trop tôt, on pourrait se dire que si E_test ne diminue pas, on va encore réaliser 10 itérations (10 est juste une valeur prise en exemple) et si décidément E_test ne diminue pas, on s'arrête.
 
     <br/>
 
@@ -296,7 +310,7 @@ permutation = gnpa.choice (np.arange (N_train), N_train, replace = False)</pre>
 
     <br/>
 
-    Comparons-la à la précédente&nbsp;: c'est mieux. Par ailleurs, si votre programme affiche E_test à chaque itération du tant-que de la DGS, vous pouvez constater qu'après avoir stagné, elle a continuer de diminuer.
+    Comparons-la à la précédente&nbsp;: c'est mieux. Par ailleurs, si votre programme affiche E_test à chaque itération du tant-que de la DGS, vous pouvez constater qu'après avoir stagné, elle a continué de diminuer.
 
     <br/>
 
@@ -309,7 +323,7 @@ permutation = gnpa.choice (np.arange (N_train), N_train, replace = False)</pre>
     <br/>
 
     On voit que l'un des exemples bleus est mal prédit&nbsp;: c'est un exemple d'entraînement aussi la DGS n'en tient pas compte pour s'arrêter&nbsp;: seuls les exemples de test sont utilisés pour déterminer l'arrêt du tant-que.
-    Si cet exemple était dans le jeu de test, les itérations se seraient poursuivies.
+    Si cet exemple était dans le jeu de test, les itérations se poursuivraient.
 
     <br/>
 
@@ -319,8 +333,8 @@ permutation = gnpa.choice (np.arange (N_train), N_train, replace = False)</pre>
 
     <img src="./expe4.png" width="300pt" alt="Expérience 4 : le perceptron sépare Setosa des autres iris, y compris les exemples d'entraînement." />
 
-    <br/>    
-    
+    <br/>
+
   </p>
 
   <h3>Application aux iris&nbsp;: cas de deux classes non linéairement séparables</h3>
@@ -331,7 +345,7 @@ permutation = gnpa.choice (np.arange (N_train), N_train, replace = False)</pre>
 
     <br/>
 
-    Refaites tout ce que l'on vient de faire.
+    Refaites tout ce que l'on vient de faire avec ces étiquettes.
 
     <br/>
 
@@ -347,7 +361,7 @@ permutation = gnpa.choice (np.arange (N_train), N_train, replace = False)</pre>
     <br/>
     <br/>
 
-    On pourrait se dire qu'après tout, pourquoi se compliquer les choses et pourquoi ne pas tout simplement itérer par exemple 100 la boucle tant-que. Modifiez votre programme pour le faire et exécutez-le. Il est intéressant de tracer E_train et E_test au fil des itérations. J'obtiens cela&nbsp;:
+    On pourrait se dire qu'après tout, pourquoi compliquer les choses et pourquoi ne pas tout simplement réaliser 100 itérations (par exemple) du corps de la boucle tant-que. Modifiez votre programme pour le faire et exécutez-le. Il est intéressant de tracer E_train et E_test au fil des itérations. J'obtiens cela&nbsp;:
     
     <br/>
 
@@ -363,12 +377,6 @@ permutation = gnpa.choice (np.arange (N_train), N_train, replace = False)</pre>
 
   </p>
 
-  <h3>Travail en autonomie</h3>
-
-  <p>
-
-  </p>
-  
   <h2 id="repro">Reproductibilité expérimentale</h2>
 
   <p>
@@ -461,14 +469,37 @@ Les 5 premiers à nouveau :
 
   <p>
 
-    Comme vous utilisez les mêmes graines que mois, vuos obtenez le même résultat.
+    Comme vous utilisez les mêmes graines que moi, vous obtenez le même résultat. Si vous changez la valeur affectée à <kbd>graine</kbd>, vous obtiendrez d'autres nombres.
 
     <br/>
 
     En conclusion, ajoutez l'initialisation de la graine dans votre programme. Ainsi, le partitionnement du jeu d'exemples entre les exemples d'entraînement et les exemples de test sera toujours le même. Si vous voulez changer ce partionnement, changez la valeur de la graine.
 
+    <br/>
+
+    Comparez le résultat obtenu en exécutant votre programme avec des graines différentes.
+
   </p>
-  
+
+  <h2>Travail en autonomie</h2>
+
+  <p>
+
+    Il y a trois classes/espèces d'iris. Un perceptron peut seulement distinguer deux classes. En utilisant deux perceptrons qui prédisent chacun une certaine classe et en combinant leurs prédictions pour une certaine donnée, pouvez-vous prédire les 3 classes&nbsp;? Si oui faites-le. Sinon, réfléchissez encore un peu.
+
+    <br/>
+
+    À la suite de ce que l'on a fait plus haut, les quelques lignes suivantes peuvent être vous être utiles&nbsp;:
+    
+  </p>
+
+    <pre>Y_versicolor = np.zeros ((N))
+for i in range (len (iris.target)):
+    if iris.target [i] == 1:
+        Y_versicolor [i] = 1
+    else:
+        Y_versicolor [i] = 0</pre>
+
   <h2>Pour finir</h2>
 
   <p>
@@ -479,7 +510,7 @@ Les 5 premiers à nouveau :
   
   <ul>
     <li>il doit commencer par un commentaire indiquant son titre, son objet, ses auteurs, la date de réalisation.</li>
-    <li>Que vous utilisiez des fonctions ou pas (ce n'est pas obligatoire), vous commentez votre programme avec parcimonie, là où c'est utile.</li>
+    <li>Vous commentez votre programme avec parcimonie, là où c'est utile.</li>
     <li>Chaque fonction doit commencer par un commentaire indiquant au minimum ce que fait la fonction, le sens des paramètres, les pré-conditions et ce que la fonction retourne.</li>
     <li>Le type des paramètres des fonctions doit être indiqué, ainsi que le type de la valeur retournée.</li>
   </ul>
