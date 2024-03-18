@@ -114,7 +114,17 @@
 
   <p>
 
-    Le jeu d'exemples <i>iris</i> est constitué de fleurs d'iris appartenant à 3 espèces différentes&nbsp;: <i>Setosa</i>, <i>Versicolor</i>, <i>Virginica</i>. L'objectif est de déterminer l'espèce (= la classe) d'une fleur étant données ses caractéristiques&nbsp;: longueur et largeur des sépales, longueur et largeur des pétales. Chaque donnée est donc un vecteur de 4 nombres. La figure ci-dessous représente les exemples de ces trois classes dans le plan longueur x largeur des pétales&nbsp: les <i>Setosa</i> en bleu, les <i>Versicolor</i> en vert, les <i>Virginica</i> en rouge.
+    Le jeu d'exemples <i>iris</i> est constitué de fleurs d'iris appartenant à 3 espèces différentes&nbsp;: <i>Setosa</i>, <i>Versicolor</i>, <i>Virginica</i>. L'objectif est de déterminer l'espèce (= la classe) d'une fleur étant données ses caractéristiques&nbsp;: longueur et largeur des sépales, longueur et largeur des pétales. Chaque donnée est donc un vecteur de 4 nombres. Pour l'instant, dans ce TP, on ne prend en considération que les deux attributs longeuur et largeur des pétales. On charge les données en effectuant&nbsp;:
+
+  </p>
+
+  <pre>from sklearn import datasets
+iris = datasets.load_iris()
+entrées_iris = iris.data[:,2:4]</pre>
+  
+  <p>
+
+    La figure ci-dessous représente les exemples de ces trois classes dans le plan longueur x largeur des pétales&nbsp: les <i>Setosa</i> en bleu, les <i>Versicolor</i> en vert, les <i>Virginica</i> en rouge.
 
     <br/>
 
@@ -483,6 +493,24 @@ Les 5 premiers à nouveau :
 
   <h2>Travail en autonomie</h2>
 
+  <h3>Utilisation des 4 attributs</h3>
+
+  <p>
+
+    Comme on l'a dit plus haut, chaque iris est caractérisé par 4 attributs. Pour l'instant, on n'en a considéré que deux, la longueur et la largeur des pétales. Refaire tout ce que vous venez de faire en utilisant les 4 attributs. Pour cela, vous chargez les données comme suit&nbsp;:
+    
+  </p>
+  
+  <pre>entrées_iris = iris.data</pre>
+  
+  <p>
+
+    Est-ce que cela change quelque chose&nbsp;?
+    
+  </p>
+  
+  <h3>2 perceptrons pour 3 classes</h3>
+  
   <p>
 
     Il y a trois classes/espèces d'iris. Un perceptron peut seulement distinguer deux classes. En utilisant deux perceptrons qui prédisent chacun une certaine classe et en combinant leurs prédictions pour une certaine donnée, pouvez-vous prédire les 3 classes&nbsp;? Si oui faites-le. Sinon, réfléchissez encore un peu.
