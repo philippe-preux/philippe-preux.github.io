@@ -94,11 +94,11 @@
 	    <li><b>Si</b> d est non nulle <b>alors</b>
 	      <br/>
 	      <ol>
-		<li>biais = biais - &eta; d s (1 - s)</li>
+		<li>biais = biais - &eta; d (1 - s<sup>2</sup>)</li>
 		<li><s>corrections = corrections + |&eta; d (1 - s<sub>2</sub>)|</s></li>
 		<li><b>Pour</b> chaque poids j <b>:</b>
 		  <ul>
-		    <li>p<sub>j</sub> = p<sub>j</sub> - &eta; d x<sub>i,j</sub> (1 - s<sub>2</sub>)</li>
+		    <li>p<sub>j</sub> = p<sub>j</sub> - &eta; d x<sub>i,j</sub> (1 - s<sup>2</sup>)</li>
 		    <li><s>corrections = corrections + |&eta; d x<sub>i,j</sub> s (1 - s)|</s></li>
 		  </ul>
 		</li>
