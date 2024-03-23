@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Classification supervisée avec un perceptron&nbsp;: activités complémentaires</title>
+  <link href="https://philippe-preux.github.io/css/ma.css"
+	rel="stylesheet" type="text/css" media="all" />
+  <link rel="shortcut icon" type="image/x-icon" 
+	href="https://philippe-preux.github.io/img/site.ico" />
+</head>
+
+<body>
+<div class="tpR">
+
+  <h1>Classification supervisée avec un perceptron&nbsp;: activités complémentaires</h1>
+
+  <p>
+
+    Ce TP est optionnel (mais je vous encourage fortement à le faire).
+
+    <br/>
+
+    Il est la suite du TP sur la <a href="./index.html">classification supervisée avec un perceptron</a>. Il faut absolument avoir terminé le TP sur la DGS avant d'aborder celui-ci.
+
+    <br/>
+
+    Ce TP étant optionnel, je donne peu d'explications et je vous encourage fortement à réfléchir à ce que vous faites, à avoir des idées et à les tester.
+
+    <br/>
+
+    L'objectif de ce TP est d'étudier d'un peu plus près les prédictions réalisées par le perceptron une fois entraîné.
+
+  </p>
+
+  <h2>Carte des prédictions</h2>
+
+  <p>
+
+    On considère qu'un iris est représenté uniquement par la longueur et la largeur de ses pétales.
+
+    <br/>
+
+    Après avoir calculé les poids du perceptron, réaliser une carte des prédictions du perceptron. C'est-à-dire, pour chaque point dans le plan correspondant à une longueur de pétale comprise entre 0 et 8 cm et une largeur de pétale comprise entre 0 et 3 cm, calculer la prédiction pour un tel iris et réaliser une représentation graphique.
+
+    <br/>
+
+    Pour un perceptron prédisant les <i>Setosa</i> par rapport aux deux autres classes, j'obtiens cette représentation&nbsp;:
+
+    <br/>
+
+    <img src="frontiere_Setosa.png" width="500pt" alt="Carte des prédictions." />
+
+    <br/>
+
+    Sur cette figure, les exemples d'entraînement sont indiqués par des points plus gros, verts pour les <i>Setosa</i>, bleus pour les autres.
+
+    <br/>
+
+    On voit par ailleurs la prédiction réalisée par ce perceptron pour tous les points du domaine&nbsp;: vert clair indique que ce point est prédit comme <i>Setosa</i>, bleu clair indique qu'il est prédit autre (<i>Versicolor</i> ou <i>Virginica</i>).
+
+    <br/>
+
+    De même, pour un perceptron prédisant les <i>Virginica</i> par rapport aux deux autres classes, j'obtiens cette représentation&nbsp;:
+
+    <br/>
+
+    <img src="frontiere_Virginica.png" width="500pt" alt="Carte des prédictions." />
+
+  </p>
+
+
+  <h2>Analyse de sensibilité</h2>
+
+  <p>
+
+    On s'intéresse maintenant à la sensibilité de la prédiction par rapport à la précision de la mesure des attributs. Toute mesure est accompagnée d'une incertitude. Par exemple, quand on mesure la longueur ou la largeur des pétales, on peut faire une erreur d'un millimètre.
+
+    <br/>
+
+    Ici, on étudie les conséquences de cette imprécision sur la prédiction du perceptron.
+
+    <br/>
+
+    On va réaliser une carte de sensibilité&nbsp;: pour chaque point dans le plan (le même que ci-dessus), vous déterminez si la prédiction du perceptron change si on commet une erreur de mesure de m millimètres (prendre m = 1). Et vous réalisez une carte indiquant les zones où une telle erreur entraîne un changement de prédiction, donc les zones où il faut essayer de mesurer les attributs avec une grande précision.
+
+    <br/>
+
+    Pour la prédiction de <i>Virginica</i> par rapport aux deux autres classes, j'obtiens cette carte&nbsp;:
+
+    <br/>
+
+    <img src="sensibilité_Virginica.png" width="500pt" alt="Carte des prédictions." />
+
+    <br/>
+
+    Les points bleus indiquent les zones sensibles, c'est-à-dire là où une variation de la longueur ou de la largeur d'1 millimètre modifie la prédiction du perceptron.
+
+    <br/>
+
+    Pourquoi la zone de sensibilité a-t-elle cette forme&nbsp;?
+
+  </p>  
+
+  <h2>Pour finir</h2>
+
+  <p>
+
+    Le source de votre programme doit respecter les points suivants&nbsp;:
+      
+  </p>
+  
+  <ul>
+    <li>il doit commencer par un commentaire indiquant son titre, son objet, ses auteurs, la date de réalisation.</li>
+    <li>Vous commentez votre programme avec parcimonie, là où c'est utile.</li>
+    <li>Chaque fonction doit commencer par un commentaire indiquant au minimum ce que fait la fonction, le sens des paramètres, les pré-conditions et ce que la fonction retourne.</li>
+    <li>Le type des paramètres des fonctions doit être indiqué, ainsi que le type de la valeur retournée.</li>
+  </ul>
+  
+  <p>
+    
+    Pour finir, vous m'envoyez votre/vos script(s) par email, en mettant votre binôme en cc.
+    
+  </p>
+  
+</div>
+
+</body>
+</html>
