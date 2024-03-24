@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Perceptron multi-couches</title>
+  <link href="https://philippe-preux.github.io/css/ma.css"
+	rel="stylesheet" type="text/css" media="all" />
+  <link rel="shortcut icon" type="image/x-icon" 
+	href="https://philippe-preux.github.io/img/site.ico" />
+</head>
+
+<body>
+<div class="tpR">
+
+  <h1>Perceptron multi-couches</h1>
+
+  <p>
+
+    Dans ce TP, on manipule des perceptrons multi-couches.
+
+    <br/>
+
+    <b>Avertissement&nbsp;:</b> la manipulation de perceptrons multi-couches est loin d'être aussi simple que la manipulation d'un simple perceptron. Ce qui est présenté dans ce TP consiste juste en quelques notions simples. Pour une utilisation sérieuse de perceptrons multi-couches, ce qui est expliqué ici ne suffit pas, c'est juste une introduction.
+
+  </p>
+
+  <!--
+      0) mlp dans sklearn
+      1) les iris => recherche d'un mlp qui fonctionne bien, le plus petit possible (le moins de poids)
+      2) apprentissage d'un séparateur non linéaire (courbe que j'utilise pour illustrer le sur-apprentissage)
+      3) autre jeu de données ???
+      4) régression
+    -->
+
+  <h2>Définition et utilisation d'un perceptron multi-couches en python</h2>
+
+  <p>
+
+    Pour créer un perceptron multi-couches, on doit au minimum spécifier son architecture (nombre de couches cachées et taille de chaque couche cachée) et la fonction d'activation des perceptrons. Comme on l'a vu dans le TP précédent, il faut aussi spécifier le générateur de nombres pseudo-aléatoires.
+
+    <br/>
+
+    Si on veut créer un PMC composé de deux couches cachées, la première composée de 5 perceptrons, la seconde de 2 perceptrons, ces perceptrons ayant une fonction d'activation tangente hyperbolique, on écrira&nbsp;:
+
+  </p>
+
+  <pre>architecture_mlp = (5, 2)
+from sklearn.neural_network import MLPClassifier
+mlp = MLPClassifier (hidden_layer_sizes = architecture_mlp,
+                     activation = "tanh",
+                     random_state = rs)</pre>
+
+  <p>
+
+    Pour calculer les poids, on utilise la méthode <kbd>fit()</kbd>&nbsp;:
+
+  </p>
+
+  <pre>mlp.fit (X_train, Y_train)
+print ("Taux d'erreur sans normalisation : " + str (np.sum (mlp.predict (X_test) != Y_test) / Y_test.shape[0]))</pre>
+
+  <p>
+
+    Dans cet exemple, on calcule les poids en utilisant les exemples d'entraînement que l'on a stockés dans la matrice <kbd>X_train</kbd> et dont les étiquettes sont dans le vecteur <kbd>Y_train</kbd>. On reprend les mêmes notations que dans le TP précédent.
+
+    <br/>
+    <br/>
+
+    On peut ensuite prédire l'étiquette de données quelconques. En supposant qu'elles sont stockées dans la matrice <kbd>X_test</kbd>, on écrira&nbsp;:
+  </p>
+
+  <pre>Y_pred = mlp.predict (X_test)</pre>
+
+  <p>
+
+    et <kbd>Y_pred</kbd> sera un vecteur contenant les prédictions pour chacune des données contenues dans <kbd>X_test</kbd>.
+
+  </p>
+  
+  <h2>Un PMC pour les iris</h2>
+
+  <p>
+
+
+  </p>
+  
+  <h2>Un PMC pour un séparateur non linéaire</h2>
+
+  <p>
+
+
+  </p>
+
+  <h2>Activité en autonomie</h2>
+
+  <p>
+
+
+  </p>
+  
+  <h2>Tâche de régression</h2>
+
+  <p>
+
+
+  </p>
+
+  <pre>from sklearn import datasets
+iris = datasets.load_iris()
+entrées_iris = iris.data[:,2:4]</pre>
+  
+  <p>
+
+
+  </p>
+
+  <h2>Pour finir</h2>
+
+  <p>
+
+    Le source de votre programme doit respecter les points suivants&nbsp;:
+      
+  </p>
+  
+  <ul>
+    <li>il doit commencer par un commentaire indiquant son titre, son objet, ses auteurs, la date de réalisation.</li>
+    <li>Vous commentez votre programme avec parcimonie, là où c'est utile.</li>
+    <li>Chaque fonction doit commencer par un commentaire indiquant au minimum ce que fait la fonction, le sens des paramètres, les pré-conditions et ce que la fonction retourne.</li>
+    <li>Le type des paramètres des fonctions doit être indiqué, ainsi que le type de la valeur retournée.</li>
+  </ul>
+  
+  <p>
+    
+    Pour finir, vous m'envoyez votre/vos script(s) par email, en mettant votre binôme en cc.
+    
+  </p>
+  
+</div>
+
+</body>
+</html>
