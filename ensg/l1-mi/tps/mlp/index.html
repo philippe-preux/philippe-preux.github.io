@@ -18,11 +18,11 @@
 
   <p>
 
-    Dans ce TP, on manipule des perceptrons multi-couches.
+    Dans ce TP, on manipule des perceptrons multi-couches (PMC).
 
     <br/>
 
-    <b>Avertissement&nbsp;:</b> la manipulation de perceptrons multi-couches est loin d'être aussi simple que la manipulation d'un simple perceptron. Ce qui est présenté dans ce TP consiste juste en quelques notions simples. Pour une utilisation sérieuse de perceptrons multi-couches, ce qui est expliqué ici ne suffit pas, c'est juste une introduction.
+    <b>Remarque&nbsp;:</b> la manipulation de perceptrons multi-couches est loin d'être aussi simple que la manipulation d'un perceptron. Ce qui est présenté dans ce TP consiste juste en quelques notions simples. Pour une utilisation sérieuse de perceptrons multi-couches, ce qui est expliqué ici ne suffit pas, c'est juste une introduction.
 
   </p>
 
@@ -42,40 +42,80 @@
 
     <br/>
 
-    Si on veut créer un PMC composé de deux couches cachées, la première composée de 5 perceptrons, la seconde de 2 perceptrons, ces perceptrons ayant une fonction d'activation tangente hyperbolique, on écrira&nbsp;:
+    Si on veut créer un PMC composé de deux couches cachées, la première composée de 5 perceptrons, la seconde de 2 perceptrons, ces perceptrons ayant une fonction d'activation tangente hyperbolique, on pourra écrire&nbsp;:
 
   </p>
 
-  <pre>architecture_mlp = (5, 2)
+  <pre>architecture_pmc = (5, 2)
 from sklearn.neural_network import MLPClassifier
-mlp = MLPClassifier (hidden_layer_sizes = architecture_mlp,
+pmc = MLPClassifier (hidden_layer_sizes = architecture_pmc,
                      activation = "tanh",
+                     solver = "lbfgs",
+                     max_iter = 500,
                      random_state = rs)</pre>
 
   <p>
 
-    Pour calculer les poids, on utilise la méthode <kbd>fit()</kbd>&nbsp;:
+    Explication des paramètres&nbsp;:
 
   </p>
 
-  <pre>mlp.fit (X_train, Y_train)
-print ("Taux d'erreur sans normalisation : " + str (np.sum (mlp.predict (X_test) != Y_test) / Y_test.shape[0]))</pre>
+  <ul>
+    <li><kbd>hidden_layer_sizes = architecture_pmc</kbd> indique le nombre de couches et la taille de chacune.</li>
+    <li><kbd>activation = "tanh"</kbd> indique la fonction d'activation des perceptrons des couches cachées.</li>
+    <li><kbd>solver = "lbfgs"</kbd> indique l'algorithme à utiliser pour calculer les poids. 3 sont disponibles : descente de gradient stochastique (sgd), une variante (adam) et L-BFGS qui est un autre type d'algorithme d'optimisation qui fonctionne bien pour des jeux d'exemples pas très gros.</li>
+    <li><kbd>max_iter = 500</kbd> est un paramètre de l'algorithme L-BFGS.</li>
+    <li><kbd>random_state = rs</kbd> que l'on l'a déjà rencontré.</li>
+  </ul>
+  
+  <p>
+    
+    Pour calculer les poids, on utilise ensuite la méthode <kbd>fit()</kbd>&nbsp;:
 
+  </p>
+
+  <pre>pmc.fit (X_train, Y_train)</pre>
+  
   <p>
 
     Dans cet exemple, on calcule les poids en utilisant les exemples d'entraînement que l'on a stockés dans la matrice <kbd>X_train</kbd> et dont les étiquettes sont dans le vecteur <kbd>Y_train</kbd>. On reprend les mêmes notations que dans le TP précédent.
 
     <br/>
+
+    Comme dans le TP sur la DGS, les itérations de calcul des poids s'arrêtent soit au bout d'un nombre fixé d'itérations (paramètre <kbd>max_iter</kbd>), soit lorsque la performance du PMC ne s'améliore significativement (paramètre <kbd>tol</kbd>) pendant un certain nombre d'itérations (paramètre <kbd>n_iter_no_change</kbd>).
+
+    <br/>
     <br/>
 
     On peut ensuite prédire l'étiquette de données quelconques. En supposant qu'elles sont stockées dans la matrice <kbd>X_test</kbd>, on écrira&nbsp;:
+
   </p>
 
-  <pre>Y_pred = mlp.predict (X_test)</pre>
+  <pre>Y_pred = pmc.predict (X_test)</pre>
 
   <p>
 
     et <kbd>Y_pred</kbd> sera un vecteur contenant les prédictions pour chacune des données contenues dans <kbd>X_test</kbd>.
+
+    <br/>
+
+    On peut ensuite comparer ces étiquettes prédites aux étiquettes correctes <kbd>Y_test</kbd>. Par exemple, <kbd>np.sum (Y_pred != Y_test) / len (Y_test)</kbd> calcule la proportion d'exemples de test pour lesquels la prédiction est incorrecte.
+
+  </p>
+
+  <h3>La grande question</h3>
+
+  <p>
+
+    Quand on utilise un perceptron multi-couches, la grande question concerne l'architecture à utiliser&nbsp;: combien de couches cachées, combien de perceptrons par couche&nbsp;?
+
+    <br/>
+
+    Il n'y a pas de réponse toute faite à cette question. Avec l'expérience, on apprend petit à petit que pour tel jeu d'exemples, telle architecture devrait convenir. Néanmoins, en général, on teste différentes architectures et on conserve celle qui donne les résultats les plus satisfaisants. C'est ce que l'on va faire.
+
+    <br/>
+
+    Il faut bien avoir en tête que la performance d'un perceptron multi-couches peut varier à chaque calcul des poids et varie en fonction du partionnement du jeu d'exemples. Aussi, il faut construire plusieurs PMC avec une architecture donnée et prendre en compte la performance moyenne.
 
   </p>
   
@@ -83,9 +123,101 @@ print ("Taux d'erreur sans normalisation : " + str (np.sum (mlp.predict (X_test)
 
   <p>
 
+    On considère le jeu de données des iris et la détermination des <i>Virginica</i>. On aura donc ce bout de code&nbsp;:
+    
+  </p>
+
+  <pre>from sklearn import datasets
+iris = datasets.load_iris()
+entrées_iris = iris.data
+
+# Je calcule la sortie attendue pour chaque donnée.
+sorties_iris = []
+for i in range (len (iris.target)):
+    if iris.target [i] == 2:
+        sorties_iris.append (1)
+    else:
+        sorties_iris.append (0)
+sorties = sorties_iris</pre>
+
+  <p>
+
+    On considère les 4 attributs des iris (longueur et largeur des pétales et des sépales). <kbd>entrées_iris</kbd> contient la matrice des 150 iris décrit chacun par ses 4 attributs et <kbd>sorties</kbd> qui contient l'étiquette à prédire pour chacun.
+
+    <br/>
+    <br/>
+
+    On partitionne ce jeu d'exemples comme dans le TP précédent. On centre et on réduit les attributs comme on l'a vu dans les TP précédents.
+
+    <br/>
+
+    Ensuite, comme indiqué ci-dessus, vous créez un PMC, vous calculez les poids avec <kbd>X_train</kbd> et <kbd>Y_train</kbd> et ensuite, vous mesurez l'erreur de prédiction sur <kbd>X_test</kbd>.
+
+  </p>
+
+  <h3>Test de différentes architectures de PMC</h3>
+
+  <p>
+
+    Comparez l'erreur de prédiction obtenue ci-dessus avec celle obtenue en utilisant d'autres architectures, par exemple <kbd>(6, 3)</kbd>, <kbd>(2, 2)</kbd>, <kbd>(1, 1)</kbd>, <kbd>(3)</kbd>, <kbd>(1)</kbd>. Laquelle donne les meilleurs résultats&nbsp;?
 
   </p>
   
+  <h3>Poids calculés</h3>
+
+  <p>
+
+    Une fois les poids calculés, on peut les obtenir avec <kbd>pmc.coefs_</kbd> et <kbd>pmc.intercepts_</kbd> contient les biais.
+
+    <br/>
+    <br/>
+
+    Par exemple, pour un PMC avec deux couches cachées contenant respectivement 5 et 2 perceptrons, on obtient quelque chose comme cela&nbsp;:
+    
+  </p>
+
+  <pre>>>> mlp.coefs_
+[array([[ 2.24382386,  1.69776656, -2.24867825,  4.34250259,  0.08151146],
+       [ 2.63399065, -0.41853075, -1.01340237, -7.0183241 ,  0.9974338 ],
+       [ 1.99398809, -5.64443327, -3.77687842,  3.12228963,  0.81729629],
+       [ 1.06561158, -1.97843109, -2.73752938,  0.85438636,  0.91595649]]), array([[-2.17720553,  2.22410213],
+       [-1.64392124,  1.8328595 ],
+       [-2.4161274 ,  1.96437139],
+       [ 3.68371142, -3.34386375],
+       [ 0.04460816, -1.65029824]]), array([[ 9.64872995],
+       [-9.44429162]])]</pre>
+
+  <p>
+    On y voit trois matrices. Le premier contient les 4 premières lignes, chaque lligne contient 5 nombres&nbsp;: ce sont les poids entre chacune des 4 entrées (4 entrées car 4 attributs) et chacun des 5 perceptrons de la première couche cachée.
+    
+    <br/>
+
+    Ensuite, on voit une deuxième matrice de 5 lignes et 2 colonnes&nbsp;: ce sont les poids entre chacun des 5 perceptons de la première couce cachée et chacun des 2 perceptrons de la seconde couche cachée.
+
+    <br/>
+
+    Enfin, on voit une troisième matrice qui est composée de seulement 2 lignes et 1 colonne&nbsp;: ce sont les poids entre les sorties des perceptrons de la seconde couche cachée avec le perceptron de sortie.
+
+    <br/>
+    <br/>
+
+    Pour les biais, on obtient quelque chose comme&nbsp;:
+    
+  </p>
+
+  <pre>>>> mlp.intercepts_
+[array([ 1.8724528 ,  2.86780535,  3.57288241,  0.53149196, -1.37838133]), array([-2.61940886,  1.27119812]), array([-3.22011893])]</pre>
+
+  <p>
+
+    On y voit à nouveau 3 matrices d'une seule colonne chacune. La première contient 5 lignes, la deuxième 2 et la troisième 1 seule. Ce sont les biais des respectivement 5, 2 et 1 perceptron des 2 couches cachées et de la couche de sortie.
+
+    <br/>
+
+    En connaissant les poids, vous pouvez calculer vous-même la sortie du PMC pour une donnée.
+
+  </p>
+
   <h2>Un PMC pour un séparateur non linéaire</h2>
 
   <p>
@@ -100,7 +232,7 @@ print ("Taux d'erreur sans normalisation : " + str (np.sum (mlp.predict (X_test)
 
   </p>
   
-  <h2>Tâche de régression</h2>
+  <!--h2>Tâche de régression</h2>
 
   <p>
 
@@ -114,7 +246,7 @@ entrées_iris = iris.data[:,2:4]</pre>
   <p>
 
 
-  </p>
+  </p-->
 
   <h2>Pour finir</h2>
 
