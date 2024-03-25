@@ -167,7 +167,7 @@ sorties = sorties_iris</pre>
 
   <p>
 
-    Une fois les poids calculés, on peut les obtenir avec <kbd>pmc.coefs_</kbd> et <kbd>pmc.intercepts_</kbd> contient les biais.
+    Une fois les poids calculés, on peut les obtenir avec <kbd>pmc.coefs_</kbd> et <kbd>pmc.intercepts_</kbd>. Le premier contient les poids sauf les biais, le second contient les biais.
 
     <br/>
     <br/>
@@ -176,7 +176,7 @@ sorties = sorties_iris</pre>
     
   </p>
 
-  <pre>>>> mlp.coefs_
+  <pre>>>> pmc.coefs_
 [array([[ 2.24382386,  1.69776656, -2.24867825,  4.34250259,  0.08151146],
        [ 2.63399065, -0.41853075, -1.01340237, -7.0183241 ,  0.9974338 ],
        [ 1.99398809, -5.64443327, -3.77687842,  3.12228963,  0.81729629],
@@ -205,7 +205,7 @@ sorties = sorties_iris</pre>
     
   </p>
 
-  <pre>>>> mlp.intercepts_
+  <pre>>>> pmc.intercepts_
 [array([ 1.8724528 ,  2.86780535,  3.57288241,  0.53149196, -1.37838133]), array([-2.61940886,  1.27119812]), array([-3.22011893])]</pre>
 
   <p>
