@@ -218,6 +218,49 @@ sorties = sorties_iris</pre>
 
   </p>
 
+  <h3>Confiance dans la prédiction</h3>
+
+  <p>
+
+    En utilisant la méthode <kbd>predict_proba()</kbd> à la place de <kbd>predict()</kbd>, on obtient non pas la classe prédite mais la probabilité de prédire chacune des deux classes. Cela permet de détecter les données pour lesquelles la prédiction est peu sûre&nbsp;: dans ce cas, la probabilité de chacune des classes est aux alentours de 0,5.
+
+    <br/>
+
+    Calculez <kbd>predict_proba(X_test)</kbd> et inspectez le résultat. Si pour la majorité des données la probabilité de l'une des deux classes est très faible, il y a probablement une ou quelques données pour lesquelles les deux probabilités sont à peu près égales. Par exemple, dans mon cas, les probabilités de chacune des classes pour l'une des données sont <kbd>[6.66756803e-01, 3.33243197e-01]</kbd> et pour une autre <kbd>[6.90766191e-01, 3.09233809e-01]</kbd>. Vous pouvez ensuite vérifier la position de ces données dans le plan longueur x largeur des pétales.
+    
+  </p>
+  
+  <h3>Plus de 2 classes</h3>
+
+  <p>
+
+    On peut traiter des problèmes dans lesquels il y a plus de 2 classes. Jusqu'à maintenant, on a toujours transformé les iris en un problème à 2 classes. On peut remplacer&nbsp;:
+    
+  </p>
+
+  <pre># Je calcule la sortie attendue pour chaque donnée.
+sorties_iris = []
+for i in range (len (iris.target)):
+    if iris.target [i] == 2:
+        sorties_iris.append (1)
+    else:
+        sorties_iris.append (0)
+sorties = sorties_iris</pre>
+
+  <p>
+
+    par simplement&nbsp;:
+    
+  </p>
+  
+  <pre>sorties_iris = iris.target</pre>
+
+  <p>
+
+    et le perceptron multi-couches aura 3 sorties puisqu'il y a 3 classes.
+    
+  </p>
+  
   <h2>Un PMC pour un séparateur non linéaire</h2>
 
   <p>
