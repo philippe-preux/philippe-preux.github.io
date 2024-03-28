@@ -252,6 +252,12 @@ permutation = gnpa.choice (np.arange (N_train), N_train, replace = False)</pre>
 
   <h2>Réalisation</h2>
 
+  <p>
+
+    Remarque&nbsp;: si vous suivez bien ce que j'explique, votre programme doit fonctionner comme ce que j'indique. Si ce n'est pas le cas, que vous voyez sur le graphique qui s'affiche que la droite finale n'est pas du tout bien positionnée, essayez d'initialiser les poids avec d'autres valeurs. En princpe, la valeur initiale n'a pas d'importance dans ce TP&nbsp;: si votre programme sépare les classes pour certaines initialisations mais pas pour d'autres, c'est que votre programme est mal écrit.
+
+  </p>
+  
   <h3>Application aux iris&nbsp;: cas de deux classes linéairement séparables</h3>
 
   <p>
@@ -259,6 +265,31 @@ permutation = gnpa.choice (np.arange (N_train), N_train, replace = False)</pre>
     Mettre en &oelig;uvre toute cette démarche sur le jeu de données iris utilisé dans le TP précédent.
 
     <br/>
+
+    Je résume les différents points (décrits ci-dessus et dans le <a href="perceptron-non-linéaire/">TP précédent</a>)&nbsp;:
+
+  </p>
+
+  <ul>
+    <li>Charger les exemples iris.</li>
+    <li>Calculer <kbd>Y_setosa</kbd> et <kbd>Y_Virginica</kbd>.</li>
+    <li>Centrer réduire les attributs.</li>
+    <li>Initialiser le générateur de nombres pseudo-aéléatoires.</li>
+    <li>Partitionner le jeu d'exemples.</li>
+    <li>Calculer les poids&nbsp;: par rapport à ce que l'on a fait dans le <a href="perceptron-non-linéaire/">TP précédent</a>&nbsp;:
+      <ul>
+	<li>le test de la boucle <b>tant-que</b> s'appuie sur l'erreur de test, c'est-à-dire le nombre d'exemples de test dont la classe est mal prédite.</li>
+	<li>le corps de la boucle se compose de deux étapes&nbsp;:
+	  <ul>
+	    <li>Corriger les poids en utilisant les exemples d'entraînement,</li>
+	    <li>calculer l'erreur de test.</li>
+	  </ul>
+	</li>
+      </ul>
+    </li>
+  </ul>
+  
+  <p>
 
     Attention&nbsp;: vous entrez dans la manipulation d'un type d'algorithmes qu'il n'est pas toujours facile de faire fonctionner comme on le voudrait. Quand ça ne marche pas, il faut bien réfléchir à ce que l'on fait, vérifier que le programme fait bien ce que l'on croit, ou espére, qu'il fait&nbsp;: il faut mener l'enquête jusqu'à comprendre ce qui ne va pas, le corriger et le faire fonctionner. En particulier, déterminer quand il faut arrêter les itérations de la DGS n'est pas si simple qu'on pourrait l'espérer. On voit cela maintenant.
 
