@@ -65,7 +65,7 @@ pmc = MLPClassifier (hidden_layer_sizes = architecture_pmc,
     <li><kbd>activation = "tanh"</kbd> indique la fonction d'activation des perceptrons des couches cachées.</li>
     <li><kbd>solver = "lbfgs"</kbd> indique l'algorithme à utiliser pour calculer les poids. 3 sont disponibles : descente de gradient stochastique (sgd), une variante (adam) et L-BFGS qui est un autre type d'algorithme d'optimisation qui fonctionne bien pour des jeux d'exemples pas très gros.</li>
     <li><kbd>max_iter = 500</kbd> est un paramètre de l'algorithme L-BFGS.</li>
-    <li><kbd>random_state = gnpa</kbd> où <kbd>gnpa</kbd> est défini par&nbsp;: <kbd>gnpa = np.random.RandomState (graine)</kbd>.</li>
+    <li><kbd>random_state = gnpa</kbd> où <kbd>gnpa</kbd> est défini par&nbsp;: <kbd>gnpa = np.random.RandomState (graine)</kbd> pour initialiser le générateur de nombres pseudo-aléatoires.</li>
   </ul>
   
   <p>
