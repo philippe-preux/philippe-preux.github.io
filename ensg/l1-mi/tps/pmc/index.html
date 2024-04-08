@@ -301,24 +301,24 @@ sorties = sorties_iris</pre>
     Laquelle des deux approches donne les meilleurs résultats&nbsp;? D'après vous, pourquoi&nbsp;?
 
   </p>
-  
-  <!--h2>Un PMC pour un séparateur non linéaire</h2-->
 
-  <!--p>
-
-    À suivre...
-
-  </p-->
-
-  <!--h2>Activité en autonomie</h2>
+  <h2>Activité en autonomie</h2>
 
   <p>
 
-    À suivre...
+    Nous pouvons maintenant appliquer tout ce que l'on vient de voir à d'autres jeux de données. Par exemple, pour changer des iris, on peut s'intéresser au jeu de données <i>wine</i> qui ne comporte pas de difficulté. Il possède également 3 classes. Chaque donnée correspond à la description chimique d'un échantillon de vin. La classe correspond à l'origine géographique de l'échantillon.
 
-  </p-->
+    <br/>
+
+    Pour utiliser ce jeu d'exemples, il suffit de remplacer <kbd>iris = datasets.load_iris()</kbd> par <kbd>vin = datasets.load_wine()</kbd>. Et ensuite, vous remplacez iris par wine dans les commandes python que je vous ai indiqué.
+
+    <br/>
+
+    Appliquez ce que l'on a vu. Cette tâche ne comporte aucune difficulté.
+
+  </p>
   
-  <h2>Tâche de régression</h2>
+  <!--h2>Tâche de régression</h2>
 
   <p>
 
@@ -326,12 +326,12 @@ sorties = sorties_iris</pre>
 
     <br/>
 
-    Pour la régression, la démarche est la même que pour la classification supervisée. La seule différence est que le percpetron multi-couche diffère dans sa couche de sortie dont la fonction d'activation est l'identité (et non plus une fonction sigmoïde).
+    Pour la régression, la démarche est la même que pour la classification supervisée. La seule différence concerne la couche de sortie du perceptron multi-couches dont la fonction d'activation est l'identité (et non plus une fonction sigmoïde).
 
     <br/>
     <br/>
 
-    En python, on change juste de type de réseaux de neurones&nbsp;: à la place d'un <kbd>MLPClassifier()</kbd>, on utilise un <kbd>MLPRegressor()</kbd>. Donc remplace&nbsp;:
+    En python, on change juste de type de réseaux de neurones&nbsp;: à la place d'un <kbd>MLPClassifier()</kbd>, on utilise un <kbd>MLPRegressor()</kbd>. Donc on remplace&nbsp;:
   </p>
 
   <pre>from sklearn.neural_network import MLPClassifier</pre>  
@@ -344,10 +344,33 @@ sorties = sorties_iris</pre>
 
   <pre>from sklearn.neural_network import MLPRegressor</pre>
   
-  <p>
 
+  <h3>Petit exemple de problème de régression</h3>
+
+    <p>
+
+      On peut définir une fonction comme cela&nbsp;:
+
+    </p>
     
-  </p>
+    <pre>def f(x):
+    return 0.2 * x**5 - 1.1 * x**3 + .7 * x*x - x + 1.2</pre>
+
+    <p>
+
+      que l'on utilise pour générer des points. Par exemple, générons 40 points autour de cette fonction&nbsp;:
+
+    </p>
+
+    <pre>N = 40
+    sample_x = (rs.uniform (-3, 3, N)).reshape (N,1)
+    sample_y = (f (sample_x) + np.random.randn(N).reshape(-1,1)).reshape(-1,)</pre>
+
+    <p>
+
+      <kbd>sample_x</kbd> et <kbd>sample_y</kbd> vont être utilisés comme exemples.
+      
+    </p-->
   
   <h2>Pour finir</h2>
 
