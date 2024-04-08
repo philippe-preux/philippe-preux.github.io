@@ -318,22 +318,37 @@ sorties = sorties_iris</pre>
 
   </p-->
   
-  <!--h2>Tâche de régression</h2>
+  <h2>Tâche de régression</h2>
 
   <p>
 
+    Une tâche de régression est également une tâche d'apprentissage supervisé. La différence avec la classification supervisée est que l'étiquette est un nombre réel.
 
+    <br/>
+
+    Pour la régression, la démarche est la même que pour la classification supervisée. La seule différence est que le percpetron multi-couche diffère dans sa couche de sortie dont la fonction d'activation est l'identité (et non plus une fonction sigmoïde).
+
+    <br/>
+    <br/>
+
+    En python, on change juste de type de réseaux de neurones&nbsp;: à la place d'un <kbd>MLPClassifier()</kbd>, on utilise un <kbd>MLPRegressor()</kbd>. Donc remplace&nbsp;:
   </p>
 
-  <pre>from sklearn import datasets
-iris = datasets.load_iris()
-entrées_iris = iris.data[:,2:4]</pre>
+  <pre>from sklearn.neural_network import MLPClassifier</pre>  
   
   <p>
 
+    par&nbsp;:
 
-  </p-->
+  </p>
 
+  <pre>from sklearn.neural_network import MLPRegressor</pre>
+  
+  <p>
+
+    
+  </p>
+  
   <h2>Pour finir</h2>
 
   <p>
