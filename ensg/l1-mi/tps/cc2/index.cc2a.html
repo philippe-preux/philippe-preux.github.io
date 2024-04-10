@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Pour le contrôle continu 2, groupe 14h45</title>
+  <link href="https://philippe-preux.github.io/css/ma.css"
+	rel="stylesheet" type="text/css" media="all" />
+  <link rel="shortcut icon" type="image/x-icon" 
+	href="https://philippe-preux.github.io/img/site.ico" />
+</head>
+
+<body>
+<div class="tpR">
+
+  <h1>Pour le contrôle continu 2</h1>
+
+  <p>
+
+Pour accéder aux exemples à utiliser durant le contrôle, insérez les commandes suivant dans votre programme python&nbsp;:
+
+  </p>
+
+  <pre>entrées_olives = olives [:,[0,1]]
+sorties_olives = olives [:,2]
+
+'''
+  Il est essentiel de centrer-réduire !!!!!
+'''
+from sklearn.preprocessing import StandardScaler  
+scaler = StandardScaler ()
+scaler.fit (entrées_olives)
+entrées = scaler.transform (entrées_olives)
+
+sorties = []
+for i in range (len (sorties_olives)):
+    if sorties_olives [i] == 1:
+        sorties.append (0)
+    else:
+        sorties.append (1)</pre>
+
+  <p>
+
+    Ces instructions produisent les <kbd>entrées</kbd> et les <kbd>sorties</kbd> correspondantes, exactement comme nous l'avons utilisé avec les iris.
+    
+  </p>
+  
+</div>
+
+</body>
+</html>
