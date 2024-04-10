@@ -25,14 +25,6 @@ Pour accéder aux exemples à utiliser durant le contrôle, insérez les command
   <pre>entrées_olives = olives [:,[0,1]]
 sorties_olives = olives [:,2]
 
-'''
-  Il est essentiel de centrer-réduire !!!!!
-'''
-from sklearn.preprocessing import StandardScaler  
-scaler = StandardScaler ()
-scaler.fit (entrées_olives)
-entrées = scaler.transform (entrées_olives)
-
 sorties = []
 for i in range (len (sorties_olives)):
     if sorties_olives [i] == 1:
