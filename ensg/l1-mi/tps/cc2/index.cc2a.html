@@ -22,7 +22,10 @@ Pour accéder aux exemples à utiliser durant le contrôle, insérez les command
 
   </p>
 
-  <pre>entrées_olives = olives [:,[0,1]]
+  <pre>from numpy import genfromtxt
+olives = genfromtxt ("https://philippe-preux.github.io/ensg/l1-mi/tps/cc2/olives3.csv", delimiter = ',')
+
+entrées_olives = olives [:,[0,1]]
 sorties_olives = olives [:,2]
 
 sorties = []
