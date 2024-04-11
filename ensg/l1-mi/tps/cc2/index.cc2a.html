@@ -16,9 +16,11 @@
 
   <h1>Pour le contrôle continu 2</h1>
 
+  <h2>Pour la partie 1</h2>
+
   <p>
 
-Pour accéder aux exemples à utiliser durant le contrôle, insérez les commandes suivant dans votre programme python&nbsp;:
+Pour accéder aux exemples à utiliser dans la partie 1 du contrôle, insérez les commandes suivantes dans votre programme python&nbsp;:
 
   </p>
 
@@ -27,6 +29,33 @@ olives = genfromtxt ("https://philippe-preux.github.io/ensg/l1-mi/tps/cc2/olives
 
 entrées_olives = olives [:,[0,1]]
 sorties_olives = olives [:,2]
+
+sorties = []
+for i in range (len (sorties_olives)):
+    if sorties_olives [i] == 1:
+        sorties.append (0)
+    else:
+        sorties.append (1)</pre>
+
+  <p>
+
+    Ces instructions produisent les <kbd>entrées</kbd> et les <kbd>sorties</kbd> correspondantes, exactement comme nous l'avons utilisé avec les iris.
+    
+  </p>
+
+  <h2>Pour la partie 2</h2>
+  
+  <p>
+
+Pour accéder aux exemples à utiliser dans la partie 2 du contrôle, insérez les commandes suivantes dans votre programme python. Seules 2 lignes changent par rapport à la partie 1&nbsp;:
+
+  </p>
+
+  <pre>from numpy import genfromtxt
+olives = genfromtxt ("https://philippe-preux.github.io/ensg/l1-mi/tps/cc2/olives3.csv", delimiter = ',')
+
+entrées_olives = olives [:,[4,7,0,1,2,3,5,6]]
+sorties_olives = olives [:,8]
 
 sorties = []
 for i in range (len (sorties_olives)):
