@@ -9,30 +9,9 @@
 
 '''
 
+# Quelques fonctions pour obtenir une représentation graphique
 
 import matplotlib.pyplot as plt
-
-def plot_iris ():
-    from sklearn import datasets
-    iris = datasets.load_iris()
-    X = iris.data [:, 2:4]
-    Y = iris.target
-    fig, ax = plt.subplots ()
-    couleurs = []
-    for i in range (len (sorties)):
-        if Y [i] == 0:
-            couleurs.append ("blue")
-        elif sorties [i] == 1:
-            couleurs.append ("green")
-        else:
-            couleurs.append ("red")
-    for i in range (len (sorties)):
-        ax.scatter (X [i] [0], X [i] [1], color = couleurs [i], s = 4)
-    ax.set_xlabel ("Longueur des pétales")
-    ax.set_ylabel ("Largeur des pétales")
-    ax.set_title ("Jeu de données iris")
-    fig.savefig ("iris.png")
-    #fig.show ()
 
 def debut_figure (entrées, sorties):
     fig, ax = plt.subplots ()
@@ -92,7 +71,7 @@ Le coeur du programme arrive.
 
 import numpy as np
 
-# chargement des exemples
+# préparation des exemples
 from sklearn import datasets
 iris = datasets.load_iris()
 entrées_iris = iris.data[:,[2,3,0,1]]
@@ -101,6 +80,7 @@ from sklearn.preprocessing import StandardScaler
 scaler = StandardScaler ()
 scaler.fit (entrées_iris)
 X = scaler.transform (entrées_iris)
+# Calcul des étiquettes binaires
 N = len (iris.target) # le nombre d'exemples
 Y_setosa = np.zeros ((N))
 Y_virginica = np.zeros ((N))
@@ -119,6 +99,9 @@ from math import tanh
 
 def calcule_erreur (X, Y, poids):
     '''
+    Cette fonction retourne le nobre d'erreur de prédictions réalisées sur
+    les données X.
+
     X, Y : les exemples avec lesquels on mesure l'erreur.
        X : les données,
        Y : les étiquettes. Y [i] est l'étiquette de X [i].
@@ -138,7 +121,8 @@ def calcule_erreur (X, Y, poids):
         if classe_prédite != Y [i]:
             nb_erreurs += 1
     return nb_erreurs
-    
+
+# La descente de gradient stochastique
 def DGS (X_train, X_test, Y_train, Y_test, gnpa, ax,
             poids = [], eta = .01, graphique = False,
             Max_compteur = 50):
@@ -203,7 +187,6 @@ def DGS (X_train, X_test, Y_train, Y_test, gnpa, ax,
 
 
 
-from sklearn.model_selection import train_test_split
 
 # Initialisation du générateur de nombres pseudo-aléatoires
 graine = int ("Perceptron", base=36)%2**31
@@ -211,12 +194,13 @@ gnpa = np.random.default_rng (graine)
 #
 Y = Y_virginica
 # partitionnement du jeu d'exemples.
+from sklearn.model_selection import train_test_split
 X_train, X_test, Y_train, Y_test = train_test_split (X, Y,
                 test_size = 0.2,
                 random_state = np.random.RandomState (graine))
 # on prépare le graphique
 fig, ax = debut_figure2 (X_train, Y_train, X_test, Y_test)
-# calcul des poids
+# on calcule des poids
 poids, les_Te, les_te = DGS (X_train, X_test, Y_train, Y_test, gnpa, ax, poids = [1, -3, 1, 0, -2], graphique = True, Max_compteur = 250)
 # on termine le graphique et on l'affiche
 ajoute_dernière_droite (fig, ax, poids [0], poids [1], poids [2])
