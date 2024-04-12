@@ -28,7 +28,7 @@ Pour accéder aux exemples à utiliser dans la partie 1 du contrôle, insérez l
 olives = genfromtxt ("https://philippe-preux.github.io/ensg/l1-mi/tps/cc2/olives3.csv", delimiter = ',')
 
 entrées_olives = olives [:,[0,1]]
-sorties_olives = olives [:,2]
+sorties_olives = olives [:-1]
 
 sorties = []
 for i in range (len (sorties_olives)):
@@ -47,7 +47,7 @@ for i in range (len (sorties_olives)):
   
   <p>
 
-Pour accéder aux exemples à utiliser dans la partie 2 du contrôle, insérez les commandes suivantes dans votre programme python. Seules 2 lignes changent par rapport à la partie 1&nbsp;:
+Pour accéder aux exemples à utiliser dans la partie 2 du contrôle, insérez les commandes suivantes dans votre programme python. Seules 2 lignes changent par rapport à la partie 1&nbsp;: les lignes 2 et 4&nbsp;:
 
   </p>
 
@@ -55,7 +55,7 @@ Pour accéder aux exemples à utiliser dans la partie 2 du contrôle, insérez l
 olives = genfromtxt ("https://philippe-preux.github.io/ensg/l1-mi/tps/cc2/olives8.csv", delimiter = ',')
 
 entrées_olives = olives [:,[4,7,0,1,2,3,5,6]]
-sorties_olives = olives [:,8]
+sorties_olives = olives [:,-1]
 
 sorties = []
 for i in range (len (sorties_olives)):
