@@ -7,6 +7,7 @@
   pour le calcul des poids d'un perceptron réalisant une tâche de
   classification binaire sur le jeu de données iris.
 
+  Philippe Preux, Université de Lille, Avril 2024
 '''
 
 # Quelques fonctions pour obtenir une représentation graphique
