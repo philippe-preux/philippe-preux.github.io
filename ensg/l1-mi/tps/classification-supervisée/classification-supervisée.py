@@ -72,14 +72,12 @@ Le coeur du programme arrive.
 import numpy as np
 
 # préparation des exemples
+
+# On charge les iris
 from sklearn import datasets
 iris = datasets.load_iris()
 entrées_iris = iris.data[:,[2,3,0,1]]
-# Il est essentiel de centrer-réduire !!!!!
-from sklearn.preprocessing import StandardScaler  
-scaler = StandardScaler ()
-scaler.fit (entrées_iris)
-X = scaler.transform (entrées_iris)
+
 # Calcul des étiquettes binaires
 N = len (iris.target) # le nombre d'exemples
 Y_setosa = np.zeros ((N))
@@ -93,14 +91,22 @@ for i in range (len (iris.target)):
         Y_virginica [i] = 1
     else:
         Y_virginica [i] = 0
+# Par la suite, on utilise Y_setosa ou Y_virginica comme étiquettes
 
+# Il est essentiel de centrer-réduire les attributs des données !!!!!
+from sklearn.preprocessing import StandardScaler  
+scaler = StandardScaler ()
+scaler.fit (entrées_iris)
+X = scaler.transform (entrées_iris)
+# X contient les données centrées-réduites qui pourront
+# être placées en entrée du perceptron.
 
 from math import tanh
 
 def calcule_erreur (X, Y, poids):
     '''
-    Cette fonction retourne le nobre d'erreur de prédictions réalisées sur
-    les données X.
+    Cette fonction retourne le nombre d'erreur de prédictions réalisées
+    sur les données X.
 
     X, Y : les exemples avec lesquels on mesure l'erreur.
        X : les données,
