@@ -3,7 +3,7 @@
 
   Classification supervisée avec perceptron tanh sur les iris.
 
-  Ce prgramme python contient une descente de gradient stochastique
+  Ce programme python contient une descente de gradient stochastique
   pour le calcul des poids d'un perceptron réalisant une tâche de
   classification binaire sur le jeu de données iris.
 
