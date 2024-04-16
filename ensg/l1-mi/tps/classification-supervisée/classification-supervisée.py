@@ -137,14 +137,20 @@ def DGS (X_train, X_test, Y_train, Y_test, gnpa, ax,
     Cette fonctionne calcule les poids du perceptron par
     descente de gradient stochastique.
 
-    X_train, Y_train : les exemples d'entraînement
-    X_test, Y_test : les exemles de test
-    poids : valeur initiale des poids du perceptron
-    gnpa : le générateur de nombres pseudo-aléatoires
-    ax : axe pour la réalisation du graphique
-    eta : le taux d'apprentissage
-    graphique : booléen indiquant si on vet créer un graphique.
-    Max_compteur : nombre d'itérations autorisées pendant lesquelles l'erreur de test ne décroît pas.
+    Paramètres :
+      X_train, Y_train : les exemples d'entraînement
+      X_test, Y_test : les exemles de test
+      poids : valeur initiale des poids du perceptron
+      gnpa : le générateur de nombres pseudo-aléatoires
+      ax : axe pour la réalisation du graphique
+      eta : le taux d'apprentissage
+      graphique : booléen indiquant si on veut créer un graphique.
+      Max_compteur : nombre d'itérations autorisées pendant lesquelles l'erreur de test ne décroît pas.
+
+    Valeurs retournées :
+      les poids
+      la liste des erreurs de test au fil des itérations 
+      la liste des erreurs d'entraînement au fil des itérations 
     '''
     if len (poids) == 0:
         for j in range (1 + X_train.shape [1]):
