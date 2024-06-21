@@ -74,8 +74,8 @@ import numpy as np
 
 
 from numpy import genfromtxt
-olives = genfromtxt ("o8.csv", delimiter = ',')
-#olives = genfromtxt ("https://philippe-preux.github.io/ensg/l1-mi/tps/cc2/o8.csv", delimiter = ',')
+#olives = genfromtxt ("o8.csv", delimiter = ',')
+olives = genfromtxt ("https://philippe-preux.github.io/ensg/l1-mi/tps/rattrapage/o8.csv", delimiter = ',')
 
 entrées_olives = olives [:,[4,7,0,1,2,3,5,6]]
 sorties_olives = olives [:,8]

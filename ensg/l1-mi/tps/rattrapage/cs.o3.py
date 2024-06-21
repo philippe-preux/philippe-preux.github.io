@@ -74,11 +74,11 @@ import numpy as np
 
 
 from numpy import genfromtxt
-olives = genfromtxt ("o3.csv", delimiter = ',')
-#olives = genfromtxt ("https://philippe-preux.github.io/ensg/l1-mi/tps/cc2/o3.csv", delimiter = ',')
+#olives = genfromtxt ("o3.csv", delimiter = ',')
+olives = genfromtxt ("https://philippe-preux.github.io/ensg/l1-mi/tps/rattrapage/o3.csv", delimiter = ',')
 
 entrées_olives = olives [:,[0,1]]
-sorties_olives = olives [:,2]
+sorties_olives = olives [:,-1]
 
 '''
   Il est essentiel de centrer-réduire !!!!!
@@ -149,8 +149,10 @@ def DGS (X_train, X_test, Y_train, Y_test, gnpa, ax,
     test_erreur = calcule_erreur (X_test, Y_test, poids) / N_test
     prev_test_erreur = 1
     compteur = Max_compteur
+    nb_iterations = 0
     prev_poids = poids
     while ((prev_test_erreur - test_erreur) != 0) or (compteur > 0):
+        nb_iterations += 1
         prev_poids = poids
         if prev_test_erreur - test_erreur == 0:
             compteur -= 1
@@ -183,6 +185,7 @@ def DGS (X_train, X_test, Y_train, Y_test, gnpa, ax,
         print ("{:.3f}, {:.3f}".format (train_erreur, test_erreur))
         if graphique:
             ajoute_droite (ax, poids [0], poids [1], poids [2])
+    print ("{:d} itérations".format (nb_iterations))
     return poids, les_Te, les_te
 
 
