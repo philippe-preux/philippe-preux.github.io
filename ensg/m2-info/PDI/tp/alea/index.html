@@ -33,6 +33,49 @@
 
   <h2>Génération de nombres pseudo-aléatoires</h2>
 
+  <h3>Pré-requis</h3>
+
+  <table>
+    <th>C</th><th>pyhon</th>
+    <tr><td bgcolor="#bafcba">
+	<p>
+	  On utilise la bibliothèque <kbd>gsl</kbd> (GNU Scientific Library) qui contient de multiples fonctions mathématiques. Elle est installée sur les ordinateurs en salle TP. Sur votre ordinateur personnel, il faut peut-être l'installer.
+	</p>
+      </td>
+      <td bgcolor="#c0c0c0">
+	<p>
+	  On utilise la bibliothèque <kbd>numpy</kbd> qui doit donc être installée.
+	</p>
+      </td>
+    </tr>
+  </table>
+
+  <h3>Génération de nombres pseudo-aléatoires</h3>
+  
+  <p>
+    
+    La notion de nombres (pseudo-)aléatoires est une notion complexe. La génération d'une séquence de nombres aléatoires par un algoithme est un problème aussi vieux que l'apparition des premiers ordinateurs&nbsp;; des progrès ont été faits et ils se poursuivent. La fonction de base consiste à générer un entier naturel dont la valeur est comprise entre 0 et 2<sup>N</sup>-1 où N est le nombre de bits composant les mots manipulés par le(s) microprocesseur(s) pendant un calcul. À chaque appel, cette fonction de base renvoit un nombre différent. On veut que cette séquence de nombres respectent certaines propriétés (par exemple, une distribution uniforme dans l'intervalle de valeurs, ou encore la non répétition de séquences) quel que soit le nombre d'appels à cette fonction, donc quelle que soit la longueur de la séquence de nombres pseudo-aléatoires générés. L'infini n'étant pas atteignable dans un programme d'ordinateur, on veut que ces propriétés soient respectées par des séquences aussi longues que possibles.
+
+    <br/>
+    <br/>
+
+    <b>Question&nbs;:</b> combien de séquences d'entiers différentes sont possibles avec un ordinateur travaillant sur N bits à la fois&nbsp;?
+
+    <br/>
+    <br/>
+
+    Remarque&nbsp;: vous avez noté l'utilisation du mot «&nbsp;pseudo&nbsp;» avant le mot aléatoire. On veut ainsi distinguer un nombre aléatoire au sens mathématique du terme d'un nombre calculé par un algorithme pour donner l'impression que la séquence de nombres est aléatoire. Curieusement, l'algorithme qui calcule une telle séquence est <b>déterministe</b>&nbsp;: la séquence est construite à l'aide d'une (simple) équation de récurrence. Le premier terme (ou les premiers termes) de cette séquence est fourni par l'utilisateur et se nomme la <i>graine</i>.
+
+    <br/>
+
+    Remarque&nbsp;: nous n'abordons pas ce point dans le cadre de ce TP ni de ce cours, mais la génération de nombres pseudo-aléatoires par un programme distribué ou simplement mutli-threadé complique les choses&nbsp;: les différentes séquences de nombres doivent êtres différentes mais elles doivent respecter des propriétés globales. 
+    
+    <br/>
+
+    Autre remarque&nbsp;: d'un point de vue scientifique, on ne sait pas si l'aléatoire existe. Toute la physique, donc l'explication du monde, est déterministe jusqu'à la découverte de la physique quantique au début du XX<sup>è</sup> siècle. Celle-ci semble s'appuyer sur des processus intrinséquement aléatoires, mais c'est peut-être juste que nous l'avons pas encore bien comprise. La physique quantique a profondément perturbé les physiciens et plus généralement les scientifiques dans leur appréhension du monde.
+
+  </p>
+  
   <table>
     <th>C</th><th>pyhon</th>
     <tr><td bgcolor="#bafcba">
