@@ -28,7 +28,7 @@
     <br/>
 
     Ce TP s'inspire fortement d'un TP réalisé ces dernières années en PDI qui est disponible <a href="https://fabienpesquerel.github.io/blog/2022/random-number-generation-101/">là</a>. Celui-ci est exprimé en utilisant le langage Python. Le TP présenté ici est réalisé en C ou en python, au choix, pour différentes raisons&nbsp;: 1) contrairement à ce que l'on peut croire, on n'est pas obligé de travailler en Python quand on travaille en apprentissage automatique et ce TP le démontre&nbsp;; 2) ce TP peut aussi très facilement être réalisé en R par exemple, ou C++ ou bien d'autres langages. <!--Et si vous préférez le faire en C++ ou R, allez-y&nbsp;! --> Je rappelle que <a href="https://greenlab.di.uminho.pt/wp-content/uploads/2017/10/sleFinal.pdf">le langage C est le langage le plus vert</a>, le moins consommateur en ressources, le moins pollueur (50x moins que python par exemple).
-    
+
   </p>
 
   <h2>Génération de nombres pseudo-aléatoires</h2>
@@ -79,6 +79,11 @@
 
     Autre remarque&nbsp;: d'un point de vue scientifique, on ne sait pas si l'aléatoire existe. Toute la physique, donc l'explication du monde, est déterministe jusqu'à la découverte de la physique quantique au début du XX<sup>è</sup> siècle. Celle-ci semble s'appuyer sur des processus intrinséquement aléatoires, mais c'est peut-être juste que nous l'avons pas encore bien comprise. La physique quantique a profondément perturbé les physiciens et plus généralement les scientifiques dans leur appréhension du monde.
 
+    <br/>
+    <br/>
+
+    À partir d'un générateur d'entiers pseudo-aléatoires compris entre 0 et <kbd>MAX_INT</kbd>, on obtient facilement un nombre «&nbsp;réel&nbsp;» (flottant) compris dans [0, 1[ en divisant cet entier par <kbd>MAX_INT</kbd>. Comme il est très courant d'avoir besoin de générer des nombres dans cet intervalle, il y a généralement une fonction qui le fait directement, c'est-à-dire qui renvoit un nombre pseudo-aléatoire dans l'intervalle [0, 1[. 
+    
   </p>
   
   <table>
@@ -90,6 +95,11 @@
       <td bgcolor="#c0c0c0" width="50%" >
 	<p>
 	  blabla python
+	  <br/>
+<pre>import nupy as np
+np.random.rand (1)</pre>
+<br/>
+affiche un nombre pseudo-aléatoire compris entre 0 et 1 (0 inclus, 1 exclus).
       </p></td>
     </tr>
   </table>
