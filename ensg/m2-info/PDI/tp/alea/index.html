@@ -9,6 +9,14 @@
 	rel="stylesheet" type="text/css" media="all" />
   <link rel="shortcut icon" type="image/x-icon" 
 	href="/home/ppreux/philippe-preux.github.io/img/site.ico" />
+  <style>
+    div.c {
+	background-color: #bafcba;
+    }
+    div.python {
+	background-color: #c0c0c0;
+    }
+  </style>
 </head>
 
 <body>
@@ -36,21 +44,27 @@
   <h3>Pré-requis</h3>
 
   <table>
-    <th>C</th><th>pyhon</th>
-    <tr><td bgcolor="#bafcba" width="50%" >
-	<p>
+    <th>C</th><th>python</th>
+    <tr><td bgcolor="#c0c0c0" width="50%" >
+	<div class="c">
 	  On utilise la bibliothèque <kbd>gsl</kbd> (GNU Scientific Library) qui contient de multiples fonctions mathématiques. Elle est installée sur les ordinateurs en salle TP. Sur votre ordinateur personnel, il faut peut-être l'installer.
-	</p>
+
+	  <br/>
+
+	  On utilisera le compilateur <kbd>gcc</kbd> et on spécifiera les options <kbd>-lgsl -lgslcblas -lm</kbd> pour éditer les liens avec les bibliothèques nécessaires.
+	</div>
       </td>
       <td bgcolor="#c0c0c0" width="50%" >
-	<p>
+	<div class="python">
 	  On utilise la bibliothèque <kbd>numpy</kbd> qui doit donc être installée.
-	</p>
+	  </div>
       </td>
     </tr>
   </table>
 
   <h3>Génération de nombres pseudo-aléatoires</h3>
+  
+  <h4>Question 1</h4>
   
   <p>
     
@@ -87,32 +101,195 @@
   </p>
   
   <table>
-    <th>C</th><th>pyhon</th>
+    <th>C</th><th>python</th>
     <tr><td bgcolor="#bafcba" width="50%" >
 	<p>
-	  blabla en C
-      </p></td>
+	  En C, on utilise typiquement une fonction qui génère un entier naturel pseudo-aléatoire compris entre 0 et <kbd>MAX_INT</kbd>. On obtient facilement un nombre flottant dans [0, 1[ en divisant cet entier par <kbd>MAX_INT</kbd>.
+
+	  <br/>
+
+	  On peut utiliser la fonction <kbd>random()</kbd> de la <kbd>libc</kbd> mais pour la suite du TP, il est avantageux d'utiliser la bibliothèque <kbd>gsl</kbd>. Cela va donner quelque chose comme cela&nbsp;
+
+	</p>
+
+	<ul>
+	  <li>En début de programme, on inclut le fichier <i>ad hoc</i>&nbsp;: <bd>#include <gsl/gsl_rng.h></kbd>.</li>
+	  <li>On définit une variable et on alloue une variable qui permettra de générer les nombres pseudo-aléatoires&nbsp;:
+<pre>static gsl_rng *prng = NULL;
+prng = gsl_rng_alloc (gsl_rng_mt19937);</pre>
+	  <li>Et quand on veut générer un nombre pseudo-aléatoire, on fait simplement&nbsp;:
+	    <ul>
+	      <li>Pour un entier&nbsp;: <kbd>gsl_rng_get (prng)</kbd>.</li>
+	      <li>Pour un flottant dans [0, 1[&nbsp;: <kbd>gsl_rng_uniform (prng)</kbd>.</li>
+	    </ul>
+	  </ul>
+      </td>
       <td bgcolor="#c0c0c0" width="50%" >
 	<p>
-	  blabla python
+	  En python, on utilise typiquement une fonction de la bibliothèque <kbd>numpy</kbd> qui renvoie un nombre flottant dans l'intervalle [0, 1[.
 	  <br/>
-<pre>import nupy as np
+<pre>import numpy as np
 np.random.rand (1)</pre>
 <br/>
 affiche un nombre pseudo-aléatoire compris entre 0 et 1 (0 inclus, 1 exclus).
       </p></td>
     </tr>
   </table>
+
+  <p>
+
+    Il existe de nombreuses manières de générer une séquence de nombres pseudo-aléatoires. Ici on utilise le <i>Mersenne Twister</i> en spécifiant <kbd>mt19937</kbd>. Cet algorithme est connu pour avoir de bonnes propriétés.
+    
+  </p>
+	
+  <p>
+
+    <b>Question 1&nbsp;:</b> écrire un programme qui affiche une suite de 10 nombres pseudo-aléatoires compris dans [0, 1[.
+    
+  </p>
+
+  <h4>Question 2</h4>
+  
+  <p>
+
+    Exécutez plusieurs fois le programme précédent et comparez les résultats&nbsp;: qu'observez-vous&nbsp;?
+
+    <br/>
+
+    En science, quand on effectue une expérience, il y a un principe fondamentale qui est celui de la reproductibilité&nbsp;: si je fais plusieurs fois la même expérience dans les mêmes conditions, le résultat doit toujours être le même.
+
+    <br/>
+
+    En informatique, dans certaines conditions, exécuter un programme est analogue à la réalisation d'une expérience. En appliquant le principe fondamental ci-dessus, on veut qu'exécuter un même programme plusieurs fois donne le même résultat. Et si on veut que programme donne des résultats différents à chaque exécution, on veut que cette variabilité soit contrôlée, c'est-à-dire qu'elle soit elle-même reproductible&nbsp;: on veut que l'aléatoire ce ne soit pas n'importe quoi, mais un aléatoire reproductible.
+
+    <br/>
+
+    La solution à ce problème est très simple. Elle consiste à initialiser la série de nombres pseudo-aléatoires avec un certain nombre qui se nomme une graine. Si on fournit une certaine graine à un certain générateur de nombres pseudo-aléatoires, il génère ensuite toujours la même séquence de nombres. Dans les exemples ci-dessous, on utilise la graine 123456. Utilisez celle que vous voulez.
+    
+  </p>
+
+  <table>
+    <th>C</th><th>python</th>
+    <tr>
+      <td bgcolor="#bafcba" width="50%">
+	<p>
+	  En C, à la suite de ce qui a été expliqué plus haut, on fixe la graine par un appel à la fonction <kbd>gsl_rng_set (prng, 123456)</kbd>.
+	  <br/>
+	  Ensuite, la séquence de nombres qui sera générée lors des appels successifs aux fonctions vues plus haut sera toujours la même pour une graine donnée.
+	</p>
+      </td>
+      <td bgcolor="#c0c0c0" width="50%">
+	<p>
+	  En python, on crée un générateur de nombres pseudo-aléatoires par <kbd>prng = np.random.default_rng (123456)</kbd>.
+	  <br/>
+	  Ensuite, on génère des nombres via cet objet&nbsp; <kbd>rng.random(1)</kbd>.	
+	</p>
+      </td>
+    </tr>
+  </table>
+  
+  <p>
+
+    <b>Question 2&nbsp;:</b> modifier votre programme en initialisant correctement la graine. Exécutez le plusieurs fois. Que constatez-vous&nbsp;?
+
+    <br/>
+    
+    <b>Question 2bis&nbsp;:</b> comparer la séquence de nombres (une dizaine) par votre programme avec la graine n, n+1 et n-1. Que constatez-vous&nbsp;? Connaissez-vous un moyen de comparer ces séquences de nombres&nbsp;?
+    
+  </p>
+
+  <h4>Question 3</h4>
+  
+  <p>
+
+    
+    
+  </p>
+
+  <h4>Question 4</h4>
+  
+  <p>
+
+    
+    
+  </p>
+
+  <h4>Question 5</h4>
+  
+  <p>
+
+    Les nombres générés précédemment sont uniformément répartis dans l'intervalle [0, 1[. On va le vérifier en réalisant un histogramme.
+
+    <br/>
+    
+    <b>Question 5&nbsp;:</b> générer 10.000 nombres pseudo-aléatoires compris dans [0, 1[ et en faire un histogramme.
+
+  </p>
+  
+  <table>
+    <th>C</th><th>python</th>
+    <tr>
+      <td bgcolor="#bafcba" width="50%">
+	<p>
+	  En C, on va utiliser la bibliothèque PLplot qui permet de réaliser des graphiques. Le but de ce TP n'étant pas d'apprendre à utiliser PLplot, je mets à votre disposition deux fichiers que vous allez utilisez&nbsp;: <a href="./barplot.h"><kbd>barplot.h</kbd></a> et <a href="./barplot.c"><kbd>barplot.c</kbd></a>. Il faut inclure le premier dans votre programme et compiler votre programme avec le second. J'y ai défini quelques fonctions qui vont créer très facilement les graphiques nécessaires dans ce TP.
+	  <br/>
+	  <br/>
+	  PLplot est installé sur les machines de la salle de TP. Pour compiler, il faut ajouter les arguments <kbd>-I./barplot.h -I/usr/include/plplot -lplplot</kbd> à la ligne de commande <kbd>gcc</kbd>.
+	  <br/>
+	  <br/>
+	  Construction de l'histogramme blablabla. Puis&nbsp;:
+	  <br/>
+	  <pre>barplot (h-> valeurs, h-> les_bords, nb_bins)</pre>
+	  <br/>
+	  <br/>
+	  Et on obtient par exemple&nbsp;:
+	  <br/>
+	  <img src="q5.png" width="500pt" />
+	</p>
+      </td><td bgcolor="#c0c0c0" width="50%">
+	<p>
+	  En python, en plus de ce que l'on a vu pour générer des nombres pseudo-aléatoires, on va obtenir l'histogramme en utilisant la fonction <kbd>hist()</kbd> de la bibliothèque matplotlib. Ainsi, vous obtiendrez quelque chose comme cela&nbsp;:
+	  <br/>
+	  <img src="q5fMT19337.png" width="500pt" />
+	  <!--img src="https://fabienpesquerel.github.io/assets/img/posts/2022-10-16-random-number-generation-101/rng_post_answer5_1-1400.webp" width="500pt" /-->
+	</p>
+      </td>
+    </tr>
+  </table>
+
+  <p>
+
+  </p>
+    
+  </p>
+
+
+  <h4>Question 6</h4>
+  
+  <p>
+
+    
+    
+  </p>
+
+  <h4>Question 7</h4>
+  
+  <p>
+
+    
+    
+  </p>
   
   <h2>Quelques notions essentielles de statistiques</h2>
+
   <table>
-    <th>C</th><th>pyhon</th>
+    <th>C</th><th>python</th>
     <tr>
-      <td bgcolor="#bafcba">
+      <td bgcolor="#bafcba" width="50%">
 	<p>
 	  C is best
 	</p>
-      </td><td bgcolor="#c0c0c0">
+      </td><td bgcolor="#c0c0c0" width="50%">
 	<p>
 	  python is shit.
 	</p>
@@ -125,10 +302,17 @@ affiche un nombre pseudo-aléatoire compris entre 0 et 1 (0 inclus, 1 exclus).
 
 
   <table>
-    <th>C</th><th>pyhon</th>
+    <th>C</th><th>python</th>
     <tr>
-      <td bgcolor="#bafcba">en C</td>
-      <td bgcolor="#c0c0c0">en python</td>
+      <td bgcolor="#bafcba" width="50%">
+	<p>
+	  C is best
+	</p>
+      </td><td bgcolor="#c0c0c0" width="50%">
+	<p>
+	  python is shit.
+	</p>
+      </td>
     </tr>
   </table>
   
