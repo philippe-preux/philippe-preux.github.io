@@ -34,7 +34,8 @@ void barplot (const double *valeurs, const double *les_bords,
   static PLINT couleurs_green[] = { 0, 255 };
   static PLINT couleurs_blue[]  = { 0, 0 };
 
-  plsdev ("xcairo");
+  //  plsdev ("xcairo");
+  plsdev ("pngcairo");
   plinit ();
 
   // vide la page/fenêtre
@@ -53,7 +54,7 @@ void barplot (const double *valeurs, const double *les_bords,
   // dessine une boîte autour du viewport courant
   plbox ("bc", delta, 0, "bcnt", delta_y, 0);
   plcol0 (4); // couleur du titre : 4 == aquamarine
-  pllab ("", "", "Distribution empirique");
+  pllab ("", "", "Distribution empirique pour la graine 123456");
   
   plscmap0n (1);
   plscmap0 (couleurs_red, couleurs_green, couleurs_blue, 2);
@@ -69,7 +70,7 @@ void barplot (const double *valeurs, const double *les_bords,
 
   for (size_t i = 0; i <= n_strings; i ++) {
     char string [128];
-    sprintf (string, "%3.2f", i * delta_bords_strings);
+    sprintf (string, "%3.2f", les_bords [0] + i * delta_bords_strings);
     plcol1 (1);
     plmtex ("b", 1.5, i * delta_bords_strings, 0.5, string);
   }

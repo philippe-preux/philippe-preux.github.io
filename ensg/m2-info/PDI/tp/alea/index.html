@@ -113,7 +113,7 @@
 	</p>
 
 	<ul>
-	  <li>En début de programme, on inclut le fichier <i>ad hoc</i>&nbsp;: <bd>#include <gsl/gsl_rng.h></kbd>.</li>
+	  <li>En début de programme, on inclut le fichier <kbd>gsl/gsl_rng.h</kbd>.</li>
 	  <li>On définit une variable et on alloue une variable qui permettra de générer les nombres pseudo-aléatoires&nbsp;:
 <pre>static gsl_rng *prng = NULL;
 prng = gsl_rng_alloc (gsl_rng_mt19937);</pre>
@@ -123,25 +123,25 @@ prng = gsl_rng_alloc (gsl_rng_mt19937);</pre>
 	      <li>Pour un flottant dans [0, 1[&nbsp;: <kbd>gsl_rng_uniform (prng)</kbd>.</li>
 	    </ul>
 	  </ul>
+	<p>
+	  Il existe de nombreuses manières de générer une séquence de nombres pseudo-aléatoires. Ici on utilise le <i>Mersenne Twister</i> en spécifiant <kbd>mt19937</kbd>. Cet algorithme est connu pour avoir de bonnes propriétés.
+	</p>
       </td>
       <td bgcolor="#c0c0c0" width="50%" >
 	<p>
 	  En python, on utilise typiquement une fonction de la bibliothèque <kbd>numpy</kbd> qui renvoie un nombre flottant dans l'intervalle [0, 1[.
-	  <br/>
+	</p>
 <pre>import numpy as np
 np.random.rand (1)</pre>
-<br/>
-affiche un nombre pseudo-aléatoire compris entre 0 et 1 (0 inclus, 1 exclus).
-      </p></td>
+	<p>
+          affiche un nombre pseudo-aléatoire compris entre 0 et 1 (0 inclus, 1 exclus).
+	</p>
+	<p>
+	  En procédant ainsi, on utilise un algorithme qui se nomme PCG64 qui est plus récent que le Mersenne Twister et génère de meilleures séquences de nombres pseudo-aléatoires.
+      </td>
     </tr>
   </table>
 
-  <p>
-
-    Il existe de nombreuses manières de générer une séquence de nombres pseudo-aléatoires. Ici on utilise le <i>Mersenne Twister</i> en spécifiant <kbd>mt19937</kbd>. Cet algorithme est connu pour avoir de bonnes propriétés.
-    
-  </p>
-	
   <p>
 
     <b>Question 1&nbsp;:</b> écrire un programme qui affiche une suite de 10 nombres pseudo-aléatoires compris dans [0, 1[.
@@ -182,7 +182,7 @@ affiche un nombre pseudo-aléatoire compris entre 0 et 1 (0 inclus, 1 exclus).
 	<p>
 	  En python, on crée un générateur de nombres pseudo-aléatoires par <kbd>prng = np.random.default_rng (123456)</kbd>.
 	  <br/>
-	  Ensuite, on génère des nombres via cet objet&nbsp; <kbd>rng.random(1)</kbd>.	
+	  Ensuite, on génère des nombres via cet objet&nbsp;: <kbd>prng.random(1)</kbd> où 1 indique la quantité de nombres pseudo-aléatoires à générer.
 	</p>
       </td>
     </tr>
@@ -238,19 +238,18 @@ affiche un nombre pseudo-aléatoire compris entre 0 et 1 (0 inclus, 1 exclus).
 	  <br/>
 	  <br/>
 	  Construction de l'histogramme blablabla. Puis&nbsp;:
-	  <br/>
+	  </p>
 	  <pre>barplot (h-> valeurs, h-> les_bords, nb_bins)</pre>
-	  <br/>
-	  <br/>
-	  Et on obtient par exemple&nbsp;:
+	  <p>
+	  Et on obtient&nbsp;:
 	  <br/>
 	  <img src="q5.png" width="500pt" />
 	</p>
       </td><td bgcolor="#c0c0c0" width="50%">
 	<p>
-	  En python, en plus de ce que l'on a vu pour générer des nombres pseudo-aléatoires, on va obtenir l'histogramme en utilisant la fonction <kbd>hist()</kbd> de la bibliothèque matplotlib. Ainsi, vous obtiendrez quelque chose comme cela&nbsp;:
+	  En python, en plus de ce que l'on a vu pour générer des nombres pseudo-aléatoires, on va obtenir l'histogramme en utilisant la fonction <kbd>hist()</kbd> de la bibliothèque matplotlib. Ainsi, vous obtiendrez&nbsp;:
 	  <br/>
-	  <img src="q5fMT19337.png" width="500pt" />
+	  <img src="q5fPCG64.png" width="500pt" />
 	  <!--img src="https://fabienpesquerel.github.io/assets/img/posts/2022-10-16-random-number-generation-101/rng_post_answer5_1-1400.webp" width="500pt" /-->
 	</p>
       </td>
@@ -258,25 +257,79 @@ affiche un nombre pseudo-aléatoire compris entre 0 et 1 (0 inclus, 1 exclus).
   </table>
 
   <p>
-
+    <b>Question 5bis&nbsp;:</b> comparer visuellement ces histogrammes&nbsp;; qu'en pensez-vous&nbsp;?
+    <br/>
+    <b>Question 5ter&nbsp;:</b> générer les histogrammes pour les graines n, n+1 et n-1. Que constatez-vous&nbsp;?
   </p>
-    
-  </p>
-
 
   <h4>Question 6</h4>
   
   <p>
 
+    Il est courant de vouloir générer des nombres pseudo-aléatoires dont la distribution n'est pas uniforme. Il existe en effet des tas de distributions de probabilité. On distingue les distributions discrètes des distributions continues. Par exemple, si on veut simuler le lancer d'un dé à 6 faces, on génère un nombre dans l'ensemble { 1, 2, 3, 4, 5, 6 }&nbsp;; si on veut simuler le lancer d'une pièce (pile ou face), on génère 0 ou 1, de manière équi-probable si la pièce est équilibrée, ou avec une probabilité <i>p</i> pour l'un et 1-<i>p</i> pour l'autre si la pièce est déséquilibrée. Dans le premier cas, c'est une distribution uniforme discrète&nbsp;; dans le troisième, c'est une loi de Bernoulli de paramètre <i>p</i>&nbsp;; le deuxième cas peut être vu soit comme une loi uniforme, soit comme une loi de Bernoulli avec <i>p</i>=1/2.
+
+    <br/>
+    <br/>
+
+    Pour de très nombreuses lois de distribution de probabilités, il existe une fonction qui génère des nombres pseudo-aléatoires suivant cette loi. L'une des plus classiques est la loi normale (ou gaussienne, ou «&nbsp;en cloche&nbsp;».
+
+    <br/>
+    <br/>
     
-    
+    <b>Question 6&nbsp;:</b> générer 10.000 nombres pseudo-aléatoires distribués normalement (moyenne nulle, écart-type 1) et en faire un histogramme.
+
   </p>
+
+  <table>
+    <th>C</th><th>python</th>
+    <tr>
+      <td bgcolor="#bafcba" width="50%">
+	<p>
+	  Avec la GSL, on génère un nombre pseudo-aléatoire selon une loi nrmale de moyenne nulle et d'écart-type <i>s</i> à l'aide de la fonction <kbd>gsl_ran_gaussian (prng, s)</kbd>. Pour accéder à cette fonction, il faut include le fichier <kbd>gsl/gsl_randist.h</kbd>.
+	  <br/>
+	  On obtient&nbsp;:
+	  <br/>
+	  <img src="q6.png" width="500pt" />
+	</p>
+      </td><td bgcolor="#c0c0c0" width="50%">
+	<p>
+	  En python, on génère <i>n</i> nombres pseudo-aléatoires selon une loi nrmale de moyenne <i>m</i> et d'écart-type <i>s</i> à l'aide de la fonction <kbd>rng.normal (loc = m, scale = s, size = n)</kbd>.
+	  <br/>
+	  On obtient&nbsp;:
+	  <br/>
+	  <img src="q6fPCG64.png" width="500pt" />
+	</p>
+      </td>
+    </tr>
+  </table>
 
   <h4>Question 7</h4>
   
   <p>
 
+    On va maintenant écrire notre propre générateur de nombres pseudo-aléatoires. Même s'il n'aura pas les bonnes propriétés des générateurs vus précédemment, il aura l'avantage d'être simple et de montrer comment on peut générer des nombres pseudo-aléatoires avec un algorithme déterministe.
+
+    <br/>
+    <br/>
+
+    Ce générateur engendre des nombres compris dans ]0, 1[. Il s'appuie sur une équation de récurrence très simple&nbsp;: x<sub>n+1</sub> &leftarrow; m&nbsp;x<sub>n</sub> + c [q].
+
+    <br/>
+
+    Dans cette équation, m, c et q sont des paramètres&nbsp;:
+
+    <br/>
+
+    La notation [q] signifie «&nbsp;reste de la division de terme de gauche par q&nbsp;».
+
+    <br/>
+
+    Si a un moment x<inf>n</inf> est nul, il faut le remplacer par c.
     
+    <br/>
+    <br/>
+    
+    <b>Question 7&nbsp;:</b> implanter ce générateur de nombres pseudo-aléatoires. Générer 10.000 nombres et en faire un histogramme.
     
   </p>
   
