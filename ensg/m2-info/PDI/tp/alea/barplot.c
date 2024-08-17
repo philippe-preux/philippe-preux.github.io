@@ -1,5 +1,8 @@
 /*
- * plot.c
+ * barplot.c
+ *
+ * Philippe Preux, Université de Lille
+ * mai 2024
  *
  */
 
@@ -27,7 +30,7 @@ static void plfbox (PLFLT x0, PLFLT y0, double delta)
 }
 
 void barplot (const double *valeurs, const double *les_bords,
-	      const size_t nb_bins)
+	      const size_t nb_bins, const char *titre)
 {
   /* contour des barres : noir */
   static PLINT couleurs_red[]   = { 0, 0 };
@@ -54,7 +57,8 @@ void barplot (const double *valeurs, const double *les_bords,
   // dessine une boîte autour du viewport courant
   plbox ("bc", delta, 0, "bcnt", delta_y, 0);
   plcol0 (4); // couleur du titre : 4 == aquamarine
-  pllab ("", "", "Distribution empirique pour la graine 123456");
+  if (titre) pllab ("", "", titre);
+  else pllab ("", "", "");
   
   plscmap0n (1);
   plscmap0 (couleurs_red, couleurs_green, couleurs_blue, 2);
@@ -66,13 +70,16 @@ void barplot (const double *valeurs, const double *les_bords,
   }
     
   double n_strings = 5.;
-  double delta_bords_strings = 1.0 / n_strings;
+  double delta_bords_strings = (les_bords [nb_bins] - les_bords [0]) / n_strings;  //1.0 / n_strings;
 
+  printf ("delta_bords_strings = %f\n", delta_bords_strings);
   for (size_t i = 0; i <= n_strings; i ++) {
     char string [128];
     sprintf (string, "%3.2f", les_bords [0] + i * delta_bords_strings);
     plcol1 (1);
-    plmtex ("b", 1.5, i * delta_bords_strings, 0.5, string);
+    //    plmtex ("b", 1.5, i * delta_bords_strings, 0.5, string);
+    plmtex ("b", 1.5, i / n_strings, 0.5, string);
+    printf (", %f, %s\n", i / n_strings, string);
   }
   
   plend();

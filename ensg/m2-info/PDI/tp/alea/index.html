@@ -64,7 +64,7 @@
 
   <h3>Génération de nombres pseudo-aléatoires</h3>
   
-  <h4>Question 1</h4>
+  <h4>Activité 1</h4>
   
   <p>
     
@@ -148,7 +148,7 @@ np.random.rand (1)</pre>
     
   </p>
 
-  <h4>Question 2</h4>
+  <h4>Activité 2</h4>
   
   <p>
 
@@ -198,7 +198,7 @@ np.random.rand (1)</pre>
     
   </p>
 
-  <h4>Question 3</h4>
+  <h4>Activité 3</h4>
   
   <p>
 
@@ -206,7 +206,7 @@ np.random.rand (1)</pre>
     
   </p>
 
-  <h4>Question 4</h4>
+  <h4>Activité 4</h4>
   
   <p>
 
@@ -214,7 +214,7 @@ np.random.rand (1)</pre>
     
   </p>
 
-  <h4>Question 5</h4>
+  <h4>Activité 5</h4>
   
   <p>
 
@@ -237,9 +237,17 @@ np.random.rand (1)</pre>
 	  PLplot est installé sur les machines de la salle de TP. Pour compiler, il faut ajouter les arguments <kbd>-I./barplot.h -I/usr/include/plplot -lplplot</kbd> à la ligne de commande <kbd>gcc</kbd>.
 	  <br/>
 	  <br/>
-	  Construction de l'histogramme blablabla. Puis&nbsp;:
+	  Il faut construire un histogramme des 10000 nombres et ensuite appeler la fonction <kbd>barplot()</kbd> fournie dans le fichier <kbd>barplot.c</kbd>. Cette fonction prend 4 paramètres&nbsp;:
+	  <ul>
+	    <li>un tableau de <kbd>n</kbd> <kbd>double</kbd>s qui sont les décomptes de valeurs tombant dans chacune des <i>n</i> cellules de l'histogramme&nbsp;;</li>
+	    <li>un tableau de <kbd>n+1</kbd> <kbd>double</kbd>s qui sont les bords de chacune des <i>n</i> cellules de l'histogramme&nbsp;;</li>
+	    <li>le nombre <kbd>n</kbd> lui-même&nbsp;;</li>
+	    <li>un titre à donner à la figure.</li>
+	  </ul>
+	  Vous pouvez écrire une fonction qui calcule l'histogramme vous-même ou utiliser les fonctions de la GSL qui calculent un histogramme.
+	  Puis&nbsp;:
 	  </p>
-	  <pre>barplot (h-> valeurs, h-> les_bords, nb_bins)</pre>
+	  <pre>barplot (les_valeurs, les_bords, n, titre)</pre>
 	  <p>
 	  Et on obtient&nbsp;:
 	  <br/>
@@ -262,7 +270,7 @@ np.random.rand (1)</pre>
     <b>Question 5ter&nbsp;:</b> générer les histogrammes pour les graines n, n+1 et n-1. Que constatez-vous&nbsp;?
   </p>
 
-  <h4>Question 6</h4>
+  <h4>Activité 6</h4>
   
   <p>
 
@@ -303,7 +311,7 @@ np.random.rand (1)</pre>
     </tr>
   </table>
 
-  <h4>Question 7</h4>
+  <h4>Activité 7</h4>
   
   <p>
 
@@ -316,26 +324,232 @@ np.random.rand (1)</pre>
 
     <br/>
 
-    Dans cette équation, m, c et q sont des paramètres&nbsp;:
-
-    <br/>
-
-    La notation [q] signifie «&nbsp;reste de la division de terme de gauche par q&nbsp;».
-
-    <br/>
-
+    Dans cette équation, m, c et q sont des paramètres entiers.
+    La notation [q] signifie «&nbsp;reste de la division du terme de gauche par q&nbsp;».
     Si a un moment x<inf>n</inf> est nul, il faut le remplacer par c.
+    La graine correspond à la valeur de x<sub>0</sub>.
     
     <br/>
     <br/>
     
-    <b>Question 7&nbsp;:</b> implanter ce générateur de nombres pseudo-aléatoires. Générer 10.000 nombres et en faire un histogramme.
+    <b>Question 7&nbsp;:</b> implanter ce générateur de nombres pseudo-aléatoires en prenant m = 1103515245, c = 12345 et q = 2<sup>31</sup>. Générer 10.000 nombres et en faire un histogramme. Le résultat correspond-il à vos attentes&nbsp;?
+
+    <br/>
+
+    J'obtiens cet histogramme&nbsp;:
+
+    <br/>
     
+    <img src="./q7.m1103515245.png" width="500pt" />
+    
+    <br/>
+    <br/>
+    
+    <b>Question 7bis&nbsp;:</b> prendre c = 1 et m = 127, générer 10.000 nombres et faites un histogramme. Ensuite, prendre c = 1 et m = 128, générer 10.000 nombres et faites un histogramme. Le résultat correspond-il toujours à vos attentes&nbsp;?
+    
+    <!--
+	<img src="q7.m128.png" width="500pt" />
+	<img src="q7.m127.png" width="500pt" />
+    -->
+	
+  </p>
+
+  <h4>Activité 8</h4>
+  
+  <p>
+
+    <b>Question 8&nbsp;:</b> générer 5000 points dans le carré unité. Pour cela, vous générez 10000 nombres pseudo-aléatoires entre 0 et 1 et chaque paire correspond aux coordonnées d'un point. Faites-en un graphique.
+
   </p>
   
+  <table>
+    <th>C</th><th>python</th>
+    <tr>
+      <td bgcolor="#bafcba" width="50%">
+	<p>
+	  Pour la partie graphique, <kbd>barplot.c</kbd> contient la fonction scatter_plot ()</kbd> qui prend 3 arguments&nbsp;: un tableau de paires de <kbd>double</kbd>s, un entier qui est le nombre de paires et une chaîne de caractères qui sera le titre du graphique.
+	</p>
+      </td><td bgcolor="#c0c0c0" width="50%">
+	<p>
+	  On utilise la fonction <kbd>scatter</kbd> de maplotlib.
+	</p>
+      </td>
+    </tr>
+  </table>
+
+      <p>
+
+	J'obtiens une figure comme celle-ci&nbsp;:
+
+	<br/>
+	
+	<img src="5000pseudo-points.png" width="500pt" />
+
+	<br/>
+
+	On constate qu'il y a des vides.
+	
+      </p>
+	
+  <h4>Activités libres</h4>
+
+      <p>
+
+	On indique ici des activités supplémentaires. Vous êtes vivement encouragés à les réaliser.
+	
+      </p>
+
+      <ul>
+	<li>En python, pour générer des nombres pseudo-aléatoire avec le Mersenne Twister, il faut utiliser&nbsp;:
+	  <br/>
+	  <pre>from numpy.random import RandomState
+gnpa = RandomState (seed)</pre>
+	  à la place de ce qui a été indiqué plus haut (qui utilise PCG64).
+	  <br/>
+	  Écrivez les mêmes programmes en C et en python qui chacun génére 10000 nombres pseudo-aléatoires avec le Mersenne Twister. Faites les histogrammes, comparez. Qu'en pensez-vous&nbsp;?</li>
+	<li>De même, générer seulement 10 nombres pseudo-aléatoires avec le Mersenne Twister en C et en python. Affichez-les et comparez-les. Que consatez-vous&nbsp;?</li>
+	<li>Python utilise un générateur dénommé PCG64. Celui-ci n'est pas disponible dans la GSL mais son <a href="https://www.pcg-random.org/using-pcg-c.html">code est disponible sur Internet</a>. Écrire un programme en C qui utilise ce générateur et faites les mêmes comparaisons que ci-dessus avec le Mersenne Twister.</li>
+	<li>Et pour finir, un peu de lecture&nbsp;:
+	  <ul>
+	    <li>test pour évaluer les qualités d'un générateur de nombres pseudo-aléatoires&nbsp;: <a href="https://webhome.phy.duke.edu/~rgb/General/dieharder.php">dieharder</a>.</li>
+	    <li>pour en savoir plus sur les nombres pseudo-aléatoires et leur génération&nbsp;: fichier <kbd>handsim.ps</kbd> <a href="http://www.iro.umontreal.ca/~lecuyer/papers.html">sur cette page</a> de L'Ecuyer&nbsp;; 2è volume de <i>The Art of Computing, Seminumerical Algorithms</i> de D. Knuth&nbsp;; le chapitre 7 des <i>Numerical recipes in C</i>.
+	</ul></li>
+      </ul>
+      
   <h2>Quelques notions essentielles de statistiques</h2>
 
+	<p>
+
+	  Face à un processus qui donne des résultats différents, on essaie de résumer ceux-ci sous une forme facile à appréhender et qui caractérise le processus. C'est l'objectif des histogrammes faits précédemment. Plus généralement, un graphique peut décrire de manière simple une séquence de nombres. Il existe des tas de types de graphiques qui permettent de représenter telle ou telle propriété,. D'une manière générale, c'est un domaine de recherche complet qui entend rendre intelligible de manière graphique un ensemble de données, la <i>visualisation de données</i>.
+
+	  <br/>
+	  <br/>
+
+	  Il y a d'autres manières de réaliser un résumé de manière quantitative, issues des statistiques descriptives. La plus connue est la moyenne.
+
+	  <br/>
+
+	  Il est important la «&nbsp;manière statistique&nbsp;» d'envisager la situation. Celle-ci suppose qu'il existe un processus qui engendre des données (dans ce TP, c'est un algorithme de génération de nombres pseudo-aléatoires), processus dont les propriétés existent mais sont inconnues. Par exemple, on suppose que les nombres générés par ce generateur ont une certaine moyenne, mais on ne la connait pas. Dès lors, on va essayer de la déterminer.
+
+	  <br/>
+	  <br/>
+
+	  <b>Question 9&nbsp;:</b> d'après, quelle est la valuer moyenne des nombres générer de manière uniforme dans l'intervalle [0, 1[&nbsp;? Même question si les nombres sont générés dans [0, 1] ou dans ]0, 1[ ou dans ]0, 1].
+	    
+	  <br/>
+	  <br/>
+	  
+	  Faites l'expérience suivante&nbsp;: écrire un programme qui engendre 10 nombres pseudo-aléatoires uniformément répartis entre 0 et 1 (comme vu plus haut) et qui affiche la moyenne des i premiers nombres, pour i de 1 à 10.
+
+	</p>
+	
   <table>
+    <th>C</th><th>python</th>
+    <tr>
+      <td bgcolor="#bafcba" width="50%">
+	<p>
+	  En C, j'obtiens&nbsp;:
+	  <br/>
+	  <pre>0.12697
+0.3209415
+0.5362003
+0.6266815
+0.5534404
+0.578837
+0.6243227
+0.6436361
+0.6139821
+0.6457462</pre>
+	</p>
+      </td><td bgcolor="#c0c0c0" width="50%">
+	<p>
+	  En python, j'obtiens&nbsp;:
+	  <br/>
+	  <pre>0.6365137498589308
+0.5106627073737531
+0.35625694539149694
+0.5060058939475681
+0.5860149024786793
+0.5645073445412173
+0.5239396490587402
+0.5379657933633322
+0.5871596707079398
+0.6096868822693744</pre>
+	</p>
+      </td>
+    </tr>
+  </table>
+  
+	<p>
+	  
+	  Qu'en pensez-vous&nbsp;?
+
+	  <br/>
+	  <br/>
+
+	  Refaire le même genre de chose mais cette fois-ci, générer 10<sup>6</sup> nombres pseudo-aléatoires et afficher leur moyenne toutes les 10<sup>5</sup> itérations.
+	  
+	</p>
+	
+	<table>
+	  <th>C</th><th>python</th>
+	  <tr>
+	    <td bgcolor="#bafcba" width="50%">
+	      <p>
+		En C, j'obtiens&nbsp;:
+		<br/>
+		<pre>0.502091
+0.50168
+0.500681
+0.500621
+0.500484
+0.500331
+0.500313
+0.500292
+0.500307
+0.50028</pre>
+	</p>
+      </td><td bgcolor="#c0c0c0" width="50%">
+	<p>
+	  En python, j'obtiens&nbsp;:
+	  <br/>
+	  <pre>0.49998361543953534
+0.5005033518601376
+0.5005979192226971
+0.5004579771726371
+0.5004691791699108
+0.5005069039996045
+0.5003719607781464
+0.5002382648383843
+0.5002204247517089
+0.500302828901582</pre>
+	</p>
+      </td>
+    </tr>
+  </table>
+  
+	<p>
+	  
+	  Qu'en pensez-vous&nbsp;? Qu'est-ce qui change&nbsp;? Pourquoi&nbsp;?
+
+	</p>
+
+	<p>
+
+	  Vocabulaire&nbsp;: jusqu'à maintenant, on a utilisé le vocabulaire de l'informatique pour parler de la génération de nombres pseudo-aléatoires. Quand on se met à réflêchir sous l'angle des statistiques et d'un processus qui génère des données, on a l'habitude le vocabulaire des statistiques. Les termes sont synonymes&nbsp;:
+
+	  <br/>
+
+	  au lieu de «&nbsp;générer un nombre pseudo-aléatoire&nbsp;» on dit qu'on «&nbsp;échantillonne&nbsp;» un processus (<i>to sample</i> en anglais),
+
+	  <br/>
+
+	  et au lieu d'un «&nbsp;nombre pseudo-aléatoire&nbsp;» on parle d'«&nbsp;échantillon&nbsp;» (<i>a sample</i> en anglais).
+	</p>
+	
+
+
+	<table>
     <th>C</th><th>python</th>
     <tr>
       <td bgcolor="#bafcba" width="50%">
@@ -349,8 +563,43 @@ np.random.rand (1)</pre>
       </td>
     </tr>
   </table>
-  
-  <h2>Processus de Markov</h2>
+
+	<table>
+    <th>C</th><th>python</th>
+    <tr>
+      <td bgcolor="#bafcba" width="50%">
+	<p>
+	  C is best
+	</p>
+      </td><td bgcolor="#c0c0c0" width="50%">
+	<p>
+	  python is shit.
+	</p>
+      </td>
+    </tr>
+  </table>
+
+	<table>
+    <th>C</th><th>python</th>
+    <tr>
+      <td bgcolor="#bafcba" width="50%">
+	<p>
+	  C is best
+	</p>
+      </td><td bgcolor="#c0c0c0" width="50%">
+	<p>
+	  python is shit.
+	</p>
+      </td>
+    </tr>
+  </table>
+
+
+
+
+
+
+	<h2>Processus de Markov</h2>
 
 
 
@@ -373,3 +622,20 @@ np.random.rand (1)</pre>
 
 </body>
 </html>
+
+
+
+    <table>
+    <th>C</th><th>python</th>
+    <tr>
+      <td bgcolor="#bafcba" width="50%">
+	<p>
+	  C is best
+	</p>
+      </td><td bgcolor="#c0c0c0" width="50%">
+	<p>
+	  python is shit.
+	</p>
+      </td>
+    </tr>
+  </table>
