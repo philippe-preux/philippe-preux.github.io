@@ -37,8 +37,8 @@ void barplot (const double *valeurs, const double *les_bords,
   static PLINT couleurs_green[] = { 0, 255 };
   static PLINT couleurs_blue[]  = { 0, 0 };
 
-  //  plsdev ("xcairo");
-  plsdev ("pngcairo");
+  plsdev ("xcairo");
+  //plsdev ("pngcairo");
   plinit ();
 
   // vide la page/fenêtre
@@ -70,16 +70,13 @@ void barplot (const double *valeurs, const double *les_bords,
   }
     
   double n_strings = 5.;
-  double delta_bords_strings = (les_bords [nb_bins] - les_bords [0]) / n_strings;  //1.0 / n_strings;
+  double delta_bords_strings = (les_bords [nb_bins] - les_bords [0]) / n_strings;
 
-  printf ("delta_bords_strings = %f\n", delta_bords_strings);
   for (size_t i = 0; i <= n_strings; i ++) {
     char string [128];
     sprintf (string, "%3.2f", les_bords [0] + i * delta_bords_strings);
     plcol1 (1);
-    //    plmtex ("b", 1.5, i * delta_bords_strings, 0.5, string);
     plmtex ("b", 1.5, i / n_strings, 0.5, string);
-    printf (", %f, %s\n", i / n_strings, string);
   }
   
   plend();
@@ -159,7 +156,8 @@ void plot_2d (const double *les_x, const double *les_y, const size_t n,
 
 void scatter_plot (double **les_xy, const size_t n, const char *titre)
 {
-  plsdev ("xcairo");
+  //plsdev ("xcairo");
+  plsdev ("pngcairo");
   plinit ();
   plscmap0n (6);
   plcol0 (1);
