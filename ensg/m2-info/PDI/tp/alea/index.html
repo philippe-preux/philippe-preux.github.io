@@ -687,19 +687,23 @@ gnpa = RandomState (seed)</pre>
 	  <br/>
 
 	  Cela illustre le <i>théorème central limite</i>&nbsp;: chaque m<sub>i</sub> calculée plus haut est une variable aléatoire.
-	  À chaque itération, chacun des n (= 1000) nombres aléatoires a été tiré d'une distribution normale N (&mu;, &sigma;) avec &mu;=0 et &sigma;=1.
-	  Les valeurs de la variable aléatoire m (chacune est la moyenne de 1000 nombres pseudo-aléatoires) sont distribuées selon une loi normale N (&mu;, <math xmlns="http://www.w3.org/1998/Math/MathML">
-	    <mn>&sigma;</mn>
-	    <mrow data-mjx-texclass="ORD">
-	      <mo>/</mo>
-	    </mrow>
-	    <msqrt>
-	      <mn>n</mn>
-	    </msqrt>
-	  </math>, donc N (0, 
+	  À chaque itération, chacun des n (= 1000) nombres aléatoires a été tiré d'une distribution normale
+	  <math xmlns="http://www.w3.org/1998/Math/MathML"><mrow data-mjx-texclass="ORD"> <mi data-mjx-variant="-tex-calligraphic" mathvariant="script">N</mi> </mrow></math> (&mu;, &sigma;) avec &mu;=0 et &sigma;=1.
+	  Les valeurs de la variable aléatoire m (chacune est la moyenne de 1000 nombres pseudo-aléatoires) sont distribuées selon une loi normale
 	  <math xmlns="http://www.w3.org/1998/Math/MathML">
-	    <mi>&#x3C3;</mi>
-	    <mo>=</mo>
+	    <mrow data-mjx-texclass="ORD"> <mi data-mjx-variant="-tex-calligraphic" mathvariant="script">N</mi>(0,
+	      <mn>&sigma;</mn>
+	      <mo>=</mo>
+	      <mn>1</mn>
+	      <mrow data-mjx-texclass="ORD">
+		<mo>/</mo>
+	      </mrow>
+	      <msqrt>
+		<mn>n</mn>
+	      </msqrt>
+	    </math>), soit ici
+	  <math xmlns="http://www.w3.org/1998/Math/MathML">
+	    <mrow data-mjx-texclass="ORD"> <mi data-mjx-variant="-tex-calligraphic" mathvariant="script">N</mi> </mrow>(0,
 	    <mn>1</mn>
 	    <mrow data-mjx-texclass="ORD">
 	      <mo>/</mo>
@@ -707,7 +711,10 @@ gnpa = RandomState (seed)</pre>
 	    <msqrt>
 	      <mn>1000</mn>
 	    </msqrt>
-	  </math>), soit environ 0,03.
+	  </math>), soit environ  <math xmlns="http://www.w3.org/1998/Math/MathML">
+	    <mrow data-mjx-texclass="ORD"> <mi data-mjx-variant="-tex-calligraphic" mathvariant="script">N</mi> </mrow>(0;&nbsp;
+	    <mn>0,03</mn>
+	  </math>).
 
 	  <br/>
 	  <br/>
