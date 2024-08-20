@@ -641,134 +641,137 @@ gnpa = RandomState (seed)</pre>
 
   <p>
 
-	  <b>Question 10bis&nbsp;:</b> faire 10 fois la même chose qu'à la question 10 et afficher toutes les moyennes sur un même graphique.
+    <b>Question 10bis&nbsp;:</b> faire 10 fois la même chose qu'à la question 10 et afficher toutes les moyennes sur un même graphique.
 
-	  <br/>
-	  <br/>
-
-	  J'obtiens ce qui suit&nbsp;:
-
-	  <br/>
-
-	  <img src="q11b.png" width="500pt" alt="graphique pour q11" />
-	  <img src="q11a.png" width="500pt" alt="graphique pour q11" />
-
-	  <br/>
-
-	  La figure de droite étant juste un agrandissement sur les 400 premières itérations de la figure de gauche.
-	  
-	</p>
-	
-	<table>
+    <br/>
+    <br/>
+    
+    J'obtiens ce qui suit&nbsp;:
+    
+    <br/>
+    
+    <img src="q11b.png" width="500pt" alt="graphique pour q11" />
+    <img src="q11a.png" width="500pt" alt="graphique pour q11" />
+    
+    <br/>
+    
+    La figure de droite étant juste un agrandissement sur les 400 premières itérations de la figure de gauche.
+    
+  </p>
+  
+  <table>
     <tr><th scope="col">C</th>
       <th scope="col">python</th></tr>
-	  <tr>
-	    <td bgcolor="#bafcba" width="50%">
-	      <p>
-		En C vous utilisez la même fonction qu'à la question précédente mais cette fois-ci vous affichez plusieurs tableaux de <kbd>double</kbd>s.
-	      </p>
-	    </td><td bgcolor="#c0c0c0" width="50%">
-	      <p>
-		En python, on utilise la fonction <kbd>plot()</kbd> de matplotlib.
-	      </p>
-	    </td>
-	  </tr>
-	</table>
+    <tr>
+      <td bgcolor="#bafcba" width="50%">
+	<div class="c">
+	  <p>
+	    En C vous utilisez la même fonction qu'à la question précédente mais cette fois-ci vous affichez plusieurs tableaux de <kbd>double</kbd>s.
+	  </p>
+	</div>
+      </td><td bgcolor="#c0c0c0" width="50%">
+	<div class="python">
+	  <p>
+	    En python, on utilise la fonction <kbd>plot()</kbd> de matplotlib.
+	  </p>
+	</div>
+      </td>
+    </tr>
+  </table>
 
-	<p>
+  <p>
 
-	  On voit que la moyenne empirique tend vers 0, qui est la moyenne de la distribution normale de moyenne nulle, la vraie moyenne.
+    On voit que la moyenne empirique tend vers 0, qui est la moyenne de la distribution normale de moyenne nulle, la vraie moyenne.
 
-	  <br/>
-	  <br/>
+    <br/>
+    <br/>
+    
+    La vitesse de convergence de la moyenne empirique vers la vraie moyenne est connue&nbsp;: l'écart entre les deux diminue comme
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <mn>1</mn>
+      <mrow data-mjx-texclass="ORD">
+	<mo>/</mo>
+      </mrow>
+      <msqrt>
+	<mn>t</mn>
+      </msqrt>
+    </math>.
+    
+    <br/>
 
-	  La vitesse de convergence de la moyenne empirique vers la vraie moyenne est connue&nbsp;: l'écart entre les deux diminue comme
+    On peut l'observer en ajoutant +/- cette valeur en pointillés sur les graphiques précédents&nbsp;:
 
-	  <math xmlns="http://www.w3.org/1998/Math/MathML">
-	    <mn>1</mn>
-	    <mrow data-mjx-texclass="ORD">
-	      <mo>/</mo>
-	    </mrow>
-	    <msqrt>
-	      <mn>t</mn>
-	    </msqrt>
-	  </math>.
-	  
-	  <br/>
+    <br/>
+    <br/>
 
-	  On peut l'observer en ajoutant +/- cette valeur en pointillés sur les graphiques précédents&nbsp;:
-
-	  <br/>
-	  <br/>
-
-	  <img src="q11b2.png" width="500pt" alt="graphique pour q11" />
-	  <img src="q11a2.png" width="500pt" alt="graphique pour q11" />
-
-	</p>
+    <img src="q11b2.png" width="500pt" alt="graphique pour q11" />
+    <img src="q11a2.png" width="500pt" alt="graphique pour q11" />
+    
+  </p>
 	
-	<h4>Activité 11</h4>
+  <h4>Activité 11</h4>
 	<!-- TCL -->
 	
-	<p>
+  <p>
 
-	  <b>Question 11&nbsp;:</b> tirer 1000 nombres d'une distribution normale de moyenne nulle et d'écart-type 1. En calculer leur moyenne&nbsp;: on obtient une certaine valeur m<sub>1</sub>. Répéter cette expérience 300000 fois. Nous aurons 300000 valeurs m<sub>1</sub> à m<sub>300000</sub>. En faire un histogramme.
+    <b>Question 11&nbsp;:</b> tirer 1000 nombres d'une distribution normale de moyenne nulle et d'écart-type 1. En calculer leur moyenne&nbsp;: on obtient une certaine valeur m<sub>1</sub>. Répéter cette expérience 300000 fois. Nous aurons 300000 valeurs m<sub>1</sub> à m<sub>300000</sub>. En faire un histogramme.
 
-	  <br/>
-	  <br/>
+    <br/>
+    <br/>
+    
+    J'obtiens cela&nbsp;:
+    
+    <br/>
+    <br/>
+    
+    <img src="q12n.png" width="500pt" alt="graphique pour q12" />
+    
+    <br/>
+    <br/>
+    
+    Cela illustre le <i>théorème central limite</i>&nbsp;: chaque m<sub>i</sub> calculée plus haut est une variable aléatoire.
+    À chaque itération, chacun des n (= 1000) nombres aléatoires a été tiré d'une distribution normale
+    <math xmlns="http://www.w3.org/1998/Math/MathML"><mrow data-mjx-texclass="ORD"> <mi data-mjx-variant="-tex-calligraphic" mathvariant="script">N</mi> </mrow></math> (&mu;, &sigma;) avec &mu;=0 et &sigma;=1.
+    Les valeurs de la variable aléatoire m (chacune est la moyenne de 1000 nombres pseudo-aléatoires) sont distribuées selon une loi normale
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <mrow data-mjx-texclass="ORD"> <mi data-mjx-variant="-tex-calligraphic" mathvariant="script">N</mi>(0,
+	<mn>&sigma;</mn>
+	<mo>=</mo>
+	<mn>1</mn>
+	<mrow data-mjx-texclass="ORD">
+	  <mo>/</mo>
+	</mrow>
+	<msqrt>
+	  <mn>n</mn>
+	</msqrt>
+      </math>), soit ici
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+	<mrow data-mjx-texclass="ORD"> <mi data-mjx-variant="-tex-calligraphic" mathvariant="script">N</mi> </mrow>(0,
+	<mn>1</mn>
+	<mrow data-mjx-texclass="ORD">
+	  <mo>/</mo>
+	</mrow>
+	<msqrt>
+	  <mn>1000</mn>
+	</msqrt>
+      </math>), soit environ  <math xmlns="http://www.w3.org/1998/Math/MathML">
+	<mrow data-mjx-texclass="ORD"> <mi data-mjx-variant="-tex-calligraphic" mathvariant="script">N</mi> </mrow>(0;&nbsp;
+	<mn>0,03</mn>
+      </math>).
+      
+      <br/>
+      <br/>
 
-	  J'obtiens cela&nbsp;:
-
-	  <br/>
-	  <br/>
-	  
-	  <img src="q12n.png" width="500pt" alt="graphique pour q12" />
-	  
-	  <br/>
-	  <br/>
-
-	  Cela illustre le <i>théorème central limite</i>&nbsp;: chaque m<sub>i</sub> calculée plus haut est une variable aléatoire.
-	  À chaque itération, chacun des n (= 1000) nombres aléatoires a été tiré d'une distribution normale
-	  <math xmlns="http://www.w3.org/1998/Math/MathML"><mrow data-mjx-texclass="ORD"> <mi data-mjx-variant="-tex-calligraphic" mathvariant="script">N</mi> </mrow></math> (&mu;, &sigma;) avec &mu;=0 et &sigma;=1.
-	  Les valeurs de la variable aléatoire m (chacune est la moyenne de 1000 nombres pseudo-aléatoires) sont distribuées selon une loi normale
-	  <math xmlns="http://www.w3.org/1998/Math/MathML">
-	    <mrow data-mjx-texclass="ORD"> <mi data-mjx-variant="-tex-calligraphic" mathvariant="script">N</mi>(0,
-	      <mn>&sigma;</mn>
-	      <mo>=</mo>
-	      <mn>1</mn>
-	      <mrow data-mjx-texclass="ORD">
-		<mo>/</mo>
-	      </mrow>
-	      <msqrt>
-		<mn>n</mn>
-	      </msqrt>
-	    </math>), soit ici
-	  <math xmlns="http://www.w3.org/1998/Math/MathML">
-	    <mrow data-mjx-texclass="ORD"> <mi data-mjx-variant="-tex-calligraphic" mathvariant="script">N</mi> </mrow>(0,
-	    <mn>1</mn>
-	    <mrow data-mjx-texclass="ORD">
-	      <mo>/</mo>
-	    </mrow>
-	    <msqrt>
-	      <mn>1000</mn>
-	    </msqrt>
-	  </math>), soit environ  <math xmlns="http://www.w3.org/1998/Math/MathML">
-	    <mrow data-mjx-texclass="ORD"> <mi data-mjx-variant="-tex-calligraphic" mathvariant="script">N</mi> </mrow>(0;&nbsp;
-	    <mn>0,03</mn>
-	  </math>).
-
-	  <br/>
-	  <br/>
-
-	  Pour des nombres distribués uniformément dans [0, 1[, on obtient le même genre de graphique&nbsp;:
-
-	  <br/>
-	  <br/>
-	  
-	  <img src="q12u.png" width="500pt" alt="graphique pour q12" />
-	  
-	</p>
-
-	<h4>Activité 12</h4>
+      Pour des nombres distribués uniformément dans [0, 1[, on obtient le même genre de graphique&nbsp;:
+      
+      <br/>
+      <br/>
+      
+      <img src="q12u.png" width="500pt" alt="graphique pour q12" />
+      
+    </p>
+    
+    <h4>Activité 12</h4>
 	<!-- écart-type -->
 	
 	<p>
