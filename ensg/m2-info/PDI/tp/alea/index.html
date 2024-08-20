@@ -433,7 +433,7 @@ gnpa = RandomState (seed)</pre>
 	
 	<p>
 
-	  Il est important la «&nbsp;manière statistique&nbsp;» d'envisager la situation. Celle-ci suppose qu'il existe un processus qui engendre des données (dans ce TP, c'est un algorithme de génération de nombres pseudo-aléatoires), processus dont les propriétés existent mais sont inconnues. Par exemple, on suppose que les nombres générés par ce generateur ont une certaine moyenne, mais on ne la connait pas. Dès lors, on va essayer de la déterminer.
+	  Il est important de connaître la «&nbsp;manière statistique&nbsp;» d'envisager la situation. Celle-ci suppose qu'il existe un processus qui engendre des données (dans ce TP, c'est un algorithme de génération de nombres pseudo-aléatoires), processus dont les propriétés existent mais sont inconnues. Par exemple, on suppose que les nombres générés par ce generateur ont une certaine moyenne, mais on ne la connait pas. Cette moyenne inconnue est nommée la <i>vraie</i> moyenne. Dès lors, on va essayer de la déterminer&nbsp; en statistiques, on dit qu'on l'estime.
 
 	  <br/>
 	  <br/>
@@ -540,7 +540,11 @@ gnpa = RandomState (seed)</pre>
 
 	<p>
 	    
-	  Vocabulaire&nbsp;: jusqu'à maintenant, on a utilisé le vocabulaire de l'informatique pour parler de la génération de nombres pseudo-aléatoires. Quand on se met à réflêchir sous l'angle des statistiques et d'un processus qui génère des données, on a l'habitude le vocabulaire des statistiques. Les termes sont synonymes&nbsp;:
+	  <b>Vocabulaire</b>&nbsp;:
+
+	  <br/>
+	  
+	  jusqu'à maintenant, on a utilisé le vocabulaire de l'informatique pour parler de la génération de nombres pseudo-aléatoires. Quand on se met à réflêchir sous l'angle des statistiques et d'un processus qui génère des données, on a l'habitude le vocabulaire des statistiques. Les termes sont synonymes&nbsp;:
 
 	  <br/>
 
@@ -549,6 +553,18 @@ gnpa = RandomState (seed)</pre>
 	  <br/>
 
 	  et au lieu d'un «&nbsp;nombre pseudo-aléatoire&nbsp;» on parle d'«&nbsp;échantillon&nbsp;» (<i>a sample</i> en anglais).
+
+	  <br/>
+
+	  Quand on calcule la moyenne de plusieurs échantillons, on parle de moyenne <i>empirique</i>. Le mot «&nbsp;empirique&nbsp;» signifie ici que l'on à la moyenne de valeurs observées/mesurées, engendrées par un processus que l'on observe. Il s'oppose au mot «&nbsp;vrai&nbsp;» introduit plus haut qui signifie que l'on considère la valeur théorique, laquelle n'est pas observée, mais que l'on essaye d'estimer au mieux.
+
+	  <br/>
+
+	  La moyenne est une quantité que l'on peut calculer parmi des tas d'autres, probablement la plus connue. Il existe également la médiane, la variance, l'écart-type et bien d'autres. Chacune de ces quantités se nomme une <i>statistique</i>.
+
+	  <br/>
+	  
+	  En termes de notation, on a l'habitude de noter la moyenne par la lettre grecque &mu; et la distinguer de <math xmlns="http://www.w3.org/1998/Math/MathML"> <mover> <mi>&#x3BC;</mi> <mo stretchy="false">^</mo> </mover> </math>&nbsp;: sans chapeau, c'est la <i>vraie</i> valeur, avec un chapeau c'est sa valeur empirique. Plus généralement, si on note une statistique avec une certaine lettre, on lui ajoute un chapeau quand on veut parler de sa valeur empirique&nbsp;; sans chapeau, c'est la vraie valeur de la statistique.
 
 	</p>
 	
@@ -637,12 +653,12 @@ gnpa = RandomState (seed)</pre>
 
 	<p>
 
-	  On voit que la moyenne tend vers 0, qui est la moyenne de la distribution normale de moyenne nulle.
+	  On voit que la moyenne empirique tend vers 0, qui est la moyenne de la distribution normale de moyenne nulle, la vraie moyenne.
 
 	  <br/>
 	  <br/>
 
-	  La vitesse de convergence est connu de la moyenne empirique vers la vraie moyenne&nbsp;: l'écart entre les deux diminue comme
+	  La vitesse de convergence de la moyenne empirique vers la vraie moyenne est connue&nbsp;: l'écart entre les deux diminue comme
 
 	  <math xmlns="http://www.w3.org/1998/Math/MathML">
 	    <mn>1</mn>
@@ -656,7 +672,7 @@ gnpa = RandomState (seed)</pre>
 	  
 	  <br/>
 
-	  On peut l'observer en ajouter +/- cette valeur en pointillés sur les graphiques précédents&nbsp;:
+	  On peut l'observer en ajoutant +/- cette valeur en pointillés sur les graphiques précédents&nbsp;:
 
 	  <br/>
 	  <br/>
@@ -733,6 +749,48 @@ gnpa = RandomState (seed)</pre>
 	
 	<p>
 
+	  Une autre caractéristique importante (qui saute aux yeux dans le cas d'une distribution normale) est l'étalement de la distribution des valeurs autour de la moyenne. Celle-ci est mesurée par l'<i>écart-type</i>.
+
+	  <br/>
+
+	  L'écart-type est la racine carrée de la <i>variance</i>. Celle-ci se définit très simplement comme la moyenne de l'écart entre chaque échantillon et la moyenne empirique&nbsp;: <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+	    <mo>var (</mo>
+    <msub>
+      <mi>x</mi>
+      <mi>i</mi>
+    </msub>
+	    <mo>)=</mo>
+    <mfrac>
+      <mn>1</mn>
+      <mi>n</mi>
+    </mfrac>
+    <munderover>
+      <mo data-mjx-texclass="OP">&#x2211;</mo>
+      <mrow data-mjx-texclass="ORD">
+        <mi>i</mi>
+        <mo>=</mo>
+        <mn>1</mn>
+      </mrow>
+      <mi>n</mi>
+    </munderover>
+    <mo stretchy="false">(</mo>
+    <msub>
+      <mi>x</mi>
+      <mi>i</mi>
+    </msub>
+    <mo>&#x2212;</mo>
+    <mrow data-mjx-texclass="ORD">
+      <mover>
+        <mi>&#x3BC;</mi>
+        <mo stretchy="false">^</mo>
+      </mover>
+    </mrow>
+    <msup>
+      <mo stretchy="false">)</mo>
+      <mn>2</mn>
+    </msup>
+</math>
+	  
 	</p>
 
 	<h4>Activité 13</h4>
