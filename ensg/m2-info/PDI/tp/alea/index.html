@@ -248,17 +248,19 @@ np.random.rand (1)</pre>
 	  <br/>
 	  <br/>
 	  Il faut construire un histogramme des 10000 nombres et ensuite appeler la fonction <kbd>barplot()</kbd> fournie dans le fichier <kbd>barplot.c</kbd>. Cette fonction prend 4 paramètres&nbsp;:
-	  <ul>
-	    <li>un tableau de <kbd>n</kbd> <kbd>double</kbd>s qui sont les décomptes de valeurs tombant dans chacune des <i>n</i> cellules de l'histogramme&nbsp;;</li>
-	    <li>un tableau de <kbd>n+1</kbd> <kbd>double</kbd>s qui sont les bords de chacune des <i>n</i> cellules de l'histogramme&nbsp;;</li>
-	    <li>le nombre <kbd>n</kbd> lui-même&nbsp;;</li>
-	    <li>un titre à donner à la figure.</li>
-	  </ul>
+	</p>	  
+	<ul>
+	  <li>un tableau de <kbd>n</kbd> <kbd>double</kbd>s qui sont les décomptes de valeurs tombant dans chacune des <i>n</i> cellules de l'histogramme&nbsp;;</li>
+	  <li>un tableau de <kbd>n+1</kbd> <kbd>double</kbd>s qui sont les bords de chacune des <i>n</i> cellules de l'histogramme&nbsp;;</li>
+	  <li>le nombre <kbd>n</kbd> lui-même&nbsp;;</li>
+	  <li>un titre à donner à la figure.</li>
+	</ul>
+	<p>
 	  Vous pouvez écrire une fonction qui calcule l'histogramme vous-même ou utiliser les fonctions de la GSL qui calculent un histogramme.
 	  Puis&nbsp;:
-	  </p>
-	  <pre>barplot (les_valeurs, les_bords, n, titre)</pre>
-	  <p>
+	</p>
+	<pre>barplot (les_valeurs, les_bords, n, titre)</pre>
+	<p>
 	  Et on obtient&nbsp;:
 	  <br/>
 	  <img src="q5.png" width="500pt" alt="graphique pour q5" />
@@ -273,13 +275,13 @@ np.random.rand (1)</pre>
       </td>
     </tr>
   </table>
-
+  
   <p>
     <b>Question 5bis&nbsp;:</b> comparer visuellement ces histogrammes&nbsp;; qu'en pensez-vous&nbsp;?
     <br/>
     <b>Question 5ter&nbsp;:</b> générer les histogrammes pour les graines n, n+1 et n-1. Que constatez-vous&nbsp;?
   </p>
-
+  
   <h4>Activité 6</h4>
   
   <p>
@@ -379,8 +381,8 @@ np.random.rand (1)</pre>
     <tr>
       <td bgcolor="#bafcba" width="50%">
 	<p>
-	  Pour la partie graphique, <kbd>barplot.c</kbd> contient la fonction scatter_plot ()</kbd> qui prend 3 arguments&nbsp;: un tableau de paires de <kbd>double</kbd>s, un entier qui est le nombre de paires et une chaîne de caractères qui sera le titre du graphique.
-	</p>
+	  Pour la partie graphique, <kbd>barplot.c</kbd> contient la fonction <kbd>scatter_plot ()</kbd> qui prend 3 arguments&nbsp;: un tableau de paires de <kbd>double</kbd>s, un entier qui est le nombre de paires et une chaîne de caractères qui sera le titre du graphique.
+      </p>
       </td><td bgcolor="#c0c0c0" width="50%">
 	<p>
 	  On utilise la fonction <kbd>scatter</kbd> de maplotlib.
@@ -405,66 +407,66 @@ np.random.rand (1)</pre>
 	
   <h4>Activités libres</h4>
 
-      <p>
+  <p>
 
-	On indique ici des activités supplémentaires. Vous êtes vivement encouragés à les réaliser.
-	
-      </p>
-
-      <ul>
-	<li>En python, pour générer des nombres pseudo-aléatoire avec le Mersenne Twister, il faut utiliser&nbsp;:
-	  <br/>
-	  <pre>from numpy.random import RandomState
+    On indique ici des activités supplémentaires. Vous êtes vivement encouragés à les réaliser.
+    
+  </p>
+  
+  <ul>
+    <li>En python, pour générer des nombres pseudo-aléatoire avec le Mersenne Twister, il faut utiliser&nbsp;:
+      <br/>
+      <pre>from numpy.random import RandomState
 gnpa = RandomState (seed)</pre>
-	  à la place de ce qui a été indiqué plus haut (qui utilise PCG64).
-	  <br/>
-	  Écrivez les mêmes programmes en C et en python qui chacun génére 10000 nombres pseudo-aléatoires avec le Mersenne Twister. Faites les histogrammes, comparez. Qu'en pensez-vous&nbsp;?</li>
-	<li>De même, générer seulement 10 nombres pseudo-aléatoires avec le Mersenne Twister en C et en python. Affichez-les et comparez-les. Que consatez-vous&nbsp;?</li>
-	<li>Python utilise un générateur dénommé PCG64. Celui-ci n'est pas disponible dans la GSL mais son <a href="https://www.pcg-random.org/using-pcg-c.html">code est disponible sur Internet</a>. Écrire un programme en C qui utilise ce générateur et faites les mêmes comparaisons que ci-dessus avec le Mersenne Twister.</li>
-	<li>Et pour finir, un peu de lecture&nbsp;:
-	  <ul>
-	    <li>test pour évaluer les qualités d'un générateur de nombres pseudo-aléatoires&nbsp;: <a href="https://webhome.phy.duke.edu/~rgb/General/dieharder.php">dieharder</a>.</li>
-	    <li>pour en savoir plus sur les nombres pseudo-aléatoires et leur génération&nbsp;: <a href="http://www.iro.umontreal.ca/~lecuyer/myftp/papers/handsim.ps">Random Number Generation</a> de L'Ecuyer&nbsp;; 2è volume de <i>The Art of Computing, Seminumerical Algorithms</i> de D. Knuth&nbsp;; le chapitre 7 des <i>Numerical recipes in C</i>.
-	</ul></li>
-      </ul>
-      
+      à la place de ce qui a été indiqué plus haut (qui utilise PCG64).
+      <br/>
+      Écrivez les mêmes programmes en C et en python qui chacun génére 10000 nombres pseudo-aléatoires avec le Mersenne Twister. Faites les histogrammes, comparez. Qu'en pensez-vous&nbsp;?</li>
+    <li>De même, générer seulement 10 nombres pseudo-aléatoires avec le Mersenne Twister en C et en python. Affichez-les et comparez-les. Que consatez-vous&nbsp;?</li>
+    <li>Python utilise un générateur dénommé PCG64. Celui-ci n'est pas disponible dans la GSL mais son <a href="https://www.pcg-random.org/using-pcg-c.html">code est disponible sur Internet</a>. Écrire un programme en C qui utilise ce générateur et faites les mêmes comparaisons que ci-dessus avec le Mersenne Twister.</li>
+    <li>Et pour finir, un peu de lecture&nbsp;:
+      <ul>
+	<li>test pour évaluer les qualités d'un générateur de nombres pseudo-aléatoires&nbsp;: <a href="https://webhome.phy.duke.edu/~rgb/General/dieharder.php">dieharder</a>.</li>
+	<li>pour en savoir plus sur les nombres pseudo-aléatoires et leur génération&nbsp;: <a href="http://www.iro.umontreal.ca/~lecuyer/myftp/papers/handsim.ps">Random Number Generation</a> de L'Ecuyer&nbsp;; 2è volume de <i>The Art of Computing, Seminumerical Algorithms</i> de D. Knuth&nbsp;; le chapitre 7 des <i>Numerical recipes in C</i>.</li>
+    </ul></li>
+  </ul>
+  
   <h2>Quelques notions essentielles de statistiques</h2>
+  
+  <p>
+    
+    Face à un processus qui donne des résultats différents, on essaie de résumer ceux-ci sous une forme facile à appréhender et qui caractérise le processus. C'est l'objectif des histogrammes faits précédemment. Plus généralement, un graphique peut décrire de manière simple une séquence de nombres. Il existe des tas de types de graphiques qui permettent de représenter telle ou telle propriété,. D'une manière générale, c'est un domaine de recherche complet qui entend rendre intelligible de manière graphique un ensemble de données, la <i>visualisation de données</i>.
 
-	<p>
+    <br/>
+    <br/>
+    
+    Il y a d'autres manières de réaliser un résumé de manière quantitative, issues des statistiques descriptives. La plus connue est la moyenne.
 
-	  Face à un processus qui donne des résultats différents, on essaie de résumer ceux-ci sous une forme facile à appréhender et qui caractérise le processus. C'est l'objectif des histogrammes faits précédemment. Plus généralement, un graphique peut décrire de manière simple une séquence de nombres. Il existe des tas de types de graphiques qui permettent de représenter telle ou telle propriété,. D'une manière générale, c'est un domaine de recherche complet qui entend rendre intelligible de manière graphique un ensemble de données, la <i>visualisation de données</i>.
+  </p>
 
-	  <br/>
-	  <br/>
+  <h4>Activité 9</h4>
+  
+  <p>
 
-	  Il y a d'autres manières de réaliser un résumé de manière quantitative, issues des statistiques descriptives. La plus connue est la moyenne.
+    Il est important de connaître la «&nbsp;manière statistique&nbsp;» d'envisager la situation. Celle-ci suppose qu'il existe un processus qui engendre des données (dans ce TP, c'est un algorithme de génération de nombres pseudo-aléatoires), processus dont les propriétés existent mais sont inconnues. Par exemple, on suppose que les nombres générés par ce generateur ont une certaine moyenne, mais on ne la connait pas. Cette moyenne inconnue est nommée la <i>vraie</i> moyenne. Dès lors, on va essayer de la déterminer&nbsp; en statistiques, on dit qu'on l'estime.
 
-	<p/>
-
-	<h4>Activité 9</h4>
-	
-	<p>
-
-	  Il est important de connaître la «&nbsp;manière statistique&nbsp;» d'envisager la situation. Celle-ci suppose qu'il existe un processus qui engendre des données (dans ce TP, c'est un algorithme de génération de nombres pseudo-aléatoires), processus dont les propriétés existent mais sont inconnues. Par exemple, on suppose que les nombres générés par ce generateur ont une certaine moyenne, mais on ne la connait pas. Cette moyenne inconnue est nommée la <i>vraie</i> moyenne. Dès lors, on va essayer de la déterminer&nbsp; en statistiques, on dit qu'on l'estime.
-
-	  <br/>
-	  <br/>
-
-	  <b>Question 9&nbsp;:</b> d'après vous, quelle est la valeur moyenne des nombres générer de manière uniforme dans l'intervalle [0, 1[&nbsp;? Même question si les nombres sont générés dans [0, 1] ou dans ]0, 1[ ou dans ]0, 1].
-	    
-	  <br/>
-	  <br/>
-	  
-	  Faites l'expérience suivante&nbsp;: écrire un programme qui engendre 10 nombres pseudo-aléatoires uniformément répartis entre 0 et 1 (comme vu plus haut) et qui affiche la moyenne des i premiers nombres, pour i de 1 à 10.
-
-	</p>
-	
+    <br/>
+    <br/>
+    
+    <b>Question 9&nbsp;:</b> d'après vous, quelle est la valeur moyenne des nombres générer de manière uniforme dans l'intervalle [0, 1[&nbsp;? Même question si les nombres sont générés dans [0, 1] ou dans ]0, 1[ ou dans ]0, 1].
+    
+    <br/>
+    <br/>
+    
+    Faites l'expérience suivante&nbsp;: écrire un programme qui engendre 10 nombres pseudo-aléatoires uniformément répartis entre 0 et 1 (comme vu plus haut) et qui affiche la moyenne des i premiers nombres, pour i de 1 à 10.
+    
+  </p>
+  
   <table>
     <tr><th scope="col">C</th>
       <th scope="col">python</th></tr>
     <tr>
       <td bgcolor="#bafcba" width="50%">
-	<p>
+	<div class="c">
 	  En C, j'obtiens&nbsp;:
 	  <br/>
 	  <pre>0.12697
@@ -477,9 +479,9 @@ gnpa = RandomState (seed)</pre>
 0.6436361
 0.6139821
 0.6457462</pre>
-	</p>
+	</div>
       </td><td bgcolor="#c0c0c0" width="50%">
-	<p>
+	<div class="python">
 	  En python, j'obtiens&nbsp;:
 	  <br/>
 	  <pre>0.6365137498589308
@@ -492,18 +494,18 @@ gnpa = RandomState (seed)</pre>
 0.5379657933633322
 0.5871596707079398
 0.6096868822693744</pre>
-	</p>
+	</div>
       </td>
     </tr>
   </table>
   
-	<p>
+  <p>
 	  
-	  Qu'en pensez-vous&nbsp;?
-
-	  <br/>
-	  <br/>
-
+    Qu'en pensez-vous&nbsp;?
+    
+    <br/>
+    <br/>
+    
 	  Refaire le même genre de chose mais cette fois-ci, générer 10<sup>6</sup> nombres pseudo-aléatoires et afficher leur moyenne toutes les 10<sup>5</sup> itérations (la moyenne de tous les nombres qui ont été générés jusqu'à cette itération).
 	  
 	</p>
