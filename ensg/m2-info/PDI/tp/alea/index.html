@@ -516,8 +516,9 @@ gnpa = RandomState (seed)</pre>
 	  <tr>
 	    <td bgcolor="#bafcba" width="50%">
 	      <div class="c">
-		En C, j'obtiens&nbsp;:
-		<br/>
+		<p>
+		  En C, j'obtiens&nbsp;:
+		</p>
 		<pre>0.502091
 0.50168
 0.500681
@@ -531,8 +532,9 @@ gnpa = RandomState (seed)</pre>
 	      </div>
 	    </td><td bgcolor="#c0c0c0" width="50%">
 	      <div class="python">
-		En python, j'obtiens&nbsp;:
-		<br/>
+		<p>
+		  En python, j'obtiens&nbsp;:
+		</p>
 		<pre>0.49998361543953534
 0.5005033518601376
 0.5005979192226971
@@ -552,88 +554,92 @@ gnpa = RandomState (seed)</pre>
 	  
     Qu'en pensez-vous&nbsp;? Qu'est-ce qui change&nbsp;? Pourquoi&nbsp;?
 
-	</p>
+  </p>
 
-	<p>
-	    
-	  <b>Vocabulaire</b>&nbsp;:
+  <p>
+    
+    <b>Vocabulaire</b>&nbsp;:
+    
+    <br/>
+    
+    jusqu'à maintenant, on a utilisé le vocabulaire de l'informatique pour parler de la génération de nombres pseudo-aléatoires. Quand on se met à réflêchir sous l'angle des statistiques et d'un processus qui génère des données, on a l'habitude le vocabulaire des statistiques. Les termes sont synonymes&nbsp;:
 
-	  <br/>
+    <br/>
+
+    au lieu de «&nbsp;générer un nombre pseudo-aléatoire&nbsp;» on dit qu'on «&nbsp;échantillonne&nbsp;» un processus (<i>to sample</i> en anglais),
+
+    <br/>
+
+    et au lieu d'un «&nbsp;nombre pseudo-aléatoire&nbsp;» on parle d'«&nbsp;échantillon&nbsp;» (<i>a sample</i> en anglais).
+
+    <br/>
+
+    Quand on calcule la moyenne de plusieurs échantillons, on parle de moyenne <i>empirique</i>. Le mot «&nbsp;empirique&nbsp;» signifie ici que l'on à la moyenne de valeurs observées/mesurées, engendrées par un processus que l'on observe. Il s'oppose au mot «&nbsp;vrai&nbsp;» introduit plus haut qui signifie que l'on considère la valeur théorique, laquelle n'est pas observée, mais que l'on essaye d'estimer au mieux.
+
+    <br/>
+
+    La moyenne est une quantité que l'on peut calculer parmi des tas d'autres, probablement la plus connue. Il existe également la médiane, la variance, l'écart-type et bien d'autres. Chacune de ces quantités se nomme une <i>statistique</i>.
+    
+    <br/>
 	  
-	  jusqu'à maintenant, on a utilisé le vocabulaire de l'informatique pour parler de la génération de nombres pseudo-aléatoires. Quand on se met à réflêchir sous l'angle des statistiques et d'un processus qui génère des données, on a l'habitude le vocabulaire des statistiques. Les termes sont synonymes&nbsp;:
+    En termes de notation, on a l'habitude de noter la moyenne par la lettre grecque &mu; et la distinguer de <math xmlns="http://www.w3.org/1998/Math/MathML"> <mover> <mi>&#x3BC;</mi> <mo stretchy="false">^</mo> </mover> </math>&nbsp;: sans chapeau, c'est la <i>vraie</i> valeur, avec un chapeau c'est sa valeur empirique. Plus généralement, si on note une statistique avec une certaine lettre, on lui ajoute un chapeau quand on veut parler de sa valeur empirique&nbsp;; sans chapeau, c'est la vraie valeur de la statistique.
 
-	  <br/>
-
-	  au lieu de «&nbsp;générer un nombre pseudo-aléatoire&nbsp;» on dit qu'on «&nbsp;échantillonne&nbsp;» un processus (<i>to sample</i> en anglais),
-
-	  <br/>
-
-	  et au lieu d'un «&nbsp;nombre pseudo-aléatoire&nbsp;» on parle d'«&nbsp;échantillon&nbsp;» (<i>a sample</i> en anglais).
-
-	  <br/>
-
-	  Quand on calcule la moyenne de plusieurs échantillons, on parle de moyenne <i>empirique</i>. Le mot «&nbsp;empirique&nbsp;» signifie ici que l'on à la moyenne de valeurs observées/mesurées, engendrées par un processus que l'on observe. Il s'oppose au mot «&nbsp;vrai&nbsp;» introduit plus haut qui signifie que l'on considère la valeur théorique, laquelle n'est pas observée, mais que l'on essaye d'estimer au mieux.
-
-	  <br/>
-
-	  La moyenne est une quantité que l'on peut calculer parmi des tas d'autres, probablement la plus connue. Il existe également la médiane, la variance, l'écart-type et bien d'autres. Chacune de ces quantités se nomme une <i>statistique</i>.
-
-	  <br/>
-	  
-	  En termes de notation, on a l'habitude de noter la moyenne par la lettre grecque &mu; et la distinguer de <math xmlns="http://www.w3.org/1998/Math/MathML"> <mover> <mi>&#x3BC;</mi> <mo stretchy="false">^</mo> </mover> </math>&nbsp;: sans chapeau, c'est la <i>vraie</i> valeur, avec un chapeau c'est sa valeur empirique. Plus généralement, si on note une statistique avec une certaine lettre, on lui ajoute un chapeau quand on veut parler de sa valeur empirique&nbsp;; sans chapeau, c'est la vraie valeur de la statistique.
-
-	</p>
+  </p>
 	
-	<h4>Activité 10</h4>
+  <h4>Activité 10</h4>
 	<!-- loi des grds nb -->
 	
-	<p>
+  <p>
 
-	  On considère <i>n</i> variables aléatoires indépendantes et identiquement distribuées (i.i.d.) notées X<sub>i</sub> de moyenne &mu;.
+    On considère <i>n</i> variables aléatoires indépendantes et identiquement distribuées (i.i.d.) notées X<sub>i</sub> de moyenne &mu;.
 	  
-	  <br/>
+    <br/>
 	  
-	  La <i>loi des grands nombres</i> indique que la moyenne de ces X<sub>i</sub> tend vers <i>n</i> lorsque <i>n</i> tend vers l'infini.
+    La <i>loi des grands nombres</i> indique que la moyenne de ces X<sub>i</sub> tend vers <i>n</i> lorsque <i>n</i> tend vers l'infini.
 
-	  <br/>
-	  <br/>
+    <br/>
+    <br/>
 	  
-	  <b>Question 10&nbsp;:</b> générer 10000 nombres pseudo-aléatoires distribués selon une loi normale de moyenne nulle et d'écart-type 1. Calculer la moyenne des i premiers nombres pour i variant de 1 à 10000 en en faire un graphique.
-	</p>
+    <b>Question 10&nbsp;:</b> générer 10000 nombres pseudo-aléatoires distribués selon une loi normale de moyenne nulle et d'écart-type 1. Calculer la moyenne des i premiers nombres pour i variant de 1 à 10000 en en faire un graphique.
+  </p>
 	
-	<table>
+  <table>
     <tr><th scope="col">C</th>
       <th scope="col">python</th></tr>
-	  <tr>
-	    <td bgcolor="#bafcba" width="50%">
-	      <p>
-		En C, le fichier <kbd>barplot.c</kbd> définit la fonction <kbd>plot_series ()</kbd> qui prend cinq arguments&nbsp;:
-	      </p>
-	      <ul>
-		<li>un tableau de tableaux de <kbd>double</kbd>s (un <kbd>double **</kbd>,</li>
-		<li>un entier qui est le nombre de valeurs dans ce tableau,</li>
-		<li>un entier qui est le nombre de tableau de tableaux&nbsp;: ici, c'est 1,</li>
-		<li>un entier qui vaut 0,</li>
-		<li>une chaîne de caractères qui contient le titre du graphique.</li>
-	      </ul>
-	      <p>
-		On obtient cela&nbsp;:
-		<br/>
-		<br/>
-		<img src="q10.png" width="500pt" alt="graphique pour q10" />
-		<br/>
-		<br/>
-		Qu'en pensez-vous&nbsp;?
-	      </p>
-	    </td><td bgcolor="#c0c0c0" width="50%">
-	      <p>
-		En python, on utilise la fonction <kbd>plt.plot()</kbd>.
-	      </p>
-	    </td>
-	  </tr>
-	</table>
+    <tr>
+      <td bgcolor="#bafcba" width="50%">
+	<div class="c">
+	  <p>
+	    En C, le fichier <kbd>barplot.c</kbd> définit la fonction <kbd>plot_series ()</kbd> qui prend cinq arguments&nbsp;:
+	  </p>
+	  <ul>
+	    <li>un tableau de tableaux de <kbd>double</kbd>s (un <kbd>double **</kbd>,</li>
+	    <li>un entier qui est le nombre de valeurs dans ce tableau,</li>
+	    <li>un entier qui est le nombre de tableau de tableaux&nbsp;: ici, c'est 1,</li>
+	    <li>un entier qui vaut 0,</li>
+	    <li>une chaîne de caractères qui contient le titre du graphique.</li>
+	  </ul>
+	  <p>
+	    On obtient cela&nbsp;:
+	    <br/>
+	    <br/>
+	    <img src="q10.png" width="500pt" alt="graphique pour q10" />
+	    <br/>
+	    <br/>
+	    Qu'en pensez-vous&nbsp;?
+	  </p>
+	</div>
+      </td><td bgcolor="#c0c0c0" width="50%">
+	<div class="python">
+	  <p>
+	    En python, on utilise la fonction <kbd>plt.plot()</kbd>.
+	  </p>
+	</div>
+      </td>
+    </tr>
+  </table>
 
-	<p>
+  <p>
 
 	  <b>Question 10bis&nbsp;:</b> faire 10 fois la même chose qu'à la question 10 et afficher toutes les moyennes sur un même graphique.
 
