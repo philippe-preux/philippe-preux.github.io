@@ -39,6 +39,9 @@ void barplot (const double *valeurs, const double *les_bords,
 
   plsdev ("xcairo");
   //plsdev ("pngcairo");
+  int fonds_blanc = 0;
+  if (fonds_blanc) plscolbg (255, 255, 255); /* fonds blanc */
+  else plscolbg (0, 0, 0); /* fonds noir */
   plinit ();
 
   // vide la page/fenêtre
@@ -56,19 +59,20 @@ void barplot (const double *valeurs, const double *les_bords,
   //plenv (les_bords [0], les_bords [nb_bins], 0.0, val_max * 1.25, 0, 0);
   // dessine une boîte autour du viewport courant
   plbox ("bc", delta, 0, "bcnt", delta_y, 0);
-  plcol0 (4); // couleur du titre : 4 == aquamarine
+  if (fonds_blanc) plcol0 (9); // couleur du titre : 9 == bleu
+  else plcol0 (4); // couleur du titre : 4 == aquamarine
   if (titre) pllab ("", "", titre);
   else pllab ("", "", "");
-  
+
   plscmap0n (1);
   plscmap0 (couleurs_red, couleurs_green, couleurs_blue, 2);
-    
+
   for (size_t i = 0; i < nb_bins; i++) {
     plcol0 (1); // couleur des barres : vert
     plpsty (0); // fill pattern : 0 == filled 
     plfbox (les_bords [i], valeurs [i], delta);
   }
-    
+
   double n_strings = 5.;
   double delta_bords_strings = (les_bords [nb_bins] - les_bords [0]) / n_strings;
 
@@ -89,6 +93,7 @@ void plot_series (double **Y, const size_t len_y, const size_t N_series,
 {
   // Initialize plplot
   plsdev ("xcairo");
+  plscolbg (0, 0, 0); /* fonds noir */
   plinit ();
   plscmap0n (N_series + 5);
   plcol0 (1);
@@ -118,7 +123,6 @@ void plot_series (double **Y, const size_t len_y, const size_t N_series,
     plline ((int) len_y, les_x, Y [N_series + 1]);
   }
   
-  plcol0 (4); // couleur du titre : 4 == aquamarine
   pllab ("", "", titre);
 
   plend ();
@@ -128,6 +132,7 @@ void plot_2d (const double *les_x, const double *les_y, const size_t n,
 	      const char *titre)
 {
   plsdev ("xcairo");
+  plscolbg (0, 0, 0); /* fonds noir */
   plinit ();
   plscmap0n (6);
   plcol0 (1);
@@ -158,6 +163,7 @@ void scatter_plot (double **les_xy, const size_t n, const char *titre)
 {
   //plsdev ("xcairo");
   plsdev ("pngcairo");
+  plscolbg (0, 0, 0); /* fonds noir */
   plinit ();
   plscmap0n (6);
   plcol0 (1);
