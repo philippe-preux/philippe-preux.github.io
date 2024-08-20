@@ -582,7 +582,7 @@ gnpa = RandomState (seed)</pre>
     
     <br/>
 	  
-    En termes de notation, on a l'habitude de noter la moyenne par la lettre grecque &mu; et la distinguer de <math xmlns="http://www.w3.org/1998/Math/MathML"> <mover> <mi>&#x3BC;</mi> <mo stretchy="false">^</mo> </mover> </math>&nbsp;: sans chapeau, c'est la <i>vraie</i> valeur, avec un chapeau c'est sa valeur empirique. Plus généralement, si on note une statistique avec une certaine lettre, on lui ajoute un chapeau quand on veut parler de sa valeur empirique&nbsp;; sans chapeau, c'est la vraie valeur de la statistique.
+    En termes de notation, on a l'habitude de noter la moyenne par la lettre grecque &mu; et de la distinguer de <math> <mover> <mi>&#x3BC;</mi> <mo stretchy="false">^</mo> </mover> </math><math xmlns="http://www.w3.org/1998/Math/MathML"> <mover> <mi>&#x3BC;</mi> <mo stretchy="false">^</mo> </mover> </math>&nbsp;: sans chapeau, c'est la <i>vraie</i> valeur, avec un chapeau c'est sa valeur empirique. Plus généralement, si on note une statistique avec une certaine lettre, on lui ajoute un chapeau quand on veut parler de sa valeur empirique&nbsp;; sans chapeau, c'est la vraie valeur de la statistique.
 
   </p>
 	
@@ -730,8 +730,7 @@ gnpa = RandomState (seed)</pre>
     <br/>
     
     Cela illustre le <i>théorème central limite</i>&nbsp;: chaque m<sub>i</sub> calculée plus haut est une variable aléatoire.
-    À chaque itération, chacun des n (= 1000) nombres aléatoires a été tiré d'une distribution normale
-    <math xmlns="http://www.w3.org/1998/Math/MathML"><mrow data-mjx-texclass="ORD"> <mi data-mjx-variant="-tex-calligraphic" mathvariant="script">N</mi> </mrow></math> (&mu;, &sigma;) avec &mu;=0 et &sigma;=1.
+    À chaque itération, chacun des n (= 1000) nombres aléatoires a été tiré d'une distribution normale <math xmlns="http://www.w3.org/1998/Math/MathML"><mrow data-mjx-texclass="ORD"> <mi data-mjx-variant="-tex-calligraphic" mathvariant="script">N</mi> </mrow></math> (&mu;, &sigma;) avec &mu;=0 et &sigma;=1.
     Les valeurs de la variable aléatoire m (chacune est la moyenne de 1000 nombres pseudo-aléatoires) sont distribuées selon une loi normale
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <mrow data-mjx-texclass="ORD"> <mi data-mjx-variant="-tex-calligraphic" mathvariant="script">N</mi>(0,
@@ -743,8 +742,8 @@ gnpa = RandomState (seed)</pre>
 	</mrow>
 	<msqrt>
 	  <mn>n</mn>
-	</msqrt>
-      </math>), soit ici
+	</msqrt>)
+      </math>, soit ici
       <math xmlns="http://www.w3.org/1998/Math/MathML">
 	<mrow data-mjx-texclass="ORD"> <mi data-mjx-variant="-tex-calligraphic" mathvariant="script">N</mi> </mrow>(0,
 	<mn>1</mn>
@@ -756,8 +755,8 @@ gnpa = RandomState (seed)</pre>
 	</msqrt>
       </math>), soit environ  <math xmlns="http://www.w3.org/1998/Math/MathML">
 	<mrow data-mjx-texclass="ORD"> <mi data-mjx-variant="-tex-calligraphic" mathvariant="script">N</mi> </mrow>(0;&nbsp;
-	<mn>0,03</mn>
-      </math>).
+	<mn>0,03</mn>)
+      </math>.
       
       <br/>
       <br/>
