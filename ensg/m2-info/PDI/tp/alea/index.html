@@ -720,7 +720,7 @@ gnpa = RandomState (seed)</pre>
     <br>
     
     Cela illustre le <i>théorème central limite</i>&nbsp;: chaque m<sub>i</sub> calculée plus haut est une variable aléatoire.
-    À chaque itération, chacun des n (= 1000) nombres aléatoires a été tiré d'une distribution normale \( {\cal N} (\mu, \sigma) \) avec \( \mu = 0 \) et \( sigma = 1 \).
+    À chaque itération, chacun des n (= 1000) nombres aléatoires a été tiré d'une distribution normale \( {\cal N} (\mu, \sigma) \) avec \( \mu = 0 \) et \( \sigma = 1 \).
     Les valeurs de la variable aléatoire m (chacune est la moyenne de 1000 nombres pseudo-aléatoires) sont distribuées selon une loi normale \( {\cal N} (0, \sigma = \frac{1}{\sqrt{n}}) \), soit ici \( {\cal N} (0, \sigma = \frac{1}{\sqrt{1000}}) \), soit environ \( {\cal N} (0, \sigma = 0.03) \).
       
       <br>
@@ -749,7 +749,7 @@ gnpa = RandomState (seed)</pre>
     <br>
     <br>
     
-    Pour ce qui est de l'écart-type, il en existe deux versions&nbsp;: une version biaisée et une version non biaisée. Si on prend la racine carrée de la variance, on obtient l'écart-type biaisé. Biaisé signifie qu'en moyenne, sa valeur diffère du vrai écart-type &sigma;. L'écart-type non biaisé (noté \( \widehat{\sigma_c} \)  avec un 'c' en indice pour indiquer qu'il est corrigé) est obtenu en divisant non pas par n mais par n-1&nbsp;: $$ \widehat{\sigma_c} = \sqrt{\frac{1}{n-1} \sum_{i=1}^{i=n} (x_i - \hat{\mu})^2} $$
+    Pour ce qui est de l'écart-type, il en existe deux versions&nbsp;: une version biaisée et une version non biaisée. Si on prend la racine carrée de la variance, on obtient l'écart-type biaisé. Biaisé signifie qu'en moyenne, sa valeur diffère du vrai écart-type \( \sigma \). L'écart-type non biaisé (noté \( \widehat{\sigma_c} \)  avec un 'c' en indice pour indiquer qu'il est corrigé) est obtenu en divisant non pas par n mais par n-1&nbsp;: $$ \widehat{\sigma_c} = \sqrt{\frac{1}{n-1} \sum_{i=1}^{i=n} (x_i - \hat{\mu})^2} $$
 	  	  
   </p>
 
