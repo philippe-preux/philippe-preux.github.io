@@ -49,16 +49,16 @@
       <th scope="col">python</th></tr>
     <tr><td bgcolor="bafcba" width="50%" >
 	<div class="c">
-	  On utilise la bibliothèque <kbd>gsl</kbd> (GNU Scientific Library) qui contient de multiples fonctions mathématiques. Elle est installée sur les ordinateurs en salle TP. Sur votre ordinateur personnel, il faut peut-être l'installer.
+	  On utilise la bibliothèque <code>gsl</code> (GNU Scientific Library) qui contient de multiples fonctions mathématiques. Elle est installée sur les ordinateurs en salle TP. Sur votre ordinateur personnel, il faut peut-être l'installer.
 
 	  <br>
 
-	  On utilisera le compilateur <kbd>gcc</kbd> et on spécifiera les options <kbd>-lgsl -lgslcblas -lm</kbd> pour éditer les liens avec les bibliothèques nécessaires.
+	  On utilisera le compilateur <code>gcc</code> et on spécifiera les options <code>-lgsl -lgslcblas -lm</code> pour éditer les liens avec les bibliothèques nécessaires.
 	</div>
       </td>
       <td bgcolor="#c0c0c0" width="50%" >
 	<div class="python">
-	  On utilise la bibliothèque <kbd>numpy</kbd> qui doit donc être installée.
+	  On utilise la bibliothèque <code>numpy</code> qui doit donc être installée.
 	</div>
       </td>
     </tr>
@@ -98,7 +98,7 @@
     <br>
     <br>
 
-    À partir d'un générateur d'entiers pseudo-aléatoires compris entre 0 et <kbd>MAX_INT</kbd>, on obtient facilement un nombre «&nbsp;réel&nbsp;» (flottant) compris dans [0, 1[ en divisant cet entier par <kbd>MAX_INT</kbd>. Comme il est très courant d'avoir besoin de générer des nombres dans cet intervalle, il y a généralement une fonction qui le fait directement, c'est-à-dire qui renvoit un nombre pseudo-aléatoire dans l'intervalle [0, 1[. 
+    À partir d'un générateur d'entiers pseudo-aléatoires compris entre 0 et <code>MAX_INT</code>, on obtient facilement un nombre «&nbsp;réel&nbsp;» (flottant) compris dans [0, 1[ en divisant cet entier par <code>MAX_INT</code>. Comme il est très courant d'avoir besoin de générer des nombres dans cet intervalle, il y a généralement une fonction qui le fait directement, c'est-à-dire qui renvoit un nombre pseudo-aléatoire dans l'intervalle [0, 1[. 
     
   </p>
   
@@ -107,16 +107,16 @@
       <th scope="col">python</th></tr>
     <tr><td bgcolor="#bafcba" width="50%" >
 	<p>
-	  En C, on utilise typiquement une fonction qui génère un entier naturel pseudo-aléatoire compris entre 0 et <kbd>MAX_INT</kbd>. On obtient facilement un nombre flottant dans [0, 1[ en divisant cet entier par <kbd>MAX_INT</kbd>.
+	  En C, on utilise typiquement une fonction qui génère un entier naturel pseudo-aléatoire compris entre 0 et <code>MAX_INT</code>. On obtient facilement un nombre flottant dans [0, 1[ en divisant cet entier par <code>MAX_INT</code>.
 
 	  <br>
 
-	  On peut utiliser la fonction <kbd>random()</kbd> de la <kbd>libc</kbd> mais pour la suite du TP, il est avantageux d'utiliser la bibliothèque <kbd>gsl</kbd>. Cela va donner quelque chose comme cela&nbsp;
+	  On peut utiliser la fonction <code>random()</code> de la <code>libc</code> mais pour la suite du TP, il est avantageux d'utiliser la bibliothèque <code>gsl</code>. Cela va donner quelque chose comme cela&nbsp;
 
 	</p>
 
 	<ul>
-	  <li>En début de programme, on inclut le fichier <kbd>gsl/gsl_rng.h</kbd>.</li>
+	  <li>En début de programme, on inclut le fichier <code>gsl/gsl_rng.h</code>.</li>
 	  <li>On définit une variable et on alloue une variable qui permettra de générer les nombres pseudo-aléatoires&nbsp;:
 	</li></ul>
 <pre>static gsl_rng *prng = NULL;
@@ -124,18 +124,18 @@ prng = gsl_rng_alloc (gsl_rng_mt19937);</pre>
         <ul>
 	  <li>Et quand on veut générer un nombre pseudo-aléatoire, on fait simplement&nbsp;:
 	    <ul>
-	      <li>Pour un entier&nbsp;: <kbd>gsl_rng_get (prng)</kbd>.</li>
-	      <li>Pour un flottant dans [0, 1[&nbsp;: <kbd>gsl_rng_uniform (prng)</kbd>.</li>
+	      <li>Pour un entier&nbsp;: <code>gsl_rng_get (prng)</code>.</li>
+	      <li>Pour un flottant dans [0, 1[&nbsp;: <code>gsl_rng_uniform (prng)</code>.</li>
 	  </ul></li>
 	</ul>
 
 	<p>
-	  Il existe de nombreuses manières de générer une séquence de nombres pseudo-aléatoires. Ici on utilise le <i>Mersenne Twister</i> en spécifiant <kbd>mt19937</kbd>. Cet algorithme est connu pour avoir de bonnes propriétés.
+	  Il existe de nombreuses manières de générer une séquence de nombres pseudo-aléatoires. Ici on utilise le <i>Mersenne Twister</i> en spécifiant <code>mt19937</code>. Cet algorithme est connu pour avoir de bonnes propriétés.
 	</p>
       </td>
       <td bgcolor="#c0c0c0" width="50%" >
 	<p>
-	  En python, on utilise typiquement une fonction de la bibliothèque <kbd>numpy</kbd> qui renvoie un nombre flottant dans l'intervalle [0, 1[.
+	  En python, on utilise typiquement une fonction de la bibliothèque <code>numpy</code> qui renvoie un nombre flottant dans l'intervalle [0, 1[.
 	</p>
 <pre>import numpy as np
 np.random.rand (1)</pre>
@@ -181,16 +181,16 @@ np.random.rand (1)</pre>
     <tr>
       <td bgcolor="#bafcba" width="50%">
 	<p>
-	  En C, à la suite de ce qui a été expliqué plus haut, on fixe la graine par un appel à la fonction <kbd>gsl_rng_set (prng, 123456)</kbd>.
+	  En C, à la suite de ce qui a été expliqué plus haut, on fixe la graine par un appel à la fonction <code>gsl_rng_set (prng, 123456)</code>.
 	  <br>
 	  Ensuite, la séquence de nombres qui sera générée lors des appels successifs aux fonctions vues plus haut sera toujours la même pour une graine donnée.
 	</p>
       </td>
       <td bgcolor="#c0c0c0" width="50%">
 	<p>
-	  En python, on crée un générateur de nombres pseudo-aléatoires par <kbd>prng = np.random.default_rng (123456)</kbd>.
+	  En python, on crée un générateur de nombres pseudo-aléatoires par <code>prng = np.random.default_rng (123456)</code>.
 	  <br>
-	  Ensuite, on génère des nombres via cet objet&nbsp;: <kbd>prng.random(1)</kbd> où 1 indique la quantité de nombres pseudo-aléatoires à générer.
+	  Ensuite, on génère des nombres via cet objet&nbsp;: <code>prng.random(1)</code> où 1 indique la quantité de nombres pseudo-aléatoires à générer.
 	</p>
       </td>
     </tr>
@@ -240,18 +240,18 @@ np.random.rand (1)</pre>
     <tr>
       <td bgcolor="#bafcba" width="50%">
 	<p>
-	  En C, on va utiliser la bibliothèque PLplot qui permet de réaliser des graphiques. Le but de ce TP n'étant pas d'apprendre à utiliser PLplot, je mets à votre disposition deux fichiers que vous allez utilisez&nbsp;: <a href="./barplot.h"><kbd>barplot.h</kbd></a> et <a href="./barplot.c"><kbd>barplot.c</kbd></a>. Il faut inclure le premier dans votre programme et compiler votre programme avec le second. J'y ai défini quelques fonctions qui vont créer très facilement les graphiques nécessaires dans ce TP.
+	  En C, on va utiliser la bibliothèque PLplot qui permet de réaliser des graphiques. Le but de ce TP n'étant pas d'apprendre à utiliser PLplot, je mets à votre disposition deux fichiers que vous allez utilisez&nbsp;: <a href="./barplot.h"><code>barplot.h</code></a> et <a href="./barplot.c"><code>barplot.c</code></a>. Il faut inclure le premier dans votre programme et compiler votre programme avec le second. J'y ai défini quelques fonctions qui vont créer très facilement les graphiques nécessaires dans ce TP.
 	  <br>
 	  <br>
-	  PLplot est installé sur les machines de la salle de TP. Pour compiler, il faut ajouter les arguments <kbd>-I./barplot.h -I/usr/include/plplot -lplplot</kbd> à la ligne de commande <kbd>gcc</kbd>.
+	  PLplot est installé sur les machines de la salle de TP. Pour compiler, il faut ajouter les arguments <code>-I./barplot.h -I/usr/include/plplot -lplplot</code> à la ligne de commande <code>gcc</code>.
 	  <br>
 	  <br>
-	  Il faut construire un histogramme des 10000 nombres et ensuite appeler la fonction <kbd>barplot()</kbd> fournie dans le fichier <kbd>barplot.c</kbd>. Cette fonction prend 4 paramètres&nbsp;:
+	  Il faut construire un histogramme des 10000 nombres et ensuite appeler la fonction <code>barplot()</code> fournie dans le fichier <code>barplot.c</code>. Cette fonction prend 4 paramètres&nbsp;:
 	</p>	  
 	<ul>
-	  <li>un tableau de <kbd>n</kbd> <kbd>double</kbd>s qui sont les décomptes de valeurs tombant dans chacune des <i>n</i> cellules de l'histogramme&nbsp;;</li>
-	  <li>un tableau de <kbd>n+1</kbd> <kbd>double</kbd>s qui sont les bords de chacune des <i>n</i> cellules de l'histogramme&nbsp;;</li>
-	  <li>le nombre <kbd>n</kbd> lui-même&nbsp;;</li>
+	  <li>un tableau de <code>n</code> <code>double</code>s qui sont les décomptes de valeurs tombant dans chacune des <i>n</i> cellules de l'histogramme&nbsp;;</li>
+	  <li>un tableau de <code>n+1</code> <code>double</code>s qui sont les bords de chacune des <i>n</i> cellules de l'histogramme&nbsp;;</li>
+	  <li>le nombre <code>n</code> lui-même&nbsp;;</li>
 	  <li>un titre à donner à la figure.</li>
 	</ul>
 	<p>
@@ -266,7 +266,7 @@ np.random.rand (1)</pre>
 	</p>
       </td><td bgcolor="#c0c0c0" width="50%">
 	<p>
-	  En python, en plus de ce que l'on a vu pour générer des nombres pseudo-aléatoires, on va obtenir l'histogramme en utilisant la fonction <kbd>hist()</kbd> de la bibliothèque matplotlib. Ainsi, vous obtiendrez&nbsp;:
+	  En python, en plus de ce que l'on a vu pour générer des nombres pseudo-aléatoires, on va obtenir l'histogramme en utilisant la fonction <code>hist()</code> de la bibliothèque matplotlib. Ainsi, vous obtiendrez&nbsp;:
 	  <br>
 	  <img src="q5fPCG64.png" width="500"  alt="graphique pour q5python" >
 	  <!--img src="https://fabienpesquerel.github.io/assets/img/posts/2022-10-16-random-number-generation-101/rng_post_answer5_1-1400.webp" width="500" /-->
@@ -305,7 +305,7 @@ np.random.rand (1)</pre>
     <tr>
       <td bgcolor="#bafcba" width="50%">
 	<p>
-	  Avec la GSL, on génère un nombre pseudo-aléatoire selon une loi nrmale de moyenne nulle et d'écart-type <i>s</i> à l'aide de la fonction <kbd>gsl_ran_gaussian (prng, s)</kbd>. Pour accéder à cette fonction, il faut include le fichier <kbd>gsl/gsl_randist.h</kbd>.
+	  Avec la GSL, on génère un nombre pseudo-aléatoire selon une loi nrmale de moyenne nulle et d'écart-type <i>s</i> à l'aide de la fonction <code>gsl_ran_gaussian (prng, s)</code>. Pour accéder à cette fonction, il faut include le fichier <code>gsl/gsl_randist.h</code>.
 	  <br>
 	  On obtient&nbsp;:
 	  <br>
@@ -313,7 +313,7 @@ np.random.rand (1)</pre>
 	</p>
       </td><td bgcolor="#c0c0c0" width="50%">
 	<p>
-	  En python, on génère <i>n</i> nombres pseudo-aléatoires selon une loi nrmale de moyenne <i>m</i> et d'écart-type <i>s</i> à l'aide de la fonction <kbd>rng.normal (loc = m, scale = s, size = n)</kbd>.
+	  En python, on génère <i>n</i> nombres pseudo-aléatoires selon une loi nrmale de moyenne <i>m</i> et d'écart-type <i>s</i> à l'aide de la fonction <code>rng.normal (loc = m, scale = s, size = n)</code>.
 	  <br>
 	  On obtient&nbsp;:
 	  <br>
@@ -380,11 +380,11 @@ np.random.rand (1)</pre>
     <tr>
       <td bgcolor="#bafcba" width="50%">
 	<p>
-	  Pour la partie graphique, <kbd>barplot.c</kbd> contient la fonction <kbd>scatter_plot ()</kbd> qui prend 3 arguments&nbsp;: un tableau de paires de <kbd>double</kbd>s, un entier qui est le nombre de paires et une chaîne de caractères qui sera le titre du graphique.
+	  Pour la partie graphique, <code>barplot.c</code> contient la fonction <code>scatter_plot ()</code> qui prend 3 arguments&nbsp;: un tableau de paires de <code>double</code>s, un entier qui est le nombre de paires et une chaîne de caractères qui sera le titre du graphique.
       </p>
       </td><td bgcolor="#c0c0c0" width="50%">
 	<p>
-	  On utilise la fonction <kbd>scatter</kbd> de maplotlib.
+	  On utilise la fonction <code>scatter</code> de maplotlib.
 	</p>
       </td>
     </tr>
@@ -609,10 +609,10 @@ gnpa = RandomState (seed)</pre>
       <td bgcolor="#bafcba" width="50%">
 	<div class="c">
 	  <p>
-	    En C, le fichier <kbd>barplot.c</kbd> définit la fonction <kbd>plot_series ()</kbd> qui prend cinq arguments&nbsp;:
+	    En C, le fichier <code>barplot.c</code> définit la fonction <code>plot_series ()</code> qui prend cinq arguments&nbsp;:
 	  </p>
 	  <ul>
-	    <li>un tableau de tableaux de <kbd>double</kbd>s (un <kbd>double **</kbd>,</li>
+	    <li>un tableau de tableaux de <code>double</code>s (un <code>double **</code>,</li>
 	    <li>un entier qui est le nombre de valeurs dans ce tableau,</li>
 	    <li>un entier qui est le nombre de tableau de tableaux&nbsp;: ici, c'est 1,</li>
 	    <li>un entier qui vaut 0,</li>
@@ -631,7 +631,7 @@ gnpa = RandomState (seed)</pre>
       </td><td bgcolor="#c0c0c0" width="50%">
 	<div class="python">
 	  <p>
-	    En python, on utilise la fonction <kbd>plt.plot()</kbd>.
+	    En python, on utilise la fonction <code>plt.plot()</code>.
 	  </p>
 	</div>
       </td>
@@ -665,13 +665,13 @@ gnpa = RandomState (seed)</pre>
       <td bgcolor="#bafcba" width="50%">
 	<div class="c">
 	  <p>
-	    En C vous utilisez la même fonction qu'à la question précédente mais cette fois-ci vous affichez plusieurs tableaux de <kbd>double</kbd>s.
+	    En C vous utilisez la même fonction qu'à la question précédente mais cette fois-ci vous affichez plusieurs tableaux de <code>double</code>s.
 	  </p>
 	</div>
       </td><td bgcolor="#c0c0c0" width="50%">
 	<div class="python">
 	  <p>
-	    En python, on utilise la fonction <kbd>plot()</kbd> de matplotlib.
+	    En python, on utilise la fonction <code>plot()</code> de matplotlib.
 	  </p>
 	</div>
       </td>
@@ -760,13 +760,13 @@ gnpa = RandomState (seed)</pre>
       <td bgcolor="#bafcba" width="50%">
 	<div class="c">
 	  <p>
-	    La fonction <kbd>gsl_stats_variance ()</kbd> de la GSL renvoie l'écart-type non biaisé.
+	    La fonction <code>gsl_stats_variance ()</code> de la GSL renvoie l'écart-type non biaisé.
 	  </p>
 	</div>
       </td><td bgcolor="#c0c0c0" width="50%">
 	<div class="python">
 	  <p>
-	    Toujours prompt à ne pas bien faire les choses, la fonction <kbd>std()</kbd> de numpy renvoie l'écart-type biaisé par défaut. Si on ajoute le paramètre <kbd>ddof=1</kbd>, alors l'écart-type n'est pas biaisé.
+	    Toujours prompt à ne pas bien faire les choses, la fonction <code>std()</code> de numpy renvoie l'écart-type biaisé par défaut. Si on ajoute le paramètre <code>ddof=1</code>, alors l'écart-type n'est pas biaisé.
 	  </p>
 	</div>
       </td>
