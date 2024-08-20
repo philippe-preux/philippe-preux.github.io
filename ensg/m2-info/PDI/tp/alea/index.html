@@ -118,8 +118,10 @@
 	<ul>
 	  <li>En début de programme, on inclut le fichier <kbd>gsl/gsl_rng.h</kbd>.</li>
 	  <li>On définit une variable et on alloue une variable qui permettra de générer les nombres pseudo-aléatoires&nbsp;:
+	</li></ul>
 <pre>static gsl_rng *prng = NULL;
-prng = gsl_rng_alloc (gsl_rng_mt19937);</pre></li>
+prng = gsl_rng_alloc (gsl_rng_mt19937);</pre>
+        <ul>
 	  <li>Et quand on veut générer un nombre pseudo-aléatoire, on fait simplement&nbsp;:
 	    <ul>
 	      <li>Pour un entier&nbsp;: <kbd>gsl_rng_get (prng)</kbd>.</li>
