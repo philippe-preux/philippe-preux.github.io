@@ -753,16 +753,75 @@ gnpa = RandomState (seed)</pre>
 
 	  <br/>
 
-	  L'écart-type est la racine carrée de la <i>variance</i>. Celle-ci se définit très simplement comme la moyenne de l'écart entre chaque échantillon et la moyenne empirique&nbsp;: <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+	  L'écart-type est la racine carrée de la <i>variance</i>. Celle-ci se définit très simplement comme la moyenne de l'écart au carré entre chaque échantillon et la moyenne empirique&nbsp;: <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
 	    <mo>var (</mo>
-    <msub>
-      <mi>x</mi>
-      <mi>i</mi>
-    </msub>
+	    <msub>
+	      <mi>x</mi>
+	      <mi>i</mi>
+	    </msub>
 	    <mo>)=</mo>
+	    <mfrac>
+	      <mn>1</mn>
+	      <mi>n</mi>
+	    </mfrac>
+	    <munderover>
+	      <mo data-mjx-texclass="OP">&#x2211;</mo>
+	      <mrow data-mjx-texclass="ORD">
+		<mi>i</mi>
+		<mo>=</mo>
+		<mn>1</mn>
+	      </mrow>
+	      <mi>n</mi>
+	    </munderover>
+	    <mo stretchy="false">(</mo>
+	    <msub>
+	      <mi>x</mi>
+	      <mi>i</mi>
+	    </msub>
+	    <mo>&#x2212;</mo>
+	    <mrow data-mjx-texclass="ORD">
+	      <mover>
+		<mi>&#x3BC;</mi>
+		<mo stretchy="false">^</mo>
+	      </mover>
+	    </mrow>
+	    <msup>
+	      <mo stretchy="false">)</mo>
+	      <mn>2</mn>
+	    </msup>
+	  </math>
+
+	  <br/>
+	  <br/>
+
+	  Pour ce qui est de l'écart-type, il en existe deux versions&nbsp;: une version biaisée et une version non biaisée. Si on prend la racine carrée de la variance, on obtient l'écart-type biaisé. Biaisé signifie qu'en moyenne, sa valeur diffère du vrai écart-type &sigma;. L'écart-type non biaisé (noté  <math xmlns="http://www.w3.org/1998/Math/MathML">
+  <msub>
+    <mrow data-mjx-texclass="ORD">
+      <mover>
+        <mi>&#x3C3;</mi>
+        <mo stretchy="false">^</mo>
+      </mover>
+    </mrow>
+    <mi>c</mi>
+  </msub></math> avec un 'c' en indice pour indiquer qu'il est corrigé) est obtenu en divisant non pas par n mais par n-1&nbsp;: <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <msub>
+    <mrow data-mjx-texclass="ORD">
+      <mover>
+        <mi>&#x3C3;</mi>
+        <mo stretchy="false">^</mo>
+      </mover>
+    </mrow>
+    <mi>c</mi>
+  </msub>
+  <mo>=</mo>
+  <msqrt>
     <mfrac>
       <mn>1</mn>
-      <mi>n</mi>
+      <mrow>
+        <mi>n</mi>
+        <mo>&#x2212;</mo>
+        <mn>1</mn>
+      </mrow>
     </mfrac>
     <munderover>
       <mo data-mjx-texclass="OP">&#x2211;</mo>
@@ -789,15 +848,72 @@ gnpa = RandomState (seed)</pre>
       <mo stretchy="false">)</mo>
       <mn>2</mn>
     </msup>
+  </msqrt>
 </math>
 	  
 	</p>
 
+
+	<table>
+	  <th>C</th><th>python</th>
+	  <tr>
+	    <td bgcolor="#bafcba" width="50%">
+	      <p>
+		La fonction <kbd>gsl_stats_variance ()</kbd> de la GSL renvoie l'écart-type non biaisé.
+	      </p>
+	    </td><td bgcolor="#c0c0c0" width="50%">
+	      <p>
+		Toujours prompt à ne pas bien faire les choses, la fonction <kbd>std()</kbd> de numpy renvoie l'écart-type biaisé par défaut. Si on ajoute le paramètre <kbd>ddof=1</kbd>, alors l'écart-type n'est pas biaisé.
+	      </p>
+	    </td>
+	  </tr>
+	</table>
+
+
+	<p>
+
+	  <b>Question 12&nbsp;:</b> écrire un programme qui génère 100000 nombres pseudo-aléatoires tirés selon une loi normale 
+	  <math xmlns="http://www.w3.org/1998/Math/MathML">
+	    <mrow data-mjx-texclass="ORD"> <mi data-mjx-variant="-tex-calligraphic" mathvariant="script">N</mi>(<mn>&mu;</mn>,<mn>&sigma;</mn>)</math> pour des valeurs de &mu; et &sigma; que vous fixez à votre goût.
+	    Calculer les deux écarts-types et comparez-les entre-eux et avec la vraie valeur de l'écart-type.
+	    
+	</p>
+	
 	<h4>Activité 13</h4>
+	
+	<p>
+
+	  Une autre manière de mesurer l'étalement d'une distribution de nombres consiste à déterminer la proportions d'échantillons qui sont à une certaine distance d de la moyenne &mu; <math xmlns="http://www.w3.org/1998/Math/MathML">  <mo stretchy="false">[</mo>  <mi>&#x3BC;</mi>  <mo>&#x2212;</mo>  <mi>d</mi>  <mo>,</mo>  <mi>&#x3BC;</mi>  <mo>+</mo>  <mi>d</mi>  <mo stretchy="false">]</mo> </math>.
+
+	  <br/>
+	  <br/>
+
+	  <b>Question 13&nbsp;:</b> écrire une fonction qui prend en paramètre un tableau de nombres pseudo-aléatoires, une valeur de a et une valeur de b et qui renvoie la proportion d'éléments du tableau dont la valeur est comprise entre a et b.
+	  
+	  <br/>
+
+	  <b>Question 13bis&nbsp;:</b> utilisez la fonction précédente pour déterminer la proportion de nombres qui se situent à 1 écart-type de la moyenne, puis 2 écarts-types de la moyenne, puis 3 écarts-types de la moyenne. Appliquez-la à 100000 nombres pseudo-aléatoires tirés selon une loi <math xmlns="http://www.w3.org/1998/Math/MathML"> <mrow data-mjx-texclass="ORD"> <mi data-mjx-variant="-tex-calligraphic" mathvariant="script">N</mi>(<mn>&mu;</mn>,<mn>&sigma;</mn>)</math>.
+	    <br/>
+
+	    La théorie nous dit que 68% des échantillons sont à moins d'un écart-type de la moyenne, 95% à moins de 2 écarts-types, 99,7% à moins de 3 écart-stypes. Retrouvez-vous ces proportions&nbsp;?
+
+	</p>
+
+	<h4>Activité 14</h4>
 	<!-- quantiles -->
 	
 	<p>
 
+	  Une dernière notion que nous définissons est celle de <i>quantile</i>&nbsp;: &alpha; étant un nombre réel quelconque, le quantile &alpha; d'un ensemble d'échantillons est la proportion de ces échantillons dont la valeur est &lt; &alpha;.
+
+	  <br/>
+
+	  <b>Question 14&nbsp;:</b> écrire une fonction qui prend en paramètre un tableau de nombres et la valeur de alpha et renvoie le quantile &alpha; de cet ensemble d'échantillons.
+
+	  <br/>
+	  
+	  <b>Question 14bis&nbsp;:</b> utilisez la fonction précédente pour déterminer le quantile &alpha; d'un ensemble de 100000 nombres pseudo-aléatoires tirés selon une loi <math xmlns="http://www.w3.org/1998/Math/MathML"> <mrow data-mjx-texclass="ORD"> <mi data-mjx-variant="-tex-calligraphic" mathvariant="script">N</mi>(<mn>0</mn>,<mn>1</mn>)</math> pour chaque valeur de &alpha; variant de -5 à 5 par pas de 0,1. Faites-une représentation graphique de ces quantiles.
+	    
 	</p>
 
 
