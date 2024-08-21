@@ -6,6 +6,7 @@
  *
  */
 
+int set_output_type (const char *);
 void barplot (const double *, const double *, const size_t, const char *titre);
 void plot_series (double **, const size_t, const size_t, const int, const char *);
 void plot_2d (const double *, const double *, const size_t, const char *);

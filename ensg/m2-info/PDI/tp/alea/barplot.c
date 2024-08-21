@@ -8,6 +8,19 @@
 
 #include "plcdemos.h"
 
+typedef enum { ecran, png } Type_sortie;
+
+static Type_sortie type_sortie = ecran;
+
+int set_output_type (const char *type)
+{
+  if (! strcmp (type, "x"))
+    { type_sortie = ecran; return 1; }
+  else if (! strcmp (type, "png")) 
+    { type_sortie = png; return 1; }
+  return 0;
+}
+
 static void plfbox (PLFLT x0, PLFLT y0, double delta)
 {
     PLFLT x[4], y[4];
@@ -37,8 +50,8 @@ void barplot (const double *valeurs, const double *les_bords,
   static PLINT couleurs_green[] = { 0, 255 };
   static PLINT couleurs_blue[]  = { 0, 0 };
 
-  plsdev ("xcairo");
-  //plsdev ("pngcairo");
+  if (type_sortie == png) plsdev ("pngcairo");
+  else plsdev ("xcairo");
   int fonds_blanc = 0;
   if (fonds_blanc) plscolbg (255, 255, 255); /* fonds blanc */
   else plscolbg (0, 0, 0); /* fonds noir */
@@ -92,7 +105,8 @@ void plot_series (double **Y, const size_t len_y, const size_t N_series,
 		  const int bounds_flag, const char *titre)
 {
   // Initialize plplot
-  plsdev ("xcairo");
+  if (type_sortie == png) plsdev ("pngcairo");
+  else plsdev ("xcairo");
   plscolbg (0, 0, 0); /* fonds noir */
   plinit ();
   plscmap0n (N_series + 5);
@@ -131,7 +145,8 @@ void plot_series (double **Y, const size_t len_y, const size_t N_series,
 void plot_2d (const double *les_x, const double *les_y, const size_t n,
 	      const char *titre)
 {
-  plsdev ("xcairo");
+  if (type_sortie == png) plsdev ("pngcairo");
+  else plsdev ("xcairo");
   plscolbg (0, 0, 0); /* fonds noir */
   plinit ();
   plscmap0n (6);
@@ -161,8 +176,8 @@ void plot_2d (const double *les_x, const double *les_y, const size_t n,
 
 void scatter_plot (double **les_xy, const size_t n, const char *titre)
 {
-  //plsdev ("xcairo");
-  plsdev ("pngcairo");
+  if (type_sortie == png) plsdev ("pngcairo");
+  else plsdev ("xcairo");
   plscolbg (0, 0, 0); /* fonds noir */
   plinit ();
   plscmap0n (6);
