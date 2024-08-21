@@ -25,6 +25,9 @@
 	  background-color: #c0c0c0;
 	  width: 50%;
       }
+
+      /* Ce qui suit fait ce que je voulais faire en mettant des attributs aux balises td, ce qui n'est pas compatible avec HTML5. Je voulais une table avec deux colonnes de même largeur, chacune avec une couleur de fond particulière.
+       J'ai trouvé cette solution là : https://www.w3schools.com/howto/howto_css_two_columns.asp */
       * {
 	  box-sizing: border-box;
       }
@@ -80,7 +83,7 @@
   <div class="columnC" >
     <b>C</b>
     <div class="c">
-      <br/>
+      <br>
       On utilise la bibliothèque <a href="http://www.gnu.org/software/gsl/">GSL (GNU Scientific Library)</a> qui contient de multiples fonctions mathématiques. Elle est installée sur les ordinateurs en salle TP. Sur votre ordinateur personnel, il faut peut-être l'installer.
       
       <br>
@@ -99,12 +102,11 @@
   </div>
 </div>
 
-
-  <table>
+<!-- ce que j'avais fait avant ce qui précède mais n'est pas du HTML5 propre. -->
+  <!-- table>
     <tr><th scope="col">C</th>
       <th scope="col">python</th></tr>
-    <tr><!--td bgcolor="bafcba" width="50%" -->
-      <td class="c" >
+    <tr><td bgcolor="bafcba" width="50%" >
 	<div class="c">
 	  On utilise la bibliothèque <a href="http://www.gnu.org/software/gsl/">GSL (GNU Scientific Library)</a> qui contient de multiples fonctions mathématiques. Elle est installée sur les ordinateurs en salle TP. Sur votre ordinateur personnel, il faut peut-être l'installer.
 
@@ -113,14 +115,13 @@
 	  On utilisera le compilateur <code>gcc</code> et on spécifiera les options <code>-lgsl -lgslcblas -lm</code> pour éditer les liens avec les bibliothèques nécessaires dans ce TP.
 	</div>
       </td>
-      <!--td bgcolor="#c0c0c0" width="50%" -->
-      <td class="python" >
+      <td bgcolor="#c0c0c0" width="50%" >
 	<div class="python">
 	  On utilise la bibliothèque <code>numpy</code> qui doit donc être installée.
 	</div>
       </td>
     </tr>
-  </table>
+  </table -->
 
   <h3>Génération de nombres pseudo-aléatoires</h3>
   
