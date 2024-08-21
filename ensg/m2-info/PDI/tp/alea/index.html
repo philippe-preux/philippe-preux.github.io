@@ -17,12 +17,57 @@
       div.python {
 	  background-color: #c0c0c0;
       }
+      table.tr.td.c {
+	  background-color: "bafcba";
+	  width: 50%;
+      }
+      table.tr.td.python {
+	  background-color: #c0c0c0;
+	  width: 50%;
+      }
+      * {
+	  box-sizing: border-box;
+      }
+      /* Create two equal columns that floats next to each other */
+      .columnC {
+	  background-color: #bafcba;
+	  float: left;
+	  width: 50%;
+	  padding: 10px;
+	  height: 300px; /* Should be removed. Only for demonstration */
+      }
+      .columnP {
+	  background-color: #c0c0c0;
+	  float: left;
+	  width: 50%;
+	  padding: 10px;
+	  height: 300px; /* Should be removed. Only for demonstration */
+      }
+      /* Clear floats after the columns */
+      .row:after {
+	  content: "";
+	  display: table;
+	  clear: both;
+      }
     </style>
   </head>
   
   <body>
-<div class="tpR">
 
+<div class="row">
+  <div class="columnC" >
+    <h2>Column 1</h2>
+    <p>Some text..</p>
+  </div>
+  <div class="columnP" >
+    <h2>Column 2</h2>
+    <p>Some text..</p>
+  </div>
+</div>
+
+
+    <div class="tpR">
+ 
   <h1>Processus aléatoires, statistiques et reproductibilité expérimentale</h1>
 
   <p>
@@ -47,7 +92,8 @@
   <table>
     <tr><th scope="col">C</th>
       <th scope="col">python</th></tr>
-    <tr><td bgcolor="bafcba" width="50%" >
+    <tr><!--td bgcolor="bafcba" width="50%" -->
+      <td class="c" >
 	<div class="c">
 	  On utilise la bibliothèque <a href="http://www.gnu.org/software/gsl/">GSL (GNU Scientific Library)</a> qui contient de multiples fonctions mathématiques. Elle est installée sur les ordinateurs en salle TP. Sur votre ordinateur personnel, il faut peut-être l'installer.
 
@@ -56,7 +102,8 @@
 	  On utilisera le compilateur <code>gcc</code> et on spécifiera les options <code>-lgsl -lgslcblas -lm</code> pour éditer les liens avec les bibliothèques nécessaires dans ce TP.
 	</div>
       </td>
-      <td bgcolor="#c0c0c0" width="50%" >
+      <!--td bgcolor="#c0c0c0" width="50%" -->
+      <td class="python" >
 	<div class="python">
 	  On utilise la bibliothèque <code>numpy</code> qui doit donc être installée.
 	</div>
@@ -832,15 +879,15 @@ gnpa = RandomState (seed)</pre>
   </p>
   
   <ul>
-    <li>la notion d'estimation est détaillée dans l'annexe C du <a href="https://philippe-repux.github.io/Documents/digest-ar.pdf">polycopié de cours</a>.</li>
+    <li>la notion statistique d'estimation est présentée de manière intuitive dans l'annexe C du <a href="https://philippe-repux.github.io/Documents/digest-ar.pdf">polycopié de cours</a>.</li>
   </ul>
   
 
-	  <h2>Processus de Markov</h2>
+  <h2>Processus de Markov</h2>
 
 
-
-	<table>
+  
+  <table>
     <tr><th scope="col">C</th>
       <th scope="col">python</th></tr>
 	  <tr>
