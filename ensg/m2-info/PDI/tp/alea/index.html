@@ -36,7 +36,7 @@
     <br>
     <br>
 
-    Ce TP s'inspire fortement d'un TP réalisé ces dernières années en PDI qui est disponible <a href="https://fabienpesquerel.github.io/blog/2022/random-number-generation-101/">là</a>. Celui-ci est exprimé en utilisant le langage Python. Le TP présenté ici est réalisé en C ou en python, au choix, pour différentes raisons&nbsp;: 1) contrairement à ce que l'on peut croire, on n'est pas obligé de travailler en Python quand on travaille en apprentissage automatique et ce TP le démontre&nbsp;; 2) ce TP peut aussi très facilement être réalisé en R par exemple, ou C++ ou bien d'autres langages. <!--Et si vous préférez le faire en C++ ou R, allez-y&nbsp;! --> Je rappelle que <a href="https://greenlab.di.uminho.pt/wp-content/uploads/2017/10/sleFinal.pdf">le langage C est le langage le plus vert</a>, le moins consommateur en ressources, le moins pollueur (50x moins que python par exemple).
+    <!-- Ce TP s'inspire fortement d'un TP réalisé ces dernières années en PDI conçu par Fabien Pesquerel. qui est disponible <a href="https://fabienpesquerel.github.io/blog/2022/random-number-generation-101/">là</a>. Celui-ci est exprimé en utilisant le langage Python. --> Ce TP est réalisé en C ou en python, au choix, pour différentes raisons&nbsp;: 1) contrairement à ce que l'on peut croire, on n'est pas obligé de travailler en Python quand on travaille en apprentissage automatique et ce TP le démontre&nbsp;; 2) ce TP peut aussi très facilement être réalisé en R par exemple, ou C++ ou bien d'autres langages. <!--Et si vous préférez le faire en C++ ou R, allez-y&nbsp;! --> Je rappelle que <a href="https://greenlab.di.uminho.pt/wp-content/uploads/2017/10/sleFinal.pdf">le langage C est le langage le plus vert</a>, le moins consommateur en ressources, le moins pollueur (50x moins que python par exemple). Concrétement, il n'est pas rare qu'un même algorithme codé en C soit 50 voire 100 fois (et même plus) plus rapide que codé en python. Si on doit faire tourner un code lourd, il n'y a pas à hésiter. Par ailleurs, d'une manière générale, un programme en C est bien plus fiable qu'un programme en python.
 
   </p>
 
@@ -49,11 +49,11 @@
       <th scope="col">python</th></tr>
     <tr><td bgcolor="bafcba" width="50%" >
 	<div class="c">
-	  On utilise la bibliothèque <code>gsl</code> (GNU Scientific Library) qui contient de multiples fonctions mathématiques. Elle est installée sur les ordinateurs en salle TP. Sur votre ordinateur personnel, il faut peut-être l'installer.
+	  On utilise la bibliothèque <a href="http://www.gnu.org/software/gsl/">GSL (GNU Scientific Library)</a> qui contient de multiples fonctions mathématiques. Elle est installée sur les ordinateurs en salle TP. Sur votre ordinateur personnel, il faut peut-être l'installer.
 
 	  <br>
 
-	  On utilisera le compilateur <code>gcc</code> et on spécifiera les options <code>-lgsl -lgslcblas -lm</code> pour éditer les liens avec les bibliothèques nécessaires.
+	  On utilisera le compilateur <code>gcc</code> et on spécifiera les options <code>-lgsl -lgslcblas -lm</code> pour éditer les liens avec les bibliothèques nécessaires dans ce TP.
 	</div>
       </td>
       <td bgcolor="#c0c0c0" width="50%" >
@@ -75,16 +75,16 @@
     <br>
     <br>
 
-    <b>Question&nbsp;:</b> combien de séquences d'entiers différentes sont possibles avec un ordinateur travaillant sur N bits à la fois&nbsp;?
+    <b>Question&nbsp;:</b> combien de séquences d'entiers différentes sont possibles avec un ordinateur travaillant sur N bits&nbsp;?
 
     <br>
     <br>
 
-    Remarque&nbsp;: vous avez noté l'utilisation du mot «&nbsp;pseudo&nbsp;» avant le mot aléatoire. On veut ainsi distinguer un nombre aléatoire au sens mathématique du terme d'un nombre calculé par un algorithme pour donner l'impression que la séquence de nombres est aléatoire. Curieusement, l'algorithme qui calcule une telle séquence est <b>déterministe</b>&nbsp;: la séquence est construite à l'aide d'une (simple) équation de récurrence. Le premier terme (ou les premiers termes) de cette séquence est fourni par l'utilisateur et se nomme la <i>graine</i>.
+    Remarque&nbsp;: vous avez noté l'utilisation du mot «&nbsp;pseudo&nbsp;» avant le mot aléatoire. On veut ainsi distinguer un nombre aléatoire au sens mathématique du terme d'un nombre calculé par un algorithme pour donner l'impression que la séquence de nombres est aléatoire. Curieusement, l'algorithme qui calcule une telle séquence est <em>déterministe</em>&nbsp;: la séquence est construite à l'aide d'une (simple) équation de récurrence. Le premier terme (ou les premiers termes) de cette séquence est fourni par l'utilisateur et se nomme la <em>graine</em>.
 
     <br>
 
-    Quand on exécute un programme utilisant un générateur de nombres pseudo-aléatoires, il faut <b>impérativement</b> sauvegarder la valeur de la graine. C'est le seul moyen de ré-exécuter exactement de la même manière un programme. C'est une faute de ne pas sauvegarder cette valeur.
+    Quand on exécute un programme utilisant un générateur de nombres pseudo-aléatoires, il faut <strong>impérativement</strong> sauvegarder la valeur de la graine. C'est le seul moyen de ré-exécuter exactement de la même manière un programme.
     
     <br>
     <br>
@@ -93,12 +93,12 @@
     
     <br>
 
-    Autre remarque&nbsp;: d'un point de vue scientifique, on ne sait pas si l'aléatoire existe. Toute la physique, donc l'explication du monde, est déterministe jusqu'à la découverte de la physique quantique au début du XX<sup>è</sup> siècle. Celle-ci semble s'appuyer sur des processus intrinséquement aléatoires, mais c'est peut-être juste que nous l'avons pas encore bien comprise. La physique quantique a profondément perturbé les physiciens et plus généralement les scientifiques dans leur appréhension du monde.
+    Autre remarque&nbsp;: d'un point de vue scientifique, on ne sait pas si l'aléatoire existe. Toute la physique, donc l'explication du monde, est déterministe jusqu'à la découverte de la physique quantique au début du XX<sup>è</sup> siècle. Celle-ci semble s'appuyer sur des processus intrinséquement aléatoires, mais c'est peut-être juste que nous ne l'avons pas encore bien comprise. La physique quantique a profondément perturbé les physiciens et plus généralement les scientifiques dans leur appréhension du monde.
 
     <br>
     <br>
 
-    À partir d'un générateur d'entiers pseudo-aléatoires compris entre 0 et <code>MAX_INT</code>, on obtient facilement un nombre «&nbsp;réel&nbsp;» (flottant) compris dans [0, 1[ en divisant cet entier par <code>MAX_INT</code>. Comme il est très courant d'avoir besoin de générer des nombres dans cet intervalle, il y a généralement une fonction qui le fait directement, c'est-à-dire qui renvoit un nombre pseudo-aléatoire dans l'intervalle [0, 1[. 
+    À partir d'un générateur d'entiers pseudo-aléatoires compris entre 0 et le plus grand entier non signé (que je note <code>MAX_INT</code>), on obtient facilement un nombre «&nbsp;réel&nbsp;» (flottant) compris dans [0, 1] en divisant cet entier par <code>MAX_INT</code>. Comme il est très courant d'avoir besoin de générer des nombres dans cet intervalle, il y a généralement une fonction qui le fait directement, c'est-à-dire qui renvoit un nombre pseudo-aléatoire dans l'intervalle [0, 1]. 
     
   </p>
   
@@ -107,11 +107,11 @@
       <th scope="col">python</th></tr>
     <tr><td bgcolor="#bafcba" width="50%" >
 	<p>
-	  En C, on utilise typiquement une fonction qui génère un entier naturel pseudo-aléatoire compris entre 0 et <code>MAX_INT</code>. On obtient facilement un nombre flottant dans [0, 1[ en divisant cet entier par <code>MAX_INT</code>.
+	  En C, on utilise typiquement une fonction qui génère un entier naturel pseudo-aléatoire compris entre 0 et <code>MAX_INT</code>. On obtient facilement un nombre flottant dans [0, 1] en divisant cet entier par <code>MAX_INT</code>.
 
 	  <br>
 
-	  On peut utiliser la fonction <code>random()</code> de la <code>libc</code> mais pour la suite du TP, il est avantageux d'utiliser la bibliothèque <code>gsl</code>. Cela va donner quelque chose comme cela&nbsp;
+	  On peut utiliser la fonction <code>random()</code> de la <code>libc</code> mais pour la suite du TP, il est avantageux d'utiliser la bibliothèque GSL. Cela va donner quelque chose comme cela&nbsp;
 
 	</p>
 
@@ -125,7 +125,7 @@ prng = gsl_rng_alloc (gsl_rng_mt19937);</pre>
 	  <li>Et quand on veut générer un nombre pseudo-aléatoire, on fait simplement&nbsp;:
 	    <ul>
 	      <li>Pour un entier&nbsp;: <code>gsl_rng_get (prng)</code>.</li>
-	      <li>Pour un flottant dans [0, 1[&nbsp;: <code>gsl_rng_uniform (prng)</code>.</li>
+	      <li>Pour un flottant dans [0, 1]&nbsp;: <code>gsl_rng_uniform (prng)</code>.</li>
 	  </ul></li>
 	</ul>
 
@@ -151,7 +151,7 @@ np.random.rand (1)</pre>
 
     <p>
 
-      <b>Question 1&nbsp;:</b> écrire un programme qui affiche une suite de 10 nombres pseudo-aléatoires compris dans [0, 1[.
+      <b>Question 1&nbsp;:</b> écrire un programme qui affiche une suite de 10 nombres pseudo-aléatoires compris entre 0 et 1.
     
     </p>
 
@@ -167,11 +167,11 @@ np.random.rand (1)</pre>
 
     <br>
 
-    En informatique, dans certaines conditions, exécuter un programme est analogue à la réalisation d'une expérience. En appliquant le principe fondamental ci-dessus, on veut qu'exécuter un même programme plusieurs fois donne le même résultat. Et si on veut que programme donne des résultats différents à chaque exécution, on veut que cette variabilité soit contrôlée, c'est-à-dire qu'elle soit elle-même reproductible&nbsp;: on veut que l'aléatoire ce ne soit pas n'importe quoi, mais un aléatoire reproductible.
+    En informatique, dans certaines conditions, exécuter un programme est analogue à la réalisation d'une expérience. En appliquant le principe fondamental ci-dessus, on veut qu'exécuter un même programme plusieurs fois donne toujours le même résultat (dans la mesure du possible, ce n'est pas toujours faisable). Et si on veut qu'un programme donne des résultats différents à chaque exécution, on veut que cette variabilité soit contrôlée, c'est-à-dire qu'elle soit elle-même reproductible&nbsp;: on veut que l'aléatoire ce ne soit pas n'importe quoi, mais un aléatoire reproductible.
 
     <br>
 
-    La solution à ce problème est très simple. Elle consiste à initialiser la série de nombres pseudo-aléatoires avec un certain nombre qui se nomme une graine. Si on fournit une certaine graine à un certain générateur de nombres pseudo-aléatoires, il génère ensuite toujours la même séquence de nombres. Dans les exemples ci-dessous, on utilise la graine 123456. Utilisez celle que vous voulez.
+    La solution à ce problème est très simple. Elle consiste à initialiser la série de nombres pseudo-aléatoires avec un certain nombre qui se nomme une graine. Si on fournit une certaine graine à un certain générateur de nombres pseudo-aléatoires, il génère ensuite toujours la même séquence de nombres (puisqu'il est déterministe). Dans les exemples ci-dessous, on utilise la graine 123456. Utilisez celle que vous voulez.
     
   </p>
 
@@ -198,11 +198,11 @@ np.random.rand (1)</pre>
   
   <p>
 
-    <b>Question 2&nbsp;:</b> modifier votre programme en initialisant correctement la graine. Exécutez le plusieurs fois. Que constatez-vous&nbsp;?
+    <b>Question 2&nbsp;:</b> modifier le programme en initialisant correctement la graine. L'exécuter plusieurs fois. Que constatez-vous&nbsp;?
 
     <br>
     
-    <b>Question 2bis&nbsp;:</b> comparer la séquence de nombres (une dizaine) par votre programme avec la graine n, n+1 et n-1. Que constatez-vous&nbsp;? Connaissez-vous un moyen de comparer ces séquences de nombres&nbsp;?
+    <b>Question 2bis&nbsp;:</b> comparer la séquence de nombres (une dizaine) par le programme avec la graine n, n+1 et n-1. Que constatez-vous&nbsp;? Connaissez-vous un moyen de comparer ces séquences de nombres&nbsp;?
     
   </p>
 
@@ -226,11 +226,11 @@ np.random.rand (1)</pre>
   
   <p>
 
-    Les nombres générés précédemment sont uniformément répartis dans l'intervalle [0, 1[. On va le vérifier en réalisant un histogramme.
+    Les nombres générés précédemment sont uniformément répartis dans l'intervalle [0, 1]. On va le vérifier en réalisant un histogramme.
 
     <br>
     
-    <b>Question 5&nbsp;:</b> générer 10.000 nombres pseudo-aléatoires compris dans [0, 1[ et en faire un histogramme.
+    <b>Question 5&nbsp;:</b> générer 10.000 nombres pseudo-aléatoires compris dans [0, 1] et en faire un histogramme.
 
   </p>
   
@@ -285,12 +285,12 @@ np.random.rand (1)</pre>
   
   <p>
 
-    Il est courant de vouloir générer des nombres pseudo-aléatoires dont la distribution n'est pas uniforme. Il existe en effet des tas de distributions de probabilité. On distingue les distributions discrètes des distributions continues. Par exemple, si on veut simuler le lancer d'un dé à 6 faces, on génère un nombre dans l'ensemble { 1, 2, 3, 4, 5, 6 }&nbsp;; si on veut simuler le lancer d'une pièce (pile ou face), on génère 0 ou 1, de manière équi-probable si la pièce est équilibrée, ou avec une probabilité <i>p</i> pour l'un et 1-<i>p</i> pour l'autre si la pièce est déséquilibrée. Dans le premier cas, c'est une distribution uniforme discrète&nbsp;; dans le troisième, c'est une loi de Bernoulli de paramètre <i>p</i>&nbsp;; le deuxième cas peut être vu soit comme une loi uniforme, soit comme une loi de Bernoulli avec <i>p</i>=1/2.
+    Il est courant de vouloir générer des nombres pseudo-aléatoires dont la distribution n'est pas uniforme. Il existe en effet des tas de distributions de probabilités. On distingue les distributions discrètes des distributions continues. Par exemple, si on veut simuler le lancer d'un dé à 6 faces, on génère un nombre dans l'ensemble { 1, 2, 3, 4, 5, 6 }&nbsp;; si on veut simuler le lancer d'une pièce (pile ou face), on génère 0 ou 1, de manière équi-probable si la pièce est équilibrée, ou avec une probabilité <i>p</i> pour l'un et 1-<i>p</i> pour l'autre si la pièce est déséquilibrée. Dans le premier cas (lancer de dé), c'est une distribution uniforme discrète&nbsp;; dans le troisième (pièce non équilibrée), c'est une loi de Bernoulli de paramètre <i>p</i>&nbsp;; le deuxième cas (pièce équilibrée) peut être vu soit comme une loi uniforme, soit comme une loi de Bernoulli avec <i>p</i>=1/2.
 
     <br>
     <br>
 
-    Pour de très nombreuses lois de distribution de probabilités, il existe une fonction qui génère des nombres pseudo-aléatoires suivant cette loi. L'une des plus classiques est la loi normale (ou gaussienne, ou «&nbsp;en cloche&nbsp;»).
+    Pour de très nombreuses lois de distribution de probabilités, il existe une fonction qui génère des nombres pseudo-aléatoires suivant cette loi. L'une des plus connues est la loi normale (ou gaussienne, ou «&nbsp;en cloche&nbsp;»).
 
     <br>
     <br>
@@ -305,7 +305,7 @@ np.random.rand (1)</pre>
     <tr>
       <td bgcolor="#bafcba" width="50%">
 	<p>
-	  Avec la GSL, on génère un nombre pseudo-aléatoire selon une loi nrmale de moyenne nulle et d'écart-type <i>s</i> à l'aide de la fonction <code>gsl_ran_gaussian (prng, s)</code>. Pour accéder à cette fonction, il faut include le fichier <code>gsl/gsl_randist.h</code>.
+	  Avec la GSL, on génère un nombre pseudo-aléatoire selon une loi normale de moyenne nulle et d'écart-type <i>s</i> à l'aide de la fonction <code>gsl_ran_gaussian (prng, s)</code>. Pour accéder à cette fonction, il faut include le fichier <code>gsl/gsl_randist.h</code>.
 	  <br>
 	  On obtient&nbsp;:
 	  <br>
@@ -337,7 +337,7 @@ np.random.rand (1)</pre>
     <br>
 
     Dans cette équation, m, c et q sont des paramètres entiers.
-    La notation [q] signifie «&nbsp;reste de la division du terme de gauche par q&nbsp;».
+    La notation [q] signifie «&nbsp;reste de la division du terme de gauche (m&nbsp;x<sub>n</sub> + c) par q&nbsp;».
     Si à un moment x<sub>n</sub> est nul, il faut le remplacer par c.
     La graine correspond à la valeur de x<sub>0</sub>.
     
@@ -420,7 +420,7 @@ gnpa = RandomState (seed)</pre>
       à la place de ce qui a été indiqué plus haut (qui utilise PCG64).
       <br>
       Écrivez les mêmes programmes en C et en python qui chacun génére 10000 nombres pseudo-aléatoires avec le Mersenne Twister. Faites les histogrammes, comparez. Qu'en pensez-vous&nbsp;?</li>
-    <li>De même, générer seulement 10 nombres pseudo-aléatoires avec le Mersenne Twister en C et en python. Affichez-les et comparez-les. Que consatez-vous&nbsp;?</li>
+    <li>De même, générer seulement 10 nombres pseudo-aléatoires avec le Mersenne Twister en C et en python. Affichez-les et comparez-les. Que constatez-vous&nbsp;?</li>
     <li>Python utilise un générateur dénommé PCG64. Celui-ci n'est pas disponible dans la GSL mais son <a href="https://www.pcg-random.org/using-pcg-c.html">code est disponible sur Internet</a>. Écrire un programme en C qui utilise ce générateur et faites les mêmes comparaisons que ci-dessus avec le Mersenne Twister.</li>
     <li>Et pour finir, un peu de lecture&nbsp;:
       <ul>
@@ -433,7 +433,7 @@ gnpa = RandomState (seed)</pre>
   
   <p>
     
-    Face à un processus qui donne des résultats différents, on essaie de résumer ceux-ci sous une forme facile à appréhender et qui caractérise le processus. C'est l'objectif des histogrammes faits précédemment. Plus généralement, un graphique peut décrire de manière simple une séquence de nombres. Il existe des tas de types de graphiques qui permettent de représenter telle ou telle propriété,. D'une manière générale, c'est un domaine de recherche complet qui entend rendre intelligible de manière graphique un ensemble de données, la <i>visualisation de données</i>.
+    Face à un processus qui donne des résultats différents, on essaie de résumer ceux-ci sous une forme facile à appréhender et qui caractérise le processus. C'est l'objectif des histogrammes faits précédemment. Plus généralement, un graphique peut décrire de manière simple une séquence de nombres. Il existe des tas de types de graphiques qui permettent de représenter telle ou telle propriété. D'une manière générale, c'est un domaine de recherche complet qui entend rendre intelligible de manière graphique un ensemble de données, la <i>visualisation de données</i>.
 
     <br>
     <br>
@@ -446,12 +446,12 @@ gnpa = RandomState (seed)</pre>
   
   <p>
 
-    Il est important de connaître la «&nbsp;manière statistique&nbsp;» d'envisager la situation. Celle-ci suppose qu'il existe un processus qui engendre des données (dans ce TP, c'est un algorithme de génération de nombres pseudo-aléatoires), processus dont les propriétés existent mais sont inconnues. Par exemple, on suppose que les nombres générés par ce generateur ont une certaine moyenne, mais on ne la connait pas. Cette moyenne inconnue est nommée la <i>vraie</i> moyenne. Dès lors, on va essayer de la déterminer&nbsp; en statistiques, on dit qu'on l'estime.
+    Il est important de connaître la «&nbsp;manière statistique&nbsp;» d'envisager la situation. Celle-ci suppose qu'il existe un processus qui engendre des données (dans ce TP, c'est un algorithme de génération de nombres pseudo-aléatoires), processus dont les propriétés existent mais sont inconnues. Par exemple, on suppose que les nombres générés par ce générateur ont une certaine moyenne, mais on ne la connait pas. Cette moyenne inconnue est nommée la <em>vraie</em> moyenne. Dès lors, on va essayer de la déterminer&nbsp;; en statistiques, on dit qu'on l'<em>estime</em>.
 
     <br>
     <br>
     
-    <b>Question 9&nbsp;:</b> d'après vous, quelle est la valeur moyenne des nombres générer de manière uniforme dans l'intervalle [0, 1[&nbsp;? Même question si les nombres sont générés dans [0, 1] ou dans ]0, 1[ ou dans ]0, 1].
+    <b>Question 9&nbsp;:</b> d'après vous, quelle est la valeur moyenne des nombres générer de manière uniforme dans l'intervalle [0, 1]&nbsp;? Même question si les nombres sont générés dans [0, 1[ ou dans ]0, 1[ ou dans ]0, 1].
     
     <br>
     <br>
@@ -561,45 +561,45 @@ gnpa = RandomState (seed)</pre>
     
     <br>
     
-    jusqu'à maintenant, on a utilisé le vocabulaire de l'informatique pour parler de la génération de nombres pseudo-aléatoires. Quand on se met à réflêchir sous l'angle des statistiques et d'un processus qui génère des données, on a l'habitude le vocabulaire des statistiques. Les termes sont synonymes&nbsp;:
+    jusqu'à maintenant, on a utilisé le vocabulaire de l'informatique pour parler de la génération de nombres pseudo-aléatoires. Quand on se met à réflêchir sous l'angle des statistiques et d'un processus qui génère des données, on a l'habitude d'utiliser le vocabulaire des statistiques. Les termes sont synonymes&nbsp;:
 
     <br>
 
-    au lieu de «&nbsp;générer un nombre pseudo-aléatoire&nbsp;» on dit qu'on «&nbsp;échantillonne&nbsp;» un processus (<i>to sample</i> en anglais),
+    au lieu de «&nbsp;générer un nombre pseudo-aléatoire&nbsp;» on dit qu'on «&nbsp;échantillonne&nbsp;» un processus (<em>to sample</em> en anglais),
 
     <br>
 
-    et au lieu d'un «&nbsp;nombre pseudo-aléatoire&nbsp;» on parle d'«&nbsp;échantillon&nbsp;» (<i>a sample</i> en anglais).
+    et au lieu d'un «&nbsp;nombre pseudo-aléatoire&nbsp;» on parle d'«&nbsp;échantillon&nbsp;» (<em>a sample</em> en anglais).
 
     <br>
 
-    Quand on calcule la moyenne de plusieurs échantillons, on parle de moyenne <i>empirique</i>. Le mot «&nbsp;empirique&nbsp;» signifie ici que l'on à la moyenne de valeurs observées/mesurées, engendrées par un processus que l'on observe. Il s'oppose au mot «&nbsp;vrai&nbsp;» introduit plus haut qui signifie que l'on considère la valeur théorique, laquelle n'est pas observée, mais que l'on essaye d'estimer au mieux.
+    Quand on calcule la moyenne de plusieurs échantillons, on parle de moyenne <em>empirique</em>. Le mot «&nbsp;empirique&nbsp;» signifie ici que l'on calcule la moyenne de valeurs observées/mesurées, engendrées par un processus que l'on observe. Il s'oppose au mot «&nbsp;vrai&nbsp;» introduit plus haut qui signifie que l'on considère la valeur théorique, laquelle n'est pas observée, mais que l'on essaye d'estimer au mieux.
 
     <br>
 
-    La moyenne est une quantité que l'on peut calculer parmi des tas d'autres, probablement la plus connue. Il existe également la médiane, la variance, l'écart-type et bien d'autres. Chacune de ces quantités se nomme une <i>statistique</i>.
+    La moyenne est une quantité que l'on peut calculer parmi des tas d'autres, probablement la plus connue. Il existe également la médiane, la variance, l'écart-type et bien d'autres. Chacune de ces quantités se nomme une <em>statistique</em>.
     
     <br>
 	  
-    En termes de notation, on a l'habitude de noter la moyenne par la lettre grecque &mu; et de la distinguer de \( \hat{\mu} \)&nbsp;: sans chapeau, c'est la <i>vraie</i> valeur, avec un chapeau c'est sa valeur empirique. Plus généralement, si on note une statistique avec une certaine lettre, on lui ajoute un chapeau quand on veut parler de sa valeur empirique&nbsp;; sans chapeau, c'est la vraie valeur de la statistique.
+    En termes de notation, on a l'habitude de noter la moyenne par la lettre grecque &mu; et de la distinguer de \( \hat{\mu} \)&nbsp;: sans chapeau, c'est la <i>vraie</i> valeur, avec un chapeau c'est une valeur empirique, ou encore, une <em>estimation</em> de la vraie valeur de la moyenne. Plus généralement, si on note une statistique avec une certaine lettre, on lui ajoute un chapeau quand on veut parler d'une estimation de cette statistique, qui peut être une valeur empirique&nbsp;; sans chapeau, c'est la vraie valeur de la statistique.
 
   </p>
 	
   <h4>Activité 10</h4>
 	<!-- loi des grds nb -->
-	
+
   <p>
 
     On considère <i>n</i> variables aléatoires indépendantes et identiquement distribuées (i.i.d.) notées X<sub>i</sub> de moyenne &mu;.
-	  
+
     <br>
 	  
-    La <i>loi des grands nombres</i> indique que la moyenne de ces X<sub>i</sub> tend vers <i>n</i> lorsque <i>n</i> tend vers l'infini.
+    La <i>loi des grands nombres</i> indique que la moyenne de ces X<sub>i</sub> tend vers &mu; lorsque <i>n</i> tend vers l'infini.
 
     <br>
     <br>
 	  
-    <b>Question 10&nbsp;:</b> générer 10000 nombres pseudo-aléatoires distribués selon une loi normale de moyenne nulle et d'écart-type 1. Calculer la moyenne des i premiers nombres pour i variant de 1 à 10000 en en faire un graphique.
+    <b>Question 10&nbsp;:</b> générer 10000 nombres pseudo-aléatoires distribués selon une loi normale de moyenne nulle et d'écart-type 1 (loi que l'on note par la suite \( {\cal N} (0, 1) \)). Calculer la moyenne des i premiers nombres pour i variant de 1 à 10000 et en faire un graphique.
   </p>
 	
   <table>
@@ -613,7 +613,7 @@ gnpa = RandomState (seed)</pre>
 	  </p>
 	  <ul>
 	    <li>un tableau de tableaux de <code>double</code>s (un <code>double **</code>,</li>
-	    <li>un entier qui est le nombre de valeurs dans ce tableau,</li>
+	    <li>un entier qui est le nombre de valeurs dans chaque tableau,</li>
 	    <li>un entier qui est le nombre de tableau de tableaux&nbsp;: ici, c'est 1,</li>
 	    <li>un entier qui vaut 0,</li>
 	    <li>une chaîne de caractères qui contient le titre du graphique.</li>
@@ -648,10 +648,12 @@ gnpa = RandomState (seed)</pre>
     J'obtiens ce qui suit&nbsp;:
     
     <br>
+    <br>
     
     <img src="q11b.png" width="500" alt="graphique pour q11" >
     <img src="q11a.png" width="500" alt="graphique pour q11" >
     
+    <br>
     <br>
     
     La figure de droite étant juste un agrandissement sur les 400 premières itérations de la figure de gauche.
@@ -680,12 +682,12 @@ gnpa = RandomState (seed)</pre>
 
   <p>
 
-    On voit que la moyenne empirique tend vers 0, qui est la moyenne de la distribution normale de moyenne nulle, la vraie moyenne.
+    On voit que la moyenne empirique tend vers 0, qui, par définition, est la vraie moyenne de la distribution \( {\cal N} (0, 1) \).
 
     <br>
     <br>
     
-    La vitesse de convergence de la moyenne empirique vers la vraie moyenne est connue&nbsp;: l'écart entre les deux diminue comme \( \frac{1}{\sqrt{t}} \).
+    La vitesse de convergence de la moyenne empirique vers la vraie moyenne est connue&nbsp;: l'écart entre les deux diminue comme \( \frac{1}{\sqrt{i}} \).
     
     <br>
 
@@ -704,7 +706,7 @@ gnpa = RandomState (seed)</pre>
 	
   <p>
 
-    <b>Question 11&nbsp;:</b> tirer 1000 nombres d'une distribution normale de moyenne nulle et d'écart-type 1. En calculer leur moyenne&nbsp;: on obtient une certaine valeur m<sub>1</sub>. Répéter cette expérience 300000 fois. Nous aurons 300000 valeurs m<sub>1</sub> à m<sub>300000</sub>. En faire un histogramme.
+    <b>Question 11&nbsp;:</b> tirer 1000 nombres d'une distribution \( {\cal N} (0, 1) \). En calculer leur moyenne&nbsp;: on obtient une certaine valeur m<sub>1</sub>. Répéter cette expérience 300000 fois. Nous aurons 300000 valeurs m<sub>1</sub> à m<sub>300000</sub>. En faire un histogramme.
 
     <br>
     <br>
@@ -720,13 +722,13 @@ gnpa = RandomState (seed)</pre>
     <br>
     
     Cela illustre le <i>théorème central limite</i>&nbsp;: chaque m<sub>i</sub> calculée plus haut est une variable aléatoire.
-    À chaque itération, chacun des n (= 1000) nombres aléatoires a été tiré d'une distribution normale \( {\cal N} (\mu, \sigma) \) avec \( \mu = 0 \) et \( \sigma = 1 \).
+    À chaque itération, chacun des n (= 1000) nombres pseudo-aléatoires a été tiré d'une distribution normale \( {\cal N} (\mu, \sigma) \) avec \( \mu = 0 \) et \( \sigma = 1 \).
     Les valeurs de la variable aléatoire m (chacune est la moyenne de 1000 nombres pseudo-aléatoires) sont distribuées selon une loi normale \( {\cal N} (0, \sigma = \frac{1}{\sqrt{n}}) \), soit ici \( {\cal N} (0, \sigma = \frac{1}{\sqrt{1000}}) \), soit environ \( {\cal N} (0, \sigma = 0.03) \).
       
       <br>
       <br>
 
-      Pour des nombres distribués uniformément dans [0, 1[, on obtient le même genre de graphique&nbsp;:
+      Pour des nombres distribués uniformément dans [0, 1], on obtient le même genre de graphique&nbsp;:
       
       <br>
       <br>
@@ -740,11 +742,11 @@ gnpa = RandomState (seed)</pre>
 	
   <p>
 
-    Une autre caractéristique importante (qui saute aux yeux dans le cas d'une distribution normale) est l'étalement de la distribution des valeurs autour de la moyenne. Celle-ci est mesurée par l'<i>écart-type</i>.
+    Une autre caractéristique importante (qui saute aux yeux dans le cas d'une distribution normale) est l'étalement de la distribution des valeurs autour de la moyenne. Celle-ci est mesurée par l'<em>écart-type</em>.
 
     <br>
 
-    L'écart-type est la racine carrée de la <i>variance</i>. Celle-ci se définit très simplement comme la moyenne de l'écart au carré entre chaque échantillon et la moyenne empirique&nbsp;: \( var (x_i) = \frac{1}{n} \sum_{i=1}^{i=n} (x_i - \hat{\mu})^2 \).
+    L'écart-type est la racine carrée de la <em>variance</em>. Celle-ci se définit très simplement comme la moyenne de l'écart au carré entre chaque échantillon et la moyenne empirique&nbsp;: \( var (x_i) = \frac{1}{n} \sum_{i=1}^{i=n} (x_i - \hat{\mu})^2 \).
 
     <br>
     <br>
