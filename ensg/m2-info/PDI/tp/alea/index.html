@@ -18,7 +18,7 @@
 	  background-color: #c0c0c0;
       }
       table.tr.td.c {
-	  background-color: "bafcba";
+	  background-color: #bafcba;
 	  width: 50%;
       }
       table.tr.td.python {
@@ -54,19 +54,7 @@
   
   <body>
 
-<div class="row">
-  <div class="columnC" >
-    <h2>Column 1</h2>
-    <p>Some text..</p>
-  </div>
-  <div class="columnP" >
-    <h2>Column 2</h2>
-    <p>Some text..</p>
-  </div>
-</div>
-
-
-    <div class="tpR">
+<div class="tpR">
  
   <h1>Processus aléatoires, statistiques et reproductibilité expérimentale</h1>
 
@@ -88,6 +76,31 @@
   <h2>Génération de nombres pseudo-aléatoires</h2>
 
   <h3>Pré-requis</h3>
+
+
+<div class="row">
+  <div class="columnC" >
+    <b>C</b>
+    <div class="c">
+      <br/>
+      On utilise la bibliothèque <a href="http://www.gnu.org/software/gsl/">GSL (GNU Scientific Library)</a> qui contient de multiples fonctions mathématiques. Elle est installée sur les ordinateurs en salle TP. Sur votre ordinateur personnel, il faut peut-être l'installer.
+      
+      <br>
+      
+      On utilisera le compilateur <code>gcc</code> et on spécifiera les options <code>-lgsl -lgslcblas -lm</code> pour éditer les liens avec les bibliothèques nécessaires dans ce TP.
+    </div>
+  </div>
+  <div class="columnP" >
+    <b>Python</b>
+    <div class="python">
+      <p>
+	
+	On utilise la bibliothèque <code>numpy</code> qui doit donc être installée.
+      </p>
+    </div>
+  </div>
+</div>
+
 
   <table>
     <tr><th scope="col">C</th>
