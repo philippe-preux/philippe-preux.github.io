@@ -53,7 +53,7 @@
     </style>
   </head>
   
-  <body>
+<body>
 
 <div class="tpR">
  
@@ -270,27 +270,11 @@ np.random.rand (1)</pre>
   
   <p>
 
-    
-    
-  </p>
-
-  <h4>Activité 4</h4>
-  
-  <p>
-
-    
-    
-  </p>
-
-  <h4>Activité 5</h4>
-  
-  <p>
-
     Les nombres générés précédemment sont uniformément répartis dans l'intervalle [0, 1]. On va le vérifier en réalisant un histogramme.
 
     <br>
     
-    <b>Question 5&nbsp;:</b> générer 10.000 nombres pseudo-aléatoires compris dans [0, 1] et en faire un histogramme.
+    <b>Question 3&nbsp;:</b> générer 10.000 nombres pseudo-aléatoires compris dans [0, 1] et en faire un histogramme.
 
   </p>
   
@@ -336,12 +320,12 @@ np.random.rand (1)</pre>
   </table>
   
   <p>
-    <b>Question 5bis&nbsp;:</b> comparer visuellement ces histogrammes&nbsp;; qu'en pensez-vous&nbsp;?
+    <b>Question 3bis&nbsp;:</b> comparer visuellement ces histogrammes&nbsp;; qu'en pensez-vous&nbsp;?
     <br>
-    <b>Question 5ter&nbsp;:</b> générer les histogrammes pour les graines n, n+1 et n-1. Que constatez-vous&nbsp;?
+    <b>Question 3ter&nbsp;:</b> générer les histogrammes pour les graines n, n+1 et n-1. Que constatez-vous&nbsp;?
   </p>
   
-  <h4>Activité 6</h4>
+  <h4>Activité 4</h4>
   
   <p>
 
@@ -355,7 +339,7 @@ np.random.rand (1)</pre>
     <br>
     <br>
     
-    <b>Question 6&nbsp;:</b> générer 10.000 nombres pseudo-aléatoires distribués normalement (moyenne nulle, écart-type 1) et en faire un histogramme.
+    <b>Question 4&nbsp;:</b> générer 10.000 nombres pseudo-aléatoires distribués normalement (moyenne nulle, écart-type 1) et en faire un histogramme.
 
   </p>
 
@@ -383,7 +367,7 @@ np.random.rand (1)</pre>
     </tr>
   </table>
 
-  <h4>Activité 7</h4>
+  <h4>Activité 5</h4>
   
   <p>
 
@@ -404,7 +388,7 @@ np.random.rand (1)</pre>
     <br>
     <br>
     
-    <b>Question 7&nbsp;:</b> implanter ce générateur de nombres pseudo-aléatoires en prenant m = 1103515245, c = 12345 et q = 2<sup>31</sup>. Générer 10.000 nombres et en faire un histogramme. Le résultat correspond-il à vos attentes&nbsp;?
+    <b>Question 5&nbsp;:</b> implanter ce générateur de nombres pseudo-aléatoires en prenant m = 1103515245, c = 12345 et q = 2<sup>31</sup>. Générer 10.000 nombres et en faire un histogramme. Le résultat correspond-il à vos attentes&nbsp;?
 
     <br>
 
@@ -417,7 +401,7 @@ np.random.rand (1)</pre>
     <br>
     <br>
     
-    <b>Question 7bis&nbsp;:</b> prendre c = 1 et m = 127, générer 10.000 nombres et faites un histogramme. Ensuite, prendre c = 1 et m = 128, générer 10.000 nombres et faites un histogramme. Le résultat correspond-il toujours à vos attentes&nbsp;?
+    <b>Question 5bis&nbsp;:</b> prendre c = 1 et m = 127, générer 10.000 nombres et faites un histogramme. Ensuite, prendre c = 1 et m = 128, générer 10.000 nombres et faites un histogramme. Le résultat correspond-il toujours à vos attentes&nbsp;?
     
     <!--
 	<img src="q7.m128.png" width="500" >
@@ -426,11 +410,11 @@ np.random.rand (1)</pre>
 	
   </p>
 
-  <h4>Activité 8</h4>
+  <h4>Activité 6</h4>
   
   <p>
 
-    <b>Question 8&nbsp;:</b> générer 5000 points dans le carré unité. Pour cela, vous générez 10000 nombres pseudo-aléatoires entre 0 et 1 et chaque paire correspond aux coordonnées d'un point. Faites-en un graphique.
+    <b>Question 6&nbsp;:</b> générer 5000 points dans le carré unité. Pour cela, vous générez 10000 nombres pseudo-aléatoires entre 0 et 1 et chaque paire correspond aux coordonnées d'un point. Faites-en un graphique.
 
   </p>
   
@@ -502,7 +486,7 @@ gnpa = RandomState (seed)</pre>
 
   </p>
 
-  <h4>Activité 9</h4>
+  <h4>Activité 7</h4>
   
   <p>
 
@@ -511,7 +495,7 @@ gnpa = RandomState (seed)</pre>
     <br>
     <br>
     
-    <b>Question 9&nbsp;:</b> d'après vous, quelle est la valeur moyenne des nombres générer de manière uniforme dans l'intervalle [0, 1]&nbsp;? Même question si les nombres sont générés dans [0, 1[ ou dans ]0, 1[ ou dans ]0, 1].
+    <b>Question 7&nbsp;:</b> d'après vous, quelle est la valeur moyenne des nombres générer de manière uniforme dans l'intervalle [0, 1]&nbsp;? Même question si les nombres sont générés dans [0, 1[ ou dans ]0, 1[ ou dans ]0, 1].
     
     <br>
     <br>
@@ -645,7 +629,7 @@ gnpa = RandomState (seed)</pre>
 
   </p>
 	
-  <h4>Activité 10</h4>
+  <h4>Activité 8</h4>
 	<!-- loi des grds nb -->
 
   <p>
@@ -659,7 +643,7 @@ gnpa = RandomState (seed)</pre>
     <br>
     <br>
 	  
-    <b>Question 10&nbsp;:</b> générer 10000 nombres pseudo-aléatoires distribués selon une loi normale de moyenne nulle et d'écart-type 1 (loi que l'on note par la suite \( {\cal N} (0, 1) \)). Calculer la moyenne des i premiers nombres pour i variant de 1 à 10000 et en faire un graphique.
+    <b>Question 8&nbsp;:</b> générer 10000 nombres pseudo-aléatoires distribués selon une loi normale de moyenne nulle et d'écart-type 1 (loi que l'on note par la suite \( {\cal N} (0, 1) \)). Calculer la moyenne des i premiers nombres pour i variant de 1 à 10000 et en faire un graphique.
   </p>
 	
   <table>
@@ -700,7 +684,7 @@ gnpa = RandomState (seed)</pre>
 
   <p>
 
-    <b>Question 10bis&nbsp;:</b> faire 10 fois la même chose qu'à la question 10 et afficher toutes les moyennes sur un même graphique.
+    <b>Question 8bis&nbsp;:</b> faire 10 fois la même chose qu'à la question 10 et afficher toutes les moyennes sur un même graphique.
 
     <br>
     <br>
@@ -761,12 +745,12 @@ gnpa = RandomState (seed)</pre>
     
   </p>
 	
-  <h4>Activité 11</h4>
+  <h4>Activité 9</h4>
 	<!-- TCL -->
 	
   <p>
 
-    <b>Question 11&nbsp;:</b> tirer 1000 nombres d'une distribution \( {\cal N} (0, 1) \). En calculer leur moyenne&nbsp;: on obtient une certaine valeur m<sub>1</sub>. Répéter cette expérience 300000 fois. Nous aurons 300000 valeurs m<sub>1</sub> à m<sub>300000</sub>. En faire un histogramme.
+    <b>Question 9&nbsp;:</b> tirer 1000 nombres d'une distribution \( {\cal N} (0, 1) \). En calculer leur moyenne&nbsp;: on obtient une certaine valeur m<sub>1</sub>. Répéter cette expérience 300000 fois. Nous aurons 300000 valeurs m<sub>1</sub> à m<sub>300000</sub>. En faire un histogramme.
 
     <br>
     <br>
@@ -797,7 +781,7 @@ gnpa = RandomState (seed)</pre>
       
     </p>
     
-  <h4>Activité 12</h4>
+  <h4>Activité 10</h4>
 	<!-- écart-type -->
 	
   <p>
@@ -837,11 +821,11 @@ gnpa = RandomState (seed)</pre>
 
   <p>
 
-    <b>Question 12&nbsp;:</b> écrire un programme qui génère 100000 nombres pseudo-aléatoires tirés selon une loi normale \( {\cal N} (\mu, \sigma) \) pour des valeurs de \( \mu \) et \( \sigma \) que vous fixez à votre goût. Calculer les deux écarts-types et comparez-les entre-eux et avec la vraie valeur de l'écart-type.
+    <b>Question 10&nbsp;:</b> écrire un programme qui génère 100000 nombres pseudo-aléatoires tirés selon une loi normale \( {\cal N} (\mu, \sigma) \) pour des valeurs de \( \mu \) et \( \sigma \) que vous fixez à votre goût. Calculer les deux écarts-types et comparez-les entre-eux et avec la vraie valeur de l'écart-type.
       
   </p>
   
-  <h4>Activité 13</h4>
+  <h4>Activité 11</h4>
   
   <p>
     
@@ -850,40 +834,41 @@ gnpa = RandomState (seed)</pre>
     <br>
     <br>
     
-    <b>Question 13&nbsp;:</b> écrire une fonction qui prend en paramètre un tableau de nombres pseudo-aléatoires, une valeur de a et une valeur de b et qui renvoie la proportion d'éléments du tableau dont la valeur est comprise entre a et b.
+    <b>Question 11&nbsp;:</b> écrire une fonction qui prend en paramètre un tableau de nombres pseudo-aléatoires, une valeur de a et une valeur de b et qui renvoie la proportion d'éléments du tableau dont la valeur est comprise entre a et b.
     
     <br>
 
-	  <b>Question 13bis&nbsp;:</b> utilisez la fonction précédente pour déterminer la proportion de nombres qui se situent à 1 écart-type de la moyenne, puis 2 écarts-types de la moyenne, puis 3 écarts-types de la moyenne. Appliquez-la à 100000 nombres pseudo-aléatoires tirés selon une loi \( {\cal N} (\mu, \sigma) \) dont vous fixez les paramètres comme vous l'entendez.
-	    <br>
+    <b>Question 11bis&nbsp;:</b> utilisez la fonction précédente pour déterminer la proportion de nombres qui se situent à 1 écart-type de la moyenne, puis 2 écarts-types de la moyenne, puis 3 écarts-types de la moyenne. Appliquez-la à 100000 nombres pseudo-aléatoires tirés selon une loi \( {\cal N} (\mu, \sigma) \) dont vous fixez les paramètres comme vous l'entendez.
+    
+    <br>
 
-	    La théorie nous dit que 68% des échantillons sont à moins d'un écart-type de la moyenne, 95% à moins de 2 écarts-types, 99,7% à moins de 3 écarts-types. Retrouvez-vous ces proportions&nbsp;?
+    La théorie nous dit que 68% des échantillons sont à moins d'un écart-type de la moyenne, 95% à moins de 2 écarts-types, 99,7% à moins de 3 écarts-types. Retrouvez-vous ces proportions&nbsp;?
 
-	</p>
+  </p>
 
-	<h4>Activité 14</h4>
-	<!-- quantiles -->
-	
-	<p>
+  <h4>Activité 12</h4>
+  <!-- quantiles -->
+  
+  <p>
 
-	  Une dernière notion que nous définissons est celle de <i>quantile</i>&nbsp;: &alpha; étant un nombre réel quelconque, le quantile &alpha; d'un ensemble d'échantillons est la proportion de ces échantillons dont la valeur est &lt; &alpha;.
-
-	  <br>
-
-	  <b>Question 14&nbsp;:</b> écrire une fonction qui prend en paramètre un tableau de nombres et la valeur de \( \alpha \) et renvoie le quantile &alpha; des éléments de ce tableau.
-
-	  <br>
-	  
-	  <b>Question 14bis&nbsp;:</b> utilisez la fonction précédente pour déterminer le quantile &alpha; d'un ensemble de 100000 nombres pseudo-aléatoires tirés selon une loi \( {\cal N} (0, 1) \) pour chaque valeur de &alpha; variant de -5 à 5 par pas de 0,1. Faites-une représentation graphique de ces quantiles.
-
-	    <br>
-	  
-	    <b>Question 14ter&nbsp;:</b> comment utilisez-vous cette fonction pour déterminer la valeur empirique de la médiane du tableau de nombres&nbsp;?
-	    
-	  </p>
-
-
-	    <h4>Activités libres</h4>
+    Une dernière notion que nous définissons est celle de <i>quantile</i>&nbsp;: &alpha; étant un nombre réel quelconque, le quantile &alpha; d'un ensemble d'échantillons est la proportion de ces échantillons dont la valeur est &lt; &alpha;.
+    
+    <br>
+    
+    <b>Question 12&nbsp;:</b> écrire une fonction qui prend en paramètre un tableau de nombres et la valeur de \( \alpha \) et renvoie le quantile &alpha; des éléments de ce tableau.
+    
+    <br>
+    
+    <b>Question 12bis&nbsp;:</b> utilisez la fonction précédente pour déterminer le quantile &alpha; d'un ensemble de 100000 nombres pseudo-aléatoires tirés selon une loi \( {\cal N} (0, 1) \) pour chaque valeur de &alpha; variant de -5 à 5 par pas de 0,1. Faites-une représentation graphique de ces quantiles.
+    
+    <br>
+    
+    <b>Question 12ter&nbsp;:</b> comment utilisez-vous cette fonction pour déterminer la valeur empirique de la médiane du tableau de nombres&nbsp;?
+    
+  </p>
+  
+  
+  <h4>Activités libres</h4>
 
   <p>
 
@@ -898,25 +883,72 @@ gnpa = RandomState (seed)</pre>
 
   <h2>Processus de Markov</h2>
 
+  <p>
 
+    Dans cette partie du TP, on s'intéresse à des processus de markov. Un processus de markov est un processus dynamique (qui se déroule au cours du temps) en temps discret, caractérisé par un état courant \( x_t \) (à l'instant t) et tel que l'état suivant (à l'instant t+1) ne dépend que de l'état courant et, en général, d'un aléa. S'il n'y a pas d'aléa, le processus est <em>déterministe</em>&nbsp;; il est <em>stochastique</em> sinon. \( x_0 \) est son état initial. Une fonction de transition définit \( x_{t+1} \) en fonction de \( x_t \).
+    
+  </p>
+  
+  <h4>Activité 13</h4>
+    
+  <p>
+
+    On considère un processus de markov défini par&nbsp;:
+    $$ x_{t+1} = \left\{ \begin{eqnarray*} x_t - 1 \mbox{ avec probabilité } \frac{1}{2} \\ x_t + 1 \mbox{ avec probabilité } \frac{1}{2} \end{eqnarray*} \right. $$
+    
+    <br>
+    <br>
+    
+    <b>Question 13&nbsp;:</b> en prenant \( x_0 = 0 \), simuler ce processus pendant \( 10^4 \) pas de temps et réaliser un graphique indiquant l'état en fonction du temps.
+
+  </p>
   
   <table>
     <tr><th scope="col">C</th>
       <th scope="col">python</th></tr>
-	  <tr>
-	    <td bgcolor="#bafcba" width="50%">
-	      <p>
-		C is best
-	      </p>
-	    </td><td bgcolor="#c0c0c0" width="50%">
-	      <p>
-		python is shit.
-	      </p>
-	    </td>
-	  </tr>
-	</table>
-	
-	</div>
+    <tr>
+      <td bgcolor="#bafcba" width="50%">
+	<p>
+	  Pour la partie graphique, on utilisera la fonction <code>plot_series ()</code> rencontrée plus haut. On obtient&nbsp;:
+	  <br>
+	  <img src="q13.png" width = "500" alt="" >
+	</p>
+      </td><td bgcolor="#c0c0c0" width="50%">
+	<p>
+	  En python, on utilise la fonction <code>plt.plot()</code>.
+	</p>
+      </td>
+    </tr>
+  </table>
+  
+  <p>
+    On obtient une <em>marche aléatoire</em>. Seul l'aléa guide l'évolution de l'état. Quoique totalement aléatoire, on note que la séquence d'états possède certaines caractéristiques frappantes&nbsp;: lesquelles&nbsp;?
+
+    <br>
+
+    <b>Question 13bis&nbsp;:</b> en prenant \( x_0 = 0 \), réaliser 5 marches aléatoires, chacune étant obtenu en ré-initialisant le processus en \( x_0 = 0 \) au bout de \( 10^4 \) pas. En faire un graphique.
+
+    <br>
+    
+    Même question que la précédente mais en même temps que l'on ré-initialise \( x_0 \), ré-initialiser la graine du générateur de nombres pseudo-aléatoires. (Conservez bien l'ensemble des graines que vous utilisez et l'ordre dans lequel vous les utilisez.)
+
+    <br>
+
+    Comparer les 2 graphiques obtenus.
+
+    <br>
+    <br>
+
+    J'obtiens respectivement pour ces deux questions&nbsp;:
+
+    <br>
+    <br>
+
+    <img src="q16b5.png" width="350" alt="" >
+    <img src="q16t5.png" width="350" alt="" >
+  </p>
+  
+</div>
 	
 </body>
 </html>
