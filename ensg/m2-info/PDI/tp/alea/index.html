@@ -50,6 +50,17 @@
 	  display: table;
 	  clear: both;
       }
+      /* ça marche bien pour la largeur et la couleur de fond, mais pas pour
+	 la hauteur. Après avoir qwanté sans trouver de solution, j'ai défini
+	 la classe div ci-dessous : c'est affreux, mais ça marche comme
+	 disent les étudiants ! (-(
+	 Mais il faut faire l'ajustement à la main. C'est bien pour cela que
+	 « non, ça ne marche pas !», mais ça rend ce que je voulais donc en
+	 attendant de trouver mieux.
+     */
+      div.theUglyTrick {
+	  visibility:hidden;
+      }
     </style>
   </head>
   
@@ -98,7 +109,7 @@
 	<p>
 	  
 	  On utilise la bibliothèque <code>numpy</code> qui doit donc être installée.
-	</p>
+	</p><div class="theUglyTrick"><br><br><br><br></div>
       </div>
     </div>
   </div>
