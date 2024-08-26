@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Rappels</title>
+  <link href="https://philippe-preux.github.io/css/ma.css" 
+	rel="stylesheet" type="text/css" media="all" />
+  <link rel="shortcut icon" type="image/x-icon" 
+	href="https://philippe-preux.github.io/img/site.ico" />
+</head>
+
+<body>
+<div class="tpR">
+
+  <h1>Les structures de données de base en python</h1>
+
+  <p>
+
+    Cette page effectue quelques rappels concernant des structures de données que nous utiliserons durant les TP en Python. On se référera à <a href="https://inforef.be/swi/python.htm">cet ouvrage</a> pour une présentation complète du langage.
+    
+  </p>
+
+  <h2>Les structures de données natives</h2>
+
+  <h3>Les listes</h3>
+
+  <p>
+
+    Une liste est une suite ordonnée d'éléments. Par exemple&nbsp;: <code>[ 12, "hello", -5, 3.12 ]</code>.
+
+    <ul>
+      <li><code>l = [ 12, "hello", -5, 3.12 ]</code>.</li>
+      <li><code>len (l)</code> renvoie 4, le nombre d'éléments de la liste.
+	<br/>
+	Chaque élément d'une liste possède un indice. Le premier élément est numéroté 0, le suivant 1 et ainsi de suite. Aussi, l'élément d'indice <code>len (l)</code> n'existe pas.</li>
+      <li><code>l [2]</code> renvoie <code>-5</code>.</li>
+      <li><code>l [1:3]</code> renvoie la sous-liste <code>['hello', -5]</code>.
+	<br/>
+	Cette notation <code>l [i:j]</code> représente les indices compris entre <code>i</code> et <code>j</code>-1.
+	<br/>
+	La notation <code>l [:j]</code> représente les indices compris entre 0 et <code>j</code>-1.
+	<br/>
+	La notation <code>l [i:]</code> représente les indices compris entre i et <code>len (l)</code>.
+	<br/>
+	Exemples&nbsp;:
+	<br/>
+	<code>l [:3]</code> renvoie la sous-liste <code>[12, 'hello', -5]</code>.
+	<br/>
+	<code>l [1:]</code> renvoie la sous-liste <code>['hello', -5, 3.12]</code>.
+      </li>
+      <li><code>l.append ("world")</code> ajoute l'élément indiqué à la fin de la liste.</li>
+      <li><code>l.insert (2, 0)</code> insère la valeur 0 à l'indice 2 de la liste.</li>
+      <li><code>0 in l</code> renvoie <code>True</code> car la valeur 0 est présente dans la liste <code>l</code>. <code>"hello world" in l</code> renvoie donc <code>False</code></li>
+      <li><i>etc</i>.</li>
+      <li>En tapant <code>l.</code>suivi d'une tabulation, on obtient la liste des méthodes que l'on peut appliquer à une liste :
+	<pre>
+>>> l.
+l.append(    l.copy()     l.extend(    l.insert(    l.remove(    l.sort(
+l.clear()    l.count(     l.index(     l.pop(       l.reverse()  
+</pre></li>
+      <li>On peut itérer sur les éléments d'une liste pour les traiter un par un :
+	<pre>
+for e in l:
+    print (e)
+</pre>
+	affiche à l'écran tous les éléments d'une liste, un par un.</li>
+    </ul>
+    
+  <p>
+
+    Un élément d'une liste peut-être un nombre, une chaîne de caractères, une liste, un dictionnaire, ...
+    
+  </p>
+  
+  <h3>Les dictionnaires</h3>
+
+  <p>
+
+    Un dictionnaire est un ensemble de couples (clé, valeur). Ceux-ci ne sont pas ordonnés : on ne peut pas accéder au i<sup>è</sup> élément d'un dictionnaire, cela n'a pas de sens. On accède à un élément d'un dictionnaire par sa clé.
+    
+  </p>
+
+  <ul>
+    <li>On définit un dictionnaire comme suit :
+      <br/>
+      <code>d = { 'a' : 12, 'b' : "hello", 'c' : -7 }</code>
+      <br/>
+      Ce dictionnaire est composé de 3 paires (clé, valeur) sous la forme <code>clé : valeur</code>.
+      <br/>
+      On note que l'on utilise ici des accolades pour délimiter le contenu du dictionnaire.
+    </li>
+    <li>On accède à la valeur associée à une clé en indexant le dictionnaire par la clé, par exemple <code>d ['b']</code>.
+      <br/>
+      On note qu'ici on met des crochets et non des accolades (c'est python...).
+    </li>
+    <li>On peut ajouter une nouvelle paire à un dictionnaire simplement en tapant
+      <br>
+	<code>d ["une nouvelle clé"] = "avec sa valeur"</code></li>
+    <li>On peut obtenir la liste des clés d'un dictionnaire par <code>d.keys()</code>. C'est une liste, donc on peut itérer sur ses éléments (par exemple).</li>
+    <li>De même, on peut obtenir la liste des valeurs d'un dictionnaire par <code>d.values()</code>.</li>
+    <li>et pour compléter ses connaissances sur les dictionnaires on tente <code>d.</code> suivi d'une tabulation, ou on regarde le livre indiqué plus haut.</li>
+  </ul>
+  
+  <h2>Vecteurs, matrices</h2>
+
+  <p>
+
+    En science des données, on utilise couramment des vecteurs et des matrices. Ces structures de données sont des tableaux de nombres, entiers ou flottants. Ils sont définis dans le paquetage <code>numpy</code>.
+
+    <br/>
+
+    On se référera au <a href="https://numpy.org/doc/stable">site web de <code>numpy</code></a> pour une documentation complète.
+
+    <br/>
+
+    Les choses à absolument connaître sont décrites <a href="https://numpy.org/doc/stable/user/absolute_beginners.html">dans cette page</a>.
+    
+  </p>
+
+  <!--h3>Création de vecteurs et matrices <code>numpy</code></h3>
+
+  <p>
+
+  </p>
+
+  <h3>Accès aux éléments de vecteurs et matrices <code>numpy</code></h3>
+
+  <p>
+
+  </p-->
+
+  
+</div>
+
+</body>
+</html>
