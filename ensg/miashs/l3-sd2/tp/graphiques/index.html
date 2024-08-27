@@ -5,8 +5,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>Graphiques pour la science des données</title>
-  <!--link href="https://philippe-preux.github.io/css/ma.css"  -->
-  <link href="/home/ppreux/philippe-preux.github.io/css/ma.css" 
+  <link href="https://philippe-preux.github.io/css/ma.css"
 	rel="stylesheet" type="text/css" media="all" />
   <link rel="shortcut icon" type="image/x-icon" 
 	href="https://philippe-preux.github.io/img/site.ico" />
@@ -18,20 +17,26 @@
   <h1>Graphiques pour la science des données</h1>
 
   <p>
-
+    
     Parce qu'un dessin vaut mieux qu'un long discours, la réalisation de graphiques est une activité très importante en science des données pour voir des caractéristiques des données.
-
+    
+    <br/>
+      
+    Ce TP a donc pour objectif de réaliser des graphiques simples permettant de visualiser différentes caractéristiques d'un jeu de données.
+    On utilisera le paquetage <kbd>maplotlib</kbd>. Souvent, on le renomme <code>plt</code> au chargement.
+      
+    <br/>
     <br/>
 
-    Ce TP a donc pour objectif de réaliser des graphiques simples permettant de visualiser différentes caractéristiques d'un jeu de données.
-    On utilisera le paquetage <kbd>maplotlib</kbd>.
+    Remarque&nbsp;: il y a deux manières de réaliser des graphiques avec <kbd>maplotlib</kbd>. Dans un premier temps, nous allons présenter la méthode la plus simple qui permet de réaliser des graphiques simples. Nous verrons ensuite une autre méthode, à peine plus compliquée, qui permet de réaliser des graphiques bien plus riches et complexes.
 
+    <br/>
     <br/>
 
     La documentation est en-ligne&nbsp;:
-    
-  </p>
 
+  </p>
+  
   <ul>
     <li>sur le <a href="https://matplotlib.org/">site web de <kbd>matplotlib</kbd></a>.</li>
     <li>Voir en particulier les <a href="https://matplotlib.org/cheatsheets/">pense-bêtes</a></li>
@@ -81,14 +86,14 @@ plt.show()
 
   <ol>
     <li>on ne sait pas ce que cela représente, ni la figure dans son ensemble, ni les axes des abscisses et des ordonnées. Il faut ajouter des légendes.</li>
-    <li>Ça représente la valeur de chaque donnée pour chacun des attributs. L'abiscisse est le numéro de la donnée. Chaque attribut est représenté avec ue couleur différente et une légende indique la correspondance entre couleur et attribut : c'est un point positif.</li>
-    <li>On voit un attribut dont les valeurs sont très élevées (oleic), deux autres intermédiaires (palmitic et linoleic) et tous les autres mélangés tout en bas : on ne voit rien&nbsp;!</li>
-    <li>Pour chaque attribut on voit une ligne qui zigzague. Traditionnellement, un graphique qui a cet aspect-là représente l'évolution au fil du temps de la valeur d'un attribut. Or, ce graphique ne représente pas du tout cela : comme dit ci-dessus, l'axe des abscisses représente l'indice de la donnée dans le tableau et en aucun cas ne représente une information temporelle. Ce graphique nous induit donc en erreur. C'est un énorme défaut d'un graphique que de ne pas représenter ce à quoi l'on s'attend. Un graphique est là pour aider à comprendre et donc, la dernière chose qu'il doit faire est de nous induire en erreur&nbsp;!</li>
+    <li>Ça représente la valeur de chaque donnée pour chacun des attributs. L'abscisse est le numéro de la donnée. Chaque attribut est représenté avec une couleur différente et une légende indique la correspondance entre couleur et attribut.</li>
+    <li>On voit un attribut dont les valeurs sont très élevées (oleic), deux autres intermédiaires (palmitic et linoleic) et tous les autres mélangés tout en bas : on ne voit pas grand chose&nbsp;!</li>
+    <li>Pour chaque attribut on voit une ligne qui zigzague. Traditionnellement, un graphique qui a cet aspect-là représente l'évolution au fil du temps de la valeur d'un attribut. Or, ce graphique ne représente pas du tout cela : comme dit ci-dessus, l'axe des abscisses représente l'indice de la donnée dans le tableau et en aucun cas ne représente une information temporelle. <strong>Ce graphique nous induit donc en erreur</strong>. C'est un énorme défaut pour un graphique que de ne pas représenter ce à quoi l'on s'attend. Un graphique est là pour aider à comprendre et donc, la dernière chose qu'il doit faire est de nous induire en erreur&nbsp;!</li>
   </ol>
 
   <p>
 
-    En conclusion ce graphique est très mauvais. En regardant la documentation, transformez-le dans le graphique suivant&nbsp;:
+    En conclusion ce graphique est très mauvais. Malgré cela, on peut s'en servir comme base d'un exercice de réalisation de graphique en Python. En regardant la documentation, transformez-le dans le graphique ci-dessous auquel on a ajouté un titre général et des titres aux axes des abscisses et des ordonnées&nbsp;:
 
   </p>
 
@@ -132,7 +137,12 @@ plt.show()
 
     <br/>
 
-    On utilise pour cela la méthode <kbd>plot.hist (bins = ..., ...)</kbd>. Le paramètre <kbd>bns</kbd> indique la finesse de l'histogramme. Les autres paramètres sont à peu près les mêmes que pour <kbd>plot.box</kbd>. Regardez la documentation et réalisez les graphiques ci-dessous. Utilisez une boucle pour générer tous ces 8 graphiques d'un coup.
+    On utilise pour cela la méthode <kbd>plot.hist (bins = ..., ...)</kbd>. Le paramètre <kbd>bins</kbd> indique la finesse de l'histogramme. Les autres paramètres sont à peu près les mêmes que pour <kbd>plot.box</kbd>.
+
+    <br/>
+    <br/>
+
+    <b>À faire&nbsp;:</b> regardez la documentation et réalisez les 2x8 graphiques ci-dessous. Utilisez une boucle pour générer 8 graphiques d'un coup.
     
   </p>
 
@@ -168,12 +178,12 @@ plt.show()
 
   <p>
 
-    Ces deux visualisations produisent des résultats qui se ressemblent&nbsp;: on retrouve les mêmes pics et creux. Néanmoins, elles sont à utiliser avec prudence&nbsp;: ni l'une ni l'autre ne représente une information parfaite. Si on peut se dire que les 4 premiers couples (histogramme, densité) se ressemble, c'est beaucoup moins évidents pour les 4 suivants. Les histogrammes montrent des pics qui n'apparaissent pas dans les densités estimées. Ces pics isolés dans les histogrammes sont lissés dans les densités et disparaissent&nbsp;: existent-ils&nbsp;? Quelle méthode donne la visualisation la plus fidèle des données&nbsp;?
+    Ces deux visualisations produisent des résultats qui se ressemblent&nbsp;: on retrouve les mêmes pics et creux. Néanmoins, elles sont à utiliser avec prudence&nbsp;: ni l'une ni l'autre ne représente une information parfaite. Si on peut se dire que les 4 premiers couples (histogramme, densité) se ressemblent, c'est beaucoup moins évidents pour les 4 suivants. Les histogrammes montrent des pics qui n'apparaissent pas dans les densités estimées. Ces pics isolés dans les histogrammes sont lissés dans les densités et disparaissent&nbsp;: existent-ils&nbsp;? Quelle méthode donne la visualisation la plus fidèle des données&nbsp;?
 
     <br/>
     <br/>
 
-    L'allure de l'histogramme dépend fortement de la discrétisation utilisée (le paramètres <kbd>bins</kbd>), notamment si le nombre de données est faible par rapport à la discrétisation.
+    L'allure de l'histogramme dépend fortement de la discrétisation utilisée (le paramètre <kbd>bins</kbd>), notamment si le nombre de données est faible par rapport à la discrétisation.
     
     <br/>
 
@@ -182,7 +192,7 @@ plt.show()
     <br/>
     <br/>
 
-    De même, la forme de la densité estimée vaie selon les paramètres utilisés. Ici, on a utilisé les paramètres par défaut.
+    De même, la forme de la densité estimée varie selon les paramètres utilisés. Ici, on a utilisé les paramètres par défaut. Dans une application réelle, il faut ajuster les paramètres.
     
   </p>
   
@@ -199,7 +209,7 @@ plt.show()
 
   <p>
 
-    Un <i>Scatter plots</i> est un graphique en 2 dimensions&nbsp;: chaque axe correspond à un attribut&nbsp;: on représente chaque donnée par un point définis par ces deux attributs.
+    Un <i>scatter plot</i> est un graphique en 2 dimensions&nbsp;: chaque axe correspond à un attribut&nbsp;: on représente chaque donnée par un point défini par ces deux attributs.
 
     <br/>
 
@@ -207,7 +217,7 @@ plt.show()
 
     <br/>
 
-    Faites un <i>scatter plot</i> pour les attributs <kbd>oleic</kbd> et <kbd>palmitic</kbd>. Vous devez obtenir ceci&nbsp;:
+    <b>À faire&nbsp;:</b> faites un <i>scatter plot</i> pour les attributs <kbd>oleic</kbd> et <kbd>palmitic</kbd>. Vous devez obtenir ceci&nbsp;:
 
   </p>
     
