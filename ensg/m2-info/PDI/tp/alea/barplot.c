@@ -161,9 +161,13 @@ void plot_2d (const double *les_x, const double *les_y, const size_t n,
     if (les_y [i] < ymin) ymin = les_y [i];
     if (les_y [i] > ymax) ymax = les_y [i];
   }
-  ymin *= 1.1;
-  ymax *= 1.1;
-  plenv (xmin, xmax, ymin, ymax, 0, 0);
+
+  double dx = (xmax - xmin) / 10.;
+  double dy = (ymax - ymin) / 10.;
+  ymin -= dy; ymax += dy;
+  xmin -= dx; xmax += dx;
+
+  plenv (xmin, xmax, ymin, ymax, 1, 0);
 
   plcol0 (2);
   plline ((int) n, les_x, les_y);
