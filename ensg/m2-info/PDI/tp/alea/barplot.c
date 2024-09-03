@@ -155,7 +155,7 @@ void plot_2d (const double *les_x, const double *les_y, const size_t n,
   double xmax = les_x [0];
   double ymin = les_y [0];
   double ymax = les_y [0];
-  for (size_t i = 0; i < n; i ++) {
+  for (size_t i = 1; i < n; i ++) {
     if (les_x [i] < xmin) xmin = les_x [i];
     if (les_x [i] > xmax) xmax = les_x [i];
     if (les_y [i] < ymin) ymin = les_y [i];
