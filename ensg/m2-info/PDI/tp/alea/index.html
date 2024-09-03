@@ -979,10 +979,12 @@ gnpa = RandomState (seed)</pre>
 
     <br>
 
-    \( c \) est un facteur que je vous laisse choisir pour que la figure soit jolie.
+    \( c \) est un facteur que je vous laisse choisir pour que la figure soit jolie. Par abus de notation, je note \( {\cal N} (0, 1) \) un nombre pseudo-aléatoire tiré selon une loi normale centrée réduite.
 
     <br>
     <br>
+
+    <b>Question 13&nbsp;:</b> en prenant \( x_0 = y_0 = 0 \), simuler ce processus pendant \( 10^4 \) pas de temps et réaliser un graphique des \( x_t, y_t) \)  au fil du temps.
     
   </p>
   
@@ -992,7 +994,7 @@ gnpa = RandomState (seed)</pre>
     <tr>
       <td bgcolor="#bafcba" width="50%">
 	<p>
-	  On utilise la contion <code>plot_2d ()</code> définie dans <code>barplot.c</code>. Celle-ci prend 4 paramètres&nbsp;:
+	  On utilise la fonction <code>plot_2d ()</code> définie dans <code>barplot.c</code>. Celle-ci prend 4 paramètres&nbsp;:
 	</p>
 	<ul>
 	  <li>un tableau de N <code>double</code>s qui sont les abscisses des points&nbsp;;</li>
