@@ -80,7 +80,7 @@
   </p>
   
   <ul>
-    <li>quand on a chargé un tableau de données dans Python, la première chose à faire consiste à vérifier qu'il a été correctement chargé&nbsp;? Il est facile de mal lire le fichier selon que celui-ci possède une première ligne indiquant ou non le nom des attributs. Le plus simple est de regarder les quelques premières lignes de fichier (en ouvrant l'url dans son navigateur par exemple) et de les comparer aux premières lignes du tableau de données. Pour cela, utiliser la méthode <kbd>head()</kbd> de <kbd>pandas</kbd>. Si les deux ne correspondent pas, les données ont été mal lues. Il faut comprendre pourquoi et corriger (la documentation est là pour vous aider). Par exemple, vous devriez obtenir quelque chose comme cela&nbsp;:
+    <li>quand on a chargé un tableau de données dans Python, la première chose à faire consiste à vérifier qu'il a été correctement chargé. Il est facile de mal lire le fichier selon que celui-ci possède une première ligne indiquant ou non le nom des attributs. Le plus simple est de regarder les quelques premières lignes du fichier (en ouvrant l'url dans son navigateur par exemple) et de les comparer aux premières lignes du tableau de données. Pour cela, utiliser la méthode <kbd>head()</kbd> de <kbd>pandas</kbd>. Si les deux ne correspondent pas, les données ont été mal lues. Il faut comprendre pourquoi et corriger (la documentation est là pour vous aider). Par exemple, vous devriez obtenir cela&nbsp;:
       <br/>
 <pre>
 >>> olives.head (n=5)
@@ -92,7 +92,8 @@
 4  North-Apulia       1     1  ...         50         80          46
 
 [5 rows x 11 columns]
-</pre>	
+</pre>
+    Si ce n'est pas ce que vous obtenez, la lecture n'a pas été effectuée correctement et la raison en est que vous avez mal utilisé la fonction <kbd>pandas</kbd>.
     </li>
     <li>On peut aussi afficher les dernières lignes du tableau de données avec la méthode <kbd>tail()</kbd>.</li>
     <li>En tapant le nom de l'objet (<kbd>olives</kbd>), python affiche les premières et dernières lignes.</li>
