@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+    <title>Résolution de l'équation de Bellman</title>
+    <!-- link href="/home/ppreux/philippe-preux.github.io/css/ma.css" -->
+    <link href="https://philippe-preux.github.io/css/ma.css"
+	  rel="stylesheet" type="text/css" media="all" >
+    <link rel="shortcut icon" type="image/x-icon"
+	  href="https://philippe-preux.github.io/img/site.ico" >
+    <!-- href="/home/ppreux/philippe-preux.github.io/img/site.ico" -->
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+      div.c {
+	  background-color: #bafcba;
+      }
+      div.python {
+	  background-color: #c0c0c0;
+      }
+      table.tr.td.c {
+	  background-color: #bafcba;
+	  width: 50%;
+      }
+      table.tr.td.python {
+	  background-color: #c0c0c0;
+	  width: 50%;
+      }
+
+      /* Ce qui suit fait ce que je voulais faire en mettant des attributs aux balises td, ce qui n'est pas compatible avec HTML5. Je voulais une table avec deux colonnes de même largeur, chacune avec une couleur de fond particulière.
+       J'ai trouvé cette solution là : https://www.w3schools.com/howto/howto_css_two_columns.asp */
+      * {
+	  box-sizing: border-box;
+      }
+      /* Create two equal columns that floats next to each other */
+      .columnC {
+	  background-color: #bafcba;
+	  float: left;
+	  width: 50%;
+	  padding: 10px;
+      }
+      .columnP {
+	  background-color: #c0c0c0;
+	  float: left;
+	  width: 50%;
+	  padding: 10px;
+      }
+      /* Clear floats after the columns */
+      .row:after {
+	  content: "";
+	  display: table;
+	  clear: both;
+      }
+      /* ça marche bien pour la largeur et la couleur de fond, mais pas pour
+	 la hauteur. Après avoir qwanté sans trouver de solution, j'ai défini
+	 la classe div ci-dessous : c'est affreux, mais ça marche comme
+	 disent les étudiants ! (-(
+	 Mais il faut faire l'ajustement à la main. C'est bien pour cela que
+	 « non, ça ne marche pas !», mais ça rend ce que je voulais donc en
+	 attendant de trouver mieux.
+     */
+      div.theUglyTrick {
+	  visibility:hidden;
+      }
+    </style>
+  </head>
+  
+<body>
+
+<div class="tpR">
+ 
+  <h1>Résolution de l'équation de Bellman</h1>
+
+  <p>
+
+    Dans ce TP, on s'intéresse à la résolution de l'équation de Bellman selon différentes méthodes vues en cours, ce qui correspond au chapitre 2 du polycopié de cours. Il ne faut pas oublier ce que l'on a vu dant le <a href="../alea/index.html">1er TP</a>.
+
+    <br>
+    <br>
+
+    On voit successivement&nbsp;:
+    
+  </p>
+
+  <ol>
+    <li>résolution par algèbre linéaire,</li>
+    <li>iération sur l'équation de Bellman,</li>
+    <li>méthode de Monte Carlo.</li>
+  </ol>
+  
+  <h2>Calcul de la fonction valeur par algèbre linéaire</h2>
+
+  <h3></h3>
+
+
+  <h2>Calcul de la fonction valeur par itération de l'équation de Bellman</h2>
+
+  <h2>Calcul de la fonction valeur par méthode de Monte Carlo</h2>
+  
+</div>
+
+</body>
+</html>
