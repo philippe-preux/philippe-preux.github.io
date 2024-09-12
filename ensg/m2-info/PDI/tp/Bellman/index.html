@@ -87,6 +87,49 @@
     <li>méthode de Monte Carlo.</li>
   </ol>
   
+  <h2>Préalables</h2>
+
+  <p>
+
+    Nous allons manipuler des problèmes de décision de Markov et implanter plusieurs algorithmes. Il est utile de définir une structure de données en C, une classe en python, qui permettent de les représenter.
+
+    <br/>
+    <br/>
+
+    Il est également pratique de pouvoir lire la fonction de transition et la fonction de retour depuis un fichier. S'il y a N états et M actions, ce fichier aura cette structure&nbsp;:
+
+  </p>
+
+  <ul>
+    <li>NxM lignes contenant chacune N nombres&nbsp;: la ligne 1 contient \( {\cal P} (e_0, e_0, e_0) {\cal P} (e_0, e_0, e_1) ... {\cal P} (e_0, e_0, e_{|{\©al A}| - 1}) \). 
+    <li>suivies de NxM lignes contenant chacune N nombres&nbsp;: la ligne ...
+  </ul>
+
+  <p>
+
+    Pour le problème du chauffeur de taxi, on aura&nbsp;:
+
+    <pre>0.5    0.25   0.25
+0.0625 0.75   0.1875
+0.25   0.125  0.625
+0.5    0      0.5
+0      0      0
+0.0625 0.875  0.0625
+0.25   0.25   0.5
+0.125  0.75   0.125
+0.75   0.0625 0.1875
+
+10  4  8 
+ 8  2  4 
+ 4  6  4 
+14  0 18 
+ 0  0  0 
+ 8 16  8 
+10  2  8 
+ 6  4  2 
+ 4  0  8</pre>
+  </p>
+  
   <h2>Calcul de la fonction valeur par algèbre linéaire</h2>
 
   <h3></h3>
