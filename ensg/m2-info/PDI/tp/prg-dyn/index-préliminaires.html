@@ -77,7 +77,21 @@
     <br/>
     <br/>
 
-    Il est également pratique de pouvoir lire la fonction de transition et la fonction de retour depuis un fichier. S'il y a N états et M actions, ce fichier aura cette structure&nbsp;:
+    Dans cette UE, un PDM est défini par un quituplet : \( ({\cal S}, {\cal A}, {\cal P}, {\cal R}, \gamma) \), où&nbsp;:
+
+  </p>
+
+  <ul>
+    <li>\( {\cal S} \) est l'ensemble des états que l'on considère discret. Dans l'implantation, les états sont numérotés à l'aide d'entiers naturels, à partir de 0. Il y a N états, donc ils sont nuémrotés de 0 à N-1.</li>
+    <li>\( {\cal A} \) est l'ensemble des actions que l'on considère discret. Dans l'implantation, les actions sont numérotées à l'aide d'entiers naturels, à partir de 0. Il y a M actions, donc elles sont nuémrotées de 0 à M-1.</li>
+    <li>\( {\cal P} \) est la fonction de transitions, donc un tableau à \( N\times{}M\times{}N \) entrées.</li>
+    <li>\( {\cal R} \) est la fonction de retour, donc un tableau à \( N\times{}M\times{}N \) entrées.</li>
+    <li>\( \gamma \) est un réel compris dans \( [0, 1[ \).
+  </ul>
+  
+  <p>
+    
+    Il est pratique de pouvoir lire la fonction de transition et la fonction de retour depuis un fichier. S'il y a N états et M actions, ce fichier aura cette structure&nbsp;:
 
   </p>
 
@@ -133,7 +147,14 @@
   </p>
   
   <ol>
-    <li>Définir les structures de données en C, classe en python, qui permettent de représenter un problème de décision de Markov, ansi qu'une politique déterministe ou stochastique.</li>
+    <li>Définir les structures de données en C, classe en python, qui permettent de représenter un problème de décision de Markov, ansi qu'une politique déterministe ou stochastique.
+      <br/>
+      Une politique déterministe est un tableau de N entiers naturels (l'action associée à chaque état).
+      <br/>
+      Une politique stochastique est un tableau de NxM réels (compris entre 0 et 1)&nbsp;: \( \pi (e, a) \) est la probabilité d'émettre l'action \( a \) dans l'état \( e \), donc comprise entre 0 et 1. \( \pi (e, .) \) est une distribution de probabilités, donc \( \sum_{a=0}^{a=M-1} \pi (e, a) = 1 \forall e \).
+      <br/>
+      En C, c'est l'occasion d'utiliser une <code>union</code> (dans une <code>struct</code>).
+    </li>
     <li>Définir les fonctions nécessaires à la lecture de la fonction de transition et a fonction de retour depuis un fichier structuré comme indiqué ci-dessus. Le nombre d'états, le nombre d'actions et le facteur de décompte sont fournis par ailleurs.</li>
     <li>Définir une fonction qui simule une trajectoire dans un problème de décision de Markov&nbsp;: à partir d'un état initial fourni et d'un PDM, la fonction retourne une tracjectoire, c'est-à-dire une séquence de triplets \( e_t, a_t, r_t \). La trajectoire est interrompue après un nombre de transitions fournie en paramère à la fonction.</li>
     <li>Dans le même esprit, définir une autre fonction qui simule une trajectoire dans un problème de décision de Markov et renvoie \( \sum_k \gamma^k r_{t+k} \). La trajectoire est interrompue après un nombre de transitions fournie en paramère à la fonction ou quand \( \gamma^k \) est inférieur à un seuil fourni en paramètre.</li>
