@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
-    <title>Résolution de l'équation de Bellman</title>
+    <title>Résolution de l'équation de Bellman&nbsp;: évaluation d'une politique</title>
     <!-- link href="/home/ppreux/philippe-preux.github.io/css/ma.css" -->
     <link href="https://philippe-preux.github.io/css/ma.css"
 	  rel="stylesheet" type="text/css" media="all" >
@@ -72,7 +72,7 @@
 
   <p>
 
-    Dans ce TP, on s'intéresse à la résolution de l'équation de Bellman selon différentes méthodes vues en cours, ce qui correspond au chapitre 2 du polycopié de cours. Il ne faut pas oublier ce que l'on a vu dant le <a href="../alea/index.html">1er TP</a>.
+    Dans ce TP, on s'intéresse à la résolution de l'équation de Bellman selon différentes méthodes vues en cours, ce qui correspond au chapitre 2 du polycopié de cours. Il ne faut pas oublier ce que l'on a vu dant le <a href="../alea/index.html">1er TP</a>. Le <a href="./index-préliminaires.html">TP précédent</a> doit impérativement avoir été fait avant celui-ci.
 
     <br>
     <br>
@@ -89,71 +89,14 @@
   
   <p>
 
-    Outre l'implantation de ces 3 méthodes, l'obectif est de les comparer.
+    Outre l'implantation de ces 3 méthodes, l'objectif est de les comparer.
 
-  </p>
-  
-  <h2>Préalables</h2>
+    <br>
+    <br>
 
-  <p>
-
-    Nous allons manipuler des problèmes de décision de Markov et implanter plusieurs algorithmes. Il est utile de définir une structure de données en C, une classe en python, qui permettent de les représenter.
-
-    <br/>
-    <br/>
-
-    Il est également pratique de pouvoir lire la fonction de transition et la fonction de retour depuis un fichier. S'il y a N états et M actions, ce fichier aura cette structure&nbsp;:
-
-  </p>
-
-  <ul>
-    <li>NxM lignes contenant chacune N nombres&nbsp;: la ligne 1 contient \( {\cal P} (e_0, a_0, e_0) {\cal P} (e_0, a_0, e_1) ... {\cal P} (e_0, a_0, e_{N-1}) \),
-      <br>
-      la ligne 2 contient \( {\cal P} (e_0, a_1, e_0) {\cal P} (e_0, a_1, e_1) ... {\cal P} (e_0, a_1, e_{N-1})) \),
-      <br>
-      ...
-      <br>
-      la ligne N contient \( {\cal P} (e_0, a_{M-1}, e_0) {\cal P} (e_0, a_{M-1}, e_1) ... {\cal P} (e_0, a_{M-1}, e_{N-1}) \),
-      <i>etc.</i> jusque la NxM<sup>è</sup> ligne qui contient
-      <br>
-      \( {\cal P} (e_{N-1}, a_{M-1}, e_0) {\cal P} (e_{N-1}, a_{M-1}, e_1) ... {\cal P} (e_{N-1}, a_{M-1}, e_{N-1}) \).
-      <br>
-      Si une action est impossible dans un état, alors la ligne contient N 0.
-    </li>
-    <li>suivies de NxM lignes contenant chacune N nombres selon l'exacte même structure. Là encore, si une action est impossible dans un état, alors la ligne contient N 0.</li>
-  </ul>
-
-  <p>
-
-    Pour le problème du chauffeur de taxi, le fichier contiendra ce qui suit&nbsp;:
-
-    <pre>0.5    0.25   0.25
-0.0625 0.75   0.1875
-0.25   0.125  0.625
-0.5    0      0.5
-0      0      0
-0.0625 0.875  0.0625
-0.25   0.25   0.5
-0.125  0.75   0.125
-0.75   0.0625 0.1875
-
-10  4  8 
- 8  2  4 
- 4  6  4 
-14  0 18 
- 0  0  0 
- 8 16  8 
-10  2  8 
- 6  4  2 
- 4  0  8</pre>
-
-    On voit que l'action \( a_1 \) est impossible dans l'état \( e_1 \).
+    Il est très pratique que vos programmes prennent en argument de ligne de commande le nombre d'états, le nombre d'actions, le facteur de décompte &gamma;, et le nom du fichier qui contient la fonction de transition et la fonction de retour. Bien entendu, d'autres arguments pertinents peuvent être passés sur la ligne de commande, selon l'algorithme qui est utilisé.
     
   </p>
-
-  <ul>
-    <li>Il est très pratique que vos programmes prennent en argument de ligne de commande le nombre d'états, le nombre d'actions, le facteur de décompte &gamma;, et le nom du fichier qui contient la fonction de transition et la fonction de retour. Bien entendu, d'autres arguments pertinents peuvent être passés sur la ligne de commande, selon l'algorithme qui est utilisé.</li>
-  </ul>
   
   <h2>Calcul de la fonction valeur par algèbre linéaire</h2>
 
