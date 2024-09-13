@@ -72,7 +72,7 @@
 
   <p>
 
-    Dans ce TP, on s'intéresse à la résolution de l'équation de Bellman selon différentes méthodes vues en cours, ce qui correspond au chapitre 2 du polycopié de cours. Il ne faut pas oublier ce que l'on a vu dant le <a href="../alea/index.html">1er TP</a>. Le <a href="./index-préliminaires.html">TP précédent</a> doit impérativement avoir été fait avant celui-ci.
+    Dans ce TP, on s'intéresse à la résolution de l'équation de Bellman selon deux méthodes vues en cours, ce qui correspond au chapitre 2 du polycopié de cours. Il ne faut pas oublier ce que l'on a vu dant le <a href="../alea/index.html">1er TP</a>. Le <a href="./index-préliminaires.html">TP précédent</a> doit impérativement avoir été fait avant celui-ci.
 
     <br>
     <br>
@@ -83,13 +83,13 @@
 
   <ol>
     <li>résolution par algèbre linéaire,</li>
-    <li>iération sur l'équation de Bellman,</li>
-    <li>méthode de Monte Carlo.</li>
+    <li>iération sur l'équation de Bellman.</li>
+    <!--li>méthode de Monte Carlo.</li-->
   </ol>
   
   <p>
 
-    Outre l'implantation de ces 3 méthodes, l'objectif est de les comparer.
+    Outre l'implantation de ces méthodes, l'objectif est de les comparer.
 
     <br>
     <br>
@@ -107,8 +107,10 @@
   </p>
   
   <ol>
-    <li>écrire un programme qui calcule la valeur d'une politique par résolution du système d'équations linéaires et affiche le résultat sur stdout (l'écran du terminal). Il s'agit de mettre en &oelig;uvre ce qui est expliqué en section 2.9, pages 12 et 13 du poly. Faire en sorte que votre programme puisse calculer la valeur d'une politique déterministe ou stochastique. Vous spécifiez la politique comme bon vous semble (<i>a priori</i>, dans un fichier, selon un format que je vous laisse définir).</li>
-    <li>Tester le programme sur le problème du chauffeur de taxi, vérifiez qu'il donne les bonnes valeurs.</li>
+    <li>écrire un programme qui calcule la valeur d'une politique par résolution du système d'équations linéaires et affiche le résultat sur stdout (l'écran du terminal). Il s'agit de mettre en &oelig;uvre ce qui est expliqué en section 2.9, pages 12 et 13 du poly. Faire en sorte que votre programme puisse calculer la valeur d'une politique déterministe ou stochastique. Vous spécifiez la politique comme bon vous semble (<i>a priori</i>, dans un fichier, selon un format que je vous laisse définir).
+      <br/>
+    En C, vous utilisez les fonctions d'algèbre linéaire de la GSL qui résolvent un système d'équations linéaires.</li>
+    <li>Tester le programme sur le problème du chauffeur de taxi, vérifier qu'il donne les bonnes valeurs.</li>
   </ol>
 
   <h2>Calcul de la fonction valeur par itération de l'équation de Bellman</h2>
@@ -125,7 +127,7 @@
     <li>Comparer la valeur estimée par cette méthode et la précédente.</li>
   </ol>
 
-  <h2>Calcul de la fonction valeur par méthode de Monte Carlo</h2>
+  <!--h2>Calcul de la fonction valeur par méthode de Monte Carlo</h2>
 
   <p>
       
@@ -136,7 +138,7 @@
   <ol>
     <li>écrire un programme qui calcule la valeur d'une politique par une approche de Monte Carlo et affiche le résultat sur stdout (l'écran du terminal). Faire en sorte que votre programme puisse calculer la valeur d'une politique déterministe ou stochastique. Vous spécifiez la politique comme bon vous semble (<i>a priori</i>, dans un fichier, selon un format que je vous laisse définir). Étudiez comment la précision de l'estimation de la valeur des états varie en fonction du nombre de trajectoires simulées.</li>
     <li>Tester le programme sur le problème du chauffeur de taxi. Faire varier le nombre de simulations et observer l'écart entre les valeurs estimées par les deux méthodes précédentes et celle-ci.</li>
-  </ol>
+  </ol-->
 
   <h2>Étude de la complexité expérimentale de ces 3 approches</h2>
 
