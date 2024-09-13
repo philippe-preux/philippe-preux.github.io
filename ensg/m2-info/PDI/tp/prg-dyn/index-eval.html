@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+    <title>Résolution de l'équation de Bellman</title>
+    <!-- link href="/home/ppreux/philippe-preux.github.io/css/ma.css" -->
+    <link href="https://philippe-preux.github.io/css/ma.css"
+	  rel="stylesheet" type="text/css" media="all" >
+    <link rel="shortcut icon" type="image/x-icon"
+	  href="https://philippe-preux.github.io/img/site.ico" >
+    <!-- href="/home/ppreux/philippe-preux.github.io/img/site.ico" -->
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+      div.c {
+	  background-color: #bafcba;
+      }
+      div.python {
+	  background-color: #c0c0c0;
+      }
+      table.tr.td.c {
+	  background-color: #bafcba;
+	  width: 50%;
+      }
+      table.tr.td.python {
+	  background-color: #c0c0c0;
+	  width: 50%;
+      }
+
+      /* Ce qui suit fait ce que je voulais faire en mettant des attributs aux balises td, ce qui n'est pas compatible avec HTML5. Je voulais une table avec deux colonnes de même largeur, chacune avec une couleur de fond particulière.
+       J'ai trouvé cette solution là : https://www.w3schools.com/howto/howto_css_two_columns.asp */
+      * {
+	  box-sizing: border-box;
+      }
+      /* Create two equal columns that floats next to each other */
+      .columnC {
+	  background-color: #bafcba;
+	  float: left;
+	  width: 50%;
+	  padding: 10px;
+      }
+      .columnP {
+	  background-color: #c0c0c0;
+	  float: left;
+	  width: 50%;
+	  padding: 10px;
+      }
+      /* Clear floats after the columns */
+      .row:after {
+	  content: "";
+	  display: table;
+	  clear: both;
+      }
+      /* ça marche bien pour la largeur et la couleur de fond, mais pas pour
+	 la hauteur. Après avoir qwanté sans trouver de solution, j'ai défini
+	 la classe div ci-dessous : c'est affreux, mais ça marche comme
+	 disent les étudiants ! (-(
+	 Mais il faut faire l'ajustement à la main. C'est bien pour cela que
+	 « non, ça ne marche pas !», mais ça rend ce que je voulais donc en
+	 attendant de trouver mieux.
+     */
+      div.theUglyTrick {
+	  visibility:hidden;
+      }
+    </style>
+  </head>
+  
+<body>
+
+<div class="tpR">
+ 
+  <h1>Résolution de l'équation de Bellman&nbsp;: évaluation d'une politique</h1>
+
+  <p>
+
+    Dans ce TP, on s'intéresse à la résolution de l'équation de Bellman selon différentes méthodes vues en cours, ce qui correspond au chapitre 2 du polycopié de cours. Il ne faut pas oublier ce que l'on a vu dant le <a href="../alea/index.html">1er TP</a>.
+
+    <br>
+    <br>
+
+    On voit successivement&nbsp;:
+    
+  </p>
+
+  <ol>
+    <li>résolution par algèbre linéaire,</li>
+    <li>iération sur l'équation de Bellman,</li>
+    <li>méthode de Monte Carlo.</li>
+  </ol>
+  
+  <p>
+
+    Outre l'implantation de ces 3 méthodes, l'obectif est de les comparer.
+
+  </p>
+  
+  <h2>Préalables</h2>
+
+  <p>
+
+    Nous allons manipuler des problèmes de décision de Markov et implanter plusieurs algorithmes. Il est utile de définir une structure de données en C, une classe en python, qui permettent de les représenter.
+
+    <br/>
+    <br/>
+
+    Il est également pratique de pouvoir lire la fonction de transition et la fonction de retour depuis un fichier. S'il y a N états et M actions, ce fichier aura cette structure&nbsp;:
+
+  </p>
+
+  <ul>
+    <li>NxM lignes contenant chacune N nombres&nbsp;: la ligne 1 contient \( {\cal P} (e_0, a_0, e_0) {\cal P} (e_0, a_0, e_1) ... {\cal P} (e_0, a_0, e_{N-1}) \),
+      <br>
+      la ligne 2 contient \( {\cal P} (e_0, a_1, e_0) {\cal P} (e_0, a_1, e_1) ... {\cal P} (e_0, a_1, e_{N-1})) \),
+      <br>
+      ...
+      <br>
+      la ligne N contient \( {\cal P} (e_0, a_{M-1}, e_0) {\cal P} (e_0, a_{M-1}, e_1) ... {\cal P} (e_0, a_{M-1}, e_{N-1}) \),
+      <i>etc.</i> jusque la NxM<sup>è</sup> ligne qui contient
+      <br>
+      \( {\cal P} (e_{N-1}, a_{M-1}, e_0) {\cal P} (e_{N-1}, a_{M-1}, e_1) ... {\cal P} (e_{N-1}, a_{M-1}, e_{N-1}) \).
+      <br>
+      Si une action est impossible dans un état, alors la ligne contient N 0.
+    </li>
+    <li>suivies de NxM lignes contenant chacune N nombres selon l'exacte même structure. Là encore, si une action est impossible dans un état, alors la ligne contient N 0.</li>
+  </ul>
+
+  <p>
+
+    Pour le problème du chauffeur de taxi, le fichier contiendra ce qui suit&nbsp;:
+
+    <pre>0.5    0.25   0.25
+0.0625 0.75   0.1875
+0.25   0.125  0.625
+0.5    0      0.5
+0      0      0
+0.0625 0.875  0.0625
+0.25   0.25   0.5
+0.125  0.75   0.125
+0.75   0.0625 0.1875
+
+10  4  8 
+ 8  2  4 
+ 4  6  4 
+14  0 18 
+ 0  0  0 
+ 8 16  8 
+10  2  8 
+ 6  4  2 
+ 4  0  8</pre>
+
+    On voit que l'action \( a_1 \) est impossible dans l'état \( e_1 \).
+    
+  </p>
+
+  <ul>
+    <li>Il est très pratique que vos programmes prennent en argument de ligne de commande le nombre d'états, le nombre d'actions, le facteur de décompte &gamma;, et le nom du fichier qui contient la fonction de transition et la fonction de retour. Bien entendu, d'autres arguments pertinents peuvent être passés sur la ligne de commande, selon l'algorithme qui est utilisé.</li>
+  </ul>
+  
+  <h2>Calcul de la fonction valeur par algèbre linéaire</h2>
+
+  <p>
+
+    <b>À faire&nbsp;:</b>
+
+  </p>
+  
+  <ol>
+    <li>écrire un programme qui calcule la valeur d'une politique par résolution du système d'équations linéaires et affiche le résultat sur stdout (l'écran du terminal). Il s'agit de mettre en &oelig;uvre ce qui est expliqué en section 2.9, pages 12 et 13 du poly. Faire en sorte que votre programme puisse calculer la valeur d'une politique déterministe ou stochastique. Vous spécifiez la politique comme bon vous semble (<i>a priori</i>, dans un fichier, selon un format que je vous laisse définir).</li>
+    <li>Tester le programme sur le problème du chauffeur de taxi, vérifiez qu'il donne les bonnes valeurs.</li>
+  </ol>
+
+  <h2>Calcul de la fonction valeur par itération de l'équation de Bellman</h2>
+
+  <p>
+
+    <b>À faire&nbsp;:</b>
+
+  </p>
+  
+  <ol>
+    <li>écrire un programme qui calcule la valeur d'une politique en itérant l'équation de Bellman et affiche le résultat sur stdout (l'écran du terminal). Il s'agit de mettre en &oelig;uvre ce qui est expliqué en section 3.1 du poly. Faire en sorte que votre programme puisse calculer la valeur d'une politique déterministe ou stochastique. Vous spécifiez la politique comme bon vous semble (<i>a priori</i>, dans un fichier, selon un format que je vous laisse définir).</li>
+    <li>Tester le programme sur le problème du chauffeur de taxi, vérifiez qu'il donne les bonnes valeurs.</li>
+    <li>Comparer la valeur estimée par cette méthode et la précédente.</li>
+  </ol>
+
+  <h2>Calcul de la fonction valeur par méthode de Monte Carlo</h2>
+
+  <p>
+      
+    <b>À faire&nbsp;:</b>
+
+  </p>
+  
+  <ol>
+    <li>écrire un programme qui calcule la valeur d'une politique par une approche de Monte Carlo et affiche le résultat sur stdout (l'écran du terminal). Faire en sorte que votre programme puisse calculer la valeur d'une politique déterministe ou stochastique. Vous spécifiez la politique comme bon vous semble (<i>a priori</i>, dans un fichier, selon un format que je vous laisse définir). Étudiez comment la précision de l'estimation de la valeur des états varie en fonction du nombre de trajectoires simulées.</li>
+    <li>Tester le programme sur le problème du chauffeur de taxi. Faire varier le nombre de simulations et observer l'écart entre les valeurs estimées par les deux méthodes précédentes et celle-ci.</li>
+  </ol>
+
+  <h2>Étude de la complexité expérimentale de ces 3 approches</h2>
+
+  <p>
+
+    On effectue une petite expérimentation pour étudier comment le temps d'exécution de ces 3 méthodes évolue en fonction de la taille du PDM.
+    
+  </p>
+  
+  <ol>
+    <li>Écrire une fonction qui génère des PDM dont on a juste spécifier le nombre d'états et le nombre d'actions (N et M).</li>
+    <li>Passage à l'échelle&nbsp;: on étudie comment le temps d'exécution varie en fonction de la taille du PDM. Pour cela, vous énumerérez les valeurs N=10, N=100, N=200 et pour chacune de ces valeurs, vous énuméres pour M les valeurs 2, 5, N/10 (quand cela a un sens en fonction de N). Pour chaque couple, vous réalisez 10 expériences en générant un problème de cette taille et en le résolvant. Vous mesurez le temps d'exécution de la résolution et vous en faites un graphique.
+      <br>
+    Vous faitez cela pour les 3 algorithmes vus précédemment.</li>
+  </ol>
+
+</div>
+
+</body>
+</html>

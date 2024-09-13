@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+    <title>Programmation dynamique pour la résolution d'un problème de décision de Markov&nbsp;: préliminaires</title>
+    <!-- link href="/home/ppreux/philippe-preux.github.io/css/ma.css" -->
+    <link href="https://philippe-preux.github.io/css/ma.css"
+	  rel="stylesheet" type="text/css" media="all" >
+    <link rel="shortcut icon" type="image/x-icon"
+	  href="https://philippe-preux.github.io/img/site.ico" >
+    <!-- href="/home/ppreux/philippe-preux.github.io/img/site.ico" -->
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+      div.c {
+	  background-color: #bafcba;
+      }
+      div.python {
+	  background-color: #c0c0c0;
+      }
+      table.tr.td.c {
+	  background-color: #bafcba;
+	  width: 50%;
+      }
+      table.tr.td.python {
+	  background-color: #c0c0c0;
+	  width: 50%;
+      }
+
+      /* Ce qui suit fait ce que je voulais faire en mettant des attributs aux balises td, ce qui n'est pas compatible avec HTML5. Je voulais une table avec deux colonnes de même largeur, chacune avec une couleur de fond particulière.
+       J'ai trouvé cette solution là : https://www.w3schools.com/howto/howto_css_two_columns.asp */
+      * {
+	  box-sizing: border-box;
+      }
+      /* Create two equal columns that floats next to each other */
+      .columnC {
+	  background-color: #bafcba;
+	  float: left;
+	  width: 50%;
+	  padding: 10px;
+      }
+      .columnP {
+	  background-color: #c0c0c0;
+	  float: left;
+	  width: 50%;
+	  padding: 10px;
+      }
+      /* Clear floats after the columns */
+      .row:after {
+	  content: "";
+	  display: table;
+	  clear: both;
+      }
+      /* ça marche bien pour la largeur et la couleur de fond, mais pas pour
+	 la hauteur. Après avoir qwanté sans trouver de solution, j'ai défini
+	 la classe div ci-dessous : c'est affreux, mais ça marche comme
+	 disent les étudiants ! (-(
+	 Mais il faut faire l'ajustement à la main. C'est bien pour cela que
+	 « non, ça ne marche pas !», mais ça rend ce que je voulais donc en
+	 attendant de trouver mieux.
+     */
+      div.theUglyTrick {
+	  visibility:hidden;
+      }
+    </style>
+  </head>
+  
+<body>
+
+<div class="tpR">
+ 
+  <h1>Résolution de l'équation de Bellman&nbsp;: préliminaires</h1>
+
+  <p>
+
+    Nous allons manipuler des problèmes de décision de Markov et implanter plusieurs algorithmes. Il est utile de définir une structure de données en C, une classe en python, qui permettent de les représenter.
+
+    <br/>
+    <br/>
+
+    Il est également pratique de pouvoir lire la fonction de transition et la fonction de retour depuis un fichier. S'il y a N états et M actions, ce fichier aura cette structure&nbsp;:
+
+  </p>
+
+  <ul>
+    <li>NxM lignes contenant chacune N nombres&nbsp;: la ligne 1 contient \( {\cal P} (e_0, a_0, e_0) {\cal P} (e_0, a_0, e_1) ... {\cal P} (e_0, a_0, e_{N-1}) \),
+      <br>
+      la ligne 2 contient \( {\cal P} (e_0, a_1, e_0) {\cal P} (e_0, a_1, e_1) ... {\cal P} (e_0, a_1, e_{N-1})) \),
+      <br>
+      ...
+      <br>
+      la ligne N contient \( {\cal P} (e_0, a_{M-1}, e_0) {\cal P} (e_0, a_{M-1}, e_1) ... {\cal P} (e_0, a_{M-1}, e_{N-1}) \),
+      <i>etc.</i> jusque la NxM<sup>è</sup> ligne qui contient
+      <br>
+      \( {\cal P} (e_{N-1}, a_{M-1}, e_0) {\cal P} (e_{N-1}, a_{M-1}, e_1) ... {\cal P} (e_{N-1}, a_{M-1}, e_{N-1}) \).
+      <br>
+      Si une action est impossible dans un état, alors la ligne contient N 0.
+    </li>
+    <li>suivies de NxM lignes contenant chacune N nombres selon l'exacte même structure. Là encore, si une action est impossible dans un état, alors la ligne contient N 0.</li>
+  </ul>
+
+  <p>
+
+    Pour le problème du chauffeur de taxi, le fichier contiendra ce qui suit&nbsp;:
+
+    <pre>0.5    0.25   0.25
+0.0625 0.75   0.1875
+0.25   0.125  0.625
+0.5    0      0.5
+0      0      0
+0.0625 0.875  0.0625
+0.25   0.25   0.5
+0.125  0.75   0.125
+0.75   0.0625 0.1875
+
+10  4  8 
+ 8  2  4 
+ 4  6  4 
+14  0 18 
+ 0  0  0 
+ 8 16  8 
+10  2  8 
+ 6  4  2 
+ 4  0  8</pre>
+
+    On voit que l'action \( a_1 \) est impossible dans l'état \( e_1 \).
+    
+  </p>
+
+  <p>
+
+    <b>À faire&nbsp: </b>
+
+  </p>
+  
+  <ol>
+    <li>Définir les structures de données en C, classe en python, qui permettent de représenter un problème de décision de Markov, ansi qu'une politique déterministe ou stochastique.</li>
+    <li>Définir les fonctions nécessaires à la lecture de la fonction de transition et a fonction de retour depuis un fichier structuré comme indiqué ci-dessus. Le nombre d'états, le nombre d'actions et le facteur de décompte sont fournis par ailleurs.</li>
+    <li>Définir une fonction qui simule une trajectoire dans un problème de décision de Markov&nbsp;: à partir d'un état initial fourni et d'un PDM, la fonction retourne une tracjectoire, c'est-à-dire une séquence de triplets \( e_t, a_t, r_t \). La trajectoire est interrompue après un nombre de transitions fournie en paramère à la fonction.</li>
+    <li>Dans le même esprit, définir une autre fonction qui simule une trajectoire dans un problème de décision de Markov et renvoie \( \sum_k \gamma^k r_{t+k} \). La trajectoire est interrompue après un nombre de transitions fournie en paramère à la fonction ou quand \( \gamma^k \) est inférieur à un seuil fourni en paramètre.</li>
+  </ol>
+  
+
+</div>
+
+</body>
+</html>
