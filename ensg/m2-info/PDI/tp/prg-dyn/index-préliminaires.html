@@ -156,8 +156,8 @@
       En C, c'est l'occasion d'utiliser une <code>union</code> (dans une <code>struct</code>).
     </li>
     <li>Définir les fonctions nécessaires à la lecture de la fonction de transition et la fonction de retour depuis un fichier structuré comme indiqué ci-dessus. Le nombre d'états, le nombre d'actions et le facteur de décompte sont fournis par ailleurs.</li>
-    <li>Définir une fonction qui simule une trajectoire dans un problème de décision de Markov&nbsp;: à partir d'un état initial fourni et d'un PDM, la fonction retourne une tracjectoire, c'est-à-dire une séquence de triplets \( e_t, a_t, r_t \). La trajectoire est interrompue après un nombre de transitions fournie en paramètre à la fonction.</li>
-    <li>Dans le même esprit, définir une autre fonction qui simule une trajectoire dans un problème de décision de Markov et renvoie \( \sum_k \gamma^k r_{t+k} \). La trajectoire est interrompue après un nombre de transitions fournie en paramère à la fonction ou quand \( \gamma^k \) est inférieur à un seuil fourni en paramètre.</li>
+    <!--li>Définir une fonction qui simule une trajectoire dans un problème de décision de Markov&nbsp;: à partir d'un état initial fourni et d'un PDM, la fonction retourne une tracjectoire, c'est-à-dire une séquence de triplets \( e_t, a_t, r_t \). La trajectoire est interrompue après un nombre de transitions fourni en paramètre à la fonction.</li-->
+    <li>Définir une fonction qui simule une trajectoire dans un problème de décision de Markov et renvoie \( \sum_k \gamma^k r_{t+k} \). La trajectoire est interrompue après un nombre de transitions fourni en paramètre à la fonction ou quand \( \gamma^k \) est inférieur à un seuil fourni en paramètre.</li>
   </ol>
   
 
