@@ -108,6 +108,8 @@
       \( {\cal P} (e_{N-1}, a_{M-1}, e_0) {\cal P} (e_{N-1}, a_{M-1}, e_1) ... {\cal P} (e_{N-1}, a_{M-1}, e_{N-1}) \).
       <br>
       Si une action est impossible dans un état, alors la ligne contient N 0.
+      <br>
+      Une ligne est une distribution de probabilités. Aussi, une ligne ne contient que des nombres positifs et la somme vaut 1 (sauf si l'action est impossible auquel cas toutes les valeurs sur la ligne sont 0). Il faut vérifier que c'est bien le cas car des erreurs dues à des approximations numériques peuvent se glisser. Ainsi, s'il y 3 états suivants et que la probabilité d'atteindre chacun est 1/3, ce 1/3 va se transformer en 0.333333. Or, 3x0.333333 ne fait pas 1. Une bonne manière de résoudre ce problème est de forcer \( {\cal P} (e_k, a_l, e_{N-1}) \) à prendre la valeur \( 1 - \sum_{j=0}^{j=N-2} {\cal P} (e_k, a_l, e_j) \).
     </li>
     <li>suivies de NxM lignes contenant chacune N nombres selon l'exacte même structure. Là encore, si une action est impossible dans un état, alors la ligne contient N 0.</li>
   </ul>
