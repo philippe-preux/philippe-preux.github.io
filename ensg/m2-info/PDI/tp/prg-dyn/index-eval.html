@@ -82,7 +82,7 @@
   </p>
 
   <ol>
-    <li>résolution par algèbre linéaire,</li>
+    <li>résolution de l'équation de Bellman par algèbre linéaire,</li>
     <li>iération sur l'équation de Bellman.</li>
     <!--li>méthode de Monte Carlo.</li-->
   </ol>
@@ -107,10 +107,31 @@
   </p>
   
   <ol>
-    <li>écrire un programme qui calcule la valeur d'une politique par résolution du système d'équations linéaires et affiche le résultat sur stdout (l'écran du terminal). Il s'agit de mettre en &oelig;uvre ce qui est expliqué en section 2.9, pages 12 et 13 du poly. Faire en sorte que votre programme puisse calculer la valeur d'une politique déterministe ou stochastique. Vous spécifiez la politique comme bon vous semble (<i>a priori</i>, dans un fichier, selon un format que je vous laisse définir).
+    <li>écrire un programme qui calcule la valeur d'une politique par résolution du système d'équations linéaires et affiche le résultat sur <code>stdout</code> (l'écran du terminal). Il s'agit de mettre en &oelig;uvre ce qui est expliqué en section 2.9, pages 12 et 13 du poly. Faire en sorte que votre programme puisse calculer la valeur d'une politique déterministe ou stochastique. Vous spécifiez la politique comme bon vous semble (<i>a priori</i>, dans un fichier, selon un format que je vous laisse définir).
       <br/>
-    En C, vous utilisez les fonctions d'algèbre linéaire de la GSL qui résolvent un système d'équations linéaires.</li>
-    <li>Tester le programme sur le problème du chauffeur de taxi, vérifier qu'il donne les bonnes valeurs.</li>
+      <br/>
+      <div class="row">
+	<div class="columnC" >
+	  <b>C</b>
+	  <div class="c">
+	    <p>
+	      En C, vous utilisez les <a href="https://www.gnu.org/software/gsl/doc/html/linalg.html">fonctions d'algèbre linéaire de la GSL qui résolvent un système d'équations linéaires</a>.
+	      <br/>
+	      Pour le type de systèmes d'équations linéaires que nous devons résoudre, la méthode passant par une décomposition LU convient parfaitement.
+	      Si on note \( A x = b \) le système à résoudre, où \( A \) est une matrice \( N\times{}N \), \( b \in \mathbb{N} \) sont connus et \( x \in \mathbb{N} \) inconnu, on commence par effectuer la décomposition LU de la matrice \( A \) avec la fonction <code>gsl_linalg_LU_decomp ()</code>. Ensuite, on résout le système d'équations linéaires avec la fonction <code>gsl_linalg_LU_solve ()</code>.
+	    </p>
+	  </div>
+	</div>
+	<div class="columnP" >
+	  <b>Python</b>
+	  <div class="python">
+	    <p>
+	      En python, on résout un système d'équations linéaires comme celui-ci avec la fonction <code>numpy.linalg.solve ()</code>.
+	    </p><div class="theUglyTrick"><br><br><br><br><br><br><br></div>
+	  </div>
+	</div>
+    </div><br></li>
+    <li>Tester le programme sur le problème du chauffeur de taxi. On prendra &gamma; = 0,9.</li>
   </ol>
 
   <h2>Calcul de la fonction valeur par itération de l'équation de Bellman</h2>
@@ -122,9 +143,9 @@
   </p>
   
   <ol>
-    <li>écrire un programme qui calcule la valeur d'une politique en itérant l'équation de Bellman et affiche le résultat sur stdout (l'écran du terminal). Il s'agit de mettre en &oelig;uvre ce qui est expliqué en section 3.1 du poly. Faire en sorte que votre programme puisse calculer la valeur d'une politique déterministe ou stochastique. Vous spécifiez la politique comme bon vous semble (<i>a priori</i>, dans un fichier, selon un format que je vous laisse définir).</li>
-    <li>Tester le programme sur le problème du chauffeur de taxi, vérifiez qu'il donne les bonnes valeurs.</li>
-    <li>Comparer la valeur estimée par cette méthode et la précédente.</li>
+    <li>écrire un programme qui calcule la valeur d'une politique en itérant l'équation de Bellman et affiche le résultat sur <code>stdout</code> (l'écran du terminal). Il s'agit de mettre en &oelig;uvre ce qui est expliqué en section 3.1 du poly. Là encore, faire en sorte que votre programme puisse calculer la valeur d'une politique déterministe ou stochastique.</li>
+    <li>Tester le programme sur le problème du chauffeur de taxi. On prendra &gamma; = 0,9 et on itère pour obtenir une précision de 10<sup>-6</sup>.</li>
+    <li>Comparer la valeur estimée par cette méthode avec celle calculée par la précédente.</li>
   </ol>
 
   <!--h2>Calcul de la fonction valeur par méthode de Monte Carlo</h2>
@@ -154,13 +175,13 @@
 
     <p>
 
-      On effectue une petite expérimentation pour étudier comment le temps d'exécution de ces 3 méthodes évolue en fonction de la taille du PDM.
+      On effectue une petite expérimentation pour étudier comment le temps d'exécution de ces 2 méthodes évolue en fonction de la taille du PDM.
     
     </p>
   
     <ol>
-      <li>Écrire une fonction qui génère des PDM dont on a juste spécifier le nombre d'états et le nombre d'actions (N et M).</li>
-      <li>Passage à l'échelle&nbsp;: on étudie comment le temps d'exécution varie en fonction de la taille du PDM. Pour cela, vous énumerérez les valeurs N=10, N=100, N=200 et pour chacune de ces valeurs, vous énuméres pour M les valeurs 2, 5, N/10 (quand cela a un sens en fonction de N). Pour chaque couple, vous réalisez 10 expériences en générant un problème de cette taille et en le résolvant. Vous mesurez le temps d'exécution de la résolution et vous en faites un graphique.
+      <li>Écrire une fonction qui génère des PDM aléatoires dont on a juste spécifier le nombre d'états et le nombre d'actions (N et M).</li>
+      <li>Passage à l'échelle&nbsp;: on étudie comment le temps d'exécution varie en fonction de la taille du PDM. Pour cela, vous énumerérez les valeurs N=10, N=100, N=200 et pour chacune de ces valeurs, vous énumérez pour M les valeurs 2, 5, N/10 (quand cela a un sens en fonction de N). Pour chaque couple, vous réalisez 10 expériences en générant un problème de cette taille et en le résolvant. Vous mesurez le temps d'exécution de la résolution et vous en faites un graphique.
 	<br>
 	Vous faitez cela pour les 2 algorithmes vus précédemment.</li>
     </ol>
