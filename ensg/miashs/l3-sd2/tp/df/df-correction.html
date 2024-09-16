@@ -1,0 +1,487 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Les tableaux de données&nbsp;: éléments de correction</title>
+  <link href="https://philippe-preux.github.io/css/ma.css" 
+	rel="stylesheet" type="text/css" media="all" />
+  <link rel="shortcut icon" type="image/x-icon" 
+	href="https://philippe-preux.github.io/img/site.ico" />
+  <style type="text/css">
+    .aligncenter {
+	text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+<div class="tpR">
+
+  <h1>Les tableaux de données&nbsp;: éléments de correction</h1>
+  
+  <p>
+
+    On reprend le sujet en indiquant des éléments de correction sous cette forme&nbsp;:
+    
+  </p>
+
+  <div class="correction">
+    élément de correction...
+  </div>
+  
+  <p>
+
+    Un <i>data frame</i> est un tableau de données. En général, les données à analyser sont contenues dans un tel tableau de données.
+    Leur manipulation est un pré-equis avant toute analyse, représentation ou exploitation des données.
+    Ce TP propose une introduction aux éléments essentiels des tableaux de données en python, via le paquetage <kbd>pandas</kbd>.
+
+    <br/>
+
+    La documentation sur <kbd>pandas</kbd> est disponible <a href="https://pandas.pydata.org/docs/">en ligne</a>.												  
+  </p>
+
+  <h2>Introduction</h2>
+    
+  <p>
+
+    Les tableaux de données sont disponibles dans le paquetage <kbd>pandas</kbd>. Il faut donc l'importer pour réaliser les manipulations. Il est courant de le surnommer <kbd>pd</kbd> en le chargeant par la commande <kbd>import pandas as pd</kbd>.
+
+  <br/>
+
+  Un tableau de données est donc constitué d'un ensemble de lignes et de colonnes. Chaque ligne correspond à une donnée, chaque colonne correspond à un attribut. À l'intersection d'une ligne avec une colonne, on trouve la valeur de l'attribut pour la donnée. Si celle-ci est inconnue, on utilise généralement la valeur <kbd>NA</kbd> qui signifie <i>Non Available</i>, quoique cette convention ne soit pas toujours bien respectée.
+
+  </p>
+  
+  <h2>Manipulations</h2>
+
+  <h3>Chargement du contenu d'un tableau de données</h3>
+
+  <p>
+
+    Les données d'un tableau sont généralement stockées dans un fichier. En préalable à toute analyse, les données doivent être chargées dans un <kbd>data frame</kbd>. Il existe de multiples formats pour stocker les données d'un tableau dans un fichier. L'un des plus répandus quand il s'agît de données simples est un fichier <kbd>csv</kbd>.
+
+    <br/>
+
+    Comme dans un tableau de données, dans un fichier <kbd>csv</kbd>, chaque ligne correspond à une donnée et chaque colonne à un attribut. Sur une ligne, les valeurs des attributs sont séparées par une virgule. La première ligne du fichier <kbd>csv</kbd> peut indiquer le nom des attributs ; elle est optionnelle.
+
+    <br/>
+
+    Dans ce TP, nous allons utiliser un jeu de données qui représentent la composition en différentes molécules d'olives. La fonction <kbd>pandas</kbd> qui charge un fichier <kbd>csv</kbd> est <kbd>read_csv</kbd>. Le fichier se trouve à cette url&nbsp;: <kbd>https://philippe-preux.github.io/ensg/miashs/datasets/olives.csv</kbd>.
+
+    <br/>
+    <br/>
+
+    <b>À faire&nbsp;:</b> dans python, en s'aidant si nécessaire de la documentation, charger ce fichier dans un objet dénommé <kbd>olives</kbd>.
+
+  </p>
+  
+  <div class="correction">
+    <pre>
+olives = pd.read_csv ("/home/ppreux/philippe-preux.github.io/ensg/miashs/datasets/olives.csv", header = 0)
+    </pre>
+  </div>
+
+  <h3>Premiers pas</h3>
+
+  <p>
+
+    Une fois un jeu de données chargé, les toutes premières choses à faire consistent à simplement inspecter son contenu :
+
+    <br/><br/>
+
+    <b>À faire&nbsp;:</b>
+    
+  </p>
+  
+  <ul>
+    <li>a-t-il été chargé correctement&nbsp;? Il est facile de mal lire le fichier selon que celui-ci possède une première ligne indiquant ou non le nom des attributs. Le plus simple est de regarder les quelques premières lignes de fichier (en ouvrant l'url dans son navigateur par exemple) et de les comparer aux premières lignes du tableau de données. Pour cela, utiliser la méthode <kbd>head()</kbd> de <kbd>pandas</kbd>. Si les deux ne correspondent pas, les données ont été mal lues. Il faut comprendre pourquoi et corriger (la documentation est là pour vous aider). Par exemple, vous devriez obtenir quelque chose comme cela&nbsp;:
+      <br/>
+      <pre>
+>>> olives.head (n=5)
+     Unnamed: 0  region  area  ...  linolenic  arachidic  eicosenoic
+0  North-Apulia       1     1  ...         36         60          29
+1  North-Apulia       1     1  ...         31         61          29
+2  North-Apulia       1     1  ...         31         63          29
+3  North-Apulia       1     1  ...         50         78          35
+4  North-Apulia       1     1  ...         50         80          46
+
+[5 rows x 11 columns]
+      </pre>	
+    </li>
+    <li>On peut aussi afficher les dernières lignes du tableau de données avec la méthode <kbd>tail()</kbd>.</li>
+    <li>En tapant le nom de l'objet (<kbd>olives</kbd>), python affiche les premières et dernières lignes.</li>
+    <li>Quelle est sa taille&nbsp;? nombre de lignes (nombre de données) et nombre de colonnes (nombre d'attributs). Utiliser l'attribut <kbd>shape</kbd> du tableau de données.</li>
+    <li>Obtenir la liste des noms d'attributs&nbsp;: utiliser la méthode <kbd>list()</kbd> ou l'attribut <kbd>columns</kbd>. Remarque : tous ces noms qui se terminent pas <kbd>ic</kbd> sont des noms d'acides dont la concentration dans les olives a été mesurée. Les premiers attributs indiquent la région d'Italie d'où provient l'olive.</li>
+    <li>On voit que l'attribut 0 n'a pas de nom. Ce n'est pas très pratique. On lui en donne un en faisant comme cela&nbsp;:
+      <br/>
+      <kbd>olives.rename (columns = {"Unnamed: 0": "Region Name"}, inplace = True)</kbd>.</li>
+  </ul>
+
+  <h3>Accès aux éléments d'un tableau de données</h3>
+
+  <p>
+
+    Pour analyser un jeu de données, il faut accéder aux valeurs des attributs des données. En particulier, il faut accéder à la valeur des attributs qui nous intéresse, pour les données qui nous intéressent.
+
+    <br/><br/>
+
+    Pour cela, on utilise les attributs <kbd>loc []</kbd> et <kbd>iloc []</kbd>.
+    <kbd>iloc []</kbd> permet de sélectionner des lignes ou des colonnes par leur numéro. <kbd>loc()</kbd> est beaucoup plus général et permet de sélectionner en indiquant un nom ou en sélectionnant selon un critère.
+    
+    <br/><br/>
+
+    <b>À faire&nbsp;:</b>
+
+  </p>
+
+  <ul>
+    <li>Accès à la donnée numéro 27&nbsp;: <kbd>olives.iloc [27]</kbd>.</li>
+    <li>Accès aux données numéro 20 à 27&nbsp;: <kbd>olives.iloc [20:28]</kbd>.</li>
+    <li>Accès à l'attribut 5 de la donnée 27&nbsp;: <kbd>olives.iloc [27,5]</kbd> (à comparer à ce que vous avez obtenu ci-dessus).
+      <br/>
+      On peut aussi accéder à l'attribut via son nom&nbsp;: <kbd>olives.loc [27,"stearic"]</kbd>.
+      <br/>
+      ou encore <kbd>olives.stearic [27]</kbd>.
+      <br/>
+      ou encore, si on ne connait pas le nom du 5è attribut, on peut aussi écrire&nbsp;: <kbd>olives.loc [27, list (olives)[5]]</kbd>.
+      <br/>
+      Ces quatre lignes doivent donner le même résultat.
+    </li>
+    <li>Pour accéder à la valeur de l'attribut pour toutes les données&nbsp;:
+      utiliser la notation <kbd>:</kbd>&nbsp;:
+      <kbd>olives.stearic [:]</kbd><br/>
+      ou autre variante&nbsp;: <kbd>olives.stearic.values</kbd>.
+    </li>
+    <li>Je vous laisse trouver comment on accède à l'attribut 5 des données numérotées 20 à 28.
+      <br/>
+    <div class="correction">
+      <pre>
+olives.iloc [20:29,5]
+      </pre>
+    </div>
+    </li>
+    <li>Je vous laisse trouver comment on accède aux attributs 3 à 6 des données numérotées 20 à 28.
+      <br/>
+      <div class="correction">
+	<pre>
+olives.iloc [20:29,3:7]
+	</pre>
+      </div>
+    </li>
+  </ul>
+
+  <h3>Quelques opérations simples</h3>
+
+  <p>
+
+    <b>À faire&nbsp;:</b> en consultant la documentation de <kbd>pandas</kbd>, effectuer les opérations suivantes&nbsp;:
+        
+  </p>
+
+  <ul>
+    <li>valeur moyenne de l'attribut 5&nbsp;?</li>
+    <li>valeur minimum de l'attribut 5&nbsp;?</li>
+    <li>valeur maximum de l'attribut 5&nbsp;?</li>
+    <li>valeur médiane de l'attribut 5&nbsp;?</li>
+    <li>écart-type de l'attribut 5&nbsp;?</li>
+    <li>variance de l'attribut 5&nbsp;?</li>
+  </ul>
+
+  <div class="correction">
+    <pre>
+>>> olives.iloc [:,5].mean()
+228.8653846153846
+>>> olives.iloc [:,5].mean ()
+228.8653846153846
+>>> olives.iloc [:,5].min ()
+152
+>>> olives.iloc [:,5].max ()
+375
+>>> olives.iloc [:,5].median ()
+223.0
+>>> olives.iloc [:,5].std ()
+36.74493506956942
+>>> olives.iloc [:,5].var ()
+1350.190253266873
+    </pre>
+  </div>
+
+  <p>
+
+    Mêmes choses pour les attributs 3 à 6.
+
+  </p>
+
+    <div class="correction">
+      <pre>
+>>> olives.iloc [:,3:7].var ()
+palmitic        28423.351500
+palmitoleic      2755.658322
+stearic          1350.190253
+oleic          164681.936512
+dtype: float64
+>>> olives.iloc [:,3:7].mean ()
+palmitic       1231.741259
+palmitoleic     126.094406
+stearic         228.865385
+oleic          7311.748252
+dtype: float64
+>>> olives.iloc [:,3:7].min ()
+palmitic        610
+palmitoleic      15
+stearic         152
+oleic          6300
+dtype: int64
+>>> olives.iloc [:,3:7].max ()
+palmitic       1753
+palmitoleic     280
+stearic         375
+oleic          8410
+dtype: int64
+>>> olives.iloc [:,3:7].median ()
+palmitic       1201.0
+palmitoleic     110.0
+stearic         223.0
+oleic          7302.5
+dtype: float64
+>>> olives.iloc [:,3:7].std ()
+palmitic       168.592264
+palmitoleic     52.494365
+stearic         36.744935
+oleic          405.810222
+dtype: float64
+>>> olives.iloc [:,3:7].var ()
+palmitic        28423.351500
+palmitoleic      2755.658322
+stearic          1350.190253
+oleic          164681.936512
+dtype: float64
+      </pre>
+    </div>
+
+  <p>
+
+    La méthode <kbd>describe()</kbd> donne plusieurs statistiques d'un coup. Testez-la et regardez la documentation pour comprendre ce qu'elle affiche.
+
+  </p>
+
+  <h3>Accès aux éléments d'un tableau de données, la suite</h3>
+
+  <p>
+
+    <b>À faire&nbsp;:</b>
+        
+  </p>
+
+  <ul>
+    <li>déterminer quelle donnée a la valeur la plus petite pour l'attribut <kbd>stearic</kbd>.</li>
+    <li>la plus grande&nbsp;?</li>
+  </ul>
+
+  <div class="correction">
+    <pre>
+>>> olives [olives.stearic == olives.stearic.min ()]
+      Region Name  region  area  ...  linolenic  arachidic  eicosenoic
+304  South-Apulia       1     3  ...         27         50          20
+
+[1 rows x 11 columns]
+>>> olives [olives.stearic == olives.stearic.max ()]
+    Region Name  region  area  ...  linolenic  arachidic  eicosenoic
+262      Sicily       1     4  ...         52         69          45
+
+[1 rows x 11 columns]
+    </pre>
+
+    <p>
+
+      ou
+
+    </p>
+
+    <pre>
+>>> olives.iloc [olives.stearic.argmin(),:]
+Unnamed: 0     South-Apulia
+region                    1
+area                      3
+palmitic               1420
+palmitoleic             175
+stearic                 152
+oleic                  7004
+linoleic               1149
+linolenic                27
+arachidic                50
+eicosenoic               20
+Name: 304, dtype: object
+    </pre>
+
+    <p>
+
+      en utilisant la méthode <code>argmin ()</code> qui donne l'indice de la valeur minimale.
+
+      <br>
+
+	Il existe aussi <code>argmax ()</code>.
+  </div>
+
+  <p>
+
+    Pour les attributs numériques, on peut utiliser les méthodes de la bibliotèque <kbd>numpy</kbd>. Par exemple, pour calculer la valeur moyenne de l'attribut 5, on peut aussi écrire&nbsp;: <kbd>np.mean (olives.iloc [:,5])</kbd> (en supposant que vous avez importé <kbd>numpy</kbd> en le renommant <kbd>np</kbd>).
+
+    <br/>
+    <br/>
+
+    <b>À faire&nbsp;:</b> répondre aux deux questions précédentes en utilisant des méthodes de la bibliothèque <kbd>numpy</kbd>.
+
+  </p>
+    
+  <div class="correction">
+    <pre>
+>>> olives.iloc [np.argmin (olives.stearic)]
+Region Name    South-Apulia
+region                    1
+area                      3
+palmitic               1420
+palmitoleic             175
+stearic                 152
+oleic                  7004
+linoleic               1149
+linolenic                27
+arachidic                50
+eicosenoic               20
+Name: 304, dtype: object
+>>> olives.iloc [np.argmax (olives.stearic)]
+Region Name    Sicily
+region              1
+area                4
+palmitic         1112
+palmitoleic        68
+stearic           375
+oleic            7770
+linoleic          448
+linolenic          52
+arachidic          69
+eicosenoic         45
+Name: 262, dtype: object
+    </pre>
+  </div>
+  
+  <h3>Attributs catégoriques</h3>
+
+  <p>
+
+    Un attribut catégorique, ou nominal, est un attribut qui associe un nom à une donnée. Par exemple, l'attribut 0 est un attribut catégorique qui indique la région de provenance de l'olive. De même, malgré les apparences qui peuvent faire croire que les attributs 1 et 2 sont numériques, ce sont en fait des attributs catégoriques&nbsp;: l'attribut 2 est simplement un numéro correspond à l'attribut 0. Quant à l'attribut 1, c'est une valeur 1, 2 ou 3 qui indique grossiérement la zone géographique : sud de l'Italie (1), Sardaigne (2), nord de l'Italie (3).
+
+    <br/>
+
+    Pour éviter des erreurs malencontreuse comme calculer la valeur moyenne d'un attribut catégorique, il faut indiquer explicitement les attributs catégoriques. Pour cela, on fait&nbsp;: <kbd>olives ["Region Name"] = olives ["Region Name"].astype("category")</kbd>.
+
+    <br/>
+
+    Vérifier maintenant que vous ne pouvez plus calculer la moyenne de cet attribut.
+
+    <br/>
+    <br/>
+
+    <b>À faire&nbsp;:</b>
+        
+  </p>
+
+  <ul>
+    <li>Vérifier que python vous laisse calculer la moyenne des attributs <kbd>region</kbd> et <kbd>area</kbd>, ce qui n'a aucun sens.</li>
+    <li>Transformer les en attributs catégoriques.</li>
+    <li>Vérifier que vous ne pouvez plus calculer la moyenne de ces attributs.</li>
+  </ul>
+
+  <div class="correction">
+    <br/>
+    On vérifie que python nous laisse calculer la moyenne des attributs <kbd>region</kbd> et <kbd>area</kbd>&nbsp;:
+    <br/>
+    <pre>
+>>> olives.region.mean()
+1.6993006993006994
+>>> olives.area.mean()
+4.59965034965035
+    </pre>
+    <br/>
+    On indique que ce sont des attributs nominaux&nbsp;:
+    <br/>
+    <pre>
+>>> olives.region = olives.region.astype("category")
+>>> olives.area = olives.area.astype("category")
+    </pre>
+    <br/>
+    et on ne peut plus calculer leur moyenne&nbsp;:
+    <br/>
+    <pre>
+>>> olives.region.mean()
+Traceback (most recent call last):
+  [...]
+TypeError: 'Categorical' with dtype category does not support reduction 'mean'
+>>> olives.area.mean()
+Traceback (most recent call last):
+  [...]
+TypeError: 'Categorical' with dtype category does not support reduction 'mean'
+    </pre>
+
+    Toutes ces lignes incompréhensibles par lesquelles python nous indique qu'il ne peut pas calculer la moyenne d'un attribut catégoriques.
+  </div>
+	
+  <p>
+
+    Pour les attributs catégoriques, il est intéressant d'obtenir la liste des valeurs présentes dans le jeu de données et également le nombre de données dans chaque catégorie.
+
+    <br/>
+    <br/>
+    
+    <b>À faire&nbsp;:</b>
+    
+  </p>
+  
+  <ul>
+    <li>Pour obtenir la liste des valeurs, on utilise la méthode <kbd>unique()</kbd>.</li>
+    <li>Pour obtenir le décompte de données correspondant à chaque valeur d'un attribut catégorique, on utilise la méthode <kbd>value_counts()</kbd>.</li>
+  </ul>
+
+  <div class="correction">
+    <pre>
+>>> olives ["Region Name"].unique()
+['North-Apulia', 'Calabria', 'South-Apulia', 'Sicily', 'Inland-Sardinia', 'Coast-Sardinia', 'Umbria', 'East-Liguria', 'West-Liguria']
+Categories (9, object): ['Calabria', 'Coast-Sardinia', 'East-Liguria', 'Inland-Sardinia', ...,
+                         'Sicily', 'South-Apulia', 'Umbria', 'West-Liguria']
+>>> olives ["Region Name"].value_counts()
+South-Apulia       206
+Inland-Sardinia     65
+Calabria            56
+Umbria              51
+East-Liguria        50
+West-Liguria        50
+Sicily              36
+Coast-Sardinia      33
+North-Apulia        25
+Name: Region Name, dtype: int64
+    </pre>
+  </div>
+</div>
+
+<!-- Default Statcounter code for on github
+https://philippe-preux.github.io -->
+<script type="text/javascript">
+var sc_project=12923547; 
+var sc_invisible=1; 
+var sc_security="627600d4"; 
+</script>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="Web Analytics"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/12923547/0/627600d4/1/"
+alt="Web Analytics"
+referrerPolicy="no-referrer-when-downgrade"/></a></div></noscript>
+  <!-- End of Statcounter Code -->
+  
+</body>
+</html>
