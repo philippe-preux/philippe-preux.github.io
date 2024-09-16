@@ -3,12 +3,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>Les tableaux de données</title>
   <link href="https://philippe-preux.github.io/css/ma.css"
-	rel="stylesheet" type="text/css" media="all" />
+	rel="stylesheet" type="text/css" media="all">
   <link rel="shortcut icon" type="image/x-icon" 
-	href="https://philippe-preux.github.io/img/site.ico" />
+	href="https://philippe-preux.github.io/img/site.ico">
 </head>
 
 <body>
@@ -22,7 +22,7 @@
     Leur manipulation est un pré-equis avant toute analyse, représentation ou exploitation des données.
     Ce TP propose une introduction aux éléments essentiels des tableaux de données en python, disponible dans le paquetage <kbd>pandas</kbd>.
 
-    <br/>
+    <br>
 
     La documentation sur <kbd>pandas</kbd> est disponible <a href="https://pandas.pydata.org/docs/">en ligne</a>.												  
   </p>
@@ -33,7 +33,7 @@
 
     Les tableaux de données sont disponibles dans le paquetage <kbd>pandas</kbd>. Il faut donc l'importer pour réaliser les manipulations. Il est courant de le surnommer <kbd>pd</kbd> en le chargeant par la commande <kbd>import pandas as pd</kbd>.
 
-  <br/>
+  <br>
 
   Un tableau de données est donc constitué d'un ensemble de lignes et de colonnes. Chaque ligne correspond à une donnée, chaque colonne correspond à un attribut. À l'intersection d'une ligne avec une colonne, on trouve la valeur de l'attribut pour la donnée. Si celle-ci est inconnue, on utilise généralement la valeur <kbd>NA</kbd> qui signifie <i>Non Available</i>, quoique cette convention ne soit pas toujours bien respectée.
 
@@ -47,15 +47,15 @@
 
     Les données d'un tableau sont généralement stockées dans un fichier. En préalable à toute analyse, les données doivent être chargées dans un <kbd>data frame</kbd>. Il existe de multiples formats pour stocker les données d'un tableau dans un fichier. Quand il s'agît de données simples, l'un des plus répandus est un fichier au format <kbd>csv</kbd>.
 
-    <br/>
+    <br>
 
     Comme dans un tableau de données, dans un fichier <kbd>csv</kbd>, chaque ligne correspond à une donnée et chaque colonne à un attribut. Sur une ligne, les valeurs des attributs sont séparées par une virgule. La première ligne du fichier <kbd>csv</kbd> peut indiquer le nom des attributs ; elle est optionnelle.
 
-    <br/>
+    <br>
 
     Dans ce TP, nous allons utiliser un jeu de données qui représentent la composition en différentes molécules d'olives. La fonction <kbd>pandas</kbd> qui charge un fichier <kbd>csv</kbd> est <kbd>read_csv</kbd>. Le fichier se trouve à cette url&nbsp;: <kbd>https://philippe-preux.github.io/ensg/miashs/datasets/olives.csv</kbd>.
 
-    <br/><br/>
+    <br><br>
 
     <b>À faire&nbsp;:</b> dans Python, en s'aidant si nécessaire de la documentation, charger ce fichier dans un objet dénommé <kbd>olives</kbd>.
     
@@ -73,7 +73,7 @@
     Une fois un jeu de données chargé, les toutes premières choses à faire consistent à simplement inspecter son contenu :
 
 
-    <br/><br/>
+    <br><br>
 
     <b>À faire&nbsp;:</b>
     
@@ -81,7 +81,7 @@
   
   <ul>
     <li>quand on a chargé un tableau de données dans Python, la première chose à faire consiste à vérifier qu'il a été correctement chargé. Il est facile de mal lire le fichier selon que celui-ci possède une première ligne indiquant ou non le nom des attributs. Le plus simple est de regarder les quelques premières lignes du fichier (en ouvrant l'url dans son navigateur par exemple) et de les comparer aux premières lignes du tableau de données. Pour cela, utiliser la méthode <kbd>head()</kbd> de <kbd>pandas</kbd>. Si les deux ne correspondent pas, les données ont été mal lues. Il faut comprendre pourquoi et corriger (la documentation est là pour vous aider). Par exemple, vous devriez obtenir cela&nbsp;:
-      <br/>
+      <br>
 <pre>
 >>> olives.head (n=5)
      Unnamed: 0  region  area  ...  linolenic  arachidic  eicosenoic
@@ -100,7 +100,7 @@
     <li>Quelle est sa taille&nbsp;? nombre de lignes (nombre de données) et nombre de colonnes (nombre d'attributs). Utiliser l'attribut <kbd>shape</kbd> du tableau de données.</li>
     <li>Obtenir la liste des noms d'attributs&nbsp;: utiliser la méthode <kbd>list()</kbd> ou l'attribut <kbd>columns</kbd>. Remarque : tous ces noms d'attribut qui se terminent pas <kbd>ic</kbd> sont des noms d'acides dont la concentration dans les olives a été mesurée. Les premiers attributs indiquent la région d'Italie d'où provient l'olive.</li>
     <li>On voit que l'attribut 0 n'a pas de nom. Ce n'est pas très pratique. On lui en donne un en faisant comme cela&nbsp;:
-      <br/>
+      <br>
       <kbd>olives.rename (columns = {"Unnamed: 0": "Region Name"}, inplace = True)</kbd>.
       <br>
 	L'argument <code>columns = {"Unnamed: 0": "Region Name"}</code> indique avec un dictionnaire la (ou les) colonne(s) à renommer.
@@ -113,12 +113,12 @@
 
     Pour analyser un jeu de données, il faut accéder aux valeurs des attributs des données. En particulier, il faut accéder à la valeur des attributs qui nous intéresse, pour les données qui nous intéressent.
 
-    <br/><br/>
+    <br><br>
 
     Pour cela, on utilise les attributs <kbd>loc []</kbd> et <kbd>iloc []</kbd>.
     <kbd>iloc []</kbd> permet de sélectionner des lignes ou des colonnes par leurs indices. <kbd>loc()</kbd> est beaucoup plus général et permet de sélectionner des lignes ou des colonnes en indiquant un nom ou en les sélectionnant selon un critère.
     
-    <br/><br/>
+    <br><br>
 
     <b>À faire&nbsp;:</b>
 
@@ -128,18 +128,18 @@
     <li>Accès à la donnée numéro 27&nbsp;: <kbd>olives.iloc [27]</kbd>.</li>
     <li>Accès aux données numéro 20 à 27&nbsp;: <kbd>olives.iloc [20:28]</kbd>.</li>
     <li>Accès à l'attribut 5 de la donnée 27&nbsp;: <kbd>olives.iloc [27,5]</kbd> (à comparer à ce que vous avez obtenu ci-dessus).
-      <br/>
+      <br>
       On peut aussi accéder à l'attribut via son nom&nbsp;: <kbd>olives.loc [27,"stearic"]</kbd>.
-      <br/>
+      <br>
       ou encore <kbd>olives.stearic [27]</kbd>.
-      <br/>
+      <br>
       ou encore, si on ne connait pas le nom du 5<sup>è</sup> attribut, on peut aussi écrire&nbsp;: <kbd>olives.loc [27, list (olives)[5]]</kbd>.
-      <br/>
+      <br>
       Ces quatre lignes doivent donner le même résultat.
     </li>
     <li>Pour accéder à la valeur de l'attribut pour toutes les données&nbsp;:
       utiliser la notation <kbd>:</kbd>&nbsp;:
-      <kbd>olives.stearic [:]</kbd><br/>
+      <kbd>olives.stearic [:]</kbd><br>
       ou autre variante&nbsp;: <kbd>olives.stearic.values</kbd>.
     </li>
     <li>Je vous laisse trouver comment on accède à l'attribut 5 des données numérotées 20 à 28.</li>
@@ -167,8 +167,8 @@
 
     Mêmes choses pour les attributs 3 à 6.
 
-    <br/>
-    <br/>
+    <br>
+    <br>
 
     La méthode <kbd>describe()</kbd> donne plusieurs statistiques d'un coup. Testez-la et regardez la documentation pour comprendre ce qu'elle affiche.
     
@@ -191,8 +191,8 @@
 
     Pour les attributs numériques, on peut utiliser les méthodes de la bibliotèque <kbd>numpy</kbd>. Par exemple, pour calculer la valeur moyenne de l'attribut 5, on peut aussi écrire&nbsp;: <kbd>np.mean (olives.iloc [:,5])</kbd> (en supposant que vous avez importé <kbd>numpy</kbd> en le renommant <kbd>np</kbd>).
 
-    <br/>
-    <br/>
+    <br>
+    <br>
 
     <b>À faire&nbsp;:</b> répondre aux deux questions précédentes en utilisant des méthodes de la bibliothèque <kbd>numpy</kbd>.
     
@@ -204,16 +204,16 @@
 
     Un attribut catégorique, ou nominal, est un attribut dont la valeur est prise parmi un ensemble fixé de valeurs possibles. Par exemple une couleur parmi jaune, vert, rouge, orange, violet. Ainsi, l'attribut 0 est un attribut catégorique qui indique la région de provenance de l'olive. De même, malgré les apparences qui peuvent faire croire que les attributs 1 et 2 sont numériques, ce sont en fait des attributs catégoriques&nbsp;: l'attribut 2 est simplement un numéro correspondant à la valeur de l'attribut 0. Quant à l'attribut 1, c'est une valeur 1, 2 ou 3 qui indique grossiérement la zone géographique : sud de l'Italie (1), Sardaigne (2), nord de l'Italie (3).
 
-    <br/>
+    <br>
 
     Pour éviter des erreurs malencontreuses comme calculer la valeur moyenne d'un attribut catégorique, il faut indiquer explicitement les attributs catégoriques. Pour cela, on fait&nbsp;: <kbd>olives ["Region Name"] = olives ["Region Name"].astype("category")</kbd>.
 
-    <br/>
+    <br>
 
     Vérifier maintenant que vous ne pouvez plus calculer la moyenne de cet attribut.
 
-    <br/>
-    <br/>
+    <br>
+    <br>
 
     <b>À faire&nbsp;:</b>
         
@@ -229,8 +229,8 @@
 
     Pour les attributs catégoriques, il est intéressant d'obtenir la liste des valeurs présentes dans le jeu de données et également le nombre de données dans chaque catégorie.
 
-    <br/>
-    <br/>
+    <br>
+    <br>
     
     <b>À faire&nbsp;:</b>
     
@@ -246,21 +246,23 @@
 
 <!-- Default Statcounter code for on github
 https://philippe-preux.github.io -->
-<script type="text/javascript">
-var sc_project=12923547; 
-var sc_invisible=1; 
-var sc_security="627600d4"; 
+<script>
+  var sc_project=12923547; 
+  var sc_invisible=1; 
+  var sc_security="627600d4"; 
 </script>
-<script type="text/javascript"
-src="https://www.statcounter.com/counter/counter.js"
-async></script>
-<noscript><div class="statcounter"><a title="Web Analytics"
-href="https://statcounter.com/" target="_blank"><img
-class="statcounter"
-src="https://c.statcounter.com/12923547/0/627600d4/1/"
-alt="Web Analytics"
-referrerPolicy="no-referrer-when-downgrade"/></a></div></noscript>
-  <!-- End of Statcounter Code -->
+<script src="https://www.statcounter.com/counter/counter.js" async></script>
+<noscript>
+  <div class="statcounter">
+    <a title="Web Analytics"
+       href="https://statcounter.com/" target="_blank">
+      <img class="statcounter"
+	   src="https://c.statcounter.com/12923547/0/627600d4/1/"
+	   alt="Web Analytics"
+	   referrerPolicy="no-referrer-when-downgrade"/></a>
+  </div>
+</noscript>
+<!-- End of Statcounter Code -->
   
 </body>
 </html>
