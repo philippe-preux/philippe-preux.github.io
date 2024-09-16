@@ -224,15 +224,39 @@
     <br/>
     <br/>
 
-    Pour découper le jeu de données en ces deux parties, on fait comme suit&nbsp;:
+    Pour découper le jeu de données en ces deux parties, on utilise la fonction <code>train_test_split ()</code> de la bibliothèque <code>sklearn.model_selection</code>.
 
+    <br>
+
+    On fera donc&nbsp;: <code>from sklearn.model_selection import train_test_split</code>.
+
+    <br>
+
+      et ensuite, pour partitionner le jeu d'exemples en 20% pour le jeu de test et 80% pour le jeu d'entraînement&nbsp;:
+      
   </p>
 
-  <ol>
+    <pre>
+olivesX_train, olivesX_test, olivesY_train, olivesY_test = train_test_split (olives.iloc [:,4:11], olives.region, test_size = .2, random_state = 123)</pre>
+
+    <p>
+
+      Suite à cet appel, on a 4 objets&nbsp;:
+      
+    </p>
+
+    <ul>
+      <li><code>olivesX_train</code> est un tableau de données qui contient 80% des olives. Seuls les attributs 4 à 10 ont été sélectionné, c'est-à-dire les attributs indiquant la composition chimique.</li>
+      <li><code>olivesX_test</code> est un tableau de données qui contient les 20% restants des olives.</li>
+      <li><code>olivesY_train</code> est un tableau de données comprenant une seule colonne (<code>region</code>) qui indique la classe de chaque élément de <code>olivesX_train</code>.</li>
+      <li><code>olivesY_test</code> est un tableau de données comprenant une seule colonne (<code>region</code>) qui indique la classe de chaque élément de <code>olivesX_test</code>.</li>
+    </ul>
+    
+  <!--ol>
     <li>on crée un vecteur de N nombres aléatoires uniformément répartis entre 0 et 1, où N est le nombre total de données. Pour cela, on utilise la fonction <kbd>random.rand (N)</kbd> du paquetage <kbd>numpy</kbd>. Appelons ce vecteur <kbd>v</kbd>.</li>
     <li>À partir de <kbd>v</kbd>, on construit un vecteur booléen qui contient 80% de valeurs <kbd>True</kbd>. Appelons ce vecteur <kbd>b</kbd>.</li>
     <li>On utilise <kbd>b</kbd> pour construire les deux jeux de données, l'un pour les données d'entraînement, l'autre pour les données de test. Appelons-les respectivement <kbd>olives_train</kbd> et <kbd>olives_test</kbd>.</li>
-  </ol>
+  </ol-->
   
   <p>
 
@@ -246,9 +270,10 @@
     </p>
 
   <ol>
-    <li>créer les deux jeux de données <kbd>olives_train</kbd> et <kbd>olives_test</kbd>.</li>
+    <li>créer les 4 objets <code>olivesX_train</code> est un tableau de données qui contient 80% des olives. Seuls les attributs 4 à 10 ont été sélectionné, c'est-à-dire les attributs indiquant la composition chimique.</li>
+      <li><code>olivesX_test</code>, <code>olivesY_train</code>, <code>olivesX_train</code> et <code>olivesY_test</code>.</li>
     <li>Vérifier que la propotion des données de chacun des 3 classes est à peu près la même dans les deux jeux de données.</li>
-    <li>Induire un arbre de décision à partir de <kbd>olives_train</kbd>. Il y a beaucoup de paramètres qui peuvent être réglés mais nous nous en tiendrons à leur valeur par défaut dans un premier temps.</li>
+    <li>Induire un arbre de décision à partir de <kbd>olivesX_train</kbd> et <code>olivesY_train</code>. Il y a beaucoup de paramètres qui peuvent être réglés mais nous nous en tiendrons à leur valeur par défaut dans un premier temps.</li>
   </ol>
   
   <h3>Diagnostic de l'arbre de décision</h3>
