@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html> <!-- PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"-->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
 
 <head>
@@ -75,6 +75,11 @@
 
     <b>À faire&nbsp;:</b> dans python, en s'aidant si nécessaire de la documentation, charger ce fichier dans un objet dénommé <kbd>olives</kbd>.
 
+    <br>
+    <br>
+
+    <b>Remarque pratique importante&nbsp;:</b> il faut garder à l'esprit qu'un fichier <code>csv</code> peut être édité avec un éditeur de textes. Il n'est pas rare que l'on doive le modifier avant de pouvoir le charger dans Python ou d'en simplifier le traitement dans Python&nbsp;; il n'est pas rare non plus que ces modifications soient plus faciles à réaliser dans un éditeur de textes que dans Python.
+
   </p>
   
   <div class="correction">
@@ -96,7 +101,7 @@ olives = pd.read_csv ("/home/ppreux/philippe-preux.github.io/ensg/miashs/dataset
   </p>
   
   <ul>
-    <li>a-t-il été chargé correctement&nbsp;? Il est facile de mal lire le fichier selon que celui-ci possède une première ligne indiquant ou non le nom des attributs. Le plus simple est de regarder les quelques premières lignes de fichier (en ouvrant l'url dans son navigateur par exemple) et de les comparer aux premières lignes du tableau de données. Pour cela, utiliser la méthode <kbd>head()</kbd> de <kbd>pandas</kbd>. Si les deux ne correspondent pas, les données ont été mal lues. Il faut comprendre pourquoi et corriger (la documentation est là pour vous aider). Par exemple, vous devriez obtenir quelque chose comme cela&nbsp;:
+    <li>quand on a chargé un tableau de données dans Python, la première chose à faire consiste à vérifier qu'il a été correctement chargé. Il est facile de mal lire le fichier selon que celui-ci possède une première ligne indiquant ou non le nom des attributs. Le plus simple est de regarder les quelques premières lignes du fichier (en ouvrant l'url dans son navigateur par exemple) et de les comparer aux premières lignes du tableau de données. Pour cela, utiliser la méthode <kbd>head()</kbd> de <kbd>pandas</kbd>. Si les deux ne correspondent pas, les données ont été mal lues. Il faut comprendre pourquoi et corriger (la documentation est là pour vous aider). Par exemple, vous devriez obtenir quelque chose comme cela&nbsp;:
       <br/>
       <pre>
 >>> olives.head (n=5)
@@ -108,7 +113,8 @@ olives = pd.read_csv ("/home/ppreux/philippe-preux.github.io/ensg/miashs/dataset
 4  North-Apulia       1     1  ...         50         80          46
 
 [5 rows x 11 columns]
-      </pre>	
+      </pre>
+      Si ce n'est pas ce que vous obtenez, la lecture n'a pas été effectuée correctement et la raison en est que vous avez mal utilisé la fonction <kbd>pandas</kbd>.
     </li>
     <li>On peut aussi afficher les dernières lignes du tableau de données avec la méthode <kbd>tail()</kbd>.</li>
     <li>En tapant le nom de l'objet (<kbd>olives</kbd>), python affiche les premières et dernières lignes.</li>
@@ -116,7 +122,10 @@ olives = pd.read_csv ("/home/ppreux/philippe-preux.github.io/ensg/miashs/dataset
     <li>Obtenir la liste des noms d'attributs&nbsp;: utiliser la méthode <kbd>list()</kbd> ou l'attribut <kbd>columns</kbd>. Remarque : tous ces noms qui se terminent pas <kbd>ic</kbd> sont des noms d'acides dont la concentration dans les olives a été mesurée. Les premiers attributs indiquent la région d'Italie d'où provient l'olive.</li>
     <li>On voit que l'attribut 0 n'a pas de nom. Ce n'est pas très pratique. On lui en donne un en faisant comme cela&nbsp;:
       <br/>
-      <kbd>olives.rename (columns = {"Unnamed: 0": "Region Name"}, inplace = True)</kbd>.</li>
+      <kbd>olives.rename (columns = {"Unnamed: 0": "Region Name"}, inplace = True)</kbd>.
+      <br>
+	L'argument <code>columns = {"Unnamed: 0": "Region Name"}</code> indique avec un dictionnaire la (ou les) colonne(s) à renommer.
+      </li>
   </ul>
 
   <h3>Accès aux éléments d'un tableau de données</h3>
@@ -128,7 +137,7 @@ olives = pd.read_csv ("/home/ppreux/philippe-preux.github.io/ensg/miashs/dataset
     <br/><br/>
 
     Pour cela, on utilise les attributs <kbd>loc []</kbd> et <kbd>iloc []</kbd>.
-    <kbd>iloc []</kbd> permet de sélectionner des lignes ou des colonnes par leur numéro. <kbd>loc()</kbd> est beaucoup plus général et permet de sélectionner en indiquant un nom ou en sélectionnant selon un critère.
+    <kbd>iloc []</kbd> permet de sélectionner des lignes ou des colonnes par leurs indices. <kbd>loc()</kbd> est beaucoup plus général et permet de sélectionner des lignes ou des colonnes en indiquant un nom ou en les sélectionnant selon un critère.
     
     <br/><br/>
 
@@ -371,7 +380,7 @@ Name: 262, dtype: object
 
   <p>
 
-    Un attribut catégorique, ou nominal, est un attribut qui associe un nom à une donnée. Par exemple, l'attribut 0 est un attribut catégorique qui indique la région de provenance de l'olive. De même, malgré les apparences qui peuvent faire croire que les attributs 1 et 2 sont numériques, ce sont en fait des attributs catégoriques&nbsp;: l'attribut 2 est simplement un numéro correspond à l'attribut 0. Quant à l'attribut 1, c'est une valeur 1, 2 ou 3 qui indique grossiérement la zone géographique : sud de l'Italie (1), Sardaigne (2), nord de l'Italie (3).
+    Un attribut catégorique, ou nominal, est un attribut dont la valeur est prise parmi un ensemble fixé de valeurs possibles. Par exemple une couleur parmi jaune, vert, rouge, orange, violet. Ainsi, l'attribut 0 est un attribut catégorique qui indique la région de provenance de l'olive. De même, malgré les apparences qui peuvent faire croire que les attributs 1 et 2 sont numériques, ce sont en fait des attributs catégoriques&nbsp;: l'attribut 2 est simplement un numéro correspondant à la valeur de l'attribut 0. Quant à l'attribut 1, c'est une valeur 1, 2 ou 3 qui indique grossiérement la zone géographique : sud de l'Italie (1), Sardaigne (2), nord de l'Italie (3).
 
     <br/>
 
@@ -390,7 +399,7 @@ Name: 262, dtype: object
 
   <ul>
     <li>Vérifier que python vous laisse calculer la moyenne des attributs <kbd>region</kbd> et <kbd>area</kbd>, ce qui n'a aucun sens.</li>
-    <li>Transformer les en attributs catégoriques.</li>
+    <li>Les transformer en attributs catégoriques.</li>
     <li>Vérifier que vous ne pouvez plus calculer la moyenne de ces attributs.</li>
   </ul>
 
@@ -425,7 +434,7 @@ Traceback (most recent call last):
 TypeError: 'Categorical' with dtype category does not support reduction 'mean'
     </pre>
 
-    Toutes ces lignes incompréhensibles par lesquelles python nous indique qu'il ne peut pas calculer la moyenne d'un attribut catégoriques.
+    Toutes ces lignes incompréhensibles nous indique que python ne peut pas calculer la moyenne d'un attribut catégoriques.
   </div>
 	
   <p>
@@ -442,6 +451,7 @@ TypeError: 'Categorical' with dtype category does not support reduction 'mean'
   <ul>
     <li>Pour obtenir la liste des valeurs, on utilise la méthode <kbd>unique()</kbd>.</li>
     <li>Pour obtenir le décompte de données correspondant à chaque valeur d'un attribut catégorique, on utilise la méthode <kbd>value_counts()</kbd>.</li>
+    <li>Appliquez ces deux méthodes aux attributs catégoriques du jeu de données <code>olives</code>.</li>
   </ul>
 
   <div class="correction">
