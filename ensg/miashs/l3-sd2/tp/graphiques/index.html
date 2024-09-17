@@ -1,14 +1,13 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>Graphiques pour la science des données</title>
   <link href="https://philippe-preux.github.io/css/ma.css"
-	rel="stylesheet" type="text/css" media="all" />
+	rel="stylesheet" type="text/css" media="all">
   <link rel="shortcut icon" type="image/x-icon" 
-	href="https://philippe-preux.github.io/img/site.ico" />
+	href="https://philippe-preux.github.io/img/site.ico">
 </head>
 
 <body>
@@ -20,18 +19,18 @@
     
     Parce qu'un dessin vaut mieux qu'un long discours, la réalisation de graphiques est une activité très importante en science des données pour voir des caractéristiques des données.
     
-    <br/>
+    <br>
       
     Ce TP a donc pour objectif de réaliser des graphiques simples permettant de visualiser différentes caractéristiques d'un jeu de données.
     On utilisera le paquetage <kbd>matplotlib</kbd>. Souvent, on le renomme <code>plt</code> au chargement&nbsp;: <code>import matplotlib.pyplot as plt</code>.
       
-    <br/>
-    <br/>
+    <br>
+    <br>
 
     Remarque&nbsp;: il y a deux manières de réaliser des graphiques avec <kbd>matplotlib</kbd>. Dans un premier temps, nous allons présenter la méthode la plus simple qui permet de réaliser des graphiques simples. Nous verrons ensuite une autre méthode, à peine plus compliquée, qui permet de réaliser des graphiques bien plus riches et complexes.
 
-    <br/>
-    <br/>
+    <br>
+    <br>
 
     La documentation est en-ligne&nbsp;:
 
@@ -49,7 +48,7 @@
 
     Ce TP est la suite du TP sur les tableaux de données. Celui-ci doit avoir été réalisé avant de commencer ce TP.
 
-    <br/>
+    <br>
 
     Il faut donc charger le jeu de données dans un tableau de données avant de commencer.
     
@@ -63,14 +62,14 @@
 
     L'un des premiers types de graphiques que l'on réalise consiste à visualiser la répartition des valeurs des attributs.
 
-    <br/>
+    <br>
 
     Commençons par
     <pre>olives.plot ()
 plt.show()
 </pre>
 
-    <br/>
+    <br>
 
     ce qui donne :
     
@@ -129,8 +128,8 @@ plt.show()
   <img src="olives-figure6.png" width="250pt" />
   <img src="olives-figure7.png" width="250pt" />
 
-  <br/>
-  <br/>
+  <br>
+  <br>
 
   <b>À faire&nbsp;:</b> réalisez ces trois graphiques. Que représentent les barres, les moustaches et les petits cercles&nbsp;? Calculez-les et confirmez le sens de ces éléments graphiques.
 
@@ -142,15 +141,15 @@ plt.show()
 
     Un histogramme fournit beaucoup d'information sur la répartition des valeurs d'un attribut. Dans certains cas, on peut juger d'un coup d'&oelig;il que les valeurs ne sont pas distribuées uniformément ou normalement, ce qui est une information importante.
 
-    <br/>
+    <br>
 
     On utilise pour cela la méthode <kbd>plot.hist (bins = ..., ...)</kbd>. Le paramètre <kbd>bins</kbd> indique la finesse de l'histogramme. Les autres paramètres sont à peu près les mêmes que pour <kbd>plot.box</kbd>.
 
-    <br/>
-    <br/>
+    <br>
+    <br>
 
     <b>À faire&nbsp;:</b> regardez la documentation et réalisez ces 8 graphiques ci-dessous. Utilisez une boucle pour générer les 8 graphiques d'un coup.
-    <br/>
+    <br>
     Là encore, prenez-le temps d'observer ces graphiques et de les interpréter.
     
   </p>
@@ -188,9 +187,9 @@ plt.show()
 <p>
 
   <b>À faire&nbsp;:</b> regardez la documentation et réalisez ces 8 graphiques ci-dessous. Utilisez une boucle pour générer les 8 graphiques d'un coup.
-    <br/>
+    <br>
     Là encore, prenez-le temps d'observer ces graphiques et de les interpréter.
-    <br/>
+    <br>
     On voit bien que le tracé obtenu par <code>plot.density()</code> correspond aux histogrammes pour chacun des attributs.
 
 </p>
@@ -201,22 +200,22 @@ plt.show()
 
     Ces deux visualisations produisent des résultats qui se ressemblent&nbsp;: on retrouve les mêmes pics et creux. Néanmoins, elles sont à utiliser avec prudence&nbsp;: ni l'une ni l'autre ne représente une information parfaite. Si on peut se dire que les 4 premiers couples (histogramme, densité) se ressemblent, c'est beaucoup moins évidents pour les 4 suivants. Les histogrammes montrent des pics qui n'apparaissent pas dans les densités estimées. Ces pics isolés dans les histogrammes sont lissés dans les densités et disparaissent&nbsp;: existent-ils&nbsp;? Quelle méthode donne la visualisation la plus fidèle des données&nbsp;?
 
-    <br/>
-    <br/>
+    <br>
+    <br>
 
     L'allure de l'histogramme dépend fortement de la discrétisation utilisée (le paramètre <kbd>bins</kbd>), notamment si le nombre de données est faible par rapport à la discrétisation.
     
-    <br/>
+    <br>
 
     Par ailleurs, il existe plusieurs manières de réaliser un histogramme, chacune donnant une certaine représentation de la distribution des valeurs d'un attribut.
 
-    <br/>
-    <br/>
+    <br>
+    <br>
 
     De même, la forme de la densité estimée varie selon les paramètres utilisés. Ici, on a utilisé les paramètres par défaut. Dans une application réelle, il faut ajuster les paramètres.
     
-    <br/>
-    <br/>
+    <br>
+    <br>
 
     <b>À faire&nbsp;:</b> refaire les histogrammes en utilisant différentes valeurs pour l'attribut <code>bins</code>.
 
@@ -237,11 +236,11 @@ plt.show()
 
     Un <i>scatter plot</i> est un graphique en 2 dimensions&nbsp;: chaque axe correspond à un attribut&nbsp;: on représente chaque donnée par un point défini par ces deux attributs.
 
-    <br/>
+    <br>
 
     La méthode <kbd>plot.scatter()</kbd> s'applique à un <i>data frame</i> et crée un tel graphique&nbsp;: elle prend au moins deux paramètres&nbsp;: <kbd>x</kbd> et <kbd>y</kbd> qui indique les deux attributs à utiliser. On peut ajouter un titre et d'autres informations.
 
-    <br/>
+    <br>
 
     <b>À faire&nbsp;:</b> faites un <i>scatter plot</i> pour les attributs <kbd>oleic</kbd> et <kbd>palmitic</kbd>. Vous devez obtenir ceci&nbsp;:
 
@@ -253,7 +252,7 @@ plt.show()
 
     Il est courant de donner des couleurs différentes aux données selon la valeur de l'un de leurs attributs. Par exemple, on pourrait donner des couleurs différentes en fonction de la région d'origine de l'olive, en utilisant pour cela l'attribut <kbd>region</kbd>.
 
-    <br/>
+    <br>
 
     Le paramètre <kbd>c</kbd> indique l'attribut à utiliser (son nom ou son numéro) et le paramètre <kbd>colormap</kbd> indique la palette de couleur à utiliser (voir les palettes pré-définies sur <a href="https://matplotlib.org/stable/tutorials/colors/colormaps.html">cette page</a>).
     
@@ -265,20 +264,23 @@ plt.show()
 
 <!-- Default Statcounter code for on github
 https://philippe-preux.github.io -->
-<script type="text/javascript">
-var sc_project=12923547; 
-var sc_invisible=1; 
-var sc_security="627600d4"; 
+<script>
+  var sc_project=12923547; 
+  var sc_invisible=1; 
+  var sc_security="627600d4"; 
 </script>
-<script type="text/javascript"
-src="https://www.statcounter.com/counter/counter.js"
-async></script>
-<noscript><div class="statcounter"><a title="Web Analytics"
-href="https://statcounter.com/" target="_blank"><img
-class="statcounter"
-src="https://c.statcounter.com/12923547/0/627600d4/1/"
-alt="Web Analytics"
-referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
+<script src="https://www.statcounter.com/counter/counter.js" async></script>
+<noscript>
+  <div class="statcounter">
+    <a title="Web Analytics"
+       href="https://statcounter.com/" target="_blank">
+      <img
+	class="statcounter"
+	src="https://c.statcounter.com/12923547/0/627600d4/1/"
+	alt="Web Analytics"
+	referrerPolicy="no-referrer-when-downgrade"></a>
+    </div>
+  </noscript>
   <!-- End of Statcounter Code -->
   
 </body>
