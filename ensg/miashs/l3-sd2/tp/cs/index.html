@@ -241,12 +241,12 @@ olivesX_train, olivesX_test, olivesY_train, olivesY_test = train_test_split (oli
 
     <p>
 
-      Suite à cet appel, on a 4 objets&nbsp;:
+      Suite à cet appel, on obtient 4 objets&nbsp;:
       
     </p>
 
     <ul>
-      <li><code>olivesX_train</code> est un tableau de données qui contient 80% des olives. Seuls les attributs 4 à 10 ont été sélectionné, c'est-à-dire les attributs indiquant la composition chimique.</li>
+      <li><code>olivesX_train</code> est un tableau de données qui contient 80% des olives. Seuls les attributs 4 à 10 ont été sélectionnés, c'est-à-dire les attributs indiquant la composition chimique des olives.</li>
       <li><code>olivesX_test</code> est un tableau de données qui contient les 20% restants des olives.</li>
       <li><code>olivesY_train</code> est un tableau de données comprenant une seule colonne (<code>region</code>) qui indique la classe de chaque élément de <code>olivesX_train</code>.</li>
       <li><code>olivesY_test</code> est un tableau de données comprenant une seule colonne (<code>region</code>) qui indique la classe de chaque élément de <code>olivesX_test</code>.</li>
@@ -260,6 +260,15 @@ olivesX_train, olivesX_test, olivesY_train, olivesY_test = train_test_split (oli
   
   <p>
 
+    <code>olivesX_train</code> et <code>olivesY_train</code> constituent le jeu de données d'entraînement avec lequel on construit un modèle de prédiction de la classe.
+
+    <br/>
+    
+    <code>olivesX_test</code> et <code>olivesY_test</code> constituent le jeu de données de test avec lequel on mesure la qualité du modèle (est-ce que le modèle prédit bien la classe d'une donnée&nbsp;? ou dit autement, quelle est la probabilité que le modèle fasse une prédiction erronnée).
+    
+    <br/>
+    <br/>
+	
     Nous pouvons maintenant induire l'arbre de décision.
 
     <br/>
@@ -270,9 +279,8 @@ olivesX_train, olivesX_test, olivesY_train, olivesY_test = train_test_split (oli
     </p>
 
   <ol>
-    <li>créer les 4 objets <code>olivesX_train</code> est un tableau de données qui contient 80% des olives. Seuls les attributs 4 à 10 ont été sélectionné, c'est-à-dire les attributs indiquant la composition chimique.</li>
-      <li><code>olivesX_test</code>, <code>olivesY_train</code>, <code>olivesX_train</code> et <code>olivesY_test</code>.</li>
-    <li>Vérifier que la propotion des données de chacun des 3 classes est à peu près la même dans les deux jeux de données.</li>
+    <li>créer les 4 objets <code>olivesX_train</code>, <code>olivesX_test</code>, <code>olivesY_train</code> et <code>olivesY_test</code>.</li>
+    <li>Vérifier que la proportion des données de chacune des 3 classes est à peu près la même dans le jeu de données initial, dans le jeu de données d'entraînement et le jeu de données de test.</li>
     <li>Induire un arbre de décision à partir de <kbd>olivesX_train</kbd> et <code>olivesY_train</code>. Il y a beaucoup de paramètres qui peuvent être réglés mais nous nous en tiendrons à leur valeur par défaut dans un premier temps.</li>
   </ol>
   
@@ -285,9 +293,9 @@ olivesX_train, olivesX_test, olivesY_train, olivesY_test = train_test_split (oli
   </p>
 
   <ul>
-    <li>utilise les données de test que l'on a mises de côté dans <kbd>olives_test</kbd>,</li>
-    <li>on utilise l'arbre pour prédire leur classe,</li>
-    <li>on compare la classe prédite avec la classe de la donnée.</li>
+    <li>utilise les données de test que l'on a mises de côté dans <kbd>olivesX_test</kbd> et <kbd>olivesY_test</kbd>,</li>
+    <li>on utilise l'arbre pour prédire la classe des données contenues dans <code>olivesX_test</code>,</li>
+    <li>on compare la classe prédite avec la classe de la donnée qui est dans <code>olivesY_test</code>.</li>
     <li>On divise le nombre d'erreurs de prédiction par le nombre de données de test&nbsp;: cela nous fournit une estimation de la probabilité d'erreur.</li>
   </ul>
   
@@ -367,7 +375,7 @@ fig.show ()
 
     <br/>
 
-    <b>Faites-le&nbsp;: quelles sont ces règles&nbsp;?</b>
+    <b>À faire&nbsp;:</b> quelles sont ces règles&nbsp;? Interprétez graphiquement ces règles. Retrouvez-vous une observation faite précédemment&nbsp;?
     
   </p>
 
