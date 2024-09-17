@@ -1,65 +1,66 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
-
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>Classification supervisée</title>
-  <link href="https://philippe-preux.github.io/css/ma.css" 
-	rel="stylesheet" type="text/css" media="all">
-  <link rel="shortcut icon" type="image/x-icon" 
-	href="https://philippe-preux.github.io/img/site.ico">
-  <style>
-    .aligncenter {
-	text-align: center;
-    }
-  </style>
-</head>
-
-<body>
-<div class="tpR">
-
-  <h1>Classification supervisée</h1>
   
-  <p>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Classification supervisée</title>
+    <link href="https://philippe-preux.github.io/css/ma.css" 
+	  rel="stylesheet" type="text/css" media="all">
+    <link rel="shortcut icon" type="image/x-icon" 
+	  href="https://philippe-preux.github.io/img/site.ico">
+    <style>
+      .aligncenter {
+	  text-align: center;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <div class="tpR">
 
-    Dans ce TP, on va aborder la classification supervisée en la mettant en &oelig;uvre sur le jeu de données <kbd>olives</kbd>. Les notions essentielles de classification supervisée ont été vues en L2. Il s'agît donc ici de rappel et surtout de mise en pratique. Si nécessaire, on pourra consulter mes <a href="https://philippe-preux.github.io/Documents/notes-de-cours-de-fouille-de-donnees.pdf">notes de cours de fouille de données</a> pour une présentation de la classification supervisée.
-
-    <br>
-
-    Les 2 TPs précédents (<a href="../df">tableaux de données</a> et <a href="../graphiques">graphiques</a>) doivent impérativement avoir été faits.
-
-    <br>
-    <br>
-
-    À l'issue de ce TP, vous m'envoyez par email un compte-rendu (format <kbd>odt</kbd> ou <kbd>pdf</kbd>) indiquant la réponse aux questions qui sont posées. Vous m'envoyez également un fichier python réalisant toutes les manipulations de ce TP&nbsp;: je dois pouvoir exécuter ce fichier en tapant <kbd>python3 nom-de-votre-fichier.py</kbd> et reproduire vos résultats. Cette exécution ne doit pas provoquer d'erreur de python. Remarque&nbsp;: un <i>notebook</i> ne convient pas.
+      <h1>Classification supervisée</h1>
+      
+      <p>
     
-  </p>
+	Dans ce TP, on va aborder la classification supervisée en la mettant en &oelig;uvre sur le jeu de données <kbd>olives</kbd>. Les notions essentielles de classification supervisée ont été vues en L2. Il s'agît donc ici de rappel et surtout de mise en pratique. Si nécessaire, on pourra consulter mes <a href="https://philippe-preux.github.io/Documents/notes-de-cours-de-fouille-de-donnees.pdf">notes de cours de fouille de données</a> pour une présentation de la classification supervisée.
 
-  <h2>Introduction</h2>
+	<br>
+
+	Les 2 TPs précédents (<a href="../df">tableaux de données</a> et <a href="../graphiques">graphiques</a>) doivent impérativement avoir été faits.
+
+	<br>
+	<br>
+	
+	À l'issue de ce TP, vous m'envoyez par email un compte-rendu (format <kbd>odt</kbd> ou <kbd>pdf</kbd>) indiquant la réponse aux questions qui sont posées. Vous m'envoyez également un fichier python réalisant toutes les manipulations de ce TP&nbsp;: je dois pouvoir exécuter ce fichier en tapant <kbd>python3 nom-de-votre-fichier.py</kbd> et reproduire vos résultats. Cette exécution ne doit pas provoquer d'erreur de python. Remarque&nbsp;: un <i>notebook</i> ne convient pas.
     
-  <p>
+      </p>
 
-    Les olives du jeu de données proviennent chacune d'une région particulière d'Italie&nbsp;: sud, Sardaigne, nord. Celles-ci sont numérotées et la valeur associée à chaque olive est dans l'attribut 1 dénommé <kbd>region</kbd>. Chaque région est découpée en sous-régions&nbsp;; cette sous-région est dans les attributs 0 et 2&nbsp;; l'attribut 2 est juste le numéro de la sous-région dont le nom est donné par l'attribut 0. La carte ci-dessous indique ces régions et certaines sous-régions.
+      <h2>Introduction</h2>
     
-  </p>
+      <p>
 
-  <p class="aligncenter">
-      <img src="./olives-italie.png" width="400pt" alt="carte des zones géographiques d'origine des olvies du jeu de données" />
-      <!--figcaption--><font size="-3">(Cette figure est issue du livre sur <a href="http://ggobi.org/book.html">ggobi</a>.)</font><!--/figcaption-->
-  </p>
+	Les olives du jeu de données proviennent chacune d'une région particulière d'Italie&nbsp;: sud, Sardaigne, nord. Celles-ci sont numérotées et la valeur associée à chaque olive est dans l'attribut 1 dénommé <kbd>region</kbd>. Chaque région est découpée en sous-régions&nbsp;; cette sous-région est dans les attributs 0 et 2&nbsp;; l'attribut 2 est juste le numéro de la sous-région dont le nom est donné par l'attribut 0. La carte ci-dessous indique ces régions et certaines sous-régions.
     
-  <p>
+      </p>
 
-    Chaque olive étant par ailleurs caractérisée par sa teneur en certains acides, la question que nous étudions dans ce TP est&nbsp;: à partir de cette composition chimique, peut-on déterminer la provenance géographique de l'olive&nbsp;?
+      <p class="aligncenter">
+	<img src="./olives-italie.png" width="400pt"
+	     alt="carte des zones géographiques d'origine des olvies du jeu de données">
+	<!--figcaption--><font size="-3">(Cette figure est issue du livre sur <a href="http://ggobi.org/book.html">ggobi</a>.)</font><!--/figcaption-->
+      </p>
+      
+      <p>
 
-    <br>
+	Chaque olive étant par ailleurs caractérisée par sa teneur en certains acides, la question que nous étudions dans ce TP est&nbsp;: à partir de cette composition chimique, peut-on déterminer la provenance géographique de l'olive&nbsp;?
 
-    Si on arrive à déterminer la provenance à partir de la composition chimique de l'olive, on peut garantir que la provenance indiquée est la bonne et pourquoi pas, détecter ainsi des tentatives de fraudes si ce n'est pas le cas.
+	<br>
 
-    <br>
-    <br>
+	Si on arrive à déterminer la provenance à partir de la composition chimique de l'olive, on peut garantir que la provenance indiquée est la bonne et pourquoi pas, détecter ainsi des tentatives de fraudes si ce n'est pas le cas.
 
-    On va pratiquer en deux phases. Durant la première, on va explorer visuellement le jeu de données&nbsp;: la réponse à la question posée est-elle visible sur un ou des graphiques&nbsp;? Durant la seconde, on va utiliser un algorithme d'apprentissage automatique pour essayer de répondre à la question. Les deux approches ne sont pas exclusives, bien au contraire&nbsp;: la première guide le choix d'une méthode à appliquer lors de la seconde.
+	<br>
+	<br>
+	
+	On va pratiquer en deux phases. Durant la première, on va explorer visuellement le jeu de données&nbsp;: la réponse à la question posée est-elle visible sur un ou des graphiques&nbsp;? Durant la seconde, on va utiliser un algorithme d'apprentissage automatique pour essayer de répondre à la question. Les deux approches ne sont pas exclusives, bien au contraire&nbsp;: la première guide le choix d'une méthode à appliquer lors de la seconde.
     
   </p>
 
