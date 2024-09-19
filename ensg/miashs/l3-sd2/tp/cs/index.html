@@ -139,11 +139,11 @@
   
   <p>
 
-    Ce graphique montre que la classe 1 (points bleus) est facilement identifiée grace à cet attribut.
+    Ce graphique montre que la classe 1 (points bleus) est facilement identifiée grâce à cet attribut.
 
     <br>
     
-    Quand vous l'avez trouvé, vous pouvez vous concentrer sur les 2 classes qui sont encore mélangées (jaune et rouge) et recommencer le même raisonnement en vous occupant uniquement des données de ces deux classes. Vous devez trouver un attribut qui sépare bien les 2 classes restantes.
+    Quand vous l'avez trouvée, vous pouvez vous concentrer sur les 2 classes qui sont encore mélangées (jaune et rouge) et recommencer le même raisonnement en vous occupant uniquement des données de ces deux classes. Vous devez trouver un attribut qui sépare bien ces 2 classes restantes.
 
     <br>
 
@@ -400,6 +400,11 @@ fig.show ()
 
     <b>À faire&nbsp;:</b> effectuer ce qui vient d'être expliqué. Que pensez-vous du résultat&nbsp;?
 
+    <br>
+    <br>
+
+    Une manière systématique d'effectuer cela se nomme une <em>validation croisée</em>. La fontion <code>xxx</code> réalise une validation croisée...
+
   </p>
 
   <h3>Reproductibilité</h3>
@@ -443,6 +448,11 @@ DecisionTreeClassifier (random_state = rs)
 
   <p>
 
+    Plus haut, quand on a découpé le jeu de données en jeu d'entraînement et jeu de test, on a spécifié un paramètre <code>rs</code> également qui joue le même rôle pour ce découpage que le paramètre <code>random_state</rs> pour l'induction de l'arbre de décision. Pour obtenir le même découpage, il faut que le paramètre ait la même valeur (et que le jeu de données à partitionner soit identique).
+
+    <br>
+    <br>
+    
     <b>À faire&nbsp;:</b> effectuer l'initialisation de cette graine et refaites toute la procédure d'induction d'arbre. Estimer sa probabiité d'erreur. Si vous effectuez cela plusieurs fois, vous devez obtenir exactement le même résultat à chaque fois.
     
   </p>
