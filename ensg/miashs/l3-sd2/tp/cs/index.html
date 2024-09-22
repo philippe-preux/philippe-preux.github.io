@@ -430,11 +430,21 @@ fig.show ()
 
   <p>
 
-    La fonction <code>xxx</code> réalise une validation croisée.
+    Il faut importer la fonction par <code>from sklearn.model_selection import cross_val_score</code>. Elle s'utilise ensuite de la manière suivante&nbsp;:
 
     <br>
+
+    <pre>>>> cross_val_score (arbre, olives.iloc [:, 3:olives.shape[1]], olives.iloc [:,1], cv = 10)
+array([1.        , 1.        , 1.        , 1.        , 1.        ,
+       1.        , 0.98245614, 1.        , 1.        , 1.        ])
+</pre>
+
     <br>
 
+    On a fixé le nombre de parties N à 10 <i>via</i> le paramètre <code>cv</code>. La fonction affiche les 10 erreurs de test mesurées sur chacune des 10 parties.
+    
+    <br>
+    
     <b>À faire&nbsp;:</b> effectuer une validation croisée et comparer le résultat (erreur estimée) avec la valeur que vous avez obtenue précédemment.
 
   </p>
