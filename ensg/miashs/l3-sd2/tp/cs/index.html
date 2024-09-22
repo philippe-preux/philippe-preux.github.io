@@ -241,7 +241,7 @@
   </p>
 
     <pre>
-olivesX_train, olivesX_test, olivesY_train, olivesY_test = train_test_split (olives.iloc [:,4:11], olives.region, test_size = .2, random_state = 123)</pre>
+olivesX_train, olivesX_test, olivesY_train, olivesY_test = train_test_split (olives.iloc [:,3:11], olives.region, test_size = .2, random_state = 123)</pre>
 
     <p>
 
@@ -250,7 +250,7 @@ olivesX_train, olivesX_test, olivesY_train, olivesY_test = train_test_split (oli
     </p>
 
     <ul>
-      <li><code>olivesX_train</code> est un tableau de données qui contient 80% des olives. Seuls les attributs 4 à 10 ont été sélectionnés, c'est-à-dire les attributs indiquant la composition chimique des olives.</li>
+      <li><code>olivesX_train</code> est un tableau de données qui contient 80% des olives. Seuls les 8 attributs numérotés 3 à 10 ont été sélectionnés, c'est-à-dire les attributs indiquant la composition chimique des olives.</li>
       <li><code>olivesX_test</code> est un tableau de données qui contient les 20% restants des olives.</li>
       <li><code>olivesY_train</code> est un tableau de données comprenant une seule colonne (<code>region</code>) qui indique la classe de chaque élément de <code>olivesX_train</code>.</li>
       <li><code>olivesY_test</code> est un tableau de données comprenant une seule colonne (<code>region</code>) qui indique la classe de chaque élément de <code>olivesX_test</code>.</li>
@@ -273,10 +273,16 @@ olivesX_train, olivesX_test, olivesY_train, olivesY_test = train_test_split (oli
     <br>
     <br>
 	
-    Nous pouvons maintenant induire l'arbre de décision.
+    Nous pouvons maintenant induire l'arbre de décision. Il faut tout d'abord importer la fonction qui induit des arbres de décision avec <code>from sklearn import tree</code>, puis l'induction de l'arbre se fait comme quit&nbsp;:
 
     <br>
+    
+    <pre>arbre = tree.DecisionTreeClassifier()
+arbre = arbre.fit (olivesX_train, olivesY_train)</pre>
+
     <br>
+
+    La première ligne crée un objet arbre de décision et l'affecte à la variable dénommée <code>arbre</code>. La seconde induit l'arbre en utilisant les données et étiquettes du jeu d'entraînement.
     
     <b>À faire&nbsp;:</b>
 
@@ -285,9 +291,15 @@ olivesX_train, olivesX_test, olivesY_train, olivesY_test = train_test_split (oli
   <ol>
     <li>créer les 4 objets <code>olivesX_train</code>, <code>olivesX_test</code>, <code>olivesY_train</code> et <code>olivesY_test</code>.</li>
     <li>Vérifier que la proportion des données de chacune des 3 classes est à peu près la même dans le jeu de données initial, dans le jeu de données d'entraînement et le jeu de données de test.</li>
-    <li>Induire un arbre de décision à partir de <kbd>olivesX_train</kbd> et <code>olivesY_train</code>. Il y a beaucoup de paramètres qui peuvent être réglés mais nous nous en tiendrons à leur valeur par défaut dans un premier temps.</li>
+    <li>Induire un arbre de décision à partir de <kbd>olivesX_train</kbd> et <code>olivesY_train</code>. Il y a beaucoup de paramètres qui peuvent être réglés mais nous nous en tiendrons à leur valeur par défaut dans un premier temps (<i>cf.</i> ci-dessus).</li>
   </ol>
   
+      <p>
+
+	Une fois un arbre de décision induit, on peut l'utiliser pour prédire la classe de données en utilisant la méthode <code>predict ()</code>. Cette méthode prend simplement un tableau de données. Par exemple, <code>arbre.predict (olivesX_train)</code> calcule la classe prédite par l'<code>arbre</code> sur les données contenues dans le tableau de données <code>olivesX_train</code>.
+
+      </p>
+      
   <h3>Diagnostic de l'arbre de décision</h3>
 
   <p>
@@ -403,7 +415,24 @@ fig.show ()
     <br>
     <br>
 
-    Une manière systématique d'effectuer cela se nomme une <em>validation croisée</em>. La fontion <code>xxx</code> réalise une validation croisée...
+    La manière traditionnelle d'effectuer cela se nomme une <em>validation croisée</em>. Une validation croisée consiste à&nbsp;:
+
+  </p>
+
+  <ol>
+    <li>découper le jeu d'exemples en N parties,</li>
+    <li>pour chacune des parties, induire un arbre en utilisant les N-1 autres parties et mesurer son erreur de prédiction sur la partie non utilisée dans l'entraînement.</li>
+    <li>faire la moyenne de ces erreurs.</li>
+  </ol>
+
+  <p>
+
+    La fonction <code>xxx</code> réalise une validation croisée.
+
+    <br>
+    <br>
+
+    <b>À faire&nbsp;:</b> effectuer une validation croisée et comparer le résultat (erreur estimée) avec la valeur que vous avez obtenue précédemment.
 
   </p>
 
