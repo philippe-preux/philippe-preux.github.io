@@ -83,13 +83,13 @@
 
   <ol>
     <li>résolution de l'équation de Bellman par algèbre linéaire,</li>
-    <li>iération sur l'équation de Bellman.</li>
+    <li>itération sur l'équation de Bellman.</li>
     <!--li>méthode de Monte Carlo.</li-->
   </ol>
   
   <p>
 
-    Outre l'implantation de ces méthodes, l'objectif est de les comparer. Pour les programmeurs C (python peut-être aussi), il est intéressant d'essayer d'optimiser l'algorithme. Entre une implantation naïve et une autre plus maligne, on peut accélérer les calculs grandement (facteur 100 possibles en C).
+    Outre l'implantation de ces méthodes, l'objectif est de les comparer. Pour les programmeurs C (python peut-être aussi), il est intéressant d'essayer d'optimiser l'algorithme. Entre une implantation naïve et une autre plus maligne, on peut accélérer les calculs grandement (facteur de plusieurs dizaines, voire 100, possible en C).
 
     <br>
     <br>
@@ -107,7 +107,7 @@
   </p>
   
   <ol>
-    <li>écrire un programme qui calcule la valeur d'une politique par résolution du système d'équations linéaires et affiche le résultat sur <code>stdout</code> (l'écran du terminal). Il s'agit de mettre en &oelig;uvre ce qui est expliqué en section 2.9, pages 12 et 13 du poly. Faire en sorte que votre programme puisse calculer la valeur d'une politique déterministe ou stochastique. Vous spécifiez la politique comme bon vous semble (<i>a priori</i>, dans un fichier, selon un format que je vous laisse définir).
+    <li>écrire un programme qui calcule la valeur d'une politique par résolution du système d'équations linéaires et affiche le résultat sur <code>stdout</code> (l'écran du terminal). Il s'agit de mettre en &oelig;uvre ce qui a été vu en cours et qui est expliqué en section 2.9, pages 12 et 13 du poly. Faire en sorte que votre programme puisse calculer la valeur d'une politique déterministe ou stochastique. Vous spécifiez la politique comme bon vous semble (<i>a priori</i>, dans un fichier, selon un format que je vous laisse définir).
       <br/>
       <br/>
       <div class="row">
@@ -143,23 +143,11 @@
   </p>
   
   <ol>
-    <li>écrire un programme qui calcule la valeur d'une politique en itérant l'équation de Bellman et affiche le résultat sur <code>stdout</code> (l'écran du terminal). Il s'agit de mettre en &oelig;uvre ce qui est expliqué en section 3.1 du poly. Là encore, faire en sorte que votre programme puisse calculer la valeur d'une politique déterministe ou stochastique.</li>
+    <li>écrire un programme qui calcule la valeur d'une politique en itérant l'équation de Bellman et affiche le résultat sur <code>stdout</code> (l'écran du terminal). Il s'agit de mettre en &oelig;uvre ce qui a été vu en cours et est expliqué en section 3.1 du poly. Là encore, faire en sorte que votre programme puisse calculer la valeur d'une politique déterministe ou stochastique.</li>
     <li>Tester le programme sur le problème du chauffeur de taxi. On prendra &gamma; = 0,9 et on itère pour obtenir une précision de 10<sup>-6</sup>.</li>
     <li>Comparer la valeur estimée par cette méthode avec celle calculée par la précédente.</li>
+    <li>D'après vous, laquelle de ces deux méthodes est la plus précise&nbsp;?</li>
   </ol>
-
-  <!--h2>Calcul de la fonction valeur par méthode de Monte Carlo</h2>
-
-  <p>
-      
-    <b>À faire&nbsp;:</b>
-
-  </p>
-  
-  <ol>
-    <li>écrire un programme qui calcule la valeur d'une politique par une approche de Monte Carlo et affiche le résultat sur stdout (l'écran du terminal). Faire en sorte que votre programme puisse calculer la valeur d'une politique déterministe ou stochastique. Vous spécifiez la politique comme bon vous semble (<i>a priori</i>, dans un fichier, selon un format que je vous laisse définir). Étudiez comment la précision de l'estimation de la valeur des états varie en fonction du nombre de trajectoires simulées.</li>
-    <li>Tester le programme sur le problème du chauffeur de taxi. Faire varier le nombre de simulations et observer l'écart entre les valeurs estimées par les deux méthodes précédentes et celle-ci.</li>
-  </ol-->
 
   <h2>Mise en &oelig;uvre</h2>
 
@@ -179,7 +167,15 @@
       
     </p>
     
-  <h3>Comparaison expérimentales des deux approches sur des PDM artificiels</h3>
+    <h3>Vitesse de convergence de la méthode itérant sur l'équation de Bellman</h3>
+
+    <p>
+
+      Pour le problème du chauffeur de taxi et le 21-avec-un-dé, déterminer le nombre d'itérations nécessaires pour l'obtention d'une certaine précision. On le fera pour les puissances de 10 allant de -1 à -7.
+      
+    </p>
+
+    <h3>Comparaison expérimentales des deux approches sur des PDM artificiels</h3>
 
     <p>
 
@@ -194,6 +190,28 @@
 	Vous faitez cela pour les 2 algorithmes vus précédemment.</li>
     </ol>
 
+    <h2>Activité libre (vivement recommendée)&nbsp;: estimation de la valeur par la méthode de Monte Carlo</h2>
+
+  <p>
+
+    De manière générale, une méthode de Monte Carlo consiste à estimer une ou des quantités en simulant la dynamique d'un système. Quand la dynamique est stochastique, on effectue plusieurs simulations dont on moyenne les résultats.
+
+    <br>
+
+    On peut appliquer ce principe à l'estimation de la valeur d'une politique. Pour cela, on estime la valeur en chaque état en simulant la dynamique à partir de cet état et en calculant \( R (e_{t=0}) = \sum_k \gamma^k r_k \), les \( r_k \) étant observés le long de la trajectoire. En simulant plusieurs trajectoires issues du même état \( e_{t=0} \) et en moyennant ces \( R (e_{t=0}) \), on estime la valeur de cet état. On effectue ce même traitement à partir de chacun des états et on obtient une estimation de la valeur de la politique.
+
+    <br>
+    <br>
+    
+    <b>À faire&nbsp;:</b>
+    
+  </p>
+  
+  <ol>
+    <li>écrire un programme qui calcule la valeur d'une politique par une approche de Monte Carlo et affiche le résultat sur <code>stdout</code>. Étudiez comment la précision de l'estimation de la valeur des états varie en fonction du nombre de trajectoires simulées (pour cela, utiliser l'estimation de la fonction valeur obtenue par l'une des deux méthodes précédentes).</li>
+    <li>Tester le programme sur le problème du chauffeur de taxi. Faire varier le nombre de simulations et observer l'écart entre les valeurs estimées par les deux méthodes précédentes et celle-ci (<i>cf.</i> TP 1).</li>
+  </ol>
+    
 </div>
 
 </body>

@@ -423,7 +423,7 @@ fig.show ()
   </p>
 
   <ol>
-    <li>découper le jeu d'exemples en N parties,</li>
+    <li>découper le jeu d'exemples en N parties stratifiées,</li>
     <li>pour chacune des parties, induire un arbre en utilisant les N-1 autres parties et mesurer son erreur de prédiction sur la partie non utilisée dans l'entraînement.</li>
     <li>faire la moyenne de ces erreurs.</li>
   </ol>
@@ -442,7 +442,7 @@ array([1.        , 1.        , 1.        , 1.        , 1.        ,
     <br>
 
     On a fixé le nombre de parties N à 10 <i>via</i> le paramètre <code>cv</code>. La fonction affiche les 10 erreurs de test mesurées sur chacune des 10 parties.
-    
+
     <br>
     
     <b>À faire&nbsp;:</b> effectuer une validation croisée et comparer le résultat (erreur estimée) avec la valeur que vous avez obtenue précédemment.
