@@ -22,7 +22,7 @@ The MDP is defined at the beginning of the example code:
 
 ## Resolution
 
-We need to define the LP. The objective is the sum of the value of each state. There is a constraing for each state, action pair.
+We need to define the LP. The objective is the sum of the value of each state. There is a constraint for each state, action pair.
 Then, we simply call the ``solve()'' function.
 
 ## Results

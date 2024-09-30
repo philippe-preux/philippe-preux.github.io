@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
-    <title>Programmation dynamique pour la résolution d'un problème de décision de Markov</title>
-    <!-- link href="/home/ppreux/philippe-preux.github.io/css/ma.css" -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>
+      Résolution de l'équation de Bellman&nbsp;: calcul d'une politique optimale
+    </title>
+    <!--link href="/home/ppreux/philippe-preux.github.io/css/ma.css"-->
     <link href="https://philippe-preux.github.io/css/ma.css"
-	  rel="stylesheet" type="text/css" media="all" >
+	  rel="stylesheet" type="text/css" media="all">
     <link rel="shortcut icon" type="image/x-icon"
-	  href="https://philippe-preux.github.io/img/site.ico" >
+	  href="https://philippe-preux.github.io/img/site.ico">
     <!-- href="/home/ppreux/philippe-preux.github.io/img/site.ico" -->
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script id="MathJax-script" async
+	    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
     <style>
       div.c {
 	  background-color: #bafcba;
@@ -68,20 +72,54 @@
 
 <div class="tpR">
  
-  <h1>Programmation dynamique pour la résolution d'un problème de décision de Markov</h1>
+  <h1>Résolution de l'équation de Bellman&nbsp;: calcul d'une politique optimale</h1>
 
   <p>
 
-    Plusieurs TP s'enchainent sous ce titre, à réaliser dans l'ordre&nbsp;:
+    Dans ce TP, on s'intéresse à la résolution de l'équation d'optimalité de Bellman selon différentes méthodes vues en cours, ce qui correspond au chapitre 3 du polycopié de cours.
+
+  </p>
+
+  <h2>Itération sur les politiques</h2>
+
+  <h3>Implantation de l'algorithme</h3>
+  
+  <p>
+
+    Implanter l'algorithme d'itération sur les politiques vu en cours.
+
+  </p>
+
+  <h3>Expérimentation avec l'algorithme</h3>
+  
+  <p>
+
+    Tester votre implantation sur le problème du chauffeur de taxi.
+
+    <br>
+
+    Résoudre le problème du 21-avec-un-dé.
     
   </p>
-  
-  <ol>
-    <li><a href="./index-préliminaires.html">préliminaires</a>,</li>
-    <li><a href="./index-eval.html">évaluation d'une politique</a>,</li>
-    <li><a href="./index-optim.html">calcul d'une politique optimale</a>.</li>
-  </ol>  
 
+  <h3>Influence de &gamma;</h3>
+
+  <p>
+
+    Déterminer la politique optimale pour «&nbsp;toutes&nbsp;» les valeurs de &gamma;. Déterminer les valeurs de &gamma; auxquelles la politique optimale change.
+
+    <br/>
+
+    <div class="detail">(Bien sûr, on ne peut pas calculer la politique optimale pour toutes les valeurs de &gamma; entre 0 et 1. On les énumère par exemple avec un pas d'1/100<sup>è</sup>.)</div>
+    
+    <br/>
+    <br/>
+
+    Mettre en &oelig;uvre sur le problème du chauffeur de taxi.
+    
+  </p>
+
+  
 </div>
 
 </body>
