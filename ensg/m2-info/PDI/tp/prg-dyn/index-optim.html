@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>
+      Résolution de l'équation de Bellman&nbsp;: calcul d'une politique optimale
+    </title>
+    <!--link href="/home/ppreux/philippe-preux.github.io/css/ma.css"-->
+    <link href="https://philippe-preux.github.io/css/ma.css"
+	  rel="stylesheet" type="text/css" media="all">
+    <link rel="shortcut icon" type="image/x-icon"
+	  href="https://philippe-preux.github.io/img/site.ico">
+    <!-- href="/home/ppreux/philippe-preux.github.io/img/site.ico" -->
+    <script id="MathJax-script" async
+	    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+    <style>
+      div.c {
+	  background-color: #bafcba;
+      }
+      div.python {
+	  background-color: #c0c0c0;
+      }
+      table.tr.td.c {
+	  background-color: #bafcba;
+	  width: 50%;
+      }
+      table.tr.td.python {
+	  background-color: #c0c0c0;
+	  width: 50%;
+      }
+
+      /* Ce qui suit fait ce que je voulais faire en mettant des attributs aux balises td, ce qui n'est pas compatible avec HTML5. Je voulais une table avec deux colonnes de même largeur, chacune avec une couleur de fond particulière.
+       J'ai trouvé cette solution là : https://www.w3schools.com/howto/howto_css_two_columns.asp */
+      * {
+	  box-sizing: border-box;
+      }
+      /* Create two equal columns that floats next to each other */
+      .columnC {
+	  background-color: #bafcba;
+	  float: left;
+	  width: 50%;
+	  padding: 10px;
+      }
+      .columnP {
+	  background-color: #c0c0c0;
+	  float: left;
+	  width: 50%;
+	  padding: 10px;
+      }
+      /* Clear floats after the columns */
+      .row:after {
+	  content: "";
+	  display: table;
+	  clear: both;
+      }
+      /* ça marche bien pour la largeur et la couleur de fond, mais pas pour
+	 la hauteur. Après avoir qwanté sans trouver de solution, j'ai défini
+	 la classe div ci-dessous : c'est affreux, mais ça marche comme
+	 disent les étudiants ! (-(
+	 Mais il faut faire l'ajustement à la main. C'est bien pour cela que
+	 « non, ça ne marche pas !», mais ça rend ce que je voulais donc en
+	 attendant de trouver mieux.
+     */
+      div.theUglyTrick {
+	  visibility:hidden;
+      }
+    </style>
+  </head>
+  
+<body>
+
+<div class="tpR">
+ 
+  <h1>Résolution de l'équation de Bellman&nbsp;: calcul d'une politique optimale</h1>
+
+  <p>
+
+    Dans ce TP, on s'intéresse à la résolution de l'équation d'optimalité de Bellman selon différentes méthodes vues en cours, ce qui correspond au chapitre 3 du polycopié de cours.
+
+  </p>
+
+  <h2>Itération sur les politiques</h2>
+
+  <h3>Implantation de l'algorithme</h3>
+  
+  <p>
+
+    Implanter l'algorithme d'itération sur les politiques vu en cours.
+
+  </p>
+
+  <h3>Expérimentation avec l'algorithme</h3>
+  
+  <p>
+
+    Tester votre implantation sur le problème du chauffeur de taxi.
+
+    <br>
+
+    Résoudre le problème du 21-avec-un-dé.
+    
+  </p>
+
+  <h3>Influence de &gamma;</h3>
+
+  <p>
+
+    Déterminer la politique optimale pour «&nbsp;toutes&nbsp;» les valeurs de &gamma;. Déterminer les valeurs de &gamma; auxquelles la politique optimale change.
+
+    <br/>
+
+    <div class="detail">(Bien sûr, on ne peut pas calculer la politique optimale pour toutes les valeurs de &gamma; entre 0 et 1. On les énumère par exemple avec un pas d'1/100<sup>è</sup>.)</div>
+    
+    <br/>
+    <br/>
+
+    Mettre en &oelig;uvre sur le problème du chauffeur de taxi.
+    
+  </p>
+
+  <h2>Itération sur la valeur</h2>
+
+  <h3>Implantation de l'algorithme</h3>
+  
+  <p>
+
+    Implanter l'algorithme d'itération sur la valeur vu en cours.
+
+  </p>
+
+  <h3>Expérimentation avec l'algorithme</h3>
+  
+  <p>
+
+    Tester votre implantation sur le problème du chauffeur de taxi.
+
+    <br>
+
+    Résoudre le problème du 21-avec-un-dé.
+    
+  </p>
+  
+</div>
+
+</body>
+</html>
