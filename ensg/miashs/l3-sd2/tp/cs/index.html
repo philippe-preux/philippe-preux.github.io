@@ -4,7 +4,9 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Classification supervisée</title>
-    <link href="https://philippe-preux.github.io/css/ma.css" 
+    <!--link href="https://philippe-preux.github.io/css/ma.css" 
+	  rel="stylesheet" type="text/css" media="all"-->
+    <link href="file:///home/ppreux/philippe-preux.github.io/css/ma.css" 
 	  rel="stylesheet" type="text/css" media="all">
     <link rel="shortcut icon" type="image/x-icon" 
 	  href="https://philippe-preux.github.io/img/site.ico">
@@ -390,6 +392,7 @@ fig.show ()
     Un arbre de décision peut facilement être transformé en un ensemble de règles de décision. Ici l'arbre est très petit, c'est facile.
 
     <br>
+    <br>
 
     <b>À faire&nbsp;:</b> quelles sont ces règles&nbsp;? Interprétez graphiquement ces règles. Retrouvez-vous une observation faite précédemment&nbsp;?
     
@@ -502,29 +505,146 @@ DecisionTreeClassifier (random_state = rs)
   Chaque région est décomposée en un ensemble d'aires (attribut <kbd>area</kbd>). On essaie maintenant de prédire l'aire, il y en a 8.
 
     <br>
-    
-    <b>À faire&nbsp;:</b> refaites le même travail pour prédire l'attribut <kbd>area</kbd>.
-
-    <br>
     <br>
 
-    Arrive-t-on à bien prédire toutes les classes&nbsp;? Aussi bien que la région&nbsp;?
+    <b>À faire&nbsp;:</b>
 
+</p>
+
+<ul>
+  <li>Refaites le même travail pour prédire l'attribut <kbd>area</kbd>.</li>
+  <li>Arrive-t-on à bien prédire toutes les classes&nbsp;? Aussi bien que la région&nbsp;?
     <br>
-    
     Pour répondre à cette question, vous calculez l'erreur de test pour l'ensemble des exemples mais aussi, vous calculez cette erreur pour les exemples de chacune des 3 et 8 classes respectivement.
-
     <br>
-
-    Qu'en pensez-vous&nbsp;?
-    
-  </p>
+    Qu'en pensez-vous&nbsp;?</li>
+</ul>
   
-<h2>Retour sur la prédiction de l'attribut <kbd>region</kbd></h2>
+  <h2>Retour sur la prédiction de l'attribut <kbd>region</kbd></h2>
 
 <p>
 
-  (à suivre...)
+  L'arbre de décision construit plus haut commet parfois des erreurs. Nous allons voir une manière de réduire le risque d'erreur.
+
+  <br>
+
+  C'est une méthode très générale qu'il faut absolument connaître et utiliser lorsqu'on utilise des arbres de décision.
+
+  <br>
+
+  Nous allons procéder visuellement car cette manière de faire ne s'automatise pas facilement. Alors que parfois, comme on l'a déjà dit, il y a des choses qui sautent aux yeux.
+
+  <br>
+  <br>
+
+  L'arbre obtenu prédit parfaitement les olives du Sud de l'Italie&nbsp;; on l'avait déjà vu. Par contre, il ne sépare pas parfaitement les deux autres régions, Nord et Sardaigne. On va donc se concentrer sur les olives de ces deux régions.
+
+  <br>
+
+  Pour cela et pour se simplifier la vie, on peut créer un objet <code>olivesPasDuSud</code> à l'aide d'un filtre logique&nbsp;: <code>lesOlivesPasDuSud = olives.loc [:,"region"] != 1</code>.
+
+  <br>
+  
+  Ensuite, on fait des <i>scatter plots</i> de ces olives pour chaque paire d'attributs et en utilisant une couleur indiquant la région. On regarde ces graphiques et on essaie d'en identifier où les 2 olives des deux régions sont séparées. Rappelons-nous qu'un arbre de décision (comme ceux construits par l'algorithme disponible dans <code>scikit-learn</code> que nous utilisons) découpe l'espace de données avec des droites parallèles aux axes, ce qui correspond à des tests du type attribut &le; valeur. Essayons de trouver une paire d'attributs permettant de séparer les deux classes par une droite.
+
+  <br>
+
+  Avec 8 attributs, nous obtenons 8x7/2 graphiques&nbsp;:
+
+  <br>
+
+  <img src="arachidic-vs-eicosenoic.png" width="300" alt="fig">
+  <img src="linoleic-vs-arachidic.png" width="300" alt="fig">
+  <img src="linoleic-vs-eicosenoic.png" width="300" alt="fig">
+  <img src="linoleic-vs-linolenic.png" width="300" alt="fig">
+  <img src="linolenic-vs-arachidic.png" width="300" alt="fig">
+  <img src="linolenic-vs-eicosenoic.png" width="300" alt="fig">
+  <img src="oleic-vs-arachidic.png" width="300" alt="fig">
+  
+  <img src="oleic-vs-eicosenoic.png" width="300" alt="fig">
+  <img src="oleic-vs-linoleic.png" width="300" alt="fig">
+  <img src="oleic-vs-linolenic.png" width="300" alt="fig">
+  <img src="palmitic-vs-arachidic.png" width="300" alt="fig">
+  <img src="palmitic-vs-eicosenoic.png" width="300" alt="fig">
+  <img src="palmitic-vs-linoleic.png" width="300" alt="fig">
+  <img src="palmitic-vs-linolenic.png" width="300" alt="fig">
+  
+  <img src="palmitic-vs-oleic.png" width="300" alt="fig">
+  <img src="palmitic-vs-palmitoleic.png" width="300" alt="fig">
+  <img src="palmitic-vs-stearic.png" width="300" alt="fig">
+  <img src="palmitoleic-vs-arachidic.png" width="300" alt="fig">
+  <img src="palmitoleic-vs-eicosenoic.png" width="300" alt="fig">
+  <img src="palmitoleic-vs-linoleic.png" width="300" alt="fig">
+  <img src="palmitoleic-vs-linolenic.png" width="300" alt="fig">
+  
+  <img src="palmitoleic-vs-oleic.png" width="300" alt="fig">
+  <img src="palmitoleic-vs-stearic.png" width="300" alt="fig">
+  <img src="stearic-vs-arachidic.png" width="300" alt="fig">
+  <img src="stearic-vs-eicosenoic.png" width="300" alt="fig">
+  <img src="stearic-vs-linoleic.png" width="300" alt="fig">
+  <img src="stearic-vs-linolenic.png" width="300" alt="fig">
+  <img src="stearic-vs-oleic.png" width="300" alt="fig">
+
+  <br>
+
+  Il faut donc trouver un graphique où les points jaunes et les points violets peuvent être séparés par une droite quelconque. La figure ci-dessous illustre l'idée&nbsp;: les données des deux classes sont illustrées par les tâches colorées et on voit que l'on peut séparer les jaunes des bleus par une droite. N'étant ni horizontale ni verticale, cette droite ne peut pas être trouvée par l'algorithme de <code>scikit-learn</code> qui construit des arbres de décision. Par contre, cette droite nous saute aux yeux, ce qui montre encore une fois que l'être humain est bien supérieur à toutes les machines, même celles dont on prétend qu'elles sont intelligentes ;-)
+
+  <br>
+
+  <img src="combinaison-d-attributs.png" width="400" alt="fig">
+
+  <br>
+
+  Quand on a trouvé une telle paire d'attributs, on détermine l'équation d'une droite qui sépare les deux classes. Comment fait-on&nbsp;? À l'&oelig;il, on détermine deux points par lesquels passent cette droite.
+
+  <br>
+
+  Son équation est de la forme&nbsp;: acideY = a acideX + b, où acideX est l'acide en abscisses, acideY celui en ordonnées, a et b les coefficients de la droite qu'il faut calculer.
+
+  <br>
+
+  Maintenant, on a une règle du genre&nbsp;: si la donnée est en dessous de la droite, alors la classe est bleue, sinon sa classe est jaune. Autrement dit, le signe de acideY - a acideX - b indique la classe.
+
+  <br>
+
+  Dès lors, il suffit d'ajouter un nouvel attribut au jeu de données qui a cette valeur (acideY - a acideX - b) et de construire un arbre de décision avec ce jeu de données augmenté. L'algorithme va utiliser cet attribut pour construire un arbre qui ne fait plus d'erreur, ou du moins, en fait moins. J'obtiens&nbsp;:
+
+  <br>
+    
+  <img src="arbre_avec_attribut_mystere_sans_test.png" alt="fig">
+
+  <br>
+
+  <b>À faire&nbsp;:</b> Faites tout cela et calculez l'erreur de test du nouvel arbre de décision (j'obtiens 0).
+
+  <br>
+  <br>
+
+  Plus généralement, notre cerveau est capable de repérer des séparatrices bien plus complexes qu'une simple droite&nbsp: une courbe parabolique, de degré 3, une courbe en zigzag plus généralement, <i>etc.</i>
+
+  <br>
+
+  En guise d'exercice, supposons qu'il n'y ait pas de paire d'attributs séparant les jaunes des bleus (les olives du Nord de celles de Sardaigne).
+
+  <br>
+  <br>
+
+  <b>À faire&nbsp;:</b>
+
+</p>
+
+<ol>
+  <li>repérez une paire d'attributs qui semblent séparer les deux classes par une courbe du 2<sup>nd</sup> degré.</li>
+  <li>Une courbe du 2<sup>nd</sup> degré possède 3 coefficients. Cela signifie que nous avons 3 inconnues à déterminer, donc il nous faut 3 points pour les déterminer. À l'&oelig;il, déterminez 3 points par lesquels passent cette courbe du 2<sup>nd</sup> degré.</li>
+  <li>Posez le problème mathématique à résoudre pour trouver ces 3 inconnues à partir des coordonnées de ces 3 points.</li>
+  <li>Le résoudre.</li>
+  <li>En déduire un attribut à ajouter au jeu de données et l'ajouter.</li>
+  <li>Construire l'arbre de décision avec ce nouveau jeu de données augmenté (n'utilisez pas l'attribut que nous avons précédemment ajouté correspondant à la séparatrice linéaire).</li>
+  <li>Calculez l'erreur de test de ce nouvel arbre de décision.</li>
+</ol>
+
+<p>
+
 </p>
 </div>
 
