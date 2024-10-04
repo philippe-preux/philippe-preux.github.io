@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+  
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Classification supervisée, suite</title>
+    <!--link href="https://philippe-preux.github.io/css/ma.css" 
+	  rel="stylesheet" type="text/css" media="all"-->
+    <link href="file:///home/ppreux/philippe-preux.github.io/css/ma.css" 
+	  rel="stylesheet" type="text/css" media="all">
+    <link rel="shortcut icon" type="image/x-icon" 
+	  href="https://philippe-preux.github.io/img/site.ico">
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+      .aligncenter {
+	  text-align: center;
+      }
+      span.petit {
+	  font-size: 8px;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <div class="tpR">
+
+      <h1>Classification supervisée, suite</h1>
+      
+      <p>
+	
+	Après une introduction aux arbres de décision, nous allons poursuivre sur ce thème en abordant des points qui sont très souvent dans les applications réelles&nbs;: données manquantes, attributs nominaux.
+
+	<br>
+
+	Avant d'aborder le c&oelig;ur du sujet, on commence par étudier comment améliorer la performance des arbres de décision indutis sur un jeu de données.
+	
+	<br>
+	<br>
+	
+	À l'issue de ce TP, vous m'envoyez par email un compte-rendu (format <kbd>odt</kbd> ou <kbd>pdf</kbd>) indiquant la réponse aux questions qui sont posées. Vous m'envoyez également un fichier python réalisant toutes les manipulations de ce TP&nbsp;: je dois pouvoir exécuter ce fichier en tapant <kbd>python3 nom-de-votre-fichier.py</kbd> et reproduire vos résultats. Cette exécution ne doit pas provoquer d'erreur de python. Remarque&nbsp;: un <i>notebook</i> ne convient pas.
+    
+      </p>
+
+      <h2>Introduction</h2>
+    
+      <p>
+
+	On s'intéresse à un jeu de données concernant le diabète. Au début du TP, nous allons utiliser le jeu de données disponible à cet url <code>https://philippe-preux.github.io/ensg/miashs/datasets/pima-made-easy.csv</code>. Comme son nom l'indique, c'est un jeu de données classiques (pima) que j'ai simplifié.
+
+	<br>
+
+	<b>À faire&nbsp;:</b> vous chargez ce jeu de données et vous commencez par explorer visuellement ses attributs comme on l'a ait avec les olives.
+
+	<br>
+	<br>
+
+	Il y a 9 attributs&nbsp;: 8 sont quantitatifs et le dernier est la classe&nbsp;: patient diabétique (<code>pos</code>) ou pas (<code>neg</code>).
+	
+	<!--pregnant,glucose,pressure,triceps,insulin,mass,pedigree,age,diabetes-->
+
+	<br>
+	<br>
+
+	<b>À faire&nbsp;:</b> induire un arbre de décision, mesurez son erreur de test et son erreur moyenne dans une validation croisée à 10 plis.
+	
+      </p>
+      
+      <h2>Introduction</h2>
+    
+      <p>
+
+      </p>
+      
+</div>
+
+<!-- Default Statcounter code for on github
+https://philippe-preux.github.io -->
+<script>
+  var sc_project=12923547; 
+  var sc_invisible=1; 
+  var sc_security="627600d4"; 
+</script>
+<script src="https://www.statcounter.com/counter/counter.js" async></script>
+<noscript>
+  <div class="statcounter">
+    <a title="Web Analytics" href="https://statcounter.com/" target="_blank">
+      <img class="statcounter"
+	   src="https://c.statcounter.com/12923547/0/627600d4/1/"
+	   alt="Web Analytics"
+	   referrerPolicy="no-referrer-when-downgrade"></a>
+  </div>
+</noscript>
+  <!-- End of Statcounter Code -->
+  
+</body>
+</html>
