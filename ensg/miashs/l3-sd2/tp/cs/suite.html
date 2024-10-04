@@ -65,10 +65,44 @@
 	
       </p>
       
-      <h2>Introduction</h2>
+      <h2>Influence des paramètres de l'arbre induit</h2>
     
       <p>
 
+	Lors de la création d'un arbre de décision, on dispose de multiples paramètres optionnels qui peuvent être réglés. Ils peuvent avoir un impact important sur le taux d'erreur de l'arbre.
+
+	<br>
+	<br>
+
+	En apprentissage supervisé, il faut toujours garder à l'esprit que le plus gros modèle n'est pas toujours le meilleur. Bien au contraire, très souvent, un modèle moins gros possède un taux d'erreur plus faible. C'est le cas avec les arbres de décision&nbsp;: ce n'est pas le plus grand arbre qui prédit le mieux.
+
+	<br>
+	<br>
+
+	On va étudier trois paramètres&nbsp;:
+
+      </p>
+
+      <ul>
+	<li>le nombre d'exemples minimum associé à une feuille,</li>
+	<li>la mesure d'impureté,</li>
+	<li>la profondeur de l'arbre.</li>
+      </ul>
+
+      <h2>Valeurs manquantes</h2>
+
+      <p>
+
+	Les valeurs manquantes sont omniprésentes dans les jeux de données réels. On va maintenant utiliser le jeu de données original (que j'avais simplifié)&nbsp;: <code>https://philippe-preux.github.io/ensg/miashs/datasets/PimaIndiansDiabetes2.csv</code>.
+	
+      </p>
+      
+      <h2>Attributs nominaux</h2>
+
+      <p>
+
+	Les attributs sont faciles à traiter mais malheureusement, <code>scikit_learn</code> fait n'importe quoi les concernant. Comme c'est l'outil que l'on utilise, on va quand même voir comment faire avec cet outil.
+	
       </p>
       
 </div>
