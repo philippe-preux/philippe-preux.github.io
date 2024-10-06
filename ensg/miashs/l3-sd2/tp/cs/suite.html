@@ -20,53 +20,64 @@
       }
     </style>
   </head>
-  
+
   <body>
     <div class="tpR">
 
       <h1>Classification supervisée, suite</h1>
-      
+
       <p>
-	
-	Après une introduction aux arbres de décision, nous allons poursuivre sur ce thème en abordant des points qui sont très souvent dans les applications réelles&nbs;: données manquantes, attributs nominaux.
+
+	Après l'introduction aux arbres de décision réalisée dans le TP précédent, nous allons poursuivre sur ce thème en abordant des points qui sont très souvent dans les applications réelles&nbs;: données manquantes, attributs nominaux. On utilise un jeu de données moins simple que lors du TP précédent.
 
 	<br>
 
-	Avant d'aborder le c&oelig;ur du sujet, on commence par étudier comment améliorer la performance des arbres de décision indutis sur un jeu de données.
-	
+	Avant d'aborder le c&oelig;ur du sujet, on commence par étudier comment améliorer la performance des arbres de décision induits sur un jeu de données.
+
 	<br>
 	<br>
 	
 	À l'issue de ce TP, vous m'envoyez par email un compte-rendu (format <kbd>odt</kbd> ou <kbd>pdf</kbd>) indiquant la réponse aux questions qui sont posées. Vous m'envoyez également un fichier python réalisant toutes les manipulations de ce TP&nbsp;: je dois pouvoir exécuter ce fichier en tapant <kbd>python3 nom-de-votre-fichier.py</kbd> et reproduire vos résultats. Cette exécution ne doit pas provoquer d'erreur de python. Remarque&nbsp;: un <i>notebook</i> ne convient pas.
-    
+
       </p>
 
       <h2>Introduction</h2>
-    
+
       <p>
 
 	On s'intéresse à un jeu de données concernant le diabète. Au début du TP, nous allons utiliser le jeu de données disponible à cet url <code>https://philippe-preux.github.io/ensg/miashs/datasets/pima-made-easy.csv</code>. Comme son nom l'indique, c'est un jeu de données classiques (pima) que j'ai simplifié.
 
 	<br>
-
-	<b>À faire&nbsp;:</b> vous chargez ce jeu de données et vous commencez par explorer visuellement ses attributs comme on l'a ait avec les olives.
-
-	<br>
 	<br>
 
-	Il y a 9 attributs&nbsp;: 8 sont quantitatifs et le dernier est la classe&nbsp;: patient diabétique (<code>pos</code>) ou pas (<code>neg</code>).
-	
-	<!--pregnant,glucose,pressure,triceps,insulin,mass,pedigree,age,diabetes-->
+	Il y a 9 attributs&nbsp;: 8 sont quantitatifs et le dernier est la classe&nbsp;: patient diabétique (<code>pos</code>) ou pas (<code>neg</code>). Les 8 autres attributs contiennent l'information suivante&nbsp;:
 
-	<br>
-	<br>
-
-	<b>À faire&nbsp;:</b> induire un arbre de décision, mesurez son erreur de test et son erreur moyenne dans une validation croisée à 10 plis.
-	
       </p>
-      
+
+      <ul>
+	<li><code>pregnant</code>&nbsp;: nombre de grossesses,</li>
+	<li><code>glucose</code>&nbsp;: concentration de glucose dans le plasma sanguin 2 heures après un test oral de tolérance au glucose,</li>
+	<li><code>pressure</code>&nbsp;: pression sanguine diastolique,</li>
+	<li><code>triceps</code>&nbsp;: épaisseur d'un pli de peau au niveau du triceps,</li>
+	<li><code>insulin</code>&nbsp;: insuline à 2 heures,</li>
+	<li><code>mass</code>&nbsp;: IMC,</li>
+	<li><code>pedigree</code>&nbsp;: pedigré diabétique,</li>
+	<li><code>age</code>&nbsp;: âge.</li>
+      </ul>
+
+      <p>
+
+	<b>À faire&nbsp;:</b> vous chargez ce jeu de données et vous commencez par explorer visuellement ses attributs comme on l'a fait avec les olives. (Visualiser la répartition des valeurs de chaque attribut séparément et visualiser ensuite les données en fonction de chaque paire d'attributs en colorant chaque point en fonction de sa classe.) Voyez-vous quelque chose&nbsp;? Arrivez-vous à trouver quel attribut sera à la racine d'un arbre de décision&nbsp;?
+
+	<br>
+	<br>
+
+	<b>À faire&nbsp;:</b> induire un arbre de décision comme on l'a fait lors du TP précédent. Mesurez son taux de succès sur le jeu de test et son taux de succès moyen et son écart-type dans une validation croisée à 10 plis.
+
+      </p>
+
       <h2>Influence des paramètres de l'arbre induit</h2>
-    
+
       <p>
 
 	Lors de la création d'un arbre de décision, on dispose de multiples paramètres optionnels qui peuvent être réglés. Ils peuvent avoir un impact important sur le taux d'erreur de l'arbre.
@@ -84,27 +95,102 @@
       </p>
 
       <ul>
-	<li>le nombre d'exemples minimum associé à une feuille,</li>
+	<li>le nombre d'exemples minimum associés à une feuille,</li>
 	<li>la mesure d'impureté,</li>
 	<li>la profondeur de l'arbre.</li>
       </ul>
 
+      <h3>Nombre d'exemples minimum associés à une feuille</h3>
+
+      <p>
+
+	Le paramètre <code>min_samples_leaf</code> de la méthode <code>tree.DecisionTreeClassifier()</code> indique le nombre minimum d'exemples qui sont associés à une feuille lors de l'induction de l'arbre. Par défaut, cette valeur est 1, ce qui est évidemment bien trop petit&nbsp;: avec un seul exemple d'entraînement par feuille, la feuille prédit la classe de cet exemple et cette feuille risque fort de provoquer du sur-apprentissage.
+
+	<br>
+	<br>
+
+	<b>À faire&nbsp;:</b> en suivant la méthodologie vue lors du TP précédent, induire un arbre de décision pour ce jeu de données. (<i>I.e.</i>, vous découpez le jeu d'exemples en 80% d'exemples pour l'entraînement, les 20% restants pour le test puis vous induisez l'arbre.)
+	<br>
+	Ensuite, vous induisez 4 arbres pour lesquels vous spécifiez <code>min_samples_leaf</code> et donnez comme valeur 5, 10, 15, 20.
+	<br>
+	Vous mesurez l'erreur sur le jeu d'exemples de test de ces 5 arbres. Lequel donne la plus petite erreur&nbsp;?
+	<br>
+	Vous effectuez ensuite une validation croisée sur ces 5 arbres et mesurez le taux succès moyen et son écart-type pour chacun. Lequel produit les meilleures prédictions&nbsp;?
+	
+      </p>
+
+      <h3>Mesure d'impureté</h3>
+
+      <p>
+
+	Comme on l'a vu en cours, on peut mesurer l'impureté (comment les classes sont mélangées dans un jeu d'exemples) de différentes manières, en particulier l'impureté de Gini et l'entropie. Le paramètre <code>criterion</code> de la méthode <code>tree.DecisionTreeClassifier()</code> indique la mesure d'impureté à utiliser lors de l'induction. Par défaut, c'est l'impureté de Gini. Pour utiliser l'entropie, on indique <code>criterion="entropy"</code>.
+
+	<br>
+	<br>
+
+	<b>À faire&nbsp;:</b> pour les 5 arbres construits précédemment, vous construisez 5 autres arbres en utilisant l'entropie. Vous mesurez les mêmes taux d'erreur et de succès et vous comparez. L'un des critères donne-t-il de meilleurs résultats&nsbp;? Quelle combinaison des deux paramètres que nous venons d'étudier donne les meilleurs résultats&nbsp;?
+
+      </p>
+
+      <h3>Profondeur de l'arbre</h3>
+
+      <p>
+
+	Le paramètre <code>depth</code> de la méthode <code>tree.DecisionTreeClassifier()</code> indique la profondeur maximale de l'arbre. Ce paramètre permet de limiter la taille de l'arbre.
+	
+	<br>
+	<br>
+
+	<b>À faire&nbsp;:</b> en utilisant les meilleurs paramètres trouvés ci-dessus, vous induisez des arbres dont la profondeur varie de 1 à 20. Vous mesurez leur taux d'erreur/taux de succès toujours de la même manière. Vous faites un graphique indiquez cette mesure en fonction de la profondeur. Qu'observez-vous&nbsp;?
+
+	<br>
+	<br>
+
+	Ci-dessous, un graphique montrant le taux de succès en fonction de la profondeur de l'arbre induit&nbsp;:
+
+      </p>
+
+      <img src="cv_depth_1_19.png" width="300" fig="" >
+      
+      <p>
+
+	Dans cette fgure, outre le paramètre <code>depth</code> que l'on a fait varier, l'arbre est induit avec les paramètres <code>min_samples_leaf = 5, criterion = "entropy"</code>.
+	
+      </p>
+      
       <h2>Valeurs manquantes</h2>
 
       <p>
 
-	Les valeurs manquantes sont omniprésentes dans les jeux de données réels. On va maintenant utiliser le jeu de données original (que j'avais simplifié)&nbsp;: <code>https://philippe-preux.github.io/ensg/miashs/datasets/PimaIndiansDiabetes2.csv</code>.
-	
+	Les valeurs manquantes sont omniprésentes dans les jeux de données réels. On va maintenant utiliser le jeu de données original (que j'avais simplifié pour le début de ce TP)&nbsp;: <code>https://philippe-preux.github.io/ensg/miashs/datasets/PimaIndiansDiabetes2.csv</code>.
+
+	<br>
+	<br>
+
+	Face à un jeu d'exemples contenant des valeurs manquantes, l'approche la plus simple consiste à faire ce que l'on vient de faire&nbsp;: ne pas utiliser les exemples ayant une valeur manquante.
+
+	<br>
+
+	Cependant, il n'est pas rare que tous les exemples ou une grande partie des exemples aient des valeurs manquantes.
+
+	<br>
+
+	Comme c'est un problème très courant, une méthode par défaut pour remplacer les valeurs manquantes par une valeur est généralement disponible. C'est le cas dans <code>scikit_learn</code> mais c'est il ne faut pas l'utiliser. Très souvent, cette méthode fait n'importe quoi en appliquant un traitement simple que rien ne justifie. C'est effectivement ce que fait la méthode par défaut de <code>scikit_learn</code>.
+
+	<br>
+	<br>
+
+
       </p>
-      
+
       <h2>Attributs nominaux</h2>
 
       <p>
 
-	Les attributs sont faciles à traiter mais malheureusement, <code>scikit_learn</code> fait n'importe quoi les concernant. Comme c'est l'outil que l'on utilise, on va quand même voir comment faire avec cet outil.
-	
+	Les attributs nominaux sont faciles à traiter pourinduire un arbre de décision mais malheureusement, <code>scikit_learn</code> fait n'importe quoi les concernant. Comme c'est l'outil que l'on utilise, on va quand même voir comment faire avec cet outil. Mais je ne peux que vous encouragez à ne pas utiliser cette approche et à vous tourner vers un logiciel sérieux&nbsp;: R (ou encore <a href="">c4.5</a>). Malheureusement, nous n'avons pas le temps d'apprendre à utiliser R dans les quelques heures que dure ce module.
+
       </p>
-      
+
 </div>
 
 <!-- Default Statcounter code for on github
