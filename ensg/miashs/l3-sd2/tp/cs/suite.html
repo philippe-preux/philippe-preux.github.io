@@ -179,7 +179,7 @@
 	
       <p>
 
-	Nous allons illustrer le principe sur un jeu de données contenant des attrbuts nminaux et des attributs quantitatifs. Ce jeu de données est disponible à cette url <code>https://philippe-preux.github.io/ensg/miashs/datasets/mytips.csv</code>.
+	Nous allons illustrer le principe sur un jeu de données contenant des attrbuts nminaux et des attributs quantitatifs. Ce jeu de données est disponible à cette url <code>https://philippe-preux.github.io/ensg/miashs/datasets/enoughTip.csv</code>. Je suppose par la suite que vous avez chargé ce jeu de données dans un objet dénommé <code>tips</code>.
 
 	<br>
 	<br>
@@ -200,6 +200,7 @@
 	<li><code>DAY</code>&nbsp;: le jour,</li>
 	<li><code>TIME</code>&nbsp;: déjeuner ou dîner&nbsp;?</li>
 	<li><code>SIZE</code>&nbsp;: taille de la tablée.</li>
+	<li>
       </ul>
 
       <p>
@@ -208,7 +209,76 @@
 
 	<br>
 
-	Considérons le premier d'entre-eux, l'attribut <code>DAY</code> qui vaut <code>sun</code>, <code>sat</code>, <code>fri</code>, ou <code>thurs</code>. Pour pouvoir construire un arbre de décision avec <code>scikit_learn</code>, nous devons le transformer en un attribut numérique. La méthode que l'on va utiliser doit fonctionner quelque soit le nombre de valeurs que peut prendre l'attribut.
+	Considérons le premier d'entre-eux, l'attribut <code>DAY</code> qui vaut <code>sun</code>, <code>sat</code>, <code>fri</code>, ou <code>thurs</code>. Pour pouvoir construire un arbre de décision avec <code>scikit_learn</code>, nous devons le transformer en un attribut numérique. La méthode que l'on va utiliser doit fonctionner quelque soit le nombre de valeurs que peut prendre l'attribut (<em>arité</em> de l'attribut). Cette attribut prenant 4 valeurs différentes, il va être transformé en 4 attributs valant 0 ou 1&nbsp;: chacun de ces 4 attributs correspond donc à l'une des 4 valeurs possibles de l'attribut et 1 seul de ces 4 nouveaux attributs numériques vaudra 1.
+
+	<br>
+
+	Cela pourrait constituer un petit exercice de programmation, mais <code>pandas</code> dispose d'une fonction qui effectue cette transformation pour nous. Faites&nbsp;: <code>pd.get_dummies(tips.DAY).head()</code>. Cela affiche&nbsp;:
+	<br>
+	
+	<pre>   fri   sat   sun   thurs 
+0     0     0     1       0
+1     0     0     1       0
+2     0     0     1       0
+3     0     0     1       0
+4     0     0     1       0</pre>
+
+	<br>
+
+	alors que cet attribut vaut&nbsp;:
+
+	<br>
+
+	<pre>>>> tips.loc[:,"DAY"].head()
+0    sun 
+1    sun 
+2    sun 
+3    sun 
+4    sun 
+Name: DAY, dtype: object</pre>
+
+	<br>
+
+	On voit que la valeur d'origine de l'attribut est transformé en un <i>data frame</i> <code>pandas</code> composé de 4 colonnes, une colonne par valeur possible.
+
+	<br>
+
+	On peut regarder la fin du <i>data frame</i>&nbsp;
+
+	<br>
+
+	<pre>>>> tips.loc[:,"DAY"].tail()
+239      sat 
+240      sat 
+241      sat 
+242      sat 
+243    thurs 
+Name: DAY, dtype: object</pre>
+
+	<br>
+
+	qui se transforme en &nbsp;:
+
+	<br>
+
+	<pre>>>> pd.get_dummies(tips.DAY).tail()
+     fri   sat   sun   thurs 
+239     0     1     0       0
+240     0     1     0       0
+241     0     1     0       0
+242     0     1     0       0
+243     0     0     0       1</pre>
+	
+	<br>
+	<br>
+
+	Maintenant que l'on sait transformer un attribut en un ensemble d'attributs numériques, il suffit d'ajouter ces 4 attributs au <i>data frame</i> et de retirer l'attribut nominal d'origine. Pour ajouter les colonnes, on utilise la méthode <code>join()</code> de <code>pandas</code>. Pour retirer une colonne, on utilise la méthode <code>drop ()</code> de <code>pandas</code>. Cela s'utilise de la manière suivante&nbsp;:
+
+	<br>
+
+	<pre>>>> tips = tips.join (pd.get_dummies(tips.DAY))
+
+	<br>
 	
       </p>
       
