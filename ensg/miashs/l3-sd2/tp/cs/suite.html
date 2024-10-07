@@ -277,9 +277,29 @@ Name: DAY, dtype: object</pre>
 
 	<br>
 
-	<pre>>>> tips = tips.join (pd.get_dummies(tips.DAY))</pre>
+	<pre>>>> tips = tips.join (pd.get_dummies(tips.DAY))
+tips.drop (columns = ["DAY"], inplace=True)</pre>
 
 	<br>
+
+	<b>À faire&nbsp;:</b> faites ce que je viens d'expliquer et traitez de la même manière les autres attributs nominaux (<code>SEX</code>, <code>SMOKER</code>, <code>TIME</code>).
+
+	<br>
+
+	Remarquez que vous pouvez retirer plusieurs colonnes en une seule instruction en indiquant leur nom dans le paramètre <code>columns</code> de la méthode <code>drop()</code>.
+	
+      </p>
+      
+      <h3>Induction d'un arbre de décision</h3>
+
+      <p>
+
+	Le <i>data frame</i> est maintenant utilisable par l'algorithme d'induction d'arbres de décision.
+
+	<br>
+	<br>
+
+	<b>À faire&nbsp;:</b> en suivant la méthode vue précédemment, induire un arbre de décision. Essayez de l'améliorer en modifiant les paramètres de l'arbre.
 	
       </p>
       
