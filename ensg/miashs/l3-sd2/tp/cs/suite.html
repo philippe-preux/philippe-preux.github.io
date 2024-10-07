@@ -157,12 +157,66 @@
 	Dans cette figure, outre le paramètre <code>depth</code> que l'on a fait varier, l'arbre est induit avec les paramètres <code>min_samples_leaf = 5, criterion = "entropy"</code>. Réalisez ce type de représentation graphique.
 	
       </p>
+
+      <h3>Approche automatique</h3>
+
+      <p>
+
+	Nous décrivons maintenant une méthode permettant de déterminer de bons paramètres.
+
+	
+      </p>
+      
+      <h2>Attributs nominaux (ou catégoriques)</h2>
+
+      <p>
+
+	Les attributs nominaux sont faciles à traiter pour induire un arbre de décision mais malheureusement, <code>scikit_learn</code> ne sait pas le faire. Il faut utiliser des moyens détournés pour arriver à les prendre en compte, quoique de manière pas très satisfaisante. Comme c'est l'outil que l'on utilise, on va quand même voir comment faire avec cet outil. Mais je ne peux que vous encouragez à ne pas utiliser cette approche et à vous tourner vers un logiciel sérieux&nbsp;: R (ou encore <a href="">c4.5</a>). Malheureusement, nous n'avons pas le temps d'apprendre à utiliser R dans les quelques heures que dure ce module.
+
+      </p>
+      
+      <h3>Principe de traitement des attributs nominaux</h3>
+	
+      <p>
+
+	Nous allons illustrer le principe sur un jeu de données contenant des attrbuts nminaux et des attributs quantitatifs. Ce jeu de données est disponible à cette url <code>https://philippe-preux.github.io/ensg/miashs/datasets/mytips.csv</code>.
+
+	<br>
+	<br>
+
+	Aux États-Unis (et dans d'autres pays), à moins d'être un goujat ou d'avoir été particulièrement mal traité par le serveur, on donne systématiquement un pourboire au restaurant et dans les bars. En effet, le service n'est pas inclus dans la note. En principe, ce pourboire s'élève à au moins 15% de la note.
+
+	<br>
+
+	Chaque ligne de ce jeu de données contient des informations concernant une tablée dans un restaurant&nbsp;:
+
+      </p>
+
+      <ul>
+	<li><code>TOTBILL</code>&nbsp;: le montant de la note,</li>
+	<li><code>TIP</code>&nbsp;: le montant du pourboire laissé par le client,</li>
+	<li><code>SEX</code>&nbsp;: le sexe du client ayant payé la note,</li>
+	<li><code>SMOKER</code>&nbsp;: est-il fumeur ou pas&nbsp;?</li>
+	<li><code>DAY</code>&nbsp;: le jour,</li>
+	<li><code>TIME</code>&nbsp;: déjeuner ou dîner&nbsp;?</li>
+	<li><code>SIZE</code>&nbsp;: taille de la tablée.</li>
+      </ul>
+
+      <p>
+
+	Les attributs <code>TOTBILL</code>, <code>TIP</code> et <code>SIZE</code> sont numériques. Les autres attributs sont nominaux.
+
+	<br>
+
+	Considérons le premier d'entre-eux, l'attribut <code>DAY</code> qui vaut <code>sun</code>, <code>sat</code>, <code>fri</code>, ou <code>thurs</code>. Pour pouvoir construire un arbre de décision avec <code>scikit_learn</code>, nous devons le transformer en un attribut numérique. La méthode que l'on va utiliser doit fonctionner quelque soit le nombre de valeurs que peut prendre l'attribut.
+	
+      </p>
       
       <h2>Valeurs manquantes</h2>
 
       <p>
 
-	Les valeurs manquantes sont omniprésentes dans les jeux de données réels. On va maintenant utiliser le jeu de données original (que j'avais simplifié pour le début de ce TP)&nbsp;: <code>https://philippe-preux.github.io/ensg/miashs/datasets/PimaIndiansDiabetes2.csv</code>.
+	Les valeurs manquantes sont omniprésentes dans les jeux de données réels. Pour ce TP, j'ai simplifié le jeu de données original (<code>https://philippe-preux.github.io/ensg/miashs/datasets/PimaIndiansDiabetes2.csv</code>) en retirant toutes les données ayant au moins un attribut dont la valeur est manquante.
 
 	<br>
 	<br>
@@ -171,7 +225,7 @@
 
 	<br>
 
-	Cependant, il n'est pas rare que tous les exemples ou une grande partie des exemples aient des valeurs manquantes.
+	Les données manquantes étant omniprésentes, il est très tentant de vouloir leur affecter une valeur. Cependant, déterminer la, ou une, bonne valeur est un problème très difficile de manière générale.
 
 	<br>
 
@@ -180,14 +234,6 @@
 	<br>
 	<br>
 
-
-      </p>
-
-      <h2>Attributs nominaux</h2>
-
-      <p>
-
-	Les attributs nominaux sont faciles à traiter pour induire un arbre de décision mais malheureusement, <code>scikit_learn</code> fait n'importe quoi les concernant. Comme c'est l'outil que l'on utilise, on va quand même voir comment faire avec cet outil. Mais je ne peux que vous encouragez à ne pas utiliser cette approche et à vous tourner vers un logiciel sérieux&nbsp;: R (ou encore <a href="">c4.5</a>). Malheureusement, nous n'avons pas le temps d'apprendre à utiliser R dans les quelques heures que dure ce module.
 
       </p>
 
