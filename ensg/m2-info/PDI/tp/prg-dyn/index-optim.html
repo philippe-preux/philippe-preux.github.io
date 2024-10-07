@@ -140,6 +140,77 @@
     Résoudre le problème du 21-avec-un-dé.
     
   </p>
+  <h2>Résolution par programmation linéaire</h2>
+
+  <p>
+
+    Implanter la résolution d'un problème de décision de Markov par programmation linéaire.
+
+    <br>
+    <br>
+
+    La tester sur le problème du chauffeur de taxi et sur le problème du 21-avec-un-dé. Retrouvez-vous les mêmes politiques optimales que par la méthode d'itération sur les politiques&nbsp;?
+    
+  </p>
+
+  <div class="row">
+    <div class="columnC" >
+      <b>C</b>
+      <div class="c">
+	<p>
+	On utilise la bibliothèque <code>glpk</code> pour résoudre un programme linéaire. Elle est installée sur les ordinateurs en salle TP. Sur votre ordinateur personnel, il faut peut-être l'installer. Sous Ubuntu, la documentation est dans le fichier <code>/usr/share/doc/glpk-doc/glpk.pdf</code>.
+	</p>
+      </div>
+    </div>
+    <div class="columnP" >
+      <b>Python</b>
+      <div class="python">
+	<p>	  
+	  On utilise la bibliothèque <code>PuLP</code>. Si <code>import pulp</code> ne fonctionne pas, faites un <code>pip3 install pulp</code> et ça fonctionnera.
+
+	  <br>
+	  <br>
+
+	  Une courte introduction à l'utilisation de PuLP pour résoudre un programme linéaire.
+	  <br>
+	  On considère le petit problème vu en cours et qui est décrit dans l'annexe D du polycopié. On le résout à l'aide du code ci-dessous&nbsp;:
+
+	  <pre>import numpy as np
+import pulp
+
+N = 2 # nombre de variables
+x = pulp.LpVariable.dicts ("x", (range (N))) # les variables
+prob = pulp.LpProblem ("exemple", pulp.LpMaximize)
+
+# on définit la fonction objectif
+prob += sum ([x [i] for i in range (N)])
+
+# on définit les contraintes
+prob += x [0] + 2 * x [1] <= 4
+prob += 4 * x [0] + 2 * x [1] <= 12
+prob += - x [0] + x [1] <= 1
+
+#on résout le PL
+prob. solve ()
+solution = np. zeros (N)
+
+# on affiche la solution
+print ("Solution du primal :")
+for i in range (N):
+    solution [i] = x [i]. varValue
+    print (solution [i])
+
+solution_dual = np.zeros ((N, 3))
+s = 0
+a = 0
+M = 3 # nombre de contraintes
+print ("solution du dual")
+for name, c in list(prob.constraints.items()):
+    print (c. pi)</pre>
+	</p><div class="theUglyTrick"><br><br></div>
+      </div>
+    </div>
+  </div>
   
 </div>
 
