@@ -453,8 +453,20 @@ fig.show ()
     
     <b>À faire&nbsp;:</b> réalisez ce graphique et le comprendre. En particulier, comprendre ce qui est affiché dans chaque n&oelig;ud.
 
-    <br>
-    <br>
+  </p>
+
+
+  <div class="correction">
+    Dans chaque n&oeilig;ud, on trouve de haut en bas, par exemple pour le n&oelig;ud racine&nbsp;:
+    <ul>
+      <li><code>X [7] <= 6.5</code>&nbsp;: le test réalisé dans le n&oelig;ud.</li>
+      <li><code>gini = 0.566</code>&nbsp;: impureté de l'ensemble d'exemples utilisés pour créer ce n&oelig;ud. On applique la formule \( \sum_{c \in classe} p_c (1 - p_c) \), soit <code>sum (olivesY_train.value_counts()/olivesY_train.shape[0] * (1 - olivesY_train.value_counts()/olivesY_train.shape[0]))</code></li>
+      <li><code>samples = 457</code>&nbsp;: le cardinal de l'ensemble d'exemples utilisés pour construire ce n&oelig;ud. Pour le n&oeligud racine, c'est <code>olivesX_train. shape [0]</code>.</li>
+      <li><code>value = [268, 73, 116]</code>&nbsp;: <code>olivesY_train.value_counts()</code>.</li>
+    </ul>
+  </div>
+  
+  <p>
 
     Les tests réalisés à chaque n&oelig;ud sont difficiles à comprendre. Pour afficher le nom des attributs, on ajoutera <kbd>feature_names = list (olives_test)</kbd> dans l'appel de la méthode <kbd>plot_tree()</kbd>. Et on obtient&nbsp;:
     
