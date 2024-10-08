@@ -353,9 +353,36 @@ arbre = arbre.fit (olivesX_train, olivesY_train)</pre>
     </p>
 
   <ol>
-    <li>créer les 4 objets <code>olivesX_train</code>, <code>olivesX_test</code>, <code>olivesY_train</code> et <code>olivesY_test</code>.</li>
-    <li>Vérifier que la proportion des données de chacune des 3 classes est à peu près la même dans le jeu de données initial, dans le jeu de données d'entraînement et le jeu de données de test.</li>
-    <li>Induire un arbre de décision à partir de <kbd>olivesX_train</kbd> et <code>olivesY_train</code>. Il y a beaucoup de paramètres qui peuvent être réglés mais nous nous en tiendrons à leur valeur par défaut dans un premier temps (<i>cf.</i> ci-dessus).</li>
+    <li>créer les 4 objets <code>olivesX_train</code>, <code>olivesX_test</code>, <code>olivesY_train</code> et <code>olivesY_test</code>.
+      <br>
+      <div class="correction">
+	Vu plus haut.
+      </div>
+    </li>
+    <li>Vérifier que la proportion des données de chacune des 3 classes est à peu près la même dans le jeu de données initial, dans le jeu de données d'entraînement et le jeu de données de test.
+      <br>
+      <div class="correction">
+	On calcule la proportion des exemples de chacune des trois classes dans le jeu d'entraînement puis dans le jeu de test&nbsp;:
+	<pre>>>> olivesY_train.value_counts()/olivesX_train.shape[0]
+1    0.586433
+3    0.253829
+2    0.159737
+Name: region, dtype: float64
+>>> olivesY_test.value_counts()/olivesY_test.shape[0]
+1    0.478261
+3    0.304348
+2    0.217391
+Name: region, dtype: float64</pre>
+      </div>
+      <br>
+      et on constate que les proportions sont à peu près les mêmes.
+    </li>
+    <li>Induire un arbre de décision à partir de <kbd>olivesX_train</kbd> et <code>olivesY_train</code>. Il y a beaucoup de paramètres qui peuvent être réglés mais nous nous en tiendrons à leur valeur par défaut dans un premier temps (<i>cf.</i> ci-dessus).
+      <br>
+      <div class="correction">
+	Vu plus haut.
+      </div>
+    </li>
   </ol>
   
       <p>
