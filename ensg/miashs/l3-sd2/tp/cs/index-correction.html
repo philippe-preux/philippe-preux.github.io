@@ -136,7 +136,6 @@
 	On fait une boucle pour obtenir les graphiques&nbsp;:
 	
 	<br>
-	<br>
 	
 	<pre>olives ["numero"] = range (olives.shape [0])
 acides = list(olives) [3:11]
@@ -171,7 +170,8 @@ plt.show ()</pre>
       </p>
 
       <div class="correction">
-	On ne s'intéresse qu'aux exemples de classe 2 et 3. J'indique deux méthodes pour afficher les graphiques. La première correspond à celle que l'on a vu dans le TP concernant les graphiques. La seconde corresponde à une autre méthode que nous verrons dand un prochain TP.
+	<br>
+	on ne s'intéresse qu'aux exemples de classe 2 et 3. J'indique deux méthodes pour afficher les graphiques. La première correspond à celle que l'on a vu dans le TP concernant les graphiques. La seconde corresponde à une autre méthode que nous verrons dand un prochain TP.
 	<br>
 	Première méthode&nbsp;:
 	<br>
@@ -181,7 +181,6 @@ for acide in acides:
     olives [olives.region != 1].plot.scatter (x = acide, y = "numero", title = "Scatter plot régions 2 et 3", c = "region", colormap = "plasma")
 
 plt.show ()</pre>
-	<br>
 	Seconde méthode&nbsp;:
 	<br>	
 	<pre>fig, ax = plt.subplots (2, 4)
@@ -194,23 +193,18 @@ for i in range (2):
 
 fig.show ()</pre>
 	<br>
-	<br>
-
+	<br>	
 	Ce qui donne&nbsp;:
-	
 	<br>
-
 	<img src="./olives_plots_region_2_et_3.png" alt="">
-	
-	<br>
-	
+	<br>	
+	<br>	
 	Ce n'est pas évident de le voir, mais les deux classes peuvent être séparées avec l'acide linoleic. On peut le vérifier en comparant
 	<br>
 	<pre>>>> np.min (olives.linoleic [olives.region == 2])
 1057
 >>> np.max (olives.linoleic [olives.region == 3])
 1050</pre>
-	<br>
 	Il y a bien un écart entre les deux classes, petit, mais l'algorithme d'induction d'un arbre de décision le détecte sans difficulté.
       </div>
       
