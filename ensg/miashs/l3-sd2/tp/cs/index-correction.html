@@ -171,20 +171,29 @@ plt.show ()</pre>
       </p>
 
       <div class="correction">
-	On ne s'intéresse qu'aux exemples de classe 2 et 3.
+	On ne s'intéresse qu'aux exemples de classe 2 et 3. J'indique deux méthodes pour afficher les graphiques. La première correspond à celle que l'on a vu dans le TP concernant les graphiques. La seconde corresponde à une autre méthode que nous verrons dand un prochain TP.
 	<br>
+	Première méthode&nbsp;:
 	<br>
-	On obtient les graphiques suivant&nbsp;:
-	<br>
-	
-	
-	<br>
-	<br>	
-	<pre>for acide in acides:
-    olives [olives.region != 1].plot.scatter (x = acide, y = "numero", title = "Scatter plot", c = "region", colormap = "plasma")
+	<pre>fig, ax = plt.subplots (2, 4)
+acides = list(olives) [3:11]
+for acide in acides:
+    olives [olives.region != 1].plot.scatter (x = acide, y = "numero", title = "Scatter plot régions 2 et 3", c = "region", colormap = "plasma")
 
 plt.show ()</pre>
+	<br>
+	Seconde méthode&nbsp;:
+	<br>	
+	<pre>fig, ax = plt.subplots (2, 4)
+acides = list(olives) [3:11]
+for i in range (2):
+    for j in range (4):
+        ax [i, j]. scatter (olives.loc [olives.region != 1, acides [2*i+j]], olives.numero [olives.region != 1], c = olives.region [olives.region != 1], s = 1)
+        ax [i, j]. set_xlabel (acides [2*i+j])
+        ax [i, j]. set_ylabel ("numéro")
 
+fig.show ()</pre>
+	<br>
 	<br>
 
 	Ce qui donne&nbsp;:
