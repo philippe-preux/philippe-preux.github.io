@@ -403,10 +403,14 @@ Name: region, dtype: float64</pre>
   <p>
 
     <b>À faire&nbsp;:</b> faites ce qui vient d'être expliqué. Quelle est la valeur de cette estimation&nbsp;?
+  </p>
+  
+  <div class="correction">
+    <pre>sum (arbre.predict (olivesX_test) == olivesY_test) / X_test.shape [0]</pre>
+  </div>
 
-    <br>
-    <br>
-
+  <p>
+	
     Il est intéressant de mesurer ce taux d'erreur pour chaque classe.
 
     <br>
@@ -414,7 +418,13 @@ Name: region, dtype: float64</pre>
     <b>À faire&nbsp;:</b> mesurer le taux d'erreur pour chaque classe. Les 3 classes sont-elles toutes les 3 prédites correctement avec la même probabilité&nbsp;?
     
   </p>
-  
+
+  <div class="correction">
+    <pre>for cl in olivesY_test.unique():
+    filtre = olivesY_test == cl
+    print (sum (arbre.predict (olivesX_test.loc [filtre,:]) == olivesY_test [filtre]) / sum (filtre))</pre>
+  </div>
+
   <h3>Interprétation d'un arbre de décision</h3>
 
   <p>
