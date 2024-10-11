@@ -760,9 +760,27 @@ C'est donc beaucoup moins bien. La prédiction de la zone est plus difficile que
   <br>
 
   <b>À faire&nbsp;:</b> reproduisez ces 28 graphiques.
-  
+
+</p>
+
+<div class="correction">
+  Pour réaliser ces 28 graphiques, on fait une boucle&nbsp;:
   <br>
-  <br>
+  <pre>attributs = list (olives)
+for i in range(3,11):
+    for j in range(i+1,11):
+        fig, ax = plt.subplots ()
+        attr1 = attributs [i]
+        attr2 = attributs [j]
+        ax. scatter (olives.loc [lesOlivesPasDuSud, attr1], olives.loc [lesOlivesPasDuSud, attr2], c = olives.loc [lesOlivesPasDuSud].region)
+        ax.set_xlabel (attr1)
+        ax.set_ylabel (attr2)
+        ax.set_title ("Séparation ?")
+        #fig.savefig (attr1 + "-vs-" + attr2 + ".png")
+        fig.show ()</pre>
+</div>
+
+<p>
 
   Il faut donc trouver un graphique où les points jaunes et les points violets peuvent être séparés par une droite quelconque. La figure ci-dessous illustre l'idée&nbsp;: les données des deux classes sont illustrées par les tâches colorées et on voit que l'on peut séparer les jaunes des bleus par une droite. N'étant ni horizontale ni verticale, cette droite ne peut pas être trouvée par l'algorithme de <code>scikit-learn</code> qui construit des arbres de décision. Par contre, cette droite nous saute aux yeux, ce qui montre encore une fois que l'être humain est bien supérieur à toutes les machines, même celles dont on prétend qu'elles sont intelligentes ;-)
 
@@ -794,8 +812,25 @@ C'est donc beaucoup moins bien. La prédiction de la zone est plus difficile que
 
   <b>À faire&nbsp;:</b> Faites tout cela et calculez l'erreur de test du nouvel arbre de décision (j'obtiens 0).
 
-  <br>
-  <br>
+</p>
+
+
+<div class="correction">
+  On voit que linoleic et arachidic sont séparables par une droite.
+  On voit sur le graphique qu'une telle droite passe par les points (1000, 100) et (1200, 0). On calcule donc l'équation de cette droite.
+  <pre>olives2 = olives.assign (linara = olives.linoleic / 2 + olives.arachidic - 600)
+olives2X_train, olives2X_test, olives2Y_train, olives2Y_test = train_test_split (olives2.iloc [:,3:12], olives2.iloc[:,2], test_size = .2, random_state = 123)
+
+arbre2 = tree.DecisionTreeClassifier()
+arbre2 = arbre2.fit (olives2X_train, olives2Y_train)
+
+print ("Erreur de test : {}".format(sum (arbre2.predict (olives2X_test) != olives2Y_test) / olives2X_test.shape [0]))
+
+
+  </pre>
+</div>
+
+<p>
 
   Plus généralement, notre cerveau est capable de repérer des séparatrices bien plus complexes qu'une simple droite&nbsp: une courbe parabolique, de degré 3, une courbe en zigzag plus généralement, <i>etc.</i>
 
