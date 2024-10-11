@@ -524,8 +524,16 @@ fig.show ()
 
     <b>À faire&nbsp;:</b> effectuer ce qui vient d'être expliqué. Que pensez-vous du résultat&nbsp;?
 
-    <br>
-    <br>
+  <div class="correction">
+    <pre>taux_de_succès = []
+for i in range (100):
+    olivesX_train, olivesX_test, olivesY_train, olivesY_test = train_test_split (olives.iloc [:,3:11], olives.region, test_size = .2, random_state = i)
+    arbre = tree.DecisionTreeClassifier()
+    arbre = arbre.fit (olivesX_train, olivesY_train)
+    taux_de_succès.append (sum (arbre.predict (olivesX_test) == olivesY_test) / olivesX_test.shape [0])
+
+print ("Taux de succès moyen et écart-type : {:.2f}, {:.2f}".format (np.mean(taux_de_succès), np.std (taux_de_succès)))</pre>
+  </div>
 
     La manière traditionnelle d'effectuer cela se nomme une <em>validation croisée</em>. Une validation croisée consiste à&nbsp;:
 
