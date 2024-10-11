@@ -533,6 +533,8 @@ for i in range (100):
     taux_de_succès.append (sum (arbre.predict (olivesX_test) == olivesY_test) / olivesX_test.shape [0])
 
 print ("Taux de succès moyen et écart-type : {:.2f}, {:.2f}".format (np.mean(taux_de_succès), np.std (taux_de_succès)))</pre>
+    
+    ce qui me donne <code>1.00 0.00</code>.
   </div>
 
     La manière traditionnelle d'effectuer cela se nomme une <em>validation croisée</em>. Une validation croisée consiste à&nbsp;:
@@ -552,8 +554,8 @@ print ("Taux de succès moyen et écart-type : {:.2f}, {:.2f}".format (np.mean(t
     </p>
 
     <pre>>>> cross_val_score (arbre, olives.iloc [:, 3:olives.shape[1]], olives.iloc [:,1], cv = 10)
-array([1.        , 1.        , 1.        , 1.        , 1.        ,
-       1.        , 0.98245614, 1.        , 1.        , 1.        ])</pre>
+array([0.77586207, 1.        , 1.        , 1.        , 1.        ,
+       1.        , 1.        , 1.        , 1.        , 0.63157895])</pre>
 
     <p>
 
@@ -565,6 +567,14 @@ array([1.        , 1.        , 1.        , 1.        , 1.        ,
 
   </p>
 
+
+  <div class="correction">
+    <pre>taux_de_succès_par_cv = cross_val_score (arbre, olives.iloc [:, 3:olives.shape[1]], olives.iloc [:,1], cv = 10)
+print ("Taux de succès moyen et écart-type : {:.2f}, {:.2f}".format (np.mean(taux_de_succès_par_cv), np.std (taux_de_succès_par_cv)))</pre>
+    
+    ce qui me donne <code>0.94, 0.12</code>.
+  </div>
+    
   <h3>Reproductibilité</h3>
 
   <!--p>
