@@ -490,8 +490,14 @@ fig.show ()
 
     <b>Faites-le.</b>
 
-    <br>
-    <br>
+  </p>
+  
+  <div class="correction">
+    <pre>tree.plot_tree (arbre, feature_names = list (olivesX_test), class_names = ["Sud", "Sardaigne", "Nord"], filled = True)
+plt.show ()</pre>
+  </div>
+  
+      <p>
 
     Un arbre de décision peut facilement être transformé en un ensemble de règles de décision. Ici l'arbre est très petit, c'est facile.
 
@@ -827,10 +833,7 @@ olivesPasDuSudX_train, olivesPasDuSudX_test, olivesPasDuSudY_train, olivesPasDuS
 arbre2 = tree.DecisionTreeClassifier()
 arbre2 = arbre2.fit (olivesPasDuSudX_train, olivesPasDuSudY_train)
 
-print ("Erreur de test : {}".format(sum (arbre2.predict (olivesPasDuSudX_test) != olivesPasDuSudY_test) / olivesPasDuSudX_test.shape [0]))
-
-
-  </pre>
+print ("Erreur de test : {}".format(sum (arbre2.predict (olivesPasDuSudX_test) != olivesPasDuSudY_test) / olivesPasDuSudX_test.shape [0]))</pre>
 </div>
 
 <p>
@@ -867,8 +870,16 @@ print ("Erreur de test : {}".format(sum (arbre2.predict (olivesPasDuSudX_test) !
   <br>
 
   <b>À faire&nbsp;:</b>
-  Calculez cette valeur «&nbsp;à la main&nbsp;» et vérifiez que vous obtenez la même valeur. Pour un problème à 2 classes, quelle est la valeur maximale de l'impureté de Gini&nbsp;? et pour un problème à C classes&nbsp;?
+  Calculez cette valeur «&nbsp;à la main&nbsp;» et vérifiez que vous obtenez la même valeur.
 
+  <br>
+
+  Pour un problème à 2 classes, quelle est la valeur maximale de l'impureté de Gini&nbsp;? et pour un problème à C classes&nbsp;?
+
+
+
+
+  
 <!--  <br>
   <br>
 
