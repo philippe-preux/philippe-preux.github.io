@@ -815,9 +815,10 @@ for i in range(3,11):
 </p>
 
 
-<div class="correction">
+<!--div class="correction">
   On voit que linoleic et arachidic sont séparables par une droite.
   On voit sur le graphique qu'une telle droite passe par les points (1000, 100) et (1200, 0). On calcule donc l'équation de cette droite.
+  <br>
   <pre>olives2 = olives.assign (linara = olives.linoleic / 2 + olives.arachidic - 600)
 olives2X_train, olives2X_test, olives2Y_train, olives2Y_test = train_test_split (olives2.iloc [:,3:12], olives2.iloc[:,2], test_size = .2, random_state = 123)
 
@@ -828,7 +829,7 @@ print ("Erreur de test : {}".format(sum (arbre2.predict (olives2X_test) != olive
 
 
   </pre>
-</div>
+</div-->
 
 <p>
 
