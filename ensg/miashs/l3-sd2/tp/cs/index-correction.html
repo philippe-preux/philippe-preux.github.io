@@ -459,7 +459,7 @@ fig.show ()
   <div class="correction">
     Dans chaque n&oelig;ud, on trouve de haut en bas, par exemple pour le n&oelig;ud racine&nbsp;:
     <ul>
-      <li><code>X [7] <= 6.5</code>&nbsp;: le test réalisé dans le n&oelig;ud.</li>
+      <li><code>X [7] &lt; 6.5</code>&nbsp;: le test réalisé dans le n&oelig;ud.</li>
       <li><code>gini = 0.566</code>&nbsp;: impureté de l'ensemble d'exemples utilisé pour créer ce n&oelig;ud. On applique la formule \( \sum_{c \in classe} p_c (1 - p_c) \), soit <code>sum (olivesY_train.value_counts()/olivesY_train.shape[0] * (1 - olivesY_train.value_counts()/olivesY_train.shape[0]))</code></li>
       <li><code>samples = 457</code>&nbsp;: le cardinal de l'ensemble d'exemples utilisés pour construire ce n&oelig;ud. Pour le n&oelig;ud racine, c'est <code>olivesX_train. shape [0]</code>.</li>
       <li><code>value = [268, 73, 116]</code>&nbsp;: <code>olivesY_train.value_counts()</code>.</li>
@@ -545,6 +545,8 @@ print ("Taux de succès moyen et écart-type : {:.2f}, {:.2f}".format (np.mean(t
     ce qui me donne <code>1.00 0.00</code>.
   </div>
 
+  <p>
+    
     La manière traditionnelle d'effectuer cela se nomme une <em>validation croisée</em>. Une validation croisée consiste à&nbsp;:
 
   </p>
@@ -839,7 +841,7 @@ print ("Erreur de test : {}".format(sum (arbre2.predict (olives2X_test) != olive
 
 <p>
 
-  Plus généralement, notre cerveau est capable de repérer des séparatrices bien plus complexes qu'une simple droite&nbsp: une courbe parabolique, de degré 3, une courbe en zigzag plus généralement, <i>etc.</i>
+  Plus généralement, notre cerveau est capable de repérer des séparatrices bien plus complexes qu'une simple droite&nbsp;: une courbe parabolique, de degré 3, une courbe en zigzag plus généralement, <i>etc.</i>
 
   <br>
 
@@ -878,11 +880,11 @@ print ("Erreur de test : {}".format(sum (arbre2.predict (olives2X_test) != olive
 <div class="correction">
   <p>
     Pour l'arbre construit plus avec <code>olivesX_train</code> et <code>olivesY_train</code>, on obtient l'impureté de Gini de la manière suivante&nbsp;:
-    <pre># calcul des proportions des exemples de chaque classe :
+  </p>
+  <pre># calcul des proportions des exemples de chaque classe :
 p = olivesY_train.value_counts()/olivesY_train.shape[0]
 # utilisation de la formule
 sum(p * (1-p))</pre>
-  </p>
 </div>
 
 <p>
@@ -911,8 +913,6 @@ sum(p * (1-p))</pre>
   
   <b>À faire&nbsp;:</b> sur le jeu de données olives d'origine, comparez les arbres construits en utilisant l'impureté de Gini avec ceux construits en utilisant l'entropie. Comme pour l'impureté de Gini, vérifiez «&nbsp;à la main&nbsp;» le calcul de l'entropie. Pour un problème à 2 classes, quelle est la valeur maximale de l'entropie&nbsp;? et pour un problème à C classes&nbsp;?
 -->
-</p>
-
 
 </div>
 
