@@ -572,7 +572,8 @@ array([0.77586207, 1.        , 1.        , 1.        , 1.        ,
     <pre>taux_de_succès_par_cv = cross_val_score (arbre, olives.iloc [:, 3:olives.shape[1]], olives.iloc [:,1], cv = 10)
 print ("Taux de succès moyen et écart-type : {:.2f}, {:.2f}".format (np.mean(taux_de_succès_par_cv), np.std (taux_de_succès_par_cv)))</pre>
     
-    ce qui me donne <code>0.94, 0.12</code>.
+    ce qui me donne <code>0.94, 0.12</code>. Le taux d'erreur est donc supérieur à l'estimation précédente.
+    
   </div>
     
   <h3>Reproductibilité</h3>
