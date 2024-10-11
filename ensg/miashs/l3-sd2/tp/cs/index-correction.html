@@ -611,9 +611,7 @@ rs = np.random.RandomState (graine)
 
   </p>
   
-<pre>
-DecisionTreeClassifier (random_state = rs)
-</pre>
+<pre>DecisionTreeClassifier (random_state = rs)</pre>
 
   <p>
 
@@ -647,7 +645,52 @@ DecisionTreeClassifier (random_state = rs)
     <br>
     Qu'en pensez-vous&nbsp;?</li>
 </ul>
+
+<div class="correction">
+
+  Pour la région, pour chaque classe, le taux de succès de l'arbre induit précédemment est estimé par&nbsp;:
+
+  <br>
   
+<pre>for classe in list (olivesY_test.unique()):
+    print ("{} {:.2f}".format (classe, sum (arbre.predict (olivesX_test.loc [olivesY_test == classe]) == classe) / sum (olivesY_test == classe)))</pre>
+
+<br>
+
+ce qui donne 1 pour les 3 classes.
+
+<br>
+
+Pour la zone, on refait la procédure et on obtient&nbsp;:
+
+<pre>areaX_train, areaX_test, areaY_train, areaY_test = train_test_split (olives.iloc [:,3:11], olives.area, test_size = .2, random_state = 123)
+arbreArea = tree.DecisionTreeClassifier()
+arbreArea = arbreArea.fit (areaX_train, areaY_train)
+for classe in np.sort (list (areaY_test.unique())):
+    print ("{} {:.2f}".format (classe, sum (arbreArea.predict (areaX_test.loc [areaY_test == classe]) == classe) / sum (areaY_test == classe)))</pre>
+<br>
+
+ce qui me donne&nbsp;:
+
+<br>
+
+<pre>1 0.80
+2 0.50
+3 0.97
+4 0.40
+5 0.95
+6 1.00
+7 0.69
+8 0.92
+9 0.90
+</pre>
+
+<br>
+
+C'est donc beaucoup moins bien. La prédiction de la zone est plus difficile que la prédiction de la région.
+
+</div>
+
   <h2>Retour sur la prédiction de l'attribut <kbd>region</kbd></h2>
 
 <p>
