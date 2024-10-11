@@ -873,7 +873,19 @@ print ("Erreur de test : {}".format(sum (arbre2.predict (olives2X_test) != olive
   <b>À faire&nbsp;:</b>
   Calculez cette valeur «&nbsp;à la main&nbsp;» et vérifiez que vous obtenez la même valeur.
 
-  <br>
+</p>
+
+<div class="correction">
+  <p>
+    Pour l'arbre construit plus avec <code>olivesX_train</code> et <code>olivesY_train</code>, on obtient l'impureté de Gini de la manière suivante&nbsp;:
+    <pre># calcul des proportions des exemples de chaque classe :
+p = olivesY_train.value_counts()/olivesY_train.shape[0]
+# utilisation de la formule
+sum(p * (1-p))</pre>
+  </p>
+</div>
+
+<p>
 
   Pour un problème à 2 classes, quelle est la valeur maximale de l'impureté de Gini&nbsp;? et pour un problème à C classes&nbsp;?
 
