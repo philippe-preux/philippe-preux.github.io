@@ -828,14 +828,13 @@ for i in range(3,11):
   On voit qu'une telle droite passe (à peu près) par les points (950, 100) et (1100, 0). On calcule donc l'équation de cette droite&nbsp;: \( arachidic = - 2 linoleic / 3 + 11000 / 15 \).
   <br>
   On ajoute un nouvel attribut que je dénomme <code>linara</code>&nbsp;:
-  <pre>olivesPasDuSud = olives2.iloc[lesOlivesPasDuSud.values,list(np.arange(3,11))]
-olivesPasDuSud = olivesPasDuSud.assign (linara = 2 / 3 * olivesPasDuSud.linoleic + olivesPasDuSud.arachidic - 11000 / 15)
-olivesPasDuSudX_train, olivesPasDuSudX_test, olivesPasDuSudY_train, olivesPasDuSudY_test = train_test_split (olivesPasDuSud, olives2.region.loc[lesOlivesPasDuSud], test_size = .2, random_state = 123)
-
+  <pre>olives2 = olives.assign (linara = 2 / 3 * olives.linoleic + olives.arachidic - 11000 / 15)
+olives2X_train, olives2X_test, olives2Y_train, olives2Y_test = train_test_split (olives2.iloc [:,[3,4,5,6,7,8,9,10,12]], olives.region, test_size = .2, random_state = 123)
+    
 arbre2 = tree.DecisionTreeClassifier()
-arbre2 = arbre2.fit (olivesPasDuSudX_train, olivesPasDuSudY_train)
+arbre2 = arbre2.fit (olives2X_train, olives2Y_train)
 
-print ("Erreur de test : {}".format(sum (arbre2.predict (olivesPasDuSudX_test) != olivesPasDuSudY_test) / olivesPasDuSudX_test.shape [0]))</pre>
+print ("Erreur de test : {}".format(sum (arbre2.predict (olives2X_test) != olives2Y_test) / olives2X_test.shape [0]))</pre>
 </div-->
 
 <p>
