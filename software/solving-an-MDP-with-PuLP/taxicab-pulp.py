@@ -43,7 +43,7 @@ possible_actions = np.array ([[0, 1, 2], [0, 2], [0, 1, 2]])
 v = pulp.LpVariable.dicts ("s", (range (N))) # the variables
 prob = pulp.LpProblem ("taxicab", pulp.LpMinimize) # minimize the objective function
 prob += sum ([v [i] for i in range (N)]) # defines the objective function
-# now, we define the constrain: there is one for each (state, action) pair.
+# now, we define the constraints: there is one for each (state, action) pair.
 for i in range (N):
     for a in possible_actions [i]:
         prob += v [i] - gamma * sum (P [i, a, j] * v [j] for j in range(N)) >= sum (P [i, a, j] * R [i, a, j] for j in range(N))
@@ -61,7 +61,7 @@ for i in range (N):
 
 # extract the optimal policy
 pi_star = np.zeros ((N), dtype=np.int64)
-vduales = np.zeros ((N, 3))
+vduales = np.zeros ((N, A))
 s = 0
 a = 0
 for name, c in list(prob.constraints.items()):
