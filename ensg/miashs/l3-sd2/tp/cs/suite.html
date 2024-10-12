@@ -270,17 +270,17 @@ Name: DAY, dtype: object</pre>
 	
 	Maintenant que l'on sait transformer un attribut en un ensemble d'attributs numériques, il suffit d'ajouter ces 4 attributs au <i>data frame</i> et de retirer l'attribut nominal d'origine. Pour ajouter les colonnes, on utilise la méthode <code>join()</code> de <code>pandas</code>. Pour retirer une colonne, on utilise la méthode <code>drop ()</code> de <code>pandas</code>. Cela s'utilise de la manière suivante&nbsp;:
 
-	<br>
+      </p>
 
-	<pre>>>> tips = tips.join (pd.get_dummies(tips.DAY))
+      <pre>>>> tips = tips.join (pd.get_dummies(tips.DAY))
 tips.drop (columns = ["DAY"], inplace=True)</pre>
 
-	<br>
+      <p>
 
 	<b>À faire&nbsp;:</b> faites ce que je viens d'expliquer et traitez de la même manière les autres attributs nominaux (<code>SEX</code>, <code>SMOKER</code>, <code>TIME</code>).
-
+	
 	<br>
-
+	
 	Remarquez que vous pouvez retirer plusieurs colonnes en une seule instruction en indiquant leur nom dans le paramètre <code>columns</code> de la méthode <code>drop()</code>.
 	
       </p>
