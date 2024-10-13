@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang"fr">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
     <title>Résolution de l'équation de Bellman&nbsp;: évaluation d'une politique</title>
@@ -108,15 +108,15 @@
   
   <ol>
     <li>écrire un programme qui calcule la valeur d'une politique par résolution du système d'équations linéaires et affiche le résultat sur <code>stdout</code> (l'écran du terminal). Il s'agit de mettre en &oelig;uvre ce qui a été vu en cours et qui est expliqué en section 2.9, pages 12 et 13 du poly. Faire en sorte que votre programme puisse calculer la valeur d'une politique déterministe ou stochastique. Vous spécifiez la politique comme bon vous semble (<i>a priori</i>, dans un fichier, selon un format que je vous laisse définir).
-      <br/>
-      <br/>
+      <br>
+      <br>
       <div class="row">
 	<div class="columnC" >
 	  <b>C</b>
 	  <div class="c">
 	    <p>
 	      En C, vous utilisez les <a href="https://www.gnu.org/software/gsl/doc/html/linalg.html">fonctions d'algèbre linéaire de la GSL qui résolvent un système d'équations linéaires</a>.
-	      <br/>
+	      <br>
 	      Pour le type de systèmes d'équations linéaires que nous devons résoudre, la méthode passant par une décomposition LU convient parfaitement.
 	      Si on note \( A x = b \) le système à résoudre, où \( A \) est une matrice \( N\times{}N \), \( b \in \mathbb{N} \) sont connus et \( x \in \mathbb{N} \) inconnu, on commence par effectuer la décomposition LU de la matrice \( A \) avec la fonction <code>gsl_linalg_LU_decomp ()</code>. Ensuite, on résout le système d'équations linéaires avec la fonction <code>gsl_linalg_LU_solve ()</code>.
 	    </p>

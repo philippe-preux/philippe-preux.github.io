@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
     <title>Programmation dynamique pour la résolution d'un problème de décision de Markov&nbsp;: préliminaires</title>
@@ -74,8 +74,8 @@
 
     Nous allons manipuler des problèmes de décision de Markov et implanter plusieurs algorithmes. Il est utile de définir une structure de données en C, une classe en python, qui permettent de les représenter.
 
-    <br/>
-    <br/>
+    <br>
+    <br>
 
     Dans cette UE, un PDM est défini par un quituplet : \( ({\cal S}, {\cal A}, {\cal P}, {\cal R}, \gamma) \), où&nbsp;:
 
@@ -118,6 +118,8 @@
 
     Pour le problème du chauffeur de taxi, le fichier contiendra ce qui suit&nbsp;:
 
+  </p>
+
     <pre>0.5    0.25   0.25
 0.0625 0.75   0.1875
 0.25   0.125  0.625
@@ -138,23 +140,25 @@
  6  4  2 
  4  0  8</pre>
 
+  <p>
+    
     On voit que l'action \( a_1 \) est impossible dans l'état \( e_1 \).
     
   </p>
 
   <p>
 
-    <b>À faire&nbsp: </b>
+    <b>À faire&nbsp;: </b>
 
   </p>
   
   <ol>
     <li>Définir les structures de données en C, classe en python, qui permettent de représenter un problème de décision de Markov, ansi qu'une politique déterministe ou stochastique.
-      <br/>
+      <br>
       Une politique déterministe est un tableau de N entiers naturels (l'action associée à chaque état).
-      <br/>
+      <br>
       Une politique stochastique est un tableau de NxM réels (compris entre 0 et 1)&nbsp;: \( \pi (e, a) \) est la probabilité d'émettre l'action \( a \) dans l'état \( e \), donc comprise entre 0 et 1. \( \pi (e, .) \) est une distribution de probabilités, donc \( \sum_{a=0}^{a=M-1} \pi (e, a) = 1 \forall e \).
-      <br/>
+      <br>
       En C, c'est l'occasion d'utiliser une <code>union</code> (dans une <code>struct</code>).
     </li>
     <li>Définir les fonctions nécessaires à la lecture de la fonction de transition et la fonction de retour depuis un fichier structuré comme indiqué ci-dessus. Le nombre d'états, le nombre d'actions et le facteur de décompte sont fournis par ailleurs.</li>
