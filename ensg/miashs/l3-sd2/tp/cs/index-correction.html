@@ -4,10 +4,10 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Classification supervisée</title>
-    <link href="https://philippe-preux.github.io/css/ma.css" 
-	  rel="stylesheet" type="text/css" media="all">
-    <!--link href="file:///home/ppreux/philippe-preux.github.io/css/ma.css" 
+    <!--link href="https://philippe-preux.github.io/css/ma.css" 
 	  rel="stylesheet" type="text/css" media="all"-->
+    <link href="file:///home/ppreux/philippe-preux.github.io/css/ma.css" 
+	  rel="stylesheet" type="text/css" media="all">
     <link rel="shortcut icon" type="image/x-icon" 
 	  href="https://philippe-preux.github.io/img/site.ico">
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -69,6 +69,24 @@
 	On va pratiquer en deux phases. Durant la première, on va explorer visuellement le jeu de données&nbsp;: la réponse à la question posée est-elle visible sur un ou des graphiques&nbsp;? Durant la seconde, on va utiliser un algorithme d'apprentissage automatique pour essayer de répondre à la question. Les deux approches ne sont pas exclusives, bien au contraire&nbsp;: la première guide le choix d'une méthode à appliquer lors de la seconde.
     
       </p>
+
+      <div class="correction">
+	On commence par charger le jeu de données et faire les petits ajustements nécessaires&nbsp;:
+	<br>
+	<pre>import pandas as pd
+
+olives = pd.read_csv ("/home/ppreux/philippe-preux.github.io/ensg/miashs/datasets/olives.csv", header = 0)
+olives.rename (columns = {"Unnamed: 0": "Area Name"}, inplace = True)
+olives ["Area Name"] = olives ["Area Name"].astype("category")
+olives ["region"] = olives ["region"].astype("category")
+olives ["area"] = olives ["area"].astype("category")</pre>
+	<br>
+	En anticipant ce qui est expliqué plus loin dans le TP, on initialise le générateur de nombres pseduo-aléatoires. C'est à faire en début de programme.
+	<br>
+	<pre>import numpy as np
+graine = int ("ScienceDesDonnees", base=36)%2**31
+rs = np.random.RandomState (graine)</pre>
+      </div>
 
       <h2>Premiers pas&nbsp;: approche graphique (exploration visuelle des données)</h2>
 
@@ -137,7 +155,8 @@
 	
 	<br>
 	
-	<pre>olives ["numero"] = range (olives.shape [0])
+	<pre>import matplotlib.pyplot as plt
+olives ["numero"] = range (olives.shape [0])
 acides = list(olives) [3:11]
 for acide in acides:
     olives.plot.scatter (x = acide, y = "numero", title = "Scatter plot", c = "region", colormap = "plasma")
@@ -159,9 +178,15 @@ plt.show ()</pre>
 
 	Ce graphique montre que la classe 1 (points bleus) est facilement identifiée grâce à cet attribut.
 
-	<br>
+      </p>
+
+      <div class="correction">
+	C'est l'attribut eiconsenoic qui sépare les exemples du Sud des deux autres classes.
+      </div>
+      
+      <p>
     
-	Quand vous l'avez trouvée, vous pouvez vous concentrer sur les 2 classes qui sont encore mélangées (jaune et rouge) et recommencer le même raisonnement en vous occupant uniquement des données de ces deux classes. Vous devez trouver un attribut qui sépare bien ces 2 classes restantes.
+	Quand vous l'avez trouvé, vous pouvez vous concentrer sur les 2 classes qui sont encore mélangées (jaune et rouge) et recommencer le même raisonnement en vous occupant uniquement des données de ces deux classes. Vous devez trouver un attribut qui sépare bien ces 2 classes restantes.
 
 	<br>
 
@@ -171,9 +196,7 @@ plt.show ()</pre>
 
       <div class="correction">
 	<br>
-	on ne s'intéresse qu'aux exemples de classe 2 et 3. J'indique deux méthodes pour afficher les graphiques. La première correspond à celle que l'on a vu dans le TP concernant les graphiques. La seconde corresponde à une autre méthode que nous verrons dand un prochain TP.
-	<br>
-	Première méthode&nbsp;:
+	on ne s'intéresse qu'aux exemples de classe 2 et 3.
 	<br>
 	<pre>fig, ax = plt.subplots (2, 4)
 acides = list(olives) [3:11]
@@ -181,24 +204,19 @@ for acide in acides:
     olives [olives.region != 1].plot.scatter (x = acide, y = "numero", title = "Scatter plot régions 2 et 3", c = "region", colormap = "plasma")
 
 plt.show ()</pre>
-	Seconde méthode&nbsp;:
 	<br>	
-	<pre>fig, ax = plt.subplots (2, 4)
-acides = list(olives) [3:11]
-for i in range (2):
-    for j in range (4):
-        ax [i, j]. scatter (olives.loc [olives.region != 1, acides [2*i+j]], olives.numero [olives.region != 1], c = olives.region [olives.region != 1], s = 1)
-        ax [i, j]. set_xlabel (acides [2*i+j])
-        ax [i, j]. set_ylabel ("numéro")
-
-fig.show ()</pre>
+	Ce qui donne les 8 graphiques suivant&nbsp;:
 	<br>
+	<img src="./arachidic.png" width="300" alt="">
+	<img src="./eicosenoic.png" width="300" alt="">
+	<img src="./linoleic.png" width="300" alt="">
+	<img src="./linolenic.png" width="300" alt="">
 	<br>	
-	Ce qui donne&nbsp;:
+	<img src="./oleic.png" width="300" alt="">
+	<img src="./palmitic.png" width="300" alt="">
+	<img src="./palmitoleic.png" width="300" alt="">
+	<img src="./stearic.png" width="300" alt="">
 	<br>
-	<img src="./olives_plots_region_2_et_3.png" alt="">
-	<br>	
-	<br>	
 	Ce n'est pas évident de le voir, mais les deux classes peuvent être séparées avec l'acide linoleic. On peut le vérifier en comparant
 	<br>
 	<pre>>>> np.min (olives.linoleic [olives.region == 2])
@@ -311,12 +329,6 @@ olivesX_train, olivesX_test, olivesY_train, olivesY_test = train_test_split (oli
 	<li><code>olivesY_test</code> est un tableau de données comprenant une seule colonne (<code>region</code>) qui indique la classe de chaque élément de <code>olivesX_test</code>.</li>
       </ul>
     
-  <!--ol>
-    <li>on crée un vecteur de N nombres aléatoires uniformément répartis entre 0 et 1, où N est le nombre total de données. Pour cela, on utilise la fonction <kbd>random.rand (N)</kbd> du paquetage <kbd>numpy</kbd>. Appelons ce vecteur <kbd>v</kbd>.</li>
-    <li>À partir de <kbd>v</kbd>, on construit un vecteur booléen qui contient 80% de valeurs <kbd>True</kbd>. Appelons ce vecteur <kbd>b</kbd>.</li>
-    <li>On utilise <kbd>b</kbd> pour construire les deux jeux de données, l'un pour les données d'entraînement, l'autre pour les données de test. Appelons-les respectivement <kbd>olives_train</kbd> et <kbd>olives_test</kbd>.</li>
-  </ol-->
-  
   <p>
 
     <code>olivesX_train</code> et <code>olivesY_train</code> constituent le jeu de données d'entraînement avec lequel on construit un modèle de prédiction de la classe.
@@ -422,7 +434,7 @@ Name: region, dtype: float64</pre>
   <div class="correction">
     <pre>for cl in olivesY_test.unique():
     filtre = olivesY_test == cl
-    print (sum (arbre.predict (olivesX_test.loc [filtre,:]) == olivesY_test [filtre]) / sum (filtre))</pre>
+    print ("Taux de succès pour la prédiction de la classe {:2.f} : {:2.f}.".format (cl, sum (arbre.predict (olivesX_test.loc [filtre,:]) == olivesY_test [filtre]) / sum (filtre)))</pre>
   </div>
 
   <h3>Interprétation d'un arbre de décision</h3>
@@ -434,9 +446,8 @@ Name: region, dtype: float64</pre>
   </p>
 
 <pre>import matplotlib.pyplot as plt
-fig, ax = plt.subplots ()
 tree.plot_tree (arbre)
-fig.show ()
+plt.show ()
 </pre>
 
   <p>
@@ -468,7 +479,7 @@ fig.show ()
   
   <p>
 
-    Les tests réalisés à chaque n&oelig;ud sont difficiles à comprendre. Pour afficher le nom des attributs, on ajoutera <kbd>feature_names = list (olives_test)</kbd> dans l'appel de la méthode <kbd>plot_tree()</kbd>. Et on obtient&nbsp;:
+    Les tests réalisés à chaque n&oelig;ud sont difficiles à comprendre. Pour afficher le nom des attributs, on ajoutera <kbd>feature_names = list (olives_train)</kbd> dans l'appel de la méthode <kbd>plot_tree()</kbd>. Et on obtient&nbsp;:
     
   </p>
 
@@ -493,7 +504,7 @@ fig.show ()
   </p>
   
   <div class="correction">
-    <pre>tree.plot_tree (arbre, feature_names = list (olivesX_test), class_names = ["Sud", "Sardaigne", "Nord"], filled = True)
+    <pre>tree.plot_tree (arbre, feature_names = list (olivesX_train), class_names = ["Sud", "Sardaigne", "Nord"], filled = True)
 plt.show ()</pre>
   </div>
   
@@ -661,9 +672,9 @@ rs = np.random.RandomState (graine)
   Pour la région, pour chaque classe, le taux de succès de l'arbre induit précédemment est estimé par&nbsp;:
 
   <br>
-  
+
 <pre>for classe in list (olivesY_test.unique()):
-    print ("{} {:.2f}".format (classe, sum (arbre.predict (olivesX_test.loc [olivesY_test == classe]) == classe) / sum (olivesY_test == classe)))</pre>
+    print ("Taux de succès pour la prédiction de la classe {} : {:.2f}".format (classe, sum (arbre.predict (olivesX_test.loc [olivesY_test == classe]) == classe) / sum (olivesY_test == classe)))</pre>
 
 <br>
 
@@ -774,20 +785,19 @@ C'est donc beaucoup moins bien, notamment pour les zones 2 et 4 qui sont mal pr�
 </p>
 
 <div class="correction">
-  Pour réaliser ces 28 graphiques, on fait une boucle&nbsp;:
+  Pour réaliser ces 28 graphiques, on fait une boucle. Avant cela, on crée un <i>data frame</i> qui contient uniquement les exemples qui ne sont pas de classe Sud.
   <br>
-  <pre>attributs = list (olives)
+  <pre>lesOlivesPasDuSud = olives.loc [:,"region"] != 1
+# On construit un df qui ne contient que les exemples et les attributs qui nous intéressent
+olivesPasDuSud = olives.loc [lesOlivesPasDuSud,]
+olivesPasDuSud = olivesPasDuSud.iloc [:,0:11]
+
+attributs = list (olives)
 for i in range(3,11):
     for j in range(i+1,11):
-        fig, ax = plt.subplots ()
-        attr1 = attributs [i]
-        attr2 = attributs [j]
-        ax. scatter (olives.loc [lesOlivesPasDuSud, attr1], olives.loc [lesOlivesPasDuSud, attr2], c = olives.loc [lesOlivesPasDuSud].region)
-        ax.set_xlabel (attr1)
-        ax.set_ylabel (attr2)
-        ax.set_title ("Séparation ?")
-        #fig.savefig (attr1 + "-vs-" + attr2 + ".png")
-        fig.show ()</pre>
+        olivesPasDuSud.plot.scatter (x = attributs [i], y = attributs [j], title = "Scatter plot", c = "region", colormap = "tab10")
+
+plt.show ()</pre>
 </div>
 
 <p>
@@ -824,20 +834,45 @@ for i in range(3,11):
 
 </p>
 
-<!--div class="correction">
+<div class="correction">
   En regardant tous ces graphiques, on voit que linoleic et arachidic sont séparables par une droite.
   <br>
   On voit qu'une telle droite passe (à peu près) par les points (950, 100) et (1100, 0). On calcule donc l'équation de cette droite&nbsp;: \( arachidic = - 2 linoleic / 3 + 11000 / 15 \).
   <br>
-  On ajoute un nouvel attribut que je dénomme <code>linara</code>&nbsp;:
-  <pre>olives2 = olives.assign (linara = 2 / 3 * olives.linoleic + olives.arachidic - 11000 / 15)
-olives2X_train, olives2X_test, olives2Y_train, olives2Y_test = train_test_split (olives2.iloc [:,[3,4,5,6,7,8,9,10,12]], olives.region, test_size = .2, random_state = 123)
-    
-arbre2 = tree.DecisionTreeClassifier()
+  On vérifie sur un graphique que cette droite sépare bien les deux classes&nbsp;:
+  <br>
+  <pre>olivesPasDuSud.plot.scatter (x = "linoleic", y = "arachidic", title = "Dans ce plan, une droite sépare les deux classes pour les olives qui ne sont pas de classe Sud", c = "region", colormap = "tab10")
+les_x_de_la_droite_séparatrice = np.linspace (950, 1100, 1000)
+les_y_de_la_droite_séparatrice = - 2 * les_x_de_la_droite_séparatrice  / 3 + 11000 / 15
+plt.plot (les_x_de_la_droite_séparatrice, les_y_de_la_droite_séparatrice, c = "red")
+plt.show ()</pre>
+  <br>
+  Ce qui donne&nbsp;:
+  <br>
+  <img src="linoleic-vs-arachidic-séparés-par-une-droite.png" width="500" alt="">
+  <br>
+  On constate que les deux classes sont bien séparées.
+  <br>
+  On crée un nouveau <i>data frame</i> avec ce nouvel attribut que je dénomme <code>linara</code>&nbsp;:
+  <pre>olives2 = olives.iloc [:,:11]
+olives2 = olives2.assign (linara = 2 / 3 * olives2.linoleic + olives2.arachidic - 11000 / 15)
+olives2X_train, olives2X_test, olives2Y_train, olives2Y_test = train_test_split (olives2.iloc [:,[3:12]], olives2.region, test_size = .2, random_state = 123)
+
+arbre2 = tree.DecisionTreeClassifier (random_state = rs)
 arbre2 = arbre2.fit (olives2X_train, olives2Y_train)
 
 print ("Erreur de test : {}".format(sum (arbre2.predict (olives2X_test) != olives2Y_test) / olives2X_test.shape [0]))</pre>
-</div-->
+  <br>
+  On peut visualiser cet arbre qui utilise bien cet attribut&nbsp;:
+  <br>
+  <img src="arbre-avec-linara.png" width="500" alt="">
+  <br>
+  Et on mesure son taux de succès&nbsp;:
+  <br>
+  <pre>sum (arbre2.predict (olives2X_test) == olives2Y_test) / olives2X_test. shape [0]</pre>
+  <br>
+  qui vaut 1.
+</div>
 
 <p>
 
@@ -851,7 +886,7 @@ print ("Erreur de test : {}".format(sum (arbre2.predict (olives2X_test) != olive
   <br>
 
   <b>À faire&nbsp;:</b>
-
+  
 </p>
 
 <ol>
@@ -863,6 +898,35 @@ print ("Erreur de test : {}".format(sum (arbre2.predict (olives2X_test) != olive
   <li>Construire l'arbre de décision avec ce nouveau jeu de données augmenté (n'utilisez pas l'attribut que nous avons précédemment ajouté correspondant à la séparatrice linéaire).</li>
   <li>Calculez l'erreur de test de ce nouvel arbre de décision.</li>
 </ol>
+
+
+<div class="correction">
+  En regardant ces 28 graphiques, on repère au moins 3 paires d'attributs qui semblent séparés par une courbe de nature parabolique. En fait, ce sont plutôt les symétriques de ces 3 figures obtenues en échangeant les 2 axes. Ainsi, linolenic (en x) et linoleic (en y) semblent convenir. On repère que cette parabole semble passer à peu près par les points de coordonnées (10, 1200), (30, 900) et (70, 1200). Avec ces 3 points, on calcule donc a, b et c tels que linoleic = a linolenic^2 + b linolenic + c. On trouve a = 0,625, b = -40 et c = 1537,5. On fait le graphique pour vérifier que cette parabole sépare bien les deux classes&nbsp;:
+  <br>
+  <pre>olivesPasDuSud.plot.scatter (x = "linolenic", y = "linoleic", title = "Scatter plot", c = "region", colormap = "tab10")
+les_x_de_la_parabole_séparatrice = np.linspace (0, 70, 1000)
+les_y_de_la_parabole_séparatrice = 0.625 * les_x_de_la_parabole_séparatrice * les_x_de_la_parabole_séparatrice - 40 * les_x_de_la_parabole_séparatrice + 1537.5
+plt.plot (les_x_de_la_parabole_séparatrice, les_y_de_la_parabole_séparatrice, c = "red")
+plt.show ()</pre>
+  <br>
+  <img src="linolenic-vs-linoleic-séparés-par-une-parabole.png" width="500" alt="">
+  <br>
+  On construit un nouveau <i>data frame</i> avec cet attribut. On n'utilise pas linoleic ici car on sait que si cet attribut est présent, il va être utilisé. Ici, on veut vérifier que si cet attribut n'est pas présent, le nouvel attribut correspondant à la parabole va être utilisé.
+  <br>
+  <pre>paralili = 0.625 * olives. linolenic * olives. linolenic - 40 * olives. linolenic + 1537.5 - olives.linoleic
+olives3 = olives.loc [:,['Area Name', 'region', 'area', 'palmitic', 'palmitoleic', 'stearic', 'oleic', 'linolenic', 'arachidic', 'eicosenoic']]
+olives3 = olives3.assign (paralili = paralili)
+olives3X_train, olives3X_test, olives3Y_train, olives3Y_test = train_test_split (olives3.iloc [:,3:12], olives3.region, test_size = .2, random_state = rs)
+arbre3 = tree.DecisionTreeClassifier (random_state = rs)
+arbre3 = arbre3.fit (olives3X_train, olives3Y_train)
+tree.plot_tree (arbre3, feature_names = list (olives3X_train), class_names = ["Sud", "Sardaigne", "Nord"], filled = True)
+plt.show ()</pre>
+  et voilà&nbsp;:
+  <br>
+  <img src="arbre-avec-attribut-parabolique.png" width="500" alt="">
+</div>
+
+
 
 <h3>Autre question</h3>
 
@@ -895,9 +959,9 @@ sum(p * (1-p))</pre>
 
 <div class="correction">
   <p>
-    L'impureté est maximale quand les classes sont équi-réparties. S'il y a 2 classes, les proportions vallent 1/2. Dans ce cas, l'impureté vaut \( 2 1/2 (1 - 1/2) = 1/2 \)
+    L'impureté est maximale quand les classes sont équi-réparties. S'il y a 2 classes, les proportions vallent 1/2. Dans ce cas, l'impureté vaut \( 2 \times{} 1/2 (1 - 1/2) = 1/2 \)
     <br>
-    S'il y a C classes, l'impureté est maximale quand les proportions sont \( 1/C \). Dans ce cas, l'impureté vaut \( C 1/C (1 - 1/C) = 1-1/C \).
+    S'il y a C classes, l'impureté est maximale quand les proportions sont \( 1/C \). Dans ce cas, l'impureté vaut \( C \times{} 1/C (1 - 1/C) = 1-1/C \).
   </p>
 </div>
 
