@@ -279,22 +279,15 @@ for depth in range (1, 20):
     score_cv_d = cross_val_score (arbre_d, pima.iloc [:,:8], pima.iloc [:,8], cv = 10)
     les_taux_de_succès_moyens_par_cv. append (np.mean (score_cv_d))
     les_taux_de_succès_std_par_cv. append (np.std (score_cv_d))</pre>
+	J'obtiens ce graphique montrant le taux de succès en fonction de la profondeur de l'arbre induit mesuré sur le jeu de test et en validation croisée&nbsp;:
 	<br>
+	<img src="./influence-of-depth.png" width="300" alt="" >
+	<br>
+	Il semble que le meilleur arbre ait une profondeur de 3.
+	<br>
+	<br>
+	Il est très intéressant de refaire la démarche en utilisant une graine du générateur de nombres pseudo-aléatoires différentes (testez-en une dizaine par exemple). Les résultats vont varier, mais ce sera toujours un arbre de profondeur 3 ou 4 qui donnera les meilleures taux de succès.
       </div>
-      
-      <p>
-
-	Ci-dessous, un graphique montrant le taux de succès en fonction de la profondeur de l'arbre induit&nbsp;:
-
-      </p>
-
-      <img src="./influence-of-depth.png" width="300" alt="" >
-      
-      <p>
-
-	Dans cette figure, outre le paramètre <code>depth</code> que l'on a fait varier, l'arbre est induit avec les paramètres <code>min_samples_leaf = 5, criterion = "entropy"</code>. Réalisez ce type de représentation graphique.
-	
-      </p>
 
 <!--      <h3>Approche automatique</h3>
 
