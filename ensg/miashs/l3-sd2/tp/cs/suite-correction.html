@@ -190,6 +190,39 @@ print ("# Le taux de succès moyen mesuré en validation croisée est {:.2f}., a
 
       </p>
 
+      <div class="correction">
+	Pas de difficulté.
+	<br>
+	<pre>arbre5 = tree.DecisionTreeClassifier (min_samples_leaf = 5, random_state = rs)
+arbre5 = arbre5.fit (pimaX_train, pimaY_train)
+arbre10 = tree.DecisionTreeClassifier (min_samples_leaf = 10, random_state = rs)
+arbre10 = arbre10.fit (pimaX_train, pimaY_train)
+arbre15 = tree.DecisionTreeClassifier (min_samples_leaf = 15, random_state = rs)
+arbre15 = arbre15.fit (pimaX_train, pimaY_train)
+arbre20 = tree.DecisionTreeClassifier (min_samples_leaf = 20, random_state = rs)
+arbre20 = arbre20.fit (pimaX_train, pimaY_train)
+taux_succès5 = sum (arbre5.predict (pimaX_test) == pimaY_test) / pimaX_test. shape [0]
+taux_succès10 = sum (arbre10.predict (pimaX_test) == pimaY_test) / pimaX_test. shape [0]
+taux_succès15 = sum (arbre15.predict (pimaX_test) == pimaY_test) / pimaX_test. shape [0]
+taux_succès20 = sum (arbre20.predict (pimaX_test) == pimaY_test) / pimaX_test. shape [0]
+score_cv5 = cross_val_score (arbre5, pima.iloc [:,:8], pima.iloc [:,8], cv = 10)
+score_cv10 = cross_val_score (arbre10, pima.iloc [:,:8], pima.iloc [:,8], cv = 10)
+score_cv15 = cross_val_score (arbre15, pima.iloc [:,:8], pima.iloc [:,8], cv = 10)
+score_cv20 = cross_val_score (arbre20, pima.iloc [:,:8], pima.iloc [:,8], cv = 10)</pre>
+
+	<br>
+
+	J'obtiens les valeurs suivantes&nbsp;:
+
+	<br>
+
+	<table>
+	  <tr><th>Valeur de <code>min_samples_leaf</code></th><th>1</th><th>5</th><th>10</th><th>15</th><th>20</th></tr>
+	  <tr><td>Taux de succès mesuré sur le jeu de test</td><td>0,72<td>0,65</td><td>0,63</td><td>0,67</td><td>0,72</td></tr>
+	  <tr><td>Taux de succès mesuré par valdiation croisée</td><td>0,70 (0,13)<td>0,76 (0,09)</td><td>0,77 (0,09)</td><td>0,73 (0,06)</td><td>0,75 (0,08)</td></tr>
+	</table>
+      </div>
+
       <h3>Mesure d'impureté</h3>
 
       <p>
@@ -203,6 +236,23 @@ print ("# Le taux de succès moyen mesuré en validation croisée est {:.2f}., a
 
       </p>
 
+
+      <div class="correction">
+	C'est vraiment comme plus haut en spécifiant le paramètre <code>criterion = "entropy"</code>.
+	<br>
+	J'obtiens les résultats suivantes&nbsp;:
+	<table>
+	  <tr><th>Valeur de <code>min_samples_leaf</code></th><th>1</th><th>5</th><th>10</th><th>15</th><th>20</th></tr>
+	  <tr><td>Taux de succès mesuré sur le jeu de test</td><td>0,71<td>0,70</td><td>0,63</td><td>0,67</td><td>0,72</td></tr>
+	  <tr><td>Taux de succès mesuré par valdiation croisée</td><td>0,76 (0,05)<td>0,76 (0,05)</td><td>0,76 (0,06)</td><td>0,76 (0,05)</td><td>0,77 (0,07)</td></tr>
+	</table>
+
+	<br>
+
+	En comparant les valeurs contenues dans cette table avec celles de la table précédente, en validation croisée, il semblerait que l'on obtienne de meilleurs résultats avec l'entropie. Pour le taux de succès mesuré sur le jeu de test, cela ne semble pas évident, sauf pour <code>min_samples_leaf=5</code>.
+
+      </div>
+      
       <h3>Profondeur de l'arbre</h3>
 
       <p>
@@ -214,14 +264,31 @@ print ("# Le taux de succès moyen mesuré en validation croisée est {:.2f}., a
 
 	<b>À faire&nbsp;:</b> en utilisant les meilleurs paramètres trouvés ci-dessus, vous induisez des arbres dont la profondeur varie de 1 à 20. Vous mesurez leur taux d'erreur/taux de succès toujours de la même manière. Vous faites un graphique indiquez cette mesure en fonction de la profondeur. Qu'observez-vous&nbsp;?
 
+      </p>
+
+      <div class="correction">
+	À nouveau, rien de compliqué. Il suffit de faire ce qui est demandé. En consultant les résultats précédents, je sélectionne <code>min_samples_leaf=20</code> et l'entropie.
 	<br>
+	<pre>les_taux_de_succès = [np.nan]
+les_taux_de_succès_moyens_par_cv = [np.nan]
+les_taux_de_succès_std_par_cv = [np.nan]
+for depth in range (1, 20):
+    arbre_d = tree.DecisionTreeClassifier (min_samples_leaf = 20, criterion = "entropy", max_depth = depth, random_state = rs)
+    arbre_d = arbre_d.fit (pimaX_train, pimaY_train)
+    les_taux_de_succès. append (sum (arbre_d.predict (pimaX_test) == pimaY_test) / pimaX_test. shape [0])
+    score_cv_d = cross_val_score (arbre_d, pima.iloc [:,:8], pima.iloc [:,8], cv = 10)
+    les_taux_de_succès_moyens_par_cv. append (np.mean (score_cv_d))
+    les_taux_de_succès_std_par_cv. append (np.std (score_cv_d))</pre>
 	<br>
+      </div>
+      
+      <p>
 
 	Ci-dessous, un graphique montrant le taux de succès en fonction de la profondeur de l'arbre induit&nbsp;:
 
       </p>
 
-      <img src="cv_depth_1_19.png" width="300" alt="" >
+      <img src="./influence-of-depth.png" width="300" alt="" >
       
       <p>
 
