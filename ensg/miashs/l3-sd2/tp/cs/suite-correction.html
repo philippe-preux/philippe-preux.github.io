@@ -65,9 +65,51 @@
 
 	<b>À faire&nbsp;:</b> vous chargez ce jeu de données et vous commencez par explorer visuellement ses attributs comme on l'a fait avec les olives. (Visualiser la répartition des valeurs de chaque attribut séparément et visualiser ensuite les données en fonction de chaque paire d'attributs en colorant chaque point en fonction de sa classe.) Voyez-vous quelque chose&nbsp;? Arrivez-vous à trouver quel attribut pourrait être placé à la racine d'un arbre de décision&nbsp;?
 
-	<br>
-	<br>
+      </p>
 
+      <div class="correction">
+	Tout cela est maintenant bien connu.
+	<br>
+	<pre>import numpy as np
+graine = int ("ScienceDesDonnees", base=36)%2**31
+rs = np.random.RandomState (graine)
+
+####################
+# chargement du jeu de données
+import pandas as pd
+
+pima = pd.read_csv ("https://philippe-preux.github.io/ensg/miashs/datasets/pima-made-easy.csv")
+pima ["diabetes"] = pima ["diabetes"].astype ("category")
+import matplotlib.pyplot as plt
+pimanumérotés = pima
+pimanumérotés ["numéro"] = range (pimanumérotés.shape [0])
+attributs = list (pimanumérotés) [0:8]
+for attribut in attributs:
+    pimanumérotés.plot.scatter (x = attribut, y = "numéro", title = "Scatter plot", c = "diabetes", colormap = "plasma")
+
+plt.show ()
+del pimanumérotés</pre>
+      </div>
+
+      <p>
+
+	Ce qui donne les graphiques suivants&nbsp;:
+
+	<br>
+	<img src="age.png" width=300 alt="">
+	<img src="glucose.png" width=300 alt="">
+	<img src="insulin.png" width=300 alt="">
+	<img src="mass.png" width=300 alt="">
+	<br>
+	<img src="pedigree.png" width=300 alt="">
+	<img src="pregnant.png" width=300 alt="">
+	<img src="pressure.png" width=300 alt="">
+	<img src="triceps.png" width=300 alt="">
+	<br>
+	dans lesquels on ne voit pas grand chose. 
+	<br>
+	<br>
+	
 	<b>À faire&nbsp;:</b> induire un arbre de décision comme on l'a fait lors du TP précédent. Mesurez son taux de succès sur le jeu de test et son taux de succès moyen et son écart-type dans une validation croisée à 10 plis.
 
       </p>
@@ -94,6 +136,7 @@ rs = np.random.RandomState (graine)
 import pandas as pd
 
 pima = pd.read_csv ("https://philippe-preux.github.io/ensg/miashs/datasets/pima-made-easy.csv")
+pima ["diabetes"] = pima ["diabetes"].astype ("category")
 
 
 # induction d'un arbre de décision
@@ -109,9 +152,8 @@ print ("Le taux de succès de cet arbre mesuré sur le jeu de test est {:.2f}.".
 # Le taux de succès de cet arbre mesuré sur le jeu de test est 0.72.
 from sklearn.model_selection import cross_val_score
 score_cv = cross_val_score (arbre, pima.iloc [:,:8], pima.iloc [:,8], cv = 10)
-print ("# Le taux de succès moyen mesuré en validation croisée est {:.2f}, avec un écart-type de {:.2f}". format (np.mean (score_cv), np.std (score_cv)))
-# Le taux de succès moyen mesuré en validation croisée est 0.70, avec un écart-type de 0.13
-</pre>
+print ("# Le taux de succès moyen mesuré en validation croisée est {:.2f}., avec un écart-type de {:.2f}". format (np.mean (score_cv), np.std (score_cv)))
+# Le taux de succès moyen mesuré en validation croisée est 0.70, avec un écart-type de 0.13.</pre>
       </div>
       
       <h2>Influence des paramètres de l'arbre induit</h2>
