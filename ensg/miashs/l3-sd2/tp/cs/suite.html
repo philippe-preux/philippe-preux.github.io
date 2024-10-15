@@ -192,7 +192,7 @@
       <ul>
 	<li><code>TOTBILL</code>&nbsp;: le montant de la note,</li>
 	<li><code>TIP</code>&nbsp;: le montant du pourboire laissé par le client,</li>
-	<li><code>SEX</code>&nbsp;: le sexe du client ayant payé la note,</li>
+	<li><code>SEX</code>&nbsp;: le genre du client ayant payé la note,</li>
 	<li><code>SMOKER</code>&nbsp;: est-il fumeur ou pas&nbsp;?</li>
 	<li><code>DAY</code>&nbsp;: le jour,</li>
 	<li><code>TIME</code>&nbsp;: déjeuner ou dîner&nbsp;?</li>
@@ -202,11 +202,11 @@
 
       <p>
 
-	Les attributs <code>TOTBILL</code>, <code>TIP</code> et <code>SIZE</code> sont numériques. Les autres attributs sont nominaux.
+	Les attributs <code>TOTBILL</code>, <code>TIP</code> et <code>SIZE</code> sont numériques. Les autres attributs sont nominaux. On veut prédire l'attribut <code>enough</code>.
 
 	<br>
 
-	Considérons le premier d'entre-eux, l'attribut <code>DAY</code> qui vaut <code>sun</code>, <code>sat</code>, <code>fri</code>, ou <code>thurs</code>. Pour pouvoir construire un arbre de décision avec <code>scikit_learn</code>, nous devons le transformer en un attribut numérique. La méthode que l'on va utiliser doit fonctionner quelque soit le nombre de valeurs que peut prendre l'attribut (<em>arité</em> de l'attribut). Cette attribut prenant 4 valeurs différentes, il va être transformé en 4 attributs valant 0 ou 1&nbsp;: chacun de ces 4 attributs correspond donc à l'une des 4 valeurs possibles de l'attribut et 1 seul de ces 4 nouveaux attributs numériques vaudra 1.
+	Considérons l'attribut <code>DAY</code> qui vaut <code>sun</code>, <code>sat</code>, <code>fri</code>, ou <code>thurs</code>. Pour pouvoir construire un arbre de décision avec <code>scikit_learn</code>, nous devons le transformer en un attribut numérique. La méthode que l'on va utiliser doit fonctionner quelque soit le nombre de valeurs que peut prendre l'attribut (<em>arité</em> de l'attribut). Cette attribut prenant 4 valeurs différentes, il va être transformé en 4 attributs valant 0 ou 1&nbsp;: chacun de ces 4 attributs correspond donc à l'une des 4 valeurs possibles de l'attribut et 1 seul de ces 4 nouveaux attributs numériques vaudra 1.
 
 	<br>
 
