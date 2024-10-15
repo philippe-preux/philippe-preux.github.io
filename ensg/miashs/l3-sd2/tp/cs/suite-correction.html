@@ -139,8 +139,13 @@ arbre = tree.DecisionTreeClassifier (random_state = rs)
 arbre = arbre.fit (pimaX_train, pimaY_train)
 
 taux_succès = sum (arbre.predict (pimaX_test) == pimaY_test) / pimaX_test. shape [0]
-print ("Le taux de succès de cet arbre mesuré sur le jeu de test est {:.2f}.".format (taux_succès))
+print ("# Le taux de succès de cet arbre mesuré sur le jeu de test est {:.2f}.".format (taux_succès))
 # Le taux de succès de cet arbre mesuré sur le jeu de test est 0.72.
+'''
+# On peut aussi utiliser la méthode score() :
+arbre.score (pimaX_test,pimaY_test)
+# qui donne le même résultat.
+'''
 from sklearn.model_selection import cross_val_score
 score_cv = cross_val_score (arbre, pima.iloc [:,:8], pima.iloc [:,8], cv = 10)
 print ("# Le taux de succès moyen mesuré en validation croisée est {:.2f}., avec un écart-type de {:.2f}". format (np.mean (score_cv), np.std (score_cv)))
