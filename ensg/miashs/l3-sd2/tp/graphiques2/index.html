@@ -107,6 +107,7 @@ fig. show()</pre>
 	<img src="matplotlib-way3.png" width="500" alt="">
 	<br>
 	En plus d'une couleur, on peut encore indiquer la classe par la forme du point&nbsp;:
+	<br>
 	<pre>fig, ax = plt.subplots ()
 ax. scatter (x = "linoleic", y = "palmitic", c = "blue", data = olives [olives.region == 1], cmap = "tab10", label = "Nord", marker = "s", s = 16)
 ax. scatter (x = "linoleic", y = "palmitic", c = "red", data = olives [olives.region == 2], cmap = "tab10", label = "Sardaigne", marker = "X", s = 16)
@@ -116,7 +117,7 @@ ax. set_xlabel ("Acide linoleic")
 ax. set_ylabel ("Acide palmitique")
 ax. legend ()
 fig. show()</pre>
-	<br>
+      <br>
 	<img src="matplotlib-way4.png" width="500" alt="">
 	<br>
       </p>
@@ -151,7 +152,7 @@ fig. show ()</pre>
 	<br>
 	<br>
 	Bien sûr, on fera plutôt une boucle&nbsp;:
-	<br>
+	</p>
 	<pre>attributs = list (olives) [3:11]
 fig, ax = plt.subplots (2, 4)
 for ligne in range (2):
@@ -160,7 +161,6 @@ for ligne in range (2):
         ax [ligne, colonne]. set_title (attributs [ligne * 4 + colonne])
 
 fig. show ()</pre>
-	</p>
       <h3>Pour aller plus loin</h3>
       <p>
 	Les possibilités offertes par <code>matplotlib</code> sont immenses. Consultez la <a href="https://matplotlib.org">documentation en ligne</a>
