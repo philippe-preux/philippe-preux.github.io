@@ -1,0 +1,938 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Brad's sweet home&nbsp;: éléments de correction</title>
+  <link href="https://philippe-preux.github.io/css/ma.css" 
+	rel="stylesheet" type="text/css" media="all" />
+  <link rel="shortcut icon" type="image/x-icon" 
+	href="https://philippe-preux.github.io/img/site.ico" />
+  <style type="text/css">
+    .aligncenter {
+	text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="tpR">
+
+  <h1>Brad's sweet home&nbsp;: éléments de correction</h1>
+  
+  <p>
+
+    On reprend le sujet en indiquant des éléments de correction sous cette forme&nbsp;:
+    
+  </p>
+
+  <div class="correction">
+    élément de correction...
+  </div>
+  
+  <p>
+
+    Dans ce TP, on continue notre exploration de notions et techniques de base pour la science des données. On va notamment manipuler des fichiers de données beaucoup plus gros que précédemment et réaliser des tâches de régression.
+
+    <br/>
+
+    Tous les TPs précédents doivent impérativement avoir été faits.
+
+    <br/>
+    <br/>
+
+    À l'issue de ce TP, vous m'envoyez par email un compte-rendu (format <kbd>pdf</kbd>) indiquant la réponse aux questions qui sont posées. Vous m'envoyez également un fichier python réalisant toutes les manipulations de ce TP&nbsp;: je dois pouvoir exécuter ce fichier en tapant <kbd>python3 nom-de-votre-fichier.py</kbd> et reproduire vos résultats. Cette exécution ne doit pas provoquer d'erreur de python. Remarque&nbsp;: un <i>notebook</i> ne convient pas.
+    
+  </p>
+
+  <h2>Introduction</h2>
+    
+  <p>
+
+    Brad vit en altitude, dans les montagnes du Colorado (il y fait froid assez tôt dans l’automne et jusque tardivement au printemps). Il a aménagé une station de collecte des températures. Ainsi, quatre thermomètres électroniques mesurent la température dans son séjour, son bureau, son sous-sol et à l’extérieur de chez lui, toutes les 3 minutes. Ces thermomètres sont reliés à son ordinateur qui stocke chacune des mesures dans quatre fichiers, un fichier par thermomètre. On dispose de ces quatre fichiers qui contiennent plusieurs dizaines de milliers de mesures. Notre objectif est d’étudier les températures ainsi mesurées. On sait également que le thermostat de Brad est réglé à 21°C pendant la journée, à 16°C pendant la nuit.
+
+    <br/>
+    <br/>
+
+    Ces 4 fichiers de données sont disponibles à ces 4 urls&nbsp;:
+
+  </p>
+  
+  <ul>
+    <li><kbd>https://philippe-preux.github.io/ensg/miashs/datasets/brad-basement</kbd></li>
+    <li><kbd>https://philippe-preux.github.io/ensg/miashs/datasets/brad-lab</kbd></li>
+    <li><kbd>https://philippe-preux.github.io/ensg/miashs/datasets/brad-livingroom</kbd></li>
+    <li><kbd>https://philippe-preux.github.io/ensg/miashs/datasets/brad-outside</kbd></li>
+  </ul>
+
+  <p>
+
+    Ces 4 fichiers ont le même format. 
+    Dans votre navigateur, regardez l'un d'eux.
+    Vous constatez qu'il ne s'agit pas de fichiers <kbd>csv</kbd> et qu'ils n'ont pas d'en-tête avec le nom des attributs.
+
+    <br/>
+
+    Dans ces 4 fichiers, les colonnes sont séparées par un espace. Dans l'ordre, les colonnes correspondent aux informations suivantes&nbsp;:
+
+  </p>
+
+  <ul>
+    <li>l'année</li>
+    <li>le mois</li>
+    <li>le quantième</li>
+    <li>heure</li>
+    <li>minute</li>
+    <li>température</li>
+  </ul>
+
+  <p>
+
+    Les lignes de chacun de ces fichiers sont ordonnées chronologiquement.
+
+
+    <br/>
+    <br/>
+
+    Comme d'habitude, on va commencer par créer un tableau de données, les explorer à la main et visuellement, avant d'utiliser des méthodes analytiques.
+    
+  </p>  
+  
+  <h2>Construction d'un tableau de données</h2>
+
+  <h3>Chargement des tableaux de données</h3>
+
+  <p>
+    
+    On commence par lire chacun de ces fichiers en le stockant dans un tableau de données.
+    Pour lire ces fichiers qui ne sont pas au format <kbd>csv</kbd>, on utilisera la méthode <kbd>read_table()</kbd> de <kbd>pandas</kbd>. Regardez <a href="https://pandas.pydata.org/docs/reference/api/pandas.read_table.html">la documentation</a> pour utiliser les bons arguments et lisez ces 4 fichiers dans 4 tableaux de données différents. Comme ces fichiers n'ont pas d'en-tête indiquant le nom des colonnes, donnez-leur un nom lors de la lecture. On trouve les mêmes 5 attributs indiquant la date et l'heure dans les 4 fichiers&nbsp;; donnez-leur le même nom (ce qui vous simplifiera les choses un peu plus tard).
+
+    <br/>
+    
+    Comme la méthode <kbd>read_table()</kbd> est très générale (on peut lire des tas de formats différents), elle possède de très nombreux paramètre. On peut être un peu perdu face à tous ces paramètres. Aussi, pour vous aider, je vous indique les paramètres de <kbd>read_table()</kbd> à utiliser. D'une manière générale, pour trouver les bons paramètres il faut impérativement avoir regardé le contenu du fichier pour voir s'il y a un en-tête avec le nom des attributs, comment les valeurs des attributs sont séparées, ... Cette inspection faite, dans le cas présent&nbsp;:
+
+  </p>
+
+  <ul>
+    <li>il faut indiquer le nom du fichier (ou son url) contenant les données à charger dans un tableau de données.</li>
+    <li>comme il n'y a pas d'en-tête, il faut l'indiquer avec le paramètre <kbd>header</kbd>,</li>
+    <li>et il faut indiquer le noms des attributs avec le paramètre <kbd>names</kbd>.</li>
+    <li>Enfin, vous avez constaté que les valeurs sont séparées par un espace, il faut donc le spécifier avec le paramètre <kbd>delim_whitespace</kbd>.</li>
+  </ul>
+  
+  <p>
+
+    Vérifiez que la lecture s'est bien passée.
+
+  </p>
+
+  <h3>Fusion</h3>
+
+  <p>
+    
+    On doit maintenant rassembler le contenu de ces 4 tableaux de données dans un seul. Cette fusion doit s'effectuer en fonction de l'instant de la mesure.
+    Le tableau de données fusionnés sera nommé <kbd>brad</kbd>.
+
+    <br/>
+    <br/>
+    
+    Il faut utiliser la méthode <kbd>merge_ordered()</kbd> de <kbd>pandas</kbd> qui fusionne deux tableaux de données.
+
+    <br/>
+    
+    N'hésitez pas à regarder la documentation concernant cette méthode, la page décrivant <a href="https://pandas.pydata.org/docs/reference/api/pandas.merge_ordered.html#pandas.merge_ordered"><kbd>merge_ordered ()</kbd></a> et une <a href="https://pandas.pydata.org/docs/user_guide/merging.html">page qui explique la fusion de tableaux de données</a>.
+
+    <br/>
+    
+    Comme les opérations de fusion sont assez compliquées à maîtriser et qu'il en existe de différentes sortes, je vous donne l'idée générale de ce qui doit être fait dans ce TP. La commande suivante&nbsp;:
+
+  </p>
+
+<pre>pd.merge_ordered (df1, df2, on = liste_des_attributs_communs_sur_lesquels_on_fait_la_fusion, how = "outer")
+</pre>
+  
+  <p>
+
+    fait la chose suivante&nbsp;:
+
+  </p>
+
+  <ul>
+    <li>on suppose que l'on a deux tableaux de données <kbd>df1</kbd> et <kbd>df2</kbd> à fusionner.</li>
+    <li>On suppose que ces deux tableaux de données pnt un certain nombre d'attributs ayant le même nom selon lesquels on veut effectuer la fusion&nbsp;: la liste de ces attributs est fournie dans le paramètre <kbd>on</kbd>.</li>
+    <li>Cette commande renvoie un tableau de données qui est la fusion de <kbd>df1</kbd> et <kbd>df2</kbd>.</li>
+  </ul>
+  
+  <p>
+    
+    <b>À faire&nbsp;:</b> construisez ce tableau de données <kbd>brad</kbd>.
+
+    <br/>
+    <br/>
+
+    Remarque&nbsp;: bien entendu, lorsqu'on réalise une telle opération de fusion, on vérifie que tout se passe bien. Puisque nous allons ensuite travailler uniquement sur le tableau de données <kbd>brad</kbd>, si celui-ci, pour une raison ou une autre, n'est pas construit correctement, tout ce que nous ferons par la suite sera faux.
+    <br/>
+    Il faut donc impérativement passer quelques instants à s'assurer que <kbd>brad</kbd> a été correctement construit.
+    <br/>
+    Pour vous aider, je vous indique ci-dessous les début et fin de <kbd>brad</kbd> correctement chargé&nbsp;:
+
+  </p>
+
+<pre>
+>>> brad.head()
+     an  mois   j   h  mn  temp_b  temp_l  temp_lr  temp_o
+0  2003     7  25  16   4    24.0     NaN     29.8    27.5
+1  2003     7  25  16   7    24.0     NaN     29.8    27.3
+2  2003     7  25  16  10    24.0     NaN     29.8    27.3
+3  2003     7  25  16  13    24.1     NaN     29.8    27.4
+4  2003     7  25  16  16    24.1     NaN     29.8    27.8
+>>> brad.tail()
+          an  mois   j   h  mn  temp_b  temp_l  temp_lr  temp_o
+169831  2004     7  16  15  16    21.7    22.9     22.8    16.8
+169832  2004     7  16  15  19    21.7    22.9     22.8    16.9
+169833  2004     7  16  15  22    21.7    22.9     22.8    16.8
+169834  2004     7  16  15  25    21.7    22.9     22.8    16.8
+169835  2004     7  16  15  28    21.7    22.9     22.8    16.4
+</pre>
+
+  <div class="correction">
+    <pre>import pandas as pd
+# on charge les 4 fichiers de données      
+brad_b = pd.read_table ("/home/ppreux/philippe-preux.github.io/ensg/miashs/datasets/brad-basement", names = ["an", "mois", "j", "h", "mn", "temp_b"], header = None, delim_whitespace = True)
+brad_l = pd.read_table ("/home/ppreux/philippe-preux.github.io/ensg/miashs/datasets/brad-lab", names = ["an", "mois", "j", "h", "mn", "temp_l"], header = None, delim_whitespace = True)
+brad_lr = pd.read_table ("/home/ppreux/philippe-preux.github.io/ensg/miashs/datasets/brad-livingroom", names = ["an", "mois", "j", "h", "mn", "temp_lr"], header = None, delim_whitespace = True)
+brad_o = pd.read_table ("/home/ppreux/philippe-preux.github.io/ensg/miashs/datasets/brad-outside", names = ["an", "mois", "j", "h", "mn", "temp_o"], header = None, delim_whitespace = True)
+
+# on les fusionne dans un seul
+brad = pd.merge_ordered (brad_b, brad_l, on=["an", "mois", "j", "h", "mn"], how="outer")
+brad = pd.merge_ordered (brad, brad_lr, on=["an", "mois", "j", "h", "mn"], how="outer")
+brad = pd.merge_ordered (brad, brad_o, on=["an", "mois", "j", "h", "mn"], how="outer")
+
+# on détruit les objets dont on n'a plus besoin
+del brad_b, brad_l, brad_lr, brad_o</pre>
+  </div>
+
+  <p>
+
+    Obtenez-vous le même résultat&nbsp;? Est-ce que votre tableau de données semble correct&nbsp;?
+    
+    <br/>
+    <br/>
+    
+    J'ai nommé les colonnes correspondant aux différentes températures <kbd>temp_b</kbd> pour le sous-sol (<i>basement</i>), <kbd>temp_l</kbd> pour la laboratoire (<i>lab</i>),  <kbd>temp_lr</kbd> pour le salon (<i>living-room</i>) et <kbd>temp_o</kbd> pour l'extérieur (<i>outside</i>).
+
+    <br/>
+
+    Notez bien les <kbd>NaN</kbd>&nbsp;: vous devez les avoir aussi pour ces lignes-là.
+
+    <br/>
+    <br/>
+    
+    <b>Question&nbsp;:</b> qu'est ce que ces <kbd>NaN</kbd>&nbsp;? Que font-ils là&nbsp;? Quel est leur signification&nbsp;?
+
+  </p>
+  
+  <div class="correction">
+    <p>
+      Les <kbd>NaN</kbd> indiquent les valeurs manquantes.
+    </p>
+  </div>
+      
+  <p>
+    
+    Une fois la fusion correctement réalisée, on peut détruire les 4 tableaux de données (commande python <kbd>del</kbd>) et ne conserver que <kbd>brad</kbd>.
+
+  </p>
+  
+
+  <h2>Exploration visuelle du jeu de données</h2>
+
+  <p>
+
+    On peut commencer par quelques graphiques. Par exemple, représentons ces courbes de températures.
+
+    <br/>
+
+    Un premier essai pourrait vous donner cela&nbsp;:
+    
+  </p>
+  
+  <p class="aligncenter">
+      <img src="./1erEssai.png" width="400pt" alt="Premier essai, pas beau." />
+  </p>
+
+  <p>
+
+    où on ne voit rien&nbsp;!
+
+    <br/>
+    <br/>
+
+    <b>À faire&nbsp;:</b> réalisez le graphique ci-dessous qui montre les 4 courbes de températures séparées les unes des autres. Notez bien les ordonnées de chaque courbe&nbsp;: c'est le même intervalle de valeurs (-25°, 25°), ceci pour pouvoir mieux les comparer visuellement. Vous devez obtenir exactement les mêmes figures.
+    
+  </p>
+
+  <div class="correction">
+    <pre>labels = ["basement", "lab", "living room", "outside"]
+couleurs = ["red", "blue", "green", "turquoise"]
+fig, ax = plt.subplots (4,1)
+for i in range (4):
+    ax [i].plot (brad.iloc [:,i+5], c = couleurs [i])
+    ax [i].set_ylim (bottom = -25, top = 35)
+    ax [i].set_ylabel (labels [i])
+ax[0].set_xticklabels ("")
+ax[1].set_xticklabels ("")
+ax[2].set_xticklabels ("")
+ax[3].set_xlabel ("Temps")
+ax[0].set_title ("Les températures relevées par Brad.")</pre>
+  </div>
+  
+  <p class="aligncenter">
+      <img src="./courbesTemperatureSansXlabels.png" width="400pt" alt="Courbes de température." />
+  </p>
+
+  <p>
+
+    C'est beaucoup mieux. Néanmoins, l'axe des abscisses est illisible. S'agissant de l'instant de mesure des températures, on préférerait y lire des dates, commme sur cette figure&nbsp;:
+
+  </p>
+  
+  <p class="aligncenter" id="figTempératures">
+      <img src="./courbesTemperatureAvecDates.png" width="400pt" alt="Courbes avec la date." />
+  </p>
+
+  <p>
+
+    C'est ce que nous allons faire mais cela nécessite quelques explications concernant les dates. Nous y reviendrons un peu plus loin.
+    
+  </p>
+
+  <h4>Quelques autres graphiques</h4>
+
+  <p>
+
+    <b>À faire&nbsp;:</b>
+
+    réaliser les 2 graphiques ci-dessous qui affichent les histogrammes des 4 températures. J'utilise le paramètre <kbd>bins = 250</kbd> à gauche et <kbd>bins = 1000</kbd> à droite. Remarquez les différences que cela entraîne sur le graphique. D'où viennent ces «&nbsp;trous&nbsp;»&nbsp;?
+
+  </p>
+
+  <div class="correction">
+    <pre>labels = ["basement", "lab", "living room", "outside"]
+attributs = ["temp_b", "temp_l", "temp_lr", "temp_o"]
+couleurs = ["red", "blue", "green", "turquoise"]
+
+for i in range (4):
+    ax [i]. set_ylabel (labels [i])
+ax [0]. set_title ("Histogramme des températures relevées par Brad.")
+ax [3]. set_xlabel ("Température")
+fig.show ()
+      
+fig, ax = plt.subplots (4,1)
+for i in range (4):
+    a = attributs [i]
+    brad. hist (column = a, bins = 1000, ax = ax [i], grid = False, color = couleurs [i])
+fig.show ()</pre>
+  </div>
+  
+  <p class="aligncenter">
+      <img src="./histogrammesTemperature250.png" width="400pt" alt="histogramme, 250 bins." />
+      <img src="./histogrammesTemperature.png" width="400pt" alt="histogramme, 1000 bins." />
+  </p>
+
+
+  <h3>Dates</h3>
+
+  <p>
+
+    Les dates sont des objets complexes&nbsp;: ce ne sont pas des nombres, mais on peut faire des opérations entre dates&nbsp;: on peut soustraire une date à une autre et obtenir une durée. De même, on peut ajouter une durée (positive ou négative) à une date et obtenir une autre date. Par ailleurs, il y a un ordre total sur les dates.
+
+    <br/>
+
+    Concernant leur représentation, il en existe de multiples&nbsp;: par exemple, en français, on peut écrire 13/10/23, 13/10/2023, 13 octobre 2023, 13 oct. 2023, ... On peut trouver des dates écrites sous des formats très différents dans les jeux de données, et c'est la même chose pour les heures&nbsp;: 14h 27 mn, 14h 27 mn 29 s, 14:27:29, ...
+
+    <br/>
+
+    Cette souplesse dans l'écriture nécessite des fonctions spécifiques permettant de les lire, les afficher et les manipuler.
+
+    <br/>
+    <br/>
+
+    On distingue deux cas&nbsp;: la date (et l'heure) est représentée par une chaîne de caractères qu'il faut correctement analyser&nbsp;; la date (et l'heure) est représentée par un ensemble d'attributs, comme c'est le cas dans le jeu de données de Brad.
+
+    <br/>
+    <br/>
+
+    Dans les deux cas, on utilise la méthode <kbd>to_datetime ()</kbd> de <kbd>pandas</kbd>.
+    
+    <br/>
+
+    La transformation des 5 attributs jour, mois, année, heure, minute en date se fait à l'aide de la méthode <kbd>to_datetime()</kbd> de <kbd>pandas</kbd>.
+    
+    <br/>
+    
+    <b>À faire&nbsp;:</b> Regardez la documentation de cette méthode (regardez les exemples) et ajoutez un attribut <kbd>date</kbd> au tableau de données <kbd>brad</kbd> contenant la date et l'heure de chaque ligne.
+
+  </p>
+
+  <div class="correction">
+    <pre>brad ["date"] = pd.to_datetime (pd.DataFrame ({"year" : brad.an, "month" : brad.mois, "day" : brad.j, "hour" : brad. h, "minute" : brad.mn}))</pre>
+  </div>
+  
+  <p>
+    
+    Cela fait, l'attribut <kbd>date</kbd> contient un «&nbsp;tampon temporel&nbsp;» qui indique une date et une heure. Par exemple&nbsp;:
+    
+  </p>
+
+<pre>brad.date [0]
+</pre>
+
+  <p>
+
+    donne&nbsp;:
+    
+  </p>
+
+<pre>Timestamp('2003-07-25 16:04:00')
+</pre>
+
+  <p>
+
+    et on peut facilement accéder à chaque élément de ce tampon temporel&nbsp;:
+    
+  </p>
+  
+<pre>>>> brad.date [0].day
+25
+>>> brad.date [0].month
+7
+>>> brad.date [0].year
+2003
+>>> brad.date [0].hour
+16
+>>> brad.date [0].minute
+4
+>>> brad.date [0].second
+0
+</pre>
+
+  <p>
+
+    et à d'autres informations&nbsp;:
+
+  </p>
+  
+<pre>>>> brad.date [0].month_name ()
+'July'
+>>> brad.date [0].day_name ()
+'Friday'
+>>> brad.date [0].day_of_week
+4
+>>> brad.date [0].day_of_year
+206
+>>> brad.date [0].week
+30
+>>> brad.date [0].weekofyear
+30
+>>> brad.date [0].days_in_month
+31
+</pre>
+
+  <p>
+
+    On peut alors facilement sélectionner des lignes correspondant à certains moments. Par exemple, la température du séjour pour toutes les lignes qui correspondent aux 23 du mois&nbsp;:
+    
+  </p>
+
+<pre>>>> brad [brad.date.dt.day == 23].temp_lr
+13590     24.1
+13591     24.1
+13592     24.1
+13593     24.0
+13594     24.0
+          ... 
+159136    21.8
+159137    21.8
+159138    21.7
+159139    21.7
+159140    21.6
+</pre>
+
+  <h4>Application aux dates dans le jeu de données <kbd>Brad</kbd></h4>
+
+  <p>
+
+    <b>À faire&nbsp;:</b> répondez aux questions suivantes&nbsp;:
+    
+  </p>
+
+  <ul>
+    <li>à quelle date a-t-il gelé la première fois en 2003&nbsp;?
+      <div class="correction">
+	<p>
+	  Le 26 octobre 2003 à 2h19mn. Il y a beaucoup de manière de trouver cette valeur. En voici une&nbsp;:
+	</p>
+	<pre>brad.loc [brad.loc [:,"an"] == 2004] [brad.loc [:,"temp_o"] &lt; 0].loc [:,"date"].iloc [0]</pre>
+      </div>
+    </li>
+    <li>Durée de la période de gel durant l'hiver 2023-2004&nbsp;?
+      <div class="correction">
+	<p>
+	  En 2004, la dernière géle a eu lieu le 30 avril à 17h43. On obtient cette date par exemple en faisant&nbsp;:
+	</p>
+	<pre>brad.loc [brad.loc [:,"an"] == 2004] [brad.loc [:,"temp_o"] &lt; 0].loc [:,"date"].iloc [-1]</pre>
+        <p>
+	Pour connaître le durée, il suffit de faire la différence entre ces deux dates&nbsp;:
+	</p>								     
+	<pre>rad.loc [brad.loc [:,"an"] == 2004] [brad.loc [:,"temp_o"] &lt; 0].loc [:,"date"].iloc [-1] - brad.loc [brad.loc [:,"an"] == 2004] [brad.loc [:,"temp_o"] &lt; 0].loc [:,"date"].iloc [0]</pre>
+      </div>
+      <p>
+	qui répond 118 jours, 22 heures et 54 minutes.
+      </p>
+    </li>
+    <li>Quelle est la température extérieure moyenne entre 13h et 14h dans l'ensemble du jeu de données&nbsp;?
+      <div class="correction">
+	<pre>brad.loc [brad.loc [:,"h"] >= 13] [brad.loc [:,"h"] &le; 14].loc [:,"temp_o"].mean()</pre>
+      <p>
+	qui donne presque 14 °C.
+      </p>
+      </div>
+    </li>
+    <li>Quelle est la température extérieure moyenne pour chaque mois&nbsp;?
+      <div class="correction">
+	<pre>for an in range (2003, 2005):
+    for mois in range (1, 13):
+        if brad.loc [(brad.loc [:,"an"]==an) &amp; (brad.loc [:,"mois"]==mois),"temp_o"].shape[0]:
+            temp_moyenne = np.mean (brad.loc [(brad.loc [:,"an"]==an) &amp; (brad.loc [:,"mois"]==mois),"temp_o"])
+            ch = "{}/{} : {:4.2f}"
+            print (ch.format (mois, an, temp_moyenne))</pre>
+      </div>
+    </li>
+    <li>Quelle est la température extérieure moyenne à chaque saison&nbsp;? On supposera que les saisons commencent les 21 des mois de mars, juin, septembre et décembre.
+      <div class="correction">
+	<p>
+	  Il y a différentes manières de faire. Pour faire très simple, j'ajoute un attribut <kbd>saison</kbd> qui vaut 1 pour le printemps, 2 pour l'été, 3 pour l'automne, 4 pour l'hiver. Ensuite, je filtre les lignes en fonction de la saison et j'en calcule la moyenne.
+	</p>
+	<pre>brad ["saison"] = 1
+brad.loc [(brad.loc [:,"date"] &ge; pd.Timestamp(2003,6,21)) &amp; (brad.loc [:,"date"] &lt; pd.Timestamp(2003,9,21)),"saison"] = 2
+brad.loc [(brad.loc [:,"date"] &ge; pd.Timestamp(2004,6,21)) &amp; (brad.loc [:,"date"] &lt; pd.Timestamp(2004,9,21)),"saison"] = 2
+brad.loc [(brad.loc [:,"date"] &ge; pd.Timestamp(2003,9,21)) &amp; (brad.loc [:,"date"] &lt; pd.Timestamp(2003,12,21)),"saison"] = 3
+brad.loc [(brad.loc [:,"date"] &ge; pd.Timestamp(2004,9,21)) &amp; (brad.loc [:,"date"] &lt; pd.Timestamp(2004,12,21)),"saison"] = 3
+brad.loc [(brad.loc [:,"date"] &ge; pd.Timestamp(2003,12,21)) &amp; (brad.loc [:,"date"] &lt; pd.Timestamp(2004,3,21)),"saison"] = 4
+np.mean (brad.loc [brad.loc [:,"saison"] == 2,"temp_o"])
+# 18.60659823861916
+np.mean (brad.loc [brad.loc [:,"saison"] == 1,"temp_o"])
+# 12.197569880205362
+np.mean (brad.loc [brad.loc [:,"saison"] == 3,"temp_o"])
+# 6.797878844887593
+np.mean (brad.loc [brad.loc [:,"saison"] == 4,"temp_o"])
+# 1.462302654257153</pre>
+      </div>
+    </li>
+    <li>Le thermostat joue-t-il bien son rôle de régulation de la température intérieure dans les 3 pièces&nbsp;? Dit autrement, fait-il à peu près 21°C pendant la journée, à 16°C pendant la nuit tout au long de l'année chez Brad&nbsp;?
+      <div class="correction">
+	<p>
+	  Pour répondre à cette question sans quand même trop se compliquer la tâche (quand commence la nuit, quand se termine-t-elle&nbsp;?), on considère que la nuit commence à 20h et se termine à 7h. En fonction du résultat obtenu, parait-il correct ou abérant, on pourra affiner au besoin.
+	  <br/>
+	  Donc on calcule la température moyenne pour les 3 pièces, de 20h à 7h d'une aprt, entre 7h et 20h d'autre part.
+	</p>
+	<pre>np.mean (brad.loc [(brad.loc [:,"h"] &gt; 20)|(brad.loc [:,"h"] &lt; 7),"temp_b"])
+# 18.50657665751719
+np.mean (brad.loc [(brad.loc [:,"h"] &gt; 7)|(brad.loc [:,"h"] &lt; 20),"temp_b"])
+# 18.87542006891018
+np.mean (brad.loc [(brad.loc [:,"h"] &ge; 20)|(brad.loc [:,"h"] &lt; 7),"temp_l"])
+# 17.972960595396884
+np.mean (brad.loc [(brad.loc [:,"h"] &ge; 7)|(brad.loc [:,"h"] &lt; 20),"temp_l"])
+# 18.118903601193296
+np.mean (brad.loc [(brad.loc [:,"h"] &ge; 20)|(brad.loc [:,"h"] &lt; 7),"temp_lr"])
+# 19.722822488221063
+np.mean (brad.loc [(brad.loc [:,"h"] &ge; 7)|(brad.loc [:,"h"] &lt; 20),"temp_lr"])
+# 20.173351426295763</pre>
+        <p>
+          Dans le labo et dans le sous-sol, la température moyenne est presque la même de jour comme de nuit. Dans le salon, aussi mais il y fait 1 à 2°C de plus.
+	</p>
+      </div>
+    </li>
+  </ul>
+  
+  <h2>Corrélation des températures&nbsp;?</h2>
+
+  <p>
+
+    Intuitivement, il doit y avoir des corrélations entre les températures relevées dans les différentes pièces chez Brad.
+
+    <br/>
+
+    <b>À faire&nbsp;:</b> quelle corrélation vous attendez-vous à observer&nbsp;?
+  </p>
+  
+  <div class="correction">
+    <p>
+      On s'attend à trouver des corrélations assez fortes entre les températures intérieures. Par contre, elles ne doivent pas être corrélées à la température extérieure.
+    </p>
+  </div>
+
+  <h3>Exploration visuelle</h3>
+
+  <p>
+
+    <b>À faire&nbsp;:</b> faites des scatter plot entre les différents couples de températures. Quelles températures sont/semblent corrélées linéairement&nbsp;? Cela correspond-il à vos attentes&nbsp;?
+    
+  </p>
+
+  <div class="correction">
+    <p>
+      Les scatter plot entre une température intérieure et une température montre qu'il n'y a pas de corrélation&nbsp;:
+      <br/>
+      <img src="scatter_l_o.png" width="300pt" alt="scatter_l_o"/>
+      <img src="scatter_lr_o.png" width="300pt" alt="scatter_lr_o"/>
+      <img src="scatter_b_o.png" width="300pt" alt="scatter_b_o"/>
+      <br/>
+      <br/>
+      Entre le sous-sol et le salon, on a une belle corrélation linéaire&nbsp;:
+      <br/>
+      <img src="scatter_b_lr.png" width="300pt" alt="scatter_b_lr"/>
+      <br/>
+      <br/>
+      Entre le laboratoire et le salon, on obtient ce graphique&nbsp;:
+      <br/>
+      <img src="scatter_l_lr.png" width="300pt" alt="scatter_l_lr"/>
+      <br/>
+      <br/>
+      Un examen superficiel pourrait nous faire conclure à l'absence de corrélation linéaire. Or, on voit quelques points sur la gauche de la figure qui sont des anomalies et qui peuvent changer complétement l'aspect de la figure. On refait donc la figure en se concentrant sur la partie droite, c'est-à-dire des températures supérieures à 10°C&nbsp;:
+      <br/>
+      <img src="scatter_l_lr2.png" width="300pt" alt="scatter_l_lr2"/>
+      <br/>
+      <br/>
+      La corrélation linéaire est maintenant évidente.
+      <br/>
+      C'est la même chose quand on réalise le graphique pour le laboratoire et le sous-sol.
+    </p>
+  </div>
+    
+
+  <h3>Approche quantitative</h3>
+
+  <h4>Corrélation linéaire entre chaque paire d'attributs</h4>
+
+  <p>
+
+    La méthode <kbd>corr ()</kbd> du paquetage <kbd>pandas</kbd> calcule le coefficient de corrélation linéaire.
+
+    <br/>
+    <br/>
+    
+    <b>À faire&nbsp;:</b> calculer les coefficients de corrélation linéaire entre les différentes paires d'attributs. Ces valeurs confirment-elles votre intuition et vos constatations sur les graphiques&nbsp;?
+
+  </p>
+  
+  <div class="correction">
+    <pre>brad.loc [:, ["temp_l", "temp_lr", "temp_b", "temp_o"]].corr()</pre>
+  </div>
+  
+  <p>
+
+    Vous devez trouver les coefficients suivants&nbsp;:
+
+  </p>
+  
+<pre>           temp_b    temp_l   temp_lr    temp_o
+temp_b   1.000000  0.801845  0.949450  0.623215
+temp_l   0.801845  1.000000  0.790496  0.726466
+temp_lr  0.949450  0.790496  1.000000  0.644963
+temp_o   0.623215  0.726466  0.644963  1.000000
+</pre>
+
+  <h4>Modèles linéaires</h4>
+
+  <p>
+
+    On souhaite modéliser la relation linéaire entre les températures. Pour cela, on va utiliser les modèles linéaires du paquetage <kbd>sklearn</kbd> documentés <a href="https://scikit-learn.org/stable/modules/linear_model.html">sur cette page</a> et <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html#sklearn.linear_model.LinearRegression">celle-ci</a>.
+
+    <br/>
+    <br/>
+
+    Vous commencez par créer un objet régresseur linéaire par une commande comme <kbd>reg = linear_model.LinearRegression()</kbd>.
+
+    <br/>
+
+    Vous devez fournir un ensemble de couples (x, y) et <kbd>sklearn</kbd> calcule la droite de régression par la méthode <kbd>fit ()</kbd> appliquée au régresseur (donc <kbd>reg.fit (x, y)</kbd>). Cette méthode prend en paramètre deux tableaux <kbd>numpy</kbd>. Pour cela, il faut transformer les attributs en tableaux bidimensionnels <kbd>numpy</kbd> et ensuite appeler la méthode <kbd>fit () </kbd> avec ces deux tableaux. Je reprends tranquillement pour la température dans le sous-sol et celle dans le salon&nbsp;:
+
+  </p>
+
+  <ol>
+    <li>je mets dans un objet (appelons-le <kbd>temp_b</kbd> comme l'attribut du tableau de données) un tableau <kbd>numpy</kbd> de taille Nx1 (il faut qu'il ait deux dimensions) les températures dans le sous-sol de Brad.</li>
+    <li>je mets dans un autre objet (appelons-le <kbd>temp_lr</kbd> comme l'attribut du tableau de données) un autre tableau <kbd>numpy</kbd> de taille Nx1 les températures dans le salon de Brad.</li>
+    <li>je crée un objet régresseur&nbsp;: <kbd>reg = linear_model.LinearRegression()</kbd></li>
+    <li>je calcule les paramètres du modèles (la droite de régression encore nommée la droite des moindres carrées)&nbsp;: <kbd>reg.fit (temp_b, temp_lr)</kbd></li>
+  </ol>
+  
+  <p>
+
+    À l'issue de l'appel de <kbd>fit ()</kbd>, si tout s'est bien passé, l'objet <kbd>reg</kbd> contient deux attributs&nbsp;: <kbd>coef_</kbd> est le coefficient directeur de la droite de régression, <kbd>intercept_</kbd> est l'ordonnée à laquelle la droite de régression coupe l'axe des ordonnées.
+    
+    <br/>
+    <br/>
+
+    Essayez de calculer les paramètres du modèle linéaire entre la température dans le salon et celle dans le sous-sol. Que se passe-t-il&nbsp;? Pourquoi&nbsp;?
+    Essayez de comprendre avant de lire la suite.
+    
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    
+    Comme l'indique la documentation, la méthode utilisée ne fonctionne pas en présence de données manquantes. La première question à se poser est&nbsp;: y en a-t-il beaucoup ou juste quelques-une&nbsp;? S'il y en a quelques-unes, on peut calculer le modéle linéaire en retirant les individus correspondants à ces données manquantes et cela ne devrait pas avoir de sérieuses conséquences. S'il y en a beaucoup, c'est plus compliqué. Voyons dans quel cas on se trouve...
+
+  </p>
+
+  <h4>Traitement des NAs</h4>
+
+  <p>
+    
+    La méthode <kbd>isna ()</kbd> du paquetage <kbd>pandas</kbd> indique les valeurs inconnues dans un vecteur sous la forme d'un vecteur de booléens. Le nombre de NAs peut ensuite être compté en sommant les booléens (car, comme vous le savez, une valeur <kbd>False</kbd> correspond à l'entier 0 et une valeur <kbd>True</kbd> correspond à l'entier 1).
+
+    <br/>
+    <br/>
+    
+    <b>À faire&nbsp;:</b> les attributs correspondants aux 4 températures contiennent-ils des valeurs NA&nbsp;? Si oui, combien&nbsp;?
+
+  </p>
+      
+  <div class="correction">
+    <p>
+      Par exemple, pour l'attribut <kbd>temp_b</kbd>, on fait&nbsp;:
+    </p>
+    <pre>np.size (np.where (brad.temp_b.isna()))</pre>
+    <p>
+      Il y a 2 valeurs inconnues pour cet attribut.
+      <br/>
+      De la même manière, on en trouve 3 pour le salon, 554 pour la laboratoire, 6 pour les températures extérieures.
+    </p>
+  </div>
+  
+  <p>
+
+  On voit que pour les températures dans le salon, dans le sous-sol et à l'extérieur, le nombre de valeurs manquantes est très réduit.
+    <!--
+	3 pour temp_lr
+	>>> np.where (brad.loc [:,"temp_lr"].isna())
+	(array([113121, 150533, 158048]),)
+	2 pour temp_b
+	>>> np.where (brad.loc [:,"temp_b"].isna())
+	(array([105216, 158048]),)
+	6 pour temp_o
+	>>> np.where (brad.loc ["temp_o"].isna())
+	(array([ 53211,  91986, 113121, 144520, 158048, 164717]),)
+	>>> brad.loc [:,"temp_l"].isna().sum()
+	554
+      -->
+    On va donc simplement ne pas tenir compte des individus avec des données manquantes et calculer les modèles linéaires.
+    
+    <br/>
+    <br/>
+
+    Vous pouvez essayer de le faire sans lire la suite.
+
+    <br/>
+    <br/>
+
+    Une idée simple consiste à construire l'ensemble des indices des individus qui n'ont pas de valeur manquante. Pour cela, je vous donne quelques ingrédients&nbsp;:
+
+  </p>
+
+  <ul>
+    <li>la fonction <kbd>append ()</kbd> du paquetage <kbd>numpy</kbd> met les éléments d'un vecteur au bout d'un autre. Par exemple&nbsp;: <kbd>np.append (np.array ([1, 2, 3]), np.array ([-1, 6, 9, -4]))</kbd> produit le vecteur <kbd>array([ 1,  2,  3, -1,  6,  9, -4])</kbd>.</li>
+    <li>la fonction <kbd>delete ()</kbd> du paquetage <kbd>nnumpy</kbd> retire les valeurs dont les indices sont spécifiés. Par exemple&nbsp;: <kbd>np.delete (np.append (np.array ([1, 2, 3]), np.array ([-1, 6, 9, -4])), np.array ([3, 4, 1]))</kbd> produit le vecteur <kbd>array([ 1,  3,  9, -4])</kbd>.</li>
+    <li>la fonction <kbd>where ()</kbd> du paquetage <kbd>numpy</kbd> renvoie un vecteur contenant les indices d'un vecteur dont les éléments vérifient une certaine condition. Par exemple, <kbd>np.where (np.array (range (10)) % 2 == 1)</kbd> renvoie <kbd>(array([1, 3, 5, 7, 9]),)</kbd> qui est un vecteur dont les éléments sont les indices des éléments impairs du premier. Plutôt que de trouver les valeurs impaires, on peut chercher les NAs.</li>
+  </ul>
+  
+  <p>
+
+    Avec ces 3 méthodes, vous avez toutes les informations nécessaires pour construire un modèle linéaire en éliminant au préalable les valeurs manquantes.
+
+    <br/>
+    <br/>
+    
+    <b>À faire&nbsp;:</b> calculer les coefficients des droites de régression linéaire entre les températures du salon, du sous-sol et à l'extérieur.
+
+  </p>
+      
+  <div class="correction">
+    <p>
+      Pour le salon par rapport au sous-sol&nbsp;:
+    </p>
+    <pre>valid_indices = np.delete (np.array (range (brad.shape [0])), np.append (np.where (brad.loc [:,"temp_b"].isna()), np.where (brad.loc [:,"temp_lr"].isna())))
+nb_valid_indices = len (valid_indices)
+sc_lr = np.zeros ((nb_valid_indices, 1))
+sc_b = np.zeros ((nb_valid_indices, 1))
+sc_b [:,0] = brad.temp_b [valid_indices]
+sc_lr [:,0] = brad.temp_lr [valid_indices]
+from sklearn import linear_model
+reg = linear_model.LinearRegression ()
+reg.fit (sc_b, sc_lr)
+ch = "L'équation de la droite de régression entre le salon et le sous-sol est : y = {:4.2f} x + {:4.2f}"
+print (ch.format (reg.coef_[0][0], reg.intercept_ [0]))</pre>
+    <p>
+      La dernière ligne affiche&nbsp;: <kbd>L'équation de la droite de régression entre le salon et le sous-sol est : y = 1.18 x + -2.08</kbd>.
+    </p>
+  </div>
+  
+  <p>
+
+    Puis, réaliser un graphique pour chacune des 3 combinaisons représentant les couples de températures et la droite de régression. Par exemple, pour les températures du sous-sol et du salon, vous devez obtenir quelque chose comme cela&nbsp;:
+    
+  </p>
+  
+    <p class="aligncenter">
+      <img src="./dr_b_lr.png" width="400pt" alt="droite de régression." />
+    </p>
+    
+    <p>
+      
+      On ajoute une droite avec la méthode <kbd>plt.axline ()</kbd> du paquetage <kbd>matplotlib</kbd>.
+      
+      <br/>
+      <br/>
+    
+      <b>À faire&nbsp;:</b> identifier les températures qui s'écartent significativement de la tendance indiquée par la droite de régression. Que pensez-vous de ces points&nbsp;?
+
+    </p>
+
+  <div class="correction">
+    <p>
+      Ce sont des mesures aberrantes.
+    </p>
+  </div>
+      
+  <h4>Imputation des valeurs manquantes</h4>
+
+  <p>
+
+    On a vu qu'il y a quelques valeurs manquantes dans les températures du sous-sol, du salon et à l'extérieur (et il en manque beaucoup pour le laboratoire, on laisse donc celui-ci de côté pour l'instant).
+
+    <br/>
+    <br/>
+    
+    On peut imaginer au moins trois manières de donner une valeur&nbsp;:
+    
+  </p>
+  
+  <ul>
+    <li>s'agissant d'une série temporelle (une suite de valeurs mesurées à des instants successifs), par inspection visuelle, on peut vérifier si les valeurs un peu avant et un peu après sont relativement constantes. Si elles sont constantes, on peut simplement remplacer le NA par cette valeur&nbsp;;</li>
+    <li>une solution très classique consiste à remplacer le NA par la moyenne des valeurs à l'instant d'avant et à l'instant d'après. Il est beaucoup mieux de réaliser une inspection visuelle et si celle-ci ne montre pas que la valeur est constante, faire un graphique de l'évolution de la valeur de l'attribut et «&nbsp;voir&nbsp;» quelle valeur conviendrait le mieux&nbsp;;</li>
+    <li>utiliser les coefficients de régression linéaire entre les températures dans les différents lieux pour prédire les valeurs manquantes.</li>
+  </ul>
+
+    <p>
+
+      <b>À faire&nbsp;:</b> imputer les valeurs manquantes pour ces 3 pièces.
+      
+    </p>
+    
+  <div class="correction">
+    <p>
+      Par exemple, la température du salon est manquante pour la donnée d'indice 113121 (et deux autres).
+      <br/>
+      S'agissant d'une valeur isolée, on regarde les valeurs un peu avant et un peu après celle qui manque&nbsp;:
+      <pre>&gt;&gt;&gt; brad.loc [113117:113125, "temp_lr"]
+113117    20.2
+113118    20.2
+113119    20.0
+113120    19.8
+113121     NaN
+113122    19.9
+113123    19.8
+113124    19.8
+113125    19.8</pre>
+      Les températures sont enregistrées toutes les 3 minutes&nbsp;: elles varient donc très peu. On peut imputer 19,8 ou 19,85 ou 19.
+      <br/>
+      <br/>
+      Même si ici ce n'est pas la peine de chercher à faire plus compliqué, je montre comment on ferait pour déterminer une valeur en utilisant la relation linéaire existant entre la température du salon et celle du sous-sol. Précédemment, on a calculé les paramètres du modèle linéaire entre ces deux attributs et ceux-ci sont dans l'object <kbd>reg</kbd>. On va donc imputer la valeur&nbsp;:
+    </p>
+    <pre>reg.coef_ [0][0] * brad.loc [113121, "temp_b"] + reg.intercept_ [0]</pre>
+    <p>
+      qui donne <kbd>19,73</kbd>. C'est très proche de la valeur que l'on a imputé par une démarche purement manuelle.
+      <br/>
+      <br/>
+      Pour cet indice, la température est également inconnnue dans le laboratoire, on ne peut donc pas l'utiliser pour prédire la température du salon. Il est intéressant d'examiner un cas où l'on dispose des températures dans le laboratoire et dans le sous-sol. C'est le cas pour l'indice 150533.
+      <br/>
+      Si on prédit la température du salon à partir de celle du sous-sol en utilsiant le modèle linéaire, on obtient <kbd>26,57</kbd>°C.
+      <br/>
+      Si on prédit la température du salon à partir de celle du laboratoire, on obtient <kbd>23,69</kbd>°C.
+      <br/>
+      Si on inspecte visuellement les tempéatures du salon avant et après cet indice, on voit que la température est constante, à <kbd>26,7</kbd>°C. C'est proche de la valeur prédite à partir de la température du sous-sol, plus éloignée de celle prédite à partir de la température du laboratoire. On peut (on doit&nbsp;!) être intrigué. Or, on note que le coefficient de corrélation linéaire entre la température du salon est celle du sous-sol (<kbd>0,95</kbd>, c'est vraiment beaucoup) est bien supérieure à ce coefficient entre température du sous-sol et celle du laboratoire (<kbd>0,79</kbd>). Aussi, c'est normal que la température du sous-sol prédise mieux la température du salon.
+    </p>
+  </div>
+  
+<!-- Default Statcounter code for on github
+https://philippe-preux.github.io -->
+<script type="text/javascript">
+var sc_project=12923547; 
+var sc_invisible=1; 
+var sc_security="627600d4"; 
+</script>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="Web Analytics"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/12923547/0/627600d4/1/"
+alt="Web Analytics"
+referrerPolicy="no-referrer-when-downgrade"/></a></div></noscript>
+  <!-- End of Statcounter Code -->
+  
+</body>
+</html>
+
