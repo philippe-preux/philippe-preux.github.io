@@ -125,6 +125,10 @@
 
   <p>
 
+    Pour une action donnée, on calcule \( a \) d'où l'on déduit la nouvelle vitesse \( v_{t+\Delta t} = v_t + a \Delta t \) et la nouvelle position \( p_{t + \Delta t} = p_t + v_t \Delta t \).
+
+    <br>
+    
     L'état courant est donc donné par le couple \( p, v \).
 
     <br>
@@ -160,7 +164,7 @@
     
     <br>
 
-    \( p_{t+1} = clip (p_t + v_{t+1} \)
+    \( p_{t+1} = clip (p_t + v_{t+1}) \)
 
     <br>
 
@@ -198,13 +202,6 @@
     
   </p>
 
-  
-  <h3>De l'action à l'état</h3>
-
-  <p>
-
-  </p>
-
   <h2>Algorithme FQI</h2>
 
   <p>
@@ -220,7 +217,7 @@
 	<li><b>Répéter un certain nombre de fois&nbsp;:</b>
 	  <ol>
 	    <li>échantillonner un lôt de données depuis \[ {\cal D} \).</li>
-	    <li>constituer un jeu d'exemples d'apprentissage. Chaque exemple est un couple \( (e_t, q_t = r_t + \gamma \max_{a'}{\hat{Q_k} (e_{t+1},a'} \).
+	    <li>constituer un jeu d'exemples d'apprentissage. Chaque exemple est un couple \( ((e_t, a_t), q_t = r_t + \gamma \max_{a'}{\hat{Q_k} (e_{t+1},a'} \).</li>
 	    <li>Régresser ce jeu d'exmples. On obtiendra les paramètres du modèle de régression&nbsp;: \( \theta_{k+1} \gets \mbox{arg min} \sum \sum (q_t - \hat{Q_k} (e_t, a_t))^2 \)</li>
 	  </ol>
 	</li>
