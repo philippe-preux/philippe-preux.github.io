@@ -218,7 +218,7 @@
 	  <ol>
 	    <li>échantillonner un lôt de données depuis \[ {\cal D} \).</li>
 	    <li>constituer un jeu d'exemples d'apprentissage. Chaque exemple est un couple \( ((e_t, a_t), q_t = r_t + \gamma \max_{a'}{\hat{Q_k} (e_{t+1},a'} \).</li>
-	    <li>Régresser ce jeu d'exmples. On obtiendra les paramètres du modèle de régression&nbsp;: \( \theta_{k+1} \gets \mbox{arg min} \sum \sum (q_t - \hat{Q_k} (e_t, a_t))^2 \)</li>
+	    <li>Régresser ce jeu d'exmples. On obtiendra les paramètres du modèle de régression&nbsp;: \( \theta_{k+1} \gets \mbox{arg min} \sum (q_t - \hat{Q_k} (e_t, a_t))^2 \)</li>
 	  </ol>
 	</li>
       </ol>
@@ -250,7 +250,12 @@
 
   <p>
 
-    Vous résolvez les deux problèmes indiqués plus haut, le pendule inversé et la voiture dans la montagne. Pour chacun, vous essayez d'obtenir les meilleures performances de votre algorithm. 
+    Vous résolvez les deux problèmes indiqués plus haut, le pendule inversé et la voiture dans la montagne. Pour chacun, vous essayez d'obtenir les meilleures performances de votre algorithme.
+
+    <br>
+
+    Lorsque votre algorithme fonctionne, réalisez une vingtaine d'épisode de test, c'est-à-dire que vous utilisez l'estimation de la qualité \( \hat{Q} \) et que vous exécutez 20 fois la politique gloutonne. À chaque exécution, vous mesurez le retour, c'est-à-dire la somme des retours immédiats pondérés, \( R = \sum_t \gamma^t r_t \). Quelle est la médiane&nbsp;? Quelle est la variabilité de \( R \)&nbsp;?
+    
   </p>
 
   <h1></h1>
