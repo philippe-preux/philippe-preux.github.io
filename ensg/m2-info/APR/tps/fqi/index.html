@@ -235,82 +235,22 @@
 
   <p>
 
-    <b>À faire&nbsp;:</b> implanter le Q-Learning. Tout comme dans le TP de programmation dynamique en PDI, faire en sorte que l'implantation soit générique. Assurez-vous qu'elle n'est pas buggée.
+    <b>À faire&nbsp;:</b> implanter cet algorithme.
+    Encore une fois, faire en sorte que l'implantation soit générique.
 
     <br>
 
-    On prendra \( \alpha (e, a) = \frac{1}{n (e, a) + 1) \) où \( n (e, a) \) est le nombre de visites à la paire \( (e, a) \).
+    Le régresseur sera un perceptron multi-couches.
 
-    <br>
-
-    On utilisera un choix d'action &epsilon;-glouton avec &epsilon; décroissant. La décroissance de &epsilon; est délicate à régler. On multipliera &epsilon; par une valeur proche et inférieure à 1 à l'issue de chaque épisode, par exemple 0,99. Par la suite dans les expériences, on vérifiera toujours que ce facteur convient et ne provoque pas une décroissance d'&epsilon; trop rapide, ou trop lente.
+    On utilisera <a href="https://github.com/libfann/fann">cette bilbliothèque logicielle</a> qui peut être utilisée en C, en python et dans bien d'autres langages. En julia, <a href="https://docs.juliahub.com/General/Knet/stable/mlp/">cette bibliothèque</a> semble faire l'affaire.
 
   </p>
 
   <h2>Expérimentation</h2>
 
-  <h3>Problème du chauffeur de taxi</h3>
-
   <p>
 
-    Résoudre le probème du chauffeur de taxi avec le Q-Learning. On prend &gamma; = 0,9. Comme il n'y a pas d'état terminal, on arrête un épisode lorsque &gamma;<sup>t</sup> est petit (10<sup>-6</sup> par exemple).
-
-    <br>
-
-    Vérifier que la politique gloutonne tend vers la politique optimale déterminée dans le module TP de programmation dynamique. Combien d'épisodes sont nécessaires pour cela&nbsp;?
-
-    <br/>
-
-    Vous étudierez par exemple combien d'interactions sont nécessaires pour apprendre cette politique. Exécutez plusieurs fois l'algorithme, calculez la moyenne, la médiane et l'écart-type.
-
-  </p>
-  
-  <h3>Problème de labyrinthes</h3>
-
-  <p>
-
-    Résoudre le labyrinthe dont \( {\cal P} \) et \( {\cal R} \) sont fournies dans <a href="laby.1bis.P-et-R.txt">ce fichier</a>. 4 actions sont possibles, une par direction cardinale&nbsp;: aller une case à gauche, aller une case vers le haut, aller une case vers la droite, aller une case vers le bas. Lorsqu'une action est empéchée par un mur, l'état reste inchangé. Ce fichier suit le format vu dans le TP de programmation dynamique. Chaque épisode part de l'état orange et se termine lorsque l'état vert est atteint. Un retour immédiat +1 est perçu lorsque la case verte est atteinte&nbsp;; la fonction de retour est nulle sur toutes les autres transitions&nbsp;; une fois sur la case verte, toutes les actions sont sans effet. Les états sont numérotés à partir de 0 pour la case en haut à gauche puis de gauche vers la droite et de haut en bas. Déterminer la politique gloutonne à l'issue de l'apprentissage. Lors d'une exécution, on mesure la somme des retours immédiats pondérés \( R = \sum_{t\ge{}0} \gamma^t r_t \). Prendre &gamma; = 0,95.
-
-    <br>
-
-    <img src="https://philippe-preux.github.io/ensg/miashs/rnf/tps/rl/laby.1bis.svg" width="300" alt="(figure) Un petit labyrinthe.">
-    
-    <br>
-
-    On nomme courbe d'apprentissage le graphique indiquant \( R \) en fonction du numéro de l'épisode.
-
-    <br>
-    
-    Réalisez plusieurs exécutions. On réalise plusieurs courbes d'apprentissage &nbsp;:
-
-  </p>
-
-  <ul>
-    <li>version 1&nbsp;: tracer l'évolution de \( R \) au fil des épisodes pour chacune des exécutions.</li>
-    <li>version 2&nbsp;: tracer la valeur moyenne de \( R \) au fil des épisodes et +/- 1 écart-type.</li>
-    <li>version 3&nbsp;: tracer la valeur médiane de \( R \) au fil des épisodes et les quartiles 25 et 75%.</li>
-  </ul>
-  
-  <p>
-
-    Faites la même chose avec le labyrinthe du contrôle de PDI (version non venteuse)&nbsp;: <a href="../../../PDI/labyrinthe-P-et-R.txt">labyrinthe du CC de PDI</a>.
-    
-  </p>
-
-  <h3>21 avec un dé</h3>
-
-  <p>
-
-    Résolvez le 21 avec un dé avec le Q-Learning.
-    
-  </p>
-  
-  <h3>Choix de l'action</h3>
-
-  <p>
-
-    Implanter la méthode de Botzmann-Gibbs. Comparez les performances obtenues avec celle-ci à celles obtenues précédemment par &epsilon;-décroissant glouton.
-
+    Vous résolvez les deux problèmes indiqués plus haut, le pendule inversé et la voiture dans la montagne. Pour chacun, vous essayez d'obtenir les meilleures performances de votre algorithm. 
   </p>
 
   <h1></h1>
