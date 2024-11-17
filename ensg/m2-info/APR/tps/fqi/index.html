@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+    <title><i>Fitted Q-Iteration</i></title>
+    <link href="/home/ppreux/philippe-preux.github.io/css/ma.css"
+	  rel="stylesheet" type="text/css" media="all" >
+    <link href="https://philippe-preux.github.io/css/ma.css"
+	  rel="stylesheet" type="text/css" media="all" >
+    <link rel="shortcut icon" type="image/x-icon"
+	  href="https://philippe-preux.github.io/img/site.ico" >
+    <!--link rel="shortcut icon" type="image/x-icon"
+	  href="/home/ppreux/philippe-preux.github.io/img/site.ico" -->
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+      div.c {
+	  background-color: #bafcba;
+      }
+      div.python {
+	  background-color: #c0c0c0;
+      }
+      table.tr.td.c {
+	  background-color: #bafcba;
+	  width: 50%;
+      }
+      table.tr.td.python {
+	  background-color: #c0c0c0;
+	  width: 50%;
+      }
+      span.alert {
+	  color: #ff0000;
+	  font-size: 300%;
+      }
+
+      /* Ce qui suit fait ce que je voulais faire en mettant des attributs aux balises td, ce qui n'est pas compatible avec HTML5. Je voulais une table avec deux colonnes de même largeur, chacune avec une couleur de fond particulière.
+       J'ai trouvé cette solution là : https://www.w3schools.com/howto/howto_css_two_columns.asp */
+      * {
+	  box-sizing: border-box;
+      }
+      /* Create two equal columns that floats next to each other */
+      .columnC {
+	  background-color: #bafcba;
+	  float: left;
+	  width: 50%;
+	  padding: 10px;
+      }
+      .columnP {
+	  background-color: #c0c0c0;
+	  float: left;
+	  width: 50%;
+	  padding: 10px;
+      }
+      /* Clear floats after the columns */
+      .row:after {
+	  content: "";
+	  display: table;
+	  clear: both;
+      }
+      /* ça marche bien pour la largeur et la couleur de fond, mais pas pour
+	 la hauteur. Après avoir qwanté sans trouver de solution, j'ai défini
+	 la classe div ci-dessous : c'est affreux, mais ça marche comme
+	 disent les étudiants ! (-(
+	 Mais il faut faire l'ajustement à la main. C'est bien pour cela que
+	 « non, ça ne marche pas !», mais ça rend ce que je voulais donc en
+	 attendant de trouver mieux.
+     */
+      div.theUglyTrick {
+	  visibility:hidden;
+      }
+    </style>
+  </head>
+  
+<body>
+
+<div class="tpR">
+
+  <h1><i>Fitted Q-Iteration</i></h1>
+
+  <h2>Introduction</h2>
+
+  <p>
+
+    On aborde le cas des espaces d'états infinis, non dénombrables. En particulier, le cas où l'espace d'états est un sous-ensemble compact (dans le contexte présent, le terme mathématique «&nbsp;compact&nbsp;» signifie qu'on s'intéresse à un sus-ensemble dans lequel il n'y a pas de trou) de \( \mathbb{R}^P \), autrement dit, un hyper-parallélépipéde en dimension \( P \). Si \( P = 2 \), c'est simplement un rectangle et si \[ P = 1 \), un segment de droite.
+
+    <br>
+
+    Des exemples simples sont les systèmes dynamiques contrôlés, tels des robots. Un système dynamique est un système dont l'état évolue au cours du temps. On s'intéresse particulièrement aux systèmes dont la dynamique est régie par la loi de Newton. Dans ceux-ci une action est une accélération (positive ou négative) et connaissant la masse et l'accélération, on en déduit la vitesse puis la positin par intégration. Pour ces systèmes dynamiques newtoniens, on sait (cours de physique au lycée) que l'état du système à un instant donnée est décrit pas sa position et sa vitesse. La fonction de transition du processus de décision de Markov est alors donnée par une équation différentielle reliant l'action à son effet sur le changement d'état.
+
+    <br>
+
+    Dans ce TP, on va s'intéresser à un algorithme très simple bien adapté à ce type de problèmes, le <i>Fitted Q-iteration</i>.
+
+  </p>
+
+  <h2>Quelques problèmes auxquels on va s'intéresser</h2>
+
+  <p>
+
+    On décrit deux problèmes dont l'espace d'état est un sous-espace de \( \mathbb{R}^2 \), autrement di un rectangle&nbsp;:: le pendule inversé et la voiture dans la montagne.
+    
+  </p>
+
+  <h3>Le pendule inversé</h3>
+
+  <p>
+
+    L'équation de la dynmique est la suivante&nbsp;:
+
+    <br>
+    
+    \( a = \frac{1}{ml^2} (- \mu v + mgl * \sin{(p)} + u \)
+
+    <br>
+
+    où&nbsp;:
+    
+  </p>
+
+  <ul>
+    <li>\( p \) est la position angulaire courante du pendule,</li>
+    <li>\( v \) est la vitesse angulaire courante du pendule,</li>
+    <li>\( u \) est l'action,</li>
+    <li>\( a \) est l'accélération resultant de l'action dans l'état courant,</li>
+    <li>\( m \) est la masse du pendule&nbsp;: on prend \( m = 1 \),</li>
+    <li>\( l \) est la longueur du bras du pendule&nbsp;: on prend \( l = 1 \),</li>
+    <li>\( g \) est l'accélération gravitationnelle&nbsp;: au niveau de la mer sur terre \( g = 9,81 \),</li>
+    <li>\( \mu \) est le coefficient de friction&nbsp;: on prend \( \mu = 0,01 \).</li>
+  </ul>
+
+  <p>
+
+    L'état courant est donc donné par le couple \( p, v \).
+
+    <br>
+
+    La position est un angle, donc \( p \in [-\pi, \pi] \). Par convention, l'angle nul correspond à la position instable du pendule, donc à l'équilibre supérieur. &pi; correspondant donc à la psition stable du pendule, pendant vers le bas.
+
+    <br>
+
+    On limite la vitesse à 10 en valeur absolue. Au-delà, le pendule casse.
+
+    <br>
+
+    Il y a deux action possibles&nbsp;: \( u = \pm 5 \) Newtons.
+
+    <br>
+
+    Le retour peut-être défini de différente manière. L'objectif étant de placer le pendule en équilibre supérieur, on pourrait le définir comme valant 1 lorsque la position angulaire est (presque) 0 et la vitesse (presque) nulle. Cependant résoudre ainsi le problème est assez difficile.
+
+    Le problème est beaucoup plus simple à résoudre si on définit le retour comment étant le cosinus de la position angulaire, soit \( \cos{(p)} \).
+    
+  </p>
+  
+  
+  <h3>La voiture dans la montagne</h3>
+
+  <p>
+
+    L'équation de la dynmique est la suivante&nbsp;:
+
+    <br>
+
+    \( v_{t+1} = clip (v_t + 0,001 u - \cos{(3.p_t)})\)
+    
+    <br>
+
+    \( p_{t+1} = clip (p_t + v_{t+1} \)
+
+    <br>
+
+    où \( u \) est l'action&nbsp;: \( u \in \{ -1, 0, +1 \} \).
+
+    \( p_t \) et \( v_t \) sont la position et la vitesse courantes.
+    
+    <br>
+
+    La position est comprise entre -1,2 et 0,6.
+
+    <br>
+
+    La vitesse est comprise entre -0,07 et 0,07.
+
+    <br>
+
+    La fonction \( clip () \) empêche la position et la vitesse de déborder de ces intervalles.
+
+    <br>
+
+    Le système débute toujours dans l'état initial \( p_0 \in \{ -0,6, -0,4 \} \) et \( v_0 = 0 \).
+    
+    <br>
+
+    Le retour est -1 à chaque interaction.
+
+    <br>
+
+    L'objectif est d'atteindre la position \( p \ge{} 0,5 \) en moins de 200 interactions.
+
+    <br>
+    
+    Si l'état final n'est pas atteint en au plus 200 pas, le système est replacé dans son état initial.
+    
+  </p>
+
+  
+  <h3>De l'action à l'état</h3>
+
+  <p>
+
+  </p>
+
+  <h2>Algorithme FQI</h2>
+
+  <p>
+    
+
+  </p>
+
+  <ol>
+    <li>Initialiser l'algorithme.</li>
+    <li><b>Répéter&nbsp;:</b>
+      <ol>
+	<li>/* on réalise un épisode. */</li>
+	<li>Initialiser l'état ; \( t \gets 0 \)</li>
+	<li><b>Tant-que \( e_t \) n'est pas terminal&nbsp;:</b>
+	  <ol>
+	    <li>/* on fait une interaction&nbsp;: */</li>
+	    <li>en fonction de l'état courant e<sub>t</sub>, choisir l'action a<sub>t</sub>,</li>
+	    <li>effectuer a<sub>t</sub> et observer l'état suivant e<sub>t+1</sub> et le retour immédiat r<sub>t</sub>,</li>
+	    <li>mettre à jour Q&nbsp;: \( Q (e_t, a_t) \gets Q (e_t, a_t) + \alpha (e_t, a_t) [r_t + \gamma \max_{a' \in {\cal A}} Q (e_{t+1}, a') - Q (e_t, a_t) ] \),
+	    <li>\( t \gets t + 1 \).</li>
+	  </ol>
+      </ol>
+    </li>
+  </ol>
+
+  <h2>Implantation</h2>
+
+  <p>
+
+    <b>À faire&nbsp;:</b> implanter le Q-Learning. Tout comme dans le TP de programmation dynamique en PDI, faire en sorte que l'implantation soit générique. Assurez-vous qu'elle n'est pas buggée.
+
+    <br>
+
+    On prendra \( \alpha (e, a) = \frac{1}{n (e, a) + 1) \) où \( n (e, a) \) est le nombre de visites à la paire \( (e, a) \).
+
+    <br>
+
+    On utilisera un choix d'action &epsilon;-glouton avec &epsilon; décroissant. La décroissance de &epsilon; est délicate à régler. On multipliera &epsilon; par une valeur proche et inférieure à 1 à l'issue de chaque épisode, par exemple 0,99. Par la suite dans les expériences, on vérifiera toujours que ce facteur convient et ne provoque pas une décroissance d'&epsilon; trop rapide, ou trop lente.
+
+  </p>
+
+  <h2>Expérimentation</h2>
+
+  <h3>Problème du chauffeur de taxi</h3>
+
+  <p>
+
+    Résoudre le probème du chauffeur de taxi avec le Q-Learning. On prend &gamma; = 0,9. Comme il n'y a pas d'état terminal, on arrête un épisode lorsque &gamma;<sup>t</sup> est petit (10<sup>-6</sup> par exemple).
+
+    <br>
+
+    Vérifier que la politique gloutonne tend vers la politique optimale déterminée dans le module TP de programmation dynamique. Combien d'épisodes sont nécessaires pour cela&nbsp;?
+
+    <br/>
+
+    Vous étudierez par exemple combien d'interactions sont nécessaires pour apprendre cette politique. Exécutez plusieurs fois l'algorithme, calculez la moyenne, la médiane et l'écart-type.
+
+  </p>
+  
+  <h3>Problème de labyrinthes</h3>
+
+  <p>
+
+    Résoudre le labyrinthe dont \( {\cal P} \) et \( {\cal R} \) sont fournies dans <a href="laby.1bis.P-et-R.txt">ce fichier</a>. 4 actions sont possibles, une par direction cardinale&nbsp;: aller une case à gauche, aller une case vers le haut, aller une case vers la droite, aller une case vers le bas. Lorsqu'une action est empéchée par un mur, l'état reste inchangé. Ce fichier suit le format vu dans le TP de programmation dynamique. Chaque épisode part de l'état orange et se termine lorsque l'état vert est atteint. Un retour immédiat +1 est perçu lorsque la case verte est atteinte&nbsp;; la fonction de retour est nulle sur toutes les autres transitions&nbsp;; une fois sur la case verte, toutes les actions sont sans effet. Les états sont numérotés à partir de 0 pour la case en haut à gauche puis de gauche vers la droite et de haut en bas. Déterminer la politique gloutonne à l'issue de l'apprentissage. Lors d'une exécution, on mesure la somme des retours immédiats pondérés \( R = \sum_{t\ge{}0} \gamma^t r_t \). Prendre &gamma; = 0,95.
+
+    <br>
+
+    <img src="https://philippe-preux.github.io/ensg/miashs/rnf/tps/rl/laby.1bis.svg" width="300" alt="(figure) Un petit labyrinthe.">
+    
+    <br>
+
+    On nomme courbe d'apprentissage le graphique indiquant \( R \) en fonction du numéro de l'épisode.
+
+    <br>
+    
+    Réalisez plusieurs exécutions. On réalise plusieurs courbes d'apprentissage &nbsp;:
+
+  </p>
+
+  <ul>
+    <li>version 1&nbsp;: tracer l'évolution de \( R \) au fil des épisodes pour chacune des exécutions.</li>
+    <li>version 2&nbsp;: tracer la valeur moyenne de \( R \) au fil des épisodes et +/- 1 écart-type.</li>
+    <li>version 3&nbsp;: tracer la valeur médiane de \( R \) au fil des épisodes et les quartiles 25 et 75%.</li>
+  </ul>
+  
+  <p>
+
+    Faites la même chose avec le labyrinthe du contrôle de PDI (version non venteuse)&nbsp;: <a href="../../../PDI/labyrinthe-P-et-R.txt">labyrinthe du CC de PDI</a>.
+    
+  </p>
+
+  <h3>21 avec un dé</h3>
+
+  <p>
+
+    Résolvez le 21 avec un dé avec le Q-Learning.
+    
+  </p>
+  
+  <h3>Choix de l'action</h3>
+
+  <p>
+
+    Implanter la méthode de Botzmann-Gibbs. Comparez les performances obtenues avec celle-ci à celles obtenues précédemment par &epsilon;-décroissant glouton.
+
+  </p>
+
+  <h1></h1>
+  
+  <p>
+
+    <span class="alert">À l'issue de ce TP, votre Q-Learning doit pouvoir être appliqué à n'importe quel problème de décision de Markov.</span>
+    
+  </p>
+  
+</div>
+
+</body>
+</html>

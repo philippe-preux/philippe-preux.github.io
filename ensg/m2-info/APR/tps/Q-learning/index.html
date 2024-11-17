@@ -3,12 +3,14 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
     <title>Apprentissage par différence temporelle</title>
-    <!-- link href="/home/ppreux/philippe-preux.github.io/css/ma.css" -->
+    <link href="/home/ppreux/philippe-preux.github.io/css/ma.css"
+	  rel="stylesheet" type="text/css" media="all" >
     <link href="https://philippe-preux.github.io/css/ma.css"
 	  rel="stylesheet" type="text/css" media="all" >
     <link rel="shortcut icon" type="image/x-icon"
 	  href="https://philippe-preux.github.io/img/site.ico" >
-    <!-- href="/home/ppreux/philippe-preux.github.io/img/site.ico" -->
+    <!--link rel="shortcut icon" type="image/x-icon"
+	  href="/home/ppreux/philippe-preux.github.io/img/site.ico" -->
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
       div.c {
@@ -24,6 +26,10 @@
       table.tr.td.python {
 	  background-color: #c0c0c0;
 	  width: 50%;
+      }
+      span.alert {
+	  color: #ff0000;
+	  font-size: 300%;
       }
 
       /* Ce qui suit fait ce que je voulais faire en mettant des attributs aux balises td, ce qui n'est pas compatible avec HTML5. Je voulais une table avec deux colonnes de même largeur, chacune avec une couleur de fond particulière.
@@ -170,6 +176,14 @@
     
   </p>
 
+  <h3>21 avec un dé</h3>
+
+  <p>
+
+    Résolvez le 21 avec un dé avec le Q-Learning.
+    
+  </p>
+  
   <h3>Choix de l'action</h3>
 
   <p>
@@ -177,6 +191,15 @@
     Implanter la méthode de Botzmann-Gibbs. Comparez les performances obtenues avec celle-ci à celles obtenues précédemment par &epsilon;-décroissant glouton.
 
   </p>
+
+  <h1></h1>
+  
+  <p>
+
+    <span class="alert">À l'issue de ce TP, votre Q-Learning doit pouvoir être appliqué à n'importe quel problème de décision de Markov.</span>
+    
+  </p>
+  
 </div>
 
 </body>
