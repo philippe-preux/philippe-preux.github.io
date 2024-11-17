@@ -2,7 +2,7 @@
 <html lang="fr">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
-    <title><i>Fitted Q-Iteration</i></title>
+    <title><i>Neural Fitted Q-Iteration</i></title>
     <link href="/home/ppreux/philippe-preux.github.io/css/ma.css"
 	  rel="stylesheet" type="text/css" media="all" >
     <link href="https://philippe-preux.github.io/css/ma.css"
@@ -70,7 +70,7 @@
 
 <div class="tpR">
 
-  <h1><i>Fitted Q-Iteration</i></h1>
+  <h1><i>Neural Fitted Q-Iteration</i></h1>
 
   <h2>Introduction</h2>
 
@@ -84,7 +84,7 @@
 
     <br>
 
-    Dans ce TP, on va s'intéresser à un algorithme très simple bien adapté à ce type de problèmes, le <i>Fitted Q-iteration</i>.
+    Dans ce TP, on va s'intéresser à un algorithme très simple bien adapté à ce type de problèmes, le <i>Neural Fitted Q-iteration</i>, qui a été introduit par M. Riedmiller en 2005 dans <a href="https://link.springer.com/content/pdf/10.1007/11564096_32.pdf">ce papier</a> que je vous encourage à lire.
 
   </p>
 
@@ -216,7 +216,7 @@
 	<li>collecter des données (beaucoup, quelques milliers) en exécutant une politique et en recueuillant les quadruplets \( (e_t, a_t, r_t, e_{t+1}) \). On appelle \( {\cal D} \) cet ensemble de quadruplets.</li>
 	<li><b>Répéter un certain nombre de fois&nbsp;:</b>
 	  <ol>
-	    <li>échantillonner un lôt de données depuis \[ {\cal D} \).</li>
+	    <li>échantillonner un lôt d'une centaine de données depuis \( {\cal D} \).</li>
 	    <li>constituer un jeu d'exemples d'apprentissage. Chaque exemple est un couple \( ((e_t, a_t), q_t = r_t + \gamma \max_{a'}{\hat{Q_k} (e_{t+1},a'} \).</li>
 	    <li>Régresser ce jeu d'exmples. On obtiendra les paramètres du modèle de régression&nbsp;: \( \theta_{k+1} \gets \mbox{arg min} \sum (q_t - \hat{Q_k} (e_t, a_t))^2 \)</li>
 	  </ol>
@@ -250,7 +250,7 @@
 
   <p>
 
-    Vous résolvez les deux problèmes indiqués plus haut, le pendule inversé et la voiture dans la montagne. Pour chacun, vous essayez d'obtenir les meilleures performances de votre algorithme.
+    Vous résolvez les deux problèmes indiqués plus haut, le pendule inversé et la voiture dans la montagne. Pour chacun, vous essayez d'obtenir les meilleures performances de votre algorithme. Il y a beaucoup de paramètres et de détails qui peuvent être modifiés et qui influent les performances de l'algorithme.
 
     <br>
 
