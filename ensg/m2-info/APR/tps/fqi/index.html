@@ -214,23 +214,27 @@
 
   <ol>
     <li>Initialiser l'algorithme.</li>
-    <li><b>Répéter&nbsp;:</b>
+    <li><b>Répéter un certain nombre de fois&nbsp;:</b>
       <ol>
-	<li>/* on réalise un épisode. */</li>
-	<li>Initialiser l'état ; \( t \gets 0 \)</li>
-	<li><b>Tant-que \( e_t \) n'est pas terminal&nbsp;:</b>
+	<li>collecter des données (beaucoup, quelques milliers) en exécutant une politique et en recueuillant les quadruplets \( (e_t, a_t, r_t, e_{t+1} \). On appelle \( {\cal D} \) cet ensemble de quadruplets.</li>
+	<li><b>Répéter un certain nombre de fois&nbsp;:</b>
 	  <ol>
-	    <li>/* on fait une interaction&nbsp;: */</li>
-	    <li>en fonction de l'état courant e<sub>t</sub>, choisir l'action a<sub>t</sub>,</li>
-	    <li>effectuer a<sub>t</sub> et observer l'état suivant e<sub>t+1</sub> et le retour immédiat r<sub>t</sub>,</li>
-	    <li>mettre à jour Q&nbsp;: \( Q (e_t, a_t) \gets Q (e_t, a_t) + \alpha (e_t, a_t) [r_t + \gamma \max_{a' \in {\cal A}} Q (e_{t+1}, a') - Q (e_t, a_t) ] \),
-	    <li>\( t \gets t + 1 \).</li>
+	    <li>échantillonner un lôt de données depuis \[ {\cal D} \).</li>
+	    <li>constituer un jeu d'exemples d'apprentissage. Chaque exemple est un couple \( (e_t, q_t = r_t + \gamma \max_{a'}{\hat{Q_k} (e_{t+1},a'} \).
+	    <li>Régresser ce jeu d'exmples. On obtiendra les paramètres du modèle de régression&nbsp;: \( \theta_{k+1} \gets \mbox{arg min} \sum \sum (q_t - \hat{Q_k} (e_t, a_t))^2 \)</li>
 	  </ol>
+	</li>
       </ol>
     </li>
   </ol>
 
   <h2>Implantation</h2>
+
+  <p>
+
+    <span class="alertje">Vos expériences doivent être reproductibles.</span>
+    
+  </p>
 
   <p>
 
