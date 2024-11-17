@@ -347,3 +347,13 @@ span.moreCommentOnPub{
   -moz-border-radius: 3em 1em; /* 20px; pour avoir des coins arrondis */
   border-radius: 3em 1em; /* 20px; pour avoir des coins arrondis */
 }
+
+span.alert {
+    color: #ff0000;
+    font-size: 300%;
+}
+
+span.alertje {
+    color: #ff0000;
+    font-size: 150%;
+}
