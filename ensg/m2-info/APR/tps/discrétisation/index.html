@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+    <title>Q-Learning sur un espace d'états discrétisé</title>
+    <link href="/home/ppreux/philippe-preux.github.io/css/ma.css"
+	  rel="stylesheet" type="text/css" media="all" >
+    <link href="https://philippe-preux.github.io/css/ma.css"
+	  rel="stylesheet" type="text/css" media="all" >
+    <link rel="shortcut icon" type="image/x-icon"
+	  href="https://philippe-preux.github.io/img/site.ico" >
+    <!--link rel="shortcut icon" type="image/x-icon"
+	  href="/home/ppreux/philippe-preux.github.io/img/site.ico" -->
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+      div.c {
+	  background-color: #bafcba;
+      }
+      div.python {
+	  background-color: #c0c0c0;
+      }
+      table.tr.td.c {
+	  background-color: #bafcba;
+	  width: 50%;
+      }
+      table.tr.td.python {
+	  background-color: #c0c0c0;
+	  width: 50%;
+      }
+
+      /* Ce qui suit fait ce que je voulais faire en mettant des attributs aux balises td, ce qui n'est pas compatible avec HTML5. Je voulais une table avec deux colonnes de même largeur, chacune avec une couleur de fond particulière.
+       J'ai trouvé cette solution là : https://www.w3schools.com/howto/howto_css_two_columns.asp */
+      * {
+	  box-sizing: border-box;
+      }
+      /* Create two equal columns that floats next to each other */
+      .columnC {
+	  background-color: #bafcba;
+	  float: left;
+	  width: 50%;
+	  padding: 10px;
+      }
+      .columnP {
+	  background-color: #c0c0c0;
+	  float: left;
+	  width: 50%;
+	  padding: 10px;
+      }
+      /* Clear floats after the columns */
+      .row:after {
+	  content: "";
+	  display: table;
+	  clear: both;
+      }
+      /* ça marche bien pour la largeur et la couleur de fond, mais pas pour
+	 la hauteur. Après avoir qwanté sans trouver de solution, j'ai défini
+	 la classe div ci-dessous : c'est affreux, mais ça marche comme
+	 disent les étudiants ! (-(
+	 Mais il faut faire l'ajustement à la main. C'est bien pour cela que
+	 « non, ça ne marche pas !», mais ça rend ce que je voulais donc en
+	 attendant de trouver mieux.
+     */
+      div.theUglyTrick {
+	  visibility:hidden;
+      }
+    </style>
+  </head>
+  
+<body>
+
+<div class="tpR">
+
+  <h1>Q-Learning sur un espace d'états discrétisé</h1>
+
+  <h2>Introduction</h2>
+
+  <p>
+
+    On aborde le cas des espaces d'états infinis, non dénombrables. En particulier, le cas où l'espace d'états est un sous-ensemble compact (dans le contexte présent, le terme mathématique «&nbsp;compact&nbsp;» signifie qu'on s'intéresse à un sus-ensemble dans lequel il n'y a pas de trou) de \( \mathbb{R}^P \), autrement dit, un hyper-parallélépipéde en dimension \( P \). Si \( P = 2 \), c'est simplement un rectangle et si \( P = 1 \), un segment de droite.
+
+    <br>
+
+    Des exemples simples sont les systèmes dynamiques contrôlés, tels des robots. Un système dynamique est un système dont l'état évolue au cours du temps. On s'intéresse particulièrement aux systèmes dont la dynamique est régie par la loi de Newton. Dans ceux-ci une action est une accélération (positive ou négative) et connaissant la masse et l'accélération, on en déduit la vitesse puis la positin par intégration. Pour ces systèmes dynamiques newtoniens, on sait (cours de physique au lycée) que l'état du système à un instant donnée est décrit pas sa position et sa vitesse. La fonction de transition du processus de décision de Markov est alors donnée par une équation différentielle reliant l'action à son effet sur le changement d'état.
+
+    <br>
+
+    Dans ce TP, on discrétiser l'espace des états pour se ramener au Q-Learning.
+
+  </p>
+
+  <h2>Quelques problèmes auxquels on va s'intéresser</h2>
+
+  <p>
+
+    On décrit deux problèmes dont l'espace d'état est un sous-espace de \( \mathbb{R}^2 \), autrement dit un rectangle&nbsp;: le pendule inversé et la voiture dans la montagne.
+    
+  </p>
+
+  <h3>Le pendule inversé</h3>
+
+
+  <p>
+
+    On essaie de mettre un pendule à l'équilibre, vers le haut. Cette position est très instable.
+
+    <br>
+    <br>
+
+    <img src="../fqi/invertedPendulum.png" width="100">
+    
+  </p>
+
+  <p>
+
+    L'équation de la dynmique est la suivante&nbsp;:
+
+    <br>
+    
+    \( a = \frac{1}{ml^2} (- \mu v + mgl \sin{(p)} + u) \)
+
+    <br>
+
+    où&nbsp;:
+    
+  </p>
+
+  <ul>
+    <li>\( p \) est la position angulaire courante du pendule,</li>
+    <li>\( v \) est la vitesse angulaire courante du pendule,</li>
+    <li>\( u \) est l'action,</li>
+    <li>\( a \) est l'accélération resultant de l'action dans l'état courant,</li>
+    <li>\( m \) est la masse du pendule&nbsp;: on prend \( m = 1 \),</li>
+    <li>\( l \) est la longueur du bras du pendule&nbsp;: on prend \( l = 1 \),</li>
+    <li>\( g \) est l'accélération gravitationnelle&nbsp;: au niveau de la mer sur terre \( g = 9,81 \),</li>
+    <li>\( \mu \) est le coefficient de friction&nbsp;: on prend \( \mu = 0,01 \).</li>
+  </ul>
+
+  <p>
+
+    Pour une action donnée, on calcule \( a \) d'où l'on déduit la nouvelle vitesse \( v_{t+\Delta t} = v_t + a \Delta t \) et la nouvelle position \( p_{t + \Delta t} = p_t + v_t \Delta t \). On prendra \( \Delta t = 0,01 \), c'est-à-dire que les actions réalisées à chaque centième de seconde.
+
+    <br>
+    
+    L'état courant est donc donné par le couple \( p, v \).
+
+    <br>
+
+    La position est un angle, donc \( p \in [-\pi, \pi] \). Par convention, l'angle nul correspond à la position instable du pendule, donc à l'équilibre supérieur. &pi; correspondant donc à la psition stable du pendule, pendant vers le bas.
+
+    <br>
+
+    On limite la vitesse à 10 en valeur absolue. Au-delà, le pendule casse.
+
+    <br>
+
+    Il y a trois actions possibles&nbsp;: \( u \in \{ -5, 0, 5 \} \) Newtons.
+
+    <br>
+
+    Le retour peut-être défini de différente manière. L'objectif étant de placer le pendule en équilibre supérieur, on pourrait le définir comme valant 1 lorsque la position angulaire est (presque) 0 et la vitesse (presque) nulle. Cependant résoudre ainsi le problème est assez difficile.
+
+    Le problème est beaucoup plus simple à résoudre si on définit le retour comment étant le cosinus de la position angulaire, soit \( \cos{(p)} \).
+    
+  </p>
+  
+  
+  <h3>La voiture dans la montagne</h3>
+
+  <p>
+
+    Une «&nbsp;voiture&nbsp;» essaie d'atteindre le sommet d'une montagne. Son moteur n'est pas assez puissant pour l'atteindre. La voiture doit prendre de l'élan en remontant la montagne opposée, prendre de la vitesse, accélérer pour enfin réussir à atteindre le sommet.
+
+    <br>
+
+    <img src="../fqi/mc.png" width="200" >
+    
+  </p>
+  
+  <p>
+
+    L'équation de la dynmique est la suivante&nbsp;:
+
+    <br>
+
+    \( v_{t+1} = clip (v_t + 0,001 u - \cos{(3.p_t)})\)
+    
+    <br>
+
+    \( p_{t+1} = clip (p_t + v_{t+1}) \)
+
+    <br>
+
+    où \( u \) est l'action&nbsp;: \( u \in \{ -1, 0, +1 \} \).
+
+    \( p_t \) et \( v_t \) sont la position et la vitesse courantes.
+    
+    <br>
+
+    La position est comprise entre -1,2 et 0,6.
+
+    <br>
+
+    La vitesse est comprise entre -0,07 et 0,07.
+
+    <br>
+
+    La fonction \( clip () \) empêche la position et la vitesse de déborder de ces intervalles.
+
+    <br>
+
+    Le système débute toujours dans l'état initial \( p_0 \in \{ -0,6, -0,4 \} \) et \( v_0 = 0 \).
+    
+    <br>
+
+    Le retour est -1 à chaque interaction.
+
+    <br>
+
+    L'objectif est d'atteindre la position \( p \ge{} 0,5 \) en moins de 200 interactions.
+
+    <br>
+    
+    Si l'état final n'est pas atteint en au plus 200 pas, le système est replacé dans son état initial.
+    
+  </p>
+
+  <h2>Algorithme</h2>
+
+  <p>
+    
+    L'algorithme est le Q-Learning que vous implantez lors du TP précédent.
+    La différence cette fois-ci est qu'il faut discrétiser l'espace d'états.
+    
+  </p>
+
+
+  <h2>Implantation</h2>
+
+  <p>
+
+    <span class="alertje">Vos expériences doivent être reproductibles.</span>
+    
+  </p>
+
+  <p>
+
+    <b>À faire&nbsp;:</b> implanter cet algorithme.
+    Encore une fois, faire en sorte que l'implantation soit générique.
+
+    <br>
+
+    On pourra utiliser une grille de 20x20 pour discrétiser l'espace d'états.
+
+  </p>
+
+  <h2>Expérimentation</h2>
+
+  <p>
+
+    Vous résolvez les deux problèmes indiqués plus haut, le pendule inversé et la voiture dans la montagne. Pour chacun, vous essayez d'obtenir les meilleures performances de votre algorithme.
+
+    <br>
+
+    Lorsque votre algorithme fonctionne, réalisez une vingtaine d'épisode de test, c'est-à-dire que vous utilisez l'estimation de la qualité \( \hat{Q} \) et que vous exécutez 20 fois la politique gloutonne. À chaque exécution, vous mesurez le retour, c'est-à-dire la somme des retours immédiats pondérés, \( R = \sum_t \gamma^t r_t \). Quelle est la médiane&nbsp;? Quelle est la variabilité de \( R \)&nbsp;?
+    
+  </p>
+
+  <h1></h1>
+  
+  <p>
+
+    <span class="alert">À l'issue de ce TP, votre programme doit pouvoir être appliqué à n'importe quel problème de décision de Markov à espace d'états continu.</span>
+    
+  </p>
+  
+</div>
+
+</body>
+</html>
