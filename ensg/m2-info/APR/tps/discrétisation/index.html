@@ -265,6 +265,22 @@
     
   </p>
 
+  <h3>Amélioration</h3>
+
+  <p>
+
+    Le résultat (la politique) est meilleur avec une grille plus fine, par exemple 40x40. Entraîner le Q-Learning sur une grille 40x40 est bien plus long que sur une grille 20x20 puisqu'il y a 4 fois plus d'états.
+
+    <br>
+
+    On peut adopter une approche incrémentale&nbsp;: on exécute le Q-Learning sur une grille 20x20 (ou même 10x10) et quand il a à peu près converger, on utilise l'estimation de Q obtenue avec cette grille pour initialiser une grille plus fine, 40x40 par exemple. Et on reprend le Q-Learning sur cette nouvelle grille.
+
+    <br>
+
+    Mettre en &oelig;uvre cette approche sur les deux exemples précédents.
+
+  </p>
+  
   <h1></h1>
   
   <p>
