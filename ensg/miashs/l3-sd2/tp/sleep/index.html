@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Durée du sommeil des mammifères</title>
+  <link href="https://philippe-preux.github.io/css/ma.css" 
+	rel="stylesheet" type="text/css" media="all" />
+  <link rel="shortcut icon" type="image/x-icon" 
+	href="https://philippe-preux.github.io/img/site.ico" />
+  <style type="text/css">
+    .aligncenter {
+	text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="tpR">
+
+  <h1>Durée du sommeil des mammifères</h1>
+  
+  <p>
+
+    Dans ce TP, on étudie un jeu de données concernant la durée de sommeil de mammifères. L'objectif est d'essayer de déterminer les facteurs qui influencent cette durée. Notamment, on distingue le sommeil paradoxal (pendant laquelle l'animal rève) du sommeil non paradoxal. Contrairement aux TP précédents, vous serez très peu guidés. Mettez en &oelig;uvre ce que l'on étudié ensemble, et soyez créatifs.
+
+    <br/>
+
+    Tous les TPs précédents doivent impérativement avoir été faits avant d'aborder celui-ci.
+
+    <br/>
+    <br/>
+
+    À l'issue de ce TP, vous m'envoyez par email un compte-rendu (format <kbd>pdf</kbd>) indiquant ce que vous avez essayé et ce que vous avez trouvé. Vous m'envoyez également un fichier python réalisant toutes les manipulations de ce TP&nbsp;: je dois pouvoir exécuter ce fichier en tapant <kbd>python3 nom-de-votre-fichier.py</kbd> et reproduire vos résultats. Cette exécution ne doit pas provoquer d'erreur de python. Remarque&nbsp;: un <i>notebook</i> ne convient pas.
+    
+  </p>
+
+  <h2>Introduction</h2>
+    
+  <p>
+
+    Le jeu de données à étudier est disponible à <a href="./sleep.csv">cette url</a>.
+
+    <br/>
+
+    Il est composé d'un ensemble de lignes, chaque ligne correspondant à un mammifère. Les attributs sont les suivants&nbsp;:
+
+  </p>
+
+  <ul>
+    <li><kbd>Species</kbd> est l'espère animale.</li>
+    <li><kbd>Body.Weight</kbd> est la masse moyenne d'un animal de cette espèce (en kg).</li>
+    <li><kbd>Brain.Weight</kbd> est la masse du cerveau (en g).</li>
+    <li><kbd>Non.Dreaming</kbd> est la durée du sommeil non paradoxal (en heures/jour).</li>
+    <li><kbd>Dreaming</kbd> est la durée du sommeil paradoxal (en heures/jour).</li>
+    <li><kbd>Sleep</kbd> est la durée totale de sommeil (en heures/jour).</li>
+    <li><kbd>Lifespan</kbd> est la durée de vie (en années).</li>
+    <li><kbd>Gestation</kbd> est la durée de gestation (en jours).</li>
+    <li><kbd>Predation</kbd> est un indice de prédation entre 1 et 5&nbsp;: de 1 pour les animaux les plus prédateurs (les moins proies), à 5 pour les animaux les moins prédateurs (les plus proies).</li>
+    <li><kbd>Sleep.exposure</kbd> est un indice d'exposition au danger pendant le sommeil de 1 à 5&nbsp;: de 1 pour les animaux qui sont les moins exposés au danger pendant leur sommeil, à pour les animaux les plus en danger pendant leur sommeil.</li>
+    <li><kbd>Endangered</kbd> est un indice synthétisant le fait qu'un animal est en danger des autres animaux ou pas&nbsp;: 1 pour les moins en danger, 5 pour les plus en danger.</li>
+  </ul>
+    
+  </div>
+
+<!-- Default Statcounter code for on github
+https://philippe-preux.github.io -->
+<script type="text/javascript">
+var sc_project=12923547; 
+var sc_invisible=1; 
+var sc_security="627600d4"; 
+</script>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="Web Analytics"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/12923547/0/627600d4/1/"
+alt="Web Analytics"
+referrerPolicy="no-referrer-when-downgrade"/></a></div></noscript>
+  <!-- End of Statcounter Code -->
+  
+</body>
+</html>
+
