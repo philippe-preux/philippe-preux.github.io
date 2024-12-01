@@ -5,8 +5,8 @@
     <title><i>Neural Fitted Q-Iteration</i></title>
     <link href="/home/ppreux/philippe-preux.github.io/css/ma.css"
 	  rel="stylesheet" type="text/css" media="all" >
-    <link href="https://philippe-preux.github.io/css/ma.css"
-	  rel="stylesheet" type="text/css" media="all" >
+    <!--link href="https://philippe-preux.github.io/css/ma.css"
+	  rel="stylesheet" type="text/css" media="all" -->
     <link rel="shortcut icon" type="image/x-icon"
 	  href="https://philippe-preux.github.io/img/site.ico" >
     <!--link rel="shortcut icon" type="image/x-icon"
@@ -76,151 +76,15 @@
 
   <p>
 
-    On aborde le cas des espaces d'états infinis, non dénombrables. En particulier, le cas où l'espace d'états est un sous-ensemble compact (dans le contexte présent, le terme mathématique «&nbsp;compact&nbsp;» signifie qu'on s'intéresse à un sus-ensemble dans lequel il n'y a pas de trou) de \( \mathbb{R}^P \), autrement dit, un hyper-parallélépipéde en dimension \( P \). Si \( P = 2 \), c'est simplement un rectangle et si \( P = 1 \), un segment de droite.
-
-    <br>
-
-    Des exemples simples sont les systèmes dynamiques contrôlés, tels des robots. Un système dynamique est un système dont l'état évolue au cours du temps. On s'intéresse particulièrement aux systèmes dont la dynamique est régie par la loi de Newton. Dans ceux-ci une action est une accélération (positive ou négative) et connaissant la masse et l'accélération, on en déduit la vitesse puis la positin par intégration. Pour ces systèmes dynamiques newtoniens, on sait (cours de physique au lycée) que l'état du système à un instant donnée est décrit pas sa position et sa vitesse. La fonction de transition du processus de décision de Markov est alors donnée par une équation différentielle reliant l'action à son effet sur le changement d'état.
+    On poursuit l'étude du cas des espaces d'états infinis, non dénombrables.
 
     <br>
 
     Dans ce TP, on va s'intéresser à un algorithme très simple bien adapté à ce type de problèmes, le <i>Neural Fitted Q-iteration</i>, qui a été introduit par M. Riedmiller en 2005 dans <a href="https://link.springer.com/content/pdf/10.1007/11564096_32.pdf">ce papier</a> que je vous encourage à lire.
 
-  </p>
+    <br/>
 
-  <h2>Quelques problèmes auxquels on va s'intéresser</h2>
-
-  <p>
-
-    On décrit deux problèmes dont l'espace d'état est un sous-espace de \( \mathbb{R}^2 \), autrement dit un rectangle&nbsp;: le pendule inversé et la voiture dans la montagne.
-    
-  </p>
-
-  <h3>Le pendule inversé</h3>
-
-
-  <p>
-
-    On essaie de mettre un pendule à l'équilibre, vers le haut. Cette position est très instable.
-
-    <br>
-    <br>
-
-    <img src="invertedPendulum.png" width="100">
-    
-  </p>
-
-  <p>
-
-    L'équation de la dynmique est la suivante&nbsp;:
-
-    <br>
-    
-    \( a = \frac{1}{ml^2} (- \mu v + mgl \sin{(p)} + u) \)
-
-    <br>
-
-    où&nbsp;:
-    
-  </p>
-
-  <ul>
-    <li>\( p \) est la position angulaire courante du pendule,</li>
-    <li>\( v \) est la vitesse angulaire courante du pendule,</li>
-    <li>\( u \) est l'action,</li>
-    <li>\( a \) est l'accélération resultant de l'action dans l'état courant,</li>
-    <li>\( m \) est la masse du pendule&nbsp;: on prend \( m = 1 \),</li>
-    <li>\( l \) est la longueur du bras du pendule&nbsp;: on prend \( l = 1 \),</li>
-    <li>\( g \) est l'accélération gravitationnelle&nbsp;: au niveau de la mer sur terre \( g = 9,81 \),</li>
-    <li>\( \mu \) est le coefficient de friction&nbsp;: on prend \( \mu = 0,01 \).</li>
-  </ul>
-
-  <p>
-
-    Pour une action donnée, on calcule \( a \) d'où l'on déduit la nouvelle vitesse \( v_{t+\Delta t} = v_t + a \Delta t \) et la nouvelle position \( p_{t + \Delta t} = p_t + v_t \Delta t \). On prendra \( \Delta t = 0,01 \), c'est-à-dire que les actions réalisées à chaque centième de seconde.
-
-    <br>
-    
-    L'état courant est donc donné par le couple \( p, v \).
-
-    <br>
-
-    La position est un angle, donc \( p \in [-\pi, \pi] \). Par convention, l'angle nul correspond à la position instable du pendule, donc à l'équilibre supérieur. &pi; correspondant donc à la psition stable du pendule, pendant vers le bas.
-
-    <br>
-
-    On limite la vitesse à 10 en valeur absolue. Au-delà, le pendule casse.
-
-    <br>
-
-    Il y a trois actions possibles&nbsp;: \( u \in \{ -5, 0, 5 \} \) Newtons.
-
-    <br>
-
-    Le retour peut-être défini de différente manière. L'objectif étant de placer le pendule en équilibre supérieur, on pourrait le définir comme valant 1 lorsque la position angulaire est (presque) 0 et la vitesse (presque) nulle. Cependant résoudre ainsi le problème est assez difficile.
-
-    Le problème est beaucoup plus simple à résoudre si on définit le retour comment étant le cosinus de la position angulaire, soit \( \cos{(p)} \).
-    
-  </p>
-  
-  
-  <h3>La voiture dans la montagne</h3>
-
-  <p>
-
-    Une «&nbsp;voiture&nbsp;» essaie d'atteindre le sommet d'une montagne. Son moteur n'est pas assez puissant pour l'atteindre. La voiture doit prendre de l'élan en remontant la montagne opposée, prendre de la vitesse, accélérer pour enfin réussir à atteindre le sommet.
-
-    <br>
-
-    <img src="mc.png" width="200" >
-    
-  </p>
-  
-  <p>
-
-    L'équation de la dynmique est la suivante&nbsp;:
-
-    <br>
-
-    \( v_{t+1} = clip (v_t + 0,001 u - \cos{(3.p_t)})\)
-    
-    <br>
-
-    \( p_{t+1} = clip (p_t + v_{t+1}) \)
-
-    <br>
-
-    où \( u \) est l'action&nbsp;: \( u \in \{ -1, 0, +1 \} \).
-
-    \( p_t \) et \( v_t \) sont la position et la vitesse courantes.
-    
-    <br>
-
-    La position est comprise entre -1,2 et 0,6.
-
-    <br>
-
-    La vitesse est comprise entre -0,07 et 0,07.
-
-    <br>
-
-    La fonction \( clip () \) empêche la position et la vitesse de déborder de ces intervalles.
-
-    <br>
-
-    Le système débute toujours dans l'état initial \( p_0 \in \{ -0,6, -0,4 \} \) et \( v_0 = 0 \).
-    
-    <br>
-
-    Le retour est -1 à chaque interaction.
-
-    <br>
-
-    L'objectif est d'atteindre la position \( p \ge{} 0,5 \) en moins de 200 interactions.
-
-    <br>
-    
-    Si l'état final n'est pas atteint en au plus 200 pas, le système est replacé dans son état initial.
+    Comme dans le TP précédent, on utilise le pendule inversé et la voiture dans la montagne.
     
   </p>
 
@@ -232,17 +96,20 @@
   </p>
 
   <ol>
-    <li>Initialiser l'algorithme.</li>
+    <li>Initialiser l'algorithme&nbsp;; prendre une politique initiale \( \pi_0 \) aléatoire&nbsp;; \( k \gets 0 \).</li>
     <li><b>Répéter un certain nombre de fois&nbsp;:</b>
       <ol>
-	<li>collecter des données (beaucoup, quelques milliers) en exécutant une politique et en recueuillant les quadruplets \( (e_t, a_t, r_t, e_{t+1}) \). On appelle \( {\cal D} \) cet ensemble de quadruplets.</li>
-	<li><b>Répéter un certain nombre de fois&nbsp;:</b>
+	<li>collecter des données en exécutant plusieurs épisodes avec pi_0 \) et en recueillant les quadruplets \( (e_t, a_t, r_t, e_{t+1}) \). On appelle \( {\cal D}_k \) cet ensemble de quadruplets.</li>
+	<!--li><b>Répéter un certain nombre de fois&nbsp;:</b>
 	  <ol>
 	    <li>échantillonner un lôt d'une centaine de données depuis \( {\cal D} \).</li>
 	    <li>constituer un jeu d'exemples d'apprentissage. Chaque exemple est un couple \( ((e_t, a_t), q_t = r_t + \gamma \max_{a'}{\hat{Q_k} (e_{t+1},a'} \).</li>
-	    <li>Régresser ce jeu d'exmples. On obtiendra les paramètres du modèle de régression&nbsp;: \( \theta_{k+1} \gets \mbox{arg min} \sum (q_t - \hat{Q_k} (e_t, a_t))^2 \)</li>
+	    <li>Régresser ce jeu d'exemples. On obtiendra les paramètres du modèle de régression&nbsp;: \( \theta_{k+1} \gets \mbox{arg min} \sum (q_t - \hat{Q_k} (e_t, a_t))^2 \)</li>
 	  </ol>
-	</li>
+	</li-->
+	  <li>à partir \( {\cal D}_k \), constituer un jeu d'exemples d'apprentissage dans lequel chaque exemple est un couple \( ((e_t, a_t), q_t = r_t + \gamma \max_{a'}{\hat{Q_k} (e_{t+1},a'} \).</li>
+	<li>Régresser ce jeu d'exemples. On obtiendra les paramètres du modèle de régression \( \hat{Q_{k+1}} \)&nbsp;: \( \theta_{k+1} \gets \mbox{arg min} \sum (q_t - \hat{Q_k} (e_t, a_t))^2 \)</li>
+	<li>\( k++ \)</li>
       </ol>
     </li>
   </ol>
@@ -263,8 +130,38 @@
     <br>
 
     Le régresseur sera un perceptron multi-couches.
+    
+    <div class="row">
+      <div class="columnC" >
+	<b>C</b>
+	<div class="c">
+	  <p>
+	    On utilise <a href="https://github.com/libfann/fann">cette bilbliothèque logicielle</a>. Elle est installée sur les ordinateurs en salle TP. Sur votre ordinateur personnel, il faut peut-être l'installer.
 
-    On utilisera <a href="https://github.com/libfann/fann">cette bilbliothèque logicielle</a> qui peut être utilisée en C, en python et dans bien d'autres langages. En julia, <a href="https://docs.juliahub.com/General/Knet/stable/mlp/">cette bibliothèque</a> semble faire l'affaire.
+	    <br>
+	    
+	    Pour compiler avec <code>gcc</code>, on spécifiera l'option <code>-lfann</code>.
+
+	    <br>
+
+	    La documentation est <a href="https://xxxxxxxxxxxxxx/fann/docs/html/files/fann-h.html">là</a>.
+
+	    <br>
+
+	    Je donne un petit exemple d'utilisation de cette bibliothèque dans <a href="./exemple-fann.tgz">cette archive</a> pour une tâche de classification supervisée.
+	  </p>
+	</div>
+      </div>
+      <div class="columnP" >
+	<b>Python</b>
+	<div class="python">
+	  <p>
+	    
+	    On utilise un <kbd>MLPRegressor</kbd> de la bibliothèque <code>scikit_learn</code>. Pour cette application, je vous conseille d'utiliser l'option <kbd>solver = "lbfgs"</kbd>.
+	  </p><div class="theUglyTrick"><br><br></div>
+	</div>
+      </div>
+    </div>
 
   </p>
 
@@ -272,13 +169,29 @@
 
   <p>
 
-    Vous résolvez les deux problèmes indiqués plus haut, le pendule inversé et la voiture dans la montagne. Pour chacun, vous essayez d'obtenir les meilleures performances de votre algorithme. Il y a beaucoup de paramètres et de détails qui peuvent être modifiés et qui influent les performances de l'algorithme.
+    Vous résolvez les deux problèmes indiqués plus haut, le pendule inversé et la voiture dans la montagne. Pour chacun, vous essayez d'obtenir les meilleures performances de votre algorithme. Il y a beaucoup de paramètres et de détails qui peuvent être modifiés et qui influencent les performances de l'algorithme.
 
     <br>
 
-    Lorsque votre algorithme fonctionne, réalisez une vingtaine d'épisode de test, c'est-à-dire que vous utilisez l'estimation de la qualité \( \hat{Q} \) et que vous exécutez 20 fois la politique gloutonne. À chaque exécution, vous mesurez le retour, c'est-à-dire la somme des retours immédiats pondérés, \( R = \sum_t \gamma^t r_t \). Quelle est la médiane&nbsp;? Quelle est la variabilité de \( R \)&nbsp;?
+    Lorsque votre algorithme fonctionne, réalisez une vingtaine d'épisodes de test, c'est-à-dire que vous utilisez l'estimation de la qualité \( \hat{Q} \) et que vous exécutez 20 fois la politique gloutonne. À chaque exécution, vous mesurez le retour, c'est-à-dire la somme des retours immédiats pondérés, \( R = \sum_t \gamma^t r_t \). Quelle est la médiane&nbsp;? Quelle est la variabilité de \( R \)&nbsp;?
     
   </p>
+
+  <h3>Conseils</h3>
+
+<p>
+
+  L'utilisation de réseau de neurones dans un algorithme d'apprentissage par renforcement n'est pas si simple. On l'a vu précédemment, le Q-Learning tabulaire est sensible aux paramètres de l'algorithme et à la manière de le mettre en &oelig;uvre. Quand on remplace la table par un réseau de neurones, la sensibilité augmente. Par exemple, la première question que l'on se pose est&nbsp;: quelle architecture choisir pour le MLP&nbsp;? Je conseille de suivre l'exemple de M. Riedmiller explicité dans son papier cité plus haut&nbsp;: deux couches cachées de 5 neurones chacune, fonction d'activation tangente hyperbolique et un neurone dans la couche de sortie avec une fonction d'activation linéaire. D'une mannière générale, si on ne vous donne pas de conseil, il faut tester plusieurs architectures en réalisant une simple tâche de régression. Dans le cas présent, vous collectez un premier \( {\cal D}_0 \) et vous entraînez un régresseur constitué d'une seule couche cachée avec quelques neurones seulement (5 par exemple, attention la valeur par défaut dans <kbd>scikit_learn</kbd> (100) est TOTALEMENT RIDICULE). Si l'erreur est importante, c'est que votre MLP n'est pas assez gros. Vous ajoutez une deuxième couche, <i>etc</i>. Si avec 5 couches cachées l'erreur est toujours importante, il y a un autre problème. Reprendre la même démarche en utilisant 1? puis 2, puis ... avec plus de neurones par couche.
+
+  <br/>
+
+  Si ça ne marche toujours pas, il faut regarder les paramètres de l'algorithme d'apprentissage. En utilisant lbfgs, il n'y a pas de paramètre. Simplement, cet algorithme peut être piégé dans un mauvais minimum local mais tant que le jeu de données est petit et le réseau est lui-même petit, en général, lbfgs fonctionne bien.
+
+  <br/>
+
+  Pour ce TP, on fait des choses simples, donc un petit réseau doit fonctionner sans difficulté. Et en général, en apprentissage par renforcement, on utilise toujours de petits réseaux de neurones. On entend souvent parler de <i>deep reinforcement learning</i>, c'est une dénommination trompeuse&nbsp;: l'apprentissage par renforcement n'est jamais profond (au sens du <i>deep learning</i>, apprentissage profond). On utilise des réseaux un peu moins superficiels (10 à 15 couches) quand l'état est une donnée complexe, comme une image. Mais dans ce cas, la plupart des couches servent à calculer une représentation de l'image qui est ensuite traitée par un MLP peu profond lequel est le réseau qui est utilisé dans l'algorithme d'apprentissage par renforcement.
+  
+</p>
 
   <h1></h1>
   
