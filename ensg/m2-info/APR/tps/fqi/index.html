@@ -107,8 +107,8 @@
 	    <li>Régresser ce jeu d'exemples. On obtiendra les paramètres du modèle de régression&nbsp;: \( \theta_{k+1} \gets \mbox{arg min} \sum (q_t - \hat{Q_k} (e_t, a_t))^2 \)</li>
 	  </ol>
 	</li-->
-	  <li>à partir \( {\cal D}_k \), constituer un jeu d'exemples d'apprentissage dans lequel chaque exemple est un couple \( ((e_t, a_t), q_t = r_t + \gamma \max_{a'}{\hat{Q_k} (e_{t+1},a'} \).</li>
-	<li>Régresser ce jeu d'exemples. On obtiendra les paramètres du modèle de régression \( \hat{Q_{k+1}} \)&nbsp;: \( \theta_{k+1} \gets \mbox{arg min} \sum (q_t - \hat{Q_k} (e_t, a_t))^2 \)</li>
+	  <li>à partir \( {\cal D}_k \), constituer un jeu d'exemples d'apprentissage dans lequel chaque exemple est un couple \( ((e_t, a_t), q_t = r_t + \gamma \max_{a'}{\widehat{Q_k} (e_{t+1},a'} \).</li>
+	<li>Régresser ce jeu d'exemples. On obtiendra les paramètres du modèle de régression \( \widehat{Q_{k+1}} \)&nbsp;: \( \theta_{k+1} \gets \mbox{arg min} \sum (q_t - \widehat{Q_k} (e_t, a_t))^2 \)</li>
 	<li>\( k++ \)</li>
       </ol>
     </li>
@@ -173,7 +173,7 @@
 
     <br>
 
-    Lorsque votre algorithme fonctionne, réalisez une vingtaine d'épisodes de test, c'est-à-dire que vous utilisez l'estimation de la qualité \( \hat{Q} \) et que vous exécutez 20 fois la politique gloutonne. À chaque exécution, vous mesurez le retour, c'est-à-dire la somme des retours immédiats pondérés, \( R = \sum_t \gamma^t r_t \). Quelle est la médiane&nbsp;? Quelle est la variabilité de \( R \)&nbsp;?
+    Lorsque votre algorithme fonctionne, réalisez une vingtaine d'épisodes de test, c'est-à-dire que vous utilisez l'estimation de la qualité \( \widehat{Q} \) et que vous exécutez 20 fois la politique gloutonne. À chaque exécution, vous mesurez le retour, c'est-à-dire la somme des retours immédiats pondérés, \( R = \sum_t \gamma^t r_t \). Quelle est la médiane&nbsp;? Quelle est la variabilité de \( R \)&nbsp;?
     
   </p>
 
