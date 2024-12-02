@@ -108,7 +108,7 @@
 	  </ol>
 	</li-->
 	  <li>à partir de \( {\cal D}_k \), constituer un jeu d'exemples d'apprentissage dans lequel chaque exemple est un couple \( ((e_t, a_t), q_t = r_t + \gamma \max_{a'}{\widehat{Q_k} (e_{t+1},a'})) \).</li>
-	<li>Régresser ce jeu d'exemples. On obtiendra les paramètres du modèle de régression \( \widehat{Q_{k+1}} \)&nbsp;: \( \theta_{k+1} \gets \mbox{arg min} \sum (q_t - \widehat{Q_k} (e_t, a_t))^2 \)</li>
+	<li>Régresser ce jeu d'exemples. On obtient les paramètres du modèle de régression \( \widehat{Q_{k+1}} \)&nbsp;: \( \theta_{k+1} \gets \mbox{arg min} \sum (q_t - \widehat{Q_k} (e_t, a_t))^2 \).</li>
 	<li>\( k++ \)</li>
       </ol>
     </li>
