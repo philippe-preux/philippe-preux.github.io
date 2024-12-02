@@ -109,6 +109,7 @@
 	</li-->
 	  <li>à partir de \( {\cal D}_k \), constituer un jeu d'exemples d'apprentissage dans lequel chaque exemple est un couple \( ((e_t, a_t), q_t = r_t + \gamma \max_{a'}{\widehat{Q_k} (e_{t+1},a'})) \).</li>
 	<li>Régresser ce jeu d'exemples. On obtient les paramètres du modèle de régression \( \widehat{Q_{k+1}} \)&nbsp;: \( \theta_{k+1} \gets \mbox{arg min} \sum (q_t - \widehat{Q_k} (e_t, a_t))^2 \).</li>
+	<li>Déduire une nouvelle politique \( \pi_{k+1} \).</li>
 	<li>\( k++ \)</li>
       </ol>
     </li>
@@ -181,11 +182,11 @@
 
 <p>
 
-  L'utilisation de réseau de neurones dans un algorithme d'apprentissage par renforcement n'est pas si simple. On l'a vu précédemment, le Q-Learning tabulaire est sensible aux paramètres de l'algorithme et à la manière de le mettre en &oelig;uvre. Quand on remplace la table par un réseau de neurones, la sensibilité augmente. Par exemple, la première question que l'on se pose est&nbsp;: quelle architecture choisir pour le MLP&nbsp;? Je conseille de suivre l'exemple de M. Riedmiller explicité dans son papier cité plus haut&nbsp;: deux couches cachées de 5 neurones chacune, fonction d'activation tangente hyperbolique et un neurone dans la couche de sortie avec une fonction d'activation linéaire. D'une mannière générale, si on ne vous donne pas de conseil, il faut tester plusieurs architectures en réalisant une simple tâche de régression. Dans le cas présent, vous collectez un premier \( {\cal D}_0 \) et vous entraînez un régresseur constitué d'une seule couche cachée avec quelques neurones seulement (5 par exemple, attention la valeur par défaut dans <kbd>scikit_learn</kbd> (100) est TOTALEMENT RIDICULE). Si l'erreur est importante, c'est que votre MLP n'est pas assez gros. Vous ajoutez une deuxième couche, <i>etc</i>. Si avec 5 couches cachées l'erreur est toujours importante, il y a un autre problème. Reprendre la même démarche en utilisant 1? puis 2, puis ... avec plus de neurones par couche.
+  L'utilisation de réseau de neurones dans un algorithme d'apprentissage par renforcement n'est pas si simple. On l'a vu précédemment, le Q-Learning tabulaire est sensible aux paramètres de l'algorithme et à la manière de le mettre en &oelig;uvre. Quand on remplace la table par un réseau de neurones, la sensibilité augmente. Par exemple, la première question que l'on se pose est&nbsp;: quelle architecture choisir pour le MLP&nbsp;? Je conseille de suivre l'exemple de M. Riedmiller explicité dans son papier cité plus haut&nbsp;: deux couches cachées de 5 neurones chacune, fonction d'activation tangente hyperbolique et un neurone dans la couche de sortie avec une fonction d'activation linéaire. D'une mannière générale, si on ne vous donne pas de conseil, il faut tester plusieurs architectures en réalisant une simple tâche de régression. Dans le cas présent, vous collectez un premier \( {\cal D}_0 \) et vous entraînez un régresseur constitué d'une seule couche cachée avec quelques neurones seulement (5 par exemple, attention la valeur par défaut dans <kbd>scikit_learn</kbd> (100) est TOTALEMENT RIDICULE). Si l'erreur est importante, c'est que votre MLP n'est pas assez gros. Vous ajoutez une deuxième couche, <i>etc</i>. Si avec 5 couches cachées l'erreur est toujours importante, il y a un autre problème. Reprendre la même démarche en utilisant 1, puis 2, puis ... avec plus de neurones par couche.
 
   <br/>
 
-  Si ça ne marche toujours pas, il faut regarder les paramètres de l'algorithme d'apprentissage. En utilisant lbfgs, il n'y a pas de paramètre. Simplement, cet algorithme peut être piégé dans un mauvais minimum local mais tant que le jeu de données est petit et le réseau est lui-même petit, en général, lbfgs fonctionne bien.
+  Si ça ne marche toujours pas, il faut regarder les paramètres de l'algorithme d'apprentissage. En utilisant lbfgs, il n'y a pas de paramètre. Cependant, cet algorithme peut être piégé dans un mauvais minimum local mais tant que le jeu de données est petit et le réseau est lui-même petit, en général, lbfgs fonctionne bien.
 
   <br/>
 
