@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+  
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Classification non supervisée&nbsp;: <i>clustering</i></title>
+    <link href="https://philippe-preux.github.io/css/ma.css" 
+	  rel="stylesheet" type="text/css" media="all">
+    <!--link href="file:///home/ppreux/philippe-preux.github.io/css/ma.css" 
+	  rel="stylesheet" type="text/css" media="all"-->
+    <link rel="shortcut icon" type="image/x-icon" 
+	  href="https://philippe-preux.github.io/img/site.ico">
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+      .aligncenter {
+	  text-align: center;
+      }
+      span.petit {
+	  font-size: 8px;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <div class="tpR">
+
+      <h1>Classification non supervisée&nbsp;: <i>clustering</i></h1>
+      
+      <p>
+	
+	Dans ce TP, nous abordons la classification non supervisée, en particulier les méthodes de partitionnement, ou segmentation, de données, <i>clustering</i> en anglais.
+
+	On pourra consulter mes <a href="https://philippe-preux.github.io/Documents/notes-de-cours-de-fouille-de-donnees.pdf">notes de cours de fouille de données</a> pour une présentation de la classification non supervisée (chapitre 10).
+
+	<br>
+	<br>
+	
+	À l'issue de ce TP, vous m'envoyez par email un compte-rendu (format <kbd>odt</kbd> ou <kbd>pdf</kbd>) indiquant la réponse aux questions qui sont posées. Vous m'envoyez également un fichier python réalisant toutes les manipulations de ce TP&nbsp;: je dois pouvoir exécuter ce fichier en tapant <kbd>python3 nom-de-votre-fichier.py</kbd> et reproduire vos résultats. Cette exécution ne doit pas provoquer d'erreur de python. Remarque&nbsp;: un <i>notebook</i> ne convient pas.
+    
+      </p>
+
+      <h2>Introduction</h2>
+    
+      <p>
+
+	Nous allons commencer par la méthode probablement la plus connue, les k-moyennes (<i>k-means</i> en anglais).
+
+	<br>
+
+	Par rapport à la classification supervisée, la classification non supervisée a ceci de particulier que l'on ne connait pas la valeur à prédire. Aussi, juger de la qualité d'un partitionnement est-il quelque chose qui est difficile à juger.
+
+	<br>
+
+	Là encore, à chaque fois que cela est possible, une exploration visuelle des données est essentielle que ce soit avant d'appliquer un algorithme de partitionnement de données pour essayer de voir ce qu'il semble raisonnable que l'algorithme produise et ensuite, pour juger le résultat produit par l'algorithme. Comme tous les algorithmes, ceux de partionnement font toujours quelque chose, il calcule toujours un résultat. Ils sont incapables de juger si ce qu'ils ont fait est pertinent&nbsp;: seul l'humain peut le déterminer en anticipant sur le résultat que devrait produire l'algorithme et en jugeant le résultat produit par l'algorithme.
+    
+      </p>
+
+
+
+</div>
+
+<!-- Default Statcounter code for on github
+https://philippe-preux.github.io -->
+<script>
+  var sc_project=12923547; 
+  var sc_invisible=1; 
+  var sc_security="627600d4"; 
+</script>
+<script src="https://www.statcounter.com/counter/counter.js" async></script>
+<noscript>
+  <div class="statcounter">
+    <a title="Web Analytics" href="https://statcounter.com/" target="_blank">
+      <img class="statcounter"
+	   src="https://c.statcounter.com/12923547/0/627600d4/1/"
+	   alt="Web Analytics"
+	   referrerPolicy="no-referrer-when-downgrade"></a>
+  </div>
+</noscript>
+  <!-- End of Statcounter Code -->
+  
+</body>
+</html>
