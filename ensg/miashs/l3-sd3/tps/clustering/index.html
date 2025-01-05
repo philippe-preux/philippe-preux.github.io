@@ -55,7 +55,35 @@
     
       </p>
 
+      <h2>K-moyennes</h2>
 
+      <p>
+
+	On utilise la méthode <a href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html#sklearn.cluster.KMeans">KMeans ()</a> de scikit_learn. Sous sa forme la plus simple, on l'utilise comme suit. On commence par créer un objet <code>Kmeans</code>&nbsp;:
+
+	<br>
+
+	<code>partitionneur = sklearn.cluster.KMeans (nombre_de_groupes, random_state)</code>
+
+	<br>
+
+	que l'on peut ensuite appliquer à un jeu de données contenu dans une matrice <code>X</code>&nbsp;:
+
+	<br>
+
+	<code>partition = partitionneur. fit (X)</code>
+
+	<br>
+
+	L'objet <code>partition</code> contient différentes informations&nbsp;:
+	
+      </p>
+
+      <ul>
+	<li><code>partition. clusters_centers_</code> contient les coordonnées des centroïdes,</li>
+	<li><code>partition. labels_</code> contient le numéro de partie de chaque donnée,</li>
+	<li><code>partition. inertia_</code> contient l'inertie intraclasse de la partition.</li>
+      </ul>
 
 </div>
 
