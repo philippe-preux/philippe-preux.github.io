@@ -121,14 +121,61 @@
 
       <p>
 
-	L'une des difficultés rencontrées en partitionnement de données concerne la détermination du nombre de parties. Sur l'exemple que nous venons de traiter, ce nombre est évident, il saute aux yeux. Sur des données réelles, c'est rarement le cas. On va utiliser ce jeu de données très simple pour voir comment déterminer ce nombre de parties vraisemblablement le meilleur. On va voir deux méthodes.
+	L'une des difficultés rencontrées en partitionnement de données concerne la détermination du nombre de parties. Sur l'exemple que nous venons de traiter, ce nombre est évident, il saute aux yeux. Sur des données réelles, c'est rarement le cas. On va utiliser ce jeu de données très simple pour voir comment déterminer ce nombre de parties vraisemblablement le meilleur. On va voir deux méthodes, l'une basée sur l'inertie, l'autre sur le score de silhouette.
+
+	<br>
+
+	Dans les deux cas, l'idée est simple&nbsp;: on calcule des partitions avec des nombres de parties variant par exemple de 2 à 10 et on utilise un score pour déterminer le «&nbsp;bon&nbsp;» nombre de parties.
+
+	<br>
+	<br>
 	
+	<b>Déterminer le nombre de groupes avec l'inertie</b>
+
+	<br>
+
+	Effectuer des partitionnements pour un nombre de parties variant de 2 à 10. Pour chaque partitionnement, stocker son inertie dans une liste. Ensuite, visualiser l'inertie en fonction du nombre de groupes et déterminer le coude.
+
+	<br>
+
+	Que trouvez-vous&nbsp;?
+	
+	<br>
+	<br>
+	
+	<b>Déterminer le nombre de groupes par le score de silhouette</b>
+
+	<br>
+
+	Le principe est le même mais avant cela, je dois expliquer comment on calcule le coefficient de silhouette.
+
+	<br>
+
+	On utilise la méthode <code>sklearn.metrics.silhouette_score (X, cluster_labels)</code> où <code>X</code> est le jeu de données à partionner et <code>cluster_labels</code> est le numéro de partie assigné à chaque donnée.
+
+	<br>
+	
+	Effectuer des partitionnements pour un nombre de parties variant de 2 à 10. Pour chaque partitionnement, calculer son coefficient de silhouette et stocker le liste. Ensuite, déterminer le nombre de parties qui maximise ce score. Il est intéressant également de visualiser ce coefficient en fonction du nombre de parties.
+	<br>
+
+	Que trouvez-vous&nbsp;? La même chose qu'avec l'inertie&nbsp;?
+
       </p>
-      
-      <h3>Allons plus loin&nbsp;: initialisation des centroïdes</h3>
+
+      <h3>Allons encore plus loin&nbsp;: initialisation des centroïdes</h3>
       
       <p>
-	
+
+	Dans la méthode des k-moyennes, l'initialisation des centroïdes détermine l'issue de la partition puisque l'algorithme est déterministe. Aussi cette initialisation est-elle très importante&nbsp;: une mauvaise initialisation peut entraîner de mauvais résultats.
+
+	<br>
+
+	Tel qu'utilisé jusqu'ici, la méthode <code>KMeans ()</code> initialise automatiquement les centroïdes en utilisant un algorithme qui généralement donne de bons résultats. Néanmoins, il peut arriver que cet algorithme initialise mal les centroïdes. Aussi, il est toujours prudent de comparer les résultats obtenus avec cette initialisation et d'autres, par exemple une initialisation au hasard. Pour cela, il faut ajouter le paramètre <code>init = "random"</code> lors de l'appel de <code>KMeans ()</code>.
+
+	<br>
+
+	Tester cette initialisation aléatoire&nbsp;: effectuer par exemple 10 exécutions de <code>KMeans ()</code> avec une initialisation aléatoire. On mesure la qualité du partitionnement à l'aide de l'inertie et du coefficient de silhouette. Trouvez-vous de meilleurs partionnements&nbsp;?
+
       </p>
       
     </div>
