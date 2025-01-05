@@ -43,7 +43,7 @@
 
       <p>
 
-	Nous allons commencer par la méthode probablement la plus connue, les k-moyennes (<i>k-means</i> en anglais).
+	Nous allons commencer par la méthode probablement la plus connue, les k-moyennes (<i>k-means</i> en anglais) qui a été décrite en cours. Au besoin, se référer à mon polycopié concernant cette méthode.
 
 	<br>
 
@@ -63,7 +63,7 @@
 
 	<br>
 
-	<code>partitionneur = sklearn.cluster.KMeans (nombre_de_groupes, random_state)</code>
+	<code>partitionneur = sklearn.cluster.KMeans (nombre_de_parties, random_state)</code>
 
 	<br>
 
@@ -85,6 +85,17 @@
 	<li><code>partition. inertia_</code> contient l'inertie intraclasse de la partition.</li>
       </ul>
 
+      <p>
+
+	Les deux paramètres de <code>KMeans ()</code> indiqués plus haut sont&nbsp;:
+
+      </p>
+
+      <ul>
+	<li><code>nombre_de_parties</code> qui spcifie le nombre de parties qui doivent être constituées (donc le nombre de centroïdes),</li>
+	<li><code>random_state</code> que l'on a rencontré au semestre précédent.</li>
+      </ul>
+      
 </div>
 
 <!-- Default Statcounter code for on github
