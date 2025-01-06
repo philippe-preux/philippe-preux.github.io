@@ -1,0 +1,1 @@
+jeu1a.txt a été créé à partir de jeu1.txt en bougeant à la main les points de deux clusters.
