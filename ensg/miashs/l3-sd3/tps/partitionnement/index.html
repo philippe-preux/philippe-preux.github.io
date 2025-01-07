@@ -35,7 +35,7 @@
 	<br>
 	<br>
 
-	À l'issue de ce TP, vous m'envoyez par email un compte-rendu (format <kbd>odt</kbd> ou <kbd>pdf</kbd>) indiquant la réponse aux questions qui sont posées. Vous m'envoyez également un fichier python réalisant toutes les manipulations de ce TP&nbsp;: je dois pouvoir exécuter ce fichier en tapant <kbd>python3 nom-de-votre-fichier.py</kbd> et reproduire vos résultats. Cette exécution ne doit pas provoquer d'erreur de python. Remarque&nbsp;: un <i>notebook</i> ne convient pas.
+	À l'issue de ce TP, vous m'envoyez par email un compte-rendu (format <kbd>pdf</kbd>) indiquant la réponse aux questions qui sont posées. Vous m'envoyez également un fichier python réalisant toutes les manipulations de ce TP&nbsp;: je dois pouvoir exécuter ce fichier en tapant <kbd>python3 nom-de-votre-fichier.py</kbd> et reproduire vos résultats. Cette exécution ne doit pas provoquer d'erreur de python. Remarque&nbsp;: un <i>notebook</i> ne convient pas.
 
       </p>
 
@@ -43,7 +43,7 @@
 
       <p>
 
-	Nous allons commencer par la méthode probablement la plus connue, les k-moyennes (<i>k-means</i> en anglais) qui a été décrite en cours. Au besoin, se référer à mon polycopié concernant cette méthode.
+	Nous allons étudier la méthode probablement la plus connue, les k-moyennes (<i>k-means</i> en anglais) qui a été décrite en cours. Au besoin, se référer à mon polycopié concernant cette méthode.
 
 	<br>
 
@@ -174,7 +174,11 @@
 
 	<br>
 
-	Tester cette initialisation aléatoire&nbsp;: effectuer par exemple 10 exécutions de <code>KMeans ()</code> avec une initialisation aléatoire. On mesure la qualité du partitionnement à l'aide de l'inertie et du coefficient de silhouette. Trouvez-vous de meilleurs partionnements&nbsp;?
+	On peut aussi réaliser un certain nombre d'exécutions de l'algorithme des k moyennes en initialisant aléatoirement les centroïdes. Pour cela, on indique <code>n_init = 20</code> si on veut réaliser 20 exécutions. <code>KMeans ()</code> renvoie alors le meilleur résultat parmi les 20 (meilleur au sens de l'inertie).
+
+	<br>
+
+	Tester cette initialisation aléatoire&nbsp; effectuer par exemple 10 exécutions de <code>KMeans ()</code> avec une initialisation aléatoire. On mesure la qualité du partitionnement à l'aide de l'inertie et du coefficient de silhouette. Trouvez-vous de meilleurs partionnements&nbsp;?
 
       </p>
 
@@ -196,7 +200,7 @@
 
       <p>
 
-	Dans chaque cas, il faut essayer de déterminer le nombre de groupes. Comme d'habitude et rappelé en début de TP, il faut visualiser les données avant d'essayer de les partitionner afin d'essayer de voir ce que l'on aimerait obtenir et ce que l'algorithme des k-moyennes devrait calculer, et ensuite, visualiser le résultat et constater l'accord ou le désaccord entre ce que l'on attendait et ce que l'on a obtenu. En cas de désaccord, comprendre son origine..
+	Dans chaque cas, il faut essayer de déterminer le nombre de groupes. Comme d'habitude et rappelé en début de TP, il faut visualiser les données avant d'essayer de les partitionner afin d'essayer de voir ce que l'on aimerait obtenir et ce que l'algorithme des k-moyennes devrait calculer, et ensuite, visualiser le résultat et constater l'accord ou le désaccord entre ce que l'on attendait et ce que l'on a obtenu. En cas de désaccord, comprendre son origine.
 
       </p>
 
