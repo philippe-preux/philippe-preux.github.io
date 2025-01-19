@@ -93,14 +93,14 @@
 
       <p>
 
-	On va mettre en application l'analyse en composante principale sur ...
+	On va mettre en application l'analyse en composante principale sur un petit jeu de données disponible <a href="./eleves.txt">là</a>. Il contient les caractéristiques de 10 élèves&nbsp;: leur taille, leur poids, leur âge et leur moyenne.
 
 	<br>
 
-	Pour cela&nbsp;:
+	<b>À faire&nbsp;:</b>
 	
       </p>
-
+      
       <ol>
 	<li>lire le jeu de données dans un tableau de données.</li>
 	<li>Visualiser ce jeu de données&nbsp;: que voyez-vous&nbsp;?</li>
@@ -109,12 +109,8 @@
 
       <p>
 
-	<b>À faire&nsp;:</b> Faites-le.
-
-	<br>
-	<br>
-
-	Nous abordons maintenant la partie la plus importante&nbsp;: l'interprétation de ces calculs savants.
+	Pour l'instant, on a fait des calculs qui n'a pas beaucoup d'intérêt en tant que tel.	
+	Nous abordons maintenant la partie vraiment importante&nbsp;: l'interprétation de ces calculs savants.
 
 	<br>
 
@@ -125,6 +121,15 @@
 	<b>À faire&nsp;:</b> représentez les données dans le plan principal et dans le plan défini par les axes principaux 1 et 3.
 
 	<br>
+
+	J'obtiens cela&nbp;:
+	
+	<br>
+
+	<img src="eleves.plan.1x2.png" width="400pt" alt="eleves dans le plan principal 1x2" />
+	<img src="eleves.plan.1x3.png" width="400pt" alt="eleves dans le plan principal 1x3" />
+	
+	<br>
 	
 	Comme on l'a vu en cours, le fait de réduire la dimension déforme le nuage de points. Il faut donc calculer cette déformation pour chaque donnée et écarter ou du moins identifier les données dont la projection dans un plan principal n'est pas fidèle à sa position relative dans l'espace des données. Pour cela, on mesure le cosinus au carré de l'angle entre la demi-droite passant par l'origine et cette donnée d'une part et le plan principal que l'on considère d'autre part. Si ce cosinus au carré est inférieur à 0,3, la déformation est importante (angle > 57°).
 
@@ -133,7 +138,18 @@
 	<b>À faire&nsp;:</b> sur le graphique précédent, identifiez les points dont la projection est déformée et affichez-les en rouge.
 
 	<br>
+	<br>
+
+	Il faut déterminer le nombre de dimensions dans l'espace factoriel qui sont pertinentes. Pour cela, on utilise la proportion de variance expliquée par chacun des facteurs, autrement dit, les valeurs propres de la décomposition spectrale. Le creux du coude indique ce nombre.
+
+	<br>
+
+	<b>À faire&nsp;:</b> faites un graphique indiquant la proportion de variance expliquée. Déterminez la dimension de l'espace factoriel.
 	
+	<br>
+	<br>
+	
+	Les axes principaux correspondent à des combinaisons linéaires des attributs originaux. La corrélation entre ces axes et les attributs originaux indique l'information que contient chaque axe principal par rapport aux attributs initiaux. On peut calculer, afficher et analyser ces nombres. On peut aussi réaliser le cercle de corrélation. Faites-le.
 
       </p>
 
