@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+  
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Réduction de dimension</title>
+    <link href="https://philippe-preux.github.io/css/ma.css" 
+	  rel="stylesheet" type="text/css" media="all">
+    <!--link href="file:///home/ppreux/philippe-preux.github.io/css/ma.css" 
+	  rel="stylesheet" type="text/css" media="all"-->
+    <link rel="shortcut icon" type="image/x-icon" 
+	  href="https://philippe-preux.github.io/img/site.ico">
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+      .aligncenter {
+	  text-align: center;
+      }
+      span.petit {
+	  font-size: 8px;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <div class="tpR">
+
+      <h1>Réduction de dimension</h1>
+
+      <p>
+
+	Dans ce TP, nous abordons la réduction de dimension d'un jeu de données, en particulier l'analyse en composantes principales et la mise à l'échelle multi-dimensionnelle.
+
+	On pourra consulter mes <a href="https://philippe-preux.github.io/Documents/notes-de-cours-de-fouille-de-donnees.pdf">notes de cours de fouille de données</a> pour une présentation de la réduction de dimension (chapitre 11).
+
+	<br>
+	<br>
+
+	À l'issue de ce TP, vous m'envoyez par email un compte-rendu (format <kbd>pdf</kbd>) indiquant la réponse aux questions qui sont posées. Vous m'envoyez également un fichier python réalisant toutes les manipulations de ce TP&nbsp;: je dois pouvoir exécuter ce fichier en tapant <kbd>python3 nom-de-votre-fichier.py</kbd> et reproduire vos résultats. Cette exécution ne doit pas provoquer d'erreur de python. Remarque&nbsp;: un <i>notebook</i> ne convient pas.
+
+      </p>
+
+      <h2>Introduction</h2>
+
+      <p>
+
+	La réduction de dimension a pour objectif de diminuer le nombre d'attributs d'un jeu de données, en se concentrant sur des attributs réellement pertinents. D'un point de vue géométrique, son objectif est de déterminer le sous-espace (la variété) dans lequel les données vivent.
+
+	<br>
+	<br>
+
+	Là encore, à chaque fois que cela est possible, une exploration visuelle des données est essentielle pour anticiper et comprendre.
+    
+      </p>
+
+      <h2>Analyse en composantes principales</h2>
+
+      <h3>Description de l'objet <code>PCA</code> de scikit_learn</h3>
+
+      <p>
+
+	On utilise la méthode <a href="https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html#sklearn.decomposition.PCA">PCA ()</a> de scikit_learn. Sous sa forme la plus simple, on l'utilise comme suit. On commence par créer un objet <code>PCA</code>&nbsp;:
+
+	<br>
+
+	<code>acp = sklearn.decomposition.PCA ()</code>
+
+	<br>
+
+	que l'on applique ensuite sur un jeu de données centrées réduites contenu dans une matrice <code>X</code>&nbsp;:
+
+	<br>
+
+	<code>acp.fit (X)</code>
+
+	<br>
+
+	L'objet <code>acp</code> contient différentes informations&nbsp;:
+
+	<br>
+
+	Remarque&nbsp;: on peut utiliser un objet <code>scaler()</code> mais cette méthode est buggée&nbsp;: le calcul de l'écart-type est faux car la moyenne est estimée et non pas connue, donc le dénominateur doit être N-1 et non N, où N est le nombre de données. Si N est grand cela ne fait pas de grande différence&nbsp;; si N est petit, il vaut mieux faire le centrage et la réduction «&nbsp;à la main&nbsp;». Pour obtenir la valeur correte de la variance, il faut ajouter l'option <code>ddof = 1</code> à l'appel de la méthode <code>var ()</code>.
+
+      </p>
+
+      <ul>
+	<li><code>acp. explained_variance_</code> contient les valeurs propres dans l'ordre décroissant. Ce sont donc les variances selon les différents axes principaux.</li>
+	<li><code>acp. components_</code>&nbsp;: chaque ligne contient un vecteur propre, donc une direction principale. Le vecteur en i<sup>è</sup> ligne correspond à la i<sup>è</sup> valeur propre.</li>
+	<li><code>acp. explained_variance_ratio_</code> contient la proportion de variance expliquée de chacun des axes principaux.</li>
+      </ul>
+
+      
+      <h3>Mise en application</h3>
+
+      <p>
+
+	On va mettre en application l'analyse en composante principale sur ...
+
+	<br>
+
+	Pour cela&nbsp;:
+	
+      </p>
+
+      <ol>
+	<li>lire le jeu de données dans un tableau de données.</li>
+	<li>Visualiser ce jeu de données&nbsp;: que voyez-vous&nbsp;?</li>
+	<li>En réaliser l'ACP.</li>
+      </ol>
+
+      <p>
+
+	Nous abordons maintenant la partie la plus importante&nbsp;: l'interprétation de ces calculs savants.
+
+	<br>
+
+	La première étape consiste à visualiser les données dans les plans principaux. Les coordonnées des données dans l'espace factoriel est obtenu par <code>acp. tansform (X)</code>.
+
+	<br>
+
+	Représentez les données dans le plan principal et dans le plan défini par les axes principaux 1 et 3.
+
+	<br>
+	
+	Comme on l'a vu en cours, le fait de réduire la dimension déforme le nuage de points. Il faut donc calculer cette déformation pour chaque donnée et écarter ou du moins identifier les données dont la projection dans un plan principal n'est pas fidèle à sa position relative dans l'espace des données. Pour cela, on mesure le cosinus au carré de l'angle entre la demi-droite passant par l'origine et cette donnée d'une part et le plan principal que l'on considère d'autre part. Si ce cosinus au carré est inférieur à 0,3, la déformation est importante (angle > 57°).
+
+	<br>
+	<br>
+	
+
+      </p>
+
+
+      <h3>Activités en autonomie</h3>
+
+      <p>
+
+	Appliquer tout ce qui vient d'être expliqué aux jeux de données suivants~:
+
+      </p>
+
+      <ul>
+	<li><a href="">ce fichier</a>.</li>
+	<li><a href="">ce fichier</a>.</li>
+	<li><a href="">ce fichier</a>.</li>
+	<li>Les iris qui sont disponibles dans scikit_learn en faisant <code>sklearn.datasets.load_iris ().data</code>. Faites-en une ACP.</li>
+      </ul>
+
+      <p>
+
+
+      </p>
+
+      <h2>Mise à l'échelle multi-dimensionnelle</h2>
+
+      <p>
+
+      </p>
+      
+    </div>
+
+<!-- Default Statcounter code for on github
+https://philippe-preux.github.io -->
+<script>
+  var sc_project=12923547; 
+  var sc_invisible=1; 
+  var sc_security="627600d4"; 
+</script>
+<script src="https://www.statcounter.com/counter/counter.js" async></script>
+<noscript>
+  <div class="statcounter">
+    <a title="Web Analytics" href="https://statcounter.com/" target="_blank">
+      <img class="statcounter"
+	   src="https://c.statcounter.com/12923547/0/627600d4/1/"
+	   alt="Web Analytics"
+	   referrerPolicy="no-referrer-when-downgrade"></a>
+  </div>
+</noscript>
+  <!-- End of Statcounter Code -->
+  
+</body>
+</html>
