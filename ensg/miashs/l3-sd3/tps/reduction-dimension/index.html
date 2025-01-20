@@ -114,11 +114,23 @@
 
 	<br>
 
-	La première étape consiste à visualiser les données dans les plans principaux. Les coordonnées des données dans l'espace factoriel est obtenu par <code>acp. tansform (X)</code>.
+	Commençons par observer et visualiser la proportion de variance expliquée par les composantes principales successives. Faites un graphique comme celui-ci&nbsp;:
 
 	<br>
 
-	<b>À faire&nbsp;:</b> représentez les données dans le plan principal et dans le plan défini par les axes principaux 1 et 3.
+	<img src="eleves.Scree-plot.png" width="400pt" alt="Scree-plot élèves" >
+	
+	<br>
+
+	Qu'en déduisez-vous&nbsp;?
+
+	<br>
+	
+	On peut ensuite visualiser les données dans les plans principaux. Les coordonnées des données dans l'espace factoriel sont obtenues par <code>acp. tansform (X)</code>.
+
+	<br>
+
+	<b>À faire&nbsp;:</b> représenter les données dans le plan principal et dans le plan défini par les axes principaux 1 et 3.
 
 	<br>
 
@@ -128,24 +140,28 @@
 
 	<img src="eleves.plan.1x2.png" width="400pt" alt="eleves dans le plan principal 1x2" />
 	<img src="eleves.plan.1x3.png" width="400pt" alt="eleves dans le plan principal 1x3" />
-	
+
 	<br>
-	
+
+	Pensez-vous que le second graphique (plan principal 1x3) soit pertinent&nbsp;?
+
+	<br>
+
 	Comme on l'a vu en cours, le fait de réduire la dimension déforme le nuage de points. Il faut donc calculer cette déformation pour chaque donnée et écarter ou du moins identifier les données dont la projection dans un plan principal n'est pas fidèle à sa position relative dans l'espace des données. Pour cela, on mesure le cosinus au carré de l'angle entre la demi-droite passant par l'origine et cette donnée d'une part et le plan principal que l'on considère d'autre part. Si ce cosinus au carré est inférieur à 0,3, la déformation est importante (angle > 57°).
 
 	<br>
 
-	<b>À faire&nbsp;:</b> sur le graphique précédent, identifiez les points dont la projection est déformée et affichez-les avec une couleur particulière.
+	<b>À faire&nbsp;:</b> sur le graphique précédent, identifier les points dont la projection est déformée et les affichez avec une couleur particulière.
 
 	<br>
-	
+
 	J'obtiens cela&nbp;:
 	
 	<br>
 
 	<img src="eleves.plan.1x2.anomalie.png" width="400pt" alt="eleves dans le plan principal 1x2" />
 	<img src="eleves.plan.1x3.anomalie.png" width="400pt" alt="eleves dans le plan principal 1x3" />
-	
+
 	<br>
 	<br>
 
@@ -153,12 +169,12 @@
 
 	<br>
 
-	<b>À faire&nbsp;:</b> faites un graphique indiquant la proportion de variance expliquée. Déterminez la dimension de l'espace factoriel.
-	
+	<b>À faire&nbsp;:</b> faire un graphique indiquant la proportion de variance expliquée. Déterminer la dimension de l'espace factoriel.
+
 	<br>
 	<br>
 	
-	Les axes principaux correspondent à des combinaisons linéaires des attributs originaux. La corrélation entre ces axes et les attributs originaux indique l'information que contient chaque axe principal par rapport aux attributs initiaux. On peut calculer, afficher et analyser ces nombres. On peut aussi réaliser le cercle de corrélation. Faites-le.
+	Les axes principaux correspondent à des combinaisons linéaires des attributs originaux. La corrélation entre ces axes et les attributs originaux indique l'information que contient chaque axe principal par rapport aux attributs initiaux. On peut calculer, afficher et analyser ces nombres. On peut aussi réaliser le cercle de corrélation. Le faire.
 
 	<br>
 	
@@ -180,20 +196,19 @@
       </p>
 
       <ul>
-	<li><a href="">ce fichier</a>.</li>
-	<li><a href="">ce fichier</a>.</li>
-	<li><a href="">ce fichier</a>.</li>
 	<li>Les iris qui sont disponibles dans scikit_learn en faisant <code>sklearn.datasets.load_iris ().data</code>. Faites-en une ACP.</li>
+	<li><a href="https://philippe-preux.github.io/ensg/miashs/l3-sd2/tp/cc2/sleep.csv">ce fichier</a> (que l'on a déjà rencontré). Retirez les données ayant des NAs avant d'en fait une ACP.</li>
       </ul>
 
       <p>
-
 
       </p>
 
       <h2>Mise à l'échelle multi-dimensionnelle</h2>
 
       <p>
+
+	À suivre...
 
       </p>
       
