@@ -209,7 +209,88 @@
 
       <p>
 
-	À suivre...
+	La MDS est une méthode particulièrement attractive pour réaliser une projection en 2D d'un ensemble de données. Du fait de son utilité et de la simplicité d'utilisation, cette méthode est extrêmement utilisée.
+
+	<br>
+
+	Comme on l'a vu en cours, il existe plusieurs variantes que l'on expérimente ci-dessous&nbsp;:
+
+      </p>
+
+      <ul>
+	<li>MDS linéaire, qui est une ACP,</li>
+	<li>MDS non linéaire,</li>
+	<li>MDS non métrique.</li>
+      </ul>
+
+      <p>
+
+	On expérimente ces 3 variantes ci-dessous.
+	
+      </p>
+      
+      <h3>MDS linéaire&nbsp;: MDS classique</h3>
+
+      <p>
+
+	Ce que l'on appelle la MDS classique, ou encore MDS linéaire, est la projection des données dans le plan principal. Voir ci-dessus.
+	
+      </p>
+
+      <h3>MDS métrique non linéaire&nbsp;: méthode de Sammon</h3>
+
+      <p>
+
+	Pour réaliser une MDS métrique non linéaire par la méthode de Sammon, on doit d'abord importer deux objets&nbsp;:
+
+      </p>
+
+      <pre>from sklearn import manifold
+from sklearn.metrics import euclidean_distances</pre>
+
+      <p>
+
+	Ensuite, on crée un objet MDS&nbsp;:
+
+      </p>
+
+      <pre>mds_Sammon = manifold.MDS (n_components = 2, metric = True, n_init = n, random_state = rs, dissimilarity = "euclidean")</pre>
+	
+      <p>
+
+	où <code>n</code> est le nombre d'exécutions de la méthode. La meilleure solution (stress minimal) sera retenue parmi les <code>n</code> exécutions. On prendra <code>n = 20</code> par exemple.
+
+	<br>
+
+	Ensuite, on applique sa méthode <code>fit ()</code> au jeu de données contenu dans la matrice <code>X</code>&nbsp;:
+
+      </p>
+
+      <pre>mds = mds_Sammon.fit (X)</pre>
+	
+      <p>
+
+	L'objet <code>mds. embedding_</code> est une matrice ayant autant de ligne qu'il y a de données. Chaque ligne contient la projection en dimension <code>k</code> d'une donnée. On peut utiliser cet objet pour réaliser un graphique.
+
+	<br>
+
+	Par exemple, ci-dessous j'indique le résultat sur les iris en utilisant des couleurs pour distinguer les 3 classes&nbsp;:
+
+	<br>
+	
+	<img src="MDS.classique.iris.png" width="400pt" alt="MDS classique sur les iris" />
+	
+	<br>
+
+	<b>À faire&nbsp;:</b> reproduisez ce graphique.
+
+      </p>
+
+      <h3>MDS non métrique&nbsp;: méthode de Kruskal et Shepard</h3>
+
+      <p>
+
+	Les données à analyser ne vivent pas toujours dans un espace métrique. Dans ce cas, au lieu d'utiliser une distance, on utilise une dissimilarité qui est une notion plus générale qui ne respecte pas l'inégalité triangulaire.
 
       </p>
       
