@@ -28,7 +28,7 @@
 
       <p>
 
-	Dans ce TP, nous abordons la réduction de dimension d'un jeu de données, en particulier l'analyse en composantes principales et la mise à l'échelle multi-dimensionnelle.
+	Dans ce TP, nous abordons la réduction de dimension d'un jeu de données, en particulier l'analyse en composantes principales, méthode très connue, très utile et très utilisée.
 
 	On pourra consulter mes <a href="https://philippe-preux.github.io/Documents/notes-de-cours-de-fouille-de-donnees.pdf">notes de cours de fouille de données</a> pour une présentation de la réduction de dimension (chapitre 11).
 
@@ -93,7 +93,7 @@
 
       <p>
 
-	On va mettre en application l'analyse en composante principale sur un petit jeu de données disponible <a href="./eleves.txt">là</a>. Il contient les caractéristiques de 10 élèves&nbsp;: leur taille, leur poids, leur âge et leur moyenne.
+	On va mettre en application l'analyse en composante principale sur un petit jeu de données disponible <a href="https://philippe-preux.github.io/ensg/miashs/datasets/eleves.txt">là</a>. Il contient les caractéristiques de 10 élèves&nbsp;: leur taille, leur poids, leur âge et leur moyenne.
 
 	<br>
 
@@ -192,107 +192,34 @@
 
       <p>
 
-	Appliquer tout ce qui vient d'être expliqué aux jeux de données suivants :
+	Appliquer ce qui vient d'être expliqué aux jeux de données suivants&nbsp;:
 
       </p>
 
       <ul>
-	<li>Les iris qui sont disponibles dans scikit_learn en faisant <code>sklearn.datasets.load_iris ().data</code>. Faites-en une ACP.</li>
-	<li><a href="https://philippe-preux.github.io/ensg/miashs/l3-sd2/tp/cc2/sleep.csv">ce fichier</a> (que l'on a déjà rencontré). Retirez les données ayant des NAs avant d'en fait une ACP.</li>
+	<li>Les iris qui sont disponibles dans scikit_learn en faisant <code>sklearn.datasets.load_iris ().data</code>. Faites-en une ACP. Quand vous visualisez les iris, il est intéressant d'utiliser une couleur différente pour chacune des classes.</li>
+	<li><a href="https://philippe-preux.github.io/ensg/miashs/l3-sd2/tp/cc2/sleep.csv">Ce fichier</a> (que l'on a déjà rencontré). Retirez les données ayant des NAs avant d'en faire une ACP.</li>
+	<li>Réalisant une projection de données dans un plan, l'ACP permet de visualiser dans le plan des données décrites par de nombreux attributs. C'est ce que nous faisons pour ce jeu de données et le suivant.
+
+	  <br>
+
+	  <a href="https://philippe-preux.github.io/ensg/miashs/datasets/eurodist.txt">Ce fichier</a> contient une matrice qui indique la distance routière entre chaque couple parmi 21 villes européennes. À partir de ces distances, on aimerait obtenir une visualisation en 2 dimensions de la position des villes les unes par rapport aux autres. Projeter ce jeu de données dans le plan principal&nbsp;: chaque donnée correspondant à une ville, afficher le nom de la ville à sa position dans le plan principal. Vous devez obtenir un graphique comme celui-ci&nbsp;:
+	  <br>
+
+	  <img src="exemple-de-ce-qui-est-attendu.png" width="400pt" alt="exemple de graphique attendu" />
+	  
+	  <br>
+
+	  Attention, ce graphique n'est absolument pas celui que vous devez obtenir. Je l'indique juste pour vous montrer le type de graphique attendu&nbsp;: la position des villes dans le plan.
+	  
+	  <br>
+	  
+	  Que constatez-vous&nbsp;? (Bien sûr, on aimerait que la position des villes corresponde à peu près à leur position sur une carte géographique.) Comment pouvez-vous déterminer si cette représentation en 2D est fidèle au jeu de données&nbsp;?</li>
+	<li><a href="https://philippe-preux.github.io/ensg/miashs/datasets/26letters.txt">Ce fichier</a> contient une matrice qui indique le nombre d'occurrences de chacune des 26 lettres de l'alphabet latin dans un même texte (issu de la constitution européenne) traduit dans 19 langues européennes. Il est intéressant d'en faire une ACP et de projeter les langues dans le plan principal afin de visualiser leur proximité en terme de fréquence d'apparition de chacune des lettres. Par contre, pour ce jeu de données, il faut réaliser un pré-traitement des données pour que l'ACP ait un sens&nbsp;: lequel&nbsp;?
+	  <br>
+	  Comme ci-dessus pour les villes, afficher le nom des langues. En fonction de vos connaissances (même limitée) en linguistique, cette projection en 2D vous paraît-elle pertinente&nbsp;? Il est également intéressant de projeter les lettres dans le plan principal pour visualiser leur proximité en fonction de leur utilisation dans ces 19 langues européennes. Faites le graphique correspondant. Comment pouvez-vous déterminer si cette représentation en 2D est fidèle au jeu de données&nbsp;?</li>
+	<li>En classification supervisée, il arrive parfois que le taux de succès augmente quand on pré-traite les données au moyen d'une ACP. Tester cette idée sur les iris. Que constatez-vous&nbsp;?</li>
       </ul>
-
-      <p>
-
-      </p>
-
-      <h2>Mise à l'échelle multi-dimensionnelle</h2>
-
-      <p>
-
-	La MDS est une méthode particulièrement attractive pour réaliser une projection en 2D d'un ensemble de données. Du fait de son utilité et de la simplicité d'utilisation, cette méthode est extrêmement utilisée.
-
-	<br>
-
-	Comme on l'a vu en cours, il existe plusieurs variantes que l'on expérimente ci-dessous&nbsp;:
-
-      </p>
-
-      <ul>
-	<li>MDS linéaire, qui est une ACP,</li>
-	<li>MDS non linéaire,</li>
-	<li>MDS non métrique.</li>
-      </ul>
-
-      <p>
-
-	On expérimente ces 3 variantes ci-dessous.
-	
-      </p>
-      
-      <h3>MDS linéaire&nbsp;: MDS classique</h3>
-
-      <p>
-
-	Ce que l'on appelle la MDS classique, ou encore MDS linéaire, est la projection des données dans le plan principal. Voir ci-dessus.
-	
-      </p>
-
-      <h3>MDS métrique non linéaire&nbsp;: méthode de Sammon</h3>
-
-      <p>
-
-	Pour réaliser une MDS métrique non linéaire par la méthode de Sammon, on doit d'abord importer deux objets&nbsp;:
-
-      </p>
-
-      <pre>from sklearn import manifold
-from sklearn.metrics import euclidean_distances</pre>
-
-      <p>
-
-	Ensuite, on crée un objet MDS&nbsp;:
-
-      </p>
-
-      <pre>mds_Sammon = manifold.MDS (n_components = 2, metric = True, n_init = n, random_state = rs, dissimilarity = "euclidean")</pre>
-	
-      <p>
-
-	où <code>n</code> est le nombre d'exécutions de la méthode. La meilleure solution (stress minimal) sera retenue parmi les <code>n</code> exécutions. On prendra <code>n = 20</code> par exemple.
-
-	<br>
-
-	Ensuite, on applique sa méthode <code>fit ()</code> au jeu de données contenu dans la matrice <code>X</code>&nbsp;:
-
-      </p>
-
-      <pre>mds = mds_Sammon.fit (X)</pre>
-	
-      <p>
-
-	L'objet <code>mds. embedding_</code> est une matrice ayant autant de ligne qu'il y a de données. Chaque ligne contient la projection en dimension <code>k</code> d'une donnée. On peut utiliser cet objet pour réaliser un graphique.
-
-	<br>
-
-	Par exemple, ci-dessous j'indique le résultat sur les iris en utilisant des couleurs pour distinguer les 3 classes&nbsp;:
-
-	<br>
-	
-	<img src="MDS.classique.iris.png" width="400pt" alt="MDS classique sur les iris" />
-	
-	<br>
-
-	<b>À faire&nbsp;:</b> reproduisez ce graphique.
-
-      </p>
-
-      <h3>MDS non métrique&nbsp;: méthode de Kruskal et Shepard</h3>
-
-      <p>
-
-	Les données à analyser ne vivent pas toujours dans un espace métrique. Dans ce cas, au lieu d'utiliser une distance, on utilise une dissimilarité qui est une notion plus générale qui ne respecte pas l'inégalité triangulaire.
-
-      </p>
       
     </div>
 

@@ -1,0 +1,50 @@
+Le fichier EvolutionPopUSA_MainData.orig.csv est le fichier original téléchargé depuis https://figshare.com/articles/dataset/Main_Dataset_for_Evolution_of_Popular_Music_USA_1960_2010_/1309953
+
+Le fichier EvolutionPopUSA_MainData.orig.csv est le même fichier dans lequel les suites de deux espaces "  " ont été remplacées par un seul espace. Cela simplifie les recherches. Il y a 105 "  " dans .orig.csv.
+
+dataset
+posted on 2015-04-06, 22:15 authored by Matthias Mauch
+
+This is a large file (~20MB) called EvolutionPopUSA_MainData.csv, in comma-separated data format with column headers. Each row corresponds to a recording. The file is viewable in any text editor, and can also be opened in Excel or imported to other data processing programs.
+
+Below is a list of the column headers, with annotations.
+
+public_id
+unique ID of the recording
+
+artist_name
+name of the recording artist
+
+artist_name_clean
+artist name all upper case, no spaces, with secondary artists ("featuring") removed.
+
+track_name
+name of the track, i.e. usually name of the song
+
+first_entry
+date of the first entry into the Billboard Hot 100
+
+quarter, year, fiveyear, decade
+transformations of first_entry to coarser time periods
+
+era
+era the track belongs to (1,...,4), as determined by Foote segmentation on the PC data (see below)
+
+cluster
+cluster membership of the track, as derived by k-means clustering on the PC data (see below)
+
+hTopic_01, ... , hTopic_08
+harmonic Topic weights, see description in the paper
+
+tTopic_01, ... , tTopic_08
+timbral Topic weights, see description in the paper
+
+PC1, ... , PC14
+principal components of the harmonic and timbral Topics
+
+harm_…
+193 columns of chord change counts; the chord change is indicated in the column label (e.g. harm_M.2.M means major chord followed by another major chord 2 semitones up).
+
+timb_01, ... , timb_35
+35 columns of timbre class counts (see description in supplementary information)
+
