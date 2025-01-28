@@ -173,7 +173,7 @@ fig. show ()</pre>
       <pre>def Inerties (jeu, kmin = 2, kmax = 16):
     les_inerties = []
     for i in range (2, 16):
-        partitionneur = KMeans (i, random_state = rs)
+        partitionneur = KMeans (i, n_init = 20, random_state = rs)
         partition = partitionneur. fit (jeu)
         les_inerties. append (partition.inertia_)
     return les_inerties
@@ -229,7 +229,7 @@ draw_inerties (les_inerties)</pre>
 def Silhouettes (jeu, kmin = 2, kmax = 16):
     les_silhouettes_avg = []
     for i in range (kmin, kmax):
-        partitionneur = KMeans (i, random_state = rs)
+        partitionneur = KMeans (i, n_init = 20, random_state = rs)
         partition = partitionneur. fit (jeu)
         les_silhouettes_avg. append (silhouette_score (jeu, partition.labels_))
     return les_silhouettes_avg
@@ -278,7 +278,7 @@ draw_silhouettes (les_silhouettes_avg)</pre>
 
       </p>
 
-      <div class="correction">
+      <!--div class="correction">
 	<pre>...	  
 	</pre>
 
@@ -287,7 +287,7 @@ draw_silhouettes (les_silhouettes_avg)</pre>
 	  Ce jeu de données est tellement facile à partitionner que tout cela n'apporte rien.
 	  
 	</p>
-      </div>
+      </div-->
       
       <h3>Activités en autonomie</h3>
 
