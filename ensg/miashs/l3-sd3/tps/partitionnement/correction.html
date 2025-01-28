@@ -3,7 +3,7 @@
   
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Classification non supervisée&nbsp;: partitionnement d'un jeu de données</title>
+    <title>Classification non supervisée&nbsp;: partitionnement d'un jeu de données&nbsp;: éléments de correction</title>
     <link href="https://philippe-preux.github.io/css/ma.css" 
 	  rel="stylesheet" type="text/css" media="all">
     <!--link href="file:///home/ppreux/philippe-preux.github.io/css/ma.css" 
@@ -24,7 +24,7 @@
   <body>
     <div class="tpR">
 
-      <h1>Classification non supervisée&nbsp;: partitionnement d'un jeu de données</h1>
+      <h1>Classification non supervisée&nbsp;: partitionnement d'un jeu de données&nbsp;: éléments de correction</h1>
 
       <p>
 
@@ -117,6 +117,19 @@
 	<li>Visualisez le résultat en utilisant une couleur différente pour chacune des partie. Le résultat est-il conforme à vos attentes&bsp;?</li>
       </ol>
 
+
+      <pre>jeu1 = pd.read_table("https://philippe-preux.github.io/ensg/miashs/fouilleDeDonneesII/tp/k-moyennes/jeu1.txt", sep = " ")
+fig, ax = plt.subplots ()
+ax. scatter (x = "V1", y = "V2", s = 3, data = jeu1)
+fig. show ()
+
+partitionneur = KMeans (5, random_state = rs)
+partition = partitionneur. fit (jeu1)
+
+fig, ax = plt.subplots ()
+ax. scatter (x = "V1", y = "V2", s = 3, c = partition.labels_, cmap = "plasma", data = jeu1)
+fig. show ()</pre>
+      
       <h3>Allons plus loin&nbsp;: déterminer le nombre de parties</h3>
 
       <p>
@@ -142,6 +155,38 @@
 	
 	<br>
 	<br>
+
+      </p>
+
+      <pre>def Inerties (jeu, kmin = 2, kmax = 16):
+    les_inerties = []
+    for i in range (2, 16):
+        partitionneur = KMeans (i, random_state = rs)
+        partition = partitionneur. fit (jeu)
+        les_inerties. append (partition.inertia_)
+    return les_inerties
+
+def draw_inerties (inerties, kmin = 2, kmax = 16, filename = ""):
+    fig, ax = plt. subplots ()
+    ax. plot (np.arange (kmin, kmax), inerties, marker = 'o', ls = ':')
+    ax. set_title ("Inertie intraclasse en fonction du nombre de parties.")
+    ax. set_xlabel ("Nombre de parties")
+    ax. set_ylabel ("Inertie intraclasse")
+    fig. show ()
+
+les_inerties = Inerties (jeu1, 2, 16)
+draw_inerties (les_inerties)</pre>
+      
+      <p>
+
+	Ce qui donne&nbsp;:
+
+	<br>
+
+	<img src="./inerties.png" width="400pt" alt="les inerties pour k variant de 2 à 16" />
+	
+	<br>
+	<br>
 	
 	<b>Déterminer le nombre de groupes par le score de silhouette</b>
 
@@ -156,10 +201,45 @@
 	<br>
 	
 	Effectuer des partitionnements pour un nombre de parties variant de 2 à 10. Pour chaque partitionnement, calculer son coefficient de silhouette et stocker le liste. Ensuite, déterminer le nombre de parties qui maximise ce score. Il est intéressant également de visualiser ce coefficient en fonction du nombre de parties.
+	</p>
+
+      <pre>def draw_silhouettes (silhouettes, kmin = 2, kmax = 16, filename = ""):
+    fig, ax = plt. subplots ()
+    ax. plot (np.arange (kmin, kmax), silhouettes)
+    ax. set_title ("Score de silhouette en fonction du nombre de parties.")
+    ax. set_xlabel ("Nombre de parties")
+    ax. set_ylabel ("Score de silhouette")
+    fig. show ()
+
+def Silhouettes (jeu, kmin = 2, kmax = 16):
+    les_silhouettes_avg = []
+    for i in range (kmin, kmax):
+        partitionneur = KMeans (i, random_state = rs)
+        partition = partitionneur. fit (jeu)
+        les_silhouettes_avg. append (silhouette_score (jeu, partition.labels_))
+    return les_silhouettes_avg
+
+les_silhouettes_avg = Silhouettes (jeu1)
+draw_silhouettes (les_silhouettes_avg)</pre>
+      
+      <p>
+
+	Ce qui donne&nbsp;:
+
+	<br>
+
+	<img src="./silhouettes.png" width="400pt" alt="les scores de silhouette pour k variant de 2 à 15" />
+	
+	<br>
 	<br>
 
 	Que trouvez-vous&nbsp;? La même chose qu'avec l'inertie&nbsp;?
 
+	<br>
+	<br>
+
+	Les deux méthodes indiquent clairement k = 5.
+	
       </p>
 
       <h3>Allons encore plus loin&nbsp;: initialisation des centroïdes</h3>
