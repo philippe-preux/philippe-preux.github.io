@@ -278,6 +278,17 @@ draw_silhouettes (les_silhouettes_avg)</pre>
 
       </p>
 
+      <div class="correction">
+	<pre>...	  
+	</pre>
+
+	<p>
+
+	  Ce jeu de données est tellement facile à partitionner que tout cela n'apporte rien.
+	  
+	</p>
+      </div>
+      
       <h3>Activités en autonomie</h3>
 
       <p>
@@ -287,7 +298,73 @@ draw_silhouettes (les_silhouettes_avg)</pre>
       </p>
 
       <ul>
-	<li><a href="./jeu1a.txt">ce fichier</a>.</li>
+	<li><a href="./jeu1a.txt">ce fichier</a>.
+	  <div class="correction">
+	    <pre>jeu1a = pd.read_table ("https://philippe-preux.github.io/ensg/miashs/l3-sd3/tps/partitionnement/jeu1a.txt", sep = " ")
+fig, ax = plt.subplots ()
+ax. scatter (x = "V1", y = "V2", s = 3, data = jeu1a)
+fig. show ()
+partitionneur1ak5 = KMeans (5, n_init = 20, random_state = rs)
+partition1ak5 = partitionneur1ak5. fit (jeu1a)
+fig, ax = plt.subplots ()
+ax. scatter (x = "V1", y = "V2", s = 3, c = partition1ak5.labels_, cmap = "plasma", data = jeu1a)
+fig. show ()
+les_inerties1a = Inerties (jeu1a)
+draw_inerties (les_inerties1a)
+les_silhouettes_avg1a = Silhouettes (jeu1a)
+draw_silhouettes (les_silhouettes_avg1a)</pre>
+
+	    <p>
+
+	      produit les 4 graphiques suivant&nbsp;:
+
+	      <br>
+
+	      le jeu de données&nbsp;:
+	      
+	      <br>
+	      
+	      <img src="jeu1a.png" width="400pt" alt="" />
+
+	      <br>
+
+	      Il est en 2 dimensions. Il ressemble au précédent, avec 5 groupes bien séparés les uns des autres. Cependant, on note que ces 5 groupes sont regroupés en 3 groupes à gauche et 2 à droite. Cela a-t-il un impact sur le fonctionnement de l'algorithme des k-moyennes&nbsp;?
+	      
+	      <br>
+
+	      Partitionnement par les k-moyennes avec k = 5&nbsp;:
+	      
+	      <br>
+
+	      <img src="" width="400pt" alt="" />
+
+	      <br>
+
+	      Sans surprise, on retrouve bien les 5 groupes.
+	      
+	      <br>
+
+	      L'inertie intraclasse en fonction du k montre bien un coude pour k = 5&nbsp;:
+	      
+	      <br>
+	      
+	      <img src="" width="400pt" alt="" />
+
+	      <br>
+
+	      Par contre, le score de silhouettes est maximal pour k = 2. Ce score est à peu près égal pour k = 3 et k = 5, mais inférieur à k = 2.
+	      
+	      <br>
+
+	      <img src="" width="400pt" alt="" />
+
+	      <br>
+
+	      On voit sur cet exemple que l'inertie intraclasse et le score de silhouettes ne donnent pas la même information. Il est donc utile de réaliser les deux graphiques car ils apportent une information différente.
+
+	    </p>
+	  </div>
+	</li>
 	<li>Les iris qui sont disponibles dans scikit_learn en faisant <code>sklearn.datasets.load_iris ().data</code>. Est-ce que les centres mobiles indiquent qu'il y a 3 groupes&nbsp;? Comparer les partitions en 2, 3 et 4 groupes aux regroupement en 3 classes du jeu de données.</li>
 	<li><a href="https://philippe-preux.github.io/ensg/miashs/fouilleDeDonneesII/tp/k-moyennes/jeu4.txt">ce fichier</a></li>
 	<li><a href="https://philippe-preux.github.io/ensg/miashs/fouilleDeDonneesII/tp/k-moyennes/jeu5.txt">ce fichier</a></li>
