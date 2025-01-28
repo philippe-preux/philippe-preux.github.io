@@ -25,7 +25,17 @@
     <div class="tpR">
 
       <h1>Classification non supervisée&nbsp;: partitionnement d'un jeu de données&nbsp;: éléments de correction</h1>
-
+      
+      <p>
+	
+	On reprend le sujet en indiquant des éléments de correction sous cette forme&nbsp;:
+	
+      </p>
+      
+      <div class="correction">
+	élément de correction...
+      </div>
+      
       <p>
 
 	Dans ce TP, nous abordons la classification non supervisée, en particulier les méthodes de partitionnement, ou segmentation, de données, <i>clustering</i> en anglais.
@@ -117,7 +127,7 @@
 	<li>Visualisez le résultat en utilisant une couleur différente pour chacune des partie. Le résultat est-il conforme à vos attentes&bsp;?</li>
       </ol>
 
-
+      <div class="correction">
       <pre>jeu1 = pd.read_table("https://philippe-preux.github.io/ensg/miashs/fouilleDeDonneesII/tp/k-moyennes/jeu1.txt", sep = " ")
 fig, ax = plt.subplots ()
 ax. scatter (x = "V1", y = "V2", s = 3, data = jeu1)
@@ -129,6 +139,7 @@ partition = partitionneur. fit (jeu1)
 fig, ax = plt.subplots ()
 ax. scatter (x = "V1", y = "V2", s = 3, c = partition.labels_, cmap = "plasma", data = jeu1)
 fig. show ()</pre>
+      </div>
       
       <h3>Allons plus loin&nbsp;: déterminer le nombre de parties</h3>
 
@@ -158,6 +169,7 @@ fig. show ()</pre>
 
       </p>
 
+      <div class="correction">
       <pre>def Inerties (jeu, kmin = 2, kmax = 16):
     les_inerties = []
     for i in range (2, 16):
@@ -184,9 +196,11 @@ draw_inerties (les_inerties)</pre>
 	<br>
 
 	<img src="./inerties.png" width="400pt" alt="les inerties pour k variant de 2 à 16" />
-	
-	<br>
-	<br>
+
+      </p>
+      </div>
+      
+      <p>
 	
 	<b>Déterminer le nombre de groupes par le score de silhouette</b>
 
@@ -203,6 +217,7 @@ draw_inerties (les_inerties)</pre>
 	Effectuer des partitionnements pour un nombre de parties variant de 2 à 10. Pour chaque partitionnement, calculer son coefficient de silhouette et stocker le liste. Ensuite, déterminer le nombre de parties qui maximise ce score. Il est intéressant également de visualiser ce coefficient en fonction du nombre de parties.
 	</p>
 
+      <div class="correction">
       <pre>def draw_silhouettes (silhouettes, kmin = 2, kmax = 16, filename = ""):
     fig, ax = plt. subplots ()
     ax. plot (np.arange (kmin, kmax), silhouettes)
@@ -230,18 +245,19 @@ draw_silhouettes (les_silhouettes_avg)</pre>
 
 	<img src="./silhouettes.png" width="400pt" alt="les scores de silhouette pour k variant de 2 à 15" />
 	
-	<br>
-	<br>
+	</p>
+	</div>
 
+      <p>
+	
 	Que trouvez-vous&nbsp;? La même chose qu'avec l'inertie&nbsp;?
-
-	<br>
-	<br>
-
-	Les deux méthodes indiquent clairement k = 5.
 	
       </p>
 
+      <div class="correction">
+	Les deux méthodes indiquent clairement k = 5.
+      </div>
+      
       <h3>Allons encore plus loin&nbsp;: initialisation des centroïdes</h3>
       
       <p>
