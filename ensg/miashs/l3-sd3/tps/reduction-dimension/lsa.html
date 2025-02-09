@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+  
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Réduction de dimension&nbsp;: analyse de la sémantique latente</title>
+    <link href="https://philippe-preux.github.io/css/ma.css" 
+	  rel="stylesheet" type="text/css" media="all">
+    <link href="file:///home/ppreux/philippe-preux.github.io/css/ma.css" 
+	  rel="stylesheet" type="text/css" media="all">
+    <link rel="shortcut icon" type="image/x-icon" 
+	  href="https://philippe-preux.github.io/img/site.ico">
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+      .aligncenter {
+	  text-align: center;
+      }
+      span.petit {
+	  font-size: 8px;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <div class="tpR">
+
+      <h1>Réduction de dimension&nbsp;: analyse de la sémantique latente</h1>
+
+      <p>
+
+	Dans ce TP, nous appliquons l'analyse en composantes principales à des textes. Cette méthode se nomme «&nbsp;:analyse de la sémantique latente&nbsp;», <i>latent semantic analysis</i> (LSA) en anglais. On utilisera cet acronyme dans ce TP. Il est indispensable que le TP sur l'<a href="./index.html">ACP</a> ait été réalisé avant celui-ci.
+
+	<br>
+	
+	On pourra consulter mes <a href="https://philippe-preux.github.io/Documents/notes-de-cours-de-fouille-de-donnees.pdf">notes de cours de fouille de données</a> pour une brève présentation de la cette méthode (chapitre 11).
+
+	<br>
+	<br>
+
+	À l'issue de ce TP, vous m'envoyez par email un compte-rendu (format <kbd>pdf</kbd>) indiquant la réponse aux questions qui sont posées. Vous m'envoyez également un fichier python réalisant toutes les manipulations de ce TP&nbsp;: je dois pouvoir exécuter ce fichier en tapant <kbd>python3 nom-de-votre-fichier.py</kbd> et reproduire vos résultats. Cette exécution ne doit pas provoquer d'erreur de python. Remarque&nbsp;: un <i>notebook</i> ne convient pas.
+
+      </p>
+
+
+      <h2>Introduction</h2>
+
+      <p>
+
+	L'objectif de la LSA est le même que celui d'une ACP&nbsp;: fournir une représentation dans un espace de petite dimension (un plan) d'un ensemble de données. Ici les données sont des textes. Ce qui est remarquable est que cette représentation en 2 dimensions respecte dans une certaine mesure le sens des textes et des mots qui les composent. Projetés dans ce plan, la distance euclidienne rend assez bien compte du sens des textes et des mots, c'est-à-dire leur sémantique.
+    
+      </p>
+
+      <h2>Un petit exemple pour s'initier à la LSA</h2>
+
+      <p>
+
+	On commence par un petit exemple composé de quelques textes ne comportant que quelques mots, tiré de la publication Berry, Dumais, O'Brien <i>Using Linear Algebra for Intelligent Information Retrieval</i>, rapport de recherche CS-94-270, décembre 1994. La très petite taille de cet exemple permet de l'explorer sans trop de difficultés, sans être noyé dans de grandes quantités de données. Il montre aussi que la LSA peut fonctionner même sur un petit exemple.
+
+      </p>
+
+      <h3>Représentation des textes</h3>
+      
+      <p>
+
+	Pour réaliser une ACP, il faut disposer d'un tableau de données ou chaque donnée est représentée par la valeur de ses attributs.
+	Ici une donnée est un texte. Il faut donc représenter un texte avec un certain nombre d'attributs, un même jeu d'attributs pour tous les textes que l'on souhaite traiter.
+	Pour cela, commeon l'a vu en cours, on utilise une représentation TF.IDF.
+
+	<br>
+	<br>
+
+	On considère 17 documents textuels qui sont des titres d'articles de revue scientifique. Ces 17 documents sont les suivant&nbsp;:
+
+      </p>
+
+      <ol>
+	<li>A course of integral equations</li>
+	<li>Attractors for semigroups and evolution equations</li>
+	<li>Automatic differentiation of algorithms: theory, implementation, and applications</li>
+	<li>Geometrical aspects of partial differential equations</li>
+	<li>Ideals, varieties, and algorithms -- an introduction to computaional algebraic geometry and commutative algebra</li>
+	<li>Introduction to Hamiltonian dynamical systems and the N-body problem</li>
+	<li>Knapsack problems: algorithms and computer implementations</li>
+	<li>Methods of solving Singular Systems of Ordinary Differential Equations</li>
+	<li>Nonlinear systems</li>
+	<li>Ordinary Differential equations</li>
+	<li>Oscillation theory for neutral differential equations with delay</li>
+	<li>Oscillation theory of delay differential equations</li>
+	<li>Pseudo-differential operators and nonlinear partial differential equations</li>
+	<li>Sinc methods for quadrature and differential equations</li>
+	<li>Stability of stochastic differential equations with respect to semi-martingales</li>
+	<li>The boundary integral approach to static and dynamic contact problems</li>
+	<li>The double Mellin-Barnes type integrals and theory applications to convolution theory</li>
+      </ol>
+
+      <p>
+
+	On retire les mots inutiles (<i>stopwords</i>), on lemmatise et on ne conserve que les mots qui appaaissent dans au moins deux documents. Cela nous donne ce vocabulaire&nbsp;: <code>mots = ["algorithm", "application", "delay", "differential", "equation", "implementation", "integral", "introduction", "method", "nonlinear", "ordinary", "oscillation", "partial", "problem", "system", "theory"]
+</code>.
+
+	<br>
+	<br>
+	
+	On construit la matrice de fréquence des termes <code>tf</code>. Je vous donne le bout de python qui le fait.
+
+      </p>
+
+      <pre>tf = np.zeros ((N, P))
+tf [0, [4, 6]] = 1
+tf [1, 4] = 1
+tf [2, [0, 1, 5, 15]] = 1
+tf [3, [3, 4, 12]] = 1
+tf [4, [0, 7]] = 1
+tf [5, [7, 13, 14]] = 1
+tf [6, [0, 5, 13]] = 1
+tf [7, [3, 4, 8, 10, 14]] = 1
+tf [8, [9, 14]] = 1
+tf [9, [3, 4, 10]] = 1
+tf [10, [2, 3, 4, 11, 15]] = 1
+tf [11, [2, 3, 4, 11, 15]] = 1
+tf [12, [3, 4, 9, 12]] = 1
+tf [13, [3, 4, 8]] = 1
+tf [14, [3, 4]] = 1
+tf [15, [6, 13]] = 1
+tf [16, [1, 6, 15]] = 1</pre>
+
+      <p>
+
+	La i<sup>è</sup> ligne de <code>tf</code> correspond au i<sup>è</sup> document, la j<sup>è</sup> colonne correspond au j<sup>è</sup> mot du vocabulaire.
+	Si <code>tf [i, j]</code> est non nul, c'est que le mot <code>j</code> est présent dans le document <code>i</code>. Ici, les documents étant très courts, un mot apparaît 0 ou 1 fois dans un document. En général, il peut apparaître plusieurs fois aussi de manière générale, cette matrice peut contenir d'autres entiers que 0 et 1.
+
+	<br>
+	<br>
+
+	<b>À faire&nbsp;:</b>
+
+      </p>
+
+      <ol>
+	<li>calculer l'IDF de chaque terme.</li>
+	<li>Calculer ensuite la représentation TF.IDF de chacun des documents. On met cette représentation dans une matrice.</li>
+	<li>Normer chaque ligne (= document).</li>
+      </ol>
+
+      <p>
+
+	Nous avons maintenant une matrice <code>tf_idf</code> qui représente les 17 documents.
+
+      </p>
+
+      <h3>ACP</h3>
+
+      <p>
+
+	<b>À faire&nbsp;:</b> en suivant (scrupuleusement) la démarche vue dans le TP précédent sur l'ACP, réaliser une ACP de cette matrice  <code>tf_idf</code>. Réaliser une visualisation des documents dans le plan principal. Vous devez obtenir quelque chose comme cela&nbsp;:
+
+	<br>
+
+	<img src="LSA.petit-exemple.ACP-des-docs.png" width="400pt"
+	     alt="Documents dans le plan principal de l'ACP" />
+
+	<br>
+
+	Il peut arriver que la figure obtenue soit symétrique horizontalement ou verticalement à celle-ci. C'est normal puisque la décomposition spectrale est définie au signe près.
+
+	<br>
+
+	Petit truc&nbsp;: pour réaliser la figure ci-dessus, j'ai légérement modifié les coordonnées auxquelles sont affichés les chaînes de caractères pour la rendre plus lisible. En effet, il arrive fréquemment que plusieurs chaînes de caractères se mélangent car leurs coordonnées sont proches. Pour réaliser cette légère modification, j'ajoute une petite quantité aléatoire, différente pour chacune des coordonnées, tiréee d'une loi normale d'écart-type 0,1 (valeur à ajuster en fonction de l'ampleur des coordonnées). Cette technique est très utile et très utilisée en fouille de données. Elle se nomme en anglais <i>jittering</i>&nbsp;; en français, on parle de «&nbsp;bruitage&nbsp;». J'applique cette technique à toutes les figures réalisés dans ce TP.
+
+	<br>
+
+	<b>À faire&nbsp;:</b> analyser cette figure en comparant la position des documents (et surtout la distance entre les documents dans ce plan) et les mots qui les compose. Faites (dans votre tête) un partitionnement selon ce que vous voyez (pas forcément comme les k-moyennes fonctionnent donc). Que constatez-vous&nbsp;?
+
+	<br>
+	<br>
+
+      On considère maintenant la transposée de la matrice TF.IDF. Celle-ci décrit les mots en fonction des documents dans lesquels ils apparaissent.
+
+      <br>
+
+      <b>À faire&nbsp;:</b> en suivant la démarche vue dans le TP précédent sur l'ACP, réaliser une ACP de la transposée de la matrice <code>tf_idf</code>. Réaliser une visualisation des mots dans le plan principal. Vous devez obtenir quelque chose comme cela&nbsp;:
+
+      <br>
+
+      <img src="LSA.petit-exemple.ACP-des-mots.png" width="400pt"
+	   alt="Mots dans le plan principal de l'ACP" />
+
+      <br>
+      <br>
+
+      <b>À faire&nbsp;:</b> analyser cette figure en comparant la proximité entre les mots et leur sens d'une part, leur apparition dans les documents d'autre part. À nouveau, faites (dans votre tête) un partitionnement selon ce que vous voyez (pas forcément comme les k-moyennes fonctionnent donc). Que constatez-vous&nbsp;?
+
+      <br>
+
+      Il est très intéressant de projet les documents et les mots dans le même plan. <b>À faire&nbsp;:</b> faites-le, en indiquant les documents et les mots avec des couleurs différentes. Vous devez obtenir quelque chose comme ceci&nbsp;:
+
+      <br>
+
+      <img src="LSA.petit-exemple.ACP-docs-et-mots.png" width="400pt"
+	   alt="Documents et mots dans le plan principal de l'ACP" />
+
+      <br>
+
+      <b>À faire&nbsp;:</b> analyser cette figure en comparant la propximité entre les mots et les documents, en fonction des mots apparaissant dans chacun des dcouments. Encore une fois, faites (dans votre tête) un partitionnement selon ce que vous voyez (pas forcément comme les k-moyennes fonctionnent donc). Que constatez-vous&nbsp;?
+
+      <br>
+      
+      </p>
+
+      <h3>ACP par SVD</h3>
+
+      <p>
+
+	Ci-dessus, nous avons effectué deux ACP pour atteindre notre objectif, l'une considérant des documents décrits par les mots qui les composent, l'autre considérant des mots décrits par les documents qui les contiennent. Comme on l'a vu en cours, la décomposition en valeurs singulières (SVD) permet d'obtenir le même résultat en effectuant une seule opération. On reprend donc tout ce que l'on a fait avec cette technique.
+
+	<br>
+	<br>
+
+	On fait une SVD en partant de la même matrice que pour l'ACP, c'est-à-dire la représentation TF.IDF, normée et centrée-réduite. Je suppose que vous avez nommé cet objet <code>X_scaled</code.>
+	Pour réaliser la SVD, on fait comme suit&nbsp;:
+
+      </p>
+
+      <pre>from scipy.linalg import svd
+U, Sigma, V = svd (X_scaled)</pre>
+
+      <p>
+
+	On utilise ensuite <code>U</code> et <code>Sigma</code> pour projeter les documents, et la transposée de <code>V</code> et <code>Sigma</code> pour projeter les documents.
+
+	<br>
+
+	Les coordonnées dans le plan principal des documents sont <code>Sigma [0] * U [:, 0]</code> et <code>Sigma [1] * U [:, 1]</code>.
+
+	<br>
+
+	Celles des mots sont <code>Sigma [0] * V. transpose () [:, 0]</code> et <code>Sigma [1] * V. transpose () [:, 1]</code>.
+
+      <br>
+
+      <b>À faire&nbsp;:</b> faites tout ce qui vient d'être expliqué. Vous devez obtenir les mêmes graphiques que précédemment.
+
+      </p>
+
+      <h2>Un moins petit exemple</h2>
+
+      <p>
+
+	Traiter des documents composé de plusieurs phrases devient très rapidement très pénible. Des outils sont disponibles pour réaliser les opérations consistant à trouver les mots, les lemmatiser, retirer les mots inutiles, <i>etc</i>.
+
+      </p>
+
+    </div>
+
+<!-- Default Statcounter code for on github
+     https://philippe-preux.github.io -->
+<script>
+  var sc_project=12923547; 
+  var sc_invisible=1; 
+  var sc_security="627600d4"; 
+</script>
+<script src="https://www.statcounter.com/counter/counter.js" async></script>
+<noscript>
+  <div class="statcounter">
+    <a title="Web Analytics" href="https://statcounter.com/" target="_blank">
+      <img class="statcounter"
+	   src="https://c.statcounter.com/12923547/0/627600d4/1/"
+	   alt="Web Analytics"
+	   referrerPolicy="no-referrer-when-downgrade"></a>
+  </div>
+</noscript>
+  <!-- End of Statcounter Code -->
+  
+</body>
+</html>
