@@ -214,7 +214,6 @@ tf [16, [1, 6, 15]] = 1</pre>
 	Ci-dessus, nous avons effectué deux ACP pour atteindre notre objectif, l'une considérant des documents décrits par les mots qui les composent, l'autre considérant des mots décrits par les documents qui les contiennent. Comme on l'a vu en cours, la décomposition en valeurs singulières (SVD) permet d'obtenir le même résultat en effectuant une seule opération. On reprend donc tout ce que l'on a fait avec cette technique.
 
 	<br>
-	<br>
 
 	On fait une SVD en partant de la même matrice que pour l'ACP, c'est-à-dire la représentation TF.IDF. Je suppose que vous avez nommé cet objet <code>tfidf</code>. Pour réaliser la SVD, on fait comme suit&nbsp;:
 
@@ -245,13 +244,46 @@ U, Sigma, V = svd (tfidf)</pre>
 
       </p>
 
-      <h2>Un moins petit exemple</h2>
+      <h3>Exploitation de la projection</h3>
+
+      <p>
+
+	L'une des utilisations de la SVD concerne la recherche de documents selon un certain critère&nbsp;: soit étant donné un document, trouver les documents qui traitent du même sujet, soit étant donné un mot, trouver les documents pour lesquels ce mot caractérise le sujet.
+
+	<br>
+
+	Pour cela, on recherche les plus proches voisins&nbsp;: étant donné un document, quels sont les documents qui sont ses plus proches voisins&nbsp;? Étant donné un mot, quels sont les documents qui sont ses plus proches voisins&nbsp;?
+
+	<br>
+
+	Toujours à l'aide de la méthodes plus proches voisins, on peut aussi rechercher les mots qui sont proches les uns des autres. Ce peut-être des synonymes par exemple, ou plus généralement, ce sont des mots utilisés dans le même contexte.
+
+	<br>
+	<br>
+
+	<b>À faire&nbsp;:</b>
+
+      </p>
+
+      <ol>	
+	<li>étant donné un mot, trouver les k documents les plus proches.</li>
+	<li>Étant donné un mot, trouver les k mots les plus proches.</li>
+	<li>Étant donné un document, trouver les k documents les plus proches.</li>
+      </ol>
+
+      <p>
+
+	À chaque fois, faites quelques essais.
+
+      </p>
+      
+      <!--h2>Un moins petit exemple</h2>
 
       <p>
 
 	Traiter des documents composé de plusieurs phrases devient très rapidement très pénible. Des outils sont disponibles pour réaliser les opérations consistant à trouver les mots, les lemmatiser, retirer les mots inutiles, <i>etc</i>.
 
-      </p>
+      </p-->
 
     </div>
 
