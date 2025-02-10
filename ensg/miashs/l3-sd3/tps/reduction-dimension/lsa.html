@@ -192,7 +192,7 @@ tf [16, [1, 6, 15]] = 1</pre>
 
       <br>
 
-      Il est très intéressant de projet les documents et les mots dans le même plan. <b>À faire&nbsp;:</b> faites-le, en indiquant les documents et les mots avec des couleurs différentes. Vous devez obtenir quelque chose comme ceci&nbsp;:
+      Il est très intéressant de projeter les documents et les mots dans le même plan. <b>À faire&nbsp;:</b> faites-le, en indiquant les documents et les mots avec des couleurs différentes. Vous devez obtenir quelque chose comme ceci&nbsp;:
 
       <br>
 
@@ -216,17 +216,17 @@ tf [16, [1, 6, 15]] = 1</pre>
 	<br>
 	<br>
 
-	On fait une SVD en partant de la même matrice que pour l'ACP, c'est-à-dire la représentation TF.IDF, normée et centrée-réduite. Je suppose que vous avez nommé cet objet <code>X_scaled</code.>
+	On fait une SVD en partant de la même matrice que pour l'ACP, c'est-à-dire la représentation TF.IDF. Je suppose que vous avez nommé cet objet <code>tfidf</code.>
 	Pour réaliser la SVD, on fait comme suit&nbsp;:
 
       </p>
 
       <pre>from scipy.linalg import svd
-U, Sigma, V = svd (X_scaled)</pre>
+U, Sigma, V = svd (tfidf)</pre>
 
       <p>
 
-	On utilise ensuite <code>U</code> et <code>Sigma</code> pour projeter les documents, et la transposée de <code>V</code> et <code>Sigma</code> pour projeter les documents.
+	On utilise ensuite <code>U</code> et <code>Sigma</code> pour projeter les documents, et <code>V</code> et <code>Sigma</code> pour projeter les documents.
 
 	<br>
 
@@ -234,11 +234,15 @@ U, Sigma, V = svd (X_scaled)</pre>
 
 	<br>
 
-	Celles des mots sont <code>Sigma [0] * V. transpose () [:, 0]</code> et <code>Sigma [1] * V. transpose () [:, 1]</code>.
+	Celles des mots sont <code>Sigma [0] * V. transpose () [0, :]</code> et <code>Sigma [1] * V [1, :]</code>.
 
       <br>
 
-      <b>À faire&nbsp;:</b> faites tout ce qui vient d'être expliqué. Vous devez obtenir les mêmes graphiques que précédemment.
+      <b>À faire&nbsp;:</b> faites tout ce qui vient d'être expliqué. Vous devez obtenir ce graphique&nbsp;:
+
+      <br>
+
+      <img src="LDS.docs-mots-SVD.png" width="400pt" alt="Projection documents et mods par LSA" />
 
       </p>
 
