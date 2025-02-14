@@ -104,6 +104,54 @@
     
   J'ai essayé de faire en python ce que j'avais fait en R. Après plusieurs années d'efforts et de pratiques, je <b>déconseille</b> désormais <b>formellement l'utilisation de python et de la bibliothèque bien connue</b>. Celle-ci est très mal documentée et visiblement développée par des gens qui parlent de fouille de données sans la pratiquer. Il n'y a aucune pédagogie dans la documentation et la documentation n'est pas adaptée à des étudiants dans les cours de fouille de données en licence et en master. Il est totalement ridicule qu'à de nombreuses reprises, pour avoir de la documentation, il faut regarder le programme source&nbsp;: cela est contraire à tous les principes de bonne programmation&nbsp;: un programme source n'est pas une documentation, même s'il doit être commenté.
 
+
+  <br/>
+  <br/>
+
+  Je ne résiste pas à donner un exemple de ce qui me consterne avec python&nbsp;: les messages d'erreur incomépréhensibles. Admirez le travail de python&nbsp;:
+
+  <pre>>>> tips = tips.join (pd.get_dummies (tips.SEX))
+Traceback (most recent call last):
+  File "/home/philippe/usr/sklearn-env/lib/python3.12/site-packages/pandas/core/indexes/base.py", line 3805, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: slice(None, None, None)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/home/philippe/usr/sklearn-env/lib/python3.12/site-packages/pandas/core/frame.py", line 10757, in join
+    return merge(
+           ^^^^^^
+  File "/home/philippe/usr/sklearn-env/lib/python3.12/site-packages/pandas/core/reshape/merge.py", line 184, in merge
+    return op.get_result(copy=copy)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/philippe/usr/sklearn-env/lib/python3.12/site-packages/pandas/core/reshape/merge.py", line 888, in get_result
+    result = self._reindex_and_concat(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/philippe/usr/sklearn-env/lib/python3.12/site-packages/pandas/core/reshape/merge.py", line 838, in _reindex_and_concat
+    right = self.right[:]
+            ~~~~~~~~~~^^^
+  File "/home/philippe/usr/sklearn-env/lib/python3.12/site-packages/pandas/core/frame.py", line 4075, in __getitem__
+    and key in self.columns
+        ^^^^^^^^^^^^^^^^^^^
+  File "/home/philippe/usr/sklearn-env/lib/python3.12/site-packages/pandas/core/indexes/category.py", line 368, in __contains__
+    return contains(self, key, container=self._engine)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/philippe/usr/sklearn-env/lib/python3.12/site-packages/pandas/core/arrays/categorical.py", line 230, in contains
+    loc = cat.categories.get_loc(key)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/philippe/usr/sklearn-env/lib/python3.12/site-packages/pandas/core/indexes/base.py", line 3811, in get_loc
+    raise InvalidIndexError(key)
+pandas.errors.InvalidIndexError: slice(None, None, None)
+</pre>
+
+Comment on enseigne avec ça&nbsp;?
 </p>
 
   <h2 id="diversliens">Divers liens</h2>

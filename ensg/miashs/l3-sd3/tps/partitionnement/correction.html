@@ -6,8 +6,8 @@
     <title>Classification non supervisée&nbsp;: partitionnement d'un jeu de données&nbsp;: éléments de correction</title>
     <link href="https://philippe-preux.github.io/css/ma.css" 
 	  rel="stylesheet" type="text/css" media="all">
-    <!--link href="file:///home/ppreux/philippe-preux.github.io/css/ma.css" 
-	  rel="stylesheet" type="text/css" media="all"-->
+    <link href="file:///home/ppreux/philippe-preux.github.io/css/ma.css" 
+	  rel="stylesheet" type="text/css" media="all">
     <link rel="shortcut icon" type="image/x-icon" 
 	  href="https://philippe-preux.github.io/img/site.ico">
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -385,9 +385,78 @@ draw_silhouettes (les_silhouettes_avg1a)</pre>
 	  </div>
 
 	</li>
-	<li><a href="https://philippe-preux.github.io/ensg/miashs/fouilleDeDonneesII/tp/k-moyennes/jeu4.txt">ce fichier</a></li>
-	<li><a href="https://philippe-preux.github.io/ensg/miashs/fouilleDeDonneesII/tp/k-moyennes/jeu5.txt">ce fichier</a></li>
-	<li><a href="https://philippe-preux.github.io/ensg/miashs/fouilleDeDonneesII/tp/k-moyennes/jeu11.txt">ce fichier</a></li>
+	<li><a href="https://philippe-preux.github.io/ensg/miashs/fouilleDeDonneesII/tp/k-moyennes/jeu4.txt">ce fichier.</a>
+
+	  <div class="correction">
+
+	    Ce jeu de données est le suivant&nbsp;:
+
+	    <br>
+
+	    <img src="jeu4.png" width="400pt" alt="jeu4" />
+
+	    <br>
+
+	    Autant un humain voit 3 groupes, autant l'algorithme des k-moyennes est incapable d'identifier ces 3 groupes.
+	    
+	  </div>
+	  
+	</li>
+	<li><a href="https://philippe-preux.github.io/ensg/miashs/fouilleDeDonneesII/tp/k-moyennes/jeu5.txt">ce fichier.</a>
+
+	  <div class="correction">
+
+	    Ce jeu de données est le suivant&nbsp;:
+
+	    <br>
+
+	    <img src="jeu5.png" width="400pt" alt="jeu4" />
+
+	    <br>
+
+	    Comme pour le précédent, autant un humain voit 3 groupes, autant l'algorithme des k-moyennes est incapable d'identifier ces 3 groupes.
+
+	    <br>
+
+	    Par contre, dans ce cas, on peut facilement imaginer un attribut que l'on peut ajouter au jeu de données et qui rend le partionnement en 3 groupes extrêmement simple. On obtient alors&nbsp;:
+
+	    <br>
+
+	    <img src="jeu5.modifié.png" width="400pt" alt="jeu5 correctement partiionné après l'avoir enrichi." />
+
+	    <br>
+
+	    Je vous laisse imaginer ce que j'ai fait.</li>
+	<li><a href="https://philippe-preux.github.io/ensg/miashs/fouilleDeDonneesII/tp/k-moyennes/jeu11.txt">ce fichier</a>.
+
+	  <div class="correction">
+
+	    Ce jeu de données est fait pour piéger l'algorithme des k-moyennes, et l'étudiant trop rapide. Si on regarde les deux premiers attributs, on voit ça&nbsp;:
+
+	    <br>
+
+	    <img src="jeu11ab.png" width="400pt" alt="jeu11, deux premiers attributs." />
+
+	    <br>
+
+	    et on se dit qu'il y a 5 groupes.
+	    
+	    <br>
+
+	    Si on applique ce que l'on a vu en cours et plus haut dans le TP en cherchant le nombre de parties, on obtient&nbsp;:
+
+	    <br>
+
+	    <img src="jeu11.inerties.png" width="400pt" alt="Inerties intraclasses pour le jeu11." />
+	    <img src="jeu11.silhouettes.png" width="400pt" alt="Silhouettes poiur le jeu11." />
+
+	    <br>
+
+	    Les deux graphiques indiquent clairement que le nombre de parties n'est pas 5.
+
+	    <br>
+
+	    On comprend pourquoi en regardant tous les attributs et en faisant nos habituels graphiques bivariés. Je vous laisse les faire.</li>
 	<li>Appliquer les k-moyennes au jeu de données <a href="https://philippe-preux.github.io/ensg/miashs/l3-sd2/tp/cc1/flea.csv">flea</a>. À nouveau, comparer le résultat des k-moyennes avec la partition corespondant aux classes définissant ce jeu de données.</li>
       </ul>
 
