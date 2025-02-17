@@ -277,6 +277,11 @@ tips.drop (columns = ["DAY"], inplace=True)</pre>
 
       <p>
 
+	Remarque&nbsp;: visiblement, il y a un bug dans pandas. Si on a préalablement indiqué que le type de <code>DAY</code> est catégorique (avec <code>tips ["DAY"] = tips ["DAY"]. astype ("category")</code>), le <code>join ()</code> plante, affiche une cinquantaine de lignes totalement incompréhensibles, ne me demandez pas pourquoi. Dans ce cas, il faut retirer le type catégorique de la colonne (<ode>tips ["DAY"] = tips ["DAY"]. astype ('O')</code>) avant de faire le <code>get_dummies()</code>.
+	
+	<br>
+	<br>
+	
 	<b>À faire&nbsp;:</b> faites ce que je viens d'expliquer et traitez de la même manière les autres attributs nominaux (<code>SEX</code>, <code>SMOKER</code>, <code>TIME</code>).
 	
 	<br>

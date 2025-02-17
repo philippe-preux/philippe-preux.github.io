@@ -18,6 +18,7 @@
 /ensg/iaia/
 /ensg/m1psycho/
 /ensg/m2psycho/
+/ensg/miashs/aps2/**
 /ensg/miashs/apbd2/tpArbres/abr1.dot
 /ensg/miashs/apbd2/tpABR/100.nombres
 /ensg/miashs/apbd2/tpABR/1000.nombres
@@ -28,6 +29,7 @@
 /ensg/miashs/apbd2/tpABR/abr200.dot
 /ensg/miashs/apbd2/tpABR/abr300.dot
 /ensg/miashs/apbd2/tpArbres/abr1.dot
+/ensg/miashs/apbd2/books/**
 /ensg/miashs/l3-ap/2spirals.test.csv
 /ensg/miashs/l3-ap/2spirals.train.csv
 /ensg/miashs/l3-ap/cc1.Prenom.Nom.2015.odt

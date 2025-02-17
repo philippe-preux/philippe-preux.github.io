@@ -18,6 +18,7 @@ import matplotlib.pyplot as plt
 
 def debut_figure (entrées, sorties):
     fig, ax = plt.subplots ()
+    ax. set_ylim (-3, 3)
     couleurs = []
     for i in range (len (sorties)):
         if sorties [i] == 1:
@@ -32,13 +33,13 @@ def debut_figure (entrées, sorties):
 # dans le sujet de TP.
 # Le paramètre xlim permet d'indiquer le domaine de définition des abscisses
 # et ainsi obtenir de plus jolies représentations.
-def ajoute_droite (ax, a, b, c, xlim = [0, 5]):
+def ajoute_droite (ax, a, b, c, xlim = [0, 7]):
     x1 = xlim
     y1 = [-(xlim[0]*b+a)/c, -(xlim[1]*b+a)/c]
     ax.plot (x1, y1, linestyle = ":")
 
 # Même remarque que ci-dessus.
-def ajoute_dernière_droite (fig, ax, a, b, c, xlim = [0, 5]):
+def ajoute_dernière_droite (fig, ax, a, b, c, xlim = [0, 7]):
     x1 = xlim
     y1 = [-(xlim[0]*b+a)/c, -(xlim[1]*b+a)/c]
     ax.plot (x1, y1, color = "red", linestyle = "-", linewidth= 3)

@@ -115,6 +115,7 @@
 
 def debut_figure (entrées, sorties):
     fig, ax = plt.subplots ()
+    ax. set_ylim (-3, 3)
     couleurs = []
     for i in range (len (sorties)):
         if sorties [i] == 1:
@@ -126,12 +127,12 @@ def debut_figure (entrées, sorties):
     return fig, ax
 
 def ajoute_droite (ax, a, b, c):
-    x1 = [0, 5]
+    x1 = [0, 7]
     y1 = [-a/c, -(5*b+a)/c]
     ax.plot (x1, y1, linestyle = ":")
 
 def ajoute_dernière_droite (fig, ax, a, b, c):
-    x1 = [0, 5]
+    x1 = [0, 7]
     y1 = [-a/c, -(5*b+a)/c]
     ax.plot (x1, y1, color = "red", linestyle = "-", linewidth= 3)
     fig.show ()</pre>
