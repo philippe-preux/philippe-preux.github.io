@@ -6,8 +6,8 @@
     <title>Réduction de dimension</title>
     <link href="https://philippe-preux.github.io/css/ma.css" 
 	  rel="stylesheet" type="text/css" media="all">
-    <!--link href="file:///home/ppreux/philippe-preux.github.io/css/ma.css" 
-	  rel="stylesheet" type="text/css" media="all"-->
+    <link href="file:///home/ppreux/philippe-preux.github.io/css/ma.css" 
+	  rel="stylesheet" type="text/css" media="all">
     <link rel="shortcut icon" type="image/x-icon" 
 	  href="https://philippe-preux.github.io/img/site.ico">
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -78,7 +78,7 @@
 
 	<br>
 
-	Remarque&nbsp;: on peut utiliser un objet <code>scaler()</code> mais cette méthode est buggée&nbsp;: le calcul de l'écart-type est faux car la moyenne est estimée et non pas connue, donc le dénominateur doit être N-1 et non N, où N est le nombre de données. Si N est grand cela ne fait pas de grande différence&nbsp;; si N est petit, il vaut mieux faire le centrage et la réduction «&nbsp;à la main&nbsp;». Pour obtenir la valeur correte de la variance, il faut ajouter l'option <code>ddof = 1</code> à l'appel de la méthode <code>var ()</code>.
+	Remarque&nbsp;: on peut utiliser un objet <code>scaler()</code> mais cette méthode est buggée&nbsp;: le calcul de l'écart-type est faux car la moyenne est estimée et non pas connue, donc le dénominateur doit être N-1 et non N, où N est le nombre de données. Si N est grand cela ne fait pas de grande différence&nbsp;; si N est petit, il vaut mieux faire le centrage et la réduction «&nbsp;à la main&nbsp;». Pour obtenir la valeur correcte de la variance, il faut ajouter l'option <code>ddof = 1</code> à l'appel de la méthode <code>var ()</code>.
 
       </p>
 
@@ -110,7 +110,7 @@
 
       <p>
 
-	Pour l'instant, on a fait des calculs qui n'a pas beaucoup d'intérêt en tant que tel.	
+	Pour l'instant, on a fait des calculs qui n'ont pas beaucoup d'intérêt en tant que tel.	
 	Nous abordons maintenant la partie vraiment importante&nbsp;: l'interprétation de ces calculs savants.
 
 	<br>
