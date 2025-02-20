@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+  
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Réduction de dimension&nbsp;: éléments de correction</title>
+    <link href="https://philippe-preux.github.io/css/ma.css" 
+	  rel="stylesheet" type="text/css" media="all">
+    <link href="file:///home/ppreux/philippe-preux.github.io/css/ma.css" 
+	  rel="stylesheet" type="text/css" media="all">
+    <link rel="shortcut icon" type="image/x-icon" 
+	  href="https://philippe-preux.github.io/img/site.ico">
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+      .aligncenter {
+	  text-align: center;
+      }
+      span.petit {
+	  font-size: 8px;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <div class="tpR">
+
+      <h1>Réduction de dimension&nbsp;: éléments de correction</h1>
+
+      <p>
+
+	Dans ce TP, nous abordons la réduction de dimension d'un jeu de données, en particulier l'analyse en composantes principales, méthode très connue, très utile et très utilisée.
+
+	On pourra consulter mes <a href="https://philippe-preux.github.io/Documents/notes-de-cours-de-fouille-de-donnees.pdf">notes de cours de fouille de données</a> pour une présentation de la réduction de dimension (chapitre 11).
+
+	<br>
+	<br>
+
+	À l'issue de ce TP, vous m'envoyez par email un compte-rendu (format <kbd>pdf</kbd>) indiquant la réponse aux questions qui sont posées. Vous m'envoyez également un fichier python réalisant toutes les manipulations de ce TP&nbsp;: je dois pouvoir exécuter ce fichier en tapant <kbd>python3 nom-de-votre-fichier.py</kbd> et reproduire vos résultats. Cette exécution ne doit pas provoquer d'erreur de python. Remarque&nbsp;: un <i>notebook</i> ne convient pas.
+
+      </p>
+
+      <div class="correction">
+	J'indique quelques éléments de correction mais tout a été vu en cours, décrit dans on poly et explique dans le sujet du TP. Donc, voir ses notes, le poly et le sujet.
+      </div>
+      
+      <h2>Introduction</h2>
+
+      <p>
+
+	La réduction de dimension a pour objectif de diminuer le nombre d'attributs d'un jeu de données, en se concentrant sur des attributs réellement pertinents. D'un point de vue géométrique, son objectif est de déterminer le sous-espace (la variété) dans lequel les données vivent.
+
+	<br>
+	<br>
+
+	Là encore, à chaque fois que cela est possible, une exploration visuelle des données est essentielle pour anticiper et comprendre.
+    
+      </p>
+
+      <h2>Analyse en composantes principales</h2>
+
+      <h3>Description de l'objet <code>PCA</code> de scikit_learn</h3>
+
+      <p>
+
+	On utilise la méthode <a href="https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html#sklearn.decomposition.PCA">PCA ()</a> de scikit_learn. Sous sa forme la plus simple, on l'utilise comme suit. On commence par créer un objet <code>PCA</code>&nbsp;:
+
+	<br>
+
+	<code>acp = sklearn.decomposition.PCA ()</code>
+
+	<br>
+
+	que l'on applique ensuite sur un jeu de données centrées réduites contenu dans une matrice <code>X</code>&nbsp;:
+
+	<br>
+
+	<code>acp.fit (X)</code>
+
+	<br>
+
+	L'objet <code>acp</code> contient différentes informations&nbsp;:
+
+	<br>
+
+	Remarque&nbsp;: on peut utiliser un objet <code>scaler()</code> mais cette méthode est buggée&nbsp;: le calcul de l'écart-type est faux car la moyenne est estimée et non pas connue, donc le dénominateur doit être N-1 et non N, où N est le nombre de données. Si N est grand cela ne fait pas de grande différence&nbsp;; si N est petit, il vaut mieux faire le centrage et la réduction «&nbsp;à la main&nbsp;». Pour obtenir la valeur correcte de la variance, il faut ajouter l'option <code>ddof = 1</code> à l'appel de la méthode <code>var ()</code>.
+
+      </p>
+
+      <ul>
+	<li><code>acp. explained_variance_</code> contient les valeurs propres dans l'ordre décroissant. Ce sont donc les variances selon les différents axes principaux.</li>
+	<li><code>acp. components_</code>&nbsp;: chaque ligne contient un vecteur propre, donc une direction principale. Le vecteur en i<sup>è</sup> ligne correspond à la i<sup>è</sup> valeur propre.</li>
+	<li><code>acp. explained_variance_ratio_</code> contient la proportion de variance expliquée de chacun des axes principaux.</li>
+      </ul>
+
+      
+      <h3>Mise en application</h3>
+
+      <p>
+
+	On va mettre en application l'analyse en composante principale sur un petit jeu de données disponible <a href="https://philippe-preux.github.io/ensg/miashs/datasets/eleves.txt">là</a>. Il contient les caractéristiques de 10 élèves&nbsp;: leur taille, leur poids, leur âge et leur moyenne.
+
+	<br>
+
+	<b>À faire&nbsp;:</b>
+	
+      </p>
+      
+      <ol>
+	<li>lire le jeu de données dans un tableau de données.</li>
+	<li>centrer et réduire les attributs.</li>
+	<li>Visualiser ce jeu de données&nbsp;: que voyez-vous&nbsp;?
+
+	  <div class="correction">
+	    On fait les graphiques habituels et on ne voit pas grand chose.
+	  </div>
+	  
+	</li>
+	<li>En réaliser l'ACP.
+
+	  <div class="correction">
+	    Faire ce qui a été epxliqué ci-dessus.
+	  </div>
+
+	</li>
+      </ol>
+
+      <p>
+
+	Pour l'instant, on a fait des calculs qui n'ont pas beaucoup d'intérêt en tant que tel.	
+	Nous abordons maintenant la partie vraiment importante&nbsp;: l'interprétation de ces calculs savants.
+
+	<br>
+
+	Commençons par observer et visualiser la proportion de variance expliquée par les composantes principales successives. Faites un graphique comme celui-ci&nbsp;:
+
+	<br>
+
+	<img src="eleves.Scree-plot.png" width="400pt" alt="Scree-plot élèves" >
+	
+	<br>
+
+      </p>
+
+      <div class="correction">
+	Ce graphique est obtenu avec <code>acp.explained_variance_</code>. Aucune difficulté.
+      </div>
+
+      <p>
+	
+	Qu'en déduisez-vous&nbsp;?
+
+      </p>
+
+      <div class="correction">
+	On voit que les deux premiers facteurs contiennent presque toute l'information.
+      </div>
+
+      <p>
+	
+	Une autre manière de représenter ces mêmes données consiste à visualiser le cumul de proportion de variance expliquée, comme ci-dessous&nbsp;:
+
+	<br>
+
+	<img src="eleves.fraction-de-variance-cumulée.png" width="400pt" alt="Cumul des proportions de variance expliquée." />
+
+      </p>
+
+      <div class="correction">
+	Ce graphique est obtenu avec <code>acp.explained_variance_ratio_</code>. Aucune difficulté.
+      </div>
+
+      <p>
+	
+	On voit bien que le plan principal contient 80% de l'information, donc la projection dans ce plan est informative. Parfois, le plan principal comporte peu d'information (10, 20%). On en verra un exemple dans le travail en autonomie.
+	
+	<br>
+
+	On peut ensuite visualiser les données dans les plans principaux. Les coordonnées des données dans l'espace factoriel sont obtenues par <code>acp. tansform (X)</code>.
+
+	<br>
+
+	<b>À faire&nbsp;:</b> représenter les données dans le plan principal et dans le plan défini par les axes principaux 1 et 3.
+
+      </p>
+
+      <div class="correction">
+	Comme dit ci-dessus, les coordonnées des points sur les axes principaux 1, 2 et 3 sont disponibles dans les colonnes 0, 1 et 2 de <code>acp. tansform (X)</code>. Donc, il suffit de faire des graphiques avec les colonnes 0 et 1 d'une part, les colonnes 0 et 2 d'autre part pour obtenir les représentations demandées.
+      </div>
+
+      <p>
+	
+	<br>
+
+	J'obtiens cela&nbsp;:
+	
+	<br>
+
+	<img src="eleves.plan.1x2.png" width="400pt" alt="eleves dans le plan principal 1x2" />
+	<img src="eleves.plan.1x3.png" width="400pt" alt="eleves dans le plan principal 1x3" />
+
+	<br>
+
+	Pensez-vous que le second graphique (plan principal 1x3) soit pertinent&nbsp;?
+
+      </p>
+
+      <div class="correction">
+	Comme vu ci-dessus, l'axe 3 contient peu d'information. Donc, ce graphique des points dans le plan principal 1x3 n'est pas très informatif.
+      </div>
+
+      <p>
+
+	Comme on l'a vu en cours, le fait de réduire la dimension déforme le nuage de points. Il faut donc calculer cette déformation pour chaque donnée et écarter ou du moins identifier les données dont la projection dans un plan principal n'est pas fidèle à sa position relative dans l'espace des données. Pour cela, on mesure le cosinus au carré de l'angle entre la demi-droite passant par l'origine et cette donnée d'une part et le plan principal que l'on considère d'autre part. Si ce cosinus au carré est inférieur à 0,3, la déformation est importante (angle > 57°).
+
+	<br>
+
+	<b>À faire&nbsp;:</b> sur le graphique précédent, identifier les points dont la projection est déformée et les affichez avec une couleur particulière.
+
+      </p>
+
+      <div class="correction">
+	Il suffit de calculer la formule vue en cours et d'indiquer sur le graphique les points dont le cosinus est inférieur à 0,3 avec une couleur.
+      </div>
+
+      <p>
+
+	J'obtiens cela&nbsp;:
+	
+	<br>
+
+	<img src="eleves.plan.1x2.anomalies.png" width="400pt" alt="eleves dans le plan principal 1x2" />
+	<img src="eleves.plan.1x3.anomalies.png" width="400pt" alt="eleves dans le plan principal 1x3" />
+
+	<br>
+	<br>
+
+	Il faut déterminer le nombre de dimensions dans l'espace factoriel qui sont pertinentes. Pour cela, on utilise la proportion de variance expliquée par chacun des facteurs, autrement dit, les valeurs propres de la décomposition spectrale. Le creux du coude indique ce nombre.
+
+	<br>
+
+	<b>À faire&nbsp;:</b> faire un graphique indiquant la proportion de variance expliquée. Déterminer la dimension de l'espace factoriel.
+
+      </p>
+
+      <div class="correction">
+	Le graphique a été fait plus haut. Le coude est clairement observé pour 2.
+      </div>
+
+      <p>
+
+	Les axes principaux correspondent à des combinaisons linéaires des attributs originaux. La corrélation entre ces axes et les attributs originaux indique l'information que contient chaque axe principal par rapport aux attributs initiaux. On peut calculer, afficher et analyser ces nombres. On peut aussi réaliser le cercle de corrélation. Le faire.
+
+	<br>
+	
+	J'obtiens cela&nbsp;:
+	
+	<br>
+
+	<img src="eleves.cercle.corrélation.png" width="400pt" alt="cercle de corrélation" >
+	
+      </p>
+      </p>
+
+      <div class="correction">
+	Encore une fois, c'est l'application directe du cours. On calcule les coordonnées des attributs du jeu de donénes avec les formules qui ont été vues.
+	<br>
+	Pour tracer un cercle de rayon 1, on peut calculer les coordonnées de des points de ce cercle tous les degrés (cosinus et sinus des angles variant de 0 à 2&pi;) et afficher ces 360 points.
+      </div>
+
+      <p>
+
+
+
+      <h3>Activités en autonomie</h3>
+
+      <p>
+
+	Appliquer ce qui vient d'être expliqué aux jeux de données suivants&nbsp;:
+
+      </p>
+
+      <ul>
+	<li>Les iris qui sont disponibles dans scikit_learn en faisant <code>sklearn.datasets.load_iris ().data</code>. Faites-en une ACP. Quand vous visualisez les iris, il est intéressant d'utiliser une couleur différente pour chacune des classes.
+
+	  <div class="correction">
+	    Fraction de variance cumulée&nbsp;:
+	    <br>
+	    <img src="iris.fraction-de-variance-cumulée.png" width="400pt" alt="ACP des iris" />
+	    <br>
+	    Il est clair que deux composantes fournissent une représentation très fidèle des iris.
+	    <br/>
+	    La projection des iris dans le plan principal (la couleur indique la classe) est donc très représentative.
+	    <br>
+	    <img src="ACP.plan-principal.iris.png" width="400pt" alt="ACP des iris" />
+	    <br>
+	    En calculant la déformation (cosinus), on voit qu'une seule donnée est projetée avec une déformation importante.
+	  </div>
+	  
+	</li>
+	<li><a href="https://philippe-preux.github.io/ensg/miashs/l3-sd2/tp/cc2/sleep.csv">Ce fichier</a> (que l'on a déjà rencontré). Retirez les données ayant des NAs avant d'en faire une ACP.</li>
+	<li>Réalisant une projection de données dans un plan, l'ACP permet de visualiser dans le plan des données décrites par de nombreux attributs. C'est ce que nous faisons pour ce jeu de données et le suivant.
+
+	  <br>
+
+	  <a href="https://philippe-preux.github.io/ensg/miashs/datasets/eurodist.txt">Ce fichier</a> contient une matrice qui indique la distance routière entre chaque couple parmi 21 villes européennes. À partir de ces distances, on aimerait obtenir une visualisation en 2 dimensions de la position des villes les unes par rapport aux autres. Projeter ce jeu de données dans le plan principal&nbsp;: chaque donnée correspondant à une ville, afficher le nom de la ville à sa position dans le plan principal. Vous devez obtenir un graphique comme celui-ci&nbsp;:
+	  <br>
+
+	  <img src="exemple-de-ce-qui-est-attendu.png" width="400pt" alt="exemple de graphique attendu" />
+	  
+	  <br>
+
+	  Attention, ce graphique n'est absolument pas celui que vous devez obtenir. Je l'indique juste pour vous montrer le type de graphique attendu&nbsp;: la position des villes dans le plan.
+	  
+	  <br>
+	  
+	  Que constatez-vous&nbsp;? (Bien sûr, on aimerait que la position des villes corresponde à peu près à leur position sur une carte géographique.) Comment pouvez-vous déterminer si cette représentation en 2D est fidèle au jeu de données&nbsp;?</li>
+	<li><a href="https://philippe-preux.github.io/ensg/miashs/datasets/26letters.txt">Ce fichier</a> contient une matrice qui indique le nombre d'occurrences de chacune des 26 lettres de l'alphabet latin dans un même texte (issu de la constitution européenne) traduit dans 19 langues européennes. Il est intéressant d'en faire une ACP et de projeter les langues dans le plan principal afin de visualiser leur proximité en terme de fréquence d'apparition de chacune des lettres. Par contre, pour ce jeu de données, il faut réaliser un pré-traitement des données pour que l'ACP ait un sens&nbsp;: lequel&nbsp;?
+	  <br>
+	  Comme ci-dessus pour les villes, afficher le nom des langues. En fonction de vos connaissances (même limitée) en linguistique, cette projection en 2D vous paraît-elle pertinente&nbsp;? Il est également intéressant de projeter les lettres dans le plan principal pour visualiser leur proximité en fonction de leur utilisation dans ces 19 langues européennes. Faites le graphique correspondant. Comment pouvez-vous déterminer si cette représentation en 2D est fidèle au jeu de données&nbsp;?</li>
+	<li>En classification supervisée, il arrive parfois que le taux de succès augmente quand on pré-traite les données au moyen d'une ACP. Tester cette idée sur les iris. Que constatez-vous&nbsp;?</li>
+      </ul>
+      
+    </div>
+
+<!-- Default Statcounter code for on github
+https://philippe-preux.github.io -->
+<script>
+  var sc_project=12923547; 
+  var sc_invisible=1; 
+  var sc_security="627600d4"; 
+</script>
+<script src="https://www.statcounter.com/counter/counter.js" async></script>
+<noscript>
+  <div class="statcounter">
+    <a title="Web Analytics" href="https://statcounter.com/" target="_blank">
+      <img class="statcounter"
+	   src="https://c.statcounter.com/12923547/0/627600d4/1/"
+	   alt="Web Analytics"
+	   referrerPolicy="no-referrer-when-downgrade"></a>
+  </div>
+</noscript>
+  <!-- End of Statcounter Code -->
+  
+</body>
+</html>
