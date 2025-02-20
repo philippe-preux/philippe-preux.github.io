@@ -297,7 +297,7 @@
 	  </div>
 	  
 	</li>
-	<li><a href="https://philippe-preux.github.io/ensg/miashs/l3-sd2/tp/cc2/sleep.csv">Ce fichier</a> (que l'on a déjà rencontré). Retirez les données ayant des NAs avant d'en faire une ACP.</li>
+	<!--li><a href="https://philippe-preux.github.io/ensg/miashs/l3-sd2/tp/cc2/sleep.csv">Ce fichier</a> (que l'on a déjà rencontré). Retirez les données ayant des NAs avant d'en faire une ACP.</li-->
 	<li>Réalisant une projection de données dans un plan, l'ACP permet de visualiser dans le plan des données décrites par de nombreux attributs. C'est ce que nous faisons pour ce jeu de données et le suivant.
 
 	  <br>
@@ -313,10 +313,51 @@
 	  
 	  <br>
 	  
-	  Que constatez-vous&nbsp;? (Bien sûr, on aimerait que la position des villes corresponde à peu près à leur position sur une carte géographique.) Comment pouvez-vous déterminer si cette représentation en 2D est fidèle au jeu de données&nbsp;?</li>
+	  Que constatez-vous&nbsp;? (Bien sûr, on aimerait que la position des villes corresponde à peu près à leur position sur une carte géographique.) Comment pouvez-vous déterminer si cette représentation en 2D est fidèle au jeu de données&nbsp;?
+
+	  <div class="correction">
+	    On obtient cette figure&nbsp;:
+	    <br>
+	    <img src="acp.villes.png" width="400pt" alt="" />
+	    <br>
+	    Le résultat est cohérent par certains côtés, incohérent par d'autres. Le bas de la figure est plutôt correct mais trouver Cherbourg à côté de Paris et Genève ne l'est pas. De même pour Milan entre Calais et Bruxelles, ou Vienne entre Hambourg et Copenhagen. En rouge est indiquée la seule anomalie détectée par le cosinus.
+	    <br>
+	    la proportion de variance cumulée indique qu'il faut utiliser 3 ou 4 dimensions pour obtenir une représentation correcte.
+	    <br>
+	    <img src="villes.prop_variance_cumulée.png" width="400pt" alt="" />
+	    <br>
+	    D'après vous, quels sont les problèmes rencontrés sur ce jeu de données pour réaliser une projection en 2D fidèle à la réalité à l'aide d'une ACP&nbsp;?
+	    <br>
+	    Remarque&nbsp;: outre les problèmes auxquels je vous encourage de réfléchir que je mentionne ci-dessus, il faut savoir qu'une matrice de distances entre objets est un objet mathématique particulier et que pour en réaliser une ACP, la méthode est légérement différente de celle que l'on a vue qui concerne les données tabulaires (des individus décrits par des attributs). J'ai posé cet exercice parce que néanmoins, il est intéressant que vous rencontriez ce type de données et, on peut toujours essayer d'en faire une ACP. C'est aussi le problème de la science des données&nbsp;: une méthode, même si elle n'est pas adaptée, donne toujours un résultat. Seulement, si la méthode n'est pas adaptée (et ce n'est pas toujours évident de savoir si une méthode est ou non adaptée à un type de données ou pour étudier une certaine question), on obtient un résultat qui n'a pas de sens.
+	  </div>
+	</li>
 	<li><a href="https://philippe-preux.github.io/ensg/miashs/datasets/26letters.txt">Ce fichier</a> contient une matrice qui indique le nombre d'occurrences de chacune des 26 lettres de l'alphabet latin dans un même texte (issu de la constitution européenne) traduit dans 19 langues européennes. Il est intéressant d'en faire une ACP et de projeter les langues dans le plan principal afin de visualiser leur proximité en terme de fréquence d'apparition de chacune des lettres. Par contre, pour ce jeu de données, il faut réaliser un pré-traitement des données pour que l'ACP ait un sens&nbsp;: lequel&nbsp;?
 	  <br>
-	  Comme ci-dessus pour les villes, afficher le nom des langues. En fonction de vos connaissances (même limitée) en linguistique, cette projection en 2D vous paraît-elle pertinente&nbsp;? Il est également intéressant de projeter les lettres dans le plan principal pour visualiser leur proximité en fonction de leur utilisation dans ces 19 langues européennes. Faites le graphique correspondant. Comment pouvez-vous déterminer si cette représentation en 2D est fidèle au jeu de données&nbsp;?</li>
+	  <div class="correction">
+	    Le nombre d'occurences des lettres n'a pas de sens. Ce qui a un sens est leur fréquence d'apparition. Il faut donc transformer les effectifs en fréquence. Pour chaque langue, on divise donc les effectifs des 26 lettres par le nombre total de lettres composant le texte dans cette langue.
+	  </div>
+	  <br>
+	  Comme ci-dessus pour les villes, afficher le nom des langues. En fonction de vos connaissances (même limitée) en linguistique, cette projection en 2D vous paraît-elle pertinente&nbsp;? Il est également intéressant de projeter les lettres dans le plan principal pour visualiser leur proximité en fonction de leur utilisation dans ces 19 langues européennes. Faites le graphique correspondant. Comment pouvez-vous déterminer si cette représentation en 2D est fidèle au jeu de données&nbsp;?
+
+	  <div class="correction">
+	    Il n'y a aucune difficulté, c'est toujours la même chose.
+	    <br>
+	    Pour les langues, j'obtiens la proportion de variance cumulée et la projection dans le plan principal ci-dessous.
+	    <br>
+	    <img src="langues.prop_variance_cumulée.png" width="400pt" alt="pvc" />
+	    <img src="langues.plan-principal.avec-anomalies.png" width="400pt" alt="1x2" />
+	    <br>
+	    Le graphique de gauche indique très clairement que la projection en deux dimensions a peu de chance d'être fidèle. En rouge sont indiquées les langues qui sont mal projetées dans le plan principal. Trouver parmi celles-ci le hongrois (hu) n'est pas très étonnant car on sait que la langue hongroise n'est pas une langue indo-européenne&nbs);; par contre, c'est vrai aussi du finnois qui lui est correctement projeté. Le français et l'italien, deux langues très proches, sont mal projetées dans le plan principal. Par contre, voir un regroupement allemand, danois, néerlandais et anglais est cohérent. Mais ce graphique est à interprêter avec la plus grande prudence étant donné le graphique de gauche.
+	    <br>
+	    On procède de la même manière pour les lettres. J'obtiens la proportion de variance cumulée et la projection dans le plan principal ci-dessous.
+	    <br>
+	    <img src="lettres.prop_variance_cumulée.png" width="400pt" alt="pvc" />
+	    <img src="lettres.plan-principal.avec-anomalies.png" width="400pt" alt="1x2" />
+	    <br>
+	    Cette fois-ci, le graphique de gauche indique très clairement que la projection en deux dimensions est assez fidèle. En rouge sont indiquées les lettres qui sont mal projetées dans le plan principal.
+	  </div>
+
+	</li>
 	<li>En classification supervisée, il arrive parfois que le taux de succès augmente quand on pré-traite les données au moyen d'une ACP. Tester cette idée sur les iris. Que constatez-vous&nbsp;?</li>
       </ul>
       
