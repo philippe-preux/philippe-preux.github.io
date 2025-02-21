@@ -262,9 +262,11 @@
       </p>
 
       <div class="correction">
-	Encore une fois, c'est l'application directe du cours. On calcule les coordonnées des attributs du jeu de donénes avec les formules qui ont été vues.
+	Encore une fois, c'est l'application directe du cours. On calcule les coordonnées des attributs initiaux du jeu de données avec les formules qui ont été vues.
 	<br>
 	Pour tracer un cercle de rayon 1, on peut calculer les coordonnées de des points de ce cercle tous les degrés (cosinus et sinus des angles variant de 0 à 2&pi;) et afficher ces 360 points.
+	<br>
+	Petit truc&nbsp;: pour que le cercle ressemble à un cercle et non pas à un ovale, il faut spécifier <code>ax. set_aspect (1)</code> qui fait en sorte que la longueur correspondant à une unité soit la même horizontalement et verticalement.
       </div>
 
       <p>
@@ -347,7 +349,7 @@
 	    <img src="langues.prop_variance_cumulée.png" width="400pt" alt="pvc" />
 	    <img src="langues.plan-principal.avec-anomalies.png" width="400pt" alt="1x2" />
 	    <br>
-	    Le graphique de gauche indique très clairement que la projection en deux dimensions a peu de chance d'être fidèle. En rouge sont indiquées les langues qui sont mal projetées dans le plan principal. Trouver parmi celles-ci le hongrois (hu) n'est pas très étonnant car on sait que la langue hongroise n'est pas une langue indo-européenne&nbs);; par contre, c'est vrai aussi du finnois qui lui est correctement projeté. Le français et l'italien, deux langues très proches, sont mal projetées dans le plan principal. Par contre, voir un regroupement allemand, danois, néerlandais et anglais est cohérent. Mais ce graphique est à interprêter avec la plus grande prudence étant donné le graphique de gauche.
+	    Le graphique de gauche indique très clairement que la projection en deux dimensions a peu de chance d'être fidèle. En rouge sont indiquées les langues qui sont mal projetées dans le plan principal («&nbsp;mal&nbsp;» projetés au sens du cosinus). Trouver parmi celles-ci le hongrois (hu) n'est pas très étonnant car on sait que la langue hongroise n'est pas une langue indo-européenne&nbsp;; par contre, c'est vrai aussi du finnois qui lui est correctement projeté. Le français et l'italien, deux langues très proches, sont mal projetées dans le plan principal. Par contre, voir un regroupement allemand, danois, néerlandais et anglais est cohérent. Mais ce graphique est à interprêter avec la plus grande prudence étant donné le graphique de gauche.
 	    <br>
 	    On procède de la même manière pour les lettres. J'obtiens la proportion de variance cumulée et la projection dans le plan principal ci-dessous.
 	    <br>
