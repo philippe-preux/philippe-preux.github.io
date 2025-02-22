@@ -78,11 +78,11 @@
 
 	<br>
 
-	L'objet <code>acp</code> contient différentes informations&nbsp;:
+	Remarque&nbsp;: on peut utiliser un objet <code>scaler()</code> mais cette méthode est buggée&nbsp;: le calcul de l'écart-type est faux car la moyenne est estimée et non pas connue, donc le dénominateur doit être N-1 et non N, où N est le nombre de données. Si N est grand cela ne fait pas de grande différence&nbsp;; si N est petit, il vaut mieux faire le centrage et la réduction «&nbsp;à la main&nbsp;». Pour obtenir la valeur correcte de la variance, il faut ajouter l'option <code>ddof = 1</code> à l'appel de la méthode <code>numpy. var ()</code>.
 
 	<br>
 
-	Remarque&nbsp;: on peut utiliser un objet <code>scaler()</code> mais cette méthode est buggée&nbsp;: le calcul de l'écart-type est faux car la moyenne est estimée et non pas connue, donc le dénominateur doit être N-1 et non N, où N est le nombre de données. Si N est grand cela ne fait pas de grande différence&nbsp;; si N est petit, il vaut mieux faire le centrage et la réduction «&nbsp;à la main&nbsp;». Pour obtenir la valeur correcte de la variance, il faut ajouter l'option <code>ddof = 1</code> à l'appel de la méthode <code>var ()</code>.
+	L'objet <code>acp</code> contient différentes informations&nbsp;:
 
       </p>
 
@@ -118,7 +118,7 @@
 	<li>En réaliser l'ACP.
 
 	  <div class="correction">
-	    Faire ce qui a été epxliqué ci-dessus.
+	    Faire ce qui a été expliqué ci-dessus.
 	  </div>
 
 	</li>
@@ -175,7 +175,7 @@
 	
 	<br>
 
-	On peut ensuite visualiser les données dans les plans principaux. Les coordonnées des données dans l'espace factoriel sont obtenues par <code>acp. tansform (X)</code>.
+	On peut ensuite visualiser les données dans les plans principaux. Les coordonnées des données dans l'espace factoriel sont obtenues par <code>acp. transform (X)</code>.
 
 	<br>
 
@@ -184,7 +184,7 @@
       </p>
 
       <div class="correction">
-	Comme dit ci-dessus, les coordonnées des points sur les axes principaux 1, 2 et 3 sont disponibles dans les colonnes 0, 1 et 2 de <code>acp. tansform (X)</code>. Donc, il suffit de faire des graphiques avec les colonnes 0 et 1 d'une part, les colonnes 0 et 2 d'autre part pour obtenir les représentations demandées.
+	Comme dit ci-dessus, les coordonnées des points sur les axes principaux 1, 2 et 3 sont disponibles dans les colonnes 0, 1 et 2 de <code>acp. transform (X)</code>. Donc, il suffit de faire des graphiques avec les colonnes 0 et 1 d'une part, les colonnes 0 et 2 d'autre part pour obtenir les représentations demandées.
       </div>
 
       <p>
