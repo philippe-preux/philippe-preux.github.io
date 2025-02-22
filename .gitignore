@@ -30,11 +30,6 @@
 /ensg/miashs/apbd2/tpABR/abr300.dot
 /ensg/miashs/apbd2/tpArbres/abr1.dot
 /ensg/miashs/apbd2/books/**
-/ensg/miashs/l3-ap/2spirals.test.csv
-/ensg/miashs/l3-ap/2spirals.train.csv
-/ensg/miashs/l3-ap/cc1.Prenom.Nom.2015.odt
-/ensg/miashs/l3-ap/cc2.Prenom.Nom.2015.odt
-/ensg/miashs/l3-ap/session2.Prenom.Nom.2015.odt
 /ensg/miashs/l3-ap/tps/kppv/__pycache__/
 /ensg/miashs/l3-rnf/cc.*
 /ensg/miashs/l3-rnf/s2-pia.Prenom.Nom.2016.odt
@@ -49,6 +44,7 @@
 /ensg/miashs/l3-rnf/tps/sgd/perceptron.binaire.R
 /ensg/miashs/l3-rnf/tps/sgd/sgd.R
 /ensg/miashs/l3-rnf/tps/som/
+/ensg/miashs/l3-rnf/tps/minimize/
 /ensg/miashs/l3-thg/
 /ensg/miashs/m1psycho/
 /ensg/miashs/m2psycho/
