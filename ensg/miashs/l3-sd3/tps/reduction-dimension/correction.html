@@ -6,8 +6,8 @@
     <title>Réduction de dimension&nbsp;: éléments de correction</title>
     <link href="https://philippe-preux.github.io/css/ma.css" 
 	  rel="stylesheet" type="text/css" media="all">
-    <link href="file:///home/ppreux/philippe-preux.github.io/css/ma.css" 
-	  rel="stylesheet" type="text/css" media="all">
+    <!--link href="file:///home/ppreux/philippe-preux.github.io/css/ma.css" 
+	  rel="stylesheet" type="text/css" media="all"-->
     <link rel="shortcut icon" type="image/x-icon" 
 	  href="https://philippe-preux.github.io/img/site.ico">
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -110,14 +110,14 @@
 	<li>Visualiser ce jeu de données&nbsp;: que voyez-vous&nbsp;?
 
 	  <div class="correction">
-	    On fait les graphiques habituels et on ne voit pas grand chose.
+	    on fait les graphiques habituels pour visualiser les attributs et on ne voit pas grand chose.
 	  </div>
 	  
 	</li>
 	<li>En réaliser l'ACP.
 
 	  <div class="correction">
-	    Faire ce qui a été expliqué ci-dessus.
+	    faire ce qui a été expliqué ci-dessus.
 	  </div>
 
 	</li>
@@ -141,7 +141,7 @@
       </p>
 
       <div class="correction">
-	Ce graphique est obtenu avec <code>acp.explained_variance_</code>. Aucune difficulté.
+	ce graphique est obtenu avec <code>acp.explained_variance_</code>. Aucune difficulté.
       </div>
 
       <p>
@@ -151,7 +151,7 @@
       </p>
 
       <div class="correction">
-	On voit que les deux premiers facteurs contiennent presque toute l'information.
+	On voit que le premier facteur contient beaucoup d'informations (60 %), que les deux facteurs suivants en contiennent à peu près autant (environ 20% chacun) et le dernier peu.
       </div>
 
       <p>
@@ -165,7 +165,7 @@
       </p>
 
       <div class="correction">
-	Ce graphique est obtenu avec <code>acp.explained_variance_ratio_</code>. Aucune difficulté.
+	ce graphique est obtenu avec <code>acp.explained_variance_ratio_</code>. Aucune difficulté.
       </div>
 
       <p>
@@ -183,7 +183,7 @@
       </p>
 
       <div class="correction">
-	Comme dit ci-dessus, les coordonnées des points sur les axes principaux 1, 2 et 3 sont disponibles dans les colonnes 0, 1 et 2 de <code>acp. transform (X)</code>. Donc, il suffit de faire des graphiques avec les colonnes 0 et 1 d'une part, les colonnes 0 et 2 d'autre part pour obtenir les représentations demandées.
+	comme dit ci-dessus, les coordonnées des points sur les axes principaux 1, 2 et 3 sont disponibles dans les colonnes 0, 1 et 2 de <code>acp. transform (X)</code>. Donc, il suffit de faire des graphiques avec les colonnes 0 et 1 d'une part, les colonnes 0 et 2 d'autre part pour obtenir les représentations demandées.
       </div>
 
       <p>
@@ -204,7 +204,7 @@
       </p>
 
       <div class="correction">
-	Comme vu ci-dessus, l'axe 3 contient peu d'information. Donc, ce graphique des points dans le plan principal 1x3 n'est pas très informatif.
+	comme vu ci-dessus, l'axe 3 contient un peu moins d'information que l'axe 2. Donc, ce graphique des points dans le plan principal 1x3 n'est pas très informatif&nbsp;: il apporte moins d'information que la projection dans le plan principal des axes 1 et 2.
       </div>
 
       <p>
@@ -218,7 +218,7 @@
       </p>
 
       <div class="correction">
-	Il suffit de calculer la formule vue en cours et d'indiquer sur le graphique les points dont le cosinus est inférieur à 0,3 avec une couleur.
+	il suffit d'appliquer la formule vue en cours et d'indiquer sur le graphique les points dont le cosinus est inférieur à 0,3 avec une couleur.
       </div>
 
       <p>
@@ -242,7 +242,7 @@
       </p>
 
       <div class="correction">
-	Le graphique a été fait plus haut. Le coude est clairement observé pour 2.
+	le graphique a été fait plus haut. Le coude est clairement observé pour 2.
       </div>
 
       <p>
@@ -261,9 +261,9 @@
       </p>
 
       <div class="correction">
-	Encore une fois, c'est l'application directe du cours. On calcule les coordonnées des attributs initiaux du jeu de données avec les formules qui ont été vues.
+	encore une fois, c'est l'application directe du cours. On calcule les coordonnées des attributs initiaux du jeu de données avec les formules qui ont été vues.
 	<br>
-	Pour tracer un cercle de rayon 1, on peut calculer les coordonnées de des points de ce cercle tous les degrés (cosinus et sinus des angles variant de 0 à 2&pi;) et afficher ces 360 points.
+	Pour tracer un cercle de rayon 1, on peut calculer les coordonnées de points de ce cercle tous les degrés (cosinus et sinus des angles variant de 0 à 2&pi;) et afficher ces 360 points.
 	<br>
 	Petit truc&nbsp;: pour que le cercle ressemble à un cercle et non pas à un ovale, il faut spécifier <code>ax. set_aspect (1)</code> qui fait en sorte que la longueur correspondant à une unité soit la même horizontalement et verticalement.
 	<br>
@@ -275,11 +275,11 @@
 	<br>
 	(c'est le même graphique que plus haut, mais ici les élèves sont repérés par leur numéro), on peut combiner cette projection avec le cercle de corrélation pour effectuer les observations suivantes&nbsp;:
 	<ul>
-	  <li>les élèves 1, 2 et 3 ont une bonne moyenne (axe 1 fortement corrélé avec la mopyenne) mais sont plus plutôt plus petit, moins lourd et moins âgés que les autres (car cet axe est corrélé négativement avec ces 3 attributs).</li>
-	  <li>Inversement, les élèves 4, 5, 6, 7 et 10 ont plutôt une moyenne plus faible mais sont plus âgés, plus lourds et plus grands.</li>
+	  <li>les élèves 1, 2 et 3 ont une bonne moyenne (puisqu'ils sont situés à droite et que l'axe 1 fortement corrélé avec la mopyenne) mais sont plus plutôt plus petits, moins lourds et moins âgés que les autres (car cet axe est corrélé négativement avec ces 3 attributs).</li>
+	  <li>Inversement, les élèves 4, 5, 6, 7 et 10 (à gauche) ont plutôt une moyenne plus faible mais sont plus âgés, plus lourds et plus grands.</li>
 	  <li>Par sa position au centre du graphique, coordonnée positive sur l'axe 1 et coordonnée légérement négative sur l'axe 2, l'élève 8 a une note légérement supérieure à la moyenne des élvèes (coordonnée sur l'axe 1 positive), il est plus âgé que la moyenne, plus grand et plus lourd. Comme on l'a vu plus haut, sa position dans la projection sur le plan principal n'est pas fidèle à sa position vis-à-vis des autres élèves dans l'espace à 4 dimension.</li>
 	  <li>L'élève 9 a une position très excentrée. Il a une note très supérieure à la moyenne (major de promo), il est l'un des plus âgés, tout en étant petit par rapport à la moyenne. Quoiqu'en position excentré, sa position dans le plan principal reflète fidélement sa position vis-à-vis des autres élèves dans l'espace initial à 4 dimensions.</li>
-	  <li>Ces deux derniers exemples montrent que la position dans le graphique ne donne pas d'information sur la fidélité de la projection&nbsp;: l'élève excentré (9) est bien atypique par rapport aux autres, alors qu'un élève en plein centre de la projection (8) est lui mal représenté dans le plan principal.
+	  <li>Ces deux derniers exemples montrent que la position dans le graphique ne donne pas d'information sur la fidélité de la projection&nbsp;: l'élève excentré (9) est bien atypique par rapport aux autres, alors qu'un élève en plein centre de la projection (8) est lui mal représenté dans le plan principal (il peut être préférable de ne pas le représenter dans ce graphique pour éviter de fausser notre perception des données).
 	</ul>
       </div>
 
@@ -297,7 +297,7 @@
 	<li>Les iris qui sont disponibles dans scikit_learn en faisant <code>sklearn.datasets.load_iris ().data</code>. Faites-en une ACP. Quand vous visualisez les iris, il est intéressant d'utiliser une couleur différente pour chacune des classes.
 
 	  <div class="correction">
-	    Fraction de variance cumulée&nbsp;:
+	    fraction de variance cumulée&nbsp;:
 	    <br>
 	    <img src="iris.fraction-de-variance-cumulée.png" width="400pt" alt="ACP des iris" />
 	    <br>
@@ -323,20 +323,20 @@
 	  
 	  <br>
 
-	  Attention, ce graphique n'est absolument pas celui que vous devez obtenir. Je l'indique juste pour vous montrer le type de graphique attendu&nbsp;: la position des villes dans le plan.
-	  
+	  Attention, ce graphique n'est absolument pas celui que vous devez obtenir. Je l'indique juste pour vous montrer le type de graphique attendu&nbsp;: la position des villes dans le plan principal constitué des axes factoriels 1 et 2.
+
 	  <br>
 	  
 	  Que constatez-vous&nbsp;? (Bien sûr, on aimerait que la position des villes corresponde à peu près à leur position sur une carte géographique.) Comment pouvez-vous déterminer si cette représentation en 2D est fidèle au jeu de données&nbsp;?
 
 	  <div class="correction">
-	    On obtient cette figure&nbsp;:
+	    on obtient cette figure&nbsp;:
 	    <br>
 	    <img src="acp.villes.png" width="400pt" alt="" />
 	    <br>
 	    Le résultat est cohérent par certains côtés, incohérent par d'autres. Le bas de la figure est plutôt correct mais trouver Cherbourg à côté de Paris et Genève ne l'est pas. De même pour Milan entre Calais et Bruxelles, ou Vienne entre Hambourg et Copenhagen. En rouge est indiquée la seule anomalie détectée par le cosinus.
 	    <br>
-	    la proportion de variance cumulée indique qu'il faut utiliser 3 ou 4 dimensions pour obtenir une représentation correcte.
+	    La proportion de variance cumulée indique qu'il faut utiliser 3 dimensions pour obtenir une représentation correcte.
 	    <br>
 	    <img src="villes.prop_variance_cumulée.png" width="400pt" alt="" />
 	    <br>
@@ -348,20 +348,20 @@
 	<li><a href="https://philippe-preux.github.io/ensg/miashs/datasets/26letters.txt">Ce fichier</a> contient une matrice qui indique le nombre d'occurrences de chacune des 26 lettres de l'alphabet latin dans un même texte (issu de la constitution européenne) traduit dans 19 langues européennes. Il est intéressant d'en faire une ACP et de projeter les langues dans le plan principal afin de visualiser leur proximité en terme de fréquence d'apparition de chacune des lettres. Par contre, pour ce jeu de données, il faut réaliser un pré-traitement des données pour que l'ACP ait un sens&nbsp;: lequel&nbsp;?
 	  <br>
 	  <div class="correction">
-	    Le nombre d'occurences des lettres n'a pas de sens. Ce qui a un sens est leur fréquence d'apparition. Il faut donc transformer les effectifs en fréquence. Pour chaque langue, on divise donc les effectifs des 26 lettres par le nombre total de lettres composant le texte dans cette langue.
+	    le nombre d'occurences des lettres n'a pas de sens. Ce qui a un sens est leur fréquence d'apparition. Il faut donc transformer les effectifs en fréquence. Pour chaque langue, on divise donc les effectifs des 26 lettres par le nombre total de lettres composant le texte dans cette langue.
 	  </div>
 	  <br>
 	  Comme ci-dessus pour les villes, afficher le nom des langues. En fonction de vos connaissances (même limitée) en linguistique, cette projection en 2D vous paraît-elle pertinente&nbsp;? Il est également intéressant de projeter les lettres dans le plan principal pour visualiser leur proximité en fonction de leur utilisation dans ces 19 langues européennes. Faites le graphique correspondant. Comment pouvez-vous déterminer si cette représentation en 2D est fidèle au jeu de données&nbsp;?
 
 	  <div class="correction">
-	    Il n'y a aucune difficulté, c'est toujours la même chose.
+	    il n'y a aucune difficulté, c'est toujours la même chose.
 	    <br>
 	    Pour les langues, j'obtiens la proportion de variance cumulée et la projection dans le plan principal ci-dessous.
 	    <br>
 	    <img src="langues.prop_variance_cumulée.png" width="400pt" alt="pvc" />
 	    <img src="langues.plan-principal.avec-anomalies.png" width="400pt" alt="1x2" />
 	    <br>
-	    Le graphique de gauche indique très clairement que la projection en deux dimensions a peu de chance d'être fidèle. En rouge sont indiquées les langues qui sont mal projetées dans le plan principal («&nbsp;mal&nbsp;» projetés au sens du cosinus). Trouver parmi celles-ci le hongrois (hu) n'est pas très étonnant car on sait que la langue hongroise n'est pas une langue indo-européenne&nbsp;; par contre, c'est vrai aussi du finnois qui lui est correctement projeté. Le français et l'italien, deux langues très proches, sont mal projetées dans le plan principal. Par contre, voir un regroupement allemand, danois, néerlandais et anglais est cohérent. Mais ce graphique est à interprêter avec la plus grande prudence étant donné le graphique de gauche.
+	    Le graphique de gauche indique très clairement que la projection en deux dimensions a peu de chance d'être fidèle. En rouge sont indiquées les langues qui sont mal projetées dans le plan principal («&nbsp;mal&nbsp;» projetés au sens du cosinus). Trouver parmi celles-ci le hongrois (hu) n'est pas très étonnant car on sait que la langue hongroise n'est pas une langue indo-européenne&nbsp;; par contre, c'est vrai aussi du finnois qui lui est correctement projeté. Le français et l'italien, deux langues très proches, sont mal projetées dans le plan principal. Par contre, voir un regroupement allemand, danois, néerlandais et anglais est cohérent. Mais ce graphique est à interprêter avec la plus grande prudence étant donné le graphique de gauche&nbsp;: la bonne conclusion est plutôt de dire que l'ACP est ici inadaptée.
 	    <br>
 	    On procède de la même manière pour les lettres. J'obtiens la proportion de variance cumulée et la projection dans le plan principal ci-dessous.
 	    <br>
@@ -374,7 +374,7 @@
 	</li>
 	<li>En classification supervisée, il arrive parfois que le taux de succès augmente quand on pré-traite les données au moyen d'une ACP. Tester cette idée sur les iris. Que constatez-vous&nbsp;?
 	  <div class="correction">
-	    Là encore, aucune difficulté. On constate que l'arbre construit avec la représentation factorielle des iris obtient un score (légérement) meilleur que celui construit avec les attributs originaux.
+	    là encore, aucune difficulté. On constate que l'arbre construit avec la représentation factorielle des iris obtient un score (légérement) meilleur que celui construit avec les attributs originaux.
 	  </div>
 	</li>
       </ul>
