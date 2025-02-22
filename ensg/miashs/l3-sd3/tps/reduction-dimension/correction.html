@@ -78,11 +78,11 @@
 
 	<br>
 
-	Remarque&nbsp;: on peut utiliser un objet <code>scaler()</code> mais cette méthode est buggée&nbsp;: le calcul de l'écart-type est faux car la moyenne est estimée et non pas connue, donc le dénominateur doit être N-1 et non N, où N est le nombre de données. Si N est grand cela ne fait pas de grande différence&nbsp;; si N est petit, il vaut mieux faire le centrage et la réduction «&nbsp;à la main&nbsp;». Pour obtenir la valeur correcte de la variance, il faut ajouter l'option <code>ddof = 1</code> à l'appel de la méthode <code>numpy. var ()</code>.
+	Remarque&nbsp;: pour centrer-réduire le jeu de données, on peut/pourrait utiliser un objet <code>scaler()</code> mais cette méthode est buggée&nbsp;: le calcul de l'écart-type est faux car la moyenne est estimée et non pas connue, donc le dénominateur doit être N-1 et non N, où N est le nombre de données. Si N est grand cela ne fait pas de grande différence&nbsp;; si N est petit, il vaut mieux faire le centrage et la réduction «&nbsp;à la main&nbsp;». Pour obtenir la valeur correcte de la variance, il faut ajouter l'option <code>ddof = 1</code> à l'appel de la méthode <code>numpy. var ()</code>.
 
 	<br>
 
-	L'objet <code>acp</code> contient différentes informations&nbsp;:
+	Après l'appel de la méthode <code>fit ()</code>, l'objet <code>acp</code> contient différentes informations&nbsp;:
 
       </p>
 
