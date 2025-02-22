@@ -267,11 +267,24 @@
 	Pour tracer un cercle de rayon 1, on peut calculer les coordonnées de des points de ce cercle tous les degrés (cosinus et sinus des angles variant de 0 à 2&pi;) et afficher ces 360 points.
 	<br>
 	Petit truc&nbsp;: pour que le cercle ressemble à un cercle et non pas à un ovale, il faut spécifier <code>ax. set_aspect (1)</code> qui fait en sorte que la longueur correspondant à une unité soit la même horizontalement et verticalement.
+	<br>
+	Sur ce cercle, on voit une forte corrélation positive entre le premier axe factoriel et la moyenne de l'élève (0,83) et une forte corrélation négative avec son poids (-0,79). Le premier axe est également assez fortement corrélé avec l'âge (-0,69) et la taille de l'élève (-0,78), lesquels sont assez corrélés avec le second axe. Avec des coefficients de corrélation aussi élevés entre les 4 attributs décrivant les élèves et le premier axe factoriel, la projection des points dans le plan principal est une représentation assez fidèle de la réparition des points dans l'espace initial à 4 dimensions.
+	<br>
+	Si on identifie par leur numéro les élèves dans leur projection dans le plan principal comme ci-dessous&nbsp;:
+	<br>
+	<img src="eleves.identifiés.plan.1x2.anomalies.png" width="400pt" alt="" />
+	<br>
+	(c'est le même graphique que plus haut, mais ici les élèves sont repérés par leur numéro), on peut combiner cette projection avec le cercle de corrélation pour effectuer les observations suivantes&nbsp;:
+	<ul>
+	  <li>les élèves 1, 2 et 3 ont une bonne moyenne (axe 1 fortement corrélé avec la mopyenne) mais sont plus plutôt plus petit, moins lourd et moins âgés que les autres (car cet axe est corrélé négativement avec ces 3 attributs).</li>
+	  <li>Inversement, les élèves 4, 5, 6, 7 et 10 ont plutôt une moyenne plus faible mais sont plus âgés, plus lourds et plus grands.</li>
+	  <li>Par sa position au centre du graphique, coordonnée positive sur l'axe 1 et coordonnée légérement négative sur l'axe 2, l'élève 8 a une note légérement supérieure à la moyenne des élvèes (coordonnée sur l'axe 1 positive), il est plus âgé que la moyenne, plus grand et plus lourd. Comme on l'a vu plus haut, sa position dans la projection sur le plan principal n'est pas fidèle à sa position vis-à-vis des autres élèves dans l'espace à 4 dimension.</li>
+	  <li>L'élève 9 a une position très excentrée. Il a une note très supérieure à la moyenne (major de promo), il est l'un des plus âgés, tout en étant petit par rapport à la moyenne. Quoiqu'en position excentré, sa position dans le plan principal reflète fidélement sa position vis-à-vis des autres élèves dans l'espace initial à 4 dimensions.</li>
+	  <li>Ces deux derniers exemples montrent que la position dans le graphique ne donne pas d'information sur la fidélité de la projection&nbsp;: l'élève excentré (9) est bien atypique par rapport aux autres, alors qu'un élève en plein centre de la projection (8) est lui mal représenté dans le plan principal.
+	</ul>
       </div>
 
       <p>
-
-
 
       <h3>Activités en autonomie</h3>
 
@@ -360,7 +373,11 @@
 	  </div>
 
 	</li>
-	<li>En classification supervisée, il arrive parfois que le taux de succès augmente quand on pré-traite les données au moyen d'une ACP. Tester cette idée sur les iris. Que constatez-vous&nbsp;?</li>
+	<li>En classification supervisée, il arrive parfois que le taux de succès augmente quand on pré-traite les données au moyen d'une ACP. Tester cette idée sur les iris. Que constatez-vous&nbsp;?
+	  <div class="correction">
+	    Là encore, aucune difficulté. On constate que l'arbre construit avec la représentation factorielle des iris obtient un score (légérement) meilleur que celui construit avec les attributs originaux.
+	  </div>
+	</li>
       </ul>
       
     </div>
