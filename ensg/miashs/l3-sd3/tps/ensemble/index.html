@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+  
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Méthode d'ensemble</title>
+    <link href="https://philippe-preux.github.io/css/ma.css" 
+	  rel="stylesheet" type="text/css" media="all">
+    <link href="file:///home/ppreux/philippe-preux.github.io/css/ma.css" 
+	  rel="stylesheet" type="text/css" media="all">
+    <link rel="shortcut icon" type="image/x-icon" 
+	  href="https://philippe-preux.github.io/img/site.ico">
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+      .aligncenter {
+	  text-align: center;
+      }
+      span.petit {
+	  font-size: 8px;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <div class="tpR">
+
+      <h1>Méthode d'ensemble</h1>
+
+      <p>
+
+	Dans ce TP, nous revenons à la classification supervisée et nous abordons les méthodes d'ensemble.
+	Nous étudions en particulier les forêts aléatoires. Constituées d'un ensemble d'abres de décision, les forêts constituent une famille de modèles très performants. Les forêts l'une des méthodes les plus performantes en classification supervisée pour les données tabulaires.
+
+	<br>
+	<br>
+
+	À l'issue de ce TP, vous m'envoyez par email un compte-rendu (format <kbd>pdf</kbd>) indiquant la réponse aux questions qui sont posées. Vous m'envoyez également un fichier python réalisant toutes les manipulations de ce TP&nbsp;: je dois pouvoir exécuter ce fichier en tapant <kbd>python3 nom-de-votre-fichier.py</kbd> et reproduire vos résultats. Cette exécution ne doit pas provoquer d'erreur de python. Remarque&nbsp;: un <i>notebook</i> ne convient pas.
+
+      </p>
+
+      <h2>Introduction</h2>
+
+      <p>
+
+	En plus de ce que l'<a href="https://philippe-preux.github.io/ensg/miashs/l3-sd2/tp/cs">on a vu au premier semestre concernant les arbres de décision</a>, on doit ici importer le module de forêts aléatoires de <code>scikit_learn</code>. Cela se fait comme suit&nbsp;:
+
+      </p>
+      
+      <pre>from sklearn.ensemble import RandomForestClassifier</pre>
+
+      <p>
+
+	Ensuite, ayant créé un état aléatoire <code>rs</code> à partir d'une graine et constitué des jeux d'entrainement et de test <code>X_train, X_test, Y_train, Y_test</code>, on crée un objet forêt aléatoire comme suit&nbsp;:
+    
+      </p>
+      
+      <pre>forêt = RandomForestClassifier (n_estimators = 10, min_samples_split = 10,
+    min_samples_leaf = 5, max_depth = 5, random_state = rs)</pre>
+	
+      <p>
+
+	<code>forêt</code> est un objet qui aura les caractéristiques suivantes&nbsp;:
+
+      </p>
+
+      <ul>
+	<li><code>n_estimators = 10</code> indique que la forêt est constituée de 10 arbres,</li>
+	<li><code>min_samples_split = 10</code> indique que pour construire chacun des arbres, on ne crée pas un n&oelig;ud si on n'a pas au moins 10 exemples qui atteignent cette feuille,</li>
+	<li><code>min_samples_leaf = 5</code> indique qu'une feuille contient au moins 5 exemples,</li>
+	<li><code>max_depth = 5</code> indique la profondeur maximale d'un arbre,</li>
+	<li><code>random_state = rs</code> initialise l'état aléatoire.</li>
+      </ul>
+
+      <p>
+
+	Tous ces paramètres ont été rencontrés pour la construction d'un arbre de décision, à l'exception du premier bien sûr.
+
+	<br>
+
+	Ayant créé un objet forêt, on peut construire la forêt pour un jeu d'exemples&nbsp;:
+      </p>
+
+      
+	<pre>predictions = forêt. predict (X_test)</pre>
+
+      <p>
+
+	<code>predictions</code> est un vecteur contenant les prédictions pour les exemples de test <code>X_test</code>. Comme pour un arbre, on peut comparer ces prédictions à la classe de ces exemples <code>Y_test</code> et déterminer un taux de succès. On peut le faire bien sûr également pour chaque classe. Tout cela est exactement comme avec un arbre de décision.
+
+	<br>
+
+	S'il est malaisé de représenter graphiquement une forêt, on peut néanmoins obtenir un indicateur de l'utilisation des différents attrributs dans la forêt.
+	<code>forêt.feature_importances_</code> contient cet indicateur. Pour chaque attribut (dans l'ordre de <code>list (X_train)</code>), on obtient la proportion de n&oe;uds des arbres de la forêt dans lesquels cet attribut est testé.
+
+	<br>
+
+	Pour obtenir un tableau facile à lire, on pourra procéder ainsi pour obtenir un tableau de données trié&nbsp;:
+
+      </p>
+
+      <pre>importance_attributs = pd. DataFrame ({'importance ' : forêt.feature_importances_}, index = list (X_train))
+importance_attributs. sort_values(by = 'importance ', ascending = False)</pre>
+
+      <h2>Travail en autonomie</h2>
+
+      <h3>Retour sur les olives</h3>
+
+      <p>
+
+	Appliquer la méthode des forêts aléatoires sur les olives (<a href="~/philippe-preux.github.io/ensg/miashs/l3-sd2/tp/cs">voir ce TP</a>). Comparer les performances (taux de succès global, taux de succès par classe, table de contingence) d'une forêt avec celle d'un arbre de décision. Chercher des paramètres qui maximisent les performances.
+
+      </p>
+
+      <h3>Autre mise en application</h3>
+
+      <p>
+
+	Faites de même sur <a href="~/philippe-preux.github.io/ensg/miashs/l3-sd2/tp/cs$ less ../../../datasets/pima-made-easy.csv">ce jeu de données</a>.
+
+      </p>
+      
+    </div>
+
+<!-- Default Statcounter code for on github
+https://philippe-preux.github.io -->
+<script>
+  var sc_project=12923547; 
+  var sc_invisible=1; 
+  var sc_security="627600d4"; 
+</script>
+<script src="https://www.statcounter.com/counter/counter.js" async></script>
+<noscript>
+  <div class="statcounter">
+    <a title="Web Analytics" href="https://statcounter.com/" target="_blank">
+      <img class="statcounter"
+	   src="https://c.statcounter.com/12923547/0/627600d4/1/"
+	   alt="Web Analytics"
+	   referrerPolicy="no-referrer-when-downgrade"></a>
+  </div>
+</noscript>
+  <!-- End of Statcounter Code -->
+  
+</body>
+</html>

@@ -7,6 +7,8 @@
   <title>Recherche des poids d'un perceptron non linéaire</title>
   <link href="https://philippe-preux.github.io/css/ma.css" 
 	rel="stylesheet" type="text/css" media="all" />
+  <link href="file:///home/ppreux/philippe-preux.github.io/css/ma.css" 
+      rel="stylesheet" type="text/css" media="all">
   <link rel="shortcut icon" type="image/x-icon" 
 	href="https://philippe-preux.github.io/img/site.ico" />
 </head>
@@ -45,7 +47,7 @@
 	<li><font color="red">centrer et réduire les exemples.</font></li>
 	<li>Initialiser les P poids avec une valeur quelconque.</li>
 	<li><font color="red">corrections = 1</font></li>
-	<li><b>Tant-que</b> <font color="red">|corrections| &gt; &epsilon;</font><b>:</b>
+	<li><b>Tant-que</b> <font color="red">corrections &gt; &epsilon;</font><b>:</b>
 	  <ol>
 	    <li><font color="red">corrections = 0</font></li>
 	    <li><b>Pour</b> chaque exemple x<sub>i</sub><b>:</b>
@@ -294,7 +296,7 @@ c = 0
 
     <p>
 
-      Dans le cas où le perceptron ne peut pas réaliser une prédiction parfaite, le test du tant-que n'est pas adapté. Si on itère tant que la correction est supérieure à un seuil, le choix du seuil &epsilon; est compliqué&nbsp;: on risque soit de le prendre trop grand ce qui a pour conséquences que les poids sont ajustés grossiérement, donc que le nombre d'erreurs de prédiction est plus grand que ce qu'il devrait être&nbsp;; si &epsilon; est pris trop petit, on risque de boucler infiniment car la correction ne sera jamais assez petite pour satisfaire le test et quitter la boucle. On pourrait contrecarrer ce problème soit en limitant arbitrairement le nombre d'itérations du tant-que, soit en diminuant la valeur de &eta; au fil des itérations.
+      Dans le cas où le perceptron ne peut pas réaliser une prédiction parfaite, le test du tant-que n'est pas adapté. Si on itère tant que la correction est supérieure à un seuil, le choix du seuil &epsilon; est compliqué&nbsp;: on risque soit de le prendre trop grand ce qui a pour conséquence que les poids sont ajustés grossiérement, donc que le nombre d'erreurs de prédiction est plus grand que ce qu'il devrait être&nbsp;; si &epsilon; est pris trop petit, on risque de boucler infiniment car la correction ne sera jamais assez petite pour satisfaire le test et quitter la boucle. On pourrait contrecarrer ce problème soit en limitant arbitrairement le nombre d'itérations du tant-que, soit en diminuant la valeur de &eta; au fil des itérations.
 
       <br/>
       <br/>
