@@ -107,14 +107,6 @@
 
 	On peut aussi obtenir une estimation de la probabilité d'appartenir à chacune des classes avec <code>PMC. predict_proba (X_test)</code>. Pour un problème ayant 2 classes, on obtient une matrice à 2 colonnes, chaque colonne indiquant la probabilité pour la donnée d'appartenir à l'une ou l'autre classe.
 
-	<br>
-
-	Une règle générale est de créer le PMC le plus petit possible qui donne un bon taux de succès. Pour cela, il faut tester plusieurs architectures. Pour les exemples traités dans ce TP, il faut prendre une ou deux couches cachées de petites tailles (5 perceptrons par couche par exemple, ou 5 et 3 en diminuant le nombre de perceptrons par couche quand on s'approche de la couche de sortie).
-
-	<br>
-
-	Et bien sûr, le calcul des poids étant stochastique, il faut réaliser plusieurs entraînements différents et conserver le paramétrage qui donne le meilleur taux de succès (sur le jeu de test). «&nbsp;Plusieurs entraînements différtents&nbsp;» signifie effectuer des entraînements avec des graines différentes, mais aussi des partitionnements jeu d'entraînement/jeu de test différents.
-
       </p>
 
       <h3>Les poids d'un PMC</h3>
@@ -134,6 +126,22 @@
 
        Malheureusement, ces poids ne nous disent rien de qualitatif sur la manière dont le PMC prédit la classe d'une donnée. Certes on peut faire le calcul à la main (c'est bien de le faire pour une donnée pour vérifier que l'on a bien compris comment la sortie du PMC est calculée), mais c'est tout&nbsp;: les réseaux de neurones sont des boîtes noires.
        
+     </p>
+
+     <h3>Et enfin</h3>
+
+     <p>
+
+       Comme toujours en science des données, on cherche le plus petit modèle qui obtient de bonnes performances.
+
+       <br>
+
+       Une règle générale est de créer le PMC le plus petit possible qui donne un bon taux de succès. Pour cela, il faut tester plusieurs architectures. Pour les exemples traités dans ce TP, il faut prendre une ou deux couches cachées de petites tailles (5 perceptrons par couche par exemple, ou 5 et 3 en diminuant le nombre de perceptrons par couche quand on s'approche de la couche de sortie).
+
+       <br>
+
+       Et bien sûr, le calcul des poids étant stochastique, il faut réaliser plusieurs entraînements différents et conserver le paramétrage qui donne le meilleur taux de succès (sur le jeu de test). «&nbsp;Plusieurs entraînements différtents&nbsp;» signifie effectuer des entraînements avec des graines différentes, mais aussi des partitionnements jeu d'entraînement/jeu de test différents.
+
      </p>
 
       <h2>Travail en autonomie</h2>
