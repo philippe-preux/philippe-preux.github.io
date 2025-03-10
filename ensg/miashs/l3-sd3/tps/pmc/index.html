@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+  
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Perceptron multi-couches</title>
+    <link href="https://philippe-preux.github.io/css/ma.css" 
+	  rel="stylesheet" type="text/css" media="all">
+    <link href="file:///home/ppreux/philippe-preux.github.io/css/ma.css" 
+	  rel="stylesheet" type="text/css" media="all">
+    <link rel="shortcut icon" type="image/x-icon" 
+	  href="https://philippe-preux.github.io/img/site.ico">
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+      .aligncenter {
+	  text-align: center;
+      }
+      span.petit {
+	  font-size: 8px;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <div class="tpR">
+
+      <h1>Perceptron multi-couches</h1>
+
+      <p>
+
+	Dans ce TP, nous abordons les perceptrons multi-couches.
+	<b>Attention&nbsp;:</b> ceux-ci ne sont pas adaptés aux exemples que nous traitons dans ce cours concernant classification supervisée pour des données tabulaires. Néanmoins, il nous paraît indispensable qu'une présentation de ces méthodes soit effectuée dans le cadre du cours.
+	
+	Par ailleurs, nous les retrouverons bientôt dans un autre contexte où ils sont pertinents.
+	
+	<br>
+	<br>
+
+	À l'issue de ce TP, vous m'envoyez par email un compte-rendu (format <kbd>pdf</kbd>) indiquant la réponse aux questions qui sont posées. Vous m'envoyez également un fichier python réalisant toutes les manipulations de ce TP&nbsp;: je dois pouvoir exécuter ce fichier en tapant <kbd>python3 nom-de-votre-fichier.py</kbd> et reproduire vos résultats. Cette exécution ne doit pas provoquer d'erreur de python. Remarque&nbsp;: un <i>notebook</i> ne convient pas.
+
+      </p>
+
+      <h2>Utilisation d'un réseau de neurones en python pour la classification supervisée</h2>
+
+
+      <h3> Préliminaires</h3>
+
+      <p>
+
+	On commence par importer la bibliothèque adéquate par&nbsp;: <code>from sklearn.neural_network import MLPClassifier</code>.
+
+	<br>
+
+	On suppose que l'on a chargé des exemples et que l'on a centrée-réduit la valeur des attributs. On note comme d'habitude <code>X_train</code> et <code>Y_train</code> les exemples d'entraînement, <code>X_test</code> et <code>Y_test</code> les exemples de test.
+
+	</p>
+
+      <h3>Création d'un PMC</h3>
+
+      Il y a de très nombreuses options possibles. Supposons que je veuille créer un PMC avec deux couches cachées de taille 5 et 3, fonction d'activation tangente hyperbolique. On fera&nbsp;:
+
+	<br>
+
+	<code>PMC = MLPClassifier (hidden_layer_sizes = (5, 3), activation='tanh', solver = "lbfgs", random_state = rs)</code>.
+
+	<br>
+
+	Il faut spécifier une graine (un entier) pour le générateur de nombres pseudo-aléatoires comme on l'a fait dans de nombreux autres TPs.
+
+	<br>
+
+	Comme c'est un petit réseau de neurones, j'indique <code>solver = "lbfgs"</code> qui calcule les poids du réseau de manière bien plus efficace qu'une descente de gradient stochastique (mais n'est utilisable que si le nombre de paramètres à optimiser est assez petit).
+	
+    </p>
+
+    <h3>Entraînement du PMC</h3>
+
+      <p>
+
+	Pour calculer les poids sur les données d'entraînement, on fait comme suit&nbsp;:
+
+	<br>
+
+	<code>PMC. fit (X_train, Y_train)</code>
+	
+      </p>
+
+    <h3>Prédiction avec un PMC</h3>
+
+      <p>
+
+	Pour prédire la classe d'un ensemble de données, on fait comme suit&nbsp;:
+
+	<br>
+
+	<code>PMC. predict (X_test)</code>
+
+	<br>
+
+	Comme pour les autres méthodes, cela fournit un vecteur contenant la prédiction pour chacune des lignes de <code>X_test</code>.
+
+	<br>
+
+	On peut ensuite calculer le taux de succès, une table de contingence, <i>etc.</i>
+
+	<br>
+
+	On peut aussi obtenir une estimation de la probabilité d'appartenir à chacune des classes avec <code>PMC. predict_proba (X_test)</code>. Pour un problème ayant 2 classes, on obtient une matrice à 2 colonnes, chaque colonne indiquant la probabilité pour la donnée d'appartenir à l'une ou l'autre classe.
+
+	<br>
+
+	Une règle générale est de créer le PMC le plus petit possible qui donne un bon taux de succès.
+
+      </p>
+
+      <h2>Travail en autonomie</h2>
+
+      <h3>Les iris</h3>
+
+      <p>
+
+	Les iris sont un problème à 3 classes. On le transforme en un problème à deux classes et on applique un PMC.
+
+	<br>
+
+	Tout d'abord, prédire les <i>setosa</i> par rapport aux deux autres classes. C'est un problème facile. Chercher une petit PMC qui effectue cette prédiction parfaitement. Une couche cachée doit suffire.
+
+	<br>
+
+	On veut maintenant prédire les <i>versicolor</i> par rapport aux deux autres classes. À nouveau, chercher un petit PMC qui minimise l'erreur de test.
+
+	<br>
+
+	On peut aussi traiter directement les trois classes. Pour cela, il suffit que les étiquettes à prédire prennent 3 valeurs dans le jeu d'entraînement. Faites-le pour les iris.
+
+	<br>
+
+	Comparer les résultats obtenus avec un arbre de décision. Conclure.
+	
+      </p>
+
+      
+      <h3>Retour sur les olives</h3>
+
+      <p>
+
+	Procéder de même pour prédire l'attribut <code>region</code> tout d'abord, l'attribut <code>area</code> ensuite.
+
+      </p>
+
+      <h3>Autre mise en application</h3>
+
+      <p>
+
+	Faites de même sur <a href="~/philippe-preux.github.io/ensg/miashs/l3-sd2/tp/cs$ less ../../../datasets/pima-made-easy.csv">ce jeu de données</a>.
+
+      </p>
+
+      <h2>Programmation de la descente de gradient stochastique</h2>
+
+      <p>
+
+       Il est très facile de programmer l'algorithme de descente de gradient stochastique pour un seul perceptron. Je vous encourage à le faire en vous appuyant sur <a href="https://philippe-preux.github.io/ensg/l1-mi/tps/classification-supervisée">ce TP</a> que je fais faire en L1. Ce TP contient beaucoup d'explications que vous connaissez déjà. Concentrez-vous sur l'algorithme, sa programmation et sa mise en &oelig;uvre sur les jeux de données habituels. Vous pouvez lire une explication détaillée concernant le perceptron dans <a href="https://philippe-preux.github.io/Documents/coursRNL1.pdf">le polycopié qui accompagne mon cours de L1</a>. Pour le perceptron multi-couches, voir <a href="https://philippe-preux.github.io/Documents/notes-de-cours-de-fouille-de-données.pdf">mon polycopié de fouille de données</a>.
+
+     </p>
+
+    </div>
+
+<!-- Default Statcounter code for on github
+https://philippe-preux.github.io -->
+<script>
+  var sc_project=12923547; 
+  var sc_invisible=1; 
+  var sc_security="627600d4"; 
+</script>
+<script src="https://www.statcounter.com/counter/counter.js" async></script>
+<noscript>
+  <div class="statcounter">
+    <a title="Web Analytics" href="https://statcounter.com/" target="_blank">
+      <img class="statcounter"
+	   src="https://c.statcounter.com/12923547/0/627600d4/1/"
+	   alt="Web Analytics"
+	   referrerPolicy="no-referrer-when-downgrade"></a>
+  </div>
+</noscript>
+  <!-- End of Statcounter Code -->
+  
+</body>
+</html>

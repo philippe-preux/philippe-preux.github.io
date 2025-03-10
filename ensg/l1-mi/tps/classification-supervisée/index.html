@@ -7,6 +7,8 @@
   <title>Classification supervisée avec un perceptron</title>
   <link href="https://philippe-preux.github.io/css/ma.css"
 	rel="stylesheet" type="text/css" media="all" />
+  <link href="/home/ppreux/philippe-preux.github.io/css/ma.css"
+	rel="stylesheet" type="text/css" media="all" />
   <link rel="shortcut icon" type="image/x-icon" 
 	href="https://philippe-preux.github.io/img/site.ico" />
 </head>
@@ -128,7 +130,7 @@ entrées_iris = iris.data[:,2:4]</pre>
 
     <br/>
 
-    <img src="iris.png" width="300pt" alt="Répartition des 3 espèces d'iris." />
+    <img src="iris.png" width="400" alt="Répartition des 3 espèces d'iris." />
 
     <br/>
 
@@ -180,15 +182,11 @@ for i in range (len (iris.target)):
     <br/>
 
     On peut s'y prendre de deux manières&nbsp;: le faire soi-même ou utiliser une fonction qui réalise ce découpage.
+    Je vous encourage très fortement à réaliser ce découpage vous-même car c'est très facile à faire. J'explique les deux méthodes ci-dessous.
 
     <br/>
 
-    Je vous encourage très fortement à réaliser ce découpage vous-même car c'est très facile à faire (en particulier, les étudiants qui réalisent les TPs rapidement doivent effectuer ce découpage en codant eux-mêmes ce traitement&nbsp;: c'est juste une boucle).
-
-    <br/>
-
-    Une fonction est disponible dans le paquetage <kbd>sklearn</kbd> qui réalise ce découpage. Elle se nomme <kbd>train_test_split()</kbd>.
-    Pour l'utiliser, on écrit d'abord&nbsp;:
+    Comme le partitionnement est aléatoire, on va utiliser des fonctions qui génèrent de l'aléa. Avant toute utilisation de ce type de fonctions, il faut exécuter les instructions suivantes&nbsp;:
 
   </p>
   
@@ -200,22 +198,43 @@ gnpa = np.random.default_rng (graine)</pre>
     
     <i>Strico senso</i>, ces lignes ne sont pas indispensables pour effectuer le partionnement du jeu d'exemples. Ces lignes garantissent qu'à chaque fois que vous lancez votre programme, il partitionne le jeu d'exemples exactement de la même manière. C'est un point important sur lequel nous revenons <a href="#repro">plus bas</a>.
 
-    <br/>
+    <br>
+
+      La ligne <code>graine = ...</code> transforme une chaîne de caractères en un nombre. On pourrait juste écrire <code>graine = 123</code>, ça fonctionnerait encore.
+
+    <br>
+
+      La ligne suivante <code>gnpa = ...</code> est très importante&nbsp;: elle initialise le Générateur de Nombres Pseudo-Aléatoires qui est ensuite utilisé pour générer une séquence de nombres aléatoires. Si vous initialisez deux fois le générateur avec la même graine, vous obtenez exactement la même séquence de nombres. Avec des graines différentes, vous obtenez des séquences différentes.
+
+    </p>
+
+    <ul>
+      <li><b>Partitionnement à la main&nbsp;:</b> si on a N exemples à partitionner, le principe est de générer une permutation aléatoire des entiers de 0 à N-1 que je note <code>permutation</code>. Ensuite en parcourant les exemples en les indiçant par <code>permutation [i]</code> (au lieu de <code>i</code>), on les parcourt dans un ordre aléatoire. Si on veut utiliser 80% des exemples pour l'entraînement et les 20% restant pour la mesure du taux de succès, on fera&nbsp;:
+	<br>
+	  <pre>permutation = gnpa.permutation (np.arange (N))
+N_train = int (0.8 * N)
+indices_des_exemples_entrainement = permutation [:N_train]
+indices_des_exemples_test = permutation [N_train:]
+X_train = entrées_iris [indices_des_exemples_entrainement,:]
+X_test = entrées_iris [indices_des_exemples_test,:]
+Y_train = Y_setosa [indices_des_exemples_entrainement]
+Y_test = Y_setosa [indices_des_exemples_test]</pre>
+	Ainsi, <code>indices_des_exemples_enttrainement</code> contient les indices des exemples à utiliser pour calculer les poids du perceptron et <code>indices_des_exemples_test</code> contient les indices des exemples à utiliser pour le test. Avec ces indices, on crée les 4 objets qui contiennent les exemples d'entraînement (les données dans <code>X_train</code> et leur étiquette dans <code>Y_train</code>) et les exemples de text (<code>X_test</code> et <code>Y_test</code>).</li>
+	<li><b>Partitionnement automatique&nbsp;:</b> une fonction est disponible dans le paquetage <kbd>sklearn</kbd> qui réalise ce découpage. Elle se nomme <kbd>train_test_split()</kbd>.
+    Pour l'utiliser, on écrit d'abord&nbsp;:
+
+    <pre>from sklearn.model_selection import train_test_split</pre>
 
     Maintenant, on peut partitionner le jeu d'exemples. On fait comme suit. Supposons que p=0,2, on écrit&nbsp;:
 
-  </p>
-  
-  <pre>from sklearn.model_selection import train_test_split
-X_train, X_test, Y_train, Y_test = train_test_split (X, Y, test_size = 0.2, random_state = np.random.RandomState (graine))</pre>
+    <pre>X_train, X_test, Y_train, Y_test = train_test_split (X, Y, test_size = 0.2, random_state = np.random.RandomState (graine))</pre>
 
-  <p>
-    
-    On a désormais partitionné le jeu d'exemples (X, Y) en un jeu d'entraînement (X_train, Y_train) et un jeu d'exemples (X_test, Y_test). Le premier est composé de 80% des exemples de (X, Y), le second est composé des 20% restants. Sur la figure ci-dessous, j'indique avec des points plus gros les exemples de test. Il faut bien garder à l'esprit que ces exemples ne sont pas utilisés pour calculer les poids, seuls les petits points le sont.
-    
-    <br/>
-
-    <img src="./train_test.png" width="300pt" alt="Les exemples d'iris où le jeu de test est indiqué par des points plus gros." />
+    On a désormais partitionné le jeu d'exemples (X, Y) en un jeu d'entraînement (X_train, Y_train) et un jeu de test (X_test, Y_test). Le premier est composé de 80% des exemples de (X, Y), le second est composé des 20% restants. Sur la figure ci-dessous, j'indique avec des points plus gros les exemples de test. Il faut bien garder à l'esprit que ces exemples ne sont pas utilisés pour calculer les poids, seuls les petits points le sont.</li>
+    </ul>
+      
+      <p>
+	
+    <img src="./train_test.png" width="400" alt="Les exemples d'iris où le jeu de test est indiqué par des points plus gros." />
 
     <br/>
 
@@ -234,19 +253,19 @@ X_train, X_test, Y_train, Y_test = train_test_split (X, Y, test_size = 0.2, rand
   </p>
   
   <pre>N_train = len (Y_train)
-permutation = gnpa.choice (np.arange (N_train), N_train, replace = False)</pre>
+permutation_train = gnpa.permutation (np.arange (N_train))</pre>
 
   <p>
     
-    Il faut avoir préalablement importer le paquetage <kbd>numpy</kbd>.
+    Il faut avoir préalablement importé le paquetage <kbd>numpy</kbd>.
     
     <br/>
 
-    <kbd>permutation</kbd> contient une permutation des entiers de 0 à <kbd>N_train - 1</kbd>.
+    <kbd>permutation_train</kbd> contient une permutation des entiers de 0 à <kbd>N_train - 1</kbd>.
 
     <br/>
 
-    Ensuite dans le corps de la boucle, il suffit de remplacer la variable <kbd>i</kbd> par <kbd>permutation [i]</kbd> et les exemples seront parcourus dans un ordre aléatoire. En calculant une nouvelle permutation à chaque itération de la DGS, le parcours des exemples d'entraînement sera différent à chaque itération de la DGS.
+    Ensuite dans le corps de la boucle, il suffit de remplacer la variable <kbd>i</kbd> par <kbd>permutation_train [i]</kbd> et les exemples seront parcourus dans un ordre aléatoire. En calculant une nouvelle permutation à chaque itération de la DGS, le parcours des exemples d'entraînement sera différent à chaque itération de la DGS.
 
   </p>
 
@@ -308,7 +327,7 @@ permutation = gnpa.choice (np.arange (N_train), N_train, replace = False)</pre>
 
     <br/>
 
-    <img src="./expe1.png" width="300pt" alt="Expérience 1 : le perceptron ne sépare pas les deux classes." />
+    <img src="./expe1.png" width="400" alt="Expérience 1 : le perceptron ne sépare pas les deux classes." />
 
     <br/>
 
@@ -347,7 +366,7 @@ permutation = gnpa.choice (np.arange (N_train), N_train, replace = False)</pre>
 
     <br/>
 
-    <img src="./expe2.png" width="300pt" alt="Expérience 2 : le perceptron ne toujours sépare pas les deux classes, mais il a fait des progrès." />
+    <img src="./expe2.png" width="400" alt="Expérience 2 : le perceptron ne toujours sépare pas les deux classes, mais il a fait des progrès." />
 
     <br/>
 
@@ -359,7 +378,7 @@ permutation = gnpa.choice (np.arange (N_train), N_train, replace = False)</pre>
     
     <br/>
 
-    <img src="./expe3.png" width="300pt" alt="Expérience 3 : le perceptron sépare Setosa des autres iris. Un exemple d'entraînement est mal classé." />
+    <img src="./expe3.png" width="400" alt="Expérience 3 : le perceptron sépare Setosa des autres iris. Un exemple d'entraînement est mal classé." />
 
     <br/>
 
@@ -372,7 +391,7 @@ permutation = gnpa.choice (np.arange (N_train), N_train, replace = False)</pre>
 
     <br/>
 
-    <img src="./expe4.png" width="300pt" alt="Expérience 4 : le perceptron sépare Setosa des autres iris, y compris les exemples d'entraînement." />
+    <img src="./expe4.png" width="400" alt="Expérience 4 : le perceptron sépare Setosa des autres iris, y compris les exemples d'entraînement." />
 
     <br/>
 
@@ -394,10 +413,10 @@ permutation = gnpa.choice (np.arange (N_train), N_train, replace = False)</pre>
 
     <br/>
 
-    <img src="./expe5.png" width="300pt" alt="Expérience 5 : séparation des Virginica." />
-    <img src="./expe6.png" width="300pt" alt="Expérience 5 : séparation des Virginica." />
-    <img src="./expe7.png" width="300pt" alt="Expérience 5 : séparation des Virginica." />
-    <img src="./expe8.png" width="300pt" alt="Expérience 5 : séparation des Virginica." />
+    <img src="./expe5.png" width="400" alt="Expérience 5 : séparation des Virginica." />
+    <img src="./expe6.png" width="400" alt="Expérience 5 : séparation des Virginica." />
+    <img src="./expe7.png" width="400" alt="Expérience 5 : séparation des Virginica." />
+    <img src="./expe8.png" width="400" alt="Expérience 5 : séparation des Virginica." />
 
     <br/>
     <br/>
@@ -406,7 +425,7 @@ permutation = gnpa.choice (np.arange (N_train), N_train, replace = False)</pre>
     
     <br/>
 
-    <img src="./Erreurs.png" width="300pt" alt="E_train et E_test au fil de 100 itérations de DGS." />
+    <img src="./Erreurs.png" width="400" alt="E_train et E_test au fil de 100 itérations de DGS." />
     
     <br/>
 
