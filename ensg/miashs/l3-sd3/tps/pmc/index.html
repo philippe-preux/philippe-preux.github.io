@@ -61,7 +61,7 @@
 
 	<br>
 
-	<code>PMC = MLPClassifier (hidden_layer_sizes = (5, 3), activation='tanh', solver = "lbfgs", random_state = rs)</code>.
+	<code>PMC = MLPClassifier (hidden_layer_sizes = (5, 3), activation='tanh', solver = "lbfgs", random_state = graine)</code>.
 
 	<br>
 
@@ -109,7 +109,11 @@
 
 	<br>
 
-	Une règle générale est de créer le PMC le plus petit possible qui donne un bon taux de succès.
+	Une règle générale est de créer le PMC le plus petit possible qui donne un bon taux de succès. Pour cela, il faut tester plusieurs architectures. Pour les exemples traités dans ce TP, il faut prendre une ou deux couches cachées de petites tailles (5 perceptrons par couche par exemple, ou 5 et 3 en diminuant le nombre de perceptrons par couche quand on s'approche de la couche de sortie).
+
+	<br>
+
+	Et bien sûr, le calcul des poids étant stochastique, il faut réaliser plusieurs entraînements différents et conserver le paramétrage qui donne le meilleur taux de succès (sur le jeu de test). «&nbsp;Plusieurs entraînements différtents&nbsp;» signifie effectuer des entraînements avec des graines différentes, mais aussi des partitionnements jeu d'entraînement/jeu de test différents.
 
       </p>
 
@@ -179,7 +183,7 @@
 
       <p>
 
-       Il est très facile de programmer l'algorithme de descente de gradient stochastique pour un seul perceptron. Je vous encourage à le faire en vous appuyant sur <a href="https://philippe-preux.github.io/ensg/l1-mi/tps/classification-supervisée">ce TP</a> que je fais faire en L1. Ce TP contient beaucoup d'explications que vous connaissez déjà. Concentrez-vous sur l'algorithme, sa programmation et sa mise en &oelig;uvre sur les jeux de données habituels. Vous pouvez lire une explication détaillée concernant le perceptron dans <a href="https://philippe-preux.github.io/Documents/coursRNL1.pdf">le polycopié qui accompagne mon cours de L1</a>. Pour le perceptron multi-couches, voir <a href="https://philippe-preux.github.io/Documents/notes-de-cours-de-fouille-de-données.pdf">mon polycopié de fouille de données</a>.
+       Il est très facile et instructif de programmer l'algorithme de descente de gradient stochastique pour un seul perceptron. Je vous encourage à le faire en vous appuyant sur <a href="https://philippe-preux.github.io/ensg/l1-mi/tps/classification-supervisée">ce TP</a> que je fais faire en L1. Ce TP contient beaucoup d'explications que vous connaissez déjà. Concentrez-vous sur l'algorithme, sa programmation et sa mise en &oelig;uvre sur les jeux de données habituels. Vous pouvez lire une explication détaillée concernant le perceptron dans <a href="https://philippe-preux.github.io/Documents/coursRNL1.pdf">le polycopié qui accompagne mon cours de L1</a>. Pour le perceptron multi-couches, voir <a href="https://philippe-preux.github.io/Documents/notes-de-cours-de-fouille-de-données.pdf">mon polycopié de fouille de données</a>.
 
      </p>
 
