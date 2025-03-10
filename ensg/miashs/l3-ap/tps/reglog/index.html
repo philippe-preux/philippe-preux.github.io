@@ -170,52 +170,6 @@ Naturellement, pour chaque donnée, la classe prédite correspond à la colonne 
   </ol>
 </div>
 
-<div class="correction">
-  <ol>
-    <li>On fait du copier/coller des différents éléments indiqués ci-dessus.
-<pre>from sklearn import linear_model, datasets
-iris = datasets.load_iris()
-X = iris.data[:, :]
-Y = iris.target
-modele_regression_logistique = linear_model. LogisticRegression ()
-modele_regression_logistique. fit (X, Y)
-classe_predite = modele_regression_logistique. predict (X)
-</pre></li>
-    <li>
-<pre># à la suite de ce qui précède
-from random import shuffle
-nb_erreur = 0
-
-# découpe du jeu d'exemples en 80 % pour l'entraînement du modèle, le reste pour son test (voir le TP sur les k plus proches voisins)
-p = 0.8 # 80%
-listeDesIndices = [i for i in range (len (X))]
-shuffle (listeDesIndices)
-# la liste des indices des exemples utilisés pour l'entraînement
-indices_entrainement = listeDesIndices [0:int(p*len(X))]
-# la liste des indices des exemples utilisés pour le test
-indices_test = listeDesIndices [int(p*len(X)):len(X)]
-
-# on entraîne le modèle
-modele_regression_logistique. fit (X [indices_entrainement], Y [indices_entrainement])
-# on prédit la classe des exemples du jeu de test
-classe_predite = modele_regression_logistique. predict (X [indices_test])
-# on calcule le nombre d'erreurs de prédiction
-for i in range (len (indices_test)):
-    if Y [indices_test [i]] != classe_predite [i]:
-        nb_erreur += 1
-# et on calcule le taux d'erreur demandé
-taux_erreur = nb_erreur / len (indices_test)
-</pre>
-    <p>
-      Pour la matrice de confusion&nbsp;:
-    </p>
-<pre>matrice_confusion = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
-for i in range (len (indices_test)):
-    matrice_confusion [Y [indices_test [i]]] [classe_predite [i]] += 1
-</pre>
-  </ol>
-</div>
-
 <h2>Quelques graphiques</h2>
 
 <p>

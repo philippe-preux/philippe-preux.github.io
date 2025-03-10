@@ -113,6 +113,25 @@
 
       </p>
 
+      <h3>Les poids d'un PMC</h3>
+
+      <p>
+
+	On peut obtenir les biais et les poids du PMC avec <code>PMC.coefs_</code> et les biais par <code>PMC.intercepts_</code>&nbsp;:
+
+      </p>
+
+      <ul>
+	<li><code>PMC.intercepts_</code> est une liste ayant autant d'éléments qu'il y a de couches, donc ici 3 (2 couches cachées et une couche de sortie). Le premier élément contient les biais de la première couche cachée (donc 5 valeurs), <i>etc.</i> jusqu'au dernier élément qui contient les biais de la couche de sortie (1 valeur).</li>
+	<li><code>PMC.coefs_</code> est également une liste ayant autant d'éléments qu'il y a de couches. Cette fois-ci, chaque élément de la liste est une matrice contenant le poids reliant la couche précédente à la couche courante. Ainsi le premier élément de la liste est la matrice des poids reliant les entrées du PMC aux perceptrons de la première couche cachée&nbsp;; le deuxième élément est la matrice des poids reliant la première couche cachée à la seconde&nbsp;; le dernier élément fournit les poids entre les perceptrons de la deuxième couche cachée et la couche de sortie. Étant donnée l'architecture du PMC (4 entrées, puis 5 perceptrons puis 3 perceptrons puis une sortie), les matrices sont de taille 4x5, 5x3, 3x1.</li>
+      </ul>
+
+     <p>
+
+       Malheureusement, ces poids ne nous disent rien de qualitatif sur la manière dont le PMC prédit la classe d'une donnée. Certes on peut faire le calcul à la main (c'est bien de le faire pour une donnée pour vérifier que l'on a bien compris comment la sortie du PMC est calculée), mais c'est tout&nbsp;: les réseaux de neurones sont des boîtes noires.
+       
+     </p>
+
       <h2>Travail en autonomie</h2>
 
       <h3>Les iris</h3>
