@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+  
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Régression logistique</title>
+    <link href="https://philippe-preux.github.io/css/ma.css" 
+	  rel="stylesheet" type="text/css" media="all">
+    <link href="file:///home/ppreux/philippe-preux.github.io/css/ma.css" 
+	  rel="stylesheet" type="text/css" media="all">
+    <link rel="shortcut icon" type="image/x-icon" 
+	  href="https://philippe-preux.github.io/img/site.ico">
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+      .aligncenter {
+	  text-align: center;
+      }
+      span.petit {
+	  font-size: 8px;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <div class="tpR">
+
+      <h1>Régression logistique</h1>
+
+      <p>
+
+	Dans ce TP, nous abordons la régression logistique. C'est une méthode très utilisée pour la classification supervisée qu'il faut connaître. Elle estime la probabilité qu'une donnée soit d'une certaine classe étant donné un ensemble d'exemples.
+
+	<br>
+
+	À l'issue de ce TP, vous m'envoyez par email un compte-rendu (format <code>pdf</code>) indiquant la réponse aux questions qui sont posées. Vous m'envoyez également un fichier python réalisant toutes les manipulations de ce TP&nbsp;: je dois pouvoir exécuter ce fichier en tapant <code>python3 nom-de-votre-fichier.py</code> et reproduire vos résultats. Cette exécution ne doit pas provoquer d'erreur de python. Remarque&nbsp;: un <i>notebook</i> ne convient pas.
+
+      </p>
+
+      <h2>Régression logistique en python</h2>
+
+
+      <h3> Préliminaires</h3>
+
+      <p>
+
+	On commence par importer la bibliothèque adéquate par&nbsp;: <code>from sklearn import linear_model</code>.
+
+	<br>
+
+	On suppose que l'on a chargé des exemples. On note comme d'habitude <code>X_train</code> et <code>Y_train</code> les exemples d'entraînement, <code>X_test</code> et <code>Y_test</code> les exemples de test. J'utilise les iris pour illustrer ce qui suit.
+
+	</p>
+
+      <h3>Estimation des paramètres du modèle</h3>
+
+      <p>
+
+	Étant donné <code>X_train</code, <code>Y_train</code>, on estime les paramètres du modèle de régression logistique comme suit&nbsp;:
+
+      </p>
+      
+	<pre>modele_regression_logistique = linear_model. LogisticRegression ()
+modele_regression_logistique. fit (X_train, Y_train)</pre>
+
+	<ul>
+  <li>la première ligne construit un objet qui permet de réaliser une régression logistique. On accède à ce modèle par le nom <code>modele_regression_logistique</code>.</li>
+   <li>la seconde ligne effectue la régression logistique sur les données qui lui sont fournies.</li>
+</ul>
+
+	<h3>Prédire la classe de données à partir du modèle de régression logistique</h3>
+
+      <p>
+
+	On peut maintenant utiliser le modèle pour prédire la classe d'une donnée ou obtenir la probabilité pour cette donnée d'appartenir à chacune des 3 classes.
+
+	<br/>
+
+	Pour cela, en supposant que <code>donneesApredire</code> est un tableau contenant les attributs des données à prédire (tableau de la même forme que <code>X_train</code>, par exemple <code>X_test</code>), on écrit&nbsp;:
+
+      </p>
+
+      <pre>classesPredites = modele_regression_logistique. predict (donneesApredire)</pre>
+
+      <p>
+
+	qui met dans <code>classesPredites</code> la classe prédite pour chacune des données contenues dans <code>donneesApredire</code>.
+
+	<br>
+
+	Par exemple, si on applique le modèle sur l'ensemble d'entraînement, j'obtiens&nbsp;:
+
+      </p>
+
+<pre>modele_regression_logistique. predict (X_train)
+[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 2 1 1 1
+ 1 1 1 1 1 1 1 1 1 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2
+ 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+ 2 2]</pre>
+
+      <p>
+
+	Quand vous le faites, le résultat que vous obtenez peut-être légérement différent. (Pourquoi d'après vous&nbsp;?)
+
+	<br>
+
+	Pour obtenir les probabilités d'appartenance à chacune des classes, on écrit&nbsp;:
+
+      </p>
+
+      <pre>probaClasses = modele_regression_logistique. predict_proba (donneesApredire)</pre>
+
+      <p>
+
+	<code>probaClasses</code> est alors un tableau dont chaque ligne correspond à une donnée de <code>donneesApredire</code>, chaque élément (colonne) correspondant à la probabilité d'appartenir à une classe.
+
+	<br>
+
+	Par exemple, si on applique le modèle sur l'ensemble d'entraînement, on obtient&nbsp;:
+
+      </p>
+
+<pre>modele_regression_logistique. predict_proba (X_train)
+[[  8.79681649e-01   1.20307538e-01   1.08131372e-05]
+ [  7.99706325e-01   2.00263292e-01   3.03825365e-05]
+ [  8.53796795e-01   1.46177302e-01   2.59031285e-05]
+...
+ [  1.45811816e-03   2.98379693e-01   7.00162189e-01]
+ [  1.09779827e-03   1.31785617e-01   8.67116585e-01]
+ [  1.68397530e-03   2.81057800e-01   7.17258224e-01]]</pre>
+
+      <p>
+
+	Quand vous le faites, le résultat que vous obtenez peut-être légérement différent. (Pourquoi d'après vous&nbsp;?)
+
+	<br>
+
+	Naturellement, pour chaque donnée, la classe prédite correspond à la colonne ayant la plus grande valeur (probabilité).
+
+      </p>
+
+      <h2>Travail en autonomie</h2>
+
+
+      <h3>Mettre le pied à l'étrier de la régression logistique</h3>
+
+      <p>
+
+	Mettre en &oelig;uvre la régression logistique sur <a href="https://philippe-preux.github.io/ensg/miashs/datasets/pima-made-easy.csv">ce jeu de données</a>.
+
+	<br>
+
+	Centrer-réduire les attributs est-il utile&nbsp;? Est-ce que cela change le modèle&nbsp;?
+
+	<br>
+
+	Quelle est la proportion de données de test pour lesquelles le modèle «&nbsp;n'est pas sûr de lui&nbsp;«&nbsp;? (on dira que le modèle n'est pas sûr de lui si la probabilité estimée est dans l'intervalle [0,2; 0,8]).
+	Réaliser plusieurs découpages du jeu d'exemples et mesurer cette proportion. Est-il stable&nbsp;?
+
+	<br>
+
+	Comparer les performances de ce modèle avec les prédictions d'un arbre de de décision, d'une forêt aléatoire et d'un perceptron multi-couche. Prenez soin d'utiliser de <b>bons</b> modèles.
+	
+      </p>
+      
+      <h3>Les olives</h3>
+
+      <p>
+
+	Appliquez la régression logistique au jeu de données <code>olives</code> à 8 classes (<a href="https://philippe-preux.github.io/ensg/miashs/l3-sd2/tp/cs">voir ce TP</a>). À nouveau, comparer les résultats à un arbre de décision, une forêt et un PMC.
+	
+      </p>
+
+    </div>
+
+<!-- Default Statcounter code for on github
+https://philippe-preux.github.io -->
+<script>
+  var sc_project=12923547; 
+  var sc_invisible=1; 
+  var sc_security="627600d4"; 
+</script>
+<script src="https://www.statcounter.com/counter/counter.js" async></script>
+<noscript>
+  <div class="statcounter">
+    <a title="Web Analytics" href="https://statcounter.com/" target="_blank">
+      <img class="statcounter"
+	   src="https://c.statcounter.com/12923547/0/627600d4/1/"
+	   alt="Web Analytics"
+	   referrerPolicy="no-referrer-when-downgrade"></a>
+  </div>
+</noscript>
+  <!-- End of Statcounter Code -->
+  
+</body>
+</html>
