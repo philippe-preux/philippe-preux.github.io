@@ -22,7 +22,7 @@
 
     Dans ce TP, on manipule des perceptrons multi-couches (PMC).
 
-    <br/>
+    <br>
 
     <b>Remarque&nbsp;:</b> la manipulation de perceptrons multi-couches est loin d'être aussi simple que la manipulation d'un perceptron. Ce qui est présenté dans ce TP consiste juste en quelques notions simples. Pour une utilisation sérieuse de perceptrons multi-couches, ce qui est expliqué ici ne suffit pas, c'est juste une introduction.
 
@@ -42,7 +42,7 @@
 
     Pour créer un perceptron multi-couches, on doit au minimum spécifier son architecture (nombre de couches cachées et taille de chaque couche cachée) et la fonction d'activation des perceptrons. Comme on l'a vu dans le TP précédent, il faut aussi spécifier le générateur de nombres pseudo-aléatoires.
 
-    <br/>
+    <br>
 
     Si on veut créer un PMC composé de deux couches cachées, la première composée de 5 perceptrons, la seconde de 2 perceptrons, ces perceptrons ayant une fonction d'activation tangente hyperbolique, on pourra écrire&nbsp;:
 
@@ -67,7 +67,7 @@ pmc = MLPClassifier (hidden_layer_sizes = architecture_pmc,
     <li><kbd>activation = "tanh"</kbd> indique la fonction d'activation des perceptrons des couches cachées.</li>
     <li><kbd>solver = "lbfgs"</kbd> indique l'algorithme à utiliser pour calculer les poids. 3 sont disponibles : descente de gradient stochastique (sgd), une variante (adam) et L-BFGS qui est un autre type d'algorithme d'optimisation qui fonctionne bien pour des jeux d'exemples pas très gros.</li>
     <li><kbd>max_iter = 500</kbd> est un paramètre de l'algorithme L-BFGS.</li>
-    <li><kbd>random_state = gnpa</kbd> où <kbd>gnpa</kbd> est défini par&nbsp;: <kbd>gnpa = np.random.RandomState (graine)</kbd> pour initialiser le générateur de nombres pseudo-aléatoires.</li>
+    <li><kbd>random_state = gnpa</kbd> où <kbd>gnpa</kbd> est défini par&nbsp;: <kbd>gnpa = np.random.RandomState (graine)</kbd> pour initialiser le générateur de nombres pseudo-aléatoires. (Voir le <a href="../classification-supervisée/index.html">TP précédent</a> si nécessaire concernant cette graine.)</li>
   </ul>
   
   <p>
@@ -80,14 +80,13 @@ pmc = MLPClassifier (hidden_layer_sizes = architecture_pmc,
   
   <p>
 
-    Dans cet exemple, on calcule les poids en utilisant les exemples d'entraînement que l'on a stockés dans la matrice <kbd>X_train</kbd> et dont les étiquettes sont dans le vecteur <kbd>Y_train</kbd>. On reprend les mêmes notations que dans le TP précédent.
+    Dans cet exemple, on calcule les poids en utilisant les exemples d'entraînement que l'on a stockés dans la matrice <kbd>X_train</kbd> et dont les étiquettes sont dans le vecteur <kbd>Y_train</kbd>. On reprend les mêmes notations que dans le <a href="../classification-supervisée/index.html">TP précédent</a>.
 
-    <br/>
+    <br>
 
     Comme dans le TP sur la DGS, les itérations de calcul des poids s'arrêtent soit au bout d'un nombre fixé d'itérations (paramètre <kbd>max_iter</kbd> de <kbd>MLPClassifier()</kbd>), soit lorsque la performance du PMC ne s'améliore plus significativement (paramètre <kbd>tol</kbd> de <kbd>MLPClassifier()</kbd>) pendant un certain nombre d'itérations (paramètre <kbd>n_iter_no_change</kbd> de <kbd>MLPClassifier()</kbd>).
 
-    <br/>
-    <br/>
+    <br>
 
     On peut ensuite prédire l'étiquette de données quelconques. En supposant qu'elles sont stockées dans la matrice <kbd>X_test</kbd>, on écrira&nbsp;:
 
@@ -99,7 +98,7 @@ pmc = MLPClassifier (hidden_layer_sizes = architecture_pmc,
 
     et <kbd>Y_pred</kbd> sera un vecteur contenant les prédictions pour chacune des données contenues dans <kbd>X_test</kbd>.
 
-    <br/>
+    <br>
 
     On peut ensuite comparer ces étiquettes prédites aux étiquettes correctes <kbd>Y_test</kbd>. Par exemple, <kbd>np.sum (Y_pred != Y_test) / len (Y_test)</kbd> calcule la proportion d'exemples de test pour lesquels la prédiction est incorrecte.
 
@@ -111,11 +110,11 @@ pmc = MLPClassifier (hidden_layer_sizes = architecture_pmc,
 
     Quand on utilise un perceptron multi-couches, la grande question concerne l'architecture à utiliser&nbsp;: combien de couches cachées, combien de perceptrons par couche&nbsp;?
 
-    <br/>
+    <br>
 
     Il n'y a pas de réponse toute faite à cette question. Avec l'expérience, on apprend petit à petit que pour tel jeu d'exemples, telle architecture devrait convenir. Néanmoins, en général, on teste différentes architectures et on conserve celle qui donne les résultats les plus satisfaisants. C'est ce que l'on va faire.
 
-    <br/>
+    <br>
 
     Il faut bien avoir en tête que la performance d'un perceptron multi-couches peut varier à chaque calcul des poids et varie en fonction du partionnement du jeu d'exemples. Aussi, il faut construire plusieurs PMC avec une architecture donnée et prendre en compte la performance moyenne.
 
@@ -146,12 +145,11 @@ sorties = sorties_iris</pre>
 
     On considère les 4 attributs des iris (longueur et largeur des pétales et des sépales). <kbd>entrées_iris</kbd> contient la matrice des 150 iris décrit chacun par ses 4 attributs et <kbd>sorties</kbd> qui contient l'étiquette à prédire pour chacun.
 
-    <br/>
-    <br/>
+    <br>
 
     On partitionne ce jeu d'exemples comme dans le TP précédent. On centre et on réduit les attributs comme on l'a vu dans les TP précédents.
 
-    <br/>
+    <br>
 
     Ensuite, comme indiqué ci-dessus, vous créez un PMC, vous calculez les poids avec <kbd>X_train</kbd> et <kbd>Y_train</kbd> et ensuite, vous mesurez l'erreur de prédiction sur <kbd>X_test</kbd>.
 
@@ -171,8 +169,7 @@ sorties = sorties_iris</pre>
 
     Une fois les poids calculés, on peut les obtenir avec <kbd>pmc.coefs_</kbd> et <kbd>pmc.intercepts_</kbd>. Le premier contient les poids sauf les biais, le second contient les biais.
 
-    <br/>
-    <br/>
+    <br>
 
     Par exemple, pour un PMC avec deux couches cachées contenant respectivement 5 et 2 perceptrons, on obtient quelque chose comme cela&nbsp;:
     
@@ -193,16 +190,15 @@ sorties = sorties_iris</pre>
   <p>
     On y voit trois matrices (<kbd>array</kbd>). La première matrice correspond aux 4 premières lignes, chaque ligne contient 5 nombres&nbsp;: ce sont les poids entre chacune des 4 entrées (4 entrées car 4 attributs) et chacun des 5 perceptrons de la première couche cachée.
     
-    <br/>
+    <br>
 
     Ensuite, on voit une deuxième matrice de 5 lignes et 2 colonnes&nbsp;: ce sont les poids entre chacun des 5 perceptons de la première couche cachée et chacun des 2 perceptrons de la seconde couche cachée.
 
-    <br/>
+    <br>
 
     Enfin, on voit une troisième matrice qui est composée de seulement 2 lignes et 1 colonne&nbsp;: ce sont les poids entre les sorties des perceptrons de la seconde couche cachée avec le perceptron de sortie.
 
-    <br/>
-    <br/>
+    <br>
 
     Pour les biais, on obtient quelque chose comme&nbsp;:
     
@@ -217,7 +213,7 @@ sorties = sorties_iris</pre>
 
     On y voit à nouveau 3 matrices d'une seule colonne chacune. La première contient 5 lignes, la deuxième 2 et la troisième 1 seule. Ce sont les biais des 2 couches cachées et de la couche de sortie composées respectivement de 5, 2 et 1 perceptrons.
 
-    <br/>
+    <br>
 
     En connaissant les poids, vous pouvez calculer vous-même la sortie du PMC pour une donnée.
 
@@ -229,7 +225,7 @@ sorties = sorties_iris</pre>
 
     En utilisant la méthode <kbd>predict_proba()</kbd> à la place de <kbd>predict()</kbd>, on obtient non pas la classe prédite mais la probabilité de prédire chacune des deux classes. Cela permet de détecter les données pour lesquelles la prédiction est peu sûre&nbsp;: dans ce cas, la probabilité de chacune des classes est aux alentours de 0,5.
 
-    <br/>
+    <br>
 
     Calculez <kbd>predict_proba(X_test)</kbd> et inspectez le résultat. Si pour la majorité des données la probabilité de l'une des deux classes est très faible, il y a probablement une ou quelques données pour lesquelles les deux probabilités sont à peu près égales. Par exemple, dans mon cas, les probabilités de chacune des classes pour l'une des données sont <kbd>[6.66756803e-01, 3.33243197e-01]</kbd> et pour une autre <kbd>[6.90766191e-01, 3.09233809e-01]</kbd>. Vous pouvez ensuite vérifier la position de ces données dans le plan longueur x largeur des pétales.
     
@@ -264,12 +260,11 @@ sorties = sorties_iris</pre>
 
     et le perceptron multi-couches aura 3 sorties puisqu'il y a 3 classes.
 
-    <br/>
+    <br>
 
     Pour le reste, rien ne change pour utiliser le perceptron multi-couches.
 
-    <br/>
-    <br/>
+    <br>
 
     <b>À faire&nbsp;:</b> appliquez cette démarche aux iris&nbsp;:
     
@@ -283,7 +278,7 @@ sorties = sorties_iris</pre>
   
   <p>
 
-    <br/>
+    <br>
     
     <b>À faire&nbsp;:</b> sur les iris, comparez les performances de ces deux approches&nbsp;:
 
@@ -298,7 +293,7 @@ sorties = sorties_iris</pre>
 
     Comme on l'a vu juste au dessus, il faudra réaliser plusieurs exécutions pour obtenir une valeur de l'erreur moyenne et de son écart-type.
 
-    <br/>
+    <br>
 
     Laquelle des deux approches donne les meilleurs résultats&nbsp;? D'après vous, pourquoi&nbsp;?
 
@@ -310,11 +305,11 @@ sorties = sorties_iris</pre>
 
     Nous pouvons maintenant appliquer tout ce que l'on vient de voir à d'autres jeux de données. Par exemple, pour changer des iris, on peut s'intéresser au jeu de données <i>wine</i> qui ne comporte pas de difficulté. Il possède également 3 classes. Chaque donnée correspond à la description chimique d'un échantillon de vin. La classe correspond à l'origine géographique de l'échantillon.
 
-    <br/>
+    <br>
 
     Pour utiliser ce jeu d'exemples, il suffit de remplacer <kbd>iris = datasets.load_iris()</kbd> par <kbd>vin = datasets.load_wine()</kbd>. Et ensuite, vous remplacez iris par wine dans les commandes python que je vous ai indiquées.
 
-    <br/>
+    <br>
 
     Appliquez ce que l'on a vu. Cette tâche ne comporte aucune difficulté. La seule différence avec les iris est que vous ne pouvez pas faire de représentation graphique.
 
@@ -326,12 +321,12 @@ sorties = sorties_iris</pre>
 
     Une tâche de régression est également une tâche d'apprentissage supervisé. La différence avec la classification supervisée est que l'étiquette est un nombre réel.
 
-    <br/>
+    <br>
 
     Pour la régression, la démarche est la même que pour la classification supervisée. La seule différence concerne la couche de sortie du perceptron multi-couches dont la fonction d'activation est l'identité (et non plus une fonction sigmoïde).
 
-    <br/>
-    <br/>
+    <br>
+    <br>
 
     En python, on change juste de type de réseaux de neurones&nbsp;: à la place d'un <kbd>MLPClassifier()</kbd>, on utilise un <kbd>MLPRegressor()</kbd>. Donc on remplace&nbsp;:
   </p>
