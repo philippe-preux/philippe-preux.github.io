@@ -70,7 +70,7 @@
 
 	<br>
 
-	On calculera également quelques statistiques, ne serait-ce que le nombre d'utilisateurs, d'artistes, d'écoutes. On peut rechercher des utilisateurs qui écoute beaucoup, beaucoup d'artistes différents, le nombre de liens avec dautres utilisateurs, le nombre de tags déposés.
+	On calculera également quelques statistiques, ne serait-ce que le nombre d'utilisateurs, d'artistes, d'écoutes. On peut rechercher des utilisateurs qui écoutent beaucoup, beaucoup d'artistes différents, le nombre de liens avec d'autres utilisateurs, le nombre de tags déposés.
 
 	<br>
 
@@ -107,6 +107,10 @@ V = nmf.components_</pre>
       <p>
 
 	où <code>K</code> est le rang supposé de la matrice <code>R</code>. La matrice <code>U</code> est de dimensions MxK, la matrice <code>V</code> de dimensions KxN. Ainsi, leur produit <code>E = U. dot (V)</code> donne une matrice de dimensions NxM, donc qui correspond bien à une matrice de notes de chaque produit par chaque utilisateur. On peut tester plusieurs valeurs de <code>K</code>. Prendre <code>K = 100</code> donne des résultats intéressants. <code>E</code> contient une estimation de chacune de ces notes.
+
+	<br>
+
+	Remarque&nbsp;: ça peut être long, quelques minutes.
 
 	<br>
 	<br>
