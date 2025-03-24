@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+  
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Recommandation collaborative</title>
+    <link href="https://philippe-preux.github.io/css/ma.css" 
+	  rel="stylesheet" type="text/css" media="all">
+    <link href="file:///home/ppreux/philippe-preux.github.io/css/ma.css" 
+	  rel="stylesheet" type="text/css" media="all">
+    <link rel="shortcut icon" type="image/x-icon" 
+	  href="https://philippe-preux.github.io/img/site.ico">
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+      .aligncenter {
+	  text-align: center;
+      }
+      span.petit {
+	  font-size: 8px;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <div class="tpR">
+
+      <h1>Recommandation collaborative</h1>
+
+      <p>
+
+	Le dernier TP du premier semestre concernait la recommandation par contenu. Ce TP concerne l'autre approche de recommandation, la recommandation collaborative. Ce TP se veut très libre&nbsp;: hormis la mise en &oelig;uvre de ce type de recommandation, vous êtes invités à explorer le jeu de données, proposer des idées et les tester.
+	
+	<br>
+	<br>
+
+	À l'issue de ce TP, vous m'envoyez par email un compte-rendu (format <kbd>pdf</kbd>) décrivant ce que vous avez fait.
+	<!--Vous m'envoyez également un fichier python réalisant toutes les manipulations de ce TP&nbsp;: je dois pouvoir exécuter ce fichier en tapant <kbd>python3 nom-de-votre-fichier.py</kbd> et reproduire vos résultats. Cette exécution ne doit pas provoquer d'erreur de python. Remarque&nbsp;: un <i>notebook</i> ne convient pas.-->
+
+      </p>
+
+      <h2>Les données</h2>
+
+      <p>
+
+	Les données sont issues du site <url>last.fm</url>&nbsp;; elles ont été rendues publiques à des fins de recherche et sont libres d'utilisation pour la recherche à but non lucratif. Elles respectent la RGPD, elles ne contiennent aucune information permettant d'identifier qui que ce soit parmi les utilisateurs de ce site.
+
+	<br>
+	
+	Les données sont disponibles dans plusieurs fichiers inter-connectés. Elles sont relativement volumineuses.
+	Elles sont constituées d'utilisateurs, d'artistes, de tags, de durées d'écoute, de liens entre utilisateurs.
+	Il y a environ 2000 utilisateurs, 20.000 artistes et 90.000 informations d'écoutes, sans compter 10.000 liens entre utilisateurs et 200.000 taggages.
+
+      </p>
+
+      <ul>
+	<li><a href="https://philippe-preux.github.io/ensg/miashs/l3-sd3/tps/recommandation/readme.txt">fichier <code>readme</code> contenant la description du format des différents fichiers.</a></li>
+	<li><a href="https://philippe-preux.github.io/ensg/miashs/l3-sd3/tps/recommandation/artists.dat">contient la liste des artistes</a>&nbsp;: chaque ligne décrit un artiste par&nbsp;: son numéro, son nom, son URL sur last.fm et l'url d'une photo associée.</li>
+	<li><a href="https://philippe-preux.github.io/ensg/miashs/l3-sd3/tps/recommandation/user_artists.dat">contient des durées d'écoute</a>&nbsp;: pour chaque utilisateur, identifié par son numéro, est indiqué la durée d'écoute de chaque artiste qu'il a écouté.</li>
+	<li><a href="https://philippe-preux.github.io/ensg/miashs/l3-sd3/tps/recommandation/user_taggedartists.dat">contient la liste des tags associés par les utilisateurs aux artistes avec la date.</a></li>
+	<li><a href="https://philippe-preux.github.io/ensg/miashs/l3-sd3/tps/recommandation/user_taggedartists-timestamps.dat">contient la même information que le fichier précédent</a> mais l'horodatage est plus précis, au millième de seconde près&nbsp;: le tampon horaire (<i>timestamp</i>) indique le nombre de millisecondes écoulés depuis le 1/1/1970.</li>
+	<li><a href="https://philippe-preux.github.io/ensg/miashs/l3-sd3/tps/recommandation/tags.dat">contient la liste des tags</a><nbsp;: chaque ligne décrit un tag avec son numéro et sa valeur.</li>
+	<li><a href="https://philippe-preux.github.io/ensg/miashs/l3-sd3/tps/recommandation/user_friends.dat">contient la liste des liens entre utilisateurs</a>&nbsp;: chaque ligne contient un couple d'identifiants d'utilisateurs qui sont en relation sur le site d'écoute.</li>
+      </ul>
+
+      <h3>Préliminaires</h3>
+
+      <p>
+
+	Comme d'habitude, on commence par jeter un coup d'&oelig;il aux différents fichiers. Il faut bien comprendre comment ils sont organisés et comment ils sont reliés les uns aux autres. Les fichiers sont assez volumineux, ce qui complique les choses.
+
+	<br>
+
+	On calculera également quelques statistiques, ne serait-ce que le nombre d'utilisateurs, d'artistes, d'écoutes. On peut rechercher des utilisateurs qui écoute beaucoup, beaucoup d'artistes différents, le nombre de liens avec dautres utilisateurs, le nombre de tags déposés.
+
+	<br>
+
+	Il faut garder en tête l'objectif&nbsp;: recommander des artistes à des utilisateurs, en espérant que les recommandations vont plaire, sinon les utilisateurs vont fuir le site. Il est utile de réflêchir à la manière dont on pourrait faire de la recommandation avec ces données, en particulier de la recommandation collaborative.
+
+      </p>
+
+      <h2>Recommandation collaborative par remplissage de matrice</h2>
+
+      <p>
+
+	J'explique ici comment faire ce que l'on a vu en cours pour remplir une matrice.
+
+	<br>
+
+	On suppose donc que l'on dispose de triplets (utilisateur, produit, note)&nbsp;; on suppose que la note est un entier naturel dont la valeur est comprise entre 0 et 5. Notons N le nombre de produits, M le nombre d'utilsateurs et T le nombre de triplets. On considère une matrice R dont chaque ligne correspond à un produit, chaque colonne à un utilisateur. Chaque élément de la matrice R est la note d'un artiste par un utilisateur. Typiquement, T est très très inférieur au produit N M, R est donc très creuse. On essaie d'estimer toutes les valeurs manquantes de R. La méthode traditionnelle consiste à réaliser une factorisation non négative de R. En python, on procède comme suit. Comme R est très creuse, on représente cette matrice de manière particulière&nbsp;: on stocke uniquement les valeurs non nulles. Ainsi, on crée 3 matrices ayant chacune T éléments. Je les note <code>inotes</code>, <code>jnotes</code>, <code>notes</code>. Pour un indice <code>i</code> donné, la note <code>notes [i]</code> correspond au produit <code>inotes [i]</code> et à l'utilisateur <code>jnotes [i]</code>. Ensuite, on crée un objet matrice creuse (<i>sparse matrix</i> en anglais) comme suit&nbsp;:
+
+      </p>
+
+      <pre>from scipy.sparse import csc_matrix
+R = csc_matrix ((notes, (inotes, jnotes)), shape = (N, M))</pre>
+
+      <p>
+
+	<code>R</code> contient donc une matrice creuse avec les notes connues. Pour la factoriser, on écrit&nbsp;:
+
+      </p>
+
+      <pre>from sklearn.decomposition import NMF
+nmf = NMF (n_components = K, init = "random", max_iter = 20000, random_state = rs)
+U = nmf. fit_transform (ratings)
+V = nmf.components_</pre>
+
+      <p>
+
+	où <code>K</code> est le rang supposé de la matrice <code>R</code>. La matrice <code>U</code> est de dimensions MxK, la matrice <code>V</code> de dimensions KxN. Ainsi, leur produit <code>E = U. dot (V)</code> donne une matrice de dimensions NxM, donc qui correspond bien à une matrice de notes de chaque produit par chaque utilisateur. On peut tester plusieurs valeurs de <code>K</code>. Prendre <code>K = 100</code> donne des résultats intéressants. <code>E</code> contient une estimation de chacune de ces notes.
+
+	<br>
+	<br>
+
+	<b>À faire&nbsp;:</b>
+	nous ne disposons pas de notes. Nous disposons de durées d'écoute qui sont utiles&nbsp;: si un utilisateur écoute beaucoup un artiste, on peut imaginer qu'il lui mettrait une bonne note. Donc, réfléchissez à transformer les durées d'écoute en notes. Ensuite, réaliser une factorisation de cette matrice de notes. Comparer les notes estimées avec les notes correspondant aux durées d'écoute&nbsp;: qu'en pensez-vous&nbsp;?
+
+      </p>
+
+      <h2>Recommandation collaborative par remplissage de matrice</h2>
+
+      <p>
+
+	Maintenant, essayez de réaliser un système de recommandation avec les données dont vous disposez.
+
+	<br>
+
+	Vous pouvez tester votre système en créant un utilisateur qui a fait certaines écoutes de certains artistes comme vous l'auriez fait vous-mêmes et regarder si les recommandations vous satisfont.
+
+	<br>
+
+	Vous pouvez aussi utiliser le jeu de données qui avait été utilisé pour le <a href="https://philippe-preux.github.io/ensg/miashs/tp/music/index.html">dernier TP du semestre précédent</a>.
+
+      </p>
+      
+    </div>
+
+<!-- Default Statcounter code for on github
+https://philippe-preux.github.io -->
+<script>
+  var sc_project=12923547; 
+  var sc_invisible=1; 
+  var sc_security="627600d4"; 
+</script>
+<script src="https://www.statcounter.com/counter/counter.js" async></script>
+<noscript>
+  <div class="statcounter">
+    <a title="Web Analytics" href="https://statcounter.com/" target="_blank">
+      <img class="statcounter"
+	   src="https://c.statcounter.com/12923547/0/627600d4/1/"
+	   alt="Web Analytics"
+	   referrerPolicy="no-referrer-when-downgrade"></a>
+  </div>
+</noscript>
+  <!-- End of Statcounter Code -->
+  
+</body>
+</html>
