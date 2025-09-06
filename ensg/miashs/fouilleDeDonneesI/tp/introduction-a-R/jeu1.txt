@@ -1,8 +1,0 @@
-p1-palmitic oleic l1-linoleic arachidic eicosenoic
- 1075 7823 672 60 29
- 1088 7709 781 61 NA
- 911 NA 549 63 29
- 966 7952 619 78 35
- 1051 7771 672 NA 46
- 911 NA 678 70 44
- 922 7990 618 56 29
