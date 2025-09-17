@@ -1,196 +1,21 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
-  
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Graphiques pour la science des données&nbsp;: suite</title>
-    <link href="https://philippe-preux.github.io/css/ma.css" 
-	  rel="stylesheet" type="text/css" media="all">
-    <!--link href="file:///home/ppreux/philippe-preux.github.io/css/ma.css" 
-	  rel="stylesheet" type="text/css" media="all"-->
-    <link rel="shortcut icon" type="image/x-icon" 
-	  href="https://philippe-preux.github.io/img/site.ico">
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <style>
-      .aligncenter {
-	  text-align: center;
-      }
-      span.petit {
-	  font-size: 8px;
-      }
-    </style>
-  </head>
-  
-  <body>
-    <div class="tpR">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Sciences des données 2, Licence 3 MIASHS, Université de Lille</title>
+  <link href="https://philippe-preux.github.io/css/ma.css" 
+	rel="stylesheet" type="text/css" media="all">
+  <link rel="shortcut icon" type="image/x-icon" 
+	href="https://philippe-preux.github.io/img/site.ico">
+</head>
 
-      <h1>Graphiques pour la science des données&nbsp;: suite</h1>
-      
-      <p>
-	
-	Dans un <a href="../graphiques/index.html">TP précédent</a>, on a vu comment réaliser des graphiques en utilisant les méthodes de la bibliothèque <code>pandas</code>.
+<body vlink="#551A8B">
 
-	<br>
+  My website moved to Europe on a free, non-profit, no cookies, <i>etc</i>. platform.
 
-	Comme toujours avec python, il existe plusieurs manières de réaliser à peu près la même chose. Lors de ce TP, nous avions utilisé les fonctions graphiques du paquetage <kbd>pandas</kbd> qui elles-mêmes utilisent celles du paquetage <kbd>matplotlib</kbd>. Ce dernier est un paquetage très utile et de grande qualité, très riche en possibilités dont seule une petite partie peut être utilisée via <kbd>pandas</kbd>.
+  <br>
 
-	<br>
-    
-	On peut utiliser directement <kbd>matplotlib</kbd> ce qui donne beaucoup plus de libertés et qui est très pratique lorsque l'on veut réaliser une figure contenant plusieurs graphiques. 
+  Click <a href="https://philippe-preux.codeberg.page/ensg/miashs/l3-sd2/tp/graphiques2">here</a> to reach the relocated and updated version of this page and enjoy a really free world.
 
-	<br>
-
-	Ce court TP a pour objectif de vous présenter cette autre manière de faire.
-    
-      </p>
-
-      <h2>Graphiques avec <kbd>matplotlib</kbd></h2>
-
-      <h3>Premiers pas</h3>
-      
-      <p>
-
-	Pour réaliser un graphique, la méthode vue précédemment dans le TP <a href="../graphiques/index.html">graphiques</a> consiste à faire une instruction telle que&nbsp;:
-
-	<br>
-
-	<pre>olives.plot.scatter (x = "linoleic", y = "palmitic", title = "Les olives dans le plan linoleic x palmitic", c = "region", cmap = "tab10")
-plt. show()</pre>.
-
-	<br>
-	qui donne&nbsp;:
-	<br>
-	<img src="pandas-way.png" width="400" alt="">
-	<br>
-	
-	L'autre approche consiste à faire comme suit&nbsp;:
-
-	<br>
-	<pre>fig, ax = plt.subplots ()
-ax. scatter (x = "linoleic", y = "palmitic", c = "region", data = olives, cmap = "tab10")
-ax. set_title ("Les olives dans le plan linoleic x palmitic")
-ax. set_xlabel ("Acide linoleic")
-ax. set_ylabel ("Acide palmitic")
-fig. show()</pre>
-
-	<br>
-	<img src="matplotlib-way.png" width="500" alt="">
-	<br>
-
-	<br>
-	Explication&nbsp;: on commence par créer deux objets à l'aide de la méthode <code>fig, ax = plt.subplots ()</code>. Ensuite, on ajoute des éléments à la figure avec des instructions du genre <code>ax. xxx (...)</code> où <code>xxx</code> indique l'élément de la figure dont on veut spécifier la valeur. On termine par <code>fig. show()</code> pour afficher la figure. On peut aussi la mettre dans un fichier avec <code>fig. savefig (nom-du-fichier)</code>.
-	<br>
-	<br>
-	Remarque&nbsp;: les points sont un peu grossiers dans cette figure. On peut spécifier leur taille avec le paramètre <code>s</code>&nbsp;: 
-	<br>
-	<pre>fig, ax = plt.subplots ()
-ax. scatter (x = "linoleic", y = "palmitic", c = "region", data = olives, cmap = "tab10", s = 3)
-ax. set_title ("Les olives dans le plan linoleic x palmitic")
-ax. set_xlabel ("Acide linoleic")
-ax. set_ylabel ("Acide palmitic")
-fig. show()</pre>
-	<br>
-	<img src="matplotlib-way2.png" width="500" alt="">
-	<br>
-	On peut ajouter une légende pour un code couleur indiquant la région de chaque olive&nbsp;:
-	<br>
-	<pre>fig, ax = plt.subplots ()
-ax. scatter (x = "linoleic", y = "palmitic", c = "blue", data = olives [olives.region == 1], cmap = "tab10", label = "Nord", s = 3)
-ax. scatter (x = "linoleic", y = "palmitic", c = "red", data = olives [olives.region == 2], cmap = "tab10", label = "Sardaigne", s = 3)
-ax. scatter (x = "linoleic", y = "palmitic", c = "green", data = olives [olives.region == 3], cmap = "tab10", label = "Sud", s = 3)
-ax. set_title ("Les olives dans le plan linoleic x palmitic")
-ax. set_xlabel ("Acide linoleic")
-ax. set_ylabel ("Acide palmitique")
-ax. legend ()
-fig. show()</pre>
-	<br>
-	<img src="matplotlib-way3.png" width="500" alt="">
-	<br>
-	En plus d'une couleur, on peut encore indiquer la classe par la forme du point&nbsp;:
-	<br>
-	<pre>fig, ax = plt.subplots ()
-ax. scatter (x = "linoleic", y = "palmitic", c = "blue", data = olives [olives.region == 1], cmap = "tab10", label = "Nord", marker = "s", s = 16)
-ax. scatter (x = "linoleic", y = "palmitic", c = "red", data = olives [olives.region == 2], cmap = "tab10", label = "Sardaigne", marker = "X", s = 16)
-ax. scatter (x = "linoleic", y = "palmitic", c = "green", data = olives [olives.region == 3], cmap = "tab10", label = "Sud", marker = "<", s = 16)
-ax. set_title ("Les olives dans le plan linoleic x palmitic")
-ax. set_xlabel ("Acide linoleic")
-ax. set_ylabel ("Acide palmitique")
-ax. legend ()
-fig. show()</pre>
-      <br>
-	<img src="matplotlib-way4.png" width="500" alt="">
-	<br>
-      </p>
-
-      <h3>Figure composée</h3>
-
-      <p>
-
-	On peut créer une figure composée de plusieurs sous-figures. Dans ce cas, la figure principale est une matrice de sous-figures. Par exemple, on peut représenter les valeurs de chacun des 8 acides dans une figure composée de 2 lignes de 4 figures comme suit&nbsp;:
-
-	<br>
-	<pre>fig, ax = plt.subplots (2, 4)
-ax [0, 0]. scatter (x = "palmitic", y = "numero", data = olives, c = "region", s = 3)
-ax [0, 0]. set_title ("palmitic")
-ax [0, 1]. scatter (x = "palmitoleic", y = "numero", data = olives, c = "region", s = 3)
-ax [0, 1]. set_title ("palmitoleic")
-ax [0, 2]. scatter (x = "stearic", y = "numero", data = olives, c = "region", s = 3)
-ax [0, 2]. set_title ("stearic")
-ax [0, 3]. scatter (x = "oleic", y = "numero", data = olives, c = "region", s = 3)
-ax [0, 3]. set_title ("oleic")
-ax [1, 0]. scatter (x = "linoleic", y = "numero", data = olives, c = "region", s = 3)
-ax [1, 0]. set_title ("linoleic")
-ax [1, 1]. scatter (x = "linolenic", y = "numero", data = olives, c = "region", s = 3)
-ax [1, 1]. set_title ("linolenic")
-ax [1, 2]. scatter (x = "arachidic", y = "numero", data = olives, c = "region", s = 3)
-ax [1, 2]. set_title ("arachidic")
-ax [1, 3]. scatter (x = "eicosenoic", y = "numero", data = olives, c = "region", s = 3)
-ax [1, 3]. set_title ("eicosenoic")
-fig. show ()</pre>
-	<br>
-	<img src="matplotlib-way5.png" width="800" alt="">
-	<br>
-	<br>
-	Bien sûr, on fera plutôt une boucle&nbsp;:
-	</p>
-	<pre>attributs = list (olives) [3:11]
-fig, ax = plt.subplots (2, 4)
-for ligne in range (2):
-    for colonne in range (4):
-        ax [ligne, colonne]. scatter (x = attributs [ligne * 4 + colonne], y = "numero", data = olives, c = "region", s = 3)
-        ax [ligne, colonne]. set_title (attributs [ligne * 4 + colonne])
-
-fig. show ()</pre>
-      <h3>Pour aller plus loin</h3>
-      <p>
-	Les possibilités offertes par <code>matplotlib</code> sont immenses. On consultera la documentation&nbsp;:
-	<ul>
-	  <li>sur le <a href="https://matplotlib.org/">site web de <kbd>matplotlib</kbd></a>.</li>
-	  <li>Voir en particulier les <a href="https://matplotlib.org/cheatsheets/">pense-bêtes</a></li>
-	  <li>et les <a href="https://matplotlib.org/stable/plot_types/index.html">exemples</a>.</li>
-	</ul>
-      </p>
-    
-    </div>
-
-<!-- Default Statcounter code for on github
-https://philippe-preux.github.io -->
-<script>
-  var sc_project=12923547; 
-  var sc_invisible=1; 
-  var sc_security="627600d4"; 
-</script>
-<script src="https://www.statcounter.com/counter/counter.js" async></script>
-<noscript>
-  <div class="statcounter">
-    <a title="Web Analytics" href="https://statcounter.com/" target="_blank">
-      <img class="statcounter"
-	   src="https://c.statcounter.com/12923547/0/627600d4/1/"
-	   alt="Web Analytics"
-	   referrerPolicy="no-referrer-when-downgrade"></a>
-  </div>
-</noscript>
-  <!-- End of Statcounter Code -->
-  
 </body>
 </html>
